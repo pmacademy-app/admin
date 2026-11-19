@@ -3,13 +3,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { ChevronDown, ChevronLeft, ChevronRight, ExternalLink, LogOut, PanelsTopLeft } from 'lucide-react'
+import { ChevronDown, ChevronLeft, ChevronRight, LogOut, PanelsTopLeft } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { BrandMarkProdily } from '@/components/brand/BrandLogo'
 import { signOutAdmin } from '@/lib/admin/session'
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog'
 import type { AdminConsoleUser } from './AdminConsoleShell'
-import { learnerUrl } from '@/lib/learner-url'
 import {
   ADMIN_NAV_BUILT,
   isAdminNavItemActive,
@@ -212,17 +211,6 @@ export function AdminSidebar({ mobileOpen, onMobileClose, user, attention }: Adm
             </button>
           </div>
         )}
-
-        <Link
-          href={learnerUrl('/dashboard')}
-          onClick={onMobileClose}
-          className="flex items-center justify-between w-full px-3 py-2 text-xs font-medium text-admin-fg-muted hover:text-admin-fg bg-admin-surface hover:bg-admin-surface-raised rounded-lg border border-admin-border transition-colors"
-        >
-          <span className="flex items-center gap-2">
-            <ExternalLink className="w-3.5 h-3.5" />
-            Switch to Learner View
-          </span>
-        </Link>
 
         {collapsed && user && (
           <button

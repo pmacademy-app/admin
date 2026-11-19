@@ -103,7 +103,7 @@ client bundle and shape the CSP, so set them before building. `NEXT_PUBLIC_SITE_
 metadata base and the trusted origin.
 
 Client bundles do not see `LEARNER_SITE_URL`, so links to learner pages in the browser (for
-example "Switch to Learner View" and public portfolio links) fall back to `https://prodily.app`.
+example public portfolio, certificate and lesson links) fall back to `https://prodily.app`.
 
 ## Vercel
 

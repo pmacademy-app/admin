@@ -1,7 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
 import { ShieldAlert, ArrowLeft, Lock } from 'lucide-react'
-import { learnerUrl } from '@/lib/learner-url'
 
 export const metadata = {
   title: 'Access Denied',
@@ -38,10 +37,10 @@ export default function AccessDeniedPage() {
 
         <div className="pt-2">
           <Link
-            href={learnerUrl('/dashboard')}
+            href="/admin/login"
             className="w-full py-2.5 px-4 rounded-xl bg-admin-surface-raised hover:bg-admin-surface text-admin-fg-muted hover:text-admin-fg font-semibold text-xs transition-colors inline-flex items-center justify-center gap-2 border border-admin-border"
           >
-            <ArrowLeft className="w-4 h-4" /> Return to Learner Dashboard
+            <ArrowLeft className="w-4 h-4" /> Sign in with an admin account
           </Link>
         </div>
       </div>

@@ -1,11 +1,9 @@
 'use client'
 
 import React, { useState } from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ShieldCheck, Lock, Mail, Loader2, ArrowRight } from 'lucide-react'
 import { apiPost } from '@/lib/api/client'
-import { learnerUrl } from '@/lib/learner-url'
 import { BRAND } from '@/lib/brand'
 import { classifyAuthError, resolveApiAuthError } from '@/lib/auth/errors'
 import { recordAuthTelemetry } from '@/lib/auth/telemetry'
@@ -141,12 +139,6 @@ export default function AdminLoginPage() {
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <><span>Sign In to Admin Console</span> <ArrowRight className="w-4 h-4" /></>}
           </button>
         </form>
-
-        <div className="text-center pt-2 border-t border-admin-border/80">
-          <Link href={learnerUrl('/login')} className="text-xs text-admin-fg-muted hover:text-admin-fg transition-colors">
-            Learner login
-          </Link>
-        </div>
       </div>
     </div>
   )
