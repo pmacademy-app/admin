@@ -166,4 +166,12 @@ describe('admin proxy', () => {
     })
     expect(res.status).toBe(403)
   })
+
+  it('lets the security digest cron through without a session (the route checks the bearer)', async () => {
+    const res = await run('/api/admin/cron/security-digest', { headers: { authorization: 'Bearer anything' } })
+    expect(res.status).toBe(200)
+    expect(location(res)).toBeNull()
+    expect(getClaims).not.toHaveBeenCalled()
+    expect(refreshSession).not.toHaveBeenCalled()
+  })
 })

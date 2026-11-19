@@ -63,6 +63,9 @@ export const ADMIN_OWNED = [
   'emails/templates/admin/',
   'lib/learner-revalidate.ts',
   'lib/learner-url.ts',
+  // Security summary: the admin copy of the event recorder (the web repo has its own with
+  // app 'web'); the digest itself lives under lib/admin/security-digest/.
+  'lib/security/security-events.ts',
 ]
 
 /**

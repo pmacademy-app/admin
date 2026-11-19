@@ -8,6 +8,7 @@ import { evaluatePersistentRateLimit } from '@/lib/rate-limit'
 import { getClientIpBucket } from '@/lib/security/client-ip'
 import { log } from '@/lib/monitoring/log'
 import { setSessionCookies } from '@/lib/auth/session-cookies'
+import { recordSecurityEvent } from '@/lib/security/security-events'
 
 export const runtime = 'nodejs'
 
@@ -32,6 +33,8 @@ const loginSchema = z.object({
 // Same abuse controls as the learner login: per IP and per email, fail closed.
 const IP_LOGIN_LIMIT = { windowMs: 15 * 60 * 1000, limit: 10, failClosed: true }
 const EMAIL_LOGIN_LIMIT = { windowMs: 15 * 60 * 1000, limit: 5, failClosed: true }
+
+const LOGIN_PATH = '/api/auth/login'
 
 const NOT_ADMIN_MESSAGE = 'This account does not have administrator access.'
 
@@ -64,6 +67,7 @@ export const POST = withRoute(
       evaluatePersistentRateLimit(`admin_login_email:${canonicalEmail}`, EMAIL_LOGIN_LIMIT),
     ])
     if (!ipLimit.success || !emailLimit.success) {
+      recordSecurityEvent('admin_login_rate_limited', { app: 'admin', ipBucket: clientIp, subject: canonicalEmail, path: LOGIN_PATH })
       return NextResponse.json(
         {
           success: false,
@@ -87,6 +91,8 @@ export const POST = withRoute(
         authError &&
           (authError.code === 'email_not_confirmed' || authError.message.toLowerCase().includes('email not confirmed'))
       )
+      // Wrong password, unknown account and unconfirmed account all count as a failed attempt.
+      recordSecurityEvent('admin_login_failed', { app: 'admin', ipBucket: clientIp, subject: canonicalEmail, path: LOGIN_PATH })
       if (unconfirmed) {
         return NextResponse.json(
           { success: false, error: 'Please verify your email address before logging in.', code: 'AUTH_EMAIL_NOT_CONFIRMED' },
@@ -121,6 +127,7 @@ export const POST = withRoute(
         log.warnException('auth.admin_login.sign_out_failed', err)
       }
       log.warn('auth.admin_login.not_admin', { userId: authData.user.id })
+      recordSecurityEvent('admin_login_non_admin', { app: 'admin', ipBucket: clientIp, subject: canonicalEmail, path: LOGIN_PATH })
       return NextResponse.json(
         { success: false, error: NOT_ADMIN_MESSAGE, code: 'AUTH_NOT_ADMIN', redirect: '/admin/access-denied' },
         { status: 403 }

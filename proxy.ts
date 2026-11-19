@@ -21,6 +21,8 @@ import { isAllowedApiOrigin } from '@/lib/security/origin-check'
 const ADMIN_HOME = '/admin'
 const ADMIN_LOGIN_PAGE = '/admin/login'
 const ACCESS_DENIED_PAGE = '/admin/access-denied'
+/** Vercel cron path: authenticated by the CRON_SECRET bearer in the route, never by a session. */
+const SECURITY_DIGEST_CRON_PATH = '/api/admin/cron/security-digest'
 
 type Session = { access_token: string; refresh_token: string; expires_in?: number }
 
@@ -143,6 +145,11 @@ async function routeRequest(request: NextRequest, requestId: string): Promise<Ne
   // (the login page, an expired session) still reports. The same-origin check above
   // still applies; the route rate limits and attributes the report itself.
   if (path === '/api/client-errors') return passThrough(request, requestId)
+
+  // The security digest cron carries no session: Vercel calls it with
+  // `Authorization: Bearer ${CRON_SECRET}`, and the route's cron actor refuses any
+  // request without that secret (401). No session is read or refreshed for it.
+  if (path === SECURITY_DIGEST_CRON_PATH) return passThrough(request, requestId)
 
   const isAdminApi = path.startsWith('/api/admin/')
   const isAdminArea = path === ADMIN_HOME || path.startsWith(`${ADMIN_HOME}/`)

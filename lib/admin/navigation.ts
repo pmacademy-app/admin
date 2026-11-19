@@ -4,6 +4,7 @@ import {
   UserCheck,
   MessagesSquare,
   ShieldAlert,
+  ShieldCheck,
   BookOpen,
   Award,
   Trophy,
@@ -73,7 +74,10 @@ export const ADMIN_NAV: AdminNavGroup[] = [
   },
   {
     label: 'System',
-    items: [{ name: 'System', href: '/admin/system', icon: Activity, built: true }],
+    items: [
+      { name: 'System', href: '/admin/system', icon: Activity, built: true },
+      { name: 'Security', href: '/admin/security', icon: ShieldCheck, built: true },
+    ],
   },
   {
     label: 'Settings',

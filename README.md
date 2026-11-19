@@ -123,6 +123,79 @@ with its first 12 characters. `next.config.ts` copies it into
 set `NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA` yourself only when building outside Vercel. Without
 either, rows have no release.
 
+## Security summary
+
+A rule-based daily security summary (no AI, no paid services). Every sentence in it is a fixed
+template filled with counts.
+
+**Migration first.** The tables come from the held migration
+`20261119000007_security_events.sql` in the web repo (`security_event_counts`,
+`security_digests` and the `record_security_event` RPC). Until it is applied, the page shows
+"not set up yet" with the migration name, the cron answers `200` with `status: "not_set_up"`,
+and the event recorder switches itself off for 10 minutes at a time. Nothing crashes.
+
+**What feeds it.** Both apps count security events into `security_event_counts` per day
+(Asia/Kolkata calendar day), event type, app, network (`ip_bucket`: the client IP coarsened to
+its IPv4 /24 or IPv6 /48, or `unresolved`; paths are stored without query or fragment) and hashed account
+(`subject_hash`, the first 16 hex characters of sha256 of the lowercased email, with a masked
+hint such as `v***m@example.com`; raw emails are never stored). This app records
+`admin_login_failed` (wrong password, unknown or unconfirmed account), `admin_login_rate_limited`
+and `admin_login_non_admin` from `/api/auth/login`, and `cron_auth_failed` from the digest cron.
+The digest also reads `admin_audit_logs`, `system_errors` and the count of new `users` rows for
+the day, and the 7 days before it for averages.
+
+**What it detects** (thresholds are named constants in `lib/admin/security-digest/rules.ts`):
+
+| Rule | Fires when | Severity |
+| --- | --- | --- |
+| `credential_stuffing` | one network has 30 or more `login_failed` + `admin_login_failed` over 10 or more accounts | high |
+| `brute_force_account` | one account has 20 or more login failures from any networks | high if any were on the admin login, else medium |
+| `admin_login_attack` | any `admin_login_rate_limited`, or 10 or more `admin_login_failed` | high |
+| `non_admin_probing` | 3 or more `admin_login_non_admin` | medium |
+| `secret_probing` | 5 or more webhook, email hook, cron and internal revalidate auth failures combined | medium, high at 50 |
+| `csrf_attempts` | 20 or more `origin_rejected` | low, medium at 200 |
+| `reset_spam` | one account with 5 or more reset requests, or total resets above 3x the 7-day daily average and at least 20 | medium |
+| `bot_signups` | 20 or more `signup_blocked` + `turnstile_failed` (medium); new signups above 3x the 7-day average and at least 20 (low, possible bot wave) | medium or low |
+| `client_error_flood` | any `client_errors_flood` | medium |
+| `quiz_abuse` | 20 or more `quiz_check_rate_limited` | low |
+| `privilege_changes` | any `grant_admin_role` in the audit log (high, review it); other sensitive actions such as `revoke_admin_role`, `admin_user_deleted`, progress resets, ignore list changes, settings updates and bulk actions are listed (low) | high or low |
+| `error_spike` | 1 or more critical `system_errors` (medium); 10 or more new fingerprints or 1 or more regressions (low) | medium or low |
+| `rate_limit_trips` | any `*_rate_limited` event, listed per limiter | low |
+
+The day's severity is the highest finding severity, or `none`. The summary stores a one-line
+headline (for example "2 high, 1 medium findings: possible credential stuffing from 1 network,
+1 admin role granted"), totals per event type with the 7-day average and change, the top 5
+networks by failures, the top 5 targeted accounts (masked hints only), signups and error counts.
+
+**When it runs.** `vercel.json` schedules `GET /api/admin/cron/security-digest` at `30 19 * * *`
+(19:30 UTC, 01:00 IST) and builds the summary for the previous Asia/Kolkata day. On the Hobby
+plan Vercel runs crons at most once a day and only to within the hour, so expect it between
+01:00 and 02:00 IST. Vercel sends `Authorization: Bearer ${CRON_SECRET}`; the route compares it
+in constant time and refuses anything else with 401 (an admin session is not accepted there).
+The proxy lets that path through without a session for that reason.
+
+**Delivery.** When the severity is low or higher, the plain-text summary (at most 3500
+characters) goes to `ALERT_WEBHOOK_URL` through the same out-of-band helper as critical
+incidents. When it is high, every admin also gets an in-app notification. Each goes out at most
+once per day: a re-run overwrites the stored digest but does not resend unless forced. With
+`SECURITY_DIGEST_SEND_EMPTY=true`, a day without findings sends one short "no findings" line.
+
+**Where to see it.** Console > System > Security (`/admin/security`): the selected day's
+severity, headline, findings with evidence tables, totals against the 7-day average, top
+networks and accounts, and the last 30 digests. "Generate now" (admin only,
+`POST /api/admin/security/digest` with an optional `day` and `force`) builds yesterday or a
+chosen day on demand; the run is written to the audit log as `security_digest_generated`.
+
+**Environment variables.**
+
+- `CRON_SECRET` (required for the cron): must be set in the admin Vercel project; the same
+  value as the web project is fine. Without it the cron path refuses every call.
+- `ALERT_WEBHOOK_URL` (optional, https only): where the text summary goes.
+- `ADMIN_TIMEZONE` (optional): day boundaries for the audit log, errors and signups in the
+  summary; defaults to `Asia/Kolkata` there. `security_event_counts.day` is always an
+  Asia/Kolkata day because the database computes it.
+- `SECURITY_DIGEST_SEND_EMPTY` (optional, `true` to enable): send the daily "no findings" line.
+
 ## Environment variables
 
 Names only. Set them in the Vercel project (Production and Preview).
@@ -133,16 +206,19 @@ Required at run time:
 - `NEXT_PUBLIC_SITE_URL`: the admin URL, for example `https://admin.prodily.app`
 - `LEARNER_SITE_URL`: the learner URL, for example `https://prodily.app`
 - `INTERNAL_REVALIDATE_SECRET`: the same value as in the web project
-- `CRON_SECRET`: the same value as in the web project
+- `CRON_SECRET`: the same value as in the web project. Also authenticates the security summary
+  cron (see Security summary)
 - `RESEND_API_KEY` and/or `BREVO_API_KEY` (the console sends direct messages, broadcasts and test
   emails), plus optional `RESEND_FROM_EMAIL`, `RESEND_FROM_NAME`, `BREVO_FROM_EMAIL`,
   `BREVO_FROM_NAME`, `PRIMARY_EMAIL_PROVIDER`
 
 Optional:
 
-- `ADMIN_TIMEZONE` (day boundaries on the dashboard; defaults to the server timezone)
+- `ADMIN_TIMEZONE` (day boundaries on the dashboard, defaulting to the server timezone, and in
+  the security summary, defaulting to Asia/Kolkata)
+- `SECURITY_DIGEST_SEND_EMPTY` (`true` sends a daily "no findings" line for the security summary)
 - `VERCEL_API_TOKEN`, `SUPABASE_MANAGEMENT_API_KEY` (system page integrations)
-- `ALERT_WEBHOOK_URL` (out-of-band alerts)
+- `ALERT_WEBHOOK_URL` (out-of-band alerts and the daily security summary)
 
 Build time: `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` are inlined into the
 client bundle and shape the CSP, so set them before building. `NEXT_PUBLIC_SITE_URL` sets the
@@ -168,3 +244,5 @@ example public portfolio, certificate and lesson links) fall back to `https://pr
    the bearer) before or together with this app.
 5. Add the admin domain and sign in at `/admin/login` with an account whose `users.is_admin`
    is true.
+6. Apply `20261119000007_security_events.sql` from the web repo, then open `/admin/security`
+   and use "Generate now" once to check the security summary.
