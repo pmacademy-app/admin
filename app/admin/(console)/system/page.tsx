@@ -79,7 +79,7 @@ export default async function AdminSystemPage({ searchParams }: PageProps) {
     SystemService.getAuthHealthTelemetry().catch((err) => {
       console.error('[AdminSystemPage] getAuthHealthTelemetry failed:', err)
       return {
-        status: 'degraded' as const,
+        status: 'unknown' as const,
         failures24h: 0,
         failures7d: 0,
         providerFailures24h: 0,

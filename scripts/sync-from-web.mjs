@@ -99,6 +99,18 @@ export const PROTECTED = [
   'lib/flashcards-service.ts',
   'lib/certificates/presentation.ts',
   'lib/academy/module-completion.ts',
+  // Self-hosted error monitoring (the shared details contract: stack, release, app, runtime,
+  // source, user id, ignore list, regression, dedup on updated_at). The web repo implements the
+  // same contract with app 'web', so these must not be overwritten with the web copies; the
+  // files new to this repo warn as "removed or moved" until the web repo has them too.
+  'lib/monitoring/redaction.ts', // redactStack, stackFromError
+  'lib/monitoring/client-error-beacon.ts', // sources, stack, release, 8 KB cap
+  'lib/monitoring/client-error-listeners.ts', // new: global error / unhandledrejection hooks
+  'lib/monitoring/release.ts', // new: release tag from the commit SHA
+  'lib/api/with-route.ts', // passes the actor user id to the incident
+  'lib/errors/api-response.ts', // passes the caught error (stack) and user id
+  'instrumentation.ts', // stack and release in onRequestError
+  'app/api/client-errors/route.ts', // app 'admin', admin attribution, global cap
 ]
 
 function sha(buf) {

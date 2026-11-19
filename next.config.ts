@@ -70,6 +70,15 @@ function imageRemotePatterns() {
 const nextConfig: NextConfig = {
   poweredByHeader: false,
 
+  // Release tag for browser error reports (lib/monitoring/release.ts). Vercel sets
+  // VERCEL_GIT_COMMIT_SHA on every build; it is copied into the NEXT_PUBLIC_ name so
+  // the client bundle is stamped with the same commit as the server. Empty when
+  // neither is set (a local build), and the reports then omit the release.
+  env: {
+    NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA:
+      process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA || process.env.VERCEL_GIT_COMMIT_SHA || '',
+  },
+
   // React Compiler: automatic memoization of client components (babel-plugin-react-compiler).
   reactCompiler: true,
 

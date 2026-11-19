@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { withRoute } from '@/lib/api/with-route'
 import { SystemService } from '@/lib/admin/system-service'
+import { logAdminRouteFailure } from '@/lib/admin/route-failure'
+import { requireAdmin } from '@/lib/api/actor'
 import { adminErrorMessage } from '@/lib/errors/api-response'
 
 export const runtime = 'nodejs'
@@ -16,7 +18,7 @@ export const GET = withRoute(
     domain: 'admin',
     summary: 'Unexpected failure in GET /api/admin/system/audit',
   },
-  async ({ request }) => {
+  async ({ request, actor, requestId }) => {
   try {
     const { searchParams } = new URL(request.url)
     const result = await SystemService.getAuditLog({
@@ -31,6 +33,13 @@ export const GET = withRoute(
     })
     return NextResponse.json({ success: true, ...result })
   } catch (err) {
+    await logAdminRouteFailure({
+      operation: 'admin.system.audit.get',
+      summary: 'Admin audit log could not be listed',
+      error: err,
+      requestId,
+      userId: requireAdmin(actor).userId,
+    })
     const message = adminErrorMessage(err, 'Failed to fetch audit log')
     return NextResponse.json({ success: false, error: message }, { status: 500 })
   }

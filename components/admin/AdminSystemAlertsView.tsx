@@ -1,10 +1,11 @@
 'use client'
 
 import React, { useState } from 'react'
-import { AlertCircle, AlertTriangle, ShieldAlert, Filter, RefreshCw, Clock, Inbox } from 'lucide-react'
+import { AlertCircle, AlertTriangle, ShieldAlert, Filter, RefreshCw, Clock, Inbox, ChevronDown, ChevronRight } from 'lucide-react'
 import { useIsMounted } from '@/lib/admin/use-is-mounted'
 import { AdminErrorState } from './AdminErrorState'
 import { AdminEmptyState } from './AdminEmptyState'
+import { AdminIncidentDetails, AdminRegressionBadge } from './AdminIncidentDetails'
 import { useApiQuery } from '@/lib/api/hooks'
 import { ADMIN_ALERTS_SWR_CONFIG } from './admin-swr-config'
 import { apiPatch } from '@/lib/api/client'
@@ -64,7 +65,6 @@ function alertContext(alert: SystemErrorAlert): Array<{ label: string; value: st
   const out: Array<{ label: string; value: string }> = []
   if (alert.template_key) out.push({ label: 'Template', value: alert.template_key })
   if (alert.queue_id) out.push({ label: 'Queue', value: alert.queue_id })
-  if (alert.user_id) out.push({ label: 'User', value: alert.user_id })
   const masked = alert.details?.maskedEmail
   if (typeof masked === 'string') out.push({ label: 'Recipient', value: masked })
   const status = alert.details?.providerStatusCode
@@ -80,12 +80,23 @@ export function AdminSystemAlertsView() {
   const [kindFilter, setKindFilter] = useState<string>('all')
   const [retryabilityFilter, setRetryabilityFilter] = useState<string>('all')
   const [providerFilter, setProviderFilter] = useState<string>('all')
+  const [appFilter, setAppFilter] = useState<string>('all')
+  const [expanded, setExpanded] = useState<ReadonlySet<string>>(() => new Set())
   const mounted = useIsMounted()
+
+  const toggleExpanded = (id: string) =>
+    setExpanded((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
 
   const query = new URLSearchParams({
     status: statusFilter,
     severity: severityFilter,
     category: categoryFilter,
+    app: appFilter,
     limit: '100',
   })
   const swrKey = `/api/admin/system/alerts?${query.toString()}`
@@ -239,6 +250,22 @@ export function AdminSystemAlertsView() {
               <option value="db">Database</option>
               <option value="api">API</option>
               <option value="config">Config</option>
+            </select>
+          </div>
+
+          <div className="flex items-center gap-1.5 text-xs">
+            <label htmlFor="alert-app-filter" className="text-admin-fg-muted font-medium">
+              App:
+            </label>
+            <select
+              id="alert-app-filter"
+              value={appFilter}
+              onChange={(e) => setAppFilter(e.target.value)}
+              className="px-2.5 py-1 text-base sm:text-xs rounded-lg border border-admin-border bg-admin-surface text-admin-fg focus:outline-none"
+            >
+              <option value="all">All Apps</option>
+              <option value="web">Learner site (web)</option>
+              <option value="admin">Admin console</option>
             </select>
           </div>
 
@@ -398,6 +425,8 @@ export function AdminSystemAlertsView() {
                           </span>
                         )}
 
+                        {alert.details?.regression === true && <AdminRegressionBadge />}
+
                         <span className="text-xs font-bold text-admin-fg font-mono">{alert.operation}</span>
 
                         <span className="text-[11px] text-admin-fg-muted flex items-center gap-1 ml-auto sm:ml-0">
@@ -432,6 +461,27 @@ export function AdminSystemAlertsView() {
                               {entry.label}: {entry.value}
                             </span>
                           ))}
+                        </div>
+                      )}
+
+                      <button
+                        type="button"
+                        onClick={() => toggleExpanded(alert.id)}
+                        aria-expanded={expanded.has(alert.id)}
+                        aria-controls={`alert-details-${alert.id}`}
+                        className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-admin-accent hover:underline cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-admin-accent/50 rounded"
+                      >
+                        {expanded.has(alert.id) ? (
+                          <ChevronDown className="w-3 h-3" aria-hidden="true" />
+                        ) : (
+                          <ChevronRight className="w-3 h-3" aria-hidden="true" />
+                        )}
+                        {expanded.has(alert.id) ? 'Hide details' : 'Show details'}
+                      </button>
+
+                      {expanded.has(alert.id) && (
+                        <div id={`alert-details-${alert.id}`} className="mt-2">
+                          <AdminIncidentDetails details={alert.details} userId={alert.user_id} />
                         </div>
                       )}
                     </div>

@@ -3,18 +3,25 @@
 import React, { useEffect } from 'react'
 import { AlertTriangle } from 'lucide-react'
 
+import { reportClientError } from '@/lib/monitoring/client-error-beacon'
+
 /**
- * Communications workspace error boundary.
+ * Communications workspace error boundary. Reports through the client error beacon
+ * like every other boundary. Next.js 16.4 passes `retry` (re-fetch and re-render)
+ * and `reset` (re-render only).
  */
 export default function AdminCommunicationsError({
   error,
-  unstable_retry,
+  retry,
+  reset,
 }: {
   error: Error & { digest?: string }
-  unstable_retry: () => void
+  retry?: () => void
+  reset?: () => void
 }) {
   useEffect(() => {
     console.error(error)
+    reportClientError(error, 'communications')
   }, [error])
 
   return (
@@ -35,8 +42,8 @@ export default function AdminCommunicationsError({
       </div>
       <button
         type="button"
-        onClick={unstable_retry}
-        className="mt-1 rounded-lg border border-admin-border bg-admin-surface px-4 py-1.5 text-xs font-semibold text-admin-fg transition-colors hover:bg-admin-surface-raised"
+        onClick={() => (retry ?? reset)?.()}
+        className="mt-1 rounded-lg border border-admin-border bg-admin-surface px-4 py-1.5 text-xs font-semibold text-admin-fg transition-colors hover:bg-admin-surface-raised cursor-pointer focus-visible:ring-2 focus-visible:ring-admin-accent/50"
       >
         Try again
       </button>

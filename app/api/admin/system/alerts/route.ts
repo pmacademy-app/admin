@@ -5,6 +5,7 @@ import { RouteError, withRoute } from '@/lib/api/with-route'
 import { createServiceRoleClient } from '@/lib/supabase'
 import { sanitizeErrorMessage } from '@/lib/monitoring/redaction'
 import { clampPagination, paginated, toRange } from '@/lib/api/pagination'
+import { logAdminRouteFailure } from '@/lib/admin/route-failure'
 
 export const runtime = 'nodejs'
 
@@ -20,6 +21,7 @@ export const GET = withRoute(
     const { searchParams } = new URL(request.url)
     const severity = searchParams.get('severity')
     const category = searchParams.get('category')
+    const app = searchParams.get('app')
     const status = searchParams.get('status') || 'new'
     // B13-B: `limit` with no `offset` meant an operator could widen the page but never
     // page past it — older alerts were simply unreachable.
@@ -44,6 +46,10 @@ export const GET = withRoute(
     }
     if (category && category !== 'all') {
       query = query.eq('category', category)
+    }
+    // Both apps write to this table; `details.app` says which one ('web' or 'admin').
+    if (app === 'web' || app === 'admin') {
+      query = query.eq('details->>app', app)
     }
 
     const { data: errors, error: queryErr, count } = await query
@@ -103,7 +109,7 @@ export const PATCH = withRoute(
     domain: 'admin',
     summary: 'Unexpected failure in PATCH /api/admin/system/alerts',
   },
-  async ({ request, actor }) => {
+  async ({ request, actor, requestId }) => {
   const admin = requireAdmin(actor)
   try {
     const body = await request.json()
@@ -114,8 +120,10 @@ export const PATCH = withRoute(
     }
 
     const supabase = createServiceRoleClient()
+    // `updated_at` is the incident's last-seen time (dedup window, Errors tab), so a
+    // status change leaves it alone.
     let query = supabase.from('system_errors')
-      .update({ status: newStatus, updated_at: new Date().toISOString() })
+      .update({ status: newStatus })
 
     if (alertId) {
       query = query.eq('id', alertId)
@@ -126,6 +134,13 @@ export const PATCH = withRoute(
     const { error: updateErr } = await query
 
     if (updateErr) {
+      await logAdminRouteFailure({
+        operation: 'admin.system.alerts.patch',
+        summary: 'System alert status could not be updated',
+        error: updateErr,
+        requestId,
+        userId: admin.userId,
+      })
       throw new RouteError(400, 'ALERT_UPDATE_FAILED', sanitizeErrorMessage(updateErr.message))
     }
 

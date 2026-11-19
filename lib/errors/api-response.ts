@@ -104,6 +104,12 @@ export async function apiInternalError(options: {
   code?: string
   message?: string
   subject?: { userId?: string; maskedEmail?: string; templateKey?: string }
+  /**
+   * The authenticated caller, when the route resolved one. Recorded in the
+   * `user_id` column (contract B). Always taken from the server-side actor, never
+   * from anything the client sent.
+   */
+  userId?: string
   /** The originating request's correlation id, recorded on the incident. */
   requestId?: string
   extra?: Record<string, unknown>
@@ -112,21 +118,26 @@ export async function apiInternalError(options: {
 
   try {
     const { logErrorReport } = await import('@/lib/monitoring/logger')
-    await logErrorReport({
-      domain: options.domain,
-      kind: 'unexpected',
-      operation: options.operation,
-      summary: options.summary,
-      subject: options.subject,
-      requestId: options.requestId,
-      details: {
-        errorId,
-        // Sanitized by the logger before it is persisted.
-        cause: options.cause instanceof Error
-          ? `${options.cause.name}: ${options.cause.message}`
-          : String(options.cause),
+    const userId = options.subject?.userId ?? options.userId
+    await logErrorReport(
+      {
+        domain: options.domain,
+        kind: 'unexpected',
+        operation: options.operation,
+        summary: options.summary,
+        subject: userId ? { ...options.subject, userId } : options.subject,
+        requestId: options.requestId,
+        details: {
+          errorId,
+          // Sanitized by the logger before it is persisted.
+          cause: options.cause instanceof Error
+            ? `${options.cause.name}: ${options.cause.message}`
+            : String(options.cause),
+        },
       },
-    })
+      // The caught value itself, so its redacted stack (and its cause chain's) is kept.
+      { error: options.cause }
+    )
   } catch {
     // Never let instrumentation change the response the client receives.
   }

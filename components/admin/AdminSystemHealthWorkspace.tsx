@@ -14,6 +14,14 @@ import { ProcessEmailQueueButton } from './ProcessEmailQueueButton'
 import { useIsMounted } from '@/lib/admin/use-is-mounted'
 import type { AdminSystemHealthOverview, AdminSystemServiceDetail, AdminAuthHealthTelemetry } from '@/lib/admin/types'
 
+/** Auth telemetry status as a badge. `unknown` means the query failed, never "all clear". */
+const AUTH_STATUS_BADGE: Record<AdminAuthHealthTelemetry['status'], { variant: string; label: string }> = {
+  healthy: { variant: 'healthy', label: 'Healthy' },
+  degraded: { variant: 'warning', label: 'Degraded' },
+  critical: { variant: 'unhealthy', label: 'Critical' },
+  unknown: { variant: 'unmonitored', label: 'Unknown' },
+}
+
 interface AdminSystemHealthWorkspaceProps {
   overview: AdminSystemHealthOverview
   serviceDetails: Record<string, AdminSystemServiceDetail>
@@ -126,6 +134,24 @@ export function AdminSystemHealthWorkspace({ overview, serviceDetails, authHealt
           meta="Client-side failure telemetry & provider health"
         >
           <div className="space-y-4">
+            <div className="flex items-center gap-2 text-xs">
+              <span className="font-semibold text-admin-fg-muted">Status:</span>
+              <AdminStatusBadge
+                status={AUTH_STATUS_BADGE[authHealth.status].variant}
+                label={AUTH_STATUS_BADGE[authHealth.status].label}
+              />
+            </div>
+
+            {authHealth.status === 'unknown' && (
+              <div className="p-4 rounded-xl bg-admin-bg/60 border border-admin-border flex items-start gap-2 text-xs text-admin-fg-muted">
+                <AlertCircle className="w-4 h-4 text-warning shrink-0 mt-0.5" />
+                <span>
+                  Authentication telemetry could not be loaded, so the auth health is unknown. The counts below are not
+                  an all-clear. The failure was recorded in the Errors tab.
+                </span>
+              </div>
+            )}
+
             {authHealth.isSpikeDetected && (
               <div className="p-4 rounded-xl bg-destructive/10 border border-destructive/30 flex items-start gap-3">
                 <AlertCircle className="w-5 h-5 text-destructive shrink-0 mt-0.5" />
@@ -161,7 +187,7 @@ export function AdminSystemHealthWorkspace({ overview, serviceDetails, authHealt
               </div>
             </div>
 
-            {authHealth.topCategories.length > 0 ? (
+            {authHealth.status === 'unknown' ? null : authHealth.topCategories.length > 0 ? (
               <div className="p-4 rounded-xl bg-admin-bg/60 border border-admin-border space-y-2">
                 <p className="text-xs font-semibold text-admin-fg">Top Failure Classifications (24h)</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">

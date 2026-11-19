@@ -1,6 +1,8 @@
 import { createServiceRoleClient } from '../supabase'
 import { AdminConsoleService } from './service'
 import { fetchAllRows } from '@/lib/db/pagination'
+import { logErrorReport } from '@/lib/monitoring/logger'
+import { readIgnoredFingerprints } from './monitoring-ignore-service'
 import type {
   AdminSystemHealthOverview,
   AdminSystemServiceStatus,
@@ -8,6 +10,7 @@ import type {
   AdminSystemRecentError,
   AdminErrorGroup,
   AdminErrorGroupResult,
+  AdminErrorIncident,
   AdminAuditEntry,
   AdminAuditLogResult,
   AdminAuthHealthTelemetry,
@@ -44,6 +47,12 @@ interface SystemErrorRow {
   message: string
   status: string
   timestamp: string
+  updated_at: string | null
+  first_seen_at: string | null
+  occurrence_count: number | null
+  app: string | null
+  release: string | null
+  regression: string | null
 }
 
 export class SystemService {
@@ -182,6 +191,7 @@ export class SystemService {
     } catch (err) {
       // DB unreachable → honest fallback: no services, overall unknown.
       console.warn('[SystemService] getHealthOverview failed:', err)
+      await this.reportFailure('admin.system.health_overview', 'System health overview could not be loaded', err)
       return {
         overallStatus: 'unknown',
         environment: process.env.NODE_ENV || 'development',
@@ -207,6 +217,7 @@ export class SystemService {
       // DB unreachable → honest fallback: every service reports `unknown`
       // rather than a fabricated healthy state.
       console.warn('[SystemService] getServiceDetails failed:', err)
+      await this.reportFailure('admin.system.service_details', 'System service details could not be loaded', err)
       const lastChecked = new Date().toISOString()
       const fallback: AdminSystemServiceDetail = {
         id: 'database',
@@ -349,15 +360,26 @@ export class SystemService {
   }
 
   /**
-   * Grouped operational errors from `system_errors`, aggregated by fingerprint
-   * (first/last seen + occurrence count). Filtering is applied before grouping
-   * so counts stay exact; grouping + pagination happen in memory (the table is
-   * deduplicated by the logger, so it stays small at launch scale).
+   * Grouped operational errors from `system_errors`, aggregated by fingerprint.
+   *
+   * Each row is already a deduplicated incident carrying its own `occurrence_count`
+   * (the logger increments it instead of inserting), so a group's occurrences are
+   * SUM(occurrence_count), its last seen is MAX(updated_at) (the last occurrence, not
+   * the insert time) and its first seen is MIN(first_seen_at). Groups sort by last
+   * seen, newest first. Filtering is applied before grouping so counts stay exact;
+   * grouping and pagination happen in memory (the table stays small because of the
+   * dedup).
+   *
+   * Fingerprints on the monitoring ignore list are hidden unless `showIgnored`. If
+   * the list cannot be read nothing is hidden, and the result says so.
    */
   public static async getErrorGroups(params: {
     severity?: string
     category?: string
     status?: string
+    app?: string
+    release?: string
+    showIgnored?: boolean
     page?: number
     pageSize?: number
   }): Promise<AdminErrorGroupResult> {
@@ -367,29 +389,50 @@ export class SystemService {
     const severity = params.severity && params.severity !== 'all' ? params.severity : null
     const category = params.category && params.category !== 'all' ? params.category : null
     const status = params.status && params.status !== 'all' ? params.status : null
+    const app = params.app === 'web' || params.app === 'admin' ? params.app : null
+    const release = params.release?.trim() && /^[A-Za-z0-9._-]{1,40}$/.test(params.release.trim())
+      ? params.release.trim()
+      : null
 
     try {
-      const rows = await fetchAllRows<SystemErrorRow>((from, to) => {
-        let query = supabase
-          .from('system_errors')
-          .select('id, fingerprint, severity, category, operation, message, status, timestamp')
-          .order('timestamp', { ascending: false })
-          .order('id')
-          .range(from, to)
-        if (severity) query = query.eq('severity', severity)
-        if (category) query = query.eq('category', category)
-        if (status) query = query.eq('status', status)
-        return query
-      })
+      const [rows, ignoreList] = await Promise.all([
+        fetchAllRows<SystemErrorRow>((from, to) => {
+          let query = supabase
+            .from('system_errors')
+            .select(
+              'id, fingerprint, severity, category, operation, message, status, timestamp, updated_at, first_seen_at, occurrence_count, app:details->>app, release:details->>release, regression:details->>regression'
+            )
+            .order('timestamp', { ascending: false })
+            .order('id')
+            .range(from, to)
+          if (severity) query = query.eq('severity', severity)
+          if (category) query = query.eq('category', category)
+          if (status) query = query.eq('status', status)
+          if (app) query = query.eq('details->>app', app)
+          if (release) query = query.eq('details->>release', release)
+          return query as unknown as PromiseLike<{ data: SystemErrorRow[] | null; error: { message: string } | null }>
+        }),
+        readIgnoredFingerprints(supabase).then(
+          (list) => ({ ok: true as const, set: new Set(list) }),
+          (err: unknown) => {
+            void this.reportFailure('admin.system.ignore_list_read', 'Monitoring ignore list could not be read', err)
+            return { ok: false as const, set: new Set<string>() }
+          }
+        ),
+      ])
 
       // Rows arrive newest-first, so the first row per fingerprint carries the
-      // current severity/status; older rows only widen first/last seen.
+      // current severity, status, app, release and regression flag.
       const groups = new Map<string, AdminErrorGroup>()
       for (const row of rows) {
+        const occurrences = Math.max(1, Number(row.occurrence_count) || 1)
+        const firstSeen = row.first_seen_at || row.timestamp
+        const lastSeen = row.updated_at || row.timestamp
         const existing = groups.get(row.fingerprint)
         if (existing) {
-          existing.occurrences += 1
-          if (row.timestamp < existing.firstSeen) existing.firstSeen = row.timestamp
+          existing.occurrences += occurrences
+          if (firstSeen < existing.firstSeen) existing.firstSeen = firstSeen
+          if (lastSeen > existing.lastSeen) existing.lastSeen = lastSeen
         } else {
           groups.set(row.fingerprint, {
             fingerprint: row.fingerprint,
@@ -398,14 +441,20 @@ export class SystemService {
             operation: row.operation,
             message: row.message,
             status: row.status as AdminErrorGroup['status'],
-            firstSeen: row.timestamp,
-            lastSeen: row.timestamp,
-            occurrences: 1,
+            firstSeen,
+            lastSeen,
+            occurrences,
+            app: row.app ?? null,
+            release: row.release ?? null,
+            regression: row.regression === 'true',
+            ignored: ignoreList.set.has(row.fingerprint),
           })
         }
       }
 
-      const all = Array.from(groups.values()).sort((a, b) => (a.lastSeen < b.lastSeen ? 1 : -1))
+      const everyGroup = Array.from(groups.values())
+      const visible = params.showIgnored ? everyGroup : everyGroup.filter((g) => !g.ignored)
+      const all = visible.sort((a, b) => (a.lastSeen < b.lastSeen ? 1 : a.lastSeen > b.lastSeen ? -1 : 0))
       const total = all.length
       const start = (page - 1) * pageSize
       return {
@@ -414,22 +463,81 @@ export class SystemService {
         page,
         pageSize,
         totalPages: Math.max(1, Math.ceil(total / pageSize)),
+        ignoredHidden: everyGroup.length - visible.length,
+        ...(ignoreList.ok ? {} : { ignoreListUnavailable: true }),
       }
     } catch (err) {
-      console.warn('[SystemService] getErrorGroups failed:', err)
+      await this.reportFailure('admin.system.error_groups', 'System error groups could not be loaded', err)
       return { groups: [], total: 0, page, pageSize, totalPages: 1, failed: true }
     }
   }
 
   /**
+   * The newest row of one error group, with its full (already redacted) details, for
+   * the error drawer. Null when the fingerprint has no rows.
+   */
+  public static async getLatestIncident(fingerprint: string): Promise<AdminErrorIncident | null> {
+    const supabase = createServiceRoleClient()
+    const { data, error } = await supabase
+      .from('system_errors')
+      .select(
+        'id, fingerprint, timestamp, updated_at, first_seen_at, severity, status, category, operation, message, occurrence_count, user_id, details'
+      )
+      .eq('fingerprint', fingerprint)
+      .order('timestamp', { ascending: false })
+      .limit(1)
+    if (error) throw new Error(error.message)
+    const row = (data || [])[0] as
+      | {
+          id: string
+          fingerprint: string
+          timestamp: string
+          updated_at: string | null
+          first_seen_at: string | null
+          severity: string
+          status: string
+          category: string
+          operation: string
+          message: string
+          occurrence_count: number | null
+          user_id: string | null
+          details: unknown
+        }
+      | undefined
+    if (!row) return null
+    return {
+      id: String(row.id),
+      fingerprint: String(row.fingerprint),
+      timestamp: String(row.timestamp),
+      updatedAt: row.updated_at ? String(row.updated_at) : null,
+      firstSeenAt: row.first_seen_at ? String(row.first_seen_at) : null,
+      severity: String(row.severity),
+      status: String(row.status),
+      category: String(row.category),
+      operation: String(row.operation),
+      message: String(row.message),
+      occurrenceCount: Math.max(1, Number(row.occurrence_count) || 1),
+      userId: row.user_id ? String(row.user_id) : null,
+      details:
+        row.details && typeof row.details === 'object' && !Array.isArray(row.details)
+          ? (row.details as Record<string, unknown>)
+          : null,
+    }
+  }
+
+  /**
    * Update the status of system error rows matching a fingerprint.
+   *
+   * `updated_at` is deliberately left alone: it is the incident's last-seen time,
+   * which drives the dedup window and the Errors tab, and acknowledging an error is
+   * not an occurrence of it.
    */
   public static async updateErrorGroupStatus(fingerprint: string, newStatus: 'new' | 'acknowledged' | 'resolved'): Promise<{ success: boolean; updatedCount: number }> {
     const supabase = createServiceRoleClient()
     try {
       const { data, error } = await supabase
         .from('system_errors')
-        .update({ status: newStatus, updated_at: new Date().toISOString() })
+        .update({ status: newStatus })
         .eq('fingerprint', fingerprint)
         .select('id')
 
@@ -437,7 +545,7 @@ export class SystemService {
         // Fallback: try matching on id
         const { data: idData, error: idError } = await supabase
           .from('system_errors')
-          .update({ status: newStatus, updated_at: new Date().toISOString() })
+          .update({ status: newStatus })
           .eq('id', fingerprint)
           .select('id')
 
@@ -574,11 +682,35 @@ export class SystemService {
       }
     } catch (err) {
       console.warn('[SystemService] getAuditLog failed:', err)
+      await this.reportFailure('admin.system.audit_log', 'Admin audit log could not be loaded', err)
       return { entries: [], total: 0, page, pageSize, totalPages: 1, failed: true }
     }
   }
 
   /* ─── Private helpers ─────────────────────────────────────────────────── */
+
+  /**
+   * Records a failure that a method answers with an honest fallback (`failed: true`,
+   * `unknown`) instead of throwing. Without it the System page showed the fallback
+   * while nothing reached `system_errors`, so the failure behind it was invisible.
+   * Never throws: the fallback is still returned if the incident write fails too.
+   */
+  private static async reportFailure(operation: string, summary: string, err: unknown): Promise<void> {
+    try {
+      await logErrorReport(
+        {
+          domain: 'admin',
+          kind: 'unexpected',
+          operation,
+          summary,
+          details: { error: err instanceof Error ? `${err.name}: ${err.message}` : String(err) },
+        },
+        { error: err }
+      )
+    } catch {
+      // Instrumentation must not change the fallback the caller returns.
+    }
+  }
 
   private static lastSizeAlertSentAt = 0
 
@@ -679,8 +811,10 @@ export class SystemService {
    * Aggregates authentication error telemetry for the Admin System Observability tab (Phase 6).
    */
   public static async getAuthHealthTelemetry(): Promise<AdminAuthHealthTelemetry> {
+    // `unknown`, never `healthy`: zero failures read from a query that failed is not
+    // an all-clear, and the console must say it cannot tell.
     const fallback: AdminAuthHealthTelemetry = {
-      status: 'healthy',
+      status: 'unknown',
       failures24h: 0,
       failures7d: 0,
       providerFailures24h: 0,
@@ -717,6 +851,10 @@ export class SystemService {
           .in('severity', ['critical', 'error'])
           .gte('timestamp', fifteenMinsAgo),
       ])
+
+      // supabase-js returns a failed query instead of throwing it.
+      const queryError = recentErrors.error || weekErrors.error || recentSpikeErrors.error
+      if (queryError) throw new Error(queryError.message || 'auth telemetry query failed')
 
       const rows = (recentErrors.data || []) as unknown as Array<{
         id: string
@@ -776,6 +914,7 @@ export class SystemService {
       }
     } catch (err) {
       console.warn('[SystemService] getAuthHealthTelemetry failed:', err)
+      await this.reportFailure('admin.system.auth_health', 'Authentication health telemetry could not be loaded', err)
       return fallback
     }
   }

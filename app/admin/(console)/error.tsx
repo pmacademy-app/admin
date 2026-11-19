@@ -6,17 +6,18 @@ import { AlertTriangle } from 'lucide-react'
 import { reportClientError } from '@/lib/monitoring/client-error-beacon'
 
 /**
- * Admin console error boundary. Uses `unstable_retry` (Next.js 16.2) to
- * re-fetch and re-render the failed segment.
+ * Admin console error boundary. Next.js 16.4 passes `retry`, which re-fetches and
+ * re-renders the failed segment, and `reset`, which only re-renders it; `retry` is
+ * preferred because a failed server fetch is the usual cause.
  */
 export default function AdminConsoleError({
   error,
+  retry,
   reset,
-  unstable_retry,
 }: {
   error: Error & { digest?: string }
+  retry?: () => void
   reset?: () => void
-  unstable_retry?: () => void
 }) {
   useEffect(() => {
     console.error(error)
@@ -24,8 +25,8 @@ export default function AdminConsoleError({
   }, [error])
 
   const handleRetry = () => {
-    if (reset) reset()
-    else if (unstable_retry) unstable_retry()
+    if (retry) retry()
+    else if (reset) reset()
   }
 
   return (

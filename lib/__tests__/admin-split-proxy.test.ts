@@ -142,4 +142,28 @@ describe('admin proxy', () => {
     })
     expect(res.status).toBe(200)
   })
+
+  it('lets the client error beacon through without a session and without a redirect', async () => {
+    const guest = await run('/api/client-errors', { method: 'POST' })
+    expect(guest.status).toBe(200)
+    expect(location(guest)).toBeNull()
+    expect(getClaims).not.toHaveBeenCalled()
+
+    const signedIn = await run('/api/client-errors', {
+      method: 'POST',
+      cookie: 'sb-access-token=tok',
+      headers: { origin: 'https://admin.example.com', 'sec-fetch-site': 'same-origin' },
+    })
+    expect(signedIn.status).toBe(200)
+    expect(location(signedIn)).toBeNull()
+  })
+
+  it('still applies the same-origin check to the client error beacon', async () => {
+    const res = await run('/api/client-errors', {
+      method: 'POST',
+      cookie: 'sb-access-token=tok',
+      headers: { origin: 'https://evil.example', 'sec-fetch-site': 'cross-site' },
+    })
+    expect(res.status).toBe(403)
+  })
 })

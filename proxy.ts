@@ -139,6 +139,11 @@ async function routeRequest(request: NextRequest, requestId: string): Promise<Ne
   // /api/auth/* manages the session itself.
   if (path.startsWith('/api/auth/')) return passThrough(request, requestId)
 
+  // The client error beacon must reach its route without a session: a crashed page
+  // (the login page, an expired session) still reports. The same-origin check above
+  // still applies; the route rate limits and attributes the report itself.
+  if (path === '/api/client-errors') return passThrough(request, requestId)
+
   const isAdminApi = path.startsWith('/api/admin/')
   const isAdminArea = path === ADMIN_HOME || path.startsWith(`${ADMIN_HOME}/`)
   if (!isAdminApi && !isAdminArea) return passThrough(request, requestId)

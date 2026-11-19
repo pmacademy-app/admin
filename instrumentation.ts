@@ -16,8 +16,9 @@ import type { Instrumentation } from 'next'
  *                             revalidateReason, renderType })
  *
  * What is recorded: the route file pattern, the method, the route type, the request
- * id when the caller sent a well-formed one, and the error's name, digest and
- * redacted message. What is never recorded: the query string (reset and verification
+ * id when the caller sent a well-formed one, the error's name, digest and
+ * redacted message, its redacted stack (at most 30 frames, 4000 characters) and the
+ * release (the first 12 characters of VERCEL_GIT_COMMIT_SHA). What is never recorded: the query string (reset and verification
  * links carry tokens there), request bodies, cookies, the Authorization header or any
  * other header.
  */
@@ -78,25 +79,30 @@ export const onRequestError: Instrumentation.onRequestError = async (error, requ
 
     // `routePath` is the route's file pattern (`/app/blog/[slug]`), so it carries no
     // ids and keeps one incident per broken route rather than one per request.
-    await logErrorReport({
-      domain: 'api',
-      kind: 'unexpected',
-      operation: `next.${context.routeType}`,
-      summary: `Unhandled ${context.routeType} error in ${context.routePath}`,
-      requestId: readRequestId(request.headers),
-      details: {
-        method: request.method,
-        path: pathOnly(request.path),
-        routePath: context.routePath,
-        routeType: context.routeType,
-        routerKind: context.routerKind,
-        ...(context.renderSource ? { renderSource: context.renderSource } : {}),
-        ...(digest ? { digest } : {}),
-        errorName: name,
-        // Redacted by value shape and key name inside `logErrorReport`.
-        message: rawMessage.slice(0, MAX_MESSAGE_LENGTH),
+    await logErrorReport(
+      {
+        domain: 'api',
+        kind: 'unexpected',
+        operation: `next.${context.routeType}`,
+        summary: `Unhandled ${context.routeType} error in ${context.routePath}`,
+        requestId: readRequestId(request.headers),
+        details: {
+          method: request.method,
+          path: pathOnly(request.path),
+          routePath: context.routePath,
+          routeType: context.routeType,
+          routerKind: context.routerKind,
+          ...(context.renderSource ? { renderSource: context.renderSource } : {}),
+          ...(digest ? { digest } : {}),
+          errorName: name,
+          // Redacted by value shape and key name inside `logErrorReport`.
+          message: rawMessage.slice(0, MAX_MESSAGE_LENGTH),
+        },
       },
-    })
+      // The logger adds the redacted stack (from the error and its cause chain), the
+      // release, app 'admin' and runtime 'server' to `details`.
+      { error, runtime: 'server' }
+    )
   } catch {
     // The original error has already been handled by Next.js. A failure to record it
     // must not throw a second error from the hook.

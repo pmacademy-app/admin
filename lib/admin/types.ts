@@ -572,7 +572,11 @@ export interface AdminSystemServiceDetail {
 
 /** Authentication health telemetry summary for Admin System observability (Phase 6). */
 export interface AdminAuthHealthTelemetry {
-  status: 'healthy' | 'degraded' | 'critical'
+  /**
+   * `unknown` when the telemetry query failed. Never reported as `healthy` in that
+   * case: zero failures read from a broken query is not an all-clear.
+   */
+  status: 'healthy' | 'degraded' | 'critical' | 'unknown'
   failures24h: number
   failures7d: number
   providerFailures24h: number
@@ -591,9 +595,38 @@ export interface AdminErrorGroup {
   operation: string
   message: string
   status: 'new' | 'acknowledged' | 'resolved'
+  /** Earliest `first_seen_at` across the group's rows. */
   firstSeen: string
+  /** Latest `updated_at` (last occurrence) across the group's rows, not the insert time. */
   lastSeen: string
+  /** SUM(occurrence_count) across the group's rows. */
   occurrences: number
+  /** `details.app` of the newest row: 'web' or 'admin'. Null on rows written before it existed. */
+  app?: string | null
+  /** `details.release` of the newest row. */
+  release?: string | null
+  /** The newest row is a regression (the group came back after being resolved). */
+  regression?: boolean
+  /** The fingerprint is on the monitoring ignore list. */
+  ignored?: boolean
+}
+
+/** The newest `system_errors` row of a group, for the error drawer. */
+export interface AdminErrorIncident {
+  id: string
+  fingerprint: string
+  timestamp: string
+  updatedAt: string | null
+  firstSeenAt: string | null
+  severity: string
+  status: string
+  category: string
+  operation: string
+  message: string
+  occurrenceCount: number
+  userId: string | null
+  /** Redacted at write time by the logger. */
+  details: Record<string, unknown> | null
 }
 
 /** Paginated result of the Errors tab query. */
@@ -605,6 +638,10 @@ export interface AdminErrorGroupResult {
   totalPages: number
   /** True when the query failed and the result is an empty fallback. */
   failed?: boolean
+  /** Groups hidden because their fingerprint is ignored (0 when `showIgnored`). */
+  ignoredHidden?: number
+  /** True when the ignore list could not be read, so nothing was hidden. */
+  ignoreListUnavailable?: boolean
 }
 
 /** One row in the Audit Log tab (spec §47 / §7.6). */

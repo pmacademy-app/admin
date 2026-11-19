@@ -1,10 +1,11 @@
 'use client'
 
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { AdminSidebar } from './AdminSidebar'
 import { AdminHeader } from './AdminHeader'
 import { AdminShellProvider } from './admin-shell-context'
 import { AdminToastProvider } from './admin-toast'
+import { installClientErrorListeners } from '@/lib/monitoring/client-error-listeners'
 
 export interface AdminConsoleUser {
   name: string | null
@@ -31,6 +32,11 @@ export function AdminConsoleShell({
 }: AdminConsoleShellProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const shellRef = useRef<HTMLDivElement>(null)
+
+  // Global `error` / `unhandledrejection` reporting for every console page. The shell
+  // mounts once per console visit; the installer is idempotent, so React's
+  // development double effect still leaves exactly one pair of listeners.
+  useEffect(() => installClientErrorListeners(), [])
 
   return (
     <AdminShellProvider shellRef={shellRef}>

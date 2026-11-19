@@ -70,12 +70,58 @@ be merged by hand. Protected files:
 - `lib/auth/logout.ts` (no Quick Start, admin login fallback)
 - `lib/brand.ts` (`siteUrl` reads `LEARNER_SITE_URL`)
 - `app/api/auth/{login,session,refresh,logout}/route.ts`, `vitest.setup.ts`
+- `lib/api/actor.ts`, `lib/auth.ts` and the other modules that diverged when the web repo
+  removed the admin console (see the list in `scripts/sync-from-web.mjs`)
+- the monitoring files: `lib/monitoring/{logger,redaction,client-error-beacon,client-error-listeners,release}.ts`,
+  `lib/api/with-route.ts`, `lib/errors/api-response.ts`, `instrumentation.ts`,
+  `app/api/client-errors/route.ts`
 
 Every synced file also gets one automatic rewrite: `process.env.NEXT_PUBLIC_SITE_URL` becomes
 `process.env.LEARNER_SITE_URL`, because here `NEXT_PUBLIC_SITE_URL` is the admin host and the
 links in emails, certificates and portfolios must point at the learner site.
 
 Never run a `supabase` command from this repo, and never commit `.env*` files.
+
+## Monitoring
+
+Errors are recorded in the shared `system_errors` table, self-hosted, with no third-party SDK.
+Both apps write to it; `details.app` says which one (`admin` here, `web` on the learner site).
+
+What is captured:
+
+- Server: every unexpected fault in a `withRoute` handler, every server render, route, action
+  or proxy error Next.js reports to `instrumentation.ts`, and the failures the System page
+  answers with a fallback. Each row carries the message, `details.stack` (redacted, at most
+  30 frames and 4000 characters), `details.release`, `details.app`, `details.runtime`
+  (`server`), the request id, and the signed-in admin in `user_id`.
+- Browser: the error boundaries (`app/global-error.tsx`, `app/error.tsx`, the console and
+  communications boundaries) and global `error` / `unhandledrejection` listeners mounted by the
+  console shell post to `POST /api/client-errors` (`details.runtime` is `client`,
+  `details.source` is `boundary`, `window.onerror` or `unhandledrejection`). At most 5 reports
+  per page load, deduplicated, with ResizeObserver, opaque "Script error." and extension noise
+  dropped. The route accepts anonymous reports (8 KB body cap, 10 per minute per IP and 300 per
+  10 minutes overall) and attributes a report to the admin only from the session cookie.
+
+Repeats of one fingerprint within 15 minutes of its last occurrence (`updated_at`) increment
+`occurrence_count` instead of adding a row. A fingerprint whose latest row is resolved gets a new
+row marked `details.regression = true`.
+
+Where to look: System > Errors groups incidents by fingerprint (occurrences are the sum of
+`occurrence_count`, last seen is the latest `updated_at`), with filters for app and release; the
+drawer shows the stack and full details of the latest occurrence. System > Alerts lists
+individual rows; "Show details" expands the same view.
+
+Ignore list: "Ignore" in the error drawer adds the fingerprint to the `system_settings` key
+`monitoring_ignored_fingerprints` (a JSON array, at most 500 entries, audited). Ignored groups
+are still recorded but never alert, and are hidden from the Errors list unless "Show ignored" is
+on. "Unignore" removes the entry. The logger caches the list for 60 seconds per instance and
+alerts as usual when it cannot read it.
+
+Release tagging: Vercel sets `VERCEL_GIT_COMMIT_SHA` automatically and the server tags rows
+with its first 12 characters. `next.config.ts` copies it into
+`NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA` at build time so browser reports carry the same release;
+set `NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA` yourself only when building outside Vercel. Without
+either, rows have no release.
 
 ## Environment variables
 

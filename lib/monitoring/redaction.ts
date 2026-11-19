@@ -203,3 +203,64 @@ export function sanitizeStructuredPayload(value: unknown, depth = 0, seen = new 
   // Functions, symbols, bigints and anything else: drop rather than coerce.
   return undefined
 }
+
+/** Longest stack kept in `system_errors.details.stack`, after redaction. */
+export const MAX_STACK_LENGTH = 4000
+
+/** Most stack frames kept. The frames past this are almost always framework internals. */
+export const MAX_STACK_FRAMES = 30
+
+/** A V8 frame (`    at fn (file:1:2)`) or a Firefox/Safari frame (`fn@file:1:2`). */
+const STACK_FRAME = /^\s*at\s|@\S*:\d+(:\d+)?\)?\s*$/
+
+/**
+ * Redacts and bounds a stack trace for persistence.
+ *
+ * Header lines (the error name and message, which can span lines) are kept, then at
+ * most `MAX_STACK_FRAMES` frames. Query strings and hashes are dropped from frame
+ * URLs, because a browser frame can carry the page URL and a reset or verification
+ * link carries its token in the query. The result goes through the same secret and
+ * email redaction as every other string, and is cut to `MAX_STACK_LENGTH`.
+ *
+ * Returns undefined for an empty or non-string input, so a caller can spread it.
+ */
+export function redactStack(raw: unknown): string | undefined {
+  if (typeof raw !== 'string' || !raw.trim()) return undefined
+
+  const kept: string[] = []
+  let frames = 0
+  for (const line of raw.split(/\r?\n/)) {
+    const isFrame = STACK_FRAME.test(line)
+    if (isFrame) {
+      if (frames >= MAX_STACK_FRAMES) continue
+      frames += 1
+      kept.push(line.replace(/\?[^\s:)]*/g, '').replace(/#[^\s:)]*/g, ''))
+    } else if (frames === 0 || /^\s*Caused by:/.test(line)) {
+      kept.push(line)
+    }
+  }
+
+  const clean = sanitizeErrorMessage(kept.join('\n')).trimEnd()
+  if (!clean) return undefined
+  return clean.length > MAX_STACK_LENGTH ? clean.slice(0, MAX_STACK_LENGTH) : clean
+}
+
+/**
+ * Builds a stack string from a thrown value and its `cause` chain (three levels).
+ *
+ * Next.js and the database layer wrap errors, so the useful frames are often on the
+ * cause. Each cause is appended under a `Caused by:` line. Returns undefined when
+ * nothing in the chain carries a stack.
+ */
+export function stackFromError(error: unknown): string | undefined {
+  const parts: string[] = []
+  let current: unknown = error
+  for (let depth = 0; depth < 4 && current && typeof current === 'object'; depth += 1) {
+    const stack = (current as { stack?: unknown }).stack
+    if (typeof stack === 'string' && stack.trim()) {
+      parts.push(depth === 0 ? stack : `Caused by: ${stack}`)
+    }
+    current = (current as { cause?: unknown }).cause
+  }
+  return parts.length > 0 ? parts.join('\n') : undefined
+}

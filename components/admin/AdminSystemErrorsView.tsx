@@ -7,6 +7,7 @@ import { AdminPagination } from './AdminPagination'
 import { AdminErrorState } from './AdminErrorState'
 import { AdminErrorSeverityBadge, AdminErrorStatusBadge } from './AdminErrorBadges'
 import { AdminErrorDetailDrawer } from './AdminErrorDetailDrawer'
+import { AdminIgnoredBadge, AdminRegressionBadge } from './AdminIncidentDetails'
 import { useIsMounted } from '@/lib/admin/use-is-mounted'
 import { useApiQuery } from '@/lib/api/hooks'
 import { ADMIN_LIST_SWR_CONFIG } from './admin-swr-config'
@@ -21,16 +22,23 @@ interface AdminSystemErrorsViewProps {
 const SEVERITIES = ['all', 'critical', 'error', 'warning'] as const
 const CATEGORIES: readonly ('all' | ErrorCategory)[] = ['all', 'auth', 'verification', 'queue', 'resend', 'webhook', 'cron', 'system']
 const STATUSES = ['all', 'new', 'acknowledged', 'resolved'] as const
+const APPS = ['all', 'web', 'admin'] as const
 
 /**
  * Errors tab (spec §7.5): grouped operational failures from `system_errors`,
- * filterable by severity, category and status, with pagination. Rows open a
- * detail drawer; lifecycle status can be updated from there.
+ * filterable by severity, category, status, app and release, with pagination and
+ * newest last-seen first. Groups on the monitoring ignore list are hidden unless
+ * "Show ignored" is on. Rows open a detail drawer; lifecycle status and the ignore
+ * list can be changed from there.
  */
 export function AdminSystemErrorsView({ initial }: AdminSystemErrorsViewProps) {
   const [severity, setSeverity] = useState('all')
   const [category, setCategory] = useState('all')
   const [status, setStatus] = useState('all')
+  const [app, setApp] = useState('all')
+  const [releaseInput, setReleaseInput] = useState('')
+  const [release, setRelease] = useState('')
+  const [showIgnored, setShowIgnored] = useState(false)
   const [page, setPage] = useState(1)
   const [selected, setSelected] = useState<AdminErrorGroup | null>(null)
   const mounted = useIsMounted()
@@ -39,6 +47,9 @@ export function AdminSystemErrorsView({ initial }: AdminSystemErrorsViewProps) {
     severity,
     category,
     status,
+    app,
+    ...(release ? { release } : {}),
+    ...(showIgnored ? { showIgnored: 'true' } : {}),
     page: String(page),
     pageSize: '25',
   })
@@ -81,7 +92,11 @@ export function AdminSystemErrorsView({ initial }: AdminSystemErrorsViewProps) {
       header: 'Error',
       cell: (g) => (
         <div className="min-w-0">
-          <p className="text-xs font-semibold text-admin-fg font-mono">{g.operation}</p>
+          <div className="flex flex-wrap items-center gap-1.5">
+            <p className="text-xs font-semibold text-admin-fg font-mono">{g.operation}</p>
+            {g.regression && <AdminRegressionBadge />}
+            {g.ignored && <AdminIgnoredBadge />}
+          </div>
           <p className="text-[11px] text-admin-fg-muted truncate max-w-[320px]">{g.message}</p>
         </div>
       ),
@@ -89,9 +104,12 @@ export function AdminSystemErrorsView({ initial }: AdminSystemErrorsViewProps) {
     {
       header: 'Area',
       cell: (g) => (
-        <span className="px-2 py-0.5 rounded bg-admin-surface-raised text-admin-fg-muted text-[10px] font-mono uppercase">
-          {g.category}
-        </span>
+        <div className="flex flex-col items-start gap-1">
+          <span className="px-2 py-0.5 rounded bg-admin-surface-raised text-admin-fg-muted text-[10px] font-mono uppercase">
+            {g.category}
+          </span>
+          {g.app && <span className="text-[10px] font-mono text-admin-fg-subtle">{g.app}</span>}
+        </div>
       ),
     },
     {
@@ -176,6 +194,66 @@ export function AdminSystemErrorsView({ initial }: AdminSystemErrorsViewProps) {
               ))}
             </select>
           </div>
+          <div className="flex items-center gap-1.5 text-xs">
+            <span className="text-admin-fg-muted font-medium">App:</span>
+            <select
+              value={app}
+              onChange={(e) => {
+                setApp(e.target.value)
+                setPage(1)
+              }}
+              aria-label="Filter by app"
+              className="px-2.5 py-1 text-xs rounded-lg border border-admin-border bg-admin-surface text-admin-fg focus:outline-none focus-visible:ring-2 focus-visible:ring-admin-accent/30"
+            >
+              {APPS.map((a) => (
+                <option key={a} value={a}>
+                  {a === 'all' ? 'All Apps' : a === 'web' ? 'Learner site (web)' : 'Admin console'}
+                </option>
+              ))}
+            </select>
+          </div>
+          <form
+            className="flex items-center gap-1.5 text-xs"
+            onSubmit={(e) => {
+              e.preventDefault()
+              setRelease(releaseInput.trim())
+              setPage(1)
+            }}
+          >
+            <label htmlFor="errors-release-filter" className="text-admin-fg-muted font-medium">
+              Release:
+            </label>
+            <input
+              id="errors-release-filter"
+              value={releaseInput}
+              onChange={(e) => setReleaseInput(e.target.value)}
+              onBlur={() => {
+                if (releaseInput.trim() !== release) {
+                  setRelease(releaseInput.trim())
+                  setPage(1)
+                }
+              }}
+              placeholder="commit (12 chars)"
+              maxLength={40}
+              spellCheck={false}
+              className="w-36 px-2.5 py-1 text-xs font-mono rounded-lg border border-admin-border bg-admin-surface text-admin-fg focus:outline-none focus-visible:ring-2 focus-visible:ring-admin-accent/30"
+            />
+          </form>
+          <label className="flex items-center gap-1.5 text-xs text-admin-fg-muted font-medium cursor-pointer">
+            <input
+              type="checkbox"
+              checked={showIgnored}
+              onChange={(e) => {
+                setShowIgnored(e.target.checked)
+                setPage(1)
+              }}
+              className="accent-admin-accent"
+            />
+            Show ignored
+            {!showIgnored && (data.ignoredHidden ?? 0) > 0 && (
+              <span className="text-admin-fg-subtle">({data.ignoredHidden} hidden)</span>
+            )}
+          </label>
         </div>
         <button
           type="button"
@@ -186,6 +264,12 @@ export function AdminSystemErrorsView({ initial }: AdminSystemErrorsViewProps) {
           <span>Refresh</span>
         </button>
       </div>
+
+      {data.ignoreListUnavailable && (
+        <p className="text-[11px] text-warning">
+          The ignore list could not be read, so ignored groups are shown too.
+        </p>
+      )}
 
       {error ? (
         <AdminErrorState
@@ -227,6 +311,9 @@ export function AdminSystemErrorsView({ initial }: AdminSystemErrorsViewProps) {
           if (!open) setSelected(null)
         }}
         onStatusChange={() => {
+          refresh()
+        }}
+        onIgnoreChange={() => {
           refresh()
         }}
         group={selected}
