@@ -1,0 +1,90 @@
+/**
+ * Client Authentication Telemetry (Phase 6).
+ *
+ * Lightweight, non-blocking telemetry client for logging classified authentication
+ * failures to /api/auth/telemetry without collecting sensitive user PII, credentials,
+ * or raw exception stack traces.
+ */
+
+import type { AuthErrorCode, ClassifiedAuthError } from './errors'
+import { apiPost } from '@/lib/api/client'
+
+export type AuthTelemetryAction =
+  | 'login'
+  | 'admin_login'
+  | 'signup'
+  | 'verify'
+  | 'reset_password'
+  | 'resend_verification'
+  | 'session_sync'
+
+export interface AuthTelemetryPayload {
+  errorCode: AuthErrorCode
+  authAction: AuthTelemetryAction
+  isNetworkError?: boolean
+  browserFamily?: 'chrome' | 'firefox' | 'safari' | 'edge' | 'other'
+  onlineState?: boolean
+  rawCode?: string
+  /** Masked, capped snippet of the underlying message — set only for unknown errors. */
+  rawMessage?: string
+}
+
+/**
+ * Normalizes user-agent string into a coarse browser family.
+ * Never collects full UA string or unique device identifiers.
+ */
+function getNormalizedBrowserFamily(): 'chrome' | 'firefox' | 'safari' | 'edge' | 'other' {
+  if (typeof navigator === 'undefined' || !navigator.userAgent) {
+    return 'other'
+  }
+
+  const ua = navigator.userAgent.toLowerCase()
+  if (ua.includes('edg/')) return 'edge'
+  if (ua.includes('chrome') && !ua.includes('edg/')) return 'chrome'
+  if (ua.includes('safari') && !ua.includes('chrome')) return 'safari'
+  if (ua.includes('firefox')) return 'firefox'
+  return 'other'
+}
+
+/**
+ * Asynchronously records an authentication telemetry event.
+ * Guaranteed to never throw and never block the authentication UX.
+ */
+export function recordAuthTelemetry(
+  error: ClassifiedAuthError,
+  action: AuthTelemetryAction
+): void {
+  try {
+    const payload: AuthTelemetryPayload = {
+      errorCode: error.code,
+      authAction: action,
+      isNetworkError: error.isNetworkError,
+      browserFamily: getNormalizedBrowserFamily(),
+      onlineState: typeof navigator !== 'undefined' ? navigator.onLine : true,
+      rawCode: typeof error.rawCode === 'string' ? error.rawCode.substring(0, 60) : undefined,
+      rawMessage: typeof error.rawMessage === 'string' ? error.rawMessage.substring(0, 300) : undefined,
+    }
+
+    const jsonString = JSON.stringify(payload)
+
+    // 1. Prefer navigator.sendBeacon for lightweight, non-blocking delivery
+    if (typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {
+      try {
+        const blob = new Blob([jsonString], { type: 'application/json' })
+        const queued = navigator.sendBeacon('/api/auth/telemetry', blob)
+        if (queued) return
+      } catch {
+        // Fallback to fetch
+      }
+    }
+
+    // 2. Fallback to typed API client with keepalive: true
+    void apiPost('/api/auth/telemetry', JSON.parse(jsonString), {
+      keepalive: true,
+    }).catch(() => {
+      // Telemetry failure is completely silent and non-fatal
+    })
+  } catch {
+    // Top-level catch ensures telemetry can NEVER cause an auth failure
+  }
+}

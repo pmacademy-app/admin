@@ -1,0 +1,963 @@
+{
+  "schemaVersion": 2,
+  "id": "les_ftgikz",
+  "contentHash": "227ad1c316b1bb46796798a83c8799154ced35a787535253fc6c4fc4bda38351",
+  "title": "User Journey Mapping",
+  "slug": "lesson-015",
+  "module": "discovery",
+  "order": 5,
+  "totalInModule": 10,
+  "difficulty": 4,
+  "estimatedReadingTime": 25,
+  "estimatedCompletionTime": 40,
+  "prerequisites": [
+    "les_3dziur",
+    "les_89s8go"
+  ],
+  "seoTitle": "User Journey Mapping: Visualizing End-to-End Experience",
+  "seoDescription": "Map complete user journeys across stages, touchpoints, and emotions. Identify critical drop-off moments and workflow friction points with evidence.",
+  "inShort": "A user journey map is a visual representation of the step-by-step experience a user undergoes to accomplish a specific goal with a product. By documenting stages, actions, emotional highs and lows, touchpoints, and friction points across the full timeline, product teams identify gaps between user expectations and system behavior.",
+  "sourceFile": "content/lessons/lesson-015.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 15: User Journey Mapping",
+      "blockId": "blk_b299d00333"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 14 gave you a way to represent *who* a user is: their job, goals, and pain points, synthesized into a single referenceable artifact. This lesson gives you a way to represent *what actually happens to them over time*: the full sequence of steps, emotions, and touchpoints a persona moves through while trying to accomplish their job, from the first moment they realize they have a problem to well after they've (hopefully) solved it. A **user journey map** is a visual, chronological representation of a specific persona's experience across a specific process, showing not just what they do at each step, but what they think and feel while doing it, and where the friction actually lives.",
+      "blockId": "blk_ad93fc1817"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson matters because pain points, discussed in the abstract in Lesson 14, often become far more actionable once they're placed on a timeline. A pain point floating free of context (\"users find onboarding confusing\") is vague enough to argue about; a pain point pinned to a specific step in a specific journey (\"62% of users abandon during the third onboarding screen, specifically after being asked to connect a bank account before seeing any value\") is concrete enough to actually design around. Journey mapping is the discipline of building that timeline honestly, grounded in the same research rigor from Lessons 11 through 13, not in a team's assumption about how a process \"should\" flow.",
+      "blockId": "blk_c758e293e9"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "Define a user journey map and identify its core components: stages, actions, thoughts/emotions, touchpoints, and pain points.",
+        "Distinguish a journey map built from real research (interviews, behavioral data) from one built from a team's assumed or idealized version of a process.",
+        "Identify the \"happy path only\" failure pattern and explain why it produces an incomplete, misleading map.",
+        "Apply journey mapping to identify specific moments of friction, drop-off, or emotional low points that warrant further investigation or design attention.",
+        "Distinguish a journey map's scope (a specific persona, a specific process) from an attempt to map \"the entire user experience\" at once, and explain why the latter produces an unusably broad artifact."
+      ],
+      "blockId": "blk_4bdcc23520"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 12 (Customer Interviews) and Lesson 14 (Personas). This lesson assumes you can conduct or reference past-behavior-based interview findings and have (or can construct) a genuine, research-based persona: a journey map is most useful when built for a specific, validated persona moving through a specific, well-defined process, not for an undifferentiated \"the user\" in the abstract.",
+      "blockId": "blk_7e6d95aa7a"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Core Definition and Components",
+          "blockId": "blk_688b1e46a2"
+        },
+        {
+          "type": "paragraph",
+          "text": "A user journey map visually represents the sequence of steps a specific persona takes while pursuing a specific goal, alongside their actions, thoughts, and emotions at each step, and the touchpoints (specific product screens, communications, or interactions) involved. The standard components are:",
+          "blockId": "blk_92ff17a7e3"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**Stages**: the major phases of the journey (e.g., awareness, consideration, onboarding, active use, renewal or churn).",
+            "**Actions**: what the persona actually does at each stage, ideally drawn from observed or reported behavior rather than assumption.",
+            "**Thoughts and emotions**: what the persona is thinking and feeling at each step (confusion, confidence, frustration, relief), which often reveals more about where design attention is needed than the actions alone.",
+            "**Touchpoints**: the specific product screens, emails, support interactions, or other concrete points of contact involved at each stage.",
+            "**Pain points and opportunities**: specific moments of friction, confusion, or drop-off, and any corresponding opportunity for improvement."
+          ],
+          "blockId": "blk_515cd6ccd0"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_fd9f4707b2",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[Stage 1: Awareness] --> B[Stage 2: Consideration]\r\n    B --> C[Stage 3: Onboarding]\r\n    C --> D[Stage 4: Active Use]\r\n    D --> E[Stage 5: Renewal or Churn]\r\n    A -.->|Actions, Thoughts,<br/>Touchpoints, Pain Points| A\r\n    B -.->|Actions, Thoughts,<br/>Touchpoints, Pain Points| B\r\n    C -.->|Actions, Thoughts,<br/>Touchpoints, Pain Points| C\r\n    D -.->|Actions, Thoughts,<br/>Touchpoints, Pain Points| D\r\n    E -.->|Actions, Thoughts,<br/>Touchpoints, Pain Points| E",
+          "normalized": "graph LR\r\n    A[Stage 1: Awareness] --> B[Stage 2: Consideration]\r\n    B --> C[Stage 3: Onboarding]\r\n    C --> D[Stage 4: Active Use]\r\n    D --> E[Stage 5: Renewal or Churn]\r\n    A -.->|Actions, Thoughts,<br/>Touchpoints, Pain Points| A\r\n    B -.->|Actions, Thoughts,<br/>Touchpoints, Pain Points| B\r\n    C -.->|Actions, Thoughts,<br/>Touchpoints, Pain Points| C\r\n    D -.->|Actions, Thoughts,<br/>Touchpoints, Pain Points| D\r\n    E -.->|Actions, Thoughts,<br/>Touchpoints, Pain Points| E",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020936060-33\" xmlns=\"http://www.w3.org/2000/svg\" width=\"3442.25\" height=\"593.75\" viewBox=\"-38 -27 3442.25 593.75\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Stage 1: Awareness → Stage 2: Consideration → Stage 3: Onboarding → Stage 4: Active Use → Stage 5: Renewal or Churn\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Stage 1: Awareness → Stage 2: Consideration → Stage 3: Onboarding → Stage 4: Active Use → Stage 5: Renewal or Churn</title><style>#mermaid-svg-1795020936060-33{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020936060-33 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020936060-33 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020936060-33 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020936060-33 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020936060-33 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020936060-33 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020936060-33 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020936060-33 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020936060-33 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020936060-33 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020936060-33 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020936060-33 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020936060-33 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020936060-33 p{margin:0;}#mermaid-svg-1795020936060-33 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020936060-33 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020936060-33 .cluster-label span{color:#171A17;}#mermaid-svg-1795020936060-33 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020936060-33 .label text,#mermaid-svg-1795020936060-33 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020936060-33 .node rect,#mermaid-svg-1795020936060-33 .node circle,#mermaid-svg-1795020936060-33 .node ellipse,#mermaid-svg-1795020936060-33 .node polygon,#mermaid-svg-1795020936060-33 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020936060-33 .rough-node .label text,#mermaid-svg-1795020936060-33 .node .label text,#mermaid-svg-1795020936060-33 .image-shape .label,#mermaid-svg-1795020936060-33 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020936060-33 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020936060-33 .rough-node .label,#mermaid-svg-1795020936060-33 .node .label,#mermaid-svg-1795020936060-33 .image-shape .label,#mermaid-svg-1795020936060-33 .icon-shape .label{text-align:center;}#mermaid-svg-1795020936060-33 .node.clickable{cursor:pointer;}#mermaid-svg-1795020936060-33 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020936060-33 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020936060-33 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020936060-33 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020936060-33 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020936060-33 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020936060-33 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020936060-33 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020936060-33 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020936060-33 .cluster text{fill:#171A17;}#mermaid-svg-1795020936060-33 .cluster span{color:#171A17;}#mermaid-svg-1795020936060-33 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020936060-33 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020936060-33 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020936060-33 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020936060-33 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020936060-33 .icon-shape,#mermaid-svg-1795020936060-33 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020936060-33 .icon-shape p,#mermaid-svg-1795020936060-33 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020936060-33 .icon-shape .label rect,#mermaid-svg-1795020936060-33 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020936060-33 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020936060-33 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020936060-33 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020936060-33 [data-look=\"neo\"].node rect,#mermaid-svg-1795020936060-33 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020936060-33 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020936060-33-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020936060-33 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020936060-33 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020936060-33-gradient);stroke-width:1px;}#mermaid-svg-1795020936060-33 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020936060-33 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020936060-33 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020936060-33-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020936060-33 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020936060-33 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020936060-33-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020936060-33 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020936060-33-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020936060-33 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020936060-33_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020936060-33_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020936060-33_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020936060-33_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020936060-33_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020936060-33_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020936060-33_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020936060-33_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020936060-33_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020936060-33_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020936060-33_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020936060-33_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M231.217,477.75L254.347,465.25C277.478,452.75,323.739,427.75,354.953,415.25C386.167,402.75,402.333,402.75,410.417,402.75L418.5,402.75\" id=\"mermaid-svg-1795020936060-33-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6MjMxLjIxNjUxNzg1NzE0Mjg2LCJ5Ijo0NzcuNzV9LHsieCI6MzcwLCJ5Ijo0MDIuNzV9LHsieCI6NDIyLjUsInkiOjQwMi43NX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020936060-33_flowchart-v2-pointEnd)\"></path><path d=\"M687.218,365.75L726.598,348.5C765.979,331.25,844.739,296.75,906.87,279.5C969,262.25,1014.5,262.25,1037.25,262.25L1060,262.25\" id=\"mermaid-svg-1795020936060-33-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6Njg3LjIxNzk3MTUzMDI0OTEsInkiOjM2NS43NX0seyJ4Ijo5MjMuNSwieSI6MjYyLjI1fSx7IngiOjEwNjQsInkiOjI2Mi4yNX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020936060-33_flowchart-v2-pointEnd)\"></path><path d=\"M1304.415,225.25L1341.471,207.958C1378.527,190.667,1452.638,156.083,1512.444,138.792C1572.25,121.5,1617.75,121.5,1640.5,121.5L1663.25,121.5\" id=\"mermaid-svg-1795020936060-33-L_C_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_D_0\" data-points=\"W3sieCI6MTMwNC40MTU0MDg1MjU3NTQ5LCJ5IjoyMjUuMjV9LHsieCI6MTUyNi43NSwieSI6MTIxLjV9LHsieCI6MTY2Ny4yNSwieSI6MTIxLjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020936060-33_flowchart-v2-pointEnd)\"></path><path d=\"M1986.115,84.5L2010.096,78.875C2034.077,73.25,2082.038,62,2128.769,56.375C2175.5,50.75,2221,50.75,2243.75,50.75L2266.5,50.75\" id=\"mermaid-svg-1795020936060-33-L_D_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_E_0\" data-points=\"W3sieCI6MTk4Ni4xMTUyODI2ODU1MTIzLCJ5Ijo4NC41fSx7IngiOjIxMzAsInkiOjUwLjc1fSx7IngiOjIyNzAuNSwieSI6NTAuNzV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020936060-33_flowchart-v2-pointEnd)\"></path><path d=\"M301.907,477.75L310.056,475.583C318.205,473.417,334.502,469.083,342.651,483.583C350.8,498.083,350.8,531.417,343.295,546.088C335.791,560.759,320.782,556.769,313.277,554.773L305.773,552.778\" id=\"mermaid-svg-1795020936060-33-L_A_A_0\" class=\"edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_A_0\" data-points=\"W3sieCI6MzAxLjkwNzAwMDAwMDAwMDA0LCJ5Ijo0NzcuNzV9LHsieCI6MzUwLjgsInkiOjQ2NC43NX0seyJ4IjozNTAuOCwieSI6NTY0Ljc1fSx7IngiOjMwMS45MDcwMDAwMDAwMDAwNCwieSI6NTUxLjc1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020936060-33_flowchart-v2-pointEnd)\"></path><path d=\"M760.777,365.75L770.031,363.583C779.285,361.417,797.792,357.083,807.046,371.583C816.3,386.083,816.3,419.417,807.695,434.069C799.091,448.721,781.881,444.691,773.276,442.677L764.672,440.662\" id=\"mermaid-svg-1795020936060-33-L_B_B_0\" class=\"edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_B_0\" data-points=\"W3sieCI6NzYwLjc3Njk5OTk5OTk5OTksInkiOjM2NS43NX0seyJ4Ijo4MTYuMywieSI6MzUyLjc1fSx7IngiOjgxNi4zLCJ5Ijo0NTIuNzV9LHsieCI6NzYwLjc3Njk5OTk5OTk5OTksInkiOjQzOS43NX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020936060-33_flowchart-v2-pointEnd)\"></path><path d=\"M1369,225.25L1377.425,223.083C1385.85,220.917,1402.7,216.583,1411.125,231.083C1419.55,245.583,1419.55,278.917,1411.771,293.583C1403.991,308.249,1388.432,304.248,1380.653,302.247L1372.873,300.246\" id=\"mermaid-svg-1795020936060-33-L_C_C_0\" class=\"edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_C_0\" data-points=\"W3sieCI6MTM2OC45OTk1LCJ5IjoyMjUuMjV9LHsieCI6MTQxOS41NSwieSI6MjEyLjI1fSx7IngiOjE0MTkuNTUsInkiOjMxMi4yNX0seyJ4IjoxMzY4Ljk5OTUsInkiOjI5OS4yNX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020936060-33_flowchart-v2-pointEnd)\"></path><path d=\"M1972.25,84.5L1980.675,82.333C1989.1,80.167,2005.95,75.833,2014.375,90.333C2022.8,104.833,2022.8,138.167,2015.021,152.833C2007.241,167.499,1991.682,163.498,1983.903,161.497L1976.123,159.496\" id=\"mermaid-svg-1795020936060-33-L_D_D_0\" class=\"edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_D_0\" data-points=\"W3sieCI6MTk3Mi4yNDk1LCJ5Ijo4NC41fSx7IngiOjIwMjIuOCwieSI6NzEuNX0seyJ4IjoyMDIyLjgsInkiOjE3MS41fSx7IngiOjE5NzIuMjQ5NSwieSI6MTU4LjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020936060-33_flowchart-v2-pointEnd)\"></path><path d=\"M2642.055,13.75L2652.137,11.583C2662.22,9.417,2682.385,5.083,2692.467,19.583C2702.55,34.083,2702.55,67.417,2693.119,82.057C2683.688,96.697,2664.827,92.644,2655.396,90.617L2645.965,88.59\" id=\"mermaid-svg-1795020936060-33-L_E_E_0\" class=\"edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_E_E_0\" data-points=\"W3sieCI6MjY0Mi4wNTQ1LCJ5IjoxMy43NX0seyJ4IjoyNzAyLjU1LCJ5IjowLjc1fSx7IngiOjI3MDIuNTUsInkiOjEwMC43NX0seyJ4IjoyNjQyLjA1NDUsInkiOjg3Ljc1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020936060-33_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_D_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(472.8, 514.75)\"><g class=\"label\" data-id=\"L_A_A_0\" transform=\"translate(-118, -30)\"><foreignObject width=\"236\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Actions, Thoughts,<br>Touchpoints, Pain Points</p></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(938.3, 402.75)\"><g class=\"label\" data-id=\"L_B_B_0\" transform=\"translate(-118, -30)\"><foreignObject width=\"236\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Actions, Thoughts,<br>Touchpoints, Pain Points</p></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(1541.55, 262.25)\"><g class=\"label\" data-id=\"L_C_C_0\" transform=\"translate(-118, -30)\"><foreignObject width=\"236\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Actions, Thoughts,<br>Touchpoints, Pain Points</p></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(2144.8, 121.5)\"><g class=\"label\" data-id=\"L_D_D_0\" transform=\"translate(-118, -30)\"><foreignObject width=\"236\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Actions, Thoughts,<br>Touchpoints, Pain Points</p></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(2824.55, 50.75)\"><g class=\"label\" data-id=\"L_E_E_0\" transform=\"translate(-118, -30)\"><foreignObject width=\"236\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Actions, Thoughts,<br>Touchpoints, Pain Points</p></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020936060-33-flowchart-A-0\" data-look=\"classic\" transform=\"translate(162.75, 514.75)\"><rect class=\"basic label-container\" style=\"\" x=\"-124.5\" y=\"-35\" width=\"249\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-92.5, -19)\"><rect></rect><foreignObject width=\"185\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Stage 1: Awareness</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020936060-33-flowchart-B-1\" data-look=\"classic\" transform=\"translate(602.75, 402.75)\"><rect class=\"basic label-container\" style=\"\" x=\"-141.5\" y=\"-35\" width=\"283\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-109.5, -19)\"><rect></rect><foreignObject width=\"219\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Stage 2: Consideration</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020936060-33-flowchart-C-3\" data-look=\"classic\" transform=\"translate(1225.125, 262.25)\"><rect class=\"basic label-container\" style=\"\" x=\"-128.75\" y=\"-35\" width=\"257.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-96.75, -19)\"><rect></rect><foreignObject width=\"193.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Stage 3: Onboarding</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020936060-33-flowchart-D-5\" data-look=\"classic\" transform=\"translate(1828.375, 121.5)\"><rect class=\"basic label-container\" style=\"\" x=\"-128.75\" y=\"-35\" width=\"257.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-96.75, -19)\"><rect></rect><foreignObject width=\"193.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Stage 4: Active Use</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020936060-33-flowchart-E-7\" data-look=\"classic\" transform=\"translate(2469.875, 50.75)\"><rect class=\"basic label-container\" style=\"\" x=\"-154.25\" y=\"-35\" width=\"308.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-122.25, -19)\"><rect></rect><foreignObject width=\"244.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Stage 5: Renewal or Churn</p></span></div></foreignObject></g></g><g class=\"label edgeLabel\" id=\"A---A---1\" transform=\"translate(602.75, 514.75)\"><rect width=\"0.1\" height=\"0.1\"></rect><g class=\"label\" style=\"\" transform=\"translate(-30, -19)\"><rect></rect><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 10px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"></span></div></foreignObject></g></g><g class=\"label edgeLabel\" id=\"A---A---2\" transform=\"translate(1225.125, 543.75)\"><rect width=\"0.1\" height=\"0.1\"></rect><g class=\"label\" style=\"\" transform=\"translate(-30, -19)\"><rect></rect><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 10px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"></span></div></foreignObject></g></g><g class=\"label edgeLabel\" id=\"B---B---1\" transform=\"translate(1225.125, 398.75)\"><rect width=\"0.1\" height=\"0.1\"></rect><g class=\"label\" style=\"\" transform=\"translate(-30, -19)\"><rect></rect><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 10px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"></span></div></foreignObject></g></g><g class=\"label edgeLabel\" id=\"B---B---2\" transform=\"translate(1828.375, 403)\"><rect width=\"0.1\" height=\"0.1\"></rect><g class=\"label\" style=\"\" transform=\"translate(-30, -19)\"><rect></rect><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 10px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"></span></div></foreignObject></g></g><g class=\"label edgeLabel\" id=\"C---C---1\" transform=\"translate(1828.375, 282.75)\"><rect width=\"0.1\" height=\"0.1\"></rect><g class=\"label\" style=\"\" transform=\"translate(-30, -19)\"><rect></rect><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 10px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"></span></div></foreignObject></g></g><g class=\"label edgeLabel\" id=\"C---C---2\" transform=\"translate(2469.875, 282.75)\"><rect width=\"0.1\" height=\"0.1\"></rect><g class=\"label\" style=\"\" transform=\"translate(-30, -19)\"><rect></rect><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 10px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"></span></div></foreignObject></g></g><g class=\"label edgeLabel\" id=\"D---D---1\" transform=\"translate(2469.875, 166.75)\"><rect width=\"0.1\" height=\"0.1\"></rect><g class=\"label\" style=\"\" transform=\"translate(-30, -19)\"><rect></rect><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 10px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"></span></div></foreignObject></g></g><g class=\"label edgeLabel\" id=\"D---D---2\" transform=\"translate(2995.25, 166.75)\"><rect width=\"0.1\" height=\"0.1\"></rect><g class=\"label\" style=\"\" transform=\"translate(-30, -19)\"><rect></rect><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 10px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"></span></div></foreignObject></g></g><g class=\"label edgeLabel\" id=\"E---E---1\" transform=\"translate(2995.25, 38)\"><rect width=\"0.1\" height=\"0.1\"></rect><g class=\"label\" style=\"\" transform=\"translate(-30, -19)\"><rect></rect><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 10px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"></span></div></foreignObject></g></g><g class=\"label edgeLabel\" id=\"E---E---2\" transform=\"translate(3366.25, 50.75)\"><rect width=\"0.1\" height=\"0.1\"></rect><g class=\"label\" style=\"\" transform=\"translate(-30, -19)\"><rect></rect><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 10px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020936060-33-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020936060-33-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020936060-33-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_fd9f4707b2"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Journey Maps Built from Research vs. Assumption",
+          "blockId": "blk_158aded9b1"
+        },
+        {
+          "type": "paragraph",
+          "text": "Precisely as Lesson 14 warned about assumption-based personas, a journey map built from a team's idealized or assumed version of \"how the process works\", rather than from actual research, carries exactly the same risk: it tends to reflect how the team designed the process to work, rather than how real users actually experience it, and it is especially prone to omitting friction points that are uncomfortable for the team to acknowledge (a confusing step the team itself designed, a drop-off point tied to a decision a stakeholder championed).",
+          "blockId": "blk_913ae4267f"
+        },
+        {
+          "type": "paragraph",
+          "text": "A genuinely research-grounded journey map draws on:",
+          "blockId": "blk_f15fe29b4a"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**Past-behavior interview findings (Lesson 12)**: specific, concrete accounts of what actually happened at each stage, rather than a general description of the intended flow.",
+            "**Behavioral/analytics data (revealed preference, per Lesson 11)**: actual drop-off rates, time-on-step, and navigation patterns, which can reveal friction points a team's mental model of the process entirely misses.",
+            "**Direct observation, where possible**: watching a real user move through the actual process, rather than relying solely on their retrospective account of it (which can be subject to the same recall limitations and social desirability effects covered in Lesson 11)."
+          ],
+          "blockId": "blk_d7374ae69f"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The \"Happy Path Only\" Failure Pattern",
+          "blockId": "blk_0637870575"
+        },
+        {
+          "type": "paragraph",
+          "text": "A specific, common failure in journey mapping is building a map that only represents the **happy path**: the smoothest, most successful version of the journey, in which the user encounters no significant friction and proceeds cleanly from one stage to the next. This produces a map that looks clean and presentable, but that fails to represent the actual, often messier reality experienced by a meaningful share of real users, including detours, abandoned attempts, workarounds, and points where users backtrack or seek external help.",
+          "blockId": "blk_88f8509a44"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_a8dffcd19e",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Journey Map Built] --> B{Happy Path Only, or Does It<br/>Include Friction and Detours?}\r\n    B -->|Happy path only| C[Misses Drop-off Points, Workarounds, and<br/>the Experience of Users Who Don't<br/>Succeed Smoothly]\r\n    B -->|Includes Friction and Detours| D[Represents the Actual, Full<br/>Range of Real User Experience]",
+          "normalized": "graph TD\r\n    A[Journey Map Built] --> B{Happy Path Only, or Does It<br/>Include Friction and Detours?}\r\n    B -->|Happy path only| C[Misses Drop-off Points, Workarounds, and<br/>the Experience of Users Who Don't<br/>Succeed Smoothly]\r\n    B -->|Includes Friction and Detours| D[Represents the Actual, Full<br/>Range of Real User Experience]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020936386-34\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1124.13\" height=\"781.5\" viewBox=\"-77 -27 1124.13 781.5\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Journey Map Built → Happy Path Only, or Does ItInclude Friction and Detours? → Misses Drop-off Points, Workarounds, andthe Experience of Users Who Don'tSucceed Smoothly → Represents the Actual, FullRange of Real User Experience\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Journey Map Built → Happy Path Only, or Does ItInclude Friction and Detours? → Misses Drop-off Points, Workarounds, andthe Experience of Users Who Don'tSucceed Smoothly → Represents the Actual, FullRange of Real User Experience</title><style>#mermaid-svg-1795020936386-34{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020936386-34 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020936386-34 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020936386-34 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020936386-34 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020936386-34 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020936386-34 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020936386-34 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020936386-34 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020936386-34 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020936386-34 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020936386-34 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020936386-34 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020936386-34 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020936386-34 p{margin:0;}#mermaid-svg-1795020936386-34 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020936386-34 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020936386-34 .cluster-label span{color:#171A17;}#mermaid-svg-1795020936386-34 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020936386-34 .label text,#mermaid-svg-1795020936386-34 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020936386-34 .node rect,#mermaid-svg-1795020936386-34 .node circle,#mermaid-svg-1795020936386-34 .node ellipse,#mermaid-svg-1795020936386-34 .node polygon,#mermaid-svg-1795020936386-34 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020936386-34 .rough-node .label text,#mermaid-svg-1795020936386-34 .node .label text,#mermaid-svg-1795020936386-34 .image-shape .label,#mermaid-svg-1795020936386-34 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020936386-34 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020936386-34 .rough-node .label,#mermaid-svg-1795020936386-34 .node .label,#mermaid-svg-1795020936386-34 .image-shape .label,#mermaid-svg-1795020936386-34 .icon-shape .label{text-align:center;}#mermaid-svg-1795020936386-34 .node.clickable{cursor:pointer;}#mermaid-svg-1795020936386-34 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020936386-34 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020936386-34 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020936386-34 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020936386-34 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020936386-34 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020936386-34 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020936386-34 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020936386-34 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020936386-34 .cluster text{fill:#171A17;}#mermaid-svg-1795020936386-34 .cluster span{color:#171A17;}#mermaid-svg-1795020936386-34 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020936386-34 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020936386-34 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020936386-34 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020936386-34 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020936386-34 .icon-shape,#mermaid-svg-1795020936386-34 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020936386-34 .icon-shape p,#mermaid-svg-1795020936386-34 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020936386-34 .icon-shape .label rect,#mermaid-svg-1795020936386-34 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020936386-34 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020936386-34 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020936386-34 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020936386-34 [data-look=\"neo\"].node rect,#mermaid-svg-1795020936386-34 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020936386-34 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020936386-34-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020936386-34 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020936386-34 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020936386-34-gradient);stroke-width:1px;}#mermaid-svg-1795020936386-34 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020936386-34 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020936386-34 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020936386-34-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020936386-34 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020936386-34 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020936386-34-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020936386-34 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020936386-34-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020936386-34 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020936386-34_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020936386-34_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020936386-34_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020936386-34_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020936386-34_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020936386-34_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020936386-34_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020936386-34_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020936386-34_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020936386-34_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020936386-34_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020936386-34_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M585.438,82L585.438,88.917C585.438,95.833,585.438,109.667,585.438,122.833C585.438,136,585.438,148.5,585.438,154.75L585.438,161\" id=\"mermaid-svg-1795020936386-34-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NTg1LjQzNzUsInkiOjgyfSx7IngiOjU4NS40Mzc1LCJ5IjoxMjMuNX0seyJ4Ijo1ODUuNDM3NSwieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020936386-34_flowchart-v2-pointEnd)\"></path><path d=\"M430.681,474.494L409.401,491.578C388.121,508.662,345.56,542.831,324.28,566.166C303,589.5,303,602,303,608.25L303,614.5\" id=\"mermaid-svg-1795020936386-34-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6NDMwLjY4MTAyNTIyNDAwODg2LCJ5Ijo0NzQuNDkzNTI1MjI0MDA4ODZ9LHsieCI6MzAzLCJ5Ijo1Nzd9LHsieCI6MzAzLCJ5Ijo2MTguNX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020936386-34_flowchart-v2-pointEnd)\"></path><path d=\"M740.194,474.494L761.474,491.578C782.754,508.662,825.315,542.831,846.595,568.999C867.875,595.167,867.875,613.333,867.875,622.417L867.875,631.5\" id=\"mermaid-svg-1795020936386-34-L_B_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_D_0\" data-points=\"W3sieCI6NzQwLjE5Mzk3NDc3NTk5MTEsInkiOjQ3NC40OTM1MjUyMjQwMDg4Nn0seyJ4Ijo4NjcuODc1LCJ5Ijo1Nzd9LHsieCI6ODY3Ljg3NSwieSI6NjM1LjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020936386-34_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(303, 577)\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-79.75, -19)\"><foreignObject width=\"159.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Happy path only</p></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(867.875, 577)\"><g class=\"label\" data-id=\"L_B_D_0\" transform=\"translate(-139.25, -19)\"><foreignObject width=\"278.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Includes Friction and Detours</p></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020936386-34-flowchart-A-0\" data-look=\"classic\" transform=\"translate(585.4375, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-120.25\" y=\"-35\" width=\"240.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-88.25, -19)\"><rect></rect><foreignObject width=\"176.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Journey Map Built</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020936386-34-flowchart-B-1\" data-look=\"classic\" transform=\"translate(585.4375, 350.25)\"><polygon points=\"185.25,0 370.5,-185.25 185.25,-370.5 0,-185.25\" class=\"label-container\" transform=\"translate(-184.75, 185.25)\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-139.25, -30)\"><rect></rect><foreignObject width=\"278.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Happy Path Only, or Does It<br>Include Friction and Detours?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020936386-34-flowchart-C-3\" data-look=\"classic\" transform=\"translate(303, 689.5)\"><rect class=\"basic label-container\" style=\"\" x=\"-218\" y=\"-57\" width=\"436\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-186, -41)\"><rect></rect><foreignObject width=\"372\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Misses Drop-off Points, Workarounds, and<br>the Experience of Users Who Don't<br>Succeed Smoothly</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020936386-34-flowchart-D-5\" data-look=\"classic\" transform=\"translate(867.875, 689.5)\"><rect class=\"basic label-container\" style=\"\" x=\"-171.25\" y=\"-46\" width=\"342.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-139.25, -30)\"><rect></rect><foreignObject width=\"278.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Represents the Actual, Full<br>Range of Real User Experience</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020936386-34-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020936386-34-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020936386-34-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_a8dffcd19e"
+        },
+        {
+          "type": "paragraph",
+          "text": "This directly echoes Lesson 8's discovery theater concern and Lesson 13's sampling bias concern: a journey map is a research synthesis artifact, and if the underlying research (or the map's construction) systematically excludes the messier, less successful parts of the real experience, the resulting map, however polished, will mislead a team into believing the process is smoother than it actually is for a meaningful portion of real users.",
+          "blockId": "blk_50be65ce1e"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Distinguishing Actions from Thoughts and Emotions",
+          "blockId": "blk_df0d3e9340"
+        },
+        {
+          "type": "paragraph",
+          "text": "A common, more subtle mistake is building a journey map that documents only actions (what the user clicked, what screen they were on) without capturing thoughts and emotions at each step. This is a significant loss, because two users can take the identical sequence of actions while having very different internal experiences (one confident and satisfied, another confused and anxious but proceeding anyway out of necessity), and a map that records only the action sequence cannot distinguish between these two very different underlying experiences, even though they likely call for very different design responses.",
+          "blockId": "blk_1197552386"
+        },
+        {
+          "type": "paragraph",
+          "text": "Thoughts and emotions are also frequently where the most actionable insight lives: an action-only map might show \"user clicks 'connect bank account'\" without revealing that, per interview findings, several users hesitated at this step specifically because they weren't sure why a bank connection was necessary before they'd seen any concrete product value, an emotional and cognitive detail (uncertainty, a request for justification) that directly suggests a design fix (explaining the \"why\" before requesting the connection) that the action alone would never surface.",
+          "blockId": "blk_158e4a7737"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Scoping a Journey Map: One Persona, One Process",
+          "blockId": "blk_ef0fc95034"
+        },
+        {
+          "type": "paragraph",
+          "text": "A final, important discipline is scope: a useful journey map is built for **one specific persona** moving through **one specific, well-defined process** (e.g., \"first-time onboarding,\" \"monthly billing and renewal,\" \"canceling a subscription\"), not an attempt to map \"the entire user experience\" of a complex product in a single artifact. Attempting the latter produces a map so broad and abstracted that it loses the specific, concrete detail that makes journey mapping useful in the first place, echoing Lesson 7's \"for everyone\" value proposition failure and Lesson 14's \"too many personas\" failure at a process-mapping level: an artifact that tries to represent everything ends up representing nothing with useful specificity.",
+          "blockId": "blk_c43e7fe08c"
+        }
+      ],
+      "blockId": "blk_81e19c3ad4"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Building a journey map from the team's idealized version of the process, rather than from research",
+          "body": "This inherits the same risk as an assumption-based persona (Lesson 14): the map reflects how the team designed the process to work, not how users actually experience it, and tends to omit uncomfortable friction points."
+        },
+        {
+          "title": "Mapping only the \"happy path.",
+          "body": "A map excluding detours, abandoned attempts, and workarounds misrepresents the actual range of real user experience and can lead a team to underestimate how much friction genuinely exists."
+        },
+        {
+          "title": "Recording only actions, without thoughts and emotions",
+          "body": "An action-only map cannot distinguish between a confident, satisfied user and a confused, anxious one taking the identical sequence of steps, losing exactly the detail most likely to point toward an actionable design fix."
+        },
+        {
+          "title": "Attempting to map \"the entire user experience\" in a single journey map",
+          "body": "This produces an artifact too broad and abstracted to retain the specific, concrete detail that makes journey mapping useful. Scope should be narrowed to one persona and one specific process."
+        },
+        {
+          "title": "Treating a journey map as a one-time artifact that never needs revisiting",
+          "body": "As the underlying product, market, or user behavior changes (echoing Lesson 14's persona-updating guidance), a journey map built from research conducted long ago may no longer accurately reflect the current, real experience.\n\n"
+        }
+      ],
+      "blockId": "blk_9277a6f013"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The Journey Map Truth Test",
+      "diagram": {
+        "blockId": "blk_91faf5190b",
+        "type": "mermaid"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "This lesson's mental model is the **Journey Map Truth Test**: a quick diagnostic for evaluating whether a completed journey map reflects genuine research or an idealized team assumption.",
+          "blockId": "blk_60fefe6f1a"
+        },
+        {
+          "type": "paragraph",
+          "text": "Apply this test whenever reviewing a journey map presented to you: a map with no uncomfortable, team-implicating friction points at all is a specific and reliable warning sign, precisely because real user experiences of any nontrivial process virtually always include at least some genuine friction. Its complete absence usually indicates the map was built from an idealized assumption rather than honest research.",
+          "blockId": "blk_adc710301b"
+        }
+      ],
+      "blockId": "blk_08f53c0fdc"
+    },
+    {
+      "type": "mermaid",
+      "id": "blk_91faf5190b",
+      "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Completed Journey Map] --> B{Does It Include at Least One Moment of<br/>Friction, Hesitation, or Drop-off the<br/>Team Finds Uncomfortable to Acknowledge?}\r\n    B -->|No, Entirely Smooth,<br/>No Uncomfortable Friction| C[Likely a Happy-path, Idealized Map:<br/>Revisit with Real Research]\r\n    B -->|Yes, Includes Genuine, Even<br/>Uncomfortable Friction| D[Likely Grounded in Real<br/>Research and Honest Synthesis]",
+      "normalized": "graph TD\r\n    A[Completed Journey Map] --> B{Does It Include at Least One Moment of<br/>Friction, Hesitation, or Drop-off the<br/>Team Finds Uncomfortable to Acknowledge?}\r\n    B -->|No, Entirely Smooth,<br/>No Uncomfortable Friction| C[Likely a Happy-path, Idealized Map:<br/>Revisit with Real Research]\r\n    B -->|Yes, Includes Genuine, Even<br/>Uncomfortable Friction| D[Likely Grounded in Real<br/>Research and Honest Synthesis]",
+      "authorTheme": {
+        "background": "#0b0b0c",
+        "primaryColor": "#1f1f23",
+        "primaryTextColor": "#ffffff",
+        "primaryBorderColor": "#8b5cf6",
+        "lineColor": "#d1d5db",
+        "secondaryColor": "#18181b",
+        "tertiaryColor": "#111111",
+        "mainBkg": "#1f1f23",
+        "nodeBorder": "#8b5cf6",
+        "clusterBkg": "#000000",
+        "clusterBorder": "#27272a",
+        "titleColor": "#ffffff",
+        "edgeLabelBackground": "#0b0b0c",
+        "nodeTextColor": "#ffffff",
+        "edgeLabelColor": "#ffffff",
+        "actorBorder": "#8b5cf6",
+        "actorBkg": "#1f1f23",
+        "actorTextColor": "#ffffff",
+        "sequenceNumberColor": "#ffffff",
+        "signalColor": "#8b5cf6",
+        "signalTextColor": "#ffffff",
+        "textColor": "#ffffff",
+        "classText": "#ffffff",
+        "classBorder": "#8b5cf6",
+        "classBkg": "#1f1f23"
+      },
+      "svg": "<svg id=\"mermaid-svg-1795020936543-35\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1049.75\" height=\"891\" viewBox=\"-66.375 -27 1049.75 891\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Completed Journey Map → Does It Include at Least One Moment ofFriction, Hesitation, or Drop-off theTeam Finds Uncomfortable to Acknowledge? → Likely a Happy-path, Idealized Map:Revisit with Real Research → Likely Grounded in RealResearch and Honest Synthesis\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Completed Journey Map → Does It Include at Least One Moment ofFriction, Hesitation, or Drop-off theTeam Finds Uncomfortable to Acknowledge? → Likely a Happy-path, Idealized Map:Revisit with Real Research → Likely Grounded in RealResearch and Honest Synthesis</title><style>#mermaid-svg-1795020936543-35{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020936543-35 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020936543-35 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020936543-35 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020936543-35 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020936543-35 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020936543-35 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020936543-35 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020936543-35 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020936543-35 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020936543-35 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020936543-35 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020936543-35 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020936543-35 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020936543-35 p{margin:0;}#mermaid-svg-1795020936543-35 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020936543-35 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020936543-35 .cluster-label span{color:#171A17;}#mermaid-svg-1795020936543-35 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020936543-35 .label text,#mermaid-svg-1795020936543-35 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020936543-35 .node rect,#mermaid-svg-1795020936543-35 .node circle,#mermaid-svg-1795020936543-35 .node ellipse,#mermaid-svg-1795020936543-35 .node polygon,#mermaid-svg-1795020936543-35 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020936543-35 .rough-node .label text,#mermaid-svg-1795020936543-35 .node .label text,#mermaid-svg-1795020936543-35 .image-shape .label,#mermaid-svg-1795020936543-35 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020936543-35 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020936543-35 .rough-node .label,#mermaid-svg-1795020936543-35 .node .label,#mermaid-svg-1795020936543-35 .image-shape .label,#mermaid-svg-1795020936543-35 .icon-shape .label{text-align:center;}#mermaid-svg-1795020936543-35 .node.clickable{cursor:pointer;}#mermaid-svg-1795020936543-35 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020936543-35 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020936543-35 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020936543-35 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020936543-35 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020936543-35 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020936543-35 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020936543-35 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020936543-35 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020936543-35 .cluster text{fill:#171A17;}#mermaid-svg-1795020936543-35 .cluster span{color:#171A17;}#mermaid-svg-1795020936543-35 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020936543-35 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020936543-35 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020936543-35 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020936543-35 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020936543-35 .icon-shape,#mermaid-svg-1795020936543-35 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020936543-35 .icon-shape p,#mermaid-svg-1795020936543-35 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020936543-35 .icon-shape .label rect,#mermaid-svg-1795020936543-35 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020936543-35 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020936543-35 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020936543-35 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020936543-35 [data-look=\"neo\"].node rect,#mermaid-svg-1795020936543-35 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020936543-35 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020936543-35-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020936543-35 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020936543-35 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020936543-35-gradient);stroke-width:1px;}#mermaid-svg-1795020936543-35 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020936543-35 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020936543-35 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020936543-35-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020936543-35 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020936543-35 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020936543-35-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020936543-35 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020936543-35-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020936543-35 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020936543-35_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020936543-35_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020936543-35_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020936543-35_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020936543-35_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020936543-35_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020936543-35_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020936543-35_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020936543-35_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020936543-35_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020936543-35_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020936543-35_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M537.625,82L537.625,88.917C537.625,95.833,537.625,109.667,537.625,122.833C537.625,136,537.625,148.5,537.625,154.75L537.625,161\" id=\"mermaid-svg-1795020936543-35-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NTM3LjYyNSwieSI6ODJ9LHsieCI6NTM3LjYyNSwieSI6MTIzLjV9LHsieCI6NTM3LjYyNSwieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020936543-35_flowchart-v2-pointEnd)\"></path><path d=\"M360.986,603.861L346.009,620.467C331.032,637.074,301.079,670.287,286.102,694.977C271.125,719.667,271.125,735.833,271.125,743.917L271.125,752\" id=\"mermaid-svg-1795020936543-35-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6MzYwLjk4NTc2NTEyNDU1NTE0LCJ5Ijo2MDMuODYwNzY1MTI0NTU1Mn0seyJ4IjoyNzEuMTI1LCJ5Ijo3MDMuNX0seyJ4IjoyNzEuMTI1LCJ5Ijo3NTZ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020936543-35_flowchart-v2-pointEnd)\"></path><path d=\"M714.264,603.861L729.241,620.467C744.218,637.074,774.171,670.287,789.148,694.977C804.125,719.667,804.125,735.833,804.125,743.917L804.125,752\" id=\"mermaid-svg-1795020936543-35-L_B_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_D_0\" data-points=\"W3sieCI6NzE0LjI2NDIzNDg3NTQ0NDgsInkiOjYwMy44NjA3NjUxMjQ1NTUyfSx7IngiOjgwNC4xMjUsInkiOjcwMy41fSx7IngiOjgwNC4xMjUsInkiOjc1Nn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020936543-35_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(271.125, 703.5)\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-122.25, -30)\"><foreignObject width=\"244.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>No, Entirely Smooth,<br>No Uncomfortable Friction</p></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(804.125, 703.5)\"><g class=\"label\" data-id=\"L_B_D_0\" transform=\"translate(-130.75, -30)\"><foreignObject width=\"261.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Yes, Includes Genuine, Even<br>Uncomfortable Friction</p></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020936543-35-flowchart-A-0\" data-look=\"classic\" transform=\"translate(537.625, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-137.25\" y=\"-35\" width=\"274.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-105.25, -19)\"><rect></rect><foreignObject width=\"210.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Completed Journey Map</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020936543-35-flowchart-B-1\" data-look=\"classic\" transform=\"translate(537.625, 408)\"><polygon points=\"243,0 486,-243 243,-486 0,-243\" class=\"label-container\" transform=\"translate(-242.5, 243)\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-186, -41)\"><rect></rect><foreignObject width=\"372\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Does It Include at Least One Moment of<br>Friction, Hesitation, or Drop-off the<br>Team Finds Uncomfortable to Acknowledge?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020936543-35-flowchart-C-3\" data-look=\"classic\" transform=\"translate(271.125, 810)\"><rect class=\"basic label-container\" style=\"\" x=\"-196.75\" y=\"-46\" width=\"393.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-164.75, -30)\"><rect></rect><foreignObject width=\"329.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Likely a Happy-path, Idealized Map:<br>Revisit with Real Research</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020936543-35-flowchart-D-5\" data-look=\"classic\" transform=\"translate(804.125, 810)\"><rect class=\"basic label-container\" style=\"\" x=\"-171.25\" y=\"-46\" width=\"342.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-139.25, -30)\"><rect></rect><foreignObject width=\"278.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Likely Grounded in Real<br>Research and Honest Synthesis</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020936543-35-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020936543-35-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020936543-35-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+      "blockId": "blk_91faf5190b"
+    },
+    {
+      "type": "companyExample",
+      "company": "The LEGO Group",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "**The LEGO Group**'s digital customer-experience work offers a more verifiable illustration than the vague \"well-known UX case study\" version of this example often repeated online. In a first-person account of a LEGO.com navigation redesign, the designer leading the project described grounding the redesign in direct research across the site's three distinct primary audiences: casual shoppers, active researchers comparing sets, and \"AFOLs\" (Adult Fans of LEGO), gathered through usability tests, surveys, and analytics, rather than starting from an assumed, idealized navigation structure. The friction points that surfaced (confusing entry points depending on why a visitor had actually come to the site) were specific to how each segment behaved in practice, not something an assumption-based map, built without that segmented behavioral research, would have reliably surfaced.",
+          "blockId": "blk_babfee6ef6"
+        },
+        {
+          "type": "paragraph",
+          "text": "This is a useful caution as much as an endorsement: a commonly circulated \"LEGO customer journey map\" image (sometimes called the \"Experience Wheel,\" depicting a persona's flight itinerary) is frequently misattributed online as an official LEGO Group case study, when it appears instead to be a UX-methodology teaching example unrelated to LEGO's own retail or e-commerce work. This lesson deliberately avoids citing that widely shared but unverifiable artifact.",
+          "blockId": "blk_166e5b9fe6"
+        }
+      ],
+      "assumptionFlags": [
+        "the navigation-redesign account above is a single practitioner's first-person case study rather than an official LEGO Group publication, and this curriculum does not claim certainty about the company's complete, current internal research methodology."
+      ],
+      "blockId": "blk_9366315859"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "At a startup",
+          "body": "Journey maps are often built quickly and informally, based on a small number of early user observations or interviews, and are typically focused narrowly on the single most critical process for the business at that stage, frequently first-time onboarding, since early-stage products are especially vulnerable to losing new users during their very first experience with the product."
+        },
+        {
+          "context": "At a mid-size company",
+          "body": "Journey mapping often becomes a more structured, cross-functional exercise, combining interview findings with actual behavioral analytics (drop-off rates, time-on-step data) to validate that the mapped friction points reflect real, quantifiable patterns rather than a small number of anecdotal accounts, directly echoing Lesson 11's complementary-methods framework applied specifically to journey construction."
+        },
+        {
+          "context": "At Big Tech",
+          "body": "Journey mapping at scale often involves extensive quantitative instrumentation, allowing teams to observe drop-off and friction at a granular, statistically robust level across an enormous user base, but this can create a specific risk of over-relying on quantitative drop-off data alone without pairing it with qualitative research (interviews, direct observation) to understand the emotional and cognitive *why* behind a given friction point, echoing Lesson 11's warning against over-relying on quantitative methods without qualitative depth."
+        }
+      ],
+      "blockId": "blk_4abebfabed"
+    },
+    {
+      "type": "caseStudy",
+      "title": "The Onboarding Map That Skipped the Detour",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Consider a simplified, illustrative scenario common across B2C subscription products.",
+          "blockId": "blk_21efbc8545"
+        },
+        {
+          "type": "paragraph",
+          "text": "A meal-kit subscription company builds a journey map of its new-customer onboarding process, based primarily on the team's own understanding of the intended flow: sign up, select a meal plan, complete the first order, receive the first delivery, cook the first meal. The map is clean, linear, and entirely happy-path, with no significant friction points identified at any stage.",
+          "blockId": "blk_4b1a2445c7"
+        },
+        {
+          "type": "paragraph",
+          "text": "A subsequent round of customer interviews (Lesson 12), conducted using past-behavior questions specifically about the first two weeks of the subscription, reveals a substantially messier reality for a meaningful share of customers: several respondents describe pausing their subscription immediately after the first delivery because the volume of food felt overwhelming relative to their actual weekly cooking capacity, several describe confusion about how to skip a week when traveling (a feature that existed but was difficult to locate), and one respondent specifically describes contacting customer support in frustration after failing to find the skip-week option, ultimately canceling the subscription entirely rather than continuing to search for it.",
+          "blockId": "blk_f3fe809c38"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong?**",
+          "blockId": "blk_79a839db37"
+        },
+        {
+          "type": "paragraph",
+          "text": "Applying this lesson's frameworks:",
+          "blockId": "blk_f9b16c706d"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**The original map was built from the team's assumed, idealized version of the process, not from research.** It reflected how the onboarding flow was designed to work, not how real customers actually experienced it.",
+            "**The map was entirely happy-path**, with no included friction, hesitation, or drop-off points, precisely the warning sign the Journey Map Truth Test is designed to catch.",
+            "**The map recorded only intended actions, not the actual thoughts and emotions (feeling overwhelmed, confused, frustrated) that interviews later revealed**: the specific detail (a confusing, hard-to-locate skip-week feature, and the emotional escalation from confusion to frustration to cancellation) that most directly pointed toward an actionable design fix."
+          ],
+          "blockId": "blk_db864c01c7"
+        },
+        {
+          "type": "paragraph",
+          "text": "A team applying this lesson's discipline from the outset would have built the original map from real interview findings and behavioral data (Lesson 11), and would very likely have identified the skip-week confusion and portion-size overwhelm as genuine, research-grounded pain points requiring design attention, well before losing customers to a friction point the happy-path map had entirely missed.",
+          "blockId": "blk_3b90fba06d"
+        },
+        {
+          "type": "paragraph",
+          "text": "This case will be revisited in **Lesson 16 (Pain Points)**, where we cover techniques for prioritizing among the multiple pain points a well-constructed journey map is likely to surface.",
+          "blockId": "blk_67e2767b4a"
+        }
+      ],
+      "blockId": "blk_8c5e352f37"
+    },
+    {
+      "type": "framework",
+      "name": "The Journey Map Construction Checklist",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A practical checklist for building a genuinely useful, research-grounded journey map:",
+          "blockId": "blk_5f2d21f769"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Step",
+            "Question to Answer"
+          ],
+          "rows": [
+            [
+              "**Scope**",
+              "Is this map built for one specific, validated persona (Lesson 14) and one specific, well-defined process, not an attempt to map everything at once?"
+            ],
+            [
+              "**Source**",
+              "Is each stage, action, thought, and pain point drawn from actual research (interviews, behavioral data) rather than the team's assumed or idealized version of the process?"
+            ],
+            [
+              "**Completeness**",
+              "Does the map include genuine friction, hesitation, and drop-off points, not only the happy path?"
+            ],
+            [
+              "**Depth**",
+              "Does the map capture thoughts and emotions at each stage, not just observable actions?"
+            ],
+            [
+              "**Currency**",
+              "Was the underlying research conducted recently enough to still reflect the current product and market, or does the map need to be revisited?"
+            ]
+          ],
+          "blockId": "blk_6e577c992d"
+        },
+        {
+          "type": "paragraph",
+          "text": "A journey map that fails several of these checks is not necessarily worthless as a first draft or hypothesis, but should not be treated as a finished, trustworthy artifact. Much like Lesson 11's general research trustworthiness checklist, this list distinguishes a genuinely useful synthesis from one that merely looks complete.",
+          "blockId": "blk_fdf8bd13e2"
+        }
+      ],
+      "blockId": "blk_a82b589b2d"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "Walk me through how you'd build a journey map for a specific onboarding process.",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate grounds the process in actual research (interviews, behavioral data) rather than describing a purely internal, assumption-based exercise. A strong answer explicitly names the research inputs and describes capturing thoughts/emotions alongside actions, not just a sequence of screens."
+        },
+        {
+          "question": "You've built a journey map with no significant friction points identified anywhere. What's your reaction?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Fluency with the Journey Map Truth Test, whether the candidate immediately suspects a happy-path-only map built from assumption, rather than accepting a frictionless map as evidence of a genuinely smooth process."
+        },
+        {
+          "question": "How would you decide the right scope for a journey map: one process, or the whole product experience?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Awareness of the scoping discipline this lesson emphasizes, recognizing that an overly broad map loses the specific, actionable detail that makes journey mapping valuable, echoing the \"for everyone\" and \"too many personas\" failure patterns from earlier lessons."
+        }
+      ],
+      "blockId": "blk_bbb975acf1"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A user journey map visually represents a specific persona's stages, actions, thoughts/emotions, touchpoints, and pain points while moving through a specific, well-defined process. Like personas (Lesson 14), journey maps must be built from genuine research (past-behavior interviews and behavioral analytics) rather than a team's idealized or assumed version of the process, since an assumption-based map tends to reflect intended design rather than lived reality and often omits uncomfortable friction points. The \"happy path only\" failure pattern produces a clean-looking but misleading map that misses detours, abandoned attempts, and workarounds experienced by a meaningful share of real users. Capturing thoughts and emotions alongside actions is essential, since two users can take identical actions while having very different internal experiences, and the emotional/cognitive detail is often what points most directly toward an actionable fix. Finally, a useful journey map is scoped narrowly (one specific persona, one specific process), since attempting to map the entire user experience at once produces an artifact too broad to retain useful specificity.",
+          "blockId": "blk_86e0b128c3"
+        }
+      ],
+      "blockId": "blk_9f9eeae89e"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "A journey map's core components are stages, actions, thoughts/emotions, touchpoints, and pain points, built for one specific persona moving through one specific process.",
+        "Journey maps must be grounded in genuine research (interviews, behavioral data), not the team's idealized or assumed version of a process, which risks reflecting intended design rather than lived reality.",
+        "The \"happy path only\" failure pattern produces a clean but misleading map that omits real detours, abandoned attempts, and workarounds.",
+        "Capturing thoughts and emotions, not just actions, is essential: identical action sequences can reflect very different underlying experiences, and the emotional detail often points most directly to an actionable fix.",
+        "A map with no uncomfortable, team-implicating friction points at all is a reliable warning sign of an idealized, assumption-based map (the Journey Map Truth Test).",
+        "Journey maps should be scoped to one persona and one process, not an attempt to map the entire user experience at once.",
+        "Like personas, journey maps should be periodically revisited as the underlying product, market, and user behavior evolve."
+      ],
+      "blockId": "blk_72564a083e"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "**Core components:** stages, actions, thoughts/emotions, touchpoints, pain points.",
+        "**Scope to one persona, one process**: not the entire user experience at once.",
+        "**Build from research, not assumption**: same discipline as Lesson 14's personas.",
+        "**Avoid \"happy path only\"**: include real detours, drop-offs, and workarounds.",
+        "**Capture thoughts and emotions, not just actions**: identical actions can hide very different experiences.",
+        "**Journey Map Truth Test:** no uncomfortable friction anywhere = likely an idealized, assumption-based map.",
+        "**Revisit periodically** as product, market, and behavior evolve."
+      ],
+      "blockId": "blk_1c13b44884"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "User Journey Map",
+          "definition": "A visual representation of a specific persona's stages, actions, thoughts/emotions, touchpoints, and pain points through a specific process.",
+          "relatedConcepts": [
+            "Persona (Lesson 14)",
+            "Pain Points (Lesson 16)"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Touchpoint",
+          "definition": "A specific product screen, communication, or interaction point involved at a stage of a journey.",
+          "relatedConcepts": [
+            "User Journey Map"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "Happy Path",
+          "definition": "The primary, most common scenario in a user journey or use case where everything goes as intended, with no significant friction, errors, or detours.",
+          "relatedConcepts": [
+            "Happy Path Only (Failure Pattern)"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Happy Path Only (Failure Pattern)",
+          "definition": "The mistake of building a journey map that represents only the smoothest version of a process, omitting real friction and detours.",
+          "relatedConcepts": [
+            "Journey Map Truth Test"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Journey Map Truth Test",
+          "definition": "A diagnostic checking whether a journey map includes genuine, uncomfortable friction points, as a signal of research-grounded (versus assumption-based) construction.",
+          "relatedConcepts": [
+            "Persona Substance Test (Lesson 14)"
+          ],
+          "difficulty": 3
+        }
+      ],
+      "blockId": "blk_d982112535"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "Jim Kalbach, *Mapping Experiences*",
+          "note": "a widely used, detailed treatment of journey mapping methodology, including guidance on grounding maps in real research rather than assumption."
+        },
+        {
+          "citation": "Adaptive Path's publicly available journey mapping guides and case studies",
+          "note": "practical, widely referenced examples of research-grounded journey map construction."
+        },
+        {
+          "citation": "Kim Goodwin, *Designing for the Digital Age*",
+          "note": "connects journey mapping directly to persona-based design (echoing Lesson 14) within a broader user-centered design methodology."
+        }
+      ],
+      "blockId": "blk_2fedfb0e57"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_ftgikz",
+      "cards": [
+        {
+          "id": "fc-les_ftgikz-1",
+          "front": "What are the five core components of a user journey map?",
+          "back": "Stages, actions, thoughts/emotions, touchpoints, and pain points.",
+          "difficulty": 1,
+          "tags": [
+            "journey-map-components"
+          ]
+        },
+        {
+          "id": "fc-les_ftgikz-2",
+          "front": "Why must a journey map be built from research rather than a team's assumed process flow?",
+          "back": "An assumption-based map tends to reflect how the team designed the process to work, not how users actually experience it, and often omits uncomfortable friction points the team is inclined to overlook.",
+          "difficulty": 2,
+          "tags": [
+            "research-grounded-mapping"
+          ]
+        },
+        {
+          "id": "fc-les_ftgikz-3",
+          "front": "What is the \"happy path only\" failure pattern?",
+          "back": "Building a journey map that represents only the smoothest, most successful version of a process, omitting real detours, abandoned attempts, and workarounds experienced by real users.",
+          "difficulty": 2,
+          "tags": [
+            "happy-path-only"
+          ]
+        },
+        {
+          "id": "fc-les_ftgikz-4",
+          "front": "Why is it important to capture thoughts and emotions, not just actions, in a journey map?",
+          "back": "Two users can take an identical sequence of actions while having very different internal experiences (confidence vs. confusion), and the emotional/cognitive detail often points most directly toward an actionable design fix.",
+          "difficulty": 2,
+          "tags": [
+            "thoughts-emotions"
+          ]
+        },
+        {
+          "id": "fc-les_ftgikz-5",
+          "front": "What is the Journey Map Truth Test?",
+          "back": "A diagnostic checking whether a completed journey map includes at least one genuine, uncomfortable friction point. A map with no such friction anywhere is a reliable warning sign of an idealized, assumption-based map.",
+          "difficulty": 3,
+          "tags": [
+            "journey-map-truth-test"
+          ]
+        },
+        {
+          "id": "fc-les_ftgikz-6",
+          "front": "What is the correct scope for a useful journey map?",
+          "back": "One specific, validated persona moving through one specific, well-defined process, not an attempt to map \"the entire user experience\" at once.",
+          "difficulty": 2,
+          "tags": [
+            "journey-map-scope"
+          ]
+        },
+        {
+          "id": "fc-les_ftgikz-7",
+          "front": "In the Detailed Case Study, what specific friction point did the original happy-path map miss, and what was its consequence?",
+          "back": "A confusing, hard-to-locate \"skip a week\" feature, which led at least one customer to contact support in frustration and ultimately cancel rather than continue searching for it.",
+          "difficulty": 3,
+          "tags": [
+            "case-study"
+          ]
+        }
+      ],
+      "blockId": "blk_3c9d44b055"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "You are the PM for a personal budgeting app, mapping the journey of a new user connecting their first bank account.",
+        "Work through the following, in writing, before reading further:",
+        "List the stages you would expect this specific journey to include, from first considering connecting an account through successfully seeing their transaction data.",
+        "For one stage, write both an action (\"clicks 'connect account'\") and a plausible corresponding thought/emotion (e.g., hesitation about security) that a real user might experience at that step.",
+        "Describe one plausible \"detour\" or non-happy-path moment a real user might experience during this journey (e.g., their specific bank isn't supported, or a security concern causes them to abandon partway through).",
+        "Apply the Journey Map Truth Test to a hypothetical map your team drafted that shows zero friction anywhere in this process. What would you do in response?",
+        "Referencing Lesson 12's interview techniques, write one past-behavior question you would ask a real user to validate whether your draft journey map accurately reflects their actual experience.",
+        "There is no single correct answer. The purpose of this exercise is to practice building a journey map that captures genuine friction and emotional detail, rather than defaulting to a clean, happy-path assumption."
+      ],
+      "blockId": "blk_4d257666ce"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_ftgikz",
+      "questions": [
+        {
+          "id": "q-les_ftgikz-1",
+          "question": "Which of the following is NOT one of the five core components of a user journey map described in this lesson?",
+          "options": [
+            "Stages",
+            "Competitor pricing",
+            "Touchpoints",
+            "Thoughts and emotions"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The five are stages, actions, thoughts/emotions, touchpoints, and pain points. What rivals charge belongs to competitive analysis, not to a map of one persona's experience.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_ftgikz-2",
+          "question": "Why is a journey map built from a team's idealized, assumed version of a process considered risky, according to this lesson?",
+          "options": [
+            "Because idealized processes prove technically infeasible to build",
+            "Because assumption-based maps take longer to build than researched ones",
+            "Because an idealized map cannot be presented visually",
+            "Because it reflects intended design, not lived experience"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The map ends up describing how the team meant the flow to work. It is especially prone to omitting the friction that would implicate a decision someone in the room championed.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_ftgikz-3",
+          "question": "What is the \"happy path only\" failure pattern?",
+          "options": [
+            "Building a map covering more than one persona at the same time",
+            "Building a map with touchpoints but no stages or actions listed",
+            "Building a map without producing any accompanying visual diagram",
+            "Building a map of the smoothest version, omitting friction and detours"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The result looks clean and presentable and leaves out the backtracking, the workarounds, and the people who gave up, which is most of what a map is for.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_ftgikz-4",
+          "question": "Why is it important for a journey map to capture thoughts and emotions in addition to actions?",
+          "options": [
+            "Because emotions are easier to measure reliably than actions are",
+            "Because recorded actions are inaccurate in essentially every case",
+            "Because identical actions can hide different experiences",
+            "Because thoughts and emotions are the sole required map component"
+          ],
+          "correctAnswer": 2,
+          "explanation": "One user clicks through confidently, another clicks through anxious but with no alternative. The action log is identical, and the two call for entirely different design responses.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_ftgikz-5",
+          "question": "According to the Journey Map Truth Test, what should a reviewer suspect about a journey map that shows zero friction anywhere in the process?",
+          "options": [
+            "That the map was built from quantitative behavioural data alone",
+            "That the process is genuinely flawless and needs no investigation",
+            "That the map carries too much detail and should be simplified",
+            "That it is likely idealized, since real processes carry some friction"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Any nontrivial process produces some friction for someone. Its total absence from a map says more about how the map was built than about how the process runs.",
+          "objectivesTested": [
+            2,
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_ftgikz-6",
+          "question": "What is the recommended scope for a single journey map, according to this lesson?",
+          "options": [
+            "One specific validated persona moving through one well-defined process",
+            "Every persona identified, mapped through a single generic process",
+            "The entire product experience, across all personas and processes",
+            "Narrow scoping should be avoided, since broader maps prove useful"
+          ],
+          "correctAnswer": 0,
+          "explanation": "A map covering everything abstracts away the concrete detail that made it worth drawing. This is the \"for everyone\" failure from Lesson 7, arriving at the level of process.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_ftgikz-7",
+          "question": "In the Detailed Case Study, what specific research method revealed the friction the original happy-path map had missed?",
+          "options": [
+            "A large-scale quantitative survey of the full subscriber base",
+            "Past-behavior interviews about the first two weeks",
+            "A focus group conducted with members of the product team",
+            "A competitive analysis of rival meal-kit subscription products"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Asking what actually happened in those two weeks surfaced the portion-size overwhelm and the hunt for the skip-week control. A team focus group would have reproduced the idealized map.",
+          "objectivesTested": [
+            2,
+            3
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_ftgikz-8",
+          "question": "What specific consequence resulted from the hard-to-locate \"skip a week\" feature in the Detailed Case Study?",
+          "options": [
+            "A customer contacted support in frustration and then cancelled",
+            "The customer located the feature after only a brief further search",
+            "The feature was removed in the following release",
+            "The customer recommended the product despite the difficulty faced"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The escalation ran from confusion to frustration to cancellation. None of those three steps appeared anywhere on the original map, which showed a clean path through the same period.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_ftgikz-9",
+          "question": "(Scenario) A team is deciding whether to build one comprehensive journey map covering \"the entire customer lifecycle\" or several narrower maps for specific processes (onboarding, renewal, cancellation). According to this lesson, which approach is recommended, and why?",
+          "options": [
+            "Several narrower maps, which retain concrete, usable detail",
+            "One comprehensive map, since covering everything at once is efficient",
+            "Neither, since maps should never exceed a single touchpoint in scope",
+            "The choice does not matter, since scope has no bearing on usefulness"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Onboarding friction and cancellation friction are different problems with different stages and emotions. Forced into one artefact, both lose the specificity that would make either actionable.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_ftgikz-10",
+          "question": "(Product Thinking) A journey map shows a smooth, linear happy path with high emotional confidence at every single stage, based entirely on the design team's understanding of the intended onboarding flow. What should a PM do before trusting this map?",
+          "options": [
+            "Accept it, since a clean journey shows good design",
+            "Apply the Truth Test and check it against real research first",
+            "Add further visual polish so the map presents more convincingly",
+            "Assume accuracy, since the design team produced the artefact itself"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Two warning signs coincide here: no friction anywhere, and no source outside the team that designed the flow. Either alone would warrant validation before the map drives decisions.",
+          "objectivesTested": [
+            2,
+            3
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_ftgikz-11",
+          "question": "(Interview Reasoning) An interviewer asks a candidate to describe a journey map they've built, and the candidate's description includes no mention of any friction, hesitation, or drop-off points anywhere in the process. What might this signal, based on this lesson's Interview Perspective section?",
+          "options": [
+            "An exceptionally well-designed process needing no further scrutiny",
+            "Nothing of note, since frictionless maps are the normal outcome",
+            "Evidence the candidate is unsuited to any product research role",
+            "A possible sign the map came from assumption rather than research"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The interviewer is applying the Truth Test to the candidate's account. A map that implicates nothing usually means nobody went and asked the people who struggled.",
+          "objectivesTested": [
+            2,
+            3
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_ftgikz-12",
+          "question": "(Product Thinking, Higher Difficulty) A team has behavioral analytics showing a sharp drop-off at a specific onboarding step, but no qualitative research explaining why users are dropping off at that point. According to this lesson and Lesson 11's complementary-methods framework, what should the team do next?",
+          "options": [
+            "Redesign the step immediately, working from the drop-off rate alone",
+            "Treat the drop-off as unimportant, since only quantitative data exists",
+            "Interview users who dropped off, to learn why the behaviour occurs",
+            "Disregard the analytics and rely on the team's assumption"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The analytics establish that and how much; they are silent on why. That gap is precisely what the thoughts-and-emotions row of a journey map exists to fill, and it needs qualitative work to fill it.",
+          "objectivesTested": [
+            2,
+            4
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_ftgikz-13",
+          "question": "(Interview Reasoning, Higher Difficulty) A candidate is asked how they would scope a journey map for a complex, multi-featured product with several distinct user segments. A weak answer would most likely propose which of the following?",
+          "options": [
+            "Attempt one comprehensive map spanning all segments and processes",
+            "Build several narrower maps, each scoped to one persona and process",
+            "Prioritise which processes matter most strategically before mapping",
+            "Ground each map in research specific to that persona and process"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Breadth feels thorough and produces an artefact too abstract to act on. The other three each narrow the scope or strengthen the evidence behind it.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_ftgikz-14",
+          "question": "(Product Thinking, Higher Difficulty) A journey map accurately identifies several genuine, research-grounded pain points, but the team has not yet decided which one to address first. What lesson does this scenario most directly set up?",
+          "options": [
+            "Lesson 9, which covers product vision and long-term direction",
+            "Lesson 16, which covers prioritising among identified pain points",
+            "Lesson 7, which covers value proposition and positioning work",
+            "Lesson 5, which covers the distinction between users and customers"
+          ],
+          "correctAnswer": 1,
+          "explanation": "A good map reliably surfaces more friction than a team can address at once, which makes comparing those pain points the immediate next problem.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_ftgikz-15",
+          "question": "(Highest Difficulty) A team builds a journey map using both past-behavior interviews and behavioral analytics, correctly scoped to one persona and one process, and including genuine friction points with associated thoughts and emotions, but the underlying research was conducted four years ago, before a significant product redesign. According to this lesson, what is the most appropriate response?",
+          "options": [
+            "Continue using it indefinitely, since the original method was sound",
+            "Assume it holds, because rigorous methods were used at the time",
+            "Treat it as potentially outdated and revalidate the mapped stages with fresh research",
+            "Discard it and rebuild from team assumption, since research costs time"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Method quality does not survive a redesign. The same currency principle that applies to personas and visions applies here: the map was right about a product that no longer exists.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_84c26233c0"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_89s8go",
+        "title": "Lesson 14: Personas",
+        "module": "discovery"
+      },
+      "current": {
+        "id": "les_ftgikz",
+        "title": "Lesson 15: User Journey Mapping"
+      },
+      "next": {
+        "id": "les_ta3qpf",
+        "title": "Lesson 16: Pain Points",
+        "module": "discovery"
+      },
+      "unlocks": [
+        {
+          "lesson": {
+            "id": "les_4s6aif",
+            "title": "Problem Statements",
+            "module": "discovery"
+          },
+          "coreIdea": "Formalizes a prioritized pain point, surfaced through journey mapping, into a structured, testable problem statement"
+        }
+      ],
+      "blockId": "blk_046b131581"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 15: User Journey Mapping Lesson 14 gave you a way to represent *who* a user is: their job, goals, and pain points, synthesized into a single referenceable artifact. This lesson gives you a way to represent *what actually happens to them over time*: the full sequence of steps, emotions, and touchpoints a persona moves through while trying to accomplish their job, from the first moment they realize they have a problem to well after they've (hopefully) solved it. A **user journey map** is a visual, chronological representation of a specific persona's experience across a specific process, showing not just what they do at each step, but what they think and feel while doing it, and where the friction actually lives. This lesson matters because pain points, discussed in the abstract in Lesson 14, often become far more actionable once they're placed on a timeline. A pain point floating free of context (\"users find onboarding confusing\") is vague enough to argue about; a pain point pinned to a specific step in a specific journey (\"62% of users abandon during the third onboarding screen, specifically after being asked to connect a bank account before seeing any value\") is concrete enough to actually design around. Journey mapping is the discipline of building that timeline honestly, grounded in the same research rigor from Lessons 11 through 13, not in a team's assumption about how a process \"should\" flow. Define a user journey map and identify its core components: stages, actions, thoughts/emotions, touchpoints, and pain points. Distinguish a journey map built from real research (interviews, behavioral data) from one built from a team's assumed or idealized version of a process. Identify the \"happy path only\" failure pattern and explain why it produces an incomplete, misleading map. Apply journey mapping to identify specific moments of friction, drop-off, or emotional low points that warrant further investigation or design attention. Distinguish a journey map's scope (a specific persona, a specific process) from an attempt to map \"the entire user experience\" at once, and explain why the latter produces an unusably broad artifact. Lesson 12 (Customer Interviews) and Lesson 14 (Personas). This lesson assumes you can conduct or reference past-behavior-based interview findings and have (or can construct) a genuine, research-based persona: a journey map is most useful when built for a specific, validated persona moving through a specific, well-defined process, not for an undifferentiated \"the user\" in the abstract. The Core Definition and Components A user journey map visually represents the sequence of steps a specific persona takes while pursuing a specific goal, alongside their actions, thoughts, and emotions at each step, and the touchpoints (specific product screens, communications, or interactions) involved. The standard components are: **Stages**: the major phases of the journey (e.g., awareness, consideration, onboarding, active use, renewal or churn). **Actions**: what the persona actually does at each stage, ideally drawn from observed or reported behavior rather than assumption. **Thoughts and emotions**: what the persona is thinking and feeling at each step (confusion, confidence, frustration, relief), which often reveals more about where design attention is needed than the actions alone. **Touchpoints**: the specific product screens, emails, support interactions, or other concrete points of contact involved at each stage. **Pain points and opportunities**: specific moments of friction, confusion, or drop-off, and any corresponding opportunity for improvement. Journey Maps Built from Research vs. Assumption Precisely as Lesson 14 warned about assumption-based personas, a journey map built from a team's idealized or assumed version of \"how the process works\", rather than from actual research, carries exactly the same risk: it tends to reflect how the team designed the process to work, rather than how real users actually experience it, and it is especially prone to omitting friction points that are uncomfortable for the team to acknowledge (a confusing step the team itself designed, a drop-off point tied to a decision a stakeholder championed). A genuinely research-grounded journey map draws on: **Past-behavior interview findings (Lesson 12)**: specific, concrete accounts of what actually happened at each stage, rather than a general description of the intended flow. **Behavioral/analytics data (revealed preference, per Lesson 11)**: actual drop-off rates, time-on-step, and navigation patterns, which can reveal friction points a team's mental model of the process entirely misses. **Direct observation, where possible**: watching a real user move through the actual process, rather than relying solely on their retrospective account of it (which can be subject to the same recall limitations and social desirability effects covered in Lesson 11). The \"Happy Path Only\" Failure Pattern A specific, common failure in journey mapping is building a map that only represents the **happy path**: the smoothest, most successful version of the journey, in which the user encounters no significant friction and proceeds cleanly from one stage to the next. This produces a map that looks clean and presentable, but that fails to represent the actual, often messier reality experienced by a meaningful share of real users, including detours, abandoned attempts, workarounds, and points where users backtrack or seek external help. This directly echoes Lesson 8's discovery theater concern and Lesson 13's sampling bias concern: a journey map is a research synthesis artifact, and if the underlying research (or the map's construction) systematically excludes the messier, less successful parts of the real experience, the resulting map, however polished, will mislead a team into believing the process is smoother than it actually is for a meaningful portion of real users. Distinguishing Actions from Thoughts and Emotions A common, more subtle mistake is building a journey map that documents only actions (what the user clicked, what screen they were on) without capturing thoughts and emotions at each step. This is a significant loss, because two users can take the identical sequence of actions while having very different internal experiences (one confident and satisfied, another confused and anxious but proceeding anyway out of necessity), and a map that records only the action sequence cannot distinguish between these two very different underlying experiences, even though they likely call for very different design responses. Thoughts and emotions are also frequently where the most actionable insight lives: an action-only map might show \"user clicks 'connect bank account'\" without revealing that, per interview findings, several users hesitated at this step specifically because they weren't sure why a bank connection was necessary before they'd seen any concrete product value, an emotional and cognitive detail (uncertainty, a request for justification) that directly suggests a design fix (explaining the \"why\" before requesting the connection) that the action alone would never surface. Scoping a Journey Map: One Persona, One Process A final, important discipline is scope: a useful journey map is built for **one specific persona** moving through **one specific, well-defined process** (e.g., \"first-time onboarding,\" \"monthly billing and renewal,\" \"canceling a subscription\"), not an attempt to map \"the entire user experience\" of a complex product in a single artifact. Attempting the latter produces a map so broad and abstracted that it loses the specific, concrete detail that makes journey mapping useful in the first place, echoing Lesson 7's \"for everyone\" value proposition failure and Lesson 14's \"too many personas\" failure at a process-mapping level: an artifact that tries to represent everything ends up representing nothing with useful specificity. Building a journey map from the team's idealized version of the process, rather than from research This inherits the same risk as an assumption-based persona (Lesson 14): the map reflects how the team designed the process to work, not how users actually experience it, and tends to omit uncomfortable friction points. Mapping only the \"happy path. A map excluding detours, abandoned attempts, and workarounds misrepresents the actual range of real user experience and can lead a team to underestimate how much friction genuinely exists. Recording only actions, without thoughts and emotions An action-only map cannot distinguish between a confident, satisfied user and a confused, anxious one taking the identical sequence of steps, losing exactly the detail most likely to point toward an actionable design fix. Attempting to map \"the entire user experience\" in a single journey map This produces an artifact too broad and abstracted to retain the specific, concrete detail that makes journey mapping useful. Scope should be narrowed to one persona and one specific process. Treating a journey map as a one-time artifact that never needs revisiting As the underlying product, market, or user behavior changes (echoing Lesson 14's persona-updating guidance), a journey map built from research conducted long ago may no longer accurately reflect the current, real experience. The Journey Map Truth Test This lesson's mental model is the **Journey Map Truth Test**: a quick diagnostic for evaluating whether a completed journey map reflects genuine research or an idealized team assumption. Apply this test whenever reviewing a journey map presented to you: a map with no uncomfortable, team-implicating friction points at all is a specific and reliable warning sign, precisely because real user experiences of any nontrivial process virtually always include at least some genuine friction. Its complete absence usually indicates the map was built from an idealized assumption rather than honest research. The LEGO Group **The LEGO Group**'s digital customer-experience work offers a more verifiable illustration than the vague \"well-known UX case study\" version of this example often repeated online. In a first-person account of a LEGO.com navigation redesign, the designer leading the project described grounding the redesign in direct research across the site's three distinct primary audiences: casual shoppers, active researchers comparing sets, and \"AFOLs\" (Adult Fans of LEGO), gathered through usability tests, surveys, and analytics, rather than starting from an assumed, idealized navigation structure. The friction points that surfaced (confusing entry points depending on why a visitor had actually come to the site) were specific to how each segment behaved in practice, not something an assumption-based map, built without that segmented behavioral research, would have reliably surfaced. This is a useful caution as much as an endorsement: a commonly circulated \"LEGO customer journey map\" image (sometimes called the \"Experience Wheel,\" depicting a persona's flight itinerary) is frequently misattributed online as an official LEGO Group case study, when it appears instead to be a UX-methodology teaching example unrelated to LEGO's own retail or e-commerce work. This lesson deliberately avoids citing that widely shared but unverifiable artifact. At a startup Journey maps are often built quickly and informally, based on a small number of early user observations or interviews, and are typically focused narrowly on the single most critical process for the business at that stage, frequently first-time onboarding, since early-stage products are especially vulnerable to losing new users during their very first experience with the product. At a mid-size company Journey mapping often becomes a more structured, cross-functional exercise, combining interview findings with actual behavioral analytics (drop-off rates, time-on-step data) to validate that the mapped friction points reflect real, quantifiable patterns rather than a small number of anecdotal accounts, directly echoing Lesson 11's complementary-methods framework applied specifically to journey construction. At Big Tech Journey mapping at scale often involves extensive quantitative instrumentation, allowing teams to observe drop-off and friction at a granular, statistically robust level across an enormous user base, but this can create a specific risk of over-relying on quantitative drop-off data alone without pairing it with qualitative research (interviews, direct observation) to understand the emotional and cognitive *why* behind a given friction point, echoing Lesson 11's warning against over-relying on quantitative methods without qualitative depth. The Onboarding Map That Skipped the Detour Consider a simplified, illustrative scenario common across B2C subscription products. A meal-kit subscription company builds a journey map of its new-customer onboarding process, based primarily on the team's own understanding of the intended flow: sign up, select a meal plan, complete the first order, receive the first delivery, cook the first meal. The map is clean, linear, and entirely happy-path, with no significant friction points identified at any stage. A subsequent round of customer interviews (Lesson 12), conducted using past-behavior questions specifically about the first two weeks of the subscription, reveals a substantially messier reality for a meaningful share of customers: several respondents describe pausing their subscription immediately after the first delivery because the volume of food felt overwhelming relative to their actual weekly cooking capacity, several describe confusion about how to skip a week when traveling (a feature that existed but was difficult to locate), and one respondent specifically describes contacting customer support in frustration after failing to find the skip-week option, ultimately canceling the subscription entirely rather than continuing to search for it. **What went wrong?** Applying this lesson's frameworks: **The original map was built from the team's assumed, idealized version of the process, not from research.** It reflected how the onboarding flow was designed to work, not how real customers actually experienced it. **The map was entirely happy-path**, with no included friction, hesitation, or drop-off points, precisely the warning sign the Journey Map Truth Test is designed to catch. **The map recorded only intended actions, not the actual thoughts and emotions (feeling overwhelmed, confused, frustrated) that interviews later revealed**: the specific detail (a confusing, hard-to-locate skip-week feature, and the emotional escalation from confusion to frustration to cancellation) that most directly pointed toward an actionable design fix. A team applying this lesson's discipline from the outset would have built the original map from real interview findings and behavioral data (Lesson 11), and would very likely have identified the skip-week confusion and portion-size overwhelm as genuine, research-grounded pain points requiring design attention, well before losing customers to a friction point the happy-path map had entirely missed. This case will be revisited in **Lesson 16 (Pain Points)**, where we cover techniques for prioritizing among the multiple pain points a well-constructed journey map is likely to surface. The Journey Map Construction Checklist A practical checklist for building a genuinely useful, research-grounded journey map: A journey map that fails several of these checks is not necessarily worthless as a first draft or hypothesis, but should not be treated as a finished, trustworthy artifact. Much like Lesson 11's general research trustworthiness checklist, this list distinguishes a genuinely useful synthesis from one that merely looks complete. Walk me through how you'd build a journey map for a specific onboarding process. *What the interviewer is actually evaluating:* Whether the candidate grounds the process in actual research (interviews, behavioral data) rather than describing a purely internal, assumption-based exercise. A strong answer explicitly names the research inputs and describes capturing thoughts/emotions alongside actions, not just a sequence of screens. You've built a journey map with no significant friction points identified anywhere. What's your reaction? *What the interviewer is actually evaluating:* Fluency with the Journey Map Truth Test, whether the candidate immediately suspects a happy-path-only map built from assumption, rather than accepting a frictionless map as evidence of a genuinely smooth process. How would you decide the right scope for a journey map: one process, or the whole product experience? *What the interviewer is actually evaluating:* Awareness of the scoping discipline this lesson emphasizes, recognizing that an overly broad map loses the specific, actionable detail that makes journey mapping valuable, echoing the \"for everyone\" and \"too many personas\" failure patterns from earlier lessons. A user journey map visually represents a specific persona's stages, actions, thoughts/emotions, touchpoints, and pain points while moving through a specific, well-defined process. Like personas (Lesson 14), journey maps must be built from genuine research (past-behavior interviews and behavioral analytics) rather than a team's idealized or assumed version of the process, since an assumption-based map tends to reflect intended design rather than lived reality and often omits uncomfortable friction points. The \"happy path only\" failure pattern produces a clean-looking but misleading map that misses detours, abandoned attempts, and workarounds experienced by a meaningful share of real users. Capturing thoughts and emotions alongside actions is essential, since two users can take identical actions while having very different internal experiences, and the emotional/cognitive detail is often what points most directly toward an actionable fix. Finally, a useful journey map is scoped narrowly (one specific persona, one specific process), since attempting to map the entire user experience at once produces an artifact too broad to retain useful specificity. A journey map's core components are stages, actions, thoughts/emotions, touchpoints, and pain points, built for one specific persona moving through one specific process. Journey maps must be grounded in genuine research (interviews, behavioral data), not the team's idealized or assumed version of a process, which risks reflecting intended design rather than lived reality. The \"happy path only\" failure pattern produces a clean but misleading map that omits real detours, abandoned attempts, and workarounds. Capturing thoughts and emotions, not just actions, is essential: identical action sequences can reflect very different underlying experiences, and the emotional detail often points most directly to an actionable fix. A map with no uncomfortable, team-implicating friction points at all is a reliable warning sign of an idealized, assumption-based map (the Journey Map Truth Test). Journey maps should be scoped to one persona and one process, not an attempt to map the entire user experience at once. Like personas, journey maps should be periodically revisited as the underlying product, market, and user behavior evolve. **Core components:** stages, actions, thoughts/emotions, touchpoints, pain points. **Scope to one persona, one process**: not the entire user experience at once. **Build from research, not assumption**: same discipline as Lesson 14's personas. **Avoid \"happy path only\"**: include real detours, drop-offs, and workarounds. **Capture thoughts and emotions, not just actions**: identical actions can hide very different experiences. **Journey Map Truth Test:** no uncomfortable friction anywhere = likely an idealized, assumption-based map. **Revisit periodically** as product, market, and behavior evolve. User Journey Map A visual representation of a specific persona's stages, actions, thoughts/emotions, touchpoints, and pain points through a specific process. Touchpoint A specific product screen, communication, or interaction point involved at a stage of a journey. Happy Path The primary, most common scenario in a user journey or use case where everything goes as intended, with no significant friction, errors, or detours. Happy Path Only (Failure Pattern) The mistake of building a journey map that represents only the smoothest version of a process, omitting real friction and detours. Journey Map Truth Test A diagnostic checking whether a journey map includes genuine, uncomfortable friction points, as a signal of research-grounded (versus assumption-based) construction. Jim Kalbach, *Mapping Experiences* a widely used, detailed treatment of journey mapping methodology, including guidance on grounding maps in real research rather than assumption. Adaptive Path's publicly available journey mapping guides and case studies practical, widely referenced examples of research-grounded journey map construction. Kim Goodwin, *Designing for the Digital Age* connects journey mapping directly to persona-based design (echoing Lesson 14) within a broader user-centered design methodology. What are the five core components of a user journey map? Stages, actions, thoughts/emotions, touchpoints, and pain points. Why must a journey map be built from research rather than a team's assumed process flow? An assumption-based map tends to reflect how the team designed the process to work, not how users actually experience it, and often omits uncomfortable friction points the team is inclined to overlook. What is the \"happy path only\" failure pattern? Building a journey map that represents only the smoothest, most successful version of a process, omitting real detours, abandoned attempts, and workarounds experienced by real users. Why is it important to capture thoughts and emotions, not just actions, in a journey map? Two users can take an identical sequence of actions while having very different internal experiences (confidence vs. confusion), and the emotional/cognitive detail often points most directly toward an actionable design fix. What is the Journey Map Truth Test? A diagnostic checking whether a completed journey map includes at least one genuine, uncomfortable friction point. A map with no such friction anywhere is a reliable warning sign of an idealized, assumption-based map. What is the correct scope for a useful journey map? One specific, validated persona moving through one specific, well-defined process, not an attempt to map \"the entire user experience\" at once. In the Detailed Case Study, what specific friction point did the original happy-path map miss, and what was its consequence? A confusing, hard-to-locate \"skip a week\" feature, which led at least one customer to contact support in frustration and ultimately cancel rather than continue searching for it. You are the PM for a personal budgeting app, mapping the journey of a new user connecting their first bank account. Work through the following, in writing, before reading further: List the stages you would expect this specific journey to include, from first considering connecting an account through successfully seeing their transaction data. For one stage, write both an action (\"clicks 'connect account'\") and a plausible corresponding thought/emotion (e.g., hesitation about security) that a real user might experience at that step. Describe one plausible \"detour\" or non-happy-path moment a real user might experience during this journey (e.g., their specific bank isn't supported, or a security concern causes them to abandon partway through). Apply the Journey Map Truth Test to a hypothetical map your team drafted that shows zero friction anywhere in this process. What would you do in response? Referencing Lesson 12's interview techniques, write one past-behavior question you would ask a real user to validate whether your draft journey map accurately reflects their actual experience. There is no single correct answer. The purpose of this exercise is to practice building a journey map that captures genuine friction and emotional detail, rather than defaulting to a clean, happy-path assumption. Which of the following is NOT one of the five core components of a user journey map described in this lesson? The five are stages, actions, thoughts/emotions, touchpoints, and pain points. What rivals charge belongs to competitive analysis, not to a map of one persona's experience. Why is a journey map built from a team's idealized, assumed version of a process considered risky, according to this lesson? The map ends up describing how the team meant the flow to work. It is especially prone to omitting the friction that would implicate a decision someone in the room championed. What is the \"happy path only\" failure pattern? The result looks clean and presentable and leaves out the backtracking, the workarounds, and the people who gave up, which is most of what a map is for. Why is it important for a journey map to capture thoughts and emotions in addition to actions? One user clicks through confidently, another clicks through anxious but with no alternative. The action log is identical, and the two call for entirely different design responses. According to the Journey Map Truth Test, what should a reviewer suspect about a journey map that shows zero friction anywhere in the process? Any nontrivial process produces some friction for someone. Its total absence from a map says more about how the map was built than about how the process runs. What is the recommended scope for a single journey map, according to this lesson? A map covering everything abstracts away the concrete detail that made it worth drawing. This is the \"for everyone\" failure from Lesson 7, arriving at the level of process. In the Detailed Case Study, what specific research method revealed the friction the original happy-path map had missed? Asking what actually happened in those two weeks surfaced the portion-size overwhelm and the hunt for the skip-week control. A team focus group would have reproduced the idealized map. What specific consequence resulted from the hard-to-locate \"skip a week\" feature in the Detailed Case Study? The escalation ran from confusion to frustration to cancellation. None of those three steps appeared anywhere on the original map, which showed a clean path through the same period. (Scenario) A team is deciding whether to build one comprehensive journey map covering \"the entire customer lifecycle\" or several narrower maps for specific processes (onboarding, renewal, cancellation). According to this lesson, which approach is recommended, and why? Onboarding friction and cancellation friction are different problems with different stages and emotions. Forced into one artefact, both lose the specificity that would make either actionable. (Product Thinking) A journey map shows a smooth, linear happy path with high emotional confidence at every single stage, based entirely on the design team's understanding of the intended onboarding flow. What should a PM do before trusting this map? Two warning signs coincide here: no friction anywhere, and no source outside the team that designed the flow. Either alone would warrant validation before the map drives decisions. (Interview Reasoning) An interviewer asks a candidate to describe a journey map they've built, and the candidate's description includes no mention of any friction, hesitation, or drop-off points anywhere in the process. What might this signal, based on this lesson's Interview Perspective section? The interviewer is applying the Truth Test to the candidate's account. A map that implicates nothing usually means nobody went and asked the people who struggled. (Product Thinking, Higher Difficulty) A team has behavioral analytics showing a sharp drop-off at a specific onboarding step, but no qualitative research explaining why users are dropping off at that point. According to this lesson and Lesson 11's complementary-methods framework, what should the team do next? The analytics establish that and how much; they are silent on why. That gap is precisely what the thoughts-and-emotions row of a journey map exists to fill, and it needs qualitative work to fill it. (Interview Reasoning, Higher Difficulty) A candidate is asked how they would scope a journey map for a complex, multi-featured product with several distinct user segments. A weak answer would most likely propose which of the following? Breadth feels thorough and produces an artefact too abstract to act on. The other three each narrow the scope or strengthen the evidence behind it. (Product Thinking, Higher Difficulty) A journey map accurately identifies several genuine, research-grounded pain points, but the team has not yet decided which one to address first. What lesson does this scenario most directly set up? A good map reliably surfaces more friction than a team can address at once, which makes comparing those pain points the immediate next problem. (Highest Difficulty) A team builds a journey map using both past-behavior interviews and behavioral analytics, correctly scoped to one persona and one process, and including genuine friction points with associated thoughts and emotions, but the underlying research was conducted four years ago, before a significant product redesign. According to this lesson, what is the most appropriate response? Method quality does not survive a redesign. The same currency principle that applies to personas and visions applies here: the map was right about a product that no longer exists.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "Mental Model: The Journey Map Truth Test",
+      "Real Company Example",
+      "Real World Perspective: User Journey Mapping at Different Company Stages",
+      "Detailed Case Study: The Onboarding Map That Skipped the Detour",
+      "Framework Explanation: The Journey Map Construction Checklist",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "User Journey Map",
+    "Touchpoint",
+    "Happy Path",
+    "Happy Path Only (Failure Pattern)",
+    "Journey Map Truth Test"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

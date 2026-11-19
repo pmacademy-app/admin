@@ -1,0 +1,258 @@
+import React from 'react'
+import { WelcomeEmail } from './templates/auth/Welcome'
+import { VerifyEmail } from './templates/auth/VerifyEmail'
+import { PasswordReset } from './templates/auth/PasswordReset'
+import { ModuleCompletedEmail } from './templates/learning/ModuleCompleted'
+import { CapstoneReviewedEmail } from './templates/learning/CapstoneReviewed'
+import { WeeklyRecap } from './templates/learning/WeeklyRecap'
+import { DailyReminder } from './templates/learning/DailyReminder'
+import { BadgeEarnedEmail } from './templates/achievement/BadgeEarned'
+import { LevelUpEmail } from './templates/achievement/LevelUp'
+import { CertificateEarned } from './templates/achievement/CertificateEarned'
+import { PortfolioPublished } from './templates/achievement/PortfolioPublished'
+import { FellowGranted } from './templates/achievement/FellowGranted'
+import { CapstonePublished } from './templates/achievement/CapstonePublished'
+import { ProofNudgeEmail } from './templates/nudges/ProofNudge'
+import { LifecycleEmail } from './templates/lifecycle/LifecycleEmail'
+import { DirectMessageEmail } from './templates/admin/DirectMessage'
+import { BRAND } from '@/lib/brand'
+
+export const EMAIL_TEMPLATE_MAP: Record<string, { component: React.ComponentType<Record<string, unknown>>; subjectLine: string }> = {
+  // Critical Auth (Always On - Direct / Hook)
+  'auth.verify_email': {
+    component: VerifyEmail,
+    subjectLine: `Confirm your ${BRAND.shortName} email address`,
+  },
+  'auth.password_reset': {
+    component: PasswordReset,
+    subjectLine: `Reset your ${BRAND.company} password`,
+  },
+  // Dedicated key for the Settings → Security → Change Email confirmation link.
+  // Kept separate from 'auth.verify_email' (used by signup) so an admin-edited
+  // custom version of one can never affect the other.
+  'auth.email_change_verify': {
+    component: VerifyEmail,
+    subjectLine: `Confirm your new ${BRAND.shortName} email address`,
+  },
+
+  // Direct Admin Messages
+  'admin.direct_message': {
+    component: DirectMessageEmail,
+    subjectLine: '{{subject}}',
+  },
+
+  // Optional Transactional Automations
+  'auth.welcome': {
+    component: WelcomeEmail,
+    subjectLine: `Welcome to ${BRAND.company}!`,
+  },
+  'learning.module_complete': {
+    component: ModuleCompletedEmail,
+    subjectLine: 'Module Complete: {{moduleName}}!',
+  },
+  'learning.capstone_reviewed': {
+    component: CapstoneReviewedEmail as unknown as React.ComponentType<Record<string, unknown>>,
+    subjectLine: 'Your capstone review for {{moduleName}} is ready',
+  },
+  'achievement.badge_earned': {
+    component: BadgeEarnedEmail,
+    subjectLine: 'New Badge Unlocked: {{badgeName}}!',
+  },
+  'achievement.level_up': {
+    component: LevelUpEmail,
+    subjectLine: 'Level Up Unlocked: Level {{newLevel}}!',
+  },
+  'achievement.certificate': {
+    component: CertificateEarned,
+    subjectLine: `Your ${BRAND.company} Certificate is Ready!`,
+  },
+  'achievement.portfolio_published': {
+    component: PortfolioPublished,
+    subjectLine: 'Your Public Portfolio is Live!',
+  },
+  'achievement.fellow_granted': {
+    component: FellowGranted,
+    subjectLine: `You're now a ${BRAND.company} PM Fellow!`,
+  },
+  'achievement.capstone_published': {
+    component: CapstonePublished,
+    subjectLine: 'Your capstone is published',
+  },
+  // Growth R5 B6/B7 proof nudges (one component; the nudge variable picks the copy).
+  'nudge.portfolio_ready': {
+    component: ProofNudgeEmail,
+    subjectLine: 'Your portfolio is ready to share',
+  },
+  'nudge.fellow_eligible': {
+    component: ProofNudgeEmail,
+    subjectLine: 'You qualify for PM Fellow',
+  },
+
+  // Scheduled Digests & Reminders
+  'learning.weekly_recap': {
+    component: WeeklyRecap,
+    subjectLine: `Your Week in ${BRAND.company}`,
+  },
+  'learning.daily_reminder': {
+    component: DailyReminder,
+    subjectLine: `Keep your learning streak alive on ${BRAND.shortName}!`,
+  },
+  'inactive.resume_learning': {
+    component: WelcomeEmail,
+    subjectLine: `Resume your learning path on ${BRAND.shortName}`,
+  },
+
+  // Phase 1.5 — Lifecycle reactivation sequences. Growth R5 B10 moved them off the
+  // generic WelcomeEmail onto LifecycleEmail: per-sequence copy, and the learner's own
+  // next proof step on the two comeback sequences. The distinct keys keep each sequence
+  // independently toggleable, idempotent, and measurable in `email_queue`.
+  'lifecycle.d1_never_started': {
+    component: LifecycleEmail,
+    subjectLine: `Ready to start your first lesson on ${BRAND.shortName}?`,
+  },
+  'lifecycle.d3_started_not_finished': {
+    component: LifecycleEmail,
+    subjectLine: `Pick up where you left off on ${BRAND.shortName}`,
+  },
+  'lifecycle.streak_broken': {
+    component: LifecycleEmail,
+    subjectLine: `Your learning streak is waiting on ${BRAND.shortName}`,
+  },
+}
+
+export function stripHtmlToPlainText(html: string): string {
+  return html
+    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&#x27;|&#39;|&apos;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+/**
+ * How an interpolated value is made safe for where it lands.
+ *
+ *  - `text`: a plain-text body. Inserted as is.
+ *  - `html`: an HTML body. HTML-escaped, so a learner-controlled value such as a
+ *    display name cannot inject markup or links into a published template. URL
+ *    variables (`appUrl`, `resetUrl`, ...) keep working inside `href="{{resetUrl}}"`:
+ *    the browser decodes `&amp;` back to `&` in an attribute value, and an escaped `"`
+ *    cannot close the attribute.
+ *  - `subject`: a header line. CR/LF and other control characters become a space so a
+ *    value cannot start a new header or split the subject.
+ */
+export type InterpolationContext = 'text' | 'html' | 'subject'
+
+export function escapeHtmlValue(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
+function toSafeValue(raw: string, context: InterpolationContext): string {
+  if (context === 'html') return escapeHtmlValue(raw)
+  if (context === 'subject') return raw.replace(/[\u0000-\u001f\u007f]+/g, ' ')
+  return raw
+}
+
+/**
+ * Interpolates `{{variableName}}` placeholders in a string.
+ *
+ * Pass `'html'` for an HTML body and `'subject'` for a subject line; the default
+ * `'text'` inserts values unchanged and is only for plain-text bodies.
+ */
+export function interpolateVariables(
+  template: string,
+  variables: Record<string, unknown>,
+  context: InterpolationContext = 'text'
+): string {
+  if (!template) return ''
+  return template.replace(/\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g, (_, key) => {
+    if (key in variables && variables[key] !== undefined && variables[key] !== null) {
+      return toSafeValue(String(variables[key]), context)
+    }
+    return ''
+  })
+}
+
+/**
+ * Renders an email template with published database version precedence.
+ * Precedence:
+ * 1. Published version from `notification_template_versions` (if exists and status === 'published')
+ *    — this is the ONLY path for admin-created custom HTML templates, which have
+ *    no static component in EMAIL_TEMPLATE_MAP.
+ * 2. Static React Email component from `EMAIL_TEMPLATE_MAP` (fallback for built-in
+ *    transactional/lifecycle templates that ship in code).
+ */
+export async function renderEmailTemplate(
+  templateKey: string,
+  variables: Record<string, unknown>
+): Promise<{ html: string; text: string; subject: string }> {
+  const entry = EMAIL_TEMPLATE_MAP[templateKey]
+
+  // 1. Check for a published custom version in the database. Checked BEFORE
+  // requiring a static entry so admin-created templates (which only ever exist
+  // in the database) can be rendered too — bypassed in test env to preserve
+  // unit test fetch mocks.
+  if (!process.env.VITEST && process.env.NODE_ENV !== 'test') {
+    try {
+      const { createServiceRoleClient } = await import('@/lib/supabase')
+      const supabase = createServiceRoleClient()
+      const { data: tpl } = await supabase
+        .from('notification_templates')
+        .select('id')
+        .eq('template_key', templateKey)
+        .maybeSingle()
+
+      if (tpl?.id) {
+        const { data: publishedVersion } = await supabase
+          .from('notification_template_versions')
+          .select('subject_line, body_html, body_text')
+          .eq('template_id', tpl.id)
+          .eq('status', 'published')
+          .order('version', { ascending: false })
+          .limit(1)
+          .maybeSingle()
+
+        if (publishedVersion && publishedVersion.body_html?.trim()) {
+          const rawSubject = publishedVersion.subject_line || entry?.subjectLine || 'Update from Prodily'
+          const subject = interpolateVariables(rawSubject, variables, 'subject')
+          const interpolatedHtml = interpolateVariables(publishedVersion.body_html, variables, 'html')
+          const html = interpolatedHtml.startsWith('<!DOCTYPE') ? interpolatedHtml : `<!DOCTYPE html>${interpolatedHtml}`
+          const text = publishedVersion.body_text
+            ? interpolateVariables(publishedVersion.body_text, variables)
+            : stripHtmlToPlainText(interpolatedHtml)
+
+          return { html, text, subject }
+        }
+      }
+    } catch (err) {
+      // Database lookup failed — gracefully fall back to static component
+      console.warn(`[renderEmailTemplate] Fallback to static component for '${templateKey}':`, err)
+    }
+  }
+
+  // 2. Default / Static React Email Component Fallback
+  if (!entry) {
+    throw new Error(`Email template '${templateKey}' has no published version and is not registered in EMAIL_TEMPLATE_MAP.`)
+  }
+
+  const Component = entry.component
+  const element = React.createElement(Component, variables)
+  const { renderToStaticMarkup } = await import('react-dom/server')
+  const rawHtml = renderToStaticMarkup(element)
+  const html = `<!DOCTYPE html>${rawHtml}`
+  const text = stripHtmlToPlainText(rawHtml)
+  const subject = interpolateVariables(entry.subjectLine, variables, 'subject')
+
+  return { html, text, subject }
+}

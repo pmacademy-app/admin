@@ -1,0 +1,912 @@
+{
+  "schemaVersion": 2,
+  "id": "les_9ep1op",
+  "contentHash": "1ef362b9924fab660d53cb12d008e88801049114c1ed19d98d36f3691cefd645",
+  "title": "Working with Design Teams",
+  "slug": "lesson-038",
+  "module": "execution",
+  "order": 8,
+  "totalInModule": 10,
+  "difficulty": 4,
+  "estimatedReadingTime": 35,
+  "estimatedCompletionTime": 50,
+  "prerequisites": [
+    "les_8psivf",
+    "les_ryzl1c"
+  ],
+  "sourceFile": "content/lessons/lesson-038.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 38: Working with Design Teams",
+      "blockId": "blk_c9a78008d9"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 37 addressed the PM-engineering relationship in depth. This lesson addresses its close parallel, the PM-design relationship, because although the underlying principle is the same (trust the domain expert with their domain), the specific failure modes are different enough to deserve their own treatment. Where the classic engineering mistake is handing over a fully-specified technical solution, the classic design mistake is bringing design in too late, after the problem has already been implicitly solved by the PM's own assumptions about what the interface should look like, leaving design to prettify a decision that was never actually theirs to shape.",
+      "blockId": "blk_c9d9af0fd6"
+    },
+    {
+      "type": "paragraph",
+      "text": "This matters because design, done well, is not decoration applied after a decision is made; it is a core method of exploring the solution space itself, often surfacing problems with an approach that would otherwise only be discovered after expensive engineering work has already begun. A PM who involves design only at the end, to \"make it look nice,\" is not just under-using a valuable resource: they are removing one of the cheapest, earliest opportunities to catch a bad idea before it becomes an expensive one.",
+      "blockId": "blk_c220aa7474"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "Explain why involving design early, during problem definition rather than after a solution is chosen, tends to produce better outcomes than involving design only at the visual-polish stage.",
+        "Apply the fidelity ladder (low, mid, high fidelity) to match a design artifact's polish to the actual certainty behind the underlying decision.",
+        "Describe the Double Diamond framework and use it to identify which phase of design work a given moment in a project actually calls for.",
+        "Diagnose \"premature high-fidelity\" (a specific, common failure where polished mockups create false attachment to an unvalidated idea) and explain why it's costly.",
+        "Apply the same \"give context, not commands\" principle from Lesson 37 to the PM-design relationship specifically, distinguishing user needs and constraints (PM's domain) from visual and interaction solutions (design's domain)."
+      ],
+      "blockId": "blk_6c44d3e73c"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson assumes **Lesson 8's** grounding in product discovery (the practice of understanding user problems before committing to solutions), since good design collaboration is, in large part, an extension of discovery practice into the visual and interaction domain. It also directly assumes **Lesson 37's** \"give context, not commands\" principle and Trust Ladder, since this lesson largely mirrors that framework, adapted for the specific dynamics of working with designers rather than engineers.",
+      "blockId": "blk_96755c7db6"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Design as Exploration, Not Decoration",
+          "blockId": "blk_76049bbe9e"
+        },
+        {
+          "type": "paragraph",
+          "text": "The most consequential mental shift a PM can make about design is recognizing it as a method for exploring and pressure-testing a solution space, not a finishing step applied after the \"real\" decisions have already been made elsewhere. A PM who arrives at a design conversation having already decided the interface's layout, flow, and interaction pattern, asking design only to \"make it look good\", has skipped past the phase where design's distinct expertise (understanding how users actually perceive, navigate, and form mental models of an interface) could have meaningfully shaped the underlying decision, not just its surface appearance.",
+          "blockId": "blk_b47da9701b"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Double Diamond",
+          "blockId": "blk_598dc0d959"
+        },
+        {
+          "type": "paragraph",
+          "text": "A widely used framework, originally developed by the UK Design Council, describes the design process as two consecutive diamonds, each expanding into divergent exploration before converging on a decision:",
+          "blockId": "blk_d07ccd8ba0"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_8b8cdfae06",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[Discover Diverge: Explore the Problem] --> B[Define Converge:<br/>Commit to a Specific Problem]\r\n    B --> C[Develop Diverge: Explore Solutions]\r\n    C --> D[Deliver Converge:<br/>Commit to a Specific Solution]",
+          "normalized": "graph LR\r\n    A[Discover Diverge: Explore the Problem] --> B[Define Converge:<br/>Commit to a Specific Problem]\r\n    B --> C[Develop Diverge: Explore Solutions]\r\n    C --> D[Deliver Converge:<br/>Commit to a Specific Solution]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020952694-105\" xmlns=\"http://www.w3.org/2000/svg\" width=\"2300\" height=\"143\" viewBox=\"-70.625 -27 2300 143\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Discover Diverge: Explore the Problem → Define Converge:Commit to a Specific Problem → Develop Diverge: Explore Solutions → Deliver Converge:Commit to a Specific Solution\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Discover Diverge: Explore the Problem → Define Converge:Commit to a Specific Problem → Develop Diverge: Explore Solutions → Deliver Converge:Commit to a Specific Solution</title><style>#mermaid-svg-1795020952694-105{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020952694-105 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020952694-105 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020952694-105 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020952694-105 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020952694-105 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020952694-105 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020952694-105 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020952694-105 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020952694-105 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020952694-105 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020952694-105 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020952694-105 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020952694-105 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020952694-105 p{margin:0;}#mermaid-svg-1795020952694-105 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020952694-105 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020952694-105 .cluster-label span{color:#171A17;}#mermaid-svg-1795020952694-105 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020952694-105 .label text,#mermaid-svg-1795020952694-105 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020952694-105 .node rect,#mermaid-svg-1795020952694-105 .node circle,#mermaid-svg-1795020952694-105 .node ellipse,#mermaid-svg-1795020952694-105 .node polygon,#mermaid-svg-1795020952694-105 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020952694-105 .rough-node .label text,#mermaid-svg-1795020952694-105 .node .label text,#mermaid-svg-1795020952694-105 .image-shape .label,#mermaid-svg-1795020952694-105 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020952694-105 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020952694-105 .rough-node .label,#mermaid-svg-1795020952694-105 .node .label,#mermaid-svg-1795020952694-105 .image-shape .label,#mermaid-svg-1795020952694-105 .icon-shape .label{text-align:center;}#mermaid-svg-1795020952694-105 .node.clickable{cursor:pointer;}#mermaid-svg-1795020952694-105 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020952694-105 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020952694-105 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020952694-105 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020952694-105 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020952694-105 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020952694-105 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020952694-105 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020952694-105 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020952694-105 .cluster text{fill:#171A17;}#mermaid-svg-1795020952694-105 .cluster span{color:#171A17;}#mermaid-svg-1795020952694-105 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020952694-105 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020952694-105 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020952694-105 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020952694-105 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020952694-105 .icon-shape,#mermaid-svg-1795020952694-105 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020952694-105 .icon-shape p,#mermaid-svg-1795020952694-105 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020952694-105 .icon-shape .label rect,#mermaid-svg-1795020952694-105 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020952694-105 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020952694-105 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020952694-105 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020952694-105 [data-look=\"neo\"].node rect,#mermaid-svg-1795020952694-105 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020952694-105 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020952694-105-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020952694-105 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020952694-105 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020952694-105-gradient);stroke-width:1px;}#mermaid-svg-1795020952694-105 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020952694-105 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020952694-105 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020952694-105-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020952694-105 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020952694-105 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020952694-105-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020952694-105 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020952694-105-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020952694-105 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020952694-105_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020952694-105_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020952694-105_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020952694-105_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020952694-105_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020952694-105_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020952694-105_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020952694-105_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020952694-105_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020952694-105_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020952694-105_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020952694-105_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M559.75,62L568.5,62C577.25,62,594.75,62,611.583,62C628.417,62,644.583,62,652.667,62L660.75,62\" id=\"mermaid-svg-1795020952694-105-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NTU5Ljc1LCJ5Ijo2Mn0seyJ4Ijo2MTIuMjUsInkiOjYyfSx7IngiOjY2NC43NSwieSI6NjJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020952694-105_flowchart-v2-pointEnd)\"></path><path d=\"M1101.75,62L1110.5,62C1119.25,62,1136.75,62,1153.583,62C1170.417,62,1186.583,62,1194.667,62L1202.75,62\" id=\"mermaid-svg-1795020952694-105-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6MTEwMS43NSwieSI6NjJ9LHsieCI6MTE1NC4yNSwieSI6NjJ9LHsieCI6MTIwNi43NSwieSI6NjJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020952694-105_flowchart-v2-pointEnd)\"></path><path d=\"M1720.25,62L1729,62C1737.75,62,1755.25,62,1772.083,62C1788.917,62,1805.083,62,1813.167,62L1821.25,62\" id=\"mermaid-svg-1795020952694-105-L_C_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_D_0\" data-points=\"W3sieCI6MTcyMC4yNSwieSI6NjJ9LHsieCI6MTc3Mi43NSwieSI6NjJ9LHsieCI6MTgyNS4yNSwieSI6NjJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020952694-105_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020952694-105-flowchart-A-0\" data-look=\"classic\" transform=\"translate(283.875, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-205.25\" y=\"-35\" width=\"410.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-173.25, -19)\"><rect></rect><foreignObject width=\"346.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Discover Diverge: Explore the Problem</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020952694-105-flowchart-B-1\" data-look=\"classic\" transform=\"translate(883.25, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-167\" y=\"-46\" width=\"334\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-135, -30)\"><rect></rect><foreignObject width=\"270\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Define Converge:<br>Commit to a Specific Problem</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020952694-105-flowchart-C-3\" data-look=\"classic\" transform=\"translate(1463.5, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-192.5\" y=\"-35\" width=\"385\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-160.5, -19)\"><rect></rect><foreignObject width=\"321\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Develop Diverge: Explore Solutions</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020952694-105-flowchart-D-5\" data-look=\"classic\" transform=\"translate(2050.125, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-171.25\" y=\"-46\" width=\"342.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-139.25, -30)\"><rect></rect><foreignObject width=\"278.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Deliver Converge:<br>Commit to a Specific Solution</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020952694-105-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020952694-105-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020952694-105-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_8b8cdfae06"
+        },
+        {
+          "type": "paragraph",
+          "text": "The critical insight, easy to miss at a glance, is that there are *two* distinct divergent phases: one exploring the problem itself (Discover), and a separate one exploring possible solutions (Develop), each followed by a deliberate narrowing (Define, Deliver). A PM who invites design in only at the \"Deliver\" stage has skipped both divergent phases entirely, asking design to visually finish a solution whose problem framing and solution exploration were never actually opened up for genuine design input. This directly parallels Lesson 8's discovery discipline: design has its own discovery process, and skipping it produces the same risk (building the wrong thing, confidently) that skipping user discovery does elsewhere in the product process.",
+          "blockId": "blk_a6bd1aa5ec"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Fidelity as a Signal of Certainty",
+          "blockId": "blk_80733dd3d9"
+        },
+        {
+          "type": "paragraph",
+          "text": "A second, closely related concept concerns *how polished* a design artifact should be at a given stage of certainty:",
+          "blockId": "blk_671b0c3e8c"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_77a27cb127",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[\"Low Fidelity (sketches, Wireframes)\"] --> B[\"Mid Fidelity (clickable<br/>Prototypes, Grayscale Flows)\"]\r\n    B --> C[\"High Fidelity (polished,<br/>Pixel-accurate Visual Design)\"]",
+          "normalized": "graph LR\r\n    A[\"Low Fidelity (sketches, Wireframes)\"] --> B[\"Mid Fidelity (clickable<br/>Prototypes, Grayscale Flows)\"]\r\n    B --> C[\"High Fidelity (polished,<br/>Pixel-accurate Visual Design)\"]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020952840-106\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1651.75\" height=\"143\" viewBox=\"-66.375 -27 1651.75 143\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Low Fidelity (sketches, Wireframes) → Mid Fidelity (clickablePrototypes, Grayscale Flows) → High Fidelity (polished,Pixel-accurate Visual Design)\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Low Fidelity (sketches, Wireframes) → Mid Fidelity (clickablePrototypes, Grayscale Flows) → High Fidelity (polished,Pixel-accurate Visual Design)</title><style>#mermaid-svg-1795020952840-106{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020952840-106 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020952840-106 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020952840-106 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020952840-106 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020952840-106 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020952840-106 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020952840-106 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020952840-106 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020952840-106 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020952840-106 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020952840-106 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020952840-106 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020952840-106 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020952840-106 p{margin:0;}#mermaid-svg-1795020952840-106 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020952840-106 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020952840-106 .cluster-label span{color:#171A17;}#mermaid-svg-1795020952840-106 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020952840-106 .label text,#mermaid-svg-1795020952840-106 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020952840-106 .node rect,#mermaid-svg-1795020952840-106 .node circle,#mermaid-svg-1795020952840-106 .node ellipse,#mermaid-svg-1795020952840-106 .node polygon,#mermaid-svg-1795020952840-106 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020952840-106 .rough-node .label text,#mermaid-svg-1795020952840-106 .node .label text,#mermaid-svg-1795020952840-106 .image-shape .label,#mermaid-svg-1795020952840-106 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020952840-106 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020952840-106 .rough-node .label,#mermaid-svg-1795020952840-106 .node .label,#mermaid-svg-1795020952840-106 .image-shape .label,#mermaid-svg-1795020952840-106 .icon-shape .label{text-align:center;}#mermaid-svg-1795020952840-106 .node.clickable{cursor:pointer;}#mermaid-svg-1795020952840-106 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020952840-106 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020952840-106 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020952840-106 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020952840-106 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020952840-106 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020952840-106 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020952840-106 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020952840-106 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020952840-106 .cluster text{fill:#171A17;}#mermaid-svg-1795020952840-106 .cluster span{color:#171A17;}#mermaid-svg-1795020952840-106 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020952840-106 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020952840-106 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020952840-106 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020952840-106 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020952840-106 .icon-shape,#mermaid-svg-1795020952840-106 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020952840-106 .icon-shape p,#mermaid-svg-1795020952840-106 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020952840-106 .icon-shape .label rect,#mermaid-svg-1795020952840-106 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020952840-106 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020952840-106 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020952840-106 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020952840-106 [data-look=\"neo\"].node rect,#mermaid-svg-1795020952840-106 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020952840-106 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020952840-106-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020952840-106 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020952840-106 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020952840-106-gradient);stroke-width:1px;}#mermaid-svg-1795020952840-106 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020952840-106 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020952840-106 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020952840-106-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020952840-106 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020952840-106 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020952840-106-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020952840-106 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020952840-106-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020952840-106 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020952840-106_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020952840-106_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020952840-106_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020952840-106_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020952840-106_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020952840-106_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020952840-106_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020952840-106_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020952840-106_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020952840-106_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020952840-106_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020952840-106_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M534.25,62L543,62C551.75,62,569.25,62,586.083,62C602.917,62,619.083,62,627.167,62L635.25,62\" id=\"mermaid-svg-1795020952840-106-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NTM0LjI1LCJ5Ijo2Mn0seyJ4Ijo1ODYuNzUsInkiOjYyfSx7IngiOjYzOS4yNSwieSI6NjJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020952840-106_flowchart-v2-pointEnd)\"></path><path d=\"M1076.25,62L1085,62C1093.75,62,1111.25,62,1128.083,62C1144.917,62,1161.083,62,1169.167,62L1177.25,62\" id=\"mermaid-svg-1795020952840-106-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6MTA3Ni4yNSwieSI6NjJ9LHsieCI6MTEyOC43NSwieSI6NjJ9LHsieCI6MTE4MS4yNSwieSI6NjJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020952840-106_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020952840-106-flowchart-A-0\" data-look=\"classic\" transform=\"translate(271.125, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-196.75\" y=\"-35\" width=\"393.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-164.75, -19)\"><rect></rect><foreignObject width=\"329.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Low Fidelity (sketches, Wireframes)</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020952840-106-flowchart-B-1\" data-look=\"classic\" transform=\"translate(857.75, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-167\" y=\"-46\" width=\"334\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-135, -30)\"><rect></rect><foreignObject width=\"270\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Mid Fidelity (clickable<br>Prototypes, Grayscale Flows)</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020952840-106-flowchart-C-3\" data-look=\"classic\" transform=\"translate(1406.125, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-171.25\" y=\"-46\" width=\"342.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-139.25, -30)\"><rect></rect><foreignObject width=\"278.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>High Fidelity (polished,<br>Pixel-accurate Visual Design)</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020952840-106-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020952840-106-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020952840-106-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_77a27cb127"
+        },
+        {
+          "type": "paragraph",
+          "text": "Low-fidelity artifacts are cheap to produce and cheap to discard, making them appropriate for early exploration when the underlying idea itself is still uncertain: a hand-drawn sketch invites genuine feedback and revision in a way a polished mockup does not, because it visibly signals \"this is still an open question.\" High-fidelity artifacts are expensive to produce and, critically, tend to create a psychological sense of finality and ownership disproportionate to how validated the underlying idea actually is, a mistake this lesson calls **premature high-fidelity**, covered in detail in the Case Study below. The general rule: fidelity should track actual certainty, mirroring Lesson 35's Confidence Gradient principle applied here to design artifacts rather than roadmap items.",
+          "blockId": "blk_5163beb6bc"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Applying \"Give Context, Not Commands\" to Design",
+          "blockId": "blk_25ce87b603"
+        },
+        {
+          "type": "paragraph",
+          "text": "Lesson 37 established that a PM's job is to convey the problem, user need, and constraints precisely, while trusting the domain expert to own the solution space. Applied to design, this means a PM should be highly specific about the *user problem* being solved, the *constraints* that matter (technical limitations, brand guidelines, accessibility requirements, existing design system components), and the *outcome* being targeted, while resisting the urge to dictate specific layouts, visual treatments, or interaction patterns, which is squarely design's domain, just as technical architecture is squarely engineering's.",
+          "blockId": "blk_f4dab7ddd9"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "PM's Domain (context to convey precisely)",
+            "Design's Domain (solution space to own)"
+          ],
+          "rows": [
+            [
+              "The user problem and evidence behind it",
+              "Specific layout, visual hierarchy, interaction pattern"
+            ],
+            [
+              "Business and technical constraints",
+              "How to communicate information visually"
+            ],
+            [
+              "Success criteria / what \"solved\" looks like",
+              "Which existing design system components to use or extend"
+            ],
+            [
+              "Priority and timeline",
+              "Exact copy, iconography, and micro-interaction choices (within brand guidelines)"
+            ]
+          ],
+          "blockId": "blk_92018c8004"
+        }
+      ],
+      "blockId": "blk_86ecf7db37"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Bringing design in only at the \"make it pretty\" stage",
+          "body": "As covered in Theory, this skips both of the Double Diamond's divergent phases, wasting design's ability to meaningfully shape problem framing and solution exploration, and reduces the relationship to a visual-polish service rather than a genuine partnership."
+        },
+        {
+          "title": "Commissioning high-fidelity mockups before the underlying idea has been validated",
+          "body": "This is \"premature high-fidelity\": producing a level of visual polish that creates false attachment and a false sense of finality around an idea that hasn't actually earned that level of certainty yet, covered in full in this lesson's Case Study."
+        },
+        {
+          "title": "Dictating specific layouts or visual treatments instead of describing the user problem and constraints",
+          "body": "This is the design-specific version of Lesson 37's Mistake 1: substituting the PM's own visual preference for design's domain expertise, often producing a worse outcome than trusting design with full context."
+        },
+        {
+          "title": "Treating design feedback sessions as approval checkpoints rather than genuine collaboration",
+          "body": "A PM who shows design a nearly-finished mockup expecting only a rubber-stamp \"looks good\" has effectively excluded design from the actual decision-making process, even if the meeting nominally included them."
+        },
+        {
+          "title": "Skipping user testing on a design because \"the team already likes it.",
+          "body": "Internal team enthusiasm for a design is not evidence that real users will understand or successfully use it, conflating internal consensus with user validation is a distinct and common failure, especially once a polished mockup has generated internal excitement (see Mistake 2).\n\n"
+        }
+      ],
+      "blockId": "blk_5e2dccab4e"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The Exploration Window",
+      "diagram": {
+        "blockId": "blk_798e224dba",
+        "type": "mermaid"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "This lesson's core takeaway tool is not about polish level (that is Lesson 25's Fidelity Ladder, applied here only as a supporting idea in Theory). It is about *timing*: the specific point in a problem's lifecycle during which involving design still counts as exploration, versus the point after which it can only ever be decoration.",
+          "blockId": "blk_40922f7bb8"
+        },
+        {
+          "type": "paragraph",
+          "text": "Use the Exploration Window as a standing check on your own behavior, not just design's: before looping design in, ask \"have I already, even informally, decided what this should look like?\" If the honest answer is yes (if you're arriving with a near-final layout in your head rather than a named problem), the window has already closed, regardless of what the calendar invite calls the meeting. Re-opening it means consciously setting your own mental picture aside and handing over the problem statement instead, per \"Give Context, Not Commands\" below.",
+          "blockId": "blk_a5db2be6ab"
+        }
+      ],
+      "blockId": "blk_e37e30bf75"
+    },
+    {
+      "type": "mermaid",
+      "id": "blk_798e224dba",
+      "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[\"Problem Named<br/>(window open)\"] --> B[\"Design Explores<br/>Multiple Directions\"]\r\n    B --> C[\"PM + Design Converge<br/>on a Direction (window closing)\"]\r\n    C --> D[\"Solution Specified<br/>(window closed)\"]\r\n    D -.->|\"Design brought in here<br/>can only decorate, not explore\"| E[\"Prettified Predetermined Solution\"]",
+      "normalized": "graph LR\r\n    A[\"Problem Named<br/>(window open)\"] --> B[\"Design Explores<br/>Multiple Directions\"]\r\n    B --> C[\"PM + Design Converge<br/>on a Direction (window closing)\"]\r\n    C --> D[\"Solution Specified<br/>(window closed)\"]\r\n    D -.->|\"Design brought in here<br/>can only decorate, not explore\"| E[\"Prettified Predetermined Solution\"]",
+      "authorTheme": {
+        "background": "#0b0b0c",
+        "primaryColor": "#1f1f23",
+        "primaryTextColor": "#ffffff",
+        "primaryBorderColor": "#8b5cf6",
+        "lineColor": "#d1d5db",
+        "secondaryColor": "#18181b",
+        "tertiaryColor": "#111111",
+        "mainBkg": "#1f1f23",
+        "nodeBorder": "#8b5cf6",
+        "clusterBkg": "#000000",
+        "clusterBorder": "#27272a",
+        "titleColor": "#ffffff",
+        "edgeLabelBackground": "#0b0b0c",
+        "nodeTextColor": "#ffffff",
+        "edgeLabelColor": "#ffffff",
+        "actorBorder": "#8b5cf6",
+        "actorBkg": "#1f1f23",
+        "actorTextColor": "#ffffff",
+        "sequenceNumberColor": "#ffffff",
+        "signalColor": "#8b5cf6",
+        "signalTextColor": "#ffffff",
+        "textColor": "#ffffff",
+        "classText": "#ffffff",
+        "classBorder": "#8b5cf6",
+        "classBkg": "#1f1f23"
+      },
+      "svg": "<svg id=\"mermaid-svg-1795020952969-107\" xmlns=\"http://www.w3.org/2000/svg\" width=\"2492.38\" height=\"143\" viewBox=\"-38 -27 2492.38 143\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Problem Named(window open) → Design ExploresMultiple Directions → PM + Design Convergeon a Direction (window closing) → Solution Specified(window closed) → Prettified Predetermined Solution\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Problem Named(window open) → Design ExploresMultiple Directions → PM + Design Convergeon a Direction (window closing) → Solution Specified(window closed) → Prettified Predetermined Solution</title><style>#mermaid-svg-1795020952969-107{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020952969-107 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020952969-107 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020952969-107 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020952969-107 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020952969-107 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020952969-107 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020952969-107 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020952969-107 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020952969-107 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020952969-107 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020952969-107 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020952969-107 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020952969-107 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020952969-107 p{margin:0;}#mermaid-svg-1795020952969-107 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020952969-107 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020952969-107 .cluster-label span{color:#171A17;}#mermaid-svg-1795020952969-107 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020952969-107 .label text,#mermaid-svg-1795020952969-107 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020952969-107 .node rect,#mermaid-svg-1795020952969-107 .node circle,#mermaid-svg-1795020952969-107 .node ellipse,#mermaid-svg-1795020952969-107 .node polygon,#mermaid-svg-1795020952969-107 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020952969-107 .rough-node .label text,#mermaid-svg-1795020952969-107 .node .label text,#mermaid-svg-1795020952969-107 .image-shape .label,#mermaid-svg-1795020952969-107 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020952969-107 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020952969-107 .rough-node .label,#mermaid-svg-1795020952969-107 .node .label,#mermaid-svg-1795020952969-107 .image-shape .label,#mermaid-svg-1795020952969-107 .icon-shape .label{text-align:center;}#mermaid-svg-1795020952969-107 .node.clickable{cursor:pointer;}#mermaid-svg-1795020952969-107 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020952969-107 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020952969-107 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020952969-107 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020952969-107 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020952969-107 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020952969-107 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020952969-107 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020952969-107 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020952969-107 .cluster text{fill:#171A17;}#mermaid-svg-1795020952969-107 .cluster span{color:#171A17;}#mermaid-svg-1795020952969-107 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020952969-107 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020952969-107 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020952969-107 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020952969-107 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020952969-107 .icon-shape,#mermaid-svg-1795020952969-107 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020952969-107 .icon-shape p,#mermaid-svg-1795020952969-107 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020952969-107 .icon-shape .label rect,#mermaid-svg-1795020952969-107 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020952969-107 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020952969-107 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020952969-107 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020952969-107 [data-look=\"neo\"].node rect,#mermaid-svg-1795020952969-107 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020952969-107 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020952969-107-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020952969-107 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020952969-107 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020952969-107-gradient);stroke-width:1px;}#mermaid-svg-1795020952969-107 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020952969-107 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020952969-107 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020952969-107-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020952969-107 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020952969-107 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020952969-107-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020952969-107 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020952969-107-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020952969-107 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020952969-107_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020952969-107_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020952969-107_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020952969-107_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020952969-107_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020952969-107_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020952969-107_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020952969-107_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020952969-107_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020952969-107_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020952969-107_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020952969-107_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M253.75,62L262.5,62C271.25,62,288.75,62,305.583,62C322.417,62,338.583,62,346.667,62L354.75,62\" id=\"mermaid-svg-1795020952969-107-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6MjUzLjc1LCJ5Ijo2Mn0seyJ4IjozMDYuMjUsInkiOjYyfSx7IngiOjM1OC43NSwieSI6NjJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020952969-107_flowchart-v2-pointEnd)\"></path><path d=\"M681,62L689.75,62C698.5,62,716,62,732.833,62C749.667,62,765.833,62,773.917,62L782,62\" id=\"mermaid-svg-1795020952969-107-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6NjgxLCJ5Ijo2Mn0seyJ4Ijo3MzMuNSwieSI6NjJ9LHsieCI6Nzg2LCJ5Ijo2Mn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020952969-107_flowchart-v2-pointEnd)\"></path><path d=\"M1261.25,62L1270,62C1278.75,62,1296.25,62,1313.083,62C1329.917,62,1346.083,62,1354.167,62L1362.25,62\" id=\"mermaid-svg-1795020952969-107-L_C_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_D_0\" data-points=\"W3sieCI6MTI2MS4yNSwieSI6NjJ9LHsieCI6MTMxMy43NSwieSI6NjJ9LHsieCI6MTM2Ni4yNSwieSI6NjJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020952969-107_flowchart-v2-pointEnd)\"></path><path d=\"M1675.75,62L1703.417,62C1731.083,62,1786.417,62,1841.083,62C1895.75,62,1949.75,62,1976.75,62L2003.75,62\" id=\"mermaid-svg-1795020952969-107-L_D_E_0\" class=\"edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_E_0\" data-points=\"W3sieCI6MTY3NS43NSwieSI6NjJ9LHsieCI6MTg0MS43NSwieSI6NjJ9LHsieCI6MjAwNy43NSwieSI6NjJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020952969-107_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(1841.75, 62)\"><g class=\"label\" data-id=\"L_D_E_0\" transform=\"translate(-143.5, -30)\"><foreignObject width=\"287\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Design brought in here<br>can only decorate, not explore</p></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020952969-107-flowchart-A-0\" data-look=\"classic\" transform=\"translate(130.875, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-103.25\" y=\"-46\" width=\"206.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-71.25, -30)\"><rect></rect><foreignObject width=\"142.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Problem Named<br>(window open)</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020952969-107-flowchart-B-1\" data-look=\"classic\" transform=\"translate(519.875, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-128.75\" y=\"-46\" width=\"257.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-96.75, -30)\"><rect></rect><foreignObject width=\"193.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Design Explores<br>Multiple Directions</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020952969-107-flowchart-C-3\" data-look=\"classic\" transform=\"translate(1023.625, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-179.75\" y=\"-46\" width=\"359.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-147.75, -30)\"><rect></rect><foreignObject width=\"295.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>PM + Design Converge<br>on a Direction (window closing)</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020952969-107-flowchart-D-5\" data-look=\"classic\" transform=\"translate(1521, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-124.5\" y=\"-46\" width=\"249\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-92.5, -30)\"><rect></rect><foreignObject width=\"185\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Solution Specified<br>(window closed)</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020952969-107-flowchart-E-7\" data-look=\"classic\" transform=\"translate(2258.125, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-188.25\" y=\"-35\" width=\"376.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-156.25, -19)\"><rect></rect><foreignObject width=\"312.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Prettified Predetermined Solution</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020952969-107-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020952969-107-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020952969-107-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+      "blockId": "blk_798e224dba"
+    },
+    {
+      "type": "companyExample",
+      "company": "Figma",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "**Figma** has been publicly associated, through its own product positioning and design community writing, with popularizing real-time, multiplayer collaborative design work, allowing PMs, engineers, and designers to view and comment on in-progress design work simultaneously, rather than design happening in isolation and being \"revealed\" only once complete.",
+          "blockId": "blk_98569b7c9b"
+        },
+        {
+          "type": "paragraph",
+          "text": "The underlying principle connects directly to this lesson's Theory: tools that make early-stage, low-fidelity design work easily visible and commentable to the whole team support genuine collaboration during the Double Diamond's divergent phases, rather than confining cross-functional involvement to a single, late \"reveal\" moment.",
+          "blockId": "blk_e34c53e2cb"
+        }
+      ],
+      "assumptionFlags": [
+        "this reflects general, publicly observable positioning of Figma's collaborative design tooling, not a confirmed, complete, or current account of how any specific team uses the tool internally today. Specific team workflows vary widely and evolve continuously; the durable lesson is the underlying principle: visible, early collaborative access to in-progress design work supports genuine cross-functional input, rather than a claim about any particular team's exact current practice."
+      ],
+      "blockId": "blk_e11fbb0c2b"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "At a startup",
+          "body": "A PM may work directly with a single designer, or wear the design hat personally in the absence of a dedicated designer at all. The risk here is Mistake 3: without a dedicated design partner to push back, a PM's own visual instincts can go unchallenged, even when they lack the training to recognize interaction or usability problems a trained designer would catch immediately."
+        },
+        {
+          "context": "At a mid-size company",
+          "body": "A PM typically works with one or a small number of dedicated designers, often participating in a shared team ritual (a design critique, a weekly review) that formalizes the Double Diamond's divergent-then-convergent rhythm. This is the stage where Mistake 1 (bringing design in late) most commonly causes friction, since designers with real capacity for deeper involvement are being under-utilized relative to what the team's process nominally allows for."
+        },
+        {
+          "context": "At Big Tech",
+          "body": "Design often operates as its own strong, semi-independent discipline with dedicated design leadership, formal design systems, and rigorous user research support, and PM-design collaboration is frequently structured through formal design review processes analogous to engineering's architecture reviews. The PM's job shifts toward ensuring the underlying user problem and constraints are represented clearly and early in these processes, and toward correctly interpreting design system constraints (which interaction patterns are already established and shouldn't be casually reinvented) when scoping new work."
+        }
+      ],
+      "blockId": "blk_3130a92e9f"
+    },
+    {
+      "type": "caseStudy",
+      "title": "The Mockup Everyone Fell in Love With",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Consider a simplified, illustrative scenario common at teams new to structured design collaboration.",
+          "blockId": "blk_d9e2e630b7"
+        },
+        {
+          "type": "paragraph",
+          "text": "A PM, excited about a new onboarding flow idea, asks a designer to produce a polished, high-fidelity set of screens quickly, \"just to see how it could look,\" before any user testing has occurred and before the underlying flow concept has been validated with real users. The designer produces a genuinely beautiful set of mockups. The PM shares them enthusiastically in a company-wide meeting, and the mockups generate real internal excitement: several stakeholders reference \"the new onboarding flow\" in subsequent planning conversations as though it were already a settled direction.",
+          "blockId": "blk_9233724ad6"
+        },
+        {
+          "type": "paragraph",
+          "text": "Three weeks later, informal user testing on a simplified prototype (built only after the internal excitement prompted someone to ask \"have we actually tested this with users yet?\") reveals that the core flow concept confuses first-time users in a specific, structural way that no amount of visual polish can fix: the underlying information architecture, not the visual design, is the problem. Reworking the flow at this point requires largely discarding the beautiful mockups and starting over, and several stakeholders express visible disappointment and mild resistance to abandoning \"the design we already loved.\"",
+          "blockId": "blk_c204fb40c4"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong?**",
+          "blockId": "blk_b53be60d1f"
+        },
+        {
+          "type": "paragraph",
+          "text": "Using the Fidelity Ladder: this idea was still squarely in the Double Diamond's early \"Develop\" phase (a solution concept that hadn't yet been pressure-tested with real users), but was represented with \"Deliver\"-stage polish, creating a mismatch between the artifact's apparent finality and its actual, unvalidated status. The resulting internal enthusiasm was not really evidence the idea was good; it was evidence that polished visuals are persuasive regardless of underlying validation, a distinct and separate thing. The stakeholders' resistance to abandoning \"the design we already loved\" is precisely the psychological cost of premature high-fidelity: the team had become emotionally attached to a specific, expensive artifact before the underlying concept had earned that level of commitment, making a necessary pivot feel like a loss rather than a normal part of a healthy discovery process.",
+          "blockId": "blk_5acf1c47aa"
+        },
+        {
+          "type": "paragraph",
+          "text": "The fix is not to avoid high-fidelity work altogether, but to sequence it correctly: low-fidelity sketches and a testable mid-fidelity prototype should validate the underlying flow concept with real users *before* any high-fidelity visual polish is invested in it. This sequencing discipline (matching artifact investment to validation status) is directly related to the technical-debt trade-off reasoning covered next in **Lesson 39 (Technical Debt & PM Trade-offs)**, where a similar principle applies to engineering investment: build the cheapest version that answers the real question first, before investing in a polished, expensive version of an idea that hasn't yet earned that investment.",
+          "blockId": "blk_6db71d783f"
+        }
+      ],
+      "blockId": "blk_e611396adc"
+    },
+    {
+      "type": "framework",
+      "name": "The Design Involvement Timing Table",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A second, more tactical tool: use this table to check whether design is being brought into a project at the right phase, relative to the Double Diamond.",
+          "blockId": "blk_fc5c64d0a4"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Project Phase",
+            "Design's Appropriate Role",
+            "Warning Sign of Late Involvement"
+          ],
+          "rows": [
+            [
+              "Problem exploration (Discover)",
+              "Participating in user research, synthesizing problem patterns alongside the PM",
+              "Design first hears about the project once a specific solution is already assumed"
+            ],
+            [
+              "Problem definition (Define)",
+              "Helping frame the specific problem statement, informed by user/interaction perspective",
+              "The problem statement is fully written before design is consulted at all"
+            ],
+            [
+              "Solution exploration (Develop)",
+              "Producing low/mid-fidelity concepts, testing multiple directions",
+              "Design is asked to visually execute a single, PM-specified layout with no real alternatives considered"
+            ],
+            [
+              "Solution delivery (Deliver)",
+              "Producing high-fidelity, validated final design, working with engineering on implementation detail",
+              "High-fidelity work is commissioned before user validation has occurred (see Case Study)"
+            ]
+          ],
+          "blockId": "blk_e8128e199e"
+        },
+        {
+          "type": "paragraph",
+          "text": "A project where design's actual involvement clusters entirely in the \"Deliver\" column, with little or no presence in \"Discover\" or \"Develop,\" is very likely under-using design relative to what this lesson's Theory recommends, even if design is nominally \"involved\" throughout, in a purely reactive capacity.",
+          "blockId": "blk_dd54f92e66"
+        }
+      ],
+      "blockId": "blk_efdfcebfa9"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "How do you decide when to bring design into a project?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate defaults to bringing design in early, during problem exploration, rather than only at the visual-polish stage, testing awareness of the Double Diamond's two divergent phases."
+        },
+        {
+          "question": "Tell me about a time a design decision changed based on user feedback after significant work had already gone into it. How did the team handle it?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate can recognize and navigate the emotional/organizational cost of premature high-fidelity, and whether they can describe a healthy process for pivoting without treating it as a personal or team failure."
+        },
+        {
+          "question": "How do you give feedback on a design without micromanaging the designer?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate applies the \"context, not commands\" principle specifically to design: framing feedback around user problems and constraints rather than dictating specific visual choices."
+        }
+      ],
+      "blockId": "blk_a078d7a51f"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "The PM-design relationship mirrors the PM-engineering relationship covered in Lesson 37 in its core principle (trust the domain expert with their domain), but carries its own distinct failure modes, chiefly bringing design in too late, after a solution has already been implicitly decided. The Double Diamond framework makes explicit that design has two separate divergent phases (exploring the problem, then exploring solutions), each requiring genuine design involvement, not just a final \"make it pretty\" step at the end. The Fidelity Ladder captures a closely related principle: a design artifact's polish level should track the actual validation status of the underlying idea, since high-fidelity work produced before validation creates a specific, costly failure mode: premature high-fidelity, where polished visuals generate false internal confidence and psychological attachment to an idea that hasn't earned it, as demonstrated in this lesson's Case Study of an onboarding mockup the whole company fell in love with before it was ever tested with real users. Applying Lesson 37's \"context, not commands\" principle to design means conveying the user problem, constraints, and success criteria precisely, while trusting design to own layout, visual hierarchy, and interaction pattern decisions.",
+          "blockId": "blk_d1e7212863"
+        }
+      ],
+      "blockId": "blk_46ba40f288"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "Design is a method for exploring and pressure-testing a solution space, not a finishing step applied after the real decisions have already been made: treating it as decoration wastes its most valuable contribution.",
+        "The Double Diamond's two divergent phases (Discover, Develop) both require genuine design involvement; skipping both to bring design in only at \"Deliver\" reduces the relationship to visual-polish execution.",
+        "Design artifact fidelity should track the actual validation status of the underlying idea: low fidelity for unvalidated exploration, high fidelity only after real user validation.",
+        "\"Premature high-fidelity\" (polished mockups produced before validation) creates false internal confidence and psychological attachment, making a necessary pivot feel like a loss rather than a normal part of discovery.",
+        "Internal team enthusiasm for a design is not evidence of user validation; these are separate things, and conflating them is a common and costly mistake.",
+        "Applying \"context, not commands\" to design means specifying the user problem, constraints, and success criteria precisely, while trusting design to own layout, visual hierarchy, and interaction pattern choices.",
+        "A design involvement pattern clustered entirely in the late \"Deliver\" phase, even if nominally continuous, signals under-use of design relative to its potential contribution."
+      ],
+      "blockId": "blk_0dd50c337a"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "**Design = exploration, not decoration:** bring design in during problem and solution exploration, not just visual polish.",
+        "**Double Diamond:** Discover (diverge on problem) → Define (converge) → Develop (diverge on solutions) → Deliver (converge).",
+        "**Fidelity Ladder:** low fidelity for unvalidated ideas; high fidelity only after real user validation.",
+        "**Premature high-fidelity:** polished mockups before validation create false confidence and costly attachment.",
+        "**Context, not commands, for design:** specify user problem/constraints/success criteria; let design own layout and interaction.",
+        "**Internal love ≠ user validation:** team enthusiasm for a mockup says nothing about whether real users will succeed with it.",
+        "**Design Involvement Timing Table:** check whether design shows up in Discover/Develop, not just Deliver."
+      ],
+      "blockId": "blk_b595f96318"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "Double Diamond",
+          "definition": "A design process framework of two divergent-then-convergent phases: Discover/Define and Develop/Deliver",
+          "relatedConcepts": [
+            "Fidelity Ladder"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "Fidelity Ladder",
+          "definition": "A framework representing the sequence of design artifacts from low to high polish (sketch, wireframe, mockup, prototype, finished design), matching the polish level to the validation stage of the underlying idea.",
+          "relatedConcepts": [
+            "Confidence Gradient (Lesson 35)"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "Premature high-fidelity",
+          "definition": "Producing polished visual design before an idea is validated, creating false confidence and psychological attachment",
+          "relatedConcepts": [
+            "Fidelity Ladder"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Design Involvement Timing Table",
+          "definition": "A tool for checking whether design is involved during problem/solution exploration, not just final visual execution",
+          "relatedConcepts": [
+            "Double Diamond"
+          ],
+          "difficulty": 2
+        }
+      ],
+      "blockId": "blk_d6609e7c5c"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "*Sprint: How to Solve Big Problems and Test New Ideas in Just Five Days* by Jake Knapp",
+          "note": "a practitioner framework emphasizing rapid, low-fidelity testing before high-fidelity investment."
+        },
+        {
+          "citation": "*The Design of Everyday Things* by Don Norman",
+          "note": "foundational reading on how design decisions shape user understanding, independent of visual polish."
+        },
+        {
+          "citation": "\"The Double Diamond\"",
+          "note": "UK Design Council's original framework documentation, the source of this lesson's core process model."
+        }
+      ],
+      "blockId": "blk_01578f61c4"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_9ep1op",
+      "cards": [
+        {
+          "id": "fc-les_9ep1op-1",
+          "front": "What are the four phases of the Double Diamond, in order?",
+          "back": "Discover (diverge on problem), Define (converge on problem statement), Develop (diverge on solutions), Deliver (converge on final solution).",
+          "difficulty": 1,
+          "tags": [
+            "double-diamond"
+          ]
+        },
+        {
+          "id": "fc-les_9ep1op-2",
+          "front": "What does the Fidelity Ladder recommend about matching design polish to validation status?",
+          "back": "Low-fidelity artifacts for unvalidated, still-exploratory ideas; high-fidelity, polished artifacts only after the underlying idea has been genuinely validated with real users.",
+          "difficulty": 1,
+          "tags": [
+            "fidelity-ladder"
+          ]
+        },
+        {
+          "id": "fc-les_9ep1op-3",
+          "front": "What is \"premature high-fidelity,\" and why is it costly?",
+          "back": "Producing polished, expensive visual design before an idea is validated; it creates false internal confidence and psychological attachment, making a later necessary pivot feel like a loss.",
+          "difficulty": 2,
+          "tags": [
+            "premature-high-fidelity"
+          ]
+        },
+        {
+          "id": "fc-les_9ep1op-4",
+          "front": "How does \"give context, not commands\" (Lesson 37) apply specifically to working with designers?",
+          "back": "Specify the user problem, constraints, and success criteria precisely; trust design to own layout, visual hierarchy, and interaction pattern decisions.",
+          "difficulty": 2,
+          "tags": [
+            "context-not-commands"
+          ]
+        },
+        {
+          "id": "fc-les_9ep1op-5",
+          "front": "Why is internal team enthusiasm for a mockup not evidence of good design?",
+          "back": "Polished visuals are persuasive regardless of underlying validation; team excitement reflects the artifact's polish, not confirmation that real users will understand or succeed with it.",
+          "difficulty": 2,
+          "tags": [
+            "validation"
+          ]
+        },
+        {
+          "id": "fc-les_9ep1op-6",
+          "front": "In the Detailed Case Study, what was the actual root cause of the onboarding flow's failure, and why couldn't visual polish fix it?",
+          "back": "A structural information-architecture problem in the flow concept itself, not a visual design issue: no amount of visual polish addresses a fundamentally confusing underlying flow.",
+          "difficulty": 2,
+          "tags": [
+            "case-study"
+          ]
+        }
+      ],
+      "blockId": "blk_b5922fefd4"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "Consider the following novel scenario: You're a PM who has just had an idea for a new feature after a single conversation with one enthusiastic customer. You're excited, and you're tempted to ask your designer to put together a polished set of screens to show at next week's leadership meeting, to build momentum for the idea.",
+        "There is no single correct answer to the prompts below: the goal is to practice applying the Fidelity Ladder and Double Diamond, not to reach one \"right\" answer.",
+        "Using the Double Diamond, which phase is this idea actually in right now, and what does that suggest about the appropriate fidelity level for any design artifact at this stage?",
+        "What would you ask your designer to produce instead of a polished mockup, if your goal is to genuinely test the idea rather than just generate excitement?",
+        "If you do want to build leadership momentum for the idea, how could you do that honestly without resorting to premature high-fidelity?",
+        "What would you want to learn from a low-fidelity test before investing in any further design or engineering work?",
+        "If leadership loves a low-fidelity version and pushes for immediate high-fidelity design and engineering commitment, how would you respond, using this lesson's frameworks?"
+      ],
+      "blockId": "blk_54cd7499dc"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_9ep1op",
+      "questions": [
+        {
+          "id": "q-les_9ep1op-1",
+          "question": "According to this lesson, what is the biggest risk of treating design as something applied only after a solution has already been decided?",
+          "options": [
+            "It conflicts with the Definition of Ready checklist",
+            "It simply takes longer than starting design earlier",
+            "It changes only the final screens' visual polish",
+            "It skips design's role in shaping the problem itself"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Treating design as decoration wastes its ability to explore and pressure-test the solution space during the Double Diamond's divergent phases.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_9ep1op-2",
+          "question": "What are the two divergent phases in the Double Diamond framework?",
+          "options": [
+            "Define and Deliver, the two converging phases",
+            "Discover and Develop, the two diverging phases",
+            "Only Deliver counts as a truly divergent phase",
+            "Discover and Deliver, skipping Define entirely"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Discover (diverging on the problem) and Develop (diverging on solutions) are the framework's two divergent phases, each followed by a convergent phase.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_9ep1op-3",
+          "question": "What should a design artifact's fidelity level track, according to the Fidelity Ladder?",
+          "options": [
+            "How many engineers are staffed on the project",
+            "How much runway remains before the deadline",
+            "The idea's actual validation status with real users",
+            "The seniority level of the assigned designer"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Fidelity should track actual certainty and validation status, mirroring Lesson 35's Confidence Gradient principle.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_9ep1op-4",
+          "question": "What is \"premature high-fidelity\"?",
+          "options": [
+            "Polishing visuals before an idea is validated with users",
+            "A design-system component still awaiting finalization",
+            "A term borrowed loosely from engineering technical debt",
+            "Producing early sketches too soon in a project timeline"
+          ],
+          "correctAnswer": 0,
+          "explanation": "This term describes polished design produced before validation, which creates false confidence and psychological attachment.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_9ep1op-5",
+          "question": "In the Detailed Case Study, why was it so difficult for stakeholders to abandon the original onboarding mockup once user testing revealed a problem?",
+          "options": [
+            "The original design actually had no real problem",
+            "The designer declined to make any further changes",
+            "Legal approval blocked any changes to the mockup",
+            "The team grew attached to a polished, unproven artifact"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Premature emotional attachment to a polished, unvalidated artifact is the reason the pivot felt costly.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_9ep1op-6",
+          "question": "What was the actual root cause of the onboarding flow's failure in the Case Study?",
+          "options": [
+            "A structural flow issue polish couldn't fix",
+            "The mockup used the wrong color scheme",
+            "The designer did not follow the brand guidelines",
+            "The visual design was ugly"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The problem was structural, not visual, meaning polish could never have fixed it regardless of fidelity level.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_9ep1op-7",
+          "question": "Applying Lesson 37's \"context, not commands\" principle to design, which of the following is squarely the PM's domain to specify precisely?",
+          "options": [
+            "Which icon style to use",
+            "The exact pixel layout of a screen",
+            "The user problem, constraints, and goals",
+            "The specific interaction animation for a button"
+          ],
+          "correctAnswer": 2,
+          "explanation": "User problem, constraints, and success criteria sit in the PM's domain, while layout, visual hierarchy, and interaction pattern belong to design.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_9ep1op-8",
+          "question": "Why is internal team enthusiasm for a mockup not, by itself, evidence that the design is good?",
+          "options": [
+            "Polished visuals persuade regardless of real validation",
+            "Only external customers may judge design quality",
+            "Teams are never enthusiastic about strong designs",
+            "Enthusiasm always signals groupthink among teams"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Internal enthusiasm and user validation are separate things that are easily, and dangerously, conflated.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_9ep1op-9",
+          "question": "Using the Design Involvement Timing Table, what is a warning sign that design is being involved too late in a project?",
+          "options": [
+            "Design produces low-fidelity concepts during Develop",
+            "Design helps frame the problem statement during Define",
+            "Design joins user research during the Discover phase",
+            "Design first hears about it once a solution is assumed"
+          ],
+          "correctAnswer": 3,
+          "explanation": "This is the table's explicit warning sign of late involvement, corresponding to design being excluded from both divergent phases.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_9ep1op-10",
+          "question": "(Scenario) A PM asks a designer to produce a fully polished, pixel-perfect mockup of a brand-new feature concept before any user testing has occurred, \"just to see how it could look.\" Using the Fidelity Ladder, what is the most likely risk?",
+          "options": [
+            "The mockup gets tested with users automatically",
+            "The team may grow attached to an unvalidated concept",
+            "The designer will refuse the request outright",
+            "Polished mockups carry no risk regardless of timing"
+          ],
+          "correctAnswer": 1,
+          "explanation": "This is a direct instance of premature high-fidelity, mirroring the Detailed Case Study's exact scenario.",
+          "objectivesTested": [
+            2,
+            4
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_9ep1op-11",
+          "question": "(Interview Reasoning) A candidate is asked how they give design feedback without micromanaging, and answers: \"I usually just tell them exactly what layout and colors I want.\" What does this answer reveal?",
+          "options": [
+            "The candidate should switch to a design career instead",
+            "An appropriate level of PM involvement in design",
+            "It dictates visual choices instead of user context",
+            "Strong design fluency and clear communication skill"
+          ],
+          "correctAnswer": 2,
+          "explanation": "A strong answer frames feedback around user problems and constraints, not specific visual dictates. This answer does the opposite.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_9ep1op-12",
+          "question": "Why does this lesson recommend low- or mid-fidelity prototypes specifically for testing an unvalidated flow concept with users, rather than high-fidelity mockups?",
+          "options": [
+            "Cheap, discardable artifacts invite honest feedback",
+            "Designers refuse to produce any low-fidelity work",
+            "Testing high-fidelity mockups is against the law",
+            "Users cannot understand high-fidelity mockups at all"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Low-fidelity artifacts are cheap and discardable, appropriate for genuine exploration, unlike high-fidelity work's costly finality.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_9ep1op-13",
+          "question": "(Product Thinking) A PM wants to build leadership excitement for an early-stage idea without risking premature high-fidelity attachment. What is the most defensible approach?",
+          "options": [
+            "Avoid discussing the idea with leadership until built",
+            "Have engineering build a full version before showing it",
+            "Commission a final-looking mockup to maximize excitement",
+            "Share a labeled early concept alongside a testing plan"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Building excitement is possible without misleadingly polished artifacts, by being explicit about the idea's actual validation status.",
+          "objectivesTested": [
+            2,
+            4
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_9ep1op-14",
+          "question": "Which of the following best reflects genuine design involvement during the \"Develop\" phase?",
+          "options": [
+            "Design only reviews the product after it has shipped",
+            "Design produces and tests several concept directions",
+            "Design sits out this phase of the project entirely",
+            "Design executes one layout with no real alternatives"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Genuine \"Develop\"-phase involvement is producing and testing multiple concepts, not executing a single predetermined layout.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_9ep1op-15",
+          "question": "(Product Thinking, Highest Difficulty) A PM has a strong personal preference for a specific visual layout, based on a product they personally enjoyed elsewhere. What is the most defensible way to raise this preference with the design team?",
+          "options": [
+            "Insist the team copy the layout exactly as remembered",
+            "Say nothing to avoid influencing the process at all",
+            "Share the underlying need, leaving the solution open",
+            "Direct the team to implement it as a firm requirement"
+          ],
+          "correctAnswer": 2,
+          "explanation": "This applies \"context, not commands\": sharing the underlying need as useful context while preserving design's ownership of the actual solution space.",
+          "objectivesTested": [
+            1,
+            5
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_5c52df3be9"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_ryzl1c",
+        "title": "Lesson 37: Working with Engineering Teams",
+        "module": "execution"
+      },
+      "current": {
+        "id": "les_9ep1op",
+        "title": "Lesson 38: Working with Design Teams"
+      },
+      "next": {
+        "id": "les_soowpy",
+        "title": "Lesson 39: Technical Debt & PM Trade-offs",
+        "module": "execution"
+      },
+      "unlocks": [
+        {
+          "lesson": {
+            "id": "les_o7sbis",
+            "title": "A/B Testing & Experimentation",
+            "module": "growth"
+          },
+          "coreIdea": "Depends on well-sequenced, testable design variants produced through appropriate fidelity discipline"
+        }
+      ],
+      "blockId": "blk_b723361928"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 38: Working with Design Teams Lesson 37 addressed the PM-engineering relationship in depth. This lesson addresses its close parallel, the PM-design relationship, because although the underlying principle is the same (trust the domain expert with their domain), the specific failure modes are different enough to deserve their own treatment. Where the classic engineering mistake is handing over a fully-specified technical solution, the classic design mistake is bringing design in too late, after the problem has already been implicitly solved by the PM's own assumptions about what the interface should look like, leaving design to prettify a decision that was never actually theirs to shape. This matters because design, done well, is not decoration applied after a decision is made; it is a core method of exploring the solution space itself, often surfacing problems with an approach that would otherwise only be discovered after expensive engineering work has already begun. A PM who involves design only at the end, to \"make it look nice,\" is not just under-using a valuable resource: they are removing one of the cheapest, earliest opportunities to catch a bad idea before it becomes an expensive one. Explain why involving design early, during problem definition rather than after a solution is chosen, tends to produce better outcomes than involving design only at the visual-polish stage. Apply the fidelity ladder (low, mid, high fidelity) to match a design artifact's polish to the actual certainty behind the underlying decision. Describe the Double Diamond framework and use it to identify which phase of design work a given moment in a project actually calls for. Diagnose \"premature high-fidelity\" (a specific, common failure where polished mockups create false attachment to an unvalidated idea) and explain why it's costly. Apply the same \"give context, not commands\" principle from Lesson 37 to the PM-design relationship specifically, distinguishing user needs and constraints (PM's domain) from visual and interaction solutions (design's domain). This lesson assumes **Lesson 8's** grounding in product discovery (the practice of understanding user problems before committing to solutions), since good design collaboration is, in large part, an extension of discovery practice into the visual and interaction domain. It also directly assumes **Lesson 37's** \"give context, not commands\" principle and Trust Ladder, since this lesson largely mirrors that framework, adapted for the specific dynamics of working with designers rather than engineers. Design as Exploration, Not Decoration The most consequential mental shift a PM can make about design is recognizing it as a method for exploring and pressure-testing a solution space, not a finishing step applied after the \"real\" decisions have already been made elsewhere. A PM who arrives at a design conversation having already decided the interface's layout, flow, and interaction pattern, asking design only to \"make it look good\", has skipped past the phase where design's distinct expertise (understanding how users actually perceive, navigate, and form mental models of an interface) could have meaningfully shaped the underlying decision, not just its surface appearance. The Double Diamond A widely used framework, originally developed by the UK Design Council, describes the design process as two consecutive diamonds, each expanding into divergent exploration before converging on a decision: The critical insight, easy to miss at a glance, is that there are *two* distinct divergent phases: one exploring the problem itself (Discover), and a separate one exploring possible solutions (Develop), each followed by a deliberate narrowing (Define, Deliver). A PM who invites design in only at the \"Deliver\" stage has skipped both divergent phases entirely, asking design to visually finish a solution whose problem framing and solution exploration were never actually opened up for genuine design input. This directly parallels Lesson 8's discovery discipline: design has its own discovery process, and skipping it produces the same risk (building the wrong thing, confidently) that skipping user discovery does elsewhere in the product process. Fidelity as a Signal of Certainty A second, closely related concept concerns *how polished* a design artifact should be at a given stage of certainty: Low-fidelity artifacts are cheap to produce and cheap to discard, making them appropriate for early exploration when the underlying idea itself is still uncertain: a hand-drawn sketch invites genuine feedback and revision in a way a polished mockup does not, because it visibly signals \"this is still an open question.\" High-fidelity artifacts are expensive to produce and, critically, tend to create a psychological sense of finality and ownership disproportionate to how validated the underlying idea actually is, a mistake this lesson calls **premature high-fidelity**, covered in detail in the Case Study below. The general rule: fidelity should track actual certainty, mirroring Lesson 35's Confidence Gradient principle applied here to design artifacts rather than roadmap items. Applying \"Give Context, Not Commands\" to Design Lesson 37 established that a PM's job is to convey the problem, user need, and constraints precisely, while trusting the domain expert to own the solution space. Applied to design, this means a PM should be highly specific about the *user problem* being solved, the *constraints* that matter (technical limitations, brand guidelines, accessibility requirements, existing design system components), and the *outcome* being targeted, while resisting the urge to dictate specific layouts, visual treatments, or interaction patterns, which is squarely design's domain, just as technical architecture is squarely engineering's. Bringing design in only at the \"make it pretty\" stage As covered in Theory, this skips both of the Double Diamond's divergent phases, wasting design's ability to meaningfully shape problem framing and solution exploration, and reduces the relationship to a visual-polish service rather than a genuine partnership. Commissioning high-fidelity mockups before the underlying idea has been validated This is \"premature high-fidelity\": producing a level of visual polish that creates false attachment and a false sense of finality around an idea that hasn't actually earned that level of certainty yet, covered in full in this lesson's Case Study. Dictating specific layouts or visual treatments instead of describing the user problem and constraints This is the design-specific version of Lesson 37's Mistake 1: substituting the PM's own visual preference for design's domain expertise, often producing a worse outcome than trusting design with full context. Treating design feedback sessions as approval checkpoints rather than genuine collaboration A PM who shows design a nearly-finished mockup expecting only a rubber-stamp \"looks good\" has effectively excluded design from the actual decision-making process, even if the meeting nominally included them. Skipping user testing on a design because \"the team already likes it. Internal team enthusiasm for a design is not evidence that real users will understand or successfully use it, conflating internal consensus with user validation is a distinct and common failure, especially once a polished mockup has generated internal excitement (see Mistake 2). The Exploration Window This lesson's core takeaway tool is not about polish level (that is Lesson 25's Fidelity Ladder, applied here only as a supporting idea in Theory). It is about *timing*: the specific point in a problem's lifecycle during which involving design still counts as exploration, versus the point after which it can only ever be decoration. Use the Exploration Window as a standing check on your own behavior, not just design's: before looping design in, ask \"have I already, even informally, decided what this should look like?\" If the honest answer is yes (if you're arriving with a near-final layout in your head rather than a named problem), the window has already closed, regardless of what the calendar invite calls the meeting. Re-opening it means consciously setting your own mental picture aside and handing over the problem statement instead, per \"Give Context, Not Commands\" below. Figma **Figma** has been publicly associated, through its own product positioning and design community writing, with popularizing real-time, multiplayer collaborative design work, allowing PMs, engineers, and designers to view and comment on in-progress design work simultaneously, rather than design happening in isolation and being \"revealed\" only once complete. The underlying principle connects directly to this lesson's Theory: tools that make early-stage, low-fidelity design work easily visible and commentable to the whole team support genuine collaboration during the Double Diamond's divergent phases, rather than confining cross-functional involvement to a single, late \"reveal\" moment. At a startup A PM may work directly with a single designer, or wear the design hat personally in the absence of a dedicated designer at all. The risk here is Mistake 3: without a dedicated design partner to push back, a PM's own visual instincts can go unchallenged, even when they lack the training to recognize interaction or usability problems a trained designer would catch immediately. At a mid-size company A PM typically works with one or a small number of dedicated designers, often participating in a shared team ritual (a design critique, a weekly review) that formalizes the Double Diamond's divergent-then-convergent rhythm. This is the stage where Mistake 1 (bringing design in late) most commonly causes friction, since designers with real capacity for deeper involvement are being under-utilized relative to what the team's process nominally allows for. At Big Tech Design often operates as its own strong, semi-independent discipline with dedicated design leadership, formal design systems, and rigorous user research support, and PM-design collaboration is frequently structured through formal design review processes analogous to engineering's architecture reviews. The PM's job shifts toward ensuring the underlying user problem and constraints are represented clearly and early in these processes, and toward correctly interpreting design system constraints (which interaction patterns are already established and shouldn't be casually reinvented) when scoping new work. The Mockup Everyone Fell in Love With Consider a simplified, illustrative scenario common at teams new to structured design collaboration. A PM, excited about a new onboarding flow idea, asks a designer to produce a polished, high-fidelity set of screens quickly, \"just to see how it could look,\" before any user testing has occurred and before the underlying flow concept has been validated with real users. The designer produces a genuinely beautiful set of mockups. The PM shares them enthusiastically in a company-wide meeting, and the mockups generate real internal excitement: several stakeholders reference \"the new onboarding flow\" in subsequent planning conversations as though it were already a settled direction. Three weeks later, informal user testing on a simplified prototype (built only after the internal excitement prompted someone to ask \"have we actually tested this with users yet?\") reveals that the core flow concept confuses first-time users in a specific, structural way that no amount of visual polish can fix: the underlying information architecture, not the visual design, is the problem. Reworking the flow at this point requires largely discarding the beautiful mockups and starting over, and several stakeholders express visible disappointment and mild resistance to abandoning \"the design we already loved.\" **What went wrong?** Using the Fidelity Ladder: this idea was still squarely in the Double Diamond's early \"Develop\" phase (a solution concept that hadn't yet been pressure-tested with real users), but was represented with \"Deliver\"-stage polish, creating a mismatch between the artifact's apparent finality and its actual, unvalidated status. The resulting internal enthusiasm was not really evidence the idea was good; it was evidence that polished visuals are persuasive regardless of underlying validation, a distinct and separate thing. The stakeholders' resistance to abandoning \"the design we already loved\" is precisely the psychological cost of premature high-fidelity: the team had become emotionally attached to a specific, expensive artifact before the underlying concept had earned that level of commitment, making a necessary pivot feel like a loss rather than a normal part of a healthy discovery process. The fix is not to avoid high-fidelity work altogether, but to sequence it correctly: low-fidelity sketches and a testable mid-fidelity prototype should validate the underlying flow concept with real users *before* any high-fidelity visual polish is invested in it. This sequencing discipline (matching artifact investment to validation status) is directly related to the technical-debt trade-off reasoning covered next in **Lesson 39 (Technical Debt & PM Trade-offs)**, where a similar principle applies to engineering investment: build the cheapest version that answers the real question first, before investing in a polished, expensive version of an idea that hasn't yet earned that investment. The Design Involvement Timing Table A second, more tactical tool: use this table to check whether design is being brought into a project at the right phase, relative to the Double Diamond. A project where design's actual involvement clusters entirely in the \"Deliver\" column, with little or no presence in \"Discover\" or \"Develop,\" is very likely under-using design relative to what this lesson's Theory recommends, even if design is nominally \"involved\" throughout, in a purely reactive capacity. How do you decide when to bring design into a project? *What the interviewer is actually evaluating:* Whether the candidate defaults to bringing design in early, during problem exploration, rather than only at the visual-polish stage, testing awareness of the Double Diamond's two divergent phases. Tell me about a time a design decision changed based on user feedback after significant work had already gone into it. How did the team handle it? *What the interviewer is actually evaluating:* Whether the candidate can recognize and navigate the emotional/organizational cost of premature high-fidelity, and whether they can describe a healthy process for pivoting without treating it as a personal or team failure. How do you give feedback on a design without micromanaging the designer? *What the interviewer is actually evaluating:* Whether the candidate applies the \"context, not commands\" principle specifically to design: framing feedback around user problems and constraints rather than dictating specific visual choices. The PM-design relationship mirrors the PM-engineering relationship covered in Lesson 37 in its core principle (trust the domain expert with their domain), but carries its own distinct failure modes, chiefly bringing design in too late, after a solution has already been implicitly decided. The Double Diamond framework makes explicit that design has two separate divergent phases (exploring the problem, then exploring solutions), each requiring genuine design involvement, not just a final \"make it pretty\" step at the end. The Fidelity Ladder captures a closely related principle: a design artifact's polish level should track the actual validation status of the underlying idea, since high-fidelity work produced before validation creates a specific, costly failure mode: premature high-fidelity, where polished visuals generate false internal confidence and psychological attachment to an idea that hasn't earned it, as demonstrated in this lesson's Case Study of an onboarding mockup the whole company fell in love with before it was ever tested with real users. Applying Lesson 37's \"context, not commands\" principle to design means conveying the user problem, constraints, and success criteria precisely, while trusting design to own layout, visual hierarchy, and interaction pattern decisions. Design is a method for exploring and pressure-testing a solution space, not a finishing step applied after the real decisions have already been made: treating it as decoration wastes its most valuable contribution. The Double Diamond's two divergent phases (Discover, Develop) both require genuine design involvement; skipping both to bring design in only at \"Deliver\" reduces the relationship to visual-polish execution. Design artifact fidelity should track the actual validation status of the underlying idea: low fidelity for unvalidated exploration, high fidelity only after real user validation. \"Premature high-fidelity\" (polished mockups produced before validation) creates false internal confidence and psychological attachment, making a necessary pivot feel like a loss rather than a normal part of discovery. Internal team enthusiasm for a design is not evidence of user validation; these are separate things, and conflating them is a common and costly mistake. Applying \"context, not commands\" to design means specifying the user problem, constraints, and success criteria precisely, while trusting design to own layout, visual hierarchy, and interaction pattern choices. A design involvement pattern clustered entirely in the late \"Deliver\" phase, even if nominally continuous, signals under-use of design relative to its potential contribution. **Design = exploration, not decoration:** bring design in during problem and solution exploration, not just visual polish. **Double Diamond:** Discover (diverge on problem) → Define (converge) → Develop (diverge on solutions) → Deliver (converge). **Fidelity Ladder:** low fidelity for unvalidated ideas; high fidelity only after real user validation. **Premature high-fidelity:** polished mockups before validation create false confidence and costly attachment. **Context, not commands, for design:** specify user problem/constraints/success criteria; let design own layout and interaction. **Internal love ≠ user validation:** team enthusiasm for a mockup says nothing about whether real users will succeed with it. **Design Involvement Timing Table:** check whether design shows up in Discover/Develop, not just Deliver. Double Diamond A design process framework of two divergent-then-convergent phases: Discover/Define and Develop/Deliver Fidelity Ladder A framework representing the sequence of design artifacts from low to high polish (sketch, wireframe, mockup, prototype, finished design), matching the polish level to the validation stage of the underlying idea. Premature high-fidelity Producing polished visual design before an idea is validated, creating false confidence and psychological attachment Design Involvement Timing Table A tool for checking whether design is involved during problem/solution exploration, not just final visual execution *Sprint: How to Solve Big Problems and Test New Ideas in Just Five Days* by Jake Knapp a practitioner framework emphasizing rapid, low-fidelity testing before high-fidelity investment. *The Design of Everyday Things* by Don Norman foundational reading on how design decisions shape user understanding, independent of visual polish. \"The Double Diamond\" UK Design Council's original framework documentation, the source of this lesson's core process model. What are the four phases of the Double Diamond, in order? Discover (diverge on problem), Define (converge on problem statement), Develop (diverge on solutions), Deliver (converge on final solution). What does the Fidelity Ladder recommend about matching design polish to validation status? Low-fidelity artifacts for unvalidated, still-exploratory ideas; high-fidelity, polished artifacts only after the underlying idea has been genuinely validated with real users. What is \"premature high-fidelity,\" and why is it costly? Producing polished, expensive visual design before an idea is validated; it creates false internal confidence and psychological attachment, making a later necessary pivot feel like a loss. How does \"give context, not commands\" (Lesson 37) apply specifically to working with designers? Specify the user problem, constraints, and success criteria precisely; trust design to own layout, visual hierarchy, and interaction pattern decisions. Why is internal team enthusiasm for a mockup not evidence of good design? Polished visuals are persuasive regardless of underlying validation; team excitement reflects the artifact's polish, not confirmation that real users will understand or succeed with it. In the Detailed Case Study, what was the actual root cause of the onboarding flow's failure, and why couldn't visual polish fix it? A structural information-architecture problem in the flow concept itself, not a visual design issue: no amount of visual polish addresses a fundamentally confusing underlying flow. Consider the following novel scenario: You're a PM who has just had an idea for a new feature after a single conversation with one enthusiastic customer. You're excited, and you're tempted to ask your designer to put together a polished set of screens to show at next week's leadership meeting, to build momentum for the idea. There is no single correct answer to the prompts below: the goal is to practice applying the Fidelity Ladder and Double Diamond, not to reach one \"right\" answer. Using the Double Diamond, which phase is this idea actually in right now, and what does that suggest about the appropriate fidelity level for any design artifact at this stage? What would you ask your designer to produce instead of a polished mockup, if your goal is to genuinely test the idea rather than just generate excitement? If you do want to build leadership momentum for the idea, how could you do that honestly without resorting to premature high-fidelity? What would you want to learn from a low-fidelity test before investing in any further design or engineering work? If leadership loves a low-fidelity version and pushes for immediate high-fidelity design and engineering commitment, how would you respond, using this lesson's frameworks? According to this lesson, what is the biggest risk of treating design as something applied only after a solution has already been decided? Treating design as decoration wastes its ability to explore and pressure-test the solution space during the Double Diamond's divergent phases. What are the two divergent phases in the Double Diamond framework? Discover (diverging on the problem) and Develop (diverging on solutions) are the framework's two divergent phases, each followed by a convergent phase. What should a design artifact's fidelity level track, according to the Fidelity Ladder? Fidelity should track actual certainty and validation status, mirroring Lesson 35's Confidence Gradient principle. What is \"premature high-fidelity\"? This term describes polished design produced before validation, which creates false confidence and psychological attachment. In the Detailed Case Study, why was it so difficult for stakeholders to abandon the original onboarding mockup once user testing revealed a problem? Premature emotional attachment to a polished, unvalidated artifact is the reason the pivot felt costly. What was the actual root cause of the onboarding flow's failure in the Case Study? The problem was structural, not visual, meaning polish could never have fixed it regardless of fidelity level. Applying Lesson 37's \"context, not commands\" principle to design, which of the following is squarely the PM's domain to specify precisely? User problem, constraints, and success criteria sit in the PM's domain, while layout, visual hierarchy, and interaction pattern belong to design. Why is internal team enthusiasm for a mockup not, by itself, evidence that the design is good? Internal enthusiasm and user validation are separate things that are easily, and dangerously, conflated. Using the Design Involvement Timing Table, what is a warning sign that design is being involved too late in a project? This is the table's explicit warning sign of late involvement, corresponding to design being excluded from both divergent phases. (Scenario) A PM asks a designer to produce a fully polished, pixel-perfect mockup of a brand-new feature concept before any user testing has occurred, \"just to see how it could look.\" Using the Fidelity Ladder, what is the most likely risk? This is a direct instance of premature high-fidelity, mirroring the Detailed Case Study's exact scenario. (Interview Reasoning) A candidate is asked how they give design feedback without micromanaging, and answers: \"I usually just tell them exactly what layout and colors I want.\" What does this answer reveal? A strong answer frames feedback around user problems and constraints, not specific visual dictates. This answer does the opposite. Why does this lesson recommend low- or mid-fidelity prototypes specifically for testing an unvalidated flow concept with users, rather than high-fidelity mockups? Low-fidelity artifacts are cheap and discardable, appropriate for genuine exploration, unlike high-fidelity work's costly finality. (Product Thinking) A PM wants to build leadership excitement for an early-stage idea without risking premature high-fidelity attachment. What is the most defensible approach? Building excitement is possible without misleadingly polished artifacts, by being explicit about the idea's actual validation status. Which of the following best reflects genuine design involvement during the \"Develop\" phase? Genuine \"Develop\"-phase involvement is producing and testing multiple concepts, not executing a single predetermined layout. (Product Thinking, Highest Difficulty) A PM has a strong personal preference for a specific visual layout, based on a product they personally enjoyed elsewhere. What is the most defensible way to raise this preference with the design team? This applies \"context, not commands\": sharing the underlying need as useful context while preserving design's ownership of the actual solution space.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "Mental Model: The Exploration Window",
+      "Real Company Example",
+      "Real World Perspective: Working with Design Teams at Different Company Stages",
+      "Detailed Case Study: The Mockup Everyone Fell in Love With",
+      "Framework Explanation: The Design Involvement Timing Table",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "Double Diamond",
+    "Fidelity Ladder",
+    "Premature high-fidelity",
+    "Design Involvement Timing Table"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

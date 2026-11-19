@@ -1,0 +1,998 @@
+{
+  "schemaVersion": 2,
+  "id": "les_7r8npj",
+  "contentHash": "b03d773459477f3f1dd074842b323f649cb6e11f3ffae3df56e6637d61e37303",
+  "title": "Information Architecture",
+  "slug": "lesson-028",
+  "module": "design",
+  "order": 8,
+  "totalInModule": 10,
+  "difficulty": 4,
+  "estimatedReadingTime": 25,
+  "estimatedCompletionTime": 40,
+  "prerequisites": [
+    "les_ftgikz",
+    "les_9gu1rs",
+    "les_go5z1d"
+  ],
+  "sourceFile": "content/lessons/lesson-028.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 28: Information Architecture",
+      "blockId": "blk_410d87ac16"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 27's Detailed Case Study ended with a design team solving a cognitive-load problem by splitting a single overloaded screen into a staged, progressively disclosed flow. That solution worked because someone had implicitly made a decision about *how information should be organized and grouped*: which fields belong together, which can wait, what the underlying categories even are. This lesson makes that implicit decision explicit and gives it a name: **information architecture**, the practice of organizing, structuring, labeling, and connecting content and functionality so that people can find what they need and understand where they are, across an entire product, not just within a single screen or flow.",
+      "blockId": "blk_d4d445baac"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson matters because information architecture problems are often invisible until they cause real damage: a confusing category structure, an inconsistent labeling scheme, or a navigation hierarchy that doesn't match how users actually think about a product's content rarely shows up as a single dramatic bug. Instead, it shows up as a slow, steady accumulation of failed searches, abandoned tasks, and support tickets asking \"where do I find X,\" each individually minor but collectively reflecting a structural problem no single screen-level fix can resolve. This is the module's final design-specific lesson before Lesson 29 folds everything covered so far into a formal prioritization discipline.",
+      "blockId": "blk_43bb632839"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "Define information architecture and distinguish it from visual design and interaction design.",
+        "Apply card sorting as a technique for validating a category structure against users' actual mental models, rather than the organization's internal structure.",
+        "Distinguish organization schemes based on users' mental models from those based on internal organizational structure, and explain why the latter frequently fails users.",
+        "Apply the concept of findability and identify common failure patterns: ambiguous labeling and \"org chart as navigation.\"",
+        "Distinguish appropriate information architecture validation from over-engineering a taxonomy no one will actually use as designed."
+      ],
+      "blockId": "blk_342b74f74f"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 15 (User Journey Mapping), Lesson 18 (Customer Segmentation), and Lesson 27 (UX Principles for Product Managers). This lesson assumes fluency with mapping a user's actual behavior and mental model (rather than assumption), validating segments against real evidence rather than convenient categories, and applying cognitive-load principles. Information architecture combines all three into a discipline for organizing an entire product's content and navigation.",
+      "blockId": "blk_230b91042e"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Core Definition and Its Boundaries",
+          "blockId": "blk_1aececcf0f"
+        },
+        {
+          "type": "paragraph",
+          "text": "Information architecture (IA) is the practice of organizing, structuring, labeling, and connecting a product's content and functionality so that users can find what they need and understand where they are within it. It's useful to distinguish IA precisely from its neighbors:",
+          "blockId": "blk_6b65780f7f"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**Visual design** concerns how things look: color, typography, imagery.",
+            "**Interaction design** concerns how specific interface elements behave when a user engages with them.",
+            "**Information architecture** concerns how content and functionality are organized, categorized, labeled, and connected, the underlying structure that visual design and interaction design are then applied on top of."
+          ],
+          "blockId": "blk_5b36d42109"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_d8045f7dbe",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Product Experience] --> B[Information Architecture Organization,<br/>Categories, Labels, Navigation Structure]\r\n    A --> C[Interaction Design How<br/>Elements Behave When Engaged With]\r\n    A --> D[Visual Design Color, Typography, Imagery]\r\n    B --> E[Foundation Interaction and<br/>Visual Design Are Built on Top Of]",
+          "normalized": "graph TD\r\n    A[Product Experience] --> B[Information Architecture Organization,<br/>Categories, Labels, Navigation Structure]\r\n    A --> C[Interaction Design How<br/>Elements Behave When Engaged With]\r\n    A --> D[Visual Design Color, Typography, Imagery]\r\n    B --> E[Foundation Interaction and<br/>Visual Design Are Built on Top Of]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020945503-76\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1786.75\" height=\"491\" viewBox=\"-77 -27 1786.75 491\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Product Experience → Information Architecture Organization,Categories, Labels, Navigation Structure → Interaction Design HowElements Behave When Engaged With → Visual Design Color, Typography, Imagery → Foundation Interaction andVisual Design Are Built on Top Of\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Product Experience → Information Architecture Organization,Categories, Labels, Navigation Structure → Interaction Design HowElements Behave When Engaged With → Visual Design Color, Typography, Imagery → Foundation Interaction andVisual Design Are Built on Top Of</title><style>#mermaid-svg-1795020945503-76{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020945503-76 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020945503-76 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020945503-76 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020945503-76 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020945503-76 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020945503-76 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020945503-76 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020945503-76 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020945503-76 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020945503-76 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020945503-76 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020945503-76 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020945503-76 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020945503-76 p{margin:0;}#mermaid-svg-1795020945503-76 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020945503-76 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020945503-76 .cluster-label span{color:#171A17;}#mermaid-svg-1795020945503-76 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020945503-76 .label text,#mermaid-svg-1795020945503-76 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020945503-76 .node rect,#mermaid-svg-1795020945503-76 .node circle,#mermaid-svg-1795020945503-76 .node ellipse,#mermaid-svg-1795020945503-76 .node polygon,#mermaid-svg-1795020945503-76 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020945503-76 .rough-node .label text,#mermaid-svg-1795020945503-76 .node .label text,#mermaid-svg-1795020945503-76 .image-shape .label,#mermaid-svg-1795020945503-76 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020945503-76 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020945503-76 .rough-node .label,#mermaid-svg-1795020945503-76 .node .label,#mermaid-svg-1795020945503-76 .image-shape .label,#mermaid-svg-1795020945503-76 .icon-shape .label{text-align:center;}#mermaid-svg-1795020945503-76 .node.clickable{cursor:pointer;}#mermaid-svg-1795020945503-76 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020945503-76 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020945503-76 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020945503-76 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020945503-76 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020945503-76 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020945503-76 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020945503-76 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020945503-76 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020945503-76 .cluster text{fill:#171A17;}#mermaid-svg-1795020945503-76 .cluster span{color:#171A17;}#mermaid-svg-1795020945503-76 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020945503-76 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020945503-76 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020945503-76 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020945503-76 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020945503-76 .icon-shape,#mermaid-svg-1795020945503-76 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020945503-76 .icon-shape p,#mermaid-svg-1795020945503-76 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020945503-76 .icon-shape .label rect,#mermaid-svg-1795020945503-76 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020945503-76 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020945503-76 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020945503-76 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020945503-76 [data-look=\"neo\"].node rect,#mermaid-svg-1795020945503-76 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020945503-76 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020945503-76-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945503-76 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020945503-76 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020945503-76-gradient);stroke-width:1px;}#mermaid-svg-1795020945503-76 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945503-76 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020945503-76 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020945503-76-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945503-76 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020945503-76 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020945503-76-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945503-76 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020945503-76-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945503-76 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020945503-76_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945503-76_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945503-76_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945503-76_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020945503-76_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945503-76_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945503-76_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945503-76_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945503-76_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945503-76_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945503-76_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020945503-76_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M738.625,65.577L666.021,75.23C593.417,84.884,448.208,104.192,375.604,120.096C303,136,303,148.5,303,154.75L303,161\" id=\"mermaid-svg-1795020945503-76-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NzM4LjYyNSwieSI6NjUuNTc2NTQwMzM0NTMzMTR9LHsieCI6MzAzLCJ5IjoxMjMuNX0seyJ4IjozMDMsInkiOjE2NX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945503-76_flowchart-v2-pointEnd)\"></path><path d=\"M893.375,82L893.375,88.917C893.375,95.833,893.375,109.667,893.375,122.833C893.375,136,893.375,148.5,893.375,154.75L893.375,161\" id=\"mermaid-svg-1795020945503-76-L_A_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_C_0\" data-points=\"W3sieCI6ODkzLjM3NSwieSI6ODJ9LHsieCI6ODkzLjM3NSwieSI6MTIzLjV9LHsieCI6ODkzLjM3NSwieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945503-76_flowchart-v2-pointEnd)\"></path><path d=\"M1048.125,65.577L1120.729,75.23C1193.333,84.884,1338.542,104.192,1411.146,122.929C1483.75,141.667,1483.75,159.833,1483.75,168.917L1483.75,178\" id=\"mermaid-svg-1795020945503-76-L_A_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_D_0\" data-points=\"W3sieCI6MTA0OC4xMjUsInkiOjY1LjU3NjU0MDMzNDUzMzE0fSx7IngiOjE0ODMuNzUsInkiOjEyMy41fSx7IngiOjE0ODMuNzUsInkiOjE4Mn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945503-76_flowchart-v2-pointEnd)\"></path><path d=\"M303,273L303,279.917C303,286.833,303,300.667,303,313.833C303,327,303,339.5,303,345.75L303,352\" id=\"mermaid-svg-1795020945503-76-L_B_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_E_0\" data-points=\"W3sieCI6MzAzLCJ5IjoyNzN9LHsieCI6MzAzLCJ5IjozMTQuNX0seyJ4IjozMDMsInkiOjM1Nn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945503-76_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020945503-76-flowchart-A-0\" data-look=\"classic\" transform=\"translate(893.375, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-124.5\" y=\"-35\" width=\"249\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-92.5, -19)\"><rect></rect><foreignObject width=\"185\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Product Experience</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945503-76-flowchart-B-1\" data-look=\"classic\" transform=\"translate(303, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-218\" y=\"-46\" width=\"436\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-186, -30)\"><rect></rect><foreignObject width=\"372\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Information Architecture Organization,<br>Categories, Labels, Navigation Structure</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945503-76-flowchart-C-3\" data-look=\"classic\" transform=\"translate(893.375, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-188.25\" y=\"-46\" width=\"376.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-156.25, -30)\"><rect></rect><foreignObject width=\"312.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Interaction Design How<br>Elements Behave When Engaged With</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945503-76-flowchart-D-5\" data-look=\"classic\" transform=\"translate(1483.75, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-218\" y=\"-35\" width=\"436\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-186, -19)\"><rect></rect><foreignObject width=\"372\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Visual Design Color, Typography, Imagery</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945503-76-flowchart-E-7\" data-look=\"classic\" transform=\"translate(303, 410)\"><rect class=\"basic label-container\" style=\"\" x=\"-188.25\" y=\"-46\" width=\"376.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-156.25, -30)\"><rect></rect><foreignObject width=\"312.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Foundation Interaction and<br>Visual Design Are Built on Top Of</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020945503-76-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020945503-76-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020945503-76-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_d8045f7dbe"
+        },
+        {
+          "type": "paragraph",
+          "text": "A product can have excellent visual design and interaction design while still suffering from a fundamentally confusing information architecture: users may find each individual screen visually polished and each individual interaction smooth, while still struggling to locate the right screen or feature in the first place, because the underlying organizational structure doesn't match how they think about the product's content.",
+          "blockId": "blk_d479e1b3a6"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Card Sorting: Validating Structure Against Real Mental Models",
+          "blockId": "blk_4058c3b5b0"
+        },
+        {
+          "type": "paragraph",
+          "text": "A widely used, practical technique for validating (or discovering) an appropriate category structure is **card sorting**: giving research participants a set of cards, each representing a specific piece of content or functionality, and asking them to group the cards into categories that make sense to them (an \"open\" card sort, where participants create their own category labels) or to sort cards into predefined categories (a \"closed\" card sort, testing whether an existing proposed structure matches users' expectations).",
+          "blockId": "blk_bfc78f54f5"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_848c6b3a65",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Card Sorting] --> B[Open Card Sort Participants<br/>Create Their Own Categories]\r\n    A --> C[Closed Card Sort Participants<br/>Sort Into Predefined Categories]\r\n    B --> D[Reveals Users' Own Mental<br/>Model of How Content Relates]\r\n    C --> E[Tests Whether an Existing Structure<br/>Matches User Expectations]",
+          "normalized": "graph TD\r\n    A[Card Sorting] --> B[Open Card Sort Participants<br/>Create Their Own Categories]\r\n    A --> C[Closed Card Sort Participants<br/>Sort Into Predefined Categories]\r\n    B --> D[Reveals Users' Own Mental<br/>Model of How Content Relates]\r\n    C --> E[Tests Whether an Existing Structure<br/>Matches User Expectations]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020945659-77\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1009.38\" height=\"491\" viewBox=\"-51.5 -27 1009.38 491\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Card Sorting → Open Card Sort ParticipantsCreate Their Own Categories → Closed Card Sort ParticipantsSort Into Predefined Categories → Reveals Users' Own MentalModel of How Content Relates → Tests Whether an Existing StructureMatches User Expectations\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Card Sorting → Open Card Sort ParticipantsCreate Their Own Categories → Closed Card Sort ParticipantsSort Into Predefined Categories → Reveals Users' Own MentalModel of How Content Relates → Tests Whether an Existing StructureMatches User Expectations</title><style>#mermaid-svg-1795020945659-77{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020945659-77 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020945659-77 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020945659-77 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020945659-77 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020945659-77 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020945659-77 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020945659-77 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020945659-77 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020945659-77 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020945659-77 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020945659-77 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020945659-77 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020945659-77 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020945659-77 p{margin:0;}#mermaid-svg-1795020945659-77 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020945659-77 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020945659-77 .cluster-label span{color:#171A17;}#mermaid-svg-1795020945659-77 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020945659-77 .label text,#mermaid-svg-1795020945659-77 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020945659-77 .node rect,#mermaid-svg-1795020945659-77 .node circle,#mermaid-svg-1795020945659-77 .node ellipse,#mermaid-svg-1795020945659-77 .node polygon,#mermaid-svg-1795020945659-77 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020945659-77 .rough-node .label text,#mermaid-svg-1795020945659-77 .node .label text,#mermaid-svg-1795020945659-77 .image-shape .label,#mermaid-svg-1795020945659-77 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020945659-77 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020945659-77 .rough-node .label,#mermaid-svg-1795020945659-77 .node .label,#mermaid-svg-1795020945659-77 .image-shape .label,#mermaid-svg-1795020945659-77 .icon-shape .label{text-align:center;}#mermaid-svg-1795020945659-77 .node.clickable{cursor:pointer;}#mermaid-svg-1795020945659-77 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020945659-77 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020945659-77 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020945659-77 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020945659-77 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020945659-77 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020945659-77 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020945659-77 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020945659-77 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020945659-77 .cluster text{fill:#171A17;}#mermaid-svg-1795020945659-77 .cluster span{color:#171A17;}#mermaid-svg-1795020945659-77 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020945659-77 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020945659-77 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020945659-77 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020945659-77 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020945659-77 .icon-shape,#mermaid-svg-1795020945659-77 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020945659-77 .icon-shape p,#mermaid-svg-1795020945659-77 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020945659-77 .icon-shape .label rect,#mermaid-svg-1795020945659-77 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020945659-77 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020945659-77 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020945659-77 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020945659-77 [data-look=\"neo\"].node rect,#mermaid-svg-1795020945659-77 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020945659-77 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020945659-77-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945659-77 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020945659-77 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020945659-77-gradient);stroke-width:1px;}#mermaid-svg-1795020945659-77 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945659-77 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020945659-77 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020945659-77-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945659-77 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020945659-77 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020945659-77-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945659-77 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020945659-77-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945659-77 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020945659-77_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945659-77_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945659-77_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945659-77_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020945659-77_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945659-77_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945659-77_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945659-77_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945659-77_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945659-77_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945659-77_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020945659-77_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M373.313,79.732L348.844,87.026C324.375,94.321,275.438,108.911,250.969,122.455C226.5,136,226.5,148.5,226.5,154.75L226.5,161\" id=\"mermaid-svg-1795020945659-77-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6MzczLjMxMjUsInkiOjc5LjczMTU0NTIxNzE4NDl9LHsieCI6MjI2LjUsInkiOjEyMy41fSx7IngiOjIyNi41LCJ5IjoxNjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945659-77_flowchart-v2-pointEnd)\"></path><path d=\"M606.313,79.732L630.781,87.026C655.25,94.321,704.188,108.911,728.656,122.455C753.125,136,753.125,148.5,753.125,154.75L753.125,161\" id=\"mermaid-svg-1795020945659-77-L_A_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_C_0\" data-points=\"W3sieCI6NjA2LjMxMjUsInkiOjc5LjczMTU0NTIxNzE4NDl9LHsieCI6NzUzLjEyNSwieSI6MTIzLjV9LHsieCI6NzUzLjEyNSwieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945659-77_flowchart-v2-pointEnd)\"></path><path d=\"M226.5,273L226.5,279.917C226.5,286.833,226.5,300.667,226.5,313.833C226.5,327,226.5,339.5,226.5,345.75L226.5,352\" id=\"mermaid-svg-1795020945659-77-L_B_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_D_0\" data-points=\"W3sieCI6MjI2LjUsInkiOjI3M30seyJ4IjoyMjYuNSwieSI6MzE0LjV9LHsieCI6MjI2LjUsInkiOjM1Nn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945659-77_flowchart-v2-pointEnd)\"></path><path d=\"M753.125,273L753.125,279.917C753.125,286.833,753.125,300.667,753.125,313.833C753.125,327,753.125,339.5,753.125,345.75L753.125,352\" id=\"mermaid-svg-1795020945659-77-L_C_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_E_0\" data-points=\"W3sieCI6NzUzLjEyNSwieSI6MjczfSx7IngiOjc1My4xMjUsInkiOjMxNC41fSx7IngiOjc1My4xMjUsInkiOjM1Nn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945659-77_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020945659-77-flowchart-A-0\" data-look=\"classic\" transform=\"translate(489.8125, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-99\" y=\"-35\" width=\"198\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-67, -19)\"><rect></rect><foreignObject width=\"134\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Card Sorting</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945659-77-flowchart-B-1\" data-look=\"classic\" transform=\"translate(226.5, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-162.75\" y=\"-46\" width=\"325.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-130.75, -30)\"><rect></rect><foreignObject width=\"261.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Open Card Sort Participants<br>Create Their Own Categories</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945659-77-flowchart-C-3\" data-look=\"classic\" transform=\"translate(753.125, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-179.75\" y=\"-46\" width=\"359.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-147.75, -30)\"><rect></rect><foreignObject width=\"295.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Closed Card Sort Participants<br>Sort Into Predefined Categories</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945659-77-flowchart-D-5\" data-look=\"classic\" transform=\"translate(226.5, 410)\"><rect class=\"basic label-container\" style=\"\" x=\"-167\" y=\"-46\" width=\"334\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-135, -30)\"><rect></rect><foreignObject width=\"270\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Reveals Users' Own Mental<br>Model of How Content Relates</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945659-77-flowchart-E-7\" data-look=\"classic\" transform=\"translate(753.125, 410)\"><rect class=\"basic label-container\" style=\"\" x=\"-196.75\" y=\"-46\" width=\"393.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-164.75, -30)\"><rect></rect><foreignObject width=\"329.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Tests Whether an Existing Structure<br>Matches User Expectations</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020945659-77-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020945659-77-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020945659-77-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_848c6b3a65"
+        },
+        {
+          "type": "paragraph",
+          "text": "Card sorting directly extends this curriculum's recurring research discipline (Lessons 11–13) into the specific domain of organizational structure: rather than assuming a category scheme is intuitive because it makes sense to the team that built it, card sorting produces genuine, revealed-preference-adjacent evidence (Lesson 11) about how real users actually group and relate the product's content, which can differ substantially from the team's internal assumptions.",
+          "blockId": "blk_73d80a37b1"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Mental Model Organization vs. Internal Organizational Structure",
+          "blockId": "blk_e2c29b5d1b"
+        },
+        {
+          "type": "paragraph",
+          "text": "A specific, common, and costly failure (closely related to Lesson 14's fictional-character-persona warning) is organizing a product's information architecture around the company's own internal organizational structure (which team owns which feature, which department handles which function) rather than around users' actual mental models of the product's content.",
+          "blockId": "blk_15ffabda25"
+        },
+        {
+          "type": "paragraph",
+          "text": "For example, a company with separate internal teams for \"billing,\" \"account settings,\" and \"notification preferences\" might structure a product's navigation around these same three categories, simply because that's how the company itself is organized internally, even if, from a user's actual mental model, \"notification preferences\" feels more naturally grouped with \"account settings\" than as its own separate top-level category. Users navigating the product have no visibility into, and no reason to care about, the company's internal team structure; a navigation scheme built around that internal structure, rather than genuine user mental models (validated through techniques like card sorting), will frequently confuse and frustrate users regardless of how logical it seems to the internal teams who built it.",
+          "blockId": "blk_527cedd38e"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_41db698aad",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[Organization Scheme] --> B[Based on Internal Org<br/>Structure Which Team Owns What]\r\n    A --> C[Based on User Mental Models Validated<br/>Via Card Sorting, Lesson 12 Interviews]\r\n    B --> D[Frequently Confuses Users, Who Have No<br/>Visibility Into Internal Structure]\r\n    C --> E[Matches How Users Think<br/>About and Relate Content]",
+          "normalized": "graph LR\r\n    A[Organization Scheme] --> B[Based on Internal Org<br/>Structure Which Team Owns What]\r\n    A --> C[Based on User Mental Models Validated<br/>Via Card Sorting, Lesson 12 Interviews]\r\n    B --> D[Frequently Confuses Users, Who Have No<br/>Visibility Into Internal Structure]\r\n    C --> E[Matches How Users Think<br/>About and Relate Content]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020945802-78\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1642.5\" height=\"296\" viewBox=\"-38 -27 1642.5 296\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Organization Scheme → Based on Internal OrgStructure Which Team Owns What → Based on User Mental Models ValidatedVia Card Sorting, Lesson 12 Interviews → Frequently Confuses Users, Who Have NoVisibility Into Internal Structure → Matches How Users ThinkAbout and Relate Content\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Organization Scheme → Based on Internal OrgStructure Which Team Owns What → Based on User Mental Models ValidatedVia Card Sorting, Lesson 12 Interviews → Frequently Confuses Users, Who Have NoVisibility Into Internal Structure → Matches How Users ThinkAbout and Relate Content</title><style>#mermaid-svg-1795020945802-78{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020945802-78 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020945802-78 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020945802-78 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020945802-78 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020945802-78 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020945802-78 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020945802-78 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020945802-78 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020945802-78 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020945802-78 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020945802-78 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020945802-78 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020945802-78 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020945802-78 p{margin:0;}#mermaid-svg-1795020945802-78 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020945802-78 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020945802-78 .cluster-label span{color:#171A17;}#mermaid-svg-1795020945802-78 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020945802-78 .label text,#mermaid-svg-1795020945802-78 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020945802-78 .node rect,#mermaid-svg-1795020945802-78 .node circle,#mermaid-svg-1795020945802-78 .node ellipse,#mermaid-svg-1795020945802-78 .node polygon,#mermaid-svg-1795020945802-78 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020945802-78 .rough-node .label text,#mermaid-svg-1795020945802-78 .node .label text,#mermaid-svg-1795020945802-78 .image-shape .label,#mermaid-svg-1795020945802-78 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020945802-78 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020945802-78 .rough-node .label,#mermaid-svg-1795020945802-78 .node .label,#mermaid-svg-1795020945802-78 .image-shape .label,#mermaid-svg-1795020945802-78 .icon-shape .label{text-align:center;}#mermaid-svg-1795020945802-78 .node.clickable{cursor:pointer;}#mermaid-svg-1795020945802-78 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020945802-78 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020945802-78 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020945802-78 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020945802-78 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020945802-78 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020945802-78 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020945802-78 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020945802-78 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020945802-78 .cluster text{fill:#171A17;}#mermaid-svg-1795020945802-78 .cluster span{color:#171A17;}#mermaid-svg-1795020945802-78 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020945802-78 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020945802-78 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020945802-78 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020945802-78 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020945802-78 .icon-shape,#mermaid-svg-1795020945802-78 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020945802-78 .icon-shape p,#mermaid-svg-1795020945802-78 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020945802-78 .icon-shape .label rect,#mermaid-svg-1795020945802-78 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020945802-78 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020945802-78 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020945802-78 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020945802-78 [data-look=\"neo\"].node rect,#mermaid-svg-1795020945802-78 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020945802-78 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020945802-78-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945802-78 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020945802-78 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020945802-78-gradient);stroke-width:1px;}#mermaid-svg-1795020945802-78 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945802-78 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020945802-78 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020945802-78-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945802-78 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020945802-78 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020945802-78-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945802-78 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020945802-78-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945802-78 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020945802-78_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945802-78_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945802-78_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945802-78_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020945802-78_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945802-78_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945802-78_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945802-78_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945802-78_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945802-78_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945802-78_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020945802-78_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M272.447,101.5L290.831,94.917C309.215,88.333,345.982,75.167,380.949,68.583C415.917,62,449.083,62,465.667,62L482.25,62\" id=\"mermaid-svg-1795020945802-78-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6MjcyLjQ0Njg5NTQyNDgzNjYsInkiOjEwMS41fSx7IngiOjM4Mi43NSwieSI6NjJ9LHsieCI6NDg2LjI1LCJ5Ijo2Mn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945802-78_flowchart-v2-pointEnd)\"></path><path d=\"M272.447,175.5L290.831,182.083C309.215,188.667,345.982,201.833,372.449,208.417C398.917,215,415.083,215,423.167,215L431.25,215\" id=\"mermaid-svg-1795020945802-78-L_A_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_C_0\" data-points=\"W3sieCI6MjcyLjQ0Njg5NTQyNDgzNjYsInkiOjE3NS41fSx7IngiOjM4Mi43NSwieSI6MjE1fSx7IngiOjQzNS4yNSwieSI6MjE1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945802-78_flowchart-v2-pointEnd)\"></path><path d=\"M948.75,62L966,62C983.25,62,1017.75,62,1043.083,62C1068.417,62,1084.583,62,1092.667,62L1100.75,62\" id=\"mermaid-svg-1795020945802-78-L_B_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_D_0\" data-points=\"W3sieCI6OTQ4Ljc1LCJ5Ijo2Mn0seyJ4IjoxMDUyLjI1LCJ5Ijo2Mn0seyJ4IjoxMTA0Ljc1LCJ5Ijo2Mn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945802-78_flowchart-v2-pointEnd)\"></path><path d=\"M999.75,215L1008.5,215C1017.25,215,1034.75,215,1066.458,215C1098.167,215,1144.083,215,1167.042,215L1190,215\" id=\"mermaid-svg-1795020945802-78-L_C_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_E_0\" data-points=\"W3sieCI6OTk5Ljc1LCJ5IjoyMTV9LHsieCI6MTA1Mi4yNSwieSI6MjE1fSx7IngiOjExOTQsInkiOjIxNX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945802-78_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020945802-78-flowchart-A-0\" data-look=\"classic\" transform=\"translate(169.125, 138.5)\"><rect class=\"basic label-container\" style=\"\" x=\"-128.75\" y=\"-35\" width=\"257.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-96.75, -19)\"><rect></rect><foreignObject width=\"193.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Organization Scheme</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945802-78-flowchart-B-1\" data-look=\"classic\" transform=\"translate(717.5, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-175.5\" y=\"-46\" width=\"351\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-143.5, -30)\"><rect></rect><foreignObject width=\"287\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Based on Internal Org<br>Structure Which Team Owns What</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945802-78-flowchart-C-3\" data-look=\"classic\" transform=\"translate(717.5, 215)\"><rect class=\"basic label-container\" style=\"\" x=\"-209.5\" y=\"-46\" width=\"419\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-177.5, -30)\"><rect></rect><foreignObject width=\"355\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Based on User Mental Models Validated<br>Via Card Sorting, Lesson 12 Interviews</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945802-78-flowchart-D-5\" data-look=\"classic\" transform=\"translate(1387, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-209.5\" y=\"-46\" width=\"419\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-177.5, -30)\"><rect></rect><foreignObject width=\"355\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Frequently Confuses Users, Who Have No<br>Visibility Into Internal Structure</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945802-78-flowchart-E-7\" data-look=\"classic\" transform=\"translate(1387, 215)\"><rect class=\"basic label-container\" style=\"\" x=\"-150\" y=\"-46\" width=\"300\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-118, -30)\"><rect></rect><foreignObject width=\"236\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Matches How Users Think<br>About and Relate Content</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020945802-78-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020945802-78-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020945802-78-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_41db698aad"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Findability and Common Failure Patterns",
+          "blockId": "blk_aafce9917c"
+        },
+        {
+          "type": "paragraph",
+          "text": "**Findability** describes how easily and reliably a user can locate specific content or functionality within a product. Two specific, common failure patterns undermine findability:",
+          "blockId": "blk_6777e24df8"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**Ambiguous labeling**: category or navigation labels that are vague, internally jargon-heavy, or open to multiple reasonable interpretations, forcing users to guess or explore multiple options before finding what they need, a direct instance of Lesson 22's under-specification concern, now applied to navigation labels rather than written requirements.",
+            "**\"Org chart as navigation\"**: the specific instance of the mental-model-versus-internal-structure failure described above, where a product's top-level navigation categories map directly onto internal team or department boundaries rather than user-facing conceptual groupings."
+          ],
+          "blockId": "blk_0681e856c3"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_1d5d0009a4",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Findability Problems] --> B[Ambiguous Labeling Vague or<br/>Jargon-heavy Category Names]\r\n    A --> C[\"Org Chart as Navigation\" Categories<br/>Mirror Internal Team Structure, Not User<br/>Mental Models]\r\n    B --> D[Users Guess or Explore Multiple Options<br/>Before Finding What They Need]\r\n    C --> D",
+          "normalized": "graph TD\r\n    A[Findability Problems] --> B[Ambiguous Labeling Vague or<br/>Jargon-heavy Category Names]\r\n    A --> C[\"Org Chart as Navigation\" Categories<br/>Mirror Internal Team Structure, Not User<br/>Mental Models]\r\n    B --> D[Users Guess or Explore Multiple Options<br/>Before Finding What They Need]\r\n    C --> D",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020945956-79\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1047.63\" height=\"525\" viewBox=\"-49.375 -27 1047.63 525\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Findability Problems → Ambiguous Labeling Vague orJargon-heavy Category Names → Org Chart as Navigation CategoriesMirror Internal Team Structure, Not UserMental Models → Users Guess or Explore Multiple OptionsBefore Finding What They Need\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Findability Problems → Ambiguous Labeling Vague orJargon-heavy Category Names → Org Chart as Navigation CategoriesMirror Internal Team Structure, Not UserMental Models → Users Guess or Explore Multiple OptionsBefore Finding What They Need</title><style>#mermaid-svg-1795020945956-79{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020945956-79 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020945956-79 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020945956-79 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020945956-79 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020945956-79 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020945956-79 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020945956-79 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020945956-79 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020945956-79 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020945956-79 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020945956-79 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020945956-79 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020945956-79 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020945956-79 p{margin:0;}#mermaid-svg-1795020945956-79 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020945956-79 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020945956-79 .cluster-label span{color:#171A17;}#mermaid-svg-1795020945956-79 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020945956-79 .label text,#mermaid-svg-1795020945956-79 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020945956-79 .node rect,#mermaid-svg-1795020945956-79 .node circle,#mermaid-svg-1795020945956-79 .node ellipse,#mermaid-svg-1795020945956-79 .node polygon,#mermaid-svg-1795020945956-79 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020945956-79 .rough-node .label text,#mermaid-svg-1795020945956-79 .node .label text,#mermaid-svg-1795020945956-79 .image-shape .label,#mermaid-svg-1795020945956-79 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020945956-79 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020945956-79 .rough-node .label,#mermaid-svg-1795020945956-79 .node .label,#mermaid-svg-1795020945956-79 .image-shape .label,#mermaid-svg-1795020945956-79 .icon-shape .label{text-align:center;}#mermaid-svg-1795020945956-79 .node.clickable{cursor:pointer;}#mermaid-svg-1795020945956-79 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020945956-79 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020945956-79 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020945956-79 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020945956-79 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020945956-79 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020945956-79 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020945956-79 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020945956-79 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020945956-79 .cluster text{fill:#171A17;}#mermaid-svg-1795020945956-79 .cluster span{color:#171A17;}#mermaid-svg-1795020945956-79 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020945956-79 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020945956-79 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020945956-79 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020945956-79 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020945956-79 .icon-shape,#mermaid-svg-1795020945956-79 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020945956-79 .icon-shape p,#mermaid-svg-1795020945956-79 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020945956-79 .icon-shape .label rect,#mermaid-svg-1795020945956-79 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020945956-79 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020945956-79 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020945956-79 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020945956-79 [data-look=\"neo\"].node rect,#mermaid-svg-1795020945956-79 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020945956-79 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020945956-79-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945956-79 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020945956-79 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020945956-79-gradient);stroke-width:1px;}#mermaid-svg-1795020945956-79 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945956-79 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020945956-79 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020945956-79-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945956-79 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020945956-79 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020945956-79-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945956-79 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020945956-79-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945956-79 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020945956-79_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945956-79_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945956-79_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945956-79_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020945956-79_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945956-79_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945956-79_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945956-79_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945956-79_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945956-79_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945956-79_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020945956-79_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M366.069,82L341.745,88.917C317.421,95.833,268.773,109.667,244.449,125.667C220.125,141.667,220.125,159.833,220.125,168.917L220.125,178\" id=\"mermaid-svg-1795020945956-79-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6MzY2LjA2ODg2OTQyNjc1MTYsInkiOjgyfSx7IngiOjIyMC4xMjUsInkiOjEyMy41fSx7IngiOjIyMC4xMjUsInkiOjE4Mn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945956-79_flowchart-v2-pointEnd)\"></path><path d=\"M626.306,82L650.63,88.917C674.954,95.833,723.602,109.667,747.926,122.833C772.25,136,772.25,148.5,772.25,154.75L772.25,161\" id=\"mermaid-svg-1795020945956-79-L_A_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_C_0\" data-points=\"W3sieCI6NjI2LjMwNjEzMDU3MzI0ODQsInkiOjgyfSx7IngiOjc3Mi4yNSwieSI6MTIzLjV9LHsieCI6NzcyLjI1LCJ5IjoxNjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945956-79_flowchart-v2-pointEnd)\"></path><path d=\"M220.125,290L220.125,299.75C220.125,309.5,220.125,329,239.489,345.449C258.853,361.897,297.581,375.295,316.945,381.994L336.309,388.692\" id=\"mermaid-svg-1795020945956-79-L_B_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_D_0\" data-points=\"W3sieCI6MjIwLjEyNSwieSI6MjkwfSx7IngiOjIyMC4xMjUsInkiOjM0OC41fSx7IngiOjM0MC4wODkzMzI0NjA3MzMsInkiOjM5MH1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945956-79_flowchart-v2-pointEnd)\"></path><path d=\"M772.25,307L772.25,313.917C772.25,320.833,772.25,334.667,752.886,348.282C733.522,361.897,694.794,375.295,675.43,381.994L656.066,388.692\" id=\"mermaid-svg-1795020945956-79-L_C_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_D_0\" data-points=\"W3sieCI6NzcyLjI1LCJ5IjozMDd9LHsieCI6NzcyLjI1LCJ5IjozNDguNX0seyJ4Ijo2NTIuMjg1NjY3NTM5MjY3LCJ5IjozOTB9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945956-79_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020945956-79-flowchart-A-0\" data-look=\"classic\" transform=\"translate(496.1875, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-133\" y=\"-35\" width=\"266\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-101, -19)\"><rect></rect><foreignObject width=\"202\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Findability Problems</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945956-79-flowchart-B-1\" data-look=\"classic\" transform=\"translate(220.125, 236)\"><rect class=\"basic label-container\" style=\"\" x=\"-162.75\" y=\"-46\" width=\"325.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-130.75, -30)\"><rect></rect><foreignObject width=\"261.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Ambiguous Labeling Vague or<br>Jargon-heavy Category Names</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945956-79-flowchart-C-3\" data-look=\"classic\" transform=\"translate(772.25, 236)\"><rect class=\"basic label-container\" style=\"\" x=\"-218\" y=\"-57\" width=\"436\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-186, -41)\"><rect></rect><foreignObject width=\"372\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Org Chart as Navigation Categories<br>Mirror Internal Team Structure, Not User<br>Mental Models</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945956-79-flowchart-D-5\" data-look=\"classic\" transform=\"translate(496.1875, 444)\"><rect class=\"basic label-container\" style=\"\" x=\"-213.75\" y=\"-46\" width=\"427.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-181.75, -30)\"><rect></rect><foreignObject width=\"363.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Users Guess or Explore Multiple Options<br>Before Finding What They Need</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020945956-79-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020945956-79-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020945956-79-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_1d5d0009a4"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Avoiding Over-Engineering: Validation Proportional to Stakes",
+          "blockId": "blk_87722c5f26"
+        },
+        {
+          "type": "paragraph",
+          "text": "As with several other artifacts covered in this module (MVP scope, prototype fidelity), information architecture validation should be proportional to the actual stakes and complexity involved: a small product with a handful of clearly distinct sections may not require extensive, formal card-sorting studies to arrive at a sensible structure, while a large, content-rich product with many overlapping categories and a broad, diverse user base likely benefits significantly from rigorous, validated research. Over-investing in exhaustive taxonomy development for a genuinely simple product wastes effort without corresponding benefit, echoing this module's recurring theme (Lesson 21's MVP creep, Lesson 26's over-engineered prototype) that validation effort should match the actual complexity and risk of the specific problem at hand, not a fixed, one-size-fits-all standard.",
+          "blockId": "blk_124efac8d6"
+        }
+      ],
+      "blockId": "blk_b949eb6fe9"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Organizing product navigation around internal team or organizational structure rather than user mental models",
+          "body": "This is the \"org chart as navigation\" failure: users have no visibility into internal structure and will be confused by a navigation scheme that reflects it rather than their own way of thinking about the product's content."
+        },
+        {
+          "title": "Assuming a category structure is intuitive because it makes sense to the team that built it",
+          "body": "The team's familiarity with the product's internal logic and terminology is precisely what makes them poor judges of whether a structure is genuinely intuitive to someone encountering it fresh. Validation (via card sorting or similar techniques) is needed rather than internal confidence alone."
+        },
+        {
+          "title": "Using ambiguous, jargon-heavy, or internally-coined labels for user-facing categories",
+          "body": "Labels that make sense within a team's internal vocabulary may be unfamiliar or ambiguous to actual users, undermining findability regardless of how logical the underlying structure is."
+        },
+        {
+          "title": "Treating information architecture as a one-time decision that never needs revisiting as a product grows",
+          "body": "As new features and content are added over time, an initially sensible structure can gradually become overloaded or inconsistent, echoing this curriculum's recurring theme (Lessons 14, 15, 18) that structural artifacts require periodic revalidation, not permanent, one-time construction."
+        },
+        {
+          "title": "Over-investing in exhaustive taxonomy development for a genuinely simple product with few, clearly distinct sections",
+          "body": "Validation effort should be proportional to actual complexity and stakes, not applied at a fixed, maximal level regardless of the specific product's actual organizational complexity.\n\n"
+        }
+      ],
+      "blockId": "blk_913ec2d21a"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The Mental Model Match Test",
+      "diagram": {
+        "blockId": "blk_67db185e48",
+        "type": "mermaid"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "This lesson's mental model is the **Mental Model Match Test**, a quick diagnostic for evaluating whether a proposed information architecture reflects users' actual thinking or the organization's internal structure.",
+          "blockId": "blk_b5e35828dd"
+        },
+        {
+          "type": "paragraph",
+          "text": "Apply this test to any proposed navigation or category structure before finalizing it: has this structure actually been validated against real users' mental models, using a technique like card sorting or past-behavior interviews (Lesson 12), or does it simply reflect how the team internally thinks about the product (often shaped by internal organizational boundaries)? A structure that has not passed this test should be treated as an unvalidated hypothesis, not a finished decision.",
+          "blockId": "blk_f29af15189"
+        }
+      ],
+      "blockId": "blk_ac66776d58"
+    },
+    {
+      "type": "mermaid",
+      "id": "blk_67db185e48",
+      "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Proposed Category or<br/>Navigation Structure] --> B{Does This Structure Reflect How Real<br/>Users, Validated Through Card Sorting or<br/>Interviews, Group This Content?}\r\n    B -->|Yes| C[Likely to Support Genuine Findability]\r\n    B -->|No: It Reflects Internal Team<br/>Structure or Assumption Instead| D[\"Org Chart as Navigation\"<br/>Revisit Before Finalizing]",
+      "normalized": "graph TD\r\n    A[Proposed Category or<br/>Navigation Structure] --> B{Does This Structure Reflect How Real<br/>Users, Validated Through Card Sorting or<br/>Interviews, Group This Content?}\r\n    B -->|Yes| C[Likely to Support Genuine Findability]\r\n    B -->|No: It Reflects Internal Team<br/>Structure or Assumption Instead| D[\"Org Chart as Navigation\"<br/>Revisit Before Finalizing]",
+      "authorTheme": {
+        "background": "#0b0b0c",
+        "primaryColor": "#1f1f23",
+        "primaryTextColor": "#ffffff",
+        "primaryBorderColor": "#8b5cf6",
+        "lineColor": "#d1d5db",
+        "secondaryColor": "#18181b",
+        "tertiaryColor": "#111111",
+        "mainBkg": "#1f1f23",
+        "nodeBorder": "#8b5cf6",
+        "clusterBkg": "#000000",
+        "clusterBorder": "#27272a",
+        "titleColor": "#ffffff",
+        "edgeLabelBackground": "#0b0b0c",
+        "nodeTextColor": "#ffffff",
+        "edgeLabelColor": "#ffffff",
+        "actorBorder": "#8b5cf6",
+        "actorBkg": "#1f1f23",
+        "actorTextColor": "#ffffff",
+        "sequenceNumberColor": "#ffffff",
+        "signalColor": "#8b5cf6",
+        "signalTextColor": "#ffffff",
+        "textColor": "#ffffff",
+        "classText": "#ffffff",
+        "classBorder": "#8b5cf6",
+        "classBkg": "#1f1f23"
+      },
+      "svg": "<svg id=\"mermaid-svg-1795020946106-80\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1037\" height=\"925\" viewBox=\"-70.625 -27 1037 925\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Proposed Category orNavigation Structure → Does This Structure Reflect How RealUsers, Validated Through Card Sorting orInterviews, Group This Content? → Likely to Support Genuine Findability → Org Chart as NavigationRevisit Before Finalizing\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Proposed Category orNavigation Structure → Does This Structure Reflect How RealUsers, Validated Through Card Sorting orInterviews, Group This Content? → Likely to Support Genuine Findability → Org Chart as NavigationRevisit Before Finalizing</title><style>#mermaid-svg-1795020946106-80{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020946106-80 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020946106-80 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020946106-80 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020946106-80 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020946106-80 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020946106-80 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020946106-80 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020946106-80 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020946106-80 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020946106-80 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020946106-80 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020946106-80 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020946106-80 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020946106-80 p{margin:0;}#mermaid-svg-1795020946106-80 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020946106-80 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020946106-80 .cluster-label span{color:#171A17;}#mermaid-svg-1795020946106-80 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020946106-80 .label text,#mermaid-svg-1795020946106-80 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020946106-80 .node rect,#mermaid-svg-1795020946106-80 .node circle,#mermaid-svg-1795020946106-80 .node ellipse,#mermaid-svg-1795020946106-80 .node polygon,#mermaid-svg-1795020946106-80 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020946106-80 .rough-node .label text,#mermaid-svg-1795020946106-80 .node .label text,#mermaid-svg-1795020946106-80 .image-shape .label,#mermaid-svg-1795020946106-80 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020946106-80 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020946106-80 .rough-node .label,#mermaid-svg-1795020946106-80 .node .label,#mermaid-svg-1795020946106-80 .image-shape .label,#mermaid-svg-1795020946106-80 .icon-shape .label{text-align:center;}#mermaid-svg-1795020946106-80 .node.clickable{cursor:pointer;}#mermaid-svg-1795020946106-80 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020946106-80 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020946106-80 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020946106-80 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020946106-80 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020946106-80 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020946106-80 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020946106-80 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020946106-80 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020946106-80 .cluster text{fill:#171A17;}#mermaid-svg-1795020946106-80 .cluster span{color:#171A17;}#mermaid-svg-1795020946106-80 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020946106-80 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020946106-80 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020946106-80 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020946106-80 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020946106-80 .icon-shape,#mermaid-svg-1795020946106-80 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020946106-80 .icon-shape p,#mermaid-svg-1795020946106-80 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020946106-80 .icon-shape .label rect,#mermaid-svg-1795020946106-80 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020946106-80 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020946106-80 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020946106-80 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020946106-80 [data-look=\"neo\"].node rect,#mermaid-svg-1795020946106-80 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020946106-80 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020946106-80-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946106-80 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020946106-80 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020946106-80-gradient);stroke-width:1px;}#mermaid-svg-1795020946106-80 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946106-80 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020946106-80 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020946106-80-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946106-80 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020946106-80 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020946106-80-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946106-80 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020946106-80-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946106-80 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020946106-80_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946106-80_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946106-80_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946106-80_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020946106-80_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020946106-80_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020946106-80_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020946106-80_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020946106-80_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946106-80_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946106-80_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020946106-80_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M544,116L544,122.917C544,129.833,544,143.667,544,156.833C544,170,544,182.5,544,188.75L544,195\" id=\"mermaid-svg-1795020946106-80-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NTQ0LCJ5IjoxMTZ9LHsieCI6NTQ0LCJ5IjoxNTcuNX0seyJ4Ijo1NDQsInkiOjE5OX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020946106-80_flowchart-v2-pointEnd)\"></path><path d=\"M369.608,640.108L355.319,656.34C341.03,672.572,312.453,705.036,298.164,732.185C283.875,759.333,283.875,781.167,283.875,792.083L283.875,803\" id=\"mermaid-svg-1795020946106-80-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6MzY5LjYwNzk4NjUwMTY4NzI2LCJ5Ijo2NDAuMTA3OTg2NTAxNjg3M30seyJ4IjoyODMuODc1LCJ5Ijo3MzcuNX0seyJ4IjoyODMuODc1LCJ5Ijo4MDd9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020946106-80_flowchart-v2-pointEnd)\"></path><path d=\"M718.392,640.108L732.681,656.34C746.97,672.572,775.547,705.036,789.836,729.351C804.125,753.667,804.125,769.833,804.125,777.917L804.125,786\" id=\"mermaid-svg-1795020946106-80-L_B_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_D_0\" data-points=\"W3sieCI6NzE4LjM5MjAxMzQ5ODMxMjcsInkiOjY0MC4xMDc5ODY1MDE2ODczfSx7IngiOjgwNC4xMjUsInkiOjczNy41fSx7IngiOjgwNC4xMjUsInkiOjc5MH1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020946106-80_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(283.875, 737.5)\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Yes</p></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(804.125, 737.5)\"><g class=\"label\" data-id=\"L_B_D_0\" transform=\"translate(-147.75, -30)\"><foreignObject width=\"295.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>No: It Reflects Internal Team<br>Structure or Assumption Instead</p></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020946106-80-flowchart-A-0\" data-look=\"classic\" transform=\"translate(544, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-133\" y=\"-46\" width=\"266\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-101, -30)\"><rect></rect><foreignObject width=\"202\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Proposed Category or<br>Navigation Structure</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020946106-80-flowchart-B-1\" data-look=\"classic\" transform=\"translate(544, 442)\"><polygon points=\"243,0 486,-243 243,-486 0,-243\" class=\"label-container\" transform=\"translate(-242.5, 243)\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-186, -41)\"><rect></rect><foreignObject width=\"372\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Does This Structure Reflect How Real<br>Users, Validated Through Card Sorting or<br>Interviews, Group This Content?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020946106-80-flowchart-C-3\" data-look=\"classic\" transform=\"translate(283.875, 844)\"><rect class=\"basic label-container\" style=\"\" x=\"-205.25\" y=\"-35\" width=\"410.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-173.25, -19)\"><rect></rect><foreignObject width=\"346.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Likely to Support Genuine Findability</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020946106-80-flowchart-D-5\" data-look=\"classic\" transform=\"translate(804.125, 844)\"><rect class=\"basic label-container\" style=\"\" x=\"-154.25\" y=\"-46\" width=\"308.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-122.25, -30)\"><rect></rect><foreignObject width=\"244.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Org Chart as Navigation<br>Revisit Before Finalizing</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020946106-80-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020946106-80-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020946106-80-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+      "blockId": "blk_67db185e48"
+    },
+    {
+      "type": "companyExample",
+      "company": "Etsy",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "**Etsy**'s well-documented use of card sorting and related information architecture research methods to organize its extensive product category structure is a widely discussed illustration of this lesson's core technique applied at meaningful scale. Public design and research commentary from Etsy has described using card sorting and related studies specifically to validate how shoppers actually think about and group the platform's enormous range of product categories, rather than relying on an internally convenient taxonomy, a genuinely challenging information architecture problem given the platform's scale and the sheer diversity of items sold, where an internally intuitive structure could easily diverge substantially from how real shoppers browsing the platform actually think about finding what they want.",
+          "blockId": "blk_3d45d63efd"
+        }
+      ],
+      "assumptionFlags": [
+        "this reflects publicly shared design research commentary from the company rather than a claim about its complete, current internal information architecture process, which this curriculum does not claim certainty about."
+      ],
+      "blockId": "blk_0e249b6a89"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "At a startup",
+          "body": "Information architecture decisions are often made quickly and intuitively by a small team, given a genuinely simple, limited initial product with few distinct sections. The risk of \"org chart as navigation\" is often lower at this stage simply because there isn't yet much internal organizational structure to inadvertently reflect, though the risk of confusing, internally-coined labeling can still emerge even in a small, early product."
+        },
+        {
+          "context": "At a mid-size company",
+          "body": "Information architecture challenges typically grow substantially as a product adds features and content over time, and this is often the stage where card sorting and similar validation techniques become genuinely valuable. An initially sensible, small-scale structure frequently needs deliberate revalidation and restructuring as the product's scope expands well beyond its original, simpler form."
+        },
+        {
+          "context": "At Big Tech",
+          "body": "Information architecture at scale often needs to account for multiple overlapping products, teams, and content types simultaneously, and the \"org chart as navigation\" failure pattern becomes both more likely (given genuinely complex internal organizational structures) and more costly (given the scale of confused users affected). Dedicated information architecture and research functions at this scale exist substantially to counteract this specific, recurring risk."
+        }
+      ],
+      "blockId": "blk_7cbbc25544"
+    },
+    {
+      "type": "caseStudy",
+      "title": "The Settings Page Organized by Org Chart",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Consider a simplified, illustrative scenario common across B2B SaaS platforms.",
+          "blockId": "blk_8c2968ac4f"
+        },
+        {
+          "type": "paragraph",
+          "text": "A project management software company's settings page is organized into four top-level sections, each corresponding directly to the internal engineering team responsible for that area: \"Workspace Configuration\" (owned by the platform infrastructure team), \"Notification Rules\" (owned by the notifications team), \"Billing & Plans\" (owned by the monetization team), and \"Integrations\" (owned by the partnerships team). This structure emerged organically over time, as each team independently built and shipped their own section without coordinating on an overall, user-validated organizational scheme.",
+          "blockId": "blk_ff143abb6e"
+        },
+        {
+          "type": "paragraph",
+          "text": "Customer support data reveals a recurring pattern: a substantial share of support tickets involve users unable to find how to change their email notification frequency, despite this setting existing clearly within the \"Notification Rules\" section. Closer investigation, including a card sorting study conducted with a sample of real users, reveals that most users' actual mental model groups notification preferences together with general account and profile settings, a conceptual category the existing structure had no corresponding home for, since \"Notification Rules\" had been established as its own separate top-level section purely because a separate internal team happened to own that functionality.",
+          "blockId": "blk_1db0478eac"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong?**",
+          "blockId": "blk_6eb29c46df"
+        },
+        {
+          "type": "paragraph",
+          "text": "Applying this lesson's frameworks:",
+          "blockId": "blk_ba97df04b4"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**The navigation structure directly mirrored internal team ownership rather than user mental models**: a clear instance of the \"org chart as navigation\" failure pattern, emerging not from any single deliberate decision but from the organic, uncoordinated accumulation of each team's independently shipped section.",
+            "**No card sorting or similar validation had ever been conducted** before the structure was finalized and shipped. The team's internal familiarity with \"of course notifications are their own section, since that's a distinct team's responsibility\" masked the fact that this internal logic didn't match how actual users conceptually organized the same content.",
+            "**The findability problem was discovered only through accumulated support ticket volume**, a slow, indirect signal, rather than through proactive, upfront validation that would have caught the mismatch before launch, at a fraction of the ongoing support cost."
+          ],
+          "blockId": "blk_d76724ead8"
+        },
+        {
+          "type": "paragraph",
+          "text": "A team applying this lesson's discipline from the outset would have conducted a card sort (open or closed) with real users before finalizing the settings page structure, very likely revealing that users' mental model grouped notification preferences with general account settings rather than as its own distinct top-level category, allowing the team to restructure navigation around validated user mental models rather than internal team boundaries, before the structure had already shipped and accumulated real usage and support burden.",
+          "blockId": "blk_0d648a3201"
+        },
+        {
+          "type": "paragraph",
+          "text": "This case connects directly back to **Lesson 14's fictional-character-persona warning** and **Lesson 18's demographic-versus-behavioral segmentation distinction**: in all three cases, the same underlying failure recurs: organizing around what's convenient or intuitive from the organization's internal perspective, rather than what's been genuinely validated against real user behavior and mental models.",
+          "blockId": "blk_0f67bdf768"
+        }
+      ],
+      "blockId": "blk_7a20653a71"
+    },
+    {
+      "type": "framework",
+      "name": "The Information Architecture Validation Checklist",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A practical checklist for evaluating whether a proposed information architecture is ready to finalize:",
+          "blockId": "blk_8dcadbe5df"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Question",
+            "Purpose"
+          ],
+          "rows": [
+            [
+              "Has this structure been validated through card sorting or similar research, rather than assumed based on internal team logic?",
+              "Prevents the \"org chart as navigation\" failure pattern"
+            ],
+            [
+              "Are category and navigation labels clear and free of internal jargon, tested for ambiguity with real users where feasible?",
+              "Prevents ambiguous labeling failures"
+            ],
+            [
+              "Is the validation effort proportional to the product's actual organizational complexity and stakes?",
+              "Prevents both under-validation (a large, complex product with no research) and over-engineering (exhaustive taxonomy work for a genuinely simple product)"
+            ],
+            [
+              "Has the structure been revisited since new content or features were added, rather than treated as a permanent, one-time decision?",
+              "Prevents the structure from becoming overloaded or inconsistent over time"
+            ]
+          ],
+          "blockId": "blk_fc3ced775b"
+        },
+        {
+          "type": "paragraph",
+          "text": "A structure that fails several of these checks risks the exact kind of accumulated, hard-to-diagnose findability problem shown in this lesson's Detailed Case Study, a problem that often surfaces slowly, through support burden and quiet user frustration, rather than through any single obvious failure.",
+          "blockId": "blk_97a7585b67"
+        }
+      ],
+      "blockId": "blk_226a7fb370"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "How would you validate whether a proposed navigation structure makes sense to users?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate names a specific technique like card sorting, rather than relying on internal team consensus or intuition alone, and whether they connect this to the broader research discipline covered earlier in this curriculum."
+        },
+        {
+          "question": "Tell me about a time users struggled to find something in a product, and what caused it.",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate can diagnose a genuine findability problem (ambiguous labeling, org-chart-driven structure, or a mismatch with user mental models) rather than attributing the issue vaguely to \"bad UX\" without deeper structural diagnosis."
+        },
+        {
+          "question": "How do you decide how much information architecture research is warranted for a given product?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Awareness of the proportionality principle: whether the candidate can articulate that validation effort should scale with actual organizational complexity and stakes, rather than applying either no validation or maximal validation regardless of context."
+        }
+      ],
+      "blockId": "blk_ab48641e71"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Information architecture is the practice of organizing, structuring, labeling, and connecting a product's content and functionality, distinct from visual design (appearance) and interaction design (specific element behavior), and forms the underlying foundation those other disciplines are built on top of. Card sorting is a widely used technique for validating (or discovering) a category structure against users' genuine mental models, rather than assuming internal team familiarity translates to user-facing intuitiveness. A specific, common, and costly failure (\"org chart as navigation\") occurs when a product's structure mirrors internal organizational boundaries rather than validated user mental models, producing findability problems that often surface slowly through accumulated support burden rather than a single obvious failure, as shown in this lesson's Detailed Case Study. Findability also depends on clear, unambiguous labeling, free of internal jargon that may be unfamiliar to actual users. Finally, information architecture validation effort should scale proportionally with a product's actual organizational complexity and stakes, avoiding both under-validation for complex products and over-engineering for genuinely simple ones.",
+          "blockId": "blk_f216abe07d"
+        }
+      ],
+      "blockId": "blk_ef1650758c"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "Information architecture organizes, structures, labels, and connects content and functionality, the foundation visual design and interaction design are built on top of.",
+        "Card sorting validates a category structure against users' actual mental models, rather than assuming internal team familiarity translates into user-facing intuitiveness.",
+        "\"Org chart as navigation\" (structuring a product around internal team boundaries rather than validated user mental models) is a specific, common, and costly failure pattern.",
+        "Findability also depends on clear, unambiguous labeling, free of internal jargon that may confuse actual users.",
+        "Findability problems often surface slowly, through accumulated support burden or quiet user frustration, rather than through a single obvious failure.",
+        "Information architecture requires periodic revalidation as a product grows and adds content, rather than being treated as a permanent, one-time decision.",
+        "Validation effort should be proportional to a product's actual organizational complexity and stakes, avoiding both under-validation and over-engineering."
+      ],
+      "blockId": "blk_1febd34c1e"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "**Information architecture** = organizing, structuring, labeling, and connecting content, the foundation under visual and interaction design.",
+        "**Card sorting** validates category structure against real user mental models: open (users create categories) or closed (users sort into predefined ones).",
+        "**Avoid \"org chart as navigation\"**: don't mirror internal team structure; validate against user mental models instead.",
+        "**Ambiguous, jargon-heavy labels** undermine findability, regardless of how logical the underlying structure is.",
+        "**Revisit IA periodically** as products grow: it's not a permanent, one-time decision.",
+        "**Scale validation effort to actual complexity**: don't over-engineer a simple product's taxonomy, don't under-validate a complex one."
+      ],
+      "blockId": "blk_bb2b6ca28b"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "Information Architecture (IA)",
+          "definition": "The practice of organizing, structuring, labeling, and connecting a product's content and functionality.",
+          "relatedConcepts": [
+            "Visual Design",
+            "Interaction Design"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Card Sorting",
+          "definition": "A research technique where participants group content cards into categories, validating (open) or testing (closed) an organizational structure.",
+          "relatedConcepts": [
+            "Findability"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "\"Org Chart as Navigation\" (Failure Pattern)",
+          "definition": "Structuring a product's navigation around internal team/department boundaries rather than validated user mental models.",
+          "relatedConcepts": [
+            "Fictional-Character Persona (Lesson 14)"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Findability",
+          "definition": "How easily and reliably a user can locate specific content or functionality within a product.",
+          "relatedConcepts": [
+            "Ambiguous Labeling"
+          ],
+          "difficulty": 2
+        }
+      ],
+      "blockId": "blk_055ff95191"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "Peter Morville and Louis Rosenfeld, *Information Architecture for the Web and Beyond*",
+          "note": "the foundational, widely referenced text on information architecture practice, including card sorting methodology."
+        },
+        {
+          "citation": "Donna Spencer, *Card Sorting: Designing Usable Categories*",
+          "note": "a detailed, practical guide to conducting and interpreting card sorting studies."
+        },
+        {
+          "citation": "Abby Covert, *How to Make Sense of Any Mess*",
+          "note": "an accessible, practitioner-oriented introduction to information architecture principles for people without formal IA training."
+        }
+      ],
+      "blockId": "blk_93f7a9a7c8"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_7r8npj",
+      "cards": [
+        {
+          "id": "fc-les_7r8npj-1",
+          "front": "What is information architecture, and how does it differ from visual and interaction design?",
+          "back": "The practice of organizing, structuring, labeling, and connecting content and functionality, the underlying foundation that visual design (appearance) and interaction design (element behavior) are built on top of.",
+          "difficulty": 2,
+          "tags": [
+            "ia-definition"
+          ]
+        },
+        {
+          "id": "fc-les_7r8npj-2",
+          "front": "What is card sorting, and what does it validate?",
+          "back": "A research technique where participants group content cards into categories (open sort, self-created categories) or sort them into predefined categories (closed sort), validating whether a structure matches users' actual mental models.",
+          "difficulty": 2,
+          "tags": [
+            "card-sorting"
+          ]
+        },
+        {
+          "id": "fc-les_7r8npj-3",
+          "front": "What is the \"org chart as navigation\" failure pattern?",
+          "back": "Structuring a product's navigation around internal team or department boundaries rather than validated user mental models, frequently confusing users who have no visibility into internal organizational structure.",
+          "difficulty": 2,
+          "tags": [
+            "org-chart-as-navigation"
+          ]
+        },
+        {
+          "id": "fc-les_7r8npj-4",
+          "front": "What is findability, and what are its two common failure patterns discussed in this lesson?",
+          "back": "How easily a user can locate specific content or functionality; the two failure patterns are ambiguous/jargon-heavy labeling and \"org chart as navigation.\"",
+          "difficulty": 2,
+          "tags": [
+            "findability"
+          ]
+        },
+        {
+          "id": "fc-les_7r8npj-5",
+          "front": "Why is a team's internal familiarity with a category structure a poor indicator of whether it's genuinely intuitive to users?",
+          "back": "The team's deep familiarity with the product's internal logic and terminology is precisely what makes them poor judges of a fresh user's actual experience. Validation through techniques like card sorting is needed rather than internal confidence alone.",
+          "difficulty": 2,
+          "tags": [
+            "internal-bias"
+          ]
+        },
+        {
+          "id": "fc-les_7r8npj-6",
+          "front": "In the Detailed Case Study, why was \"Notification Rules\" a poorly placed top-level category?",
+          "back": "It existed as its own separate section purely because a distinct internal team owned that functionality, while a card sorting study revealed most users' actual mental model grouped notification preferences with general account settings instead.",
+          "difficulty": 3,
+          "tags": [
+            "case-study"
+          ]
+        },
+        {
+          "id": "fc-les_7r8npj-7",
+          "front": "How should information architecture validation effort scale, according to this lesson?",
+          "back": "Proportionally to the product's actual organizational complexity and stakes, avoiding both under-validation for complex, high-stakes products and over-engineering exhaustive taxonomy work for genuinely simple ones.",
+          "difficulty": 2,
+          "tags": [
+            "proportional-validation"
+          ]
+        }
+      ],
+      "blockId": "blk_292398885a"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "You are the PM for a healthcare scheduling app, and your product's navigation currently has four top-level sections that emerged organically over time: \"Appointments\" (owned by the scheduling team), \"Provider Directory\" (owned by the search team), \"My Health Records\" (owned by the records team), and \"Billing\" (owned by the payments team).",
+        "Work through the following, in writing, before reading further:",
+        "Apply the Mental Model Match Test to this structure: what specific evidence would you need to gather to determine whether it reflects genuine user mental models or internal team ownership?",
+        "Design a simple open card sort study for this scenario: what content items (cards) would you include, and what would you ask participants to do?",
+        "Propose one plausible way this structure might actually reflect an \"org chart as navigation\" failure, and one plausible way it might genuinely match how users think about scheduling healthcare (justify both possibilities, since you don't yet have real data).",
+        "Identify one label in this structure that might be ambiguous or unclear to a first-time user, and propose a clearer alternative.",
+        "Using the Information Architecture Validation Checklist, assess how much validation effort seems proportional to this app's apparent complexity, and justify your answer.",
+        "There is no single correct answer. The purpose of this exercise is to practice distinguishing a genuinely validated structure from one that merely reflects internal organizational convenience, and to practice scaling validation effort appropriately."
+      ],
+      "blockId": "blk_0605c65fbd"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_7r8npj",
+      "questions": [
+        {
+          "id": "q-les_7r8npj-1",
+          "question": "What is information architecture, according to this lesson?",
+          "options": [
+            "Organising, structuring, and labelling a product's content",
+            "The visual colour and typography choices used across a product",
+            "How interface elements behave when a user interacts with them",
+            "A company's internal engineering and product team structure"
+          ],
+          "correctAnswer": 0,
+          "explanation": "It is the layer beneath the other two. A product can be beautiful and smooth to operate while users still cannot find the screen they need.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_7r8npj-2",
+          "question": "What is the difference between an open and a closed card sort?",
+          "options": [
+            "Open sorts are conducted in person, whereas closed sorts run remotely",
+            "Open sorts let participants name categories; closed ones predefine",
+            "Open sorts use physical cards while closed sorts use digital ones",
+            "There is no meaningful difference between the two card variants"
+          ],
+          "correctAnswer": 1,
+          "explanation": "An open sort discovers how users group things; a closed sort tests whether a structure you already have matches how they would. Medium and location are incidental.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_7r8npj-3",
+          "question": "What is the \"org chart as navigation\" failure pattern?",
+          "options": [
+            "A navigation structure that changes too often for users to learn",
+            "A required best practice within enterprise software navigation",
+            "A navigation structure containing too few top-level categories",
+            "Navigation mirroring internal team boundaries, not users"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Users have no view of who owns what internally and no reason to. A structure built on that boundary confuses them however logical it looks from inside.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_7r8npj-4",
+          "question": "Why is a team's internal familiarity with a category structure a poor indicator of its genuine intuitiveness to users, according to this lesson?",
+          "options": [
+            "Deep familiarity with internal logic distorts judgment of a fresh user",
+            "Because internal teams are wrong about everything in their product",
+            "Because internal teams do not use the products they build at all",
+            "Because familiarity bears on visual design rather than on architecture"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The team cannot unknow the terminology or the history. That knowledge is exactly what a first-time user lacks, which makes the team the wrong instrument for this judgment.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_7r8npj-5",
+          "question": "Which of the following is the clearest example of ambiguous labeling, as described in this lesson?",
+          "options": [
+            "\"Billing,\" containing payment and subscription-related settings",
+            "\"Workspace Configuration,\" internal jargon users rarely meet",
+            "\"My Profile,\" containing the user's own account details and preferences",
+            "\"Help,\" containing the product's support and documentation resources"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The phrase is precise inside the company and unmoored outside it. A user who cannot predict what sits behind a label has to guess and explore, which is the cost.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_7r8npj-6",
+          "question": "In the Detailed Case Study, why was \"Notification Rules\" established as its own separate top-level navigation section?",
+          "options": [
+            "Because card sorting validated it as the ideal user-facing category",
+            "Because users specifically asked for that exact name and placement",
+            "Because a separate internal team owned that functionality",
+            "Because notification settings relate to no other product function"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Nobody decided it should be top-level for users. It became top-level because a team owned it, which is how this pattern usually arrives: organically, undecided.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_7r8npj-7",
+          "question": "What did the card sorting study in the Detailed Case Study reveal about users' actual mental model?",
+          "options": [
+            "Users could not grasp the concept of notification preferences at all",
+            "Most grouped notification preferences with account and profile settings",
+            "Users preferred notification settings exactly where they already sat",
+            "Users wanted the notification settings section withdrawn from the product"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Users think of it as part of managing their account, not as a distinct area of the product. The internal boundary had no counterpart in anybody's head outside the company.",
+          "objectivesTested": [
+            2,
+            3
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_7r8npj-8",
+          "question": "According to the Information Architecture Validation Checklist, how should validation effort be determined?",
+          "options": [
+            "Maximal validation effort applies whatever the product's complexity",
+            "No validation is needed where the internal team feels confident",
+            "Proportional to the product's actual complexity and its stakes",
+            "By however much time happens to be available in the schedule"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The same proportionality that governs MVP scope and prototype fidelity governs this. Three clearly distinct sections warrant less than twelve overlapping ones.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_7r8npj-9",
+          "question": "(Scenario) A small startup's product has three clearly distinct sections with no significant overlap or ambiguity. According to this lesson, is an extensive, formal card sorting study necessarily warranted?",
+          "options": [
+            "Yes, extensive card sorting is required whatever the simplicity",
+            "Card sorting should be avoided for any product, whatever its size or type",
+            "Not necessarily; effort should track actual complexity and stakes",
+            "This scenario cannot be evaluated using the lesson's framework"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Formal taxonomy work on three unambiguous sections spends effort where little is at risk. The technique is sound and the investment should still be earned.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_7r8npj-10",
+          "question": "(Product Thinking) A mid-size company's product has grown from three simple sections to twelve overlapping ones over several years, with no revalidation since the original launch. What does this lesson suggest the team should do?",
+          "options": [
+            "Nothing; the original structure should stand however the product grew",
+            "Rely on internal team confidence from here, without further research",
+            "Remove every category added since launch, whatever its usefulness",
+            "Revalidate the architecture, since structures overload as content accretes"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Each addition was locally sensible and the accumulation was never designed. This is the situation where findability quietly degrades without any single decision causing it.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_7r8npj-11",
+          "question": "(Interview Reasoning) A candidate describes organizing a product's settings page by asking each internal team to define their own section, without any user research involved. What might this signal, based on this lesson's Interview Perspective section?",
+          "options": [
+            "An efficient, well-organised approach carrying no real concerns",
+            "Strong internal stakeholder management counting as a core strength",
+            "The org-chart-as-navigation pattern, reflecting internal convenience over user models",
+            "Nothing of note, since internal input is the most reliable source"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Asking each owner to define their own section guarantees the result maps the org chart. It is efficient to produce and it encodes a boundary users cannot see.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_7r8npj-12",
+          "question": "(Product Thinking, Higher Difficulty) A team conducts a closed card sort testing a proposed four-category structure, and results show most participants sort a specific set of cards inconsistently across all four categories, with no clear consensus. What does this most likely indicate?",
+          "options": [
+            "A structural gap; those cards fit none of the four categories cleanly",
+            "The proposed structure is excellent and needs no further changes",
+            "The card sorting method is invalid and should be abandoned here",
+            "The result should be ignored, since inconsistency carries no diagnostic signal"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Scattered sorting is a finding, not noise. It says the content has no natural home in the scheme on offer, and an open sort may reveal the category that is missing.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_7r8npj-13",
+          "question": "(Interview Reasoning, Higher Difficulty) An interviewer describes a scenario where a company's internal team structure has recently changed significantly, and asks how this should affect the product's existing information architecture. What is the strongest response, based on this lesson?",
+          "options": [
+            "Reorganise the navigation at once to match the new team structure",
+            "The reorganisation should not move navigation, which stays anchored to validated user models",
+            "Navigation should mirror the current internal structure continuously",
+            "Internal reorganisations bear on no aspect of product design at all"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Reshuffling navigation to follow a reorg is the org-chart pattern arriving a second time. Users' mental models did not change because the reporting lines did.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_7r8npj-14",
+          "question": "(Product Thinking, Higher Difficulty) A team has validated an information architecture through card sorting, but two years later, the product has added substantial new content and features without any further validation. Support tickets have begun increasing around findability issues. What should the team conclude, and what should they do?",
+          "options": [
+            "The original study stays valid indefinitely and needs no action",
+            "Revert to the original three-section structure whatever the content",
+            "Abandon card sorting, since it failed to prevent these issues",
+            "Run fresh validation; the original study predates the current content and base"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The study was accurate about a product that no longer exists in that form. Rising findability tickets are the slow, indirect way this problem announces itself.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_7r8npj-15",
+          "question": "(Highest Difficulty) A team validates a proposed information architecture through rigorous card sorting with a representative sample of current users, and the structure performs well. Six months later, the company launches a major new feature targeting an entirely new customer segment (per Lesson 18's segmentation discipline) with potentially different mental models than the original user base. What should the team do regarding their existing information architecture?",
+          "options": [
+            "Validate again with the new segment before assuming the structure serves them",
+            "Assume the validated structure extends to the new segment without any checking",
+            "Discard the whole structure at once, since a new segment has arrived",
+            "Disregard segment differences, since architecture ignores them anyway"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The study was representative of the users who existed when it ran. A segment with a different job may group the same content differently, and that is a testable question.",
+          "objectivesTested": [
+            2,
+            4,
+            5
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_86a382dc47"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_go5z1d",
+        "title": "Lesson 27: UX Principles for Product Managers",
+        "module": "design"
+      },
+      "current": {
+        "id": "les_7r8npj",
+        "title": "Lesson 28: Information Architecture"
+      },
+      "next": {
+        "id": "les_8prxyi",
+        "title": "Lesson 29: Prioritization Fundamentals",
+        "module": "design"
+      },
+      "unlocks": [],
+      "blockId": "blk_264d58c6fc"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 28: Information Architecture Lesson 27's Detailed Case Study ended with a design team solving a cognitive-load problem by splitting a single overloaded screen into a staged, progressively disclosed flow. That solution worked because someone had implicitly made a decision about *how information should be organized and grouped*: which fields belong together, which can wait, what the underlying categories even are. This lesson makes that implicit decision explicit and gives it a name: **information architecture**, the practice of organizing, structuring, labeling, and connecting content and functionality so that people can find what they need and understand where they are, across an entire product, not just within a single screen or flow. This lesson matters because information architecture problems are often invisible until they cause real damage: a confusing category structure, an inconsistent labeling scheme, or a navigation hierarchy that doesn't match how users actually think about a product's content rarely shows up as a single dramatic bug. Instead, it shows up as a slow, steady accumulation of failed searches, abandoned tasks, and support tickets asking \"where do I find X,\" each individually minor but collectively reflecting a structural problem no single screen-level fix can resolve. This is the module's final design-specific lesson before Lesson 29 folds everything covered so far into a formal prioritization discipline. Define information architecture and distinguish it from visual design and interaction design. Apply card sorting as a technique for validating a category structure against users' actual mental models, rather than the organization's internal structure. Distinguish organization schemes based on users' mental models from those based on internal organizational structure, and explain why the latter frequently fails users. Apply the concept of findability and identify common failure patterns: ambiguous labeling and \"org chart as navigation.\" Distinguish appropriate information architecture validation from over-engineering a taxonomy no one will actually use as designed. Lesson 15 (User Journey Mapping), Lesson 18 (Customer Segmentation), and Lesson 27 (UX Principles for Product Managers). This lesson assumes fluency with mapping a user's actual behavior and mental model (rather than assumption), validating segments against real evidence rather than convenient categories, and applying cognitive-load principles. Information architecture combines all three into a discipline for organizing an entire product's content and navigation. The Core Definition and Its Boundaries Information architecture (IA) is the practice of organizing, structuring, labeling, and connecting a product's content and functionality so that users can find what they need and understand where they are within it. It's useful to distinguish IA precisely from its neighbors: **Visual design** concerns how things look: color, typography, imagery. **Interaction design** concerns how specific interface elements behave when a user engages with them. **Information architecture** concerns how content and functionality are organized, categorized, labeled, and connected, the underlying structure that visual design and interaction design are then applied on top of. A product can have excellent visual design and interaction design while still suffering from a fundamentally confusing information architecture: users may find each individual screen visually polished and each individual interaction smooth, while still struggling to locate the right screen or feature in the first place, because the underlying organizational structure doesn't match how they think about the product's content. Card Sorting: Validating Structure Against Real Mental Models A widely used, practical technique for validating (or discovering) an appropriate category structure is **card sorting**: giving research participants a set of cards, each representing a specific piece of content or functionality, and asking them to group the cards into categories that make sense to them (an \"open\" card sort, where participants create their own category labels) or to sort cards into predefined categories (a \"closed\" card sort, testing whether an existing proposed structure matches users' expectations). Card sorting directly extends this curriculum's recurring research discipline (Lessons 11–13) into the specific domain of organizational structure: rather than assuming a category scheme is intuitive because it makes sense to the team that built it, card sorting produces genuine, revealed-preference-adjacent evidence (Lesson 11) about how real users actually group and relate the product's content, which can differ substantially from the team's internal assumptions. Mental Model Organization vs. Internal Organizational Structure A specific, common, and costly failure (closely related to Lesson 14's fictional-character-persona warning) is organizing a product's information architecture around the company's own internal organizational structure (which team owns which feature, which department handles which function) rather than around users' actual mental models of the product's content. For example, a company with separate internal teams for \"billing,\" \"account settings,\" and \"notification preferences\" might structure a product's navigation around these same three categories, simply because that's how the company itself is organized internally, even if, from a user's actual mental model, \"notification preferences\" feels more naturally grouped with \"account settings\" than as its own separate top-level category. Users navigating the product have no visibility into, and no reason to care about, the company's internal team structure; a navigation scheme built around that internal structure, rather than genuine user mental models (validated through techniques like card sorting), will frequently confuse and frustrate users regardless of how logical it seems to the internal teams who built it. Findability and Common Failure Patterns **Findability** describes how easily and reliably a user can locate specific content or functionality within a product. Two specific, common failure patterns undermine findability: **Ambiguous labeling**: category or navigation labels that are vague, internally jargon-heavy, or open to multiple reasonable interpretations, forcing users to guess or explore multiple options before finding what they need, a direct instance of Lesson 22's under-specification concern, now applied to navigation labels rather than written requirements. **\"Org chart as navigation\"**: the specific instance of the mental-model-versus-internal-structure failure described above, where a product's top-level navigation categories map directly onto internal team or department boundaries rather than user-facing conceptual groupings. Avoiding Over-Engineering: Validation Proportional to Stakes As with several other artifacts covered in this module (MVP scope, prototype fidelity), information architecture validation should be proportional to the actual stakes and complexity involved: a small product with a handful of clearly distinct sections may not require extensive, formal card-sorting studies to arrive at a sensible structure, while a large, content-rich product with many overlapping categories and a broad, diverse user base likely benefits significantly from rigorous, validated research. Over-investing in exhaustive taxonomy development for a genuinely simple product wastes effort without corresponding benefit, echoing this module's recurring theme (Lesson 21's MVP creep, Lesson 26's over-engineered prototype) that validation effort should match the actual complexity and risk of the specific problem at hand, not a fixed, one-size-fits-all standard. Organizing product navigation around internal team or organizational structure rather than user mental models This is the \"org chart as navigation\" failure: users have no visibility into internal structure and will be confused by a navigation scheme that reflects it rather than their own way of thinking about the product's content. Assuming a category structure is intuitive because it makes sense to the team that built it The team's familiarity with the product's internal logic and terminology is precisely what makes them poor judges of whether a structure is genuinely intuitive to someone encountering it fresh. Validation (via card sorting or similar techniques) is needed rather than internal confidence alone. Using ambiguous, jargon-heavy, or internally-coined labels for user-facing categories Labels that make sense within a team's internal vocabulary may be unfamiliar or ambiguous to actual users, undermining findability regardless of how logical the underlying structure is. Treating information architecture as a one-time decision that never needs revisiting as a product grows As new features and content are added over time, an initially sensible structure can gradually become overloaded or inconsistent, echoing this curriculum's recurring theme (Lessons 14, 15, 18) that structural artifacts require periodic revalidation, not permanent, one-time construction. Over-investing in exhaustive taxonomy development for a genuinely simple product with few, clearly distinct sections Validation effort should be proportional to actual complexity and stakes, not applied at a fixed, maximal level regardless of the specific product's actual organizational complexity. The Mental Model Match Test This lesson's mental model is the **Mental Model Match Test**, a quick diagnostic for evaluating whether a proposed information architecture reflects users' actual thinking or the organization's internal structure. Apply this test to any proposed navigation or category structure before finalizing it: has this structure actually been validated against real users' mental models, using a technique like card sorting or past-behavior interviews (Lesson 12), or does it simply reflect how the team internally thinks about the product (often shaped by internal organizational boundaries)? A structure that has not passed this test should be treated as an unvalidated hypothesis, not a finished decision. Etsy **Etsy**'s well-documented use of card sorting and related information architecture research methods to organize its extensive product category structure is a widely discussed illustration of this lesson's core technique applied at meaningful scale. Public design and research commentary from Etsy has described using card sorting and related studies specifically to validate how shoppers actually think about and group the platform's enormous range of product categories, rather than relying on an internally convenient taxonomy, a genuinely challenging information architecture problem given the platform's scale and the sheer diversity of items sold, where an internally intuitive structure could easily diverge substantially from how real shoppers browsing the platform actually think about finding what they want. At a startup Information architecture decisions are often made quickly and intuitively by a small team, given a genuinely simple, limited initial product with few distinct sections. The risk of \"org chart as navigation\" is often lower at this stage simply because there isn't yet much internal organizational structure to inadvertently reflect, though the risk of confusing, internally-coined labeling can still emerge even in a small, early product. At a mid-size company Information architecture challenges typically grow substantially as a product adds features and content over time, and this is often the stage where card sorting and similar validation techniques become genuinely valuable. An initially sensible, small-scale structure frequently needs deliberate revalidation and restructuring as the product's scope expands well beyond its original, simpler form. At Big Tech Information architecture at scale often needs to account for multiple overlapping products, teams, and content types simultaneously, and the \"org chart as navigation\" failure pattern becomes both more likely (given genuinely complex internal organizational structures) and more costly (given the scale of confused users affected). Dedicated information architecture and research functions at this scale exist substantially to counteract this specific, recurring risk. The Settings Page Organized by Org Chart Consider a simplified, illustrative scenario common across B2B SaaS platforms. A project management software company's settings page is organized into four top-level sections, each corresponding directly to the internal engineering team responsible for that area: \"Workspace Configuration\" (owned by the platform infrastructure team), \"Notification Rules\" (owned by the notifications team), \"Billing & Plans\" (owned by the monetization team), and \"Integrations\" (owned by the partnerships team). This structure emerged organically over time, as each team independently built and shipped their own section without coordinating on an overall, user-validated organizational scheme. Customer support data reveals a recurring pattern: a substantial share of support tickets involve users unable to find how to change their email notification frequency, despite this setting existing clearly within the \"Notification Rules\" section. Closer investigation, including a card sorting study conducted with a sample of real users, reveals that most users' actual mental model groups notification preferences together with general account and profile settings, a conceptual category the existing structure had no corresponding home for, since \"Notification Rules\" had been established as its own separate top-level section purely because a separate internal team happened to own that functionality. **What went wrong?** Applying this lesson's frameworks: **The navigation structure directly mirrored internal team ownership rather than user mental models**: a clear instance of the \"org chart as navigation\" failure pattern, emerging not from any single deliberate decision but from the organic, uncoordinated accumulation of each team's independently shipped section. **No card sorting or similar validation had ever been conducted** before the structure was finalized and shipped. The team's internal familiarity with \"of course notifications are their own section, since that's a distinct team's responsibility\" masked the fact that this internal logic didn't match how actual users conceptually organized the same content. **The findability problem was discovered only through accumulated support ticket volume**, a slow, indirect signal, rather than through proactive, upfront validation that would have caught the mismatch before launch, at a fraction of the ongoing support cost. A team applying this lesson's discipline from the outset would have conducted a card sort (open or closed) with real users before finalizing the settings page structure, very likely revealing that users' mental model grouped notification preferences with general account settings rather than as its own distinct top-level category, allowing the team to restructure navigation around validated user mental models rather than internal team boundaries, before the structure had already shipped and accumulated real usage and support burden. This case connects directly back to **Lesson 14's fictional-character-persona warning** and **Lesson 18's demographic-versus-behavioral segmentation distinction**: in all three cases, the same underlying failure recurs: organizing around what's convenient or intuitive from the organization's internal perspective, rather than what's been genuinely validated against real user behavior and mental models. The Information Architecture Validation Checklist A practical checklist for evaluating whether a proposed information architecture is ready to finalize: A structure that fails several of these checks risks the exact kind of accumulated, hard-to-diagnose findability problem shown in this lesson's Detailed Case Study, a problem that often surfaces slowly, through support burden and quiet user frustration, rather than through any single obvious failure. How would you validate whether a proposed navigation structure makes sense to users? *What the interviewer is actually evaluating:* Whether the candidate names a specific technique like card sorting, rather than relying on internal team consensus or intuition alone, and whether they connect this to the broader research discipline covered earlier in this curriculum. Tell me about a time users struggled to find something in a product, and what caused it. *What the interviewer is actually evaluating:* Whether the candidate can diagnose a genuine findability problem (ambiguous labeling, org-chart-driven structure, or a mismatch with user mental models) rather than attributing the issue vaguely to \"bad UX\" without deeper structural diagnosis. How do you decide how much information architecture research is warranted for a given product? *What the interviewer is actually evaluating:* Awareness of the proportionality principle: whether the candidate can articulate that validation effort should scale with actual organizational complexity and stakes, rather than applying either no validation or maximal validation regardless of context. Information architecture is the practice of organizing, structuring, labeling, and connecting a product's content and functionality, distinct from visual design (appearance) and interaction design (specific element behavior), and forms the underlying foundation those other disciplines are built on top of. Card sorting is a widely used technique for validating (or discovering) a category structure against users' genuine mental models, rather than assuming internal team familiarity translates to user-facing intuitiveness. A specific, common, and costly failure (\"org chart as navigation\") occurs when a product's structure mirrors internal organizational boundaries rather than validated user mental models, producing findability problems that often surface slowly through accumulated support burden rather than a single obvious failure, as shown in this lesson's Detailed Case Study. Findability also depends on clear, unambiguous labeling, free of internal jargon that may be unfamiliar to actual users. Finally, information architecture validation effort should scale proportionally with a product's actual organizational complexity and stakes, avoiding both under-validation for complex products and over-engineering for genuinely simple ones. Information architecture organizes, structures, labels, and connects content and functionality, the foundation visual design and interaction design are built on top of. Card sorting validates a category structure against users' actual mental models, rather than assuming internal team familiarity translates into user-facing intuitiveness. \"Org chart as navigation\" (structuring a product around internal team boundaries rather than validated user mental models) is a specific, common, and costly failure pattern. Findability also depends on clear, unambiguous labeling, free of internal jargon that may confuse actual users. Findability problems often surface slowly, through accumulated support burden or quiet user frustration, rather than through a single obvious failure. Information architecture requires periodic revalidation as a product grows and adds content, rather than being treated as a permanent, one-time decision. Validation effort should be proportional to a product's actual organizational complexity and stakes, avoiding both under-validation and over-engineering. **Information architecture** = organizing, structuring, labeling, and connecting content, the foundation under visual and interaction design. **Card sorting** validates category structure against real user mental models: open (users create categories) or closed (users sort into predefined ones). **Avoid \"org chart as navigation\"**: don't mirror internal team structure; validate against user mental models instead. **Ambiguous, jargon-heavy labels** undermine findability, regardless of how logical the underlying structure is. **Revisit IA periodically** as products grow: it's not a permanent, one-time decision. **Scale validation effort to actual complexity**: don't over-engineer a simple product's taxonomy, don't under-validate a complex one. Information Architecture (IA) The practice of organizing, structuring, labeling, and connecting a product's content and functionality. Card Sorting A research technique where participants group content cards into categories, validating (open) or testing (closed) an organizational structure. \"Org Chart as Navigation\" (Failure Pattern) Structuring a product's navigation around internal team/department boundaries rather than validated user mental models. Findability How easily and reliably a user can locate specific content or functionality within a product. Peter Morville and Louis Rosenfeld, *Information Architecture for the Web and Beyond* the foundational, widely referenced text on information architecture practice, including card sorting methodology. Donna Spencer, *Card Sorting: Designing Usable Categories* a detailed, practical guide to conducting and interpreting card sorting studies. Abby Covert, *How to Make Sense of Any Mess* an accessible, practitioner-oriented introduction to information architecture principles for people without formal IA training. What is information architecture, and how does it differ from visual and interaction design? The practice of organizing, structuring, labeling, and connecting content and functionality, the underlying foundation that visual design (appearance) and interaction design (element behavior) are built on top of. What is card sorting, and what does it validate? A research technique where participants group content cards into categories (open sort, self-created categories) or sort them into predefined categories (closed sort), validating whether a structure matches users' actual mental models. What is the \"org chart as navigation\" failure pattern? Structuring a product's navigation around internal team or department boundaries rather than validated user mental models, frequently confusing users who have no visibility into internal organizational structure. What is findability, and what are its two common failure patterns discussed in this lesson? How easily a user can locate specific content or functionality; the two failure patterns are ambiguous/jargon-heavy labeling and \"org chart as navigation.\" Why is a team's internal familiarity with a category structure a poor indicator of whether it's genuinely intuitive to users? The team's deep familiarity with the product's internal logic and terminology is precisely what makes them poor judges of a fresh user's actual experience. Validation through techniques like card sorting is needed rather than internal confidence alone. In the Detailed Case Study, why was \"Notification Rules\" a poorly placed top-level category? It existed as its own separate section purely because a distinct internal team owned that functionality, while a card sorting study revealed most users' actual mental model grouped notification preferences with general account settings instead. How should information architecture validation effort scale, according to this lesson? Proportionally to the product's actual organizational complexity and stakes, avoiding both under-validation for complex, high-stakes products and over-engineering exhaustive taxonomy work for genuinely simple ones. You are the PM for a healthcare scheduling app, and your product's navigation currently has four top-level sections that emerged organically over time: \"Appointments\" (owned by the scheduling team), \"Provider Directory\" (owned by the search team), \"My Health Records\" (owned by the records team), and \"Billing\" (owned by the payments team). Work through the following, in writing, before reading further: Apply the Mental Model Match Test to this structure: what specific evidence would you need to gather to determine whether it reflects genuine user mental models or internal team ownership? Design a simple open card sort study for this scenario: what content items (cards) would you include, and what would you ask participants to do? Propose one plausible way this structure might actually reflect an \"org chart as navigation\" failure, and one plausible way it might genuinely match how users think about scheduling healthcare (justify both possibilities, since you don't yet have real data). Identify one label in this structure that might be ambiguous or unclear to a first-time user, and propose a clearer alternative. Using the Information Architecture Validation Checklist, assess how much validation effort seems proportional to this app's apparent complexity, and justify your answer. There is no single correct answer. The purpose of this exercise is to practice distinguishing a genuinely validated structure from one that merely reflects internal organizational convenience, and to practice scaling validation effort appropriately. What is information architecture, according to this lesson? It is the layer beneath the other two. A product can be beautiful and smooth to operate while users still cannot find the screen they need. What is the difference between an open and a closed card sort? An open sort discovers how users group things; a closed sort tests whether a structure you already have matches how they would. Medium and location are incidental. What is the \"org chart as navigation\" failure pattern? Users have no view of who owns what internally and no reason to. A structure built on that boundary confuses them however logical it looks from inside. Why is a team's internal familiarity with a category structure a poor indicator of its genuine intuitiveness to users, according to this lesson? The team cannot unknow the terminology or the history. That knowledge is exactly what a first-time user lacks, which makes the team the wrong instrument for this judgment. Which of the following is the clearest example of ambiguous labeling, as described in this lesson? The phrase is precise inside the company and unmoored outside it. A user who cannot predict what sits behind a label has to guess and explore, which is the cost. In the Detailed Case Study, why was \"Notification Rules\" established as its own separate top-level navigation section? Nobody decided it should be top-level for users. It became top-level because a team owned it, which is how this pattern usually arrives: organically, undecided. What did the card sorting study in the Detailed Case Study reveal about users' actual mental model? Users think of it as part of managing their account, not as a distinct area of the product. The internal boundary had no counterpart in anybody's head outside the company. According to the Information Architecture Validation Checklist, how should validation effort be determined? The same proportionality that governs MVP scope and prototype fidelity governs this. Three clearly distinct sections warrant less than twelve overlapping ones. (Scenario) A small startup's product has three clearly distinct sections with no significant overlap or ambiguity. According to this lesson, is an extensive, formal card sorting study necessarily warranted? Formal taxonomy work on three unambiguous sections spends effort where little is at risk. The technique is sound and the investment should still be earned. (Product Thinking) A mid-size company's product has grown from three simple sections to twelve overlapping ones over several years, with no revalidation since the original launch. What does this lesson suggest the team should do? Each addition was locally sensible and the accumulation was never designed. This is the situation where findability quietly degrades without any single decision causing it. (Interview Reasoning) A candidate describes organizing a product's settings page by asking each internal team to define their own section, without any user research involved. What might this signal, based on this lesson's Interview Perspective section? Asking each owner to define their own section guarantees the result maps the org chart. It is efficient to produce and it encodes a boundary users cannot see. (Product Thinking, Higher Difficulty) A team conducts a closed card sort testing a proposed four-category structure, and results show most participants sort a specific set of cards inconsistently across all four categories, with no clear consensus. What does this most likely indicate? Scattered sorting is a finding, not noise. It says the content has no natural home in the scheme on offer, and an open sort may reveal the category that is missing. (Interview Reasoning, Higher Difficulty) An interviewer describes a scenario where a company's internal team structure has recently changed significantly, and asks how this should affect the product's existing information architecture. What is the strongest response, based on this lesson? Reshuffling navigation to follow a reorg is the org-chart pattern arriving a second time. Users' mental models did not change because the reporting lines did. (Product Thinking, Higher Difficulty) A team has validated an information architecture through card sorting, but two years later, the product has added substantial new content and features without any further validation. Support tickets have begun increasing around findability issues. What should the team conclude, and what should they do? The study was accurate about a product that no longer exists in that form. Rising findability tickets are the slow, indirect way this problem announces itself. (Highest Difficulty) A team validates a proposed information architecture through rigorous card sorting with a representative sample of current users, and the structure performs well. Six months later, the company launches a major new feature targeting an entirely new customer segment (per Lesson 18's segmentation discipline) with potentially different mental models than the original user base. What should the team do regarding their existing information architecture? The study was representative of the users who existed when it ran. A segment with a different job may group the same content differently, and that is a testable question.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "Mental Model: The Mental Model Match Test",
+      "Real Company Example",
+      "Real World Perspective: Information Architecture at Different Company Stages",
+      "Detailed Case Study: The Settings Page Organized by Org Chart",
+      "Framework Explanation: The Information Architecture Validation Checklist",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "Information Architecture (IA)",
+    "Card Sorting",
+    "\"Org Chart as Navigation\" (Failure Pattern)",
+    "Findability"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

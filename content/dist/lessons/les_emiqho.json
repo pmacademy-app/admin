@@ -1,0 +1,1014 @@
+{
+  "schemaVersion": 2,
+  "id": "les_emiqho",
+  "contentHash": "88316278150eaa504e2377107dd0357801aa5802c8d74c1224911108a055d22f",
+  "title": "Prototyping",
+  "slug": "lesson-026",
+  "module": "design",
+  "order": 6,
+  "totalInModule": 10,
+  "difficulty": 4,
+  "estimatedReadingTime": 25,
+  "estimatedCompletionTime": 40,
+  "prerequisites": [
+    "les_8psivf",
+    "les_ejgikb"
+  ],
+  "sourceFile": "content/lessons/lesson-026.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 26: Prototyping",
+      "blockId": "blk_106b3bd2b3"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 25 ended with a structurally validated wireframe: the \"what goes where\" question resolved cheaply, before any polish was invested. But structure alone doesn't answer a different, equally important class of question: does this actually work the way a real person expects it to, once they can touch it, click through it, and experience the sequence of screens and transitions as a connected whole? A wireframe is static; a real interface is not. A **prototype** is an interactive representation of a solution (ranging from a simple clickable sequence of linked screens to a fully functional, code-based simulation) that lets a real or prospective user actually navigate and interact with something resembling the eventual product, before that product has been fully built.",
+      "blockId": "blk_fc905667ac"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson matters because prototyping sits at a genuinely distinct point on the Fidelity Ladder introduced in Lesson 25, testing a different category of assumption than wireframing does. A wireframe answers \"is this structured correctly?\" A prototype answers \"does this actually work as a connected, navigable experience, and can a real person use it successfully?\" Skipping straight from a validated wireframe to full engineering implementation, without an intermediate prototyping stage, means the first time anyone tests the *experience* of moving through the solution is after significant, expensive development work has already happened, exactly the kind of late, costly discovery this entire curriculum has repeatedly warned against.",
+      "blockId": "blk_91c4030f4f"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "Define a prototype and distinguish low-fidelity from high-fidelity prototypes, identifying when each is appropriate.",
+        "Apply prototyping as a specific rung on Lesson 8's confidence ladder, connecting it to the riskiest-assumption discipline.",
+        "Distinguish usability testing (using a prototype) from discovery interviewing (Lesson 12), and explain how the two combine effectively.",
+        "Identify the \"prototype as finished product\" and \"over-engineered prototype\" failure patterns and explain the risks of each.",
+        "Apply the \"think-aloud\" usability testing technique to gather genuine, actionable feedback from a prototype test."
+      ],
+      "blockId": "blk_96b9118d17"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 8 (Product Discovery) and Lesson 25 (Wireframing). This lesson assumes fluency with the confidence ladder (rungs from conversation through concierge test to full delivery) and the Fidelity Ladder from Lesson 25. A prototype sits at a specific point on both ladders simultaneously, testing usability and interactive-experience risk after structural risk has already been addressed by wireframing.",
+      "blockId": "blk_15d7fa4fb0"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Core Definition, and Low- vs. High-Fidelity Prototypes",
+          "blockId": "blk_db2cb43d76"
+        },
+        {
+          "type": "paragraph",
+          "text": "A prototype is an interactive representation of a solution that a person can navigate and engage with, ranging widely in fidelity:",
+          "blockId": "blk_53cb88cd4d"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**Low-fidelity prototype**: often built from linked static wireframes or mockups (using tools that make individual screens clickable and navigable in sequence), without real underlying functionality: clicking a button moves to the next linked screen, but no actual data processing or business logic occurs behind it.",
+            "**High-fidelity prototype**: closer to fully functional, sometimes built with real (if limited or simplified) underlying code, capable of handling actual data input, real business logic, or realistic performance characteristics, while still typically representing only a subset of the eventual full product's scope."
+          ],
+          "blockId": "blk_d4a4070362"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_a32698235e",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[Prototype Fidelity] --> B[Low-Fidelity Linked Static Screens,<br/>Simulated Interactivity, No Real<br/>Underlying Logic]\r\n    A --> C[High-Fidelity Real, Simplified Code,<br/>Actual Data Handling, Closer to<br/>Production Behavior]\r\n    B --> D[Fast to Build, Good for<br/>Early Usability and Flow Testing]\r\n    C --> E[Slower to Build, Good for Testing<br/>Realistic Performance and Complex<br/>Interactions]",
+          "normalized": "graph LR\r\n    A[Prototype Fidelity] --> B[Low-Fidelity Linked Static Screens,<br/>Simulated Interactivity, No Real<br/>Underlying Logic]\r\n    A --> C[High-Fidelity Real, Simplified Code,<br/>Actual Data Handling, Closer to<br/>Production Behavior]\r\n    B --> D[Fast to Build, Good for<br/>Early Usability and Flow Testing]\r\n    C --> E[Slower to Build, Good for Testing<br/>Realistic Performance and Complex<br/>Interactions]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020944061-68\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1551.13\" height=\"358\" viewBox=\"-38 -27 1551.13 358\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Prototype Fidelity → Low-Fidelity Linked Static Screens,Simulated Interactivity, No RealUnderlying Logic → High-Fidelity Real, Simplified Code,Actual Data Handling, Closer toProduction Behavior → Fast to Build, Good forEarly Usability and Flow Testing → Slower to Build, Good for TestingRealistic Performance and ComplexInteractions\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Prototype Fidelity → Low-Fidelity Linked Static Screens,Simulated Interactivity, No RealUnderlying Logic → High-Fidelity Real, Simplified Code,Actual Data Handling, Closer toProduction Behavior → Fast to Build, Good forEarly Usability and Flow Testing → Slower to Build, Good for TestingRealistic Performance and ComplexInteractions</title><style>#mermaid-svg-1795020944061-68{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020944061-68 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020944061-68 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020944061-68 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020944061-68 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020944061-68 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020944061-68 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020944061-68 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020944061-68 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020944061-68 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020944061-68 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020944061-68 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020944061-68 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020944061-68 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020944061-68 p{margin:0;}#mermaid-svg-1795020944061-68 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020944061-68 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020944061-68 .cluster-label span{color:#171A17;}#mermaid-svg-1795020944061-68 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020944061-68 .label text,#mermaid-svg-1795020944061-68 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020944061-68 .node rect,#mermaid-svg-1795020944061-68 .node circle,#mermaid-svg-1795020944061-68 .node ellipse,#mermaid-svg-1795020944061-68 .node polygon,#mermaid-svg-1795020944061-68 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020944061-68 .rough-node .label text,#mermaid-svg-1795020944061-68 .node .label text,#mermaid-svg-1795020944061-68 .image-shape .label,#mermaid-svg-1795020944061-68 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020944061-68 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020944061-68 .rough-node .label,#mermaid-svg-1795020944061-68 .node .label,#mermaid-svg-1795020944061-68 .image-shape .label,#mermaid-svg-1795020944061-68 .icon-shape .label{text-align:center;}#mermaid-svg-1795020944061-68 .node.clickable{cursor:pointer;}#mermaid-svg-1795020944061-68 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020944061-68 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020944061-68 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020944061-68 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020944061-68 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020944061-68 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020944061-68 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020944061-68 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020944061-68 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020944061-68 .cluster text{fill:#171A17;}#mermaid-svg-1795020944061-68 .cluster span{color:#171A17;}#mermaid-svg-1795020944061-68 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020944061-68 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020944061-68 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020944061-68 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020944061-68 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020944061-68 .icon-shape,#mermaid-svg-1795020944061-68 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020944061-68 .icon-shape p,#mermaid-svg-1795020944061-68 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020944061-68 .icon-shape .label rect,#mermaid-svg-1795020944061-68 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020944061-68 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020944061-68 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020944061-68 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020944061-68 [data-look=\"neo\"].node rect,#mermaid-svg-1795020944061-68 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020944061-68 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020944061-68-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944061-68 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020944061-68 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020944061-68-gradient);stroke-width:1px;}#mermaid-svg-1795020944061-68 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944061-68 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020944061-68 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020944061-68-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944061-68 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020944061-68 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020944061-68-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944061-68 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020944061-68-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944061-68 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020944061-68_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944061-68_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944061-68_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944061-68_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020944061-68_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944061-68_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944061-68_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944061-68_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944061-68_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944061-68_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944061-68_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020944061-68_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M244.763,135.5L265.636,126.083C286.509,116.667,328.254,97.833,358.273,88.417C388.292,79,406.583,79,415.729,79L424.875,79\" id=\"mermaid-svg-1795020944061-68-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6MjQ0Ljc2MzM2ODk4Mzk1NzIsInkiOjEzNS41fSx7IngiOjM3MCwieSI6Nzl9LHsieCI6NDI4Ljg3NSwieSI6Nzl9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020944061-68_flowchart-v2-pointEnd)\"></path><path d=\"M244.763,209.5L265.636,218.917C286.509,228.333,328.254,247.167,357.211,256.583C386.167,266,402.333,266,410.417,266L418.5,266\" id=\"mermaid-svg-1795020944061-68-L_A_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_C_0\" data-points=\"W3sieCI6MjQ0Ljc2MzM2ODk4Mzk1NzIsInkiOjIwOS41fSx7IngiOjM3MCwieSI6MjY2fSx7IngiOjQyMi41LCJ5IjoyNjZ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020944061-68_flowchart-v2-pointEnd)\"></path><path d=\"M955.125,79L964.938,79C974.75,79,994.375,79,1013.333,79C1032.292,79,1050.583,79,1059.729,79L1068.875,79\" id=\"mermaid-svg-1795020944061-68-L_B_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_D_0\" data-points=\"W3sieCI6OTU1LjEyNSwieSI6Nzl9LHsieCI6MTAxNCwieSI6Nzl9LHsieCI6MTA3Mi44NzUsInkiOjc5fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020944061-68_flowchart-v2-pointEnd)\"></path><path d=\"M961.5,266L970.25,266C979,266,996.5,266,1013.333,266C1030.167,266,1046.333,266,1054.417,266L1062.5,266\" id=\"mermaid-svg-1795020944061-68-L_C_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_E_0\" data-points=\"W3sieCI6OTYxLjUsInkiOjI2Nn0seyJ4IjoxMDE0LCJ5IjoyNjZ9LHsieCI6MTA2Ni41LCJ5IjoyNjZ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020944061-68_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020944061-68-flowchart-A-0\" data-look=\"classic\" transform=\"translate(162.75, 172.5)\"><rect class=\"basic label-container\" style=\"\" x=\"-124.5\" y=\"-35\" width=\"249\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-92.5, -19)\"><rect></rect><foreignObject width=\"185\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Prototype Fidelity</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020944061-68-flowchart-B-1\" data-look=\"classic\" transform=\"translate(692, 79)\"><rect class=\"basic label-container\" style=\"\" x=\"-196.75\" y=\"-57\" width=\"393.5\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-164.75, -41)\"><rect></rect><foreignObject width=\"329.5\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Low-Fidelity Linked Static Screens,<br>Simulated Interactivity, No Real<br>Underlying Logic</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020944061-68-flowchart-C-3\" data-look=\"classic\" transform=\"translate(692, 266)\"><rect class=\"basic label-container\" style=\"\" x=\"-201\" y=\"-57\" width=\"402\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-169, -41)\"><rect></rect><foreignObject width=\"338\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>High-Fidelity Real, Simplified Code,<br>Actual Data Handling, Closer to<br>Production Behavior</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020944061-68-flowchart-D-5\" data-look=\"classic\" transform=\"translate(1316.875, 79)\"><rect class=\"basic label-container\" style=\"\" x=\"-184\" y=\"-46\" width=\"368\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-152, -30)\"><rect></rect><foreignObject width=\"304\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Fast to Build, Good for<br>Early Usability and Flow Testing</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020944061-68-flowchart-E-7\" data-look=\"classic\" transform=\"translate(1316.875, 266)\"><rect class=\"basic label-container\" style=\"\" x=\"-188.25\" y=\"-57\" width=\"376.5\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-156.25, -41)\"><rect></rect><foreignObject width=\"312.5\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Slower to Build, Good for Testing<br>Realistic Performance and Complex<br>Interactions</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020944061-68-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020944061-68-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020944061-68-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_a32698235e"
+        },
+        {
+          "type": "paragraph",
+          "text": "The choice between low- and high-fidelity prototyping should follow directly from the specific riskiest assumption (Lesson 8) being tested: a question about whether users can successfully navigate a multi-step flow is often well-served by a low-fidelity, linked-screen prototype, while a question about whether users tolerate a specific, realistic loading time, or correctly interpret dynamically changing real data, may require a higher-fidelity, more functionally real prototype to produce a trustworthy answer.",
+          "blockId": "blk_39c25fa7c3"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Prototyping as a Rung on the Confidence Ladder",
+          "blockId": "blk_aeacde1af4"
+        },
+        {
+          "type": "paragraph",
+          "text": "Recall Lesson 8's confidence ladder: conversation, concept test, concierge/manual test, limited pilot, full delivery, a sequence of progressively more expensive, higher-fidelity validation methods, with the explicit discipline of not skipping rungs. Prototyping sits specifically at the \"concept test\" rung (and, at higher fidelity, can approach the \"concierge/manual test\" rung), positioned deliberately before the cost and commitment of a limited pilot or full delivery.",
+          "blockId": "blk_4dc7e53574"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_195ddd880c",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph BT\r\n    A[Conversation] --> B[Concept Test: Prototyping Sits Here]\r\n    B --> C[Concierge / Manual Test]\r\n    C --> D[Limited Pilot]\r\n    D --> E[Full Delivery]",
+          "normalized": "graph BT\r\n    A[Conversation] --> B[Concept Test: Prototyping Sits Here]\r\n    B --> C[Concierge / Manual Test]\r\n    C --> D[Limited Pilot]\r\n    D --> E[Full Delivery]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020944217-69\" xmlns=\"http://www.w3.org/2000/svg\" width=\"542.25\" height=\"743\" viewBox=\"-66.375 -27 542.25 743\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Conversation → Concept Test: Prototyping Sits Here → Concierge / Manual Test → Limited Pilot → Full Delivery\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Conversation → Concept Test: Prototyping Sits Here → Concierge / Manual Test → Limited Pilot → Full Delivery</title><style>#mermaid-svg-1795020944217-69{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020944217-69 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020944217-69 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020944217-69 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020944217-69 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020944217-69 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020944217-69 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020944217-69 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020944217-69 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020944217-69 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020944217-69 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020944217-69 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020944217-69 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020944217-69 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020944217-69 p{margin:0;}#mermaid-svg-1795020944217-69 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020944217-69 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020944217-69 .cluster-label span{color:#171A17;}#mermaid-svg-1795020944217-69 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020944217-69 .label text,#mermaid-svg-1795020944217-69 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020944217-69 .node rect,#mermaid-svg-1795020944217-69 .node circle,#mermaid-svg-1795020944217-69 .node ellipse,#mermaid-svg-1795020944217-69 .node polygon,#mermaid-svg-1795020944217-69 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020944217-69 .rough-node .label text,#mermaid-svg-1795020944217-69 .node .label text,#mermaid-svg-1795020944217-69 .image-shape .label,#mermaid-svg-1795020944217-69 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020944217-69 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020944217-69 .rough-node .label,#mermaid-svg-1795020944217-69 .node .label,#mermaid-svg-1795020944217-69 .image-shape .label,#mermaid-svg-1795020944217-69 .icon-shape .label{text-align:center;}#mermaid-svg-1795020944217-69 .node.clickable{cursor:pointer;}#mermaid-svg-1795020944217-69 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020944217-69 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020944217-69 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020944217-69 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020944217-69 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020944217-69 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020944217-69 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020944217-69 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020944217-69 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020944217-69 .cluster text{fill:#171A17;}#mermaid-svg-1795020944217-69 .cluster span{color:#171A17;}#mermaid-svg-1795020944217-69 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020944217-69 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020944217-69 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020944217-69 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020944217-69 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020944217-69 .icon-shape,#mermaid-svg-1795020944217-69 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020944217-69 .icon-shape p,#mermaid-svg-1795020944217-69 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020944217-69 .icon-shape .label rect,#mermaid-svg-1795020944217-69 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020944217-69 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020944217-69 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020944217-69 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020944217-69 [data-look=\"neo\"].node rect,#mermaid-svg-1795020944217-69 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020944217-69 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020944217-69-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944217-69 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020944217-69 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020944217-69-gradient);stroke-width:1px;}#mermaid-svg-1795020944217-69 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944217-69 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020944217-69 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020944217-69-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944217-69 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020944217-69 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020944217-69-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944217-69 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020944217-69-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944217-69 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020944217-69_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944217-69_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944217-69_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944217-69_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020944217-69_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944217-69_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944217-69_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944217-69_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944217-69_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944217-69_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944217-69_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020944217-69_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M271.125,636L271.125,629.083C271.125,622.167,271.125,608.333,271.125,595.167C271.125,582,271.125,569.5,271.125,563.25L271.125,557\" id=\"mermaid-svg-1795020944217-69-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6MjcxLjEyNSwieSI6NjM2fSx7IngiOjI3MS4xMjUsInkiOjU5NC41fSx7IngiOjI3MS4xMjUsInkiOjU1M31d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020944217-69_flowchart-v2-pointEnd)\"></path><path d=\"M271.125,479L271.125,472.083C271.125,465.167,271.125,451.333,271.125,438.167C271.125,425,271.125,412.5,271.125,406.25L271.125,400\" id=\"mermaid-svg-1795020944217-69-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6MjcxLjEyNSwieSI6NDc5fSx7IngiOjI3MS4xMjUsInkiOjQzNy41fSx7IngiOjI3MS4xMjUsInkiOjM5Nn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020944217-69_flowchart-v2-pointEnd)\"></path><path d=\"M271.125,322L271.125,315.083C271.125,308.167,271.125,294.333,271.125,281.167C271.125,268,271.125,255.5,271.125,249.25L271.125,243\" id=\"mermaid-svg-1795020944217-69-L_C_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_D_0\" data-points=\"W3sieCI6MjcxLjEyNSwieSI6MzIyfSx7IngiOjI3MS4xMjUsInkiOjI4MC41fSx7IngiOjI3MS4xMjUsInkiOjIzOX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020944217-69_flowchart-v2-pointEnd)\"></path><path d=\"M271.125,165L271.125,158.083C271.125,151.167,271.125,137.333,271.125,124.167C271.125,111,271.125,98.5,271.125,92.25L271.125,86\" id=\"mermaid-svg-1795020944217-69-L_D_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_E_0\" data-points=\"W3sieCI6MjcxLjEyNSwieSI6MTY1fSx7IngiOjI3MS4xMjUsInkiOjEyMy41fSx7IngiOjI3MS4xMjUsInkiOjgyfV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020944217-69_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_D_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020944217-69-flowchart-A-0\" data-look=\"classic\" transform=\"translate(271.125, 673)\"><rect class=\"basic label-container\" style=\"\" x=\"-99\" y=\"-35\" width=\"198\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-67, -19)\"><rect></rect><foreignObject width=\"134\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Conversation</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020944217-69-flowchart-B-1\" data-look=\"classic\" transform=\"translate(271.125, 516)\"><rect class=\"basic label-container\" style=\"\" x=\"-196.75\" y=\"-35\" width=\"393.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-164.75, -19)\"><rect></rect><foreignObject width=\"329.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Concept Test: Prototyping Sits Here</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020944217-69-flowchart-C-3\" data-look=\"classic\" transform=\"translate(271.125, 359)\"><rect class=\"basic label-container\" style=\"\" x=\"-145.75\" y=\"-35\" width=\"291.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-113.75, -19)\"><rect></rect><foreignObject width=\"227.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Concierge / Manual Test</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020944217-69-flowchart-D-5\" data-look=\"classic\" transform=\"translate(271.125, 202)\"><rect class=\"basic label-container\" style=\"\" x=\"-103.25\" y=\"-35\" width=\"206.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-71.25, -19)\"><rect></rect><foreignObject width=\"142.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Limited Pilot</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020944217-69-flowchart-E-7\" data-look=\"classic\" transform=\"translate(271.125, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-103.25\" y=\"-35\" width=\"206.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-71.25, -19)\"><rect></rect><foreignObject width=\"142.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Full Delivery</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020944217-69-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020944217-69-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020944217-69-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_195ddd880c"
+        },
+        {
+          "type": "paragraph",
+          "text": "This placement matters practically: a prototype is meant to generate genuine, disconfirmable evidence about usability and interactive experience *before* the cost of a limited pilot or full delivery is incurred, directly extending the discovery discipline from Module 2 into the design stage of Module 3. A team that skips prototyping and moves straight from a validated wireframe to full delivery has, in effect, skipped a rung on the confidence ladder, exactly the discipline violation Lesson 8 warned against.",
+          "blockId": "blk_f231c45c7f"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Usability Testing vs. Discovery Interviewing",
+          "blockId": "blk_da28ccce58"
+        },
+        {
+          "type": "paragraph",
+          "text": "It's worth being precise about how testing a prototype (**usability testing**) differs from the discovery interviewing covered in Lesson 12, since both involve talking with real users but serve genuinely different purposes:",
+          "blockId": "blk_6929dbb1df"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**Discovery interviewing** (Lesson 12) aims to understand a person's existing behavior, context, and needs, typically independent of any specific solution: past-behavior questions, with any solution reaction deferred to the end of the conversation, if included at all.",
+            "**Usability testing** aims to observe how a person interacts with a specific, already-built (even if low-fidelity) solution: watching what they actually do, where they hesitate or get confused, and what they say while doing it, directly connecting to Lesson 12's discovery-versus-usability-interview distinction, now given a dedicated method."
+          ],
+          "blockId": "blk_f25cfa19af"
+        },
+        {
+          "type": "paragraph",
+          "text": "A well-run discovery-to-delivery process (echoing Lesson 20's Discovery Flywheel) typically uses both in sequence: discovery interviews establish the underlying job and pain points; a prototype is then built to address them; usability testing on that prototype checks whether the specific proposed solution actually resolves the identified pain point in practice, and surfaces any new usability friction the solution itself introduces.",
+          "blockId": "blk_a67a00637d"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Think-Aloud Technique",
+          "blockId": "blk_1cbdb5f2c6"
+        },
+        {
+          "type": "paragraph",
+          "text": "A widely used, practical method for conducting genuinely useful usability testing on a prototype is the **think-aloud technique**: asking a test participant to verbalize their thoughts continuously while interacting with the prototype (what they're looking at, what they expect to happen next, what confuses them, what they're trying to do) rather than silently completing tasks and only reporting their overall impression afterward.",
+          "blockId": "blk_5ea846e530"
+        },
+        {
+          "type": "paragraph",
+          "text": "This technique is valuable specifically because it surfaces moments of hesitation, confusion, or incorrect expectation *as they happen*, rather than relying on a participant's after-the-fact recollection and summary, which, per Lesson 11's stated-versus-revealed-preference distinction, is often less reliable than directly observed, in-the-moment behavior and commentary. A participant who silently completes a task, then reports afterward that \"it was pretty intuitive,\" may have actually hesitated meaningfully at a specific step along the way, a moment of friction that a think-aloud protocol would have captured directly, but that a purely retrospective self-report might smooth over or forget entirely.",
+          "blockId": "blk_063053b897"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_7ccc844c15",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Usability Test with Think-Aloud Protocol] --> B[Participant Verbalizes Thoughts<br/>Continuously While Interacting]\r\n    B --> C[Moments of Hesitation, Confusion, or<br/>Incorrect Expectation Are Captured as<br/>They Happen]\r\n    C --> D[More Reliable Than Retrospective<br/>Self-report Alone, Per Lesson 11<br/>Stated/revealed Distinction]",
+          "normalized": "graph TD\r\n    A[Usability Test with Think-Aloud Protocol] --> B[Participant Verbalizes Thoughts<br/>Continuously While Interacting]\r\n    B --> C[Moments of Hesitation, Confusion, or<br/>Incorrect Expectation Are Captured as<br/>They Happen]\r\n    C --> D[More Reliable Than Retrospective<br/>Self-report Alone, Per Lesson 11<br/>Stated/revealed Distinction]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020944357-70\" xmlns=\"http://www.w3.org/2000/svg\" width=\"606\" height=\"744\" viewBox=\"-77 -27 606 744\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Usability Test with Think-Aloud Protocol → Participant Verbalizes ThoughtsContinuously While Interacting → Moments of Hesitation, Confusion, orIncorrect Expectation Are Captured asThey Happen → More Reliable Than RetrospectiveSelf-report Alone, Per Lesson 11Stated/revealed Distinction\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Usability Test with Think-Aloud Protocol → Participant Verbalizes ThoughtsContinuously While Interacting → Moments of Hesitation, Confusion, orIncorrect Expectation Are Captured asThey Happen → More Reliable Than RetrospectiveSelf-report Alone, Per Lesson 11Stated/revealed Distinction</title><style>#mermaid-svg-1795020944357-70{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020944357-70 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020944357-70 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020944357-70 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020944357-70 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020944357-70 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020944357-70 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020944357-70 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020944357-70 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020944357-70 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020944357-70 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020944357-70 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020944357-70 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020944357-70 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020944357-70 p{margin:0;}#mermaid-svg-1795020944357-70 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020944357-70 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020944357-70 .cluster-label span{color:#171A17;}#mermaid-svg-1795020944357-70 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020944357-70 .label text,#mermaid-svg-1795020944357-70 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020944357-70 .node rect,#mermaid-svg-1795020944357-70 .node circle,#mermaid-svg-1795020944357-70 .node ellipse,#mermaid-svg-1795020944357-70 .node polygon,#mermaid-svg-1795020944357-70 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020944357-70 .rough-node .label text,#mermaid-svg-1795020944357-70 .node .label text,#mermaid-svg-1795020944357-70 .image-shape .label,#mermaid-svg-1795020944357-70 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020944357-70 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020944357-70 .rough-node .label,#mermaid-svg-1795020944357-70 .node .label,#mermaid-svg-1795020944357-70 .image-shape .label,#mermaid-svg-1795020944357-70 .icon-shape .label{text-align:center;}#mermaid-svg-1795020944357-70 .node.clickable{cursor:pointer;}#mermaid-svg-1795020944357-70 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020944357-70 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020944357-70 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020944357-70 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020944357-70 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020944357-70 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020944357-70 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020944357-70 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020944357-70 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020944357-70 .cluster text{fill:#171A17;}#mermaid-svg-1795020944357-70 .cluster span{color:#171A17;}#mermaid-svg-1795020944357-70 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020944357-70 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020944357-70 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020944357-70 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020944357-70 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020944357-70 .icon-shape,#mermaid-svg-1795020944357-70 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020944357-70 .icon-shape p,#mermaid-svg-1795020944357-70 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020944357-70 .icon-shape .label rect,#mermaid-svg-1795020944357-70 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020944357-70 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020944357-70 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020944357-70 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020944357-70 [data-look=\"neo\"].node rect,#mermaid-svg-1795020944357-70 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020944357-70 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020944357-70-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944357-70 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020944357-70 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020944357-70-gradient);stroke-width:1px;}#mermaid-svg-1795020944357-70 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944357-70 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020944357-70 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020944357-70-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944357-70 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020944357-70 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020944357-70-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944357-70 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020944357-70-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944357-70 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020944357-70_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944357-70_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944357-70_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944357-70_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020944357-70_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944357-70_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944357-70_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944357-70_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944357-70_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944357-70_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944357-70_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020944357-70_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M303,82L303,88.917C303,95.833,303,109.667,303,122.833C303,136,303,148.5,303,154.75L303,161\" id=\"mermaid-svg-1795020944357-70-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6MzAzLCJ5Ijo4Mn0seyJ4IjozMDMsInkiOjEyMy41fSx7IngiOjMwMywieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020944357-70_flowchart-v2-pointEnd)\"></path><path d=\"M303,273L303,279.917C303,286.833,303,300.667,303,313.833C303,327,303,339.5,303,345.75L303,352\" id=\"mermaid-svg-1795020944357-70-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6MzAzLCJ5IjoyNzN9LHsieCI6MzAzLCJ5IjozMTQuNX0seyJ4IjozMDMsInkiOjM1Nn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020944357-70_flowchart-v2-pointEnd)\"></path><path d=\"M303,498L303,504.917C303,511.833,303,525.667,303,538.833C303,552,303,564.5,303,570.75L303,577\" id=\"mermaid-svg-1795020944357-70-L_C_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_D_0\" data-points=\"W3sieCI6MzAzLCJ5Ijo0OTh9LHsieCI6MzAzLCJ5Ijo1MzkuNX0seyJ4IjozMDMsInkiOjU4MX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020944357-70_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020944357-70-flowchart-A-0\" data-look=\"classic\" transform=\"translate(303, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-218\" y=\"-35\" width=\"436\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-186, -19)\"><rect></rect><foreignObject width=\"372\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Usability Test with Think-Aloud Protocol</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020944357-70-flowchart-B-1\" data-look=\"classic\" transform=\"translate(303, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-179.75\" y=\"-46\" width=\"359.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-147.75, -30)\"><rect></rect><foreignObject width=\"295.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Participant Verbalizes Thoughts<br>Continuously While Interacting</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020944357-70-flowchart-C-3\" data-look=\"classic\" transform=\"translate(303, 427)\"><rect class=\"basic label-container\" style=\"\" x=\"-205.25\" y=\"-57\" width=\"410.5\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-173.25, -41)\"><rect></rect><foreignObject width=\"346.5\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Moments of Hesitation, Confusion, or<br>Incorrect Expectation Are Captured as<br>They Happen</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020944357-70-flowchart-D-5\" data-look=\"classic\" transform=\"translate(303, 652)\"><rect class=\"basic label-container\" style=\"\" x=\"-184\" y=\"-57\" width=\"368\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-152, -41)\"><rect></rect><foreignObject width=\"304\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>More Reliable Than Retrospective<br>Self-report Alone, Per Lesson 11<br>Stated/revealed Distinction</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020944357-70-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020944357-70-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020944357-70-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_7ccc844c15"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Two Failure Patterns: Prototype as Finished Product, and Over-Engineered Prototype",
+          "blockId": "blk_cbdaaf15c1"
+        },
+        {
+          "type": "paragraph",
+          "text": "Two specific, opposite failure patterns deserve direct attention, both distorting the appropriate fidelity match discussed above:",
+          "blockId": "blk_d219350184"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**Prototype as finished product**: presenting a prototype (particularly a high-fidelity one) to stakeholders or users as if it were the actual, launch-ready solution, rather than a deliberately limited testing artifact. This can create false expectations about timeline or scope, and can trigger the same premature-visual-commitment effect Lesson 25 described, now applied to interactivity rather than pure visual polish.",
+            "**Over-engineered prototype**: investing more time and fidelity into a prototype than the specific riskiest assumption being tested actually requires, echoing Lesson 21's MVP creep concept directly, but applied to the prototyping stage rather than the eventual delivered solution. A prototype meant only to test whether users can navigate a specific flow correctly doesn't need real backend data processing, realistic load times, or edge-case handling. Investing in these regardless produces a slower, more expensive prototype without improving its ability to answer the specific question at hand."
+          ],
+          "blockId": "blk_9b8997841a"
+        }
+      ],
+      "blockId": "blk_ed876b51f4"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Building a high-fidelity prototype when a low-fidelity one would answer the riskiest assumption just as well",
+          "body": "This is a direct instance of over-engineering. Matching prototype fidelity to the specific question being tested, not to a default assumption that \"more realistic is always better,\" is the correct discipline."
+        },
+        {
+          "title": "Presenting a prototype to stakeholders without clarifying that it is a testing artifact, not a launch-ready product",
+          "body": "This risks creating false expectations about timeline, completeness, or scope, and can trigger the premature-commitment effect this lesson and Lesson 25 both warn about."
+        },
+        {
+          "title": "Relying solely on a participant's after-the-fact summary (\"it felt intuitive\") rather than using a think-aloud protocol during the test itself",
+          "body": "Retrospective self-report is a weaker form of evidence than in-the-moment observed behavior and commentary, per Lesson 11's stated-versus-revealed-preference distinction."
+        },
+        {
+          "title": "Conflating usability testing with discovery interviewing, or running one when the other is actually needed",
+          "body": "These serve genuinely different purposes: understanding existing behavior and needs (discovery) versus observing interaction with a specific built solution (usability), and confusing them produces a session that answers neither question well."
+        },
+        {
+          "title": "Skipping prototyping entirely and moving from a validated wireframe directly to full delivery",
+          "body": "This skips a specific rung on Lesson 8's confidence ladder, losing the opportunity to catch usability and interactive-experience problems before the cost of full development is incurred.\n\n"
+        }
+      ],
+      "blockId": "blk_ad893a09f6"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The Prototype Fidelity Match",
+      "diagram": {
+        "blockId": "blk_d98804793c",
+        "type": "mermaid"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "This lesson's mental model is the **Prototype Fidelity Match**, a direct extension of Lesson 21's MVP Scoping Filter, applied specifically to choosing prototype fidelity.",
+          "blockId": "blk_f108c6ea90"
+        },
+        {
+          "type": "paragraph",
+          "text": "Apply this filter to any proposed prototype investment: does testing this specific riskiest assumption genuinely require real backend logic, realistic data, or polished visuals, or would a simpler, faster, linked-screen prototype answer the same question just as reliably? Defaulting to the simplest fidelity level capable of testing the assumption at hand mirrors Lesson 21's MVP discipline directly.",
+          "blockId": "blk_f43ae7701e"
+        }
+      ],
+      "blockId": "blk_5e2aeca2d7"
+    },
+    {
+      "type": "mermaid",
+      "id": "blk_d98804793c",
+      "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Candidate Prototype Fidelity Increase] --> B{Is This Specific Level of Fidelity<br/>Necessary to Test the Riskiest<br/>Assumption at Hand?}\r\n    B -->|Yes| C[Include: Genuine Fidelity Requirement]\r\n    B -->|No| D[Cut: This Is Over-engineering,<br/>Regardless of How Impressive It Would<br/>Look]",
+      "normalized": "graph TD\r\n    A[Candidate Prototype Fidelity Increase] --> B{Is This Specific Level of Fidelity<br/>Necessary to Test the Riskiest<br/>Assumption at Hand?}\r\n    B -->|Yes| C[Include: Genuine Fidelity Requirement]\r\n    B -->|No| D[Cut: This Is Over-engineering,<br/>Regardless of How Impressive It Would<br/>Look]",
+      "authorTheme": {
+        "background": "#0b0b0c",
+        "primaryColor": "#1f1f23",
+        "primaryTextColor": "#ffffff",
+        "primaryBorderColor": "#8b5cf6",
+        "lineColor": "#d1d5db",
+        "secondaryColor": "#18181b",
+        "tertiaryColor": "#111111",
+        "mainBkg": "#1f1f23",
+        "nodeBorder": "#8b5cf6",
+        "clusterBkg": "#000000",
+        "clusterBorder": "#27272a",
+        "titleColor": "#ffffff",
+        "edgeLabelBackground": "#0b0b0c",
+        "nodeTextColor": "#ffffff",
+        "edgeLabelColor": "#ffffff",
+        "actorBorder": "#8b5cf6",
+        "actorBkg": "#1f1f23",
+        "actorTextColor": "#ffffff",
+        "sequenceNumberColor": "#ffffff",
+        "signalColor": "#8b5cf6",
+        "signalTextColor": "#ffffff",
+        "textColor": "#ffffff",
+        "classText": "#ffffff",
+        "classBorder": "#8b5cf6",
+        "classBkg": "#1f1f23"
+      },
+      "svg": "<svg id=\"mermaid-svg-1795020944494-71\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1164.5\" height=\"846\" viewBox=\"-70.625 -27 1164.5 846\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Candidate Prototype Fidelity Increase → Is This Specific Level of FidelityNecessary to Test the RiskiestAssumption at Hand? → Include: Genuine Fidelity Requirement → Cut: This Is Over-engineering,Regardless of How Impressive It WouldLook\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Candidate Prototype Fidelity Increase → Is This Specific Level of FidelityNecessary to Test the RiskiestAssumption at Hand? → Include: Genuine Fidelity Requirement → Cut: This Is Over-engineering,Regardless of How Impressive It WouldLook</title><style>#mermaid-svg-1795020944494-71{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020944494-71 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020944494-71 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020944494-71 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020944494-71 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020944494-71 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020944494-71 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020944494-71 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020944494-71 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020944494-71 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020944494-71 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020944494-71 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020944494-71 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020944494-71 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020944494-71 p{margin:0;}#mermaid-svg-1795020944494-71 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020944494-71 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020944494-71 .cluster-label span{color:#171A17;}#mermaid-svg-1795020944494-71 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020944494-71 .label text,#mermaid-svg-1795020944494-71 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020944494-71 .node rect,#mermaid-svg-1795020944494-71 .node circle,#mermaid-svg-1795020944494-71 .node ellipse,#mermaid-svg-1795020944494-71 .node polygon,#mermaid-svg-1795020944494-71 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020944494-71 .rough-node .label text,#mermaid-svg-1795020944494-71 .node .label text,#mermaid-svg-1795020944494-71 .image-shape .label,#mermaid-svg-1795020944494-71 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020944494-71 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020944494-71 .rough-node .label,#mermaid-svg-1795020944494-71 .node .label,#mermaid-svg-1795020944494-71 .image-shape .label,#mermaid-svg-1795020944494-71 .icon-shape .label{text-align:center;}#mermaid-svg-1795020944494-71 .node.clickable{cursor:pointer;}#mermaid-svg-1795020944494-71 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020944494-71 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020944494-71 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020944494-71 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020944494-71 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020944494-71 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020944494-71 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020944494-71 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020944494-71 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020944494-71 .cluster text{fill:#171A17;}#mermaid-svg-1795020944494-71 .cluster span{color:#171A17;}#mermaid-svg-1795020944494-71 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020944494-71 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020944494-71 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020944494-71 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020944494-71 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020944494-71 .icon-shape,#mermaid-svg-1795020944494-71 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020944494-71 .icon-shape p,#mermaid-svg-1795020944494-71 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020944494-71 .icon-shape .label rect,#mermaid-svg-1795020944494-71 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020944494-71 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020944494-71 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020944494-71 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020944494-71 [data-look=\"neo\"].node rect,#mermaid-svg-1795020944494-71 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020944494-71 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020944494-71-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944494-71 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020944494-71 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020944494-71-gradient);stroke-width:1px;}#mermaid-svg-1795020944494-71 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944494-71 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020944494-71 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020944494-71-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944494-71 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020944494-71 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020944494-71-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944494-71 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020944494-71-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944494-71 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020944494-71_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944494-71_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944494-71_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944494-71_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020944494-71_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944494-71_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944494-71_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944494-71_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944494-71_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944494-71_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944494-71_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020944494-71_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M582.25,82L582.25,88.917C582.25,95.833,582.25,109.667,582.25,122.833C582.25,136,582.25,148.5,582.25,154.75L582.25,161\" id=\"mermaid-svg-1795020944494-71-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NTgyLjI1LCJ5Ijo4Mn0seyJ4Ijo1ODIuMjUsInkiOjEyMy41fSx7IngiOjU4Mi4yNSwieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020944494-71_flowchart-v2-pointEnd)\"></path><path d=\"M410.144,531.894L389.099,550.162C368.054,568.429,325.965,604.965,304.92,635.149C283.875,665.333,283.875,689.167,283.875,701.083L283.875,713\" id=\"mermaid-svg-1795020944494-71-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6NDEwLjE0NDAzNDUzNjg5MTcsInkiOjUzMS44OTQwMzQ1MzY4OTE3fSx7IngiOjI4My44NzUsInkiOjY0MS41fSx7IngiOjI4My44NzUsInkiOjcxN31d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020944494-71_flowchart-v2-pointEnd)\"></path><path d=\"M754.356,531.894L775.401,550.162C796.446,568.429,838.535,604.965,859.58,629.482C880.625,654,880.625,666.5,880.625,672.75L880.625,679\" id=\"mermaid-svg-1795020944494-71-L_B_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_D_0\" data-points=\"W3sieCI6NzU0LjM1NTk2NTQ2MzEwODMsInkiOjUzMS44OTQwMzQ1MzY4OTE3fSx7IngiOjg4MC42MjUsInkiOjY0MS41fSx7IngiOjg4MC42MjUsInkiOjY4M31d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020944494-71_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(283.875, 641.5)\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Yes</p></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(880.625, 641.5)\"><g class=\"label\" data-id=\"L_B_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>No</p></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020944494-71-flowchart-A-0\" data-look=\"classic\" transform=\"translate(582.25, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-205.25\" y=\"-35\" width=\"410.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-173.25, -19)\"><rect></rect><foreignObject width=\"346.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Candidate Prototype Fidelity Increase</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020944494-71-flowchart-B-1\" data-look=\"classic\" transform=\"translate(582.25, 382.5)\"><polygon points=\"217.5,0 435,-217.5 217.5,-435 0,-217.5\" class=\"label-container\" transform=\"translate(-217, 217.5)\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-160.5, -41)\"><rect></rect><foreignObject width=\"321\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Is This Specific Level of Fidelity<br>Necessary to Test the Riskiest<br>Assumption at Hand?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020944494-71-flowchart-C-3\" data-look=\"classic\" transform=\"translate(283.875, 754)\"><rect class=\"basic label-container\" style=\"\" x=\"-205.25\" y=\"-35\" width=\"410.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-173.25, -19)\"><rect></rect><foreignObject width=\"346.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Include: Genuine Fidelity Requirement</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020944494-71-flowchart-D-5\" data-look=\"classic\" transform=\"translate(880.625, 754)\"><rect class=\"basic label-container\" style=\"\" x=\"-205.25\" y=\"-57\" width=\"410.5\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-173.25, -41)\"><rect></rect><foreignObject width=\"346.5\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Cut: This Is Over-engineering,<br>Regardless of How Impressive It Would<br>Look</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020944494-71-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020944494-71-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020944494-71-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+      "blockId": "blk_d98804793c"
+    },
+    {
+      "type": "companyExample",
+      "company": "Facebook (Meta)",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "**Facebook (Meta)** offers a more concretely verifiable illustration than a general \"design team uses prototypes\" claim, because the company built and later open-sourced its own internal prototyping tool specifically to solve this problem. Origami Studio began as an internal tool because Facebook's designers found existing options too limiting for prototyping rich, gesture-driven, animated interactions (the kind of behavior that a static mockup genuinely cannot communicate) and needed to validate those interactions before committing engineering time to building them for real. It has been used internally to prototype flows for Facebook, Instagram, WhatsApp, and Messenger, and Meta later released it publicly as a free tool.",
+          "blockId": "blk_4fd5b47941"
+        },
+        {
+          "type": "paragraph",
+          "text": "The instructive detail for this lesson isn't the tool itself. It's *why* it was built: a company at Facebook's scale, with no shortage of engineering capacity, still judged it worthwhile to build a dedicated prototyping tool rather than validate interaction design directly in code. That is a strong, practical argument for this lesson's core claim that prototyping and engineering are genuinely different activities serving different purposes, not merely \"faster\" and \"slower\" ways of doing the same thing.",
+          "blockId": "blk_47f9982060"
+        },
+        {
+          "type": "paragraph",
+          "text": "*(Source: Meta's own public statements at Origami Studio's release and its continued public documentation. This curriculum does not claim certainty about which specific flows or teams currently use it.)*",
+          "blockId": "blk_5fa7dfebeb"
+        }
+      ],
+      "blockId": "blk_c3fd3f9657"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "At a startup",
+          "body": "Prototyping is often extremely lightweight, frequently using simple, low-fidelity, linked-screen tools, given the premium on speed and limited design/engineering resources. The specific discipline of matching fidelity to the riskiest assumption matters just as much as at any other stage, since a startup has even less capacity to absorb the cost of an over-engineered prototype that answers a question no one actually needed answered yet."
+        },
+        {
+          "context": "At a mid-size company",
+          "body": "Prototyping typically becomes a more standard, expected stage before significant engineering commitment, often incorporating both low-fidelity flow-testing prototypes early and higher-fidelity, more functionally realistic prototypes for specific, higher-risk interactions later in a project, as the organization develops more structured design and research processes."
+        },
+        {
+          "context": "At Big Tech",
+          "body": "Prototyping at scale sometimes involves genuinely high-fidelity, functionally realistic builds (occasionally close to production-quality code), specifically because the cost of a wrong decision at full scale is large enough to justify the additional prototyping investment, and because established design systems and component libraries can make higher-fidelity prototyping faster and cheaper than it would be for a team building from scratch."
+        }
+      ],
+      "blockId": "blk_3323e9dee9"
+    },
+    {
+      "type": "caseStudy",
+      "title": "The Prototype That Skipped the Real Test",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Consider a simplified, illustrative scenario common across e-commerce checkout redesigns.",
+          "blockId": "blk_2319b9feea"
+        },
+        {
+          "type": "paragraph",
+          "text": "A team redesigning a multi-step checkout flow builds a low-fidelity, linked-screen prototype and conducts usability testing with several participants, using a think-aloud protocol. Testing goes well: participants navigate the flow successfully, verbalizing confidence at each step, and the team concludes the new flow is ready for full engineering implementation.",
+          "blockId": "blk_c9b8fab181"
+        },
+        {
+          "type": "paragraph",
+          "text": "After full development, the redesigned checkout launches, and conversion rates drop unexpectedly at a specific step: a real-time shipping cost calculation that, in the actual production implementation, takes several seconds to load due to a third-party shipping API's real-world response time. In the original low-fidelity prototype, this step had simply displayed a static, pre-filled shipping cost immediately, with no simulated delay at all, since the team judged that realistic loading behavior wasn't necessary to test basic flow navigation.",
+          "blockId": "blk_abd53ead96"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong?**",
+          "blockId": "blk_67e03cb741"
+        },
+        {
+          "type": "paragraph",
+          "text": "Applying this lesson's frameworks:",
+          "blockId": "blk_6b296357da"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**The prototype's fidelity was correctly matched to the flow-navigation assumption the team originally set out to test**, but the team never explicitly identified a second, distinct riskiest assumption (whether users would tolerate a multi-second delay during a real-time shipping calculation) that existed alongside the navigation question, and that required a fundamentally different kind of fidelity (realistic timing behavior) to test properly.",
+            "**The team implicitly treated \"the prototype tested successfully\" as validating the entire checkout experience**, rather than recognizing that it had only validated the specific dimension (navigation flow) the prototype was actually built to test, a subtle but important scope-of-validation error.",
+            "**A higher-fidelity prototype, or a specific, targeted secondary test simulating realistic loading delay for just this one step, would have caught the issue before full development**, at a fraction of the cost of discovering it through a live conversion-rate drop after launch."
+          ],
+          "blockId": "blk_7ea78cb1a8"
+        },
+        {
+          "type": "paragraph",
+          "text": "A team applying this lesson's discipline rigorously would have explicitly identified multiple candidate riskiest assumptions early (not just navigation flow, but also realistic performance characteristics for any step involving external data or processing delay) and matched prototype fidelity specifically to each one, potentially using a low-fidelity prototype for the navigation question and a separate, more targeted, higher-fidelity test (perhaps simulating a deliberate delay) specifically for the shipping-calculation step.",
+          "blockId": "blk_5679d5f1d8"
+        },
+        {
+          "type": "paragraph",
+          "text": "This case connects directly back to **Lesson 8's assumption mapping**: a single prototype test, however well executed, only validates the specific assumption it was built to test. Treating success on one dimension as validation of the entire experience is a scope error this lesson's Detailed Case Study makes concrete.",
+          "blockId": "blk_b468afaedb"
+        }
+      ],
+      "blockId": "blk_04e95527ab"
+    },
+    {
+      "type": "framework",
+      "name": "The Prototype Test Scope Table",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A practical table for explicitly matching prototype fidelity and test design to the specific assumption being validated:",
+          "blockId": "blk_3a9b8ac3db"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Riskiest Assumption Type",
+            "Appropriate Prototype Fidelity",
+            "What NOT to Assume It Validates"
+          ],
+          "rows": [
+            [
+              "Can users successfully navigate a multi-step flow?",
+              "Low-fidelity, linked static screens",
+              "Does not validate real-world performance, realistic data behavior, or edge-case handling"
+            ],
+            [
+              "Will users tolerate a specific loading delay or real-time behavior?",
+              "Higher-fidelity, with realistic (even if simulated) timing",
+              "Does not validate broader flow navigation if tested in isolation from the full sequence"
+            ],
+            [
+              "Do users correctly interpret dynamically changing, realistic data?",
+              "Higher-fidelity, with real or realistic sample data",
+              "Does not validate performance under actual production load or scale"
+            ],
+            [
+              "Will users adopt this concept at all, before any specific flow exists?",
+              "Low-fidelity concept test, potentially even simpler than a full linked prototype",
+              "Does not validate detailed usability once a specific flow is designed"
+            ]
+          ],
+          "blockId": "blk_9554ce9284"
+        },
+        {
+          "type": "paragraph",
+          "text": "The consistent discipline this table reinforces: **a successful prototype test result is scoped strictly to the specific assumption it was designed to test. Extending that success to other, untested dimensions of the experience is an unwarranted inference, exactly the error shown in this lesson's Detailed Case Study.**",
+          "blockId": "blk_dff8d4640c"
+        }
+      ],
+      "blockId": "blk_7cf0832300"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "How do you decide what fidelity of prototype to build for a given test?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate connects fidelity choice explicitly to the specific riskiest assumption being tested, echoing the Prototype Fidelity Match, rather than defaulting to either the fastest possible option or the most realistic possible option regardless of the actual question at hand."
+        },
+        {
+          "question": "Tell me about a usability test you ran using a prototype. What did you learn?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate can describe a genuine think-aloud-style test producing specific, in-the-moment findings, versus a vaguer, retrospective-summary-only account that provides weaker evidence per Lesson 11's framework."
+        },
+        {
+          "question": "A prototype test went well, but the launched product still had usability problems. What might explain that gap?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate recognizes the scope-of-validation issue this lesson's Detailed Case Study illustrates: a successful test validates only the specific dimension it was designed to test, and other, untested dimensions (like realistic performance) can still surface problems later."
+        }
+      ],
+      "blockId": "blk_a47fa5c0a6"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A prototype is an interactive representation of a solution, ranging from low-fidelity linked static screens to high-fidelity, functionally realistic builds, and sits specifically at the \"concept test\" rung of Lesson 8's confidence ladder, a deliberate, disconfirmable test conducted before the greater cost and commitment of a limited pilot or full delivery. Prototype fidelity should be matched directly to the specific riskiest assumption being tested, following the same discipline as Lesson 21's MVP Scoping Filter, rather than defaulting to either the fastest or the most realistic option regardless of the actual question at hand. Usability testing (observing interaction with a specific built solution) differs from discovery interviewing (understanding existing behavior and needs independent of a solution, per Lesson 12), and the think-aloud technique (having participants verbalize their thoughts continuously during a test) produces more reliable, in-the-moment evidence than relying on retrospective self-report alone, per Lesson 11's stated-versus-revealed-preference distinction. Finally, a successful prototype test validates only the specific dimension it was designed to test; treating that success as validation of the entire experience, including untested dimensions like realistic performance, is a scope error this lesson's Detailed Case Study makes concrete.",
+          "blockId": "blk_2735d1f277"
+        }
+      ],
+      "blockId": "blk_b84fe92967"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "A prototype ranges from low-fidelity (linked static screens) to high-fidelity (functionally realistic), and sits at the \"concept test\" rung of Lesson 8's confidence ladder.",
+        "Prototype fidelity should be matched to the specific riskiest assumption being tested, following the same discipline as Lesson 21's MVP Scoping Filter, neither over-engineered nor under-fidelitous relative to the actual question at hand.",
+        "Usability testing (observing interaction with a built solution) differs from discovery interviewing (understanding existing behavior independent of a solution). Both serve distinct, complementary purposes.",
+        "The think-aloud technique produces more reliable, in-the-moment evidence than relying on a participant's after-the-fact summary alone.",
+        "\"Prototype as finished product\" and \"over-engineered prototype\" are opposite failure patterns, both distorting appropriate fidelity matching.",
+        "A successful prototype test validates only the specific dimension it was designed to test: extending that success to other, untested dimensions (like realistic performance) is an unwarranted inference.",
+        "Skipping prototyping entirely and moving from a validated wireframe directly to full delivery skips a specific rung on the confidence ladder, losing the chance to catch usability problems cheaply."
+      ],
+      "blockId": "blk_e22c912204"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "**Prototype = interactive, ranges low-to-high fidelity**: sits at the \"concept test\" rung of the confidence ladder (Lesson 8).",
+        "**Match fidelity to the specific riskiest assumption**: same discipline as the MVP Scoping Filter (Lesson 21).",
+        "**Usability testing ≠ discovery interviewing**: observing interaction with a built solution vs. understanding existing behavior independent of one.",
+        "**Think-aloud > retrospective summary**: in-the-moment observation beats after-the-fact recall (Lesson 11's stated/revealed distinction).",
+        "**Avoid both extremes:** prototype-as-finished-product (false expectations) and over-engineered prototype (wasted investment).",
+        "**A successful test validates only what it tested**: don't assume success on one dimension (navigation) validates untested dimensions (performance)."
+      ],
+      "blockId": "blk_d5f1fcdca3"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "Prototype",
+          "definition": "An interactive representation of a solution, ranging from low-fidelity linked screens to high-fidelity functional builds.",
+          "relatedConcepts": [
+            "Wireframe (Lesson 25)",
+            "Confidence Ladder (Lesson 8)"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Low-Fidelity Prototype",
+          "definition": "A prototype built from linked static screens with simulated, non-functional interactivity.",
+          "relatedConcepts": [
+            "High-Fidelity Prototype"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "High-Fidelity Prototype",
+          "definition": "A prototype with real or realistic underlying functionality, data handling, or performance characteristics.",
+          "relatedConcepts": [
+            "Low-Fidelity Prototype"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Usability Testing",
+          "definition": "Observing how a person interacts with a specific, already-built solution to identify friction or confusion.",
+          "relatedConcepts": [
+            "Discovery Interview (Lesson 12)"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Think-Aloud Technique",
+          "definition": "A usability testing method where participants verbalize their thoughts continuously while interacting with a prototype.",
+          "relatedConcepts": [
+            "Usability Testing"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Prototype Fidelity Match",
+          "definition": "A discipline for choosing prototype fidelity based specifically on the riskiest assumption being tested.",
+          "relatedConcepts": [
+            "MVP Scoping Filter (Lesson 21)"
+          ],
+          "difficulty": 2
+        }
+      ],
+      "blockId": "blk_83efab3ae3"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "Jakob Nielsen's widely cited public writing on usability testing methodology, including the think-aloud protocol referenced in this lesson."
+        },
+        {
+          "citation": "Todd Zaki Warfel, *Prototyping: A Practitioner's Guide*",
+          "note": "a detailed treatment of choosing appropriate prototype fidelity for different testing goals."
+        },
+        {
+          "citation": "Steve Krug, *Rocket Surgery Made Easy*",
+          "note": "a practical, widely used guide to running lightweight, effective usability tests, directly relevant to this lesson's core techniques."
+        }
+      ],
+      "blockId": "blk_bd9241d384"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_emiqho",
+      "cards": [
+        {
+          "id": "fc-les_emiqho-1",
+          "front": "What is a prototype, and where does it sit on Lesson 8's confidence ladder?",
+          "back": "An interactive representation of a solution, ranging from low- to high-fidelity; it sits specifically at the \"concept test\" rung, before the cost of a limited pilot or full delivery.",
+          "difficulty": 2,
+          "tags": [
+            "prototype-definition"
+          ]
+        },
+        {
+          "id": "fc-les_emiqho-2",
+          "front": "What determines whether a low- or high-fidelity prototype is appropriate for a given test?",
+          "back": "The specific riskiest assumption being tested, matching fidelity to that assumption, following the same discipline as the MVP Scoping Filter, rather than defaulting to either extreme.",
+          "difficulty": 2,
+          "tags": [
+            "fidelity-match"
+          ]
+        },
+        {
+          "id": "fc-les_emiqho-3",
+          "front": "How does usability testing differ from discovery interviewing?",
+          "back": "Usability testing observes interaction with a specific, already-built solution; discovery interviewing understands existing behavior and needs, typically independent of any specific solution.",
+          "difficulty": 2,
+          "tags": [
+            "usability-vs-discovery"
+          ]
+        },
+        {
+          "id": "fc-les_emiqho-4",
+          "front": "What is the think-aloud technique, and why is it valuable?",
+          "back": "Having a test participant verbalize their thoughts continuously while interacting with a prototype; it captures moments of hesitation or confusion as they happen, producing more reliable evidence than retrospective self-report alone.",
+          "difficulty": 2,
+          "tags": [
+            "think-aloud"
+          ]
+        },
+        {
+          "id": "fc-les_emiqho-5",
+          "front": "What are the two opposite prototyping failure patterns described in this lesson?",
+          "back": "\"Prototype as finished product\" (presenting a testing artifact as launch-ready, creating false expectations) and \"over-engineered prototype\" (investing more fidelity than the specific assumption requires).",
+          "difficulty": 2,
+          "tags": [
+            "prototyping-failure-patterns"
+          ]
+        },
+        {
+          "id": "fc-les_emiqho-6",
+          "front": "In the Detailed Case Study, what specific assumption went untested by the original low-fidelity prototype?",
+          "back": "Whether users would tolerate a multi-second real-world delay during a real-time shipping cost calculation. The prototype tested navigation flow successfully but never tested realistic loading/performance behavior.",
+          "difficulty": 3,
+          "tags": [
+            "case-study"
+          ]
+        },
+        {
+          "id": "fc-les_emiqho-7",
+          "front": "Why is it a scope error to treat a successful prototype test as validating the entire experience?",
+          "back": "A successful test validates only the specific dimension it was designed to test; other, untested dimensions (like realistic performance) can still contain problems, as shown when the checkout flow's navigation tested well but its real-world loading behavior caused a conversion drop after launch.",
+          "difficulty": 3,
+          "tags": [
+            "scope-of-validation"
+          ]
+        }
+      ],
+      "blockId": "blk_c83c6bfeb0"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "You are the PM for a telehealth app, testing a new feature letting patients upload photos of a symptom before a video consultation. Your team has validated the wireframe structure (Lesson 25) and is now deciding how to prototype and test it.",
+        "Work through the following, in writing, before reading further:",
+        "Identify at least two distinct riskiest assumptions this feature might involve (consider: whether patients will feel comfortable uploading a photo at all, and whether the upload-and-preview experience works smoothly on a range of real mobile devices and camera qualities).",
+        "For each assumption identified, propose an appropriate prototype fidelity level, and justify why that level is sufficient (or necessary) for that specific question.",
+        "Write a brief think-aloud test script prompt you would give a participant before testing the upload flow (e.g., what you would ask them to verbalize while completing the task).",
+        "Identify one way this project could fall into the \"over-engineered prototype\" failure pattern, and one way it could fall into \"prototype as finished product.\"",
+        "Using the Prototype Test Scope Table, explicitly state what a successful test of the upload flow's navigation would, and would not, tell you about the feature's real-world readiness.",
+        "There is no single correct answer. The purpose of this exercise is to practice explicitly separating multiple distinct riskiest assumptions and matching prototype fidelity and test scope to each one individually, rather than treating \"the prototype\" as a single, undifferentiated test of the entire feature."
+      ],
+      "blockId": "blk_40ae33a75f"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_emiqho",
+      "questions": [
+        {
+          "id": "q-les_emiqho-1",
+          "question": "What is a prototype, according to this lesson?",
+          "options": [
+            "A written specification document for the engineering team",
+            "A static, non-interactive visual mockup of the interface",
+            "An interactive representation, from linked screens to real builds",
+            "A finished, launch-ready product already delivered to real customers"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Interactivity is the defining property, and fidelity varies widely within it. A static mockup lacks the interaction; a shipped product is past the point of being a testing artifact.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_emiqho-2",
+          "question": "Where does prototyping sit on Lesson 8's confidence ladder?",
+          "options": [
+            "At the full delivery rung, after a limited pilot has run",
+            "At the concept test rung, before a pilot's cost",
+            "Before the conversation rung, at the very start of discovery",
+            "Prototyping forms no part of the confidence ladder at all"
+          ],
+          "correctAnswer": 1,
+          "explanation": "It buys interactive evidence before the commitment of a pilot. A team going from wireframe straight to delivery has skipped this rung, which is the discipline Lesson 8 warned about.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_emiqho-3",
+          "question": "What should determine whether a low- or high-fidelity prototype is appropriate for a given test?",
+          "options": [
+            "Whichever level looks most impressive to the stakeholders",
+            "Whichever level is fastest to build, whatever the question",
+            "The specific riskiest assumption the test is meant to answer",
+            "High fidelity suits every question and should be the default"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Navigation questions are answered by linked screens. Questions about tolerating a real delay, or reading live data correctly, are not, and the assumption decides which you are facing.",
+          "objectivesTested": [
+            1,
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_emiqho-4",
+          "question": "How does usability testing differ from discovery interviewing (Lesson 12)?",
+          "options": [
+            "They are identical practices carrying two different names",
+            "Usability testing runs remotely; discovery must be in person",
+            "Usability testing avoids real users; discovery involves them",
+            "Usability watches interaction with a build; discovery studies behaviour"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Both involve real users and answer different questions. Discovery establishes the job and the pain; usability checks whether this particular solution resolves it without introducing new friction.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_emiqho-5",
+          "question": "What is the think-aloud technique?",
+          "options": [
+            "A technique for building high-fidelity prototypes more quickly",
+            "A method for recruiting suitable usability test participants",
+            "A way of summarising results once all testing has concluded",
+            "Asking a participant to verbalise thoughts while interacting"
+          ],
+          "correctAnswer": 3,
+          "explanation": "What they are looking at, what they expect next, what confuses them, said as it happens rather than reconstructed at the end.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_emiqho-6",
+          "question": "Why is the think-aloud technique considered more reliable than relying solely on a participant's after-the-fact summary?",
+          "options": [
+            "Because participants invariably misreport their experience afterward",
+            "It catches hesitation as it happens, rather than after recall",
+            "Because think-aloud sessions are faster to run than the alternative",
+            "Because after-the-fact summaries cannot be collected"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Someone who paused for four seconds at step three will often report afterwards that it felt intuitive, and mean it. The pause is the finding, and only a live protocol catches it.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_emiqho-7",
+          "question": "What is \"over-engineered prototype,\" as described in this lesson?",
+          "options": [
+            "More fidelity than the assumption under test requires",
+            "A prototype that has been tested with far too many participants",
+            "A prototype too low in fidelity to test anything meaningfully",
+            "A prototype built using outdated and unsupported design tools"
+          ],
+          "correctAnswer": 0,
+          "explanation": "This is MVP creep relocated to the prototyping stage. Real backend logic adds cost and does not improve a test of whether people can find the next button.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_emiqho-8",
+          "question": "In the Detailed Case Study, what specific assumption did the original low-fidelity prototype fail to test, leading to the post-launch conversion drop?",
+          "options": [
+            "Whether users understood the checkout flow's chosen terminology",
+            "Whether users preferred a different colour scheme at checkout",
+            "Whether users would tolerate a multi-second third-party shipping API delay",
+            "Whether users could navigate the multi-step checkout flow itself"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Navigation tested well and was tested honestly. Linked static screens cannot simulate a real API's latency, so that risk went out of the door untouched.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_emiqho-9",
+          "question": "(Scenario) A team successfully tests a low-fidelity prototype's navigation flow with real users and concludes the entire checkout experience is now fully validated and ready for development. According to this lesson, what is the flaw in this conclusion?",
+          "options": [
+            "The team should have used an even lower-fidelity prototype instead",
+            "A scope error; navigation was tested, performance was not",
+            "No flaw; a successful navigation test validates the experience",
+            "The team should have skipped prototyping and gone to development"
+          ],
+          "correctAnswer": 1,
+          "explanation": "A test validates the dimension it was built to examine and no others. Extending the result to untested dimensions is inference, not evidence.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_emiqho-10",
+          "question": "(Product Thinking) A team is testing whether users understand a new multi-step onboarding flow's navigation, with no need to test realistic data or backend performance. According to the Prototype Fidelity Match, what is the most appropriate prototype fidelity?",
+          "options": [
+            "Low-fidelity linked screens, sufficient for the navigation question",
+            "A fully functional, high-fidelity prototype wired to real backend logic",
+            "No prototype at all; proceed directly to full feature development",
+            "A fidelity level chosen at random, since fidelity changes nothing"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The simplest fidelity that can answer the question is the right one. Adding backend realism here spends time without changing what the test can tell you.",
+          "objectivesTested": [
+            1,
+            2
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_emiqho-11",
+          "question": "(Interview Reasoning) A candidate describes building a fully functional, production-quality prototype (with real backend integration) for every usability test, regardless of the specific question being tested, explaining that \"more realistic is always better.\" What might this signal, based on this lesson's Interview Perspective section?",
+          "options": [
+            "Over-engineering; fidelity is not matched to the question at hand",
+            "An exemplary, best-practice approach to prototyping in general",
+            "Strong technical skill that counts as a core strength regardless",
+            "Nothing of note, since higher fidelity is preferable in every case"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Defaulting to maximum realism turns a cheap rung of the ladder into an expensive one, and slows the cycle without improving the answers on most questions.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_emiqho-12",
+          "question": "(Product Thinking, Higher Difficulty) A team identifies two distinct riskiest assumptions for a new feature: one concerning whether users can navigate a specific flow, and one concerning whether users will tolerate a specific real-world performance characteristic. According to this lesson, should these be tested using the same single prototype, or should the team consider a different approach?",
+          "options": [
+            "Test the navigation assumption; performance is not worth prototyping",
+            "Use one identical prototype and session, whatever their differences",
+            "Consider separate, fidelity-matched tests for each distinct assumption",
+            "Test performance; navigation questions answer themselves without testing"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The two questions want different fidelities. Forcing them into one artifact means over-building for the first question or under-building for the second.",
+          "objectivesTested": [
+            2,
+            4
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_emiqho-13",
+          "question": "(Interview Reasoning, Higher Difficulty) An interviewer describes a scenario where a prototype tested very well with users, but the candidate is asked what additional information they would want before feeling confident proceeding to full development. A weak answer would most likely include which of the following?",
+          "options": [
+            "Name which assumptions the test validated and which remain untested",
+            "Consider whether another fidelity level suits the remaining risks",
+            "Reflect on whether think-aloud or a retrospective summary was used",
+            "Proceed straight to full development, since the prototype tested well"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The question invites the candidate to name what is still unknown. Treating one good result as sufficient is the exact inference the case study punished.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_emiqho-14",
+          "question": "(Product Thinking, Higher Difficulty) A team presents a high-fidelity, functionally realistic prototype to company leadership during a project update, and leadership subsequently begins referencing a specific launch date, apparently believing the prototype represents a nearly finished product. What failure pattern does this illustrate, and what should the team have done differently?",
+          "options": [
+            "Over-engineered prototype; the team should have used lower fidelity",
+            "A failure of the think-aloud technique in this particular session",
+            "This scenario relates to no failure pattern covered in the lesson",
+            "Prototype as finished product; clarify status when presenting"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The fidelity may have been right for the test it was built for. What was missing was a sentence telling the room what they were looking at.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_emiqho-15",
+          "question": "(Highest Difficulty) A team runs a rigorous, well-scoped, think-aloud usability test on a low-fidelity prototype, correctly limited to testing navigation flow, and explicitly documents that realistic performance remains untested. Engineering later implements the feature, and a performance issue similar to the Detailed Case Study's shipping-delay problem emerges, despite the team's explicit documentation of this gap. What does this scenario suggest about the limits of prototyping discipline alone?",
+          "options": [
+            "Documenting an open risk is necessary and not sufficient; it must be tracked and retested",
+            "This proves prototyping is ineffective however rigorously it is run",
+            "The team should have skipped prototyping, since it prevented nothing",
+            "This is identical to the case study and reveals no further insight"
+          ],
+          "correctAnswer": 0,
+          "explanation": "This team did better than the case study's: they named the gap. A named gap that nobody owns or schedules a follow-up test for produces the same outcome as an unnamed one.",
+          "objectivesTested": [
+            2,
+            4
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_16963f7631"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_ejgikb",
+        "title": "Lesson 25: Wireframing",
+        "module": "design"
+      },
+      "current": {
+        "id": "les_emiqho",
+        "title": "Lesson 26: Prototyping"
+      },
+      "next": {
+        "id": "les_go5z1d",
+        "title": "Lesson 27: UX Principles for Product Managers",
+        "module": "design"
+      },
+      "unlocks": [
+        {
+          "lesson": {
+            "id": "les_7r8npj",
+            "title": "Information Architecture",
+            "module": "design"
+          },
+          "coreIdea": "Extends structural and navigational concerns tested through prototyping into a dedicated discipline"
+        }
+      ],
+      "blockId": "blk_a2d260f50d"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 26: Prototyping Lesson 25 ended with a structurally validated wireframe: the \"what goes where\" question resolved cheaply, before any polish was invested. But structure alone doesn't answer a different, equally important class of question: does this actually work the way a real person expects it to, once they can touch it, click through it, and experience the sequence of screens and transitions as a connected whole? A wireframe is static; a real interface is not. A **prototype** is an interactive representation of a solution (ranging from a simple clickable sequence of linked screens to a fully functional, code-based simulation) that lets a real or prospective user actually navigate and interact with something resembling the eventual product, before that product has been fully built. This lesson matters because prototyping sits at a genuinely distinct point on the Fidelity Ladder introduced in Lesson 25, testing a different category of assumption than wireframing does. A wireframe answers \"is this structured correctly?\" A prototype answers \"does this actually work as a connected, navigable experience, and can a real person use it successfully?\" Skipping straight from a validated wireframe to full engineering implementation, without an intermediate prototyping stage, means the first time anyone tests the *experience* of moving through the solution is after significant, expensive development work has already happened, exactly the kind of late, costly discovery this entire curriculum has repeatedly warned against. Define a prototype and distinguish low-fidelity from high-fidelity prototypes, identifying when each is appropriate. Apply prototyping as a specific rung on Lesson 8's confidence ladder, connecting it to the riskiest-assumption discipline. Distinguish usability testing (using a prototype) from discovery interviewing (Lesson 12), and explain how the two combine effectively. Identify the \"prototype as finished product\" and \"over-engineered prototype\" failure patterns and explain the risks of each. Apply the \"think-aloud\" usability testing technique to gather genuine, actionable feedback from a prototype test. Lesson 8 (Product Discovery) and Lesson 25 (Wireframing). This lesson assumes fluency with the confidence ladder (rungs from conversation through concierge test to full delivery) and the Fidelity Ladder from Lesson 25. A prototype sits at a specific point on both ladders simultaneously, testing usability and interactive-experience risk after structural risk has already been addressed by wireframing. The Core Definition, and Low- vs. High-Fidelity Prototypes A prototype is an interactive representation of a solution that a person can navigate and engage with, ranging widely in fidelity: **Low-fidelity prototype**: often built from linked static wireframes or mockups (using tools that make individual screens clickable and navigable in sequence), without real underlying functionality: clicking a button moves to the next linked screen, but no actual data processing or business logic occurs behind it. **High-fidelity prototype**: closer to fully functional, sometimes built with real (if limited or simplified) underlying code, capable of handling actual data input, real business logic, or realistic performance characteristics, while still typically representing only a subset of the eventual full product's scope. The choice between low- and high-fidelity prototyping should follow directly from the specific riskiest assumption (Lesson 8) being tested: a question about whether users can successfully navigate a multi-step flow is often well-served by a low-fidelity, linked-screen prototype, while a question about whether users tolerate a specific, realistic loading time, or correctly interpret dynamically changing real data, may require a higher-fidelity, more functionally real prototype to produce a trustworthy answer. Prototyping as a Rung on the Confidence Ladder Recall Lesson 8's confidence ladder: conversation, concept test, concierge/manual test, limited pilot, full delivery, a sequence of progressively more expensive, higher-fidelity validation methods, with the explicit discipline of not skipping rungs. Prototyping sits specifically at the \"concept test\" rung (and, at higher fidelity, can approach the \"concierge/manual test\" rung), positioned deliberately before the cost and commitment of a limited pilot or full delivery. This placement matters practically: a prototype is meant to generate genuine, disconfirmable evidence about usability and interactive experience *before* the cost of a limited pilot or full delivery is incurred, directly extending the discovery discipline from Module 2 into the design stage of Module 3. A team that skips prototyping and moves straight from a validated wireframe to full delivery has, in effect, skipped a rung on the confidence ladder, exactly the discipline violation Lesson 8 warned against. Usability Testing vs. Discovery Interviewing It's worth being precise about how testing a prototype (**usability testing**) differs from the discovery interviewing covered in Lesson 12, since both involve talking with real users but serve genuinely different purposes: **Discovery interviewing** (Lesson 12) aims to understand a person's existing behavior, context, and needs, typically independent of any specific solution: past-behavior questions, with any solution reaction deferred to the end of the conversation, if included at all. **Usability testing** aims to observe how a person interacts with a specific, already-built (even if low-fidelity) solution: watching what they actually do, where they hesitate or get confused, and what they say while doing it, directly connecting to Lesson 12's discovery-versus-usability-interview distinction, now given a dedicated method. A well-run discovery-to-delivery process (echoing Lesson 20's Discovery Flywheel) typically uses both in sequence: discovery interviews establish the underlying job and pain points; a prototype is then built to address them; usability testing on that prototype checks whether the specific proposed solution actually resolves the identified pain point in practice, and surfaces any new usability friction the solution itself introduces. The Think-Aloud Technique A widely used, practical method for conducting genuinely useful usability testing on a prototype is the **think-aloud technique**: asking a test participant to verbalize their thoughts continuously while interacting with the prototype (what they're looking at, what they expect to happen next, what confuses them, what they're trying to do) rather than silently completing tasks and only reporting their overall impression afterward. This technique is valuable specifically because it surfaces moments of hesitation, confusion, or incorrect expectation *as they happen*, rather than relying on a participant's after-the-fact recollection and summary, which, per Lesson 11's stated-versus-revealed-preference distinction, is often less reliable than directly observed, in-the-moment behavior and commentary. A participant who silently completes a task, then reports afterward that \"it was pretty intuitive,\" may have actually hesitated meaningfully at a specific step along the way, a moment of friction that a think-aloud protocol would have captured directly, but that a purely retrospective self-report might smooth over or forget entirely. Two Failure Patterns: Prototype as Finished Product, and Over-Engineered Prototype Two specific, opposite failure patterns deserve direct attention, both distorting the appropriate fidelity match discussed above: **Prototype as finished product**: presenting a prototype (particularly a high-fidelity one) to stakeholders or users as if it were the actual, launch-ready solution, rather than a deliberately limited testing artifact. This can create false expectations about timeline or scope, and can trigger the same premature-visual-commitment effect Lesson 25 described, now applied to interactivity rather than pure visual polish. **Over-engineered prototype**: investing more time and fidelity into a prototype than the specific riskiest assumption being tested actually requires, echoing Lesson 21's MVP creep concept directly, but applied to the prototyping stage rather than the eventual delivered solution. A prototype meant only to test whether users can navigate a specific flow correctly doesn't need real backend data processing, realistic load times, or edge-case handling. Investing in these regardless produces a slower, more expensive prototype without improving its ability to answer the specific question at hand. Building a high-fidelity prototype when a low-fidelity one would answer the riskiest assumption just as well This is a direct instance of over-engineering. Matching prototype fidelity to the specific question being tested, not to a default assumption that \"more realistic is always better,\" is the correct discipline. Presenting a prototype to stakeholders without clarifying that it is a testing artifact, not a launch-ready product This risks creating false expectations about timeline, completeness, or scope, and can trigger the premature-commitment effect this lesson and Lesson 25 both warn about. Relying solely on a participant's after-the-fact summary (\"it felt intuitive\") rather than using a think-aloud protocol during the test itself Retrospective self-report is a weaker form of evidence than in-the-moment observed behavior and commentary, per Lesson 11's stated-versus-revealed-preference distinction. Conflating usability testing with discovery interviewing, or running one when the other is actually needed These serve genuinely different purposes: understanding existing behavior and needs (discovery) versus observing interaction with a specific built solution (usability), and confusing them produces a session that answers neither question well. Skipping prototyping entirely and moving from a validated wireframe directly to full delivery This skips a specific rung on Lesson 8's confidence ladder, losing the opportunity to catch usability and interactive-experience problems before the cost of full development is incurred. The Prototype Fidelity Match This lesson's mental model is the **Prototype Fidelity Match**, a direct extension of Lesson 21's MVP Scoping Filter, applied specifically to choosing prototype fidelity. Apply this filter to any proposed prototype investment: does testing this specific riskiest assumption genuinely require real backend logic, realistic data, or polished visuals, or would a simpler, faster, linked-screen prototype answer the same question just as reliably? Defaulting to the simplest fidelity level capable of testing the assumption at hand mirrors Lesson 21's MVP discipline directly. Facebook (Meta) **Facebook (Meta)** offers a more concretely verifiable illustration than a general \"design team uses prototypes\" claim, because the company built and later open-sourced its own internal prototyping tool specifically to solve this problem. Origami Studio began as an internal tool because Facebook's designers found existing options too limiting for prototyping rich, gesture-driven, animated interactions (the kind of behavior that a static mockup genuinely cannot communicate) and needed to validate those interactions before committing engineering time to building them for real. It has been used internally to prototype flows for Facebook, Instagram, WhatsApp, and Messenger, and Meta later released it publicly as a free tool. The instructive detail for this lesson isn't the tool itself. It's *why* it was built: a company at Facebook's scale, with no shortage of engineering capacity, still judged it worthwhile to build a dedicated prototyping tool rather than validate interaction design directly in code. That is a strong, practical argument for this lesson's core claim that prototyping and engineering are genuinely different activities serving different purposes, not merely \"faster\" and \"slower\" ways of doing the same thing. *(Source: Meta's own public statements at Origami Studio's release and its continued public documentation. This curriculum does not claim certainty about which specific flows or teams currently use it.)* At a startup Prototyping is often extremely lightweight, frequently using simple, low-fidelity, linked-screen tools, given the premium on speed and limited design/engineering resources. The specific discipline of matching fidelity to the riskiest assumption matters just as much as at any other stage, since a startup has even less capacity to absorb the cost of an over-engineered prototype that answers a question no one actually needed answered yet. At a mid-size company Prototyping typically becomes a more standard, expected stage before significant engineering commitment, often incorporating both low-fidelity flow-testing prototypes early and higher-fidelity, more functionally realistic prototypes for specific, higher-risk interactions later in a project, as the organization develops more structured design and research processes. At Big Tech Prototyping at scale sometimes involves genuinely high-fidelity, functionally realistic builds (occasionally close to production-quality code), specifically because the cost of a wrong decision at full scale is large enough to justify the additional prototyping investment, and because established design systems and component libraries can make higher-fidelity prototyping faster and cheaper than it would be for a team building from scratch. The Prototype That Skipped the Real Test Consider a simplified, illustrative scenario common across e-commerce checkout redesigns. A team redesigning a multi-step checkout flow builds a low-fidelity, linked-screen prototype and conducts usability testing with several participants, using a think-aloud protocol. Testing goes well: participants navigate the flow successfully, verbalizing confidence at each step, and the team concludes the new flow is ready for full engineering implementation. After full development, the redesigned checkout launches, and conversion rates drop unexpectedly at a specific step: a real-time shipping cost calculation that, in the actual production implementation, takes several seconds to load due to a third-party shipping API's real-world response time. In the original low-fidelity prototype, this step had simply displayed a static, pre-filled shipping cost immediately, with no simulated delay at all, since the team judged that realistic loading behavior wasn't necessary to test basic flow navigation. **What went wrong?** Applying this lesson's frameworks: **The prototype's fidelity was correctly matched to the flow-navigation assumption the team originally set out to test**, but the team never explicitly identified a second, distinct riskiest assumption (whether users would tolerate a multi-second delay during a real-time shipping calculation) that existed alongside the navigation question, and that required a fundamentally different kind of fidelity (realistic timing behavior) to test properly. **The team implicitly treated \"the prototype tested successfully\" as validating the entire checkout experience**, rather than recognizing that it had only validated the specific dimension (navigation flow) the prototype was actually built to test, a subtle but important scope-of-validation error. **A higher-fidelity prototype, or a specific, targeted secondary test simulating realistic loading delay for just this one step, would have caught the issue before full development**, at a fraction of the cost of discovering it through a live conversion-rate drop after launch. A team applying this lesson's discipline rigorously would have explicitly identified multiple candidate riskiest assumptions early (not just navigation flow, but also realistic performance characteristics for any step involving external data or processing delay) and matched prototype fidelity specifically to each one, potentially using a low-fidelity prototype for the navigation question and a separate, more targeted, higher-fidelity test (perhaps simulating a deliberate delay) specifically for the shipping-calculation step. This case connects directly back to **Lesson 8's assumption mapping**: a single prototype test, however well executed, only validates the specific assumption it was built to test. Treating success on one dimension as validation of the entire experience is a scope error this lesson's Detailed Case Study makes concrete. The Prototype Test Scope Table A practical table for explicitly matching prototype fidelity and test design to the specific assumption being validated: The consistent discipline this table reinforces: **a successful prototype test result is scoped strictly to the specific assumption it was designed to test. Extending that success to other, untested dimensions of the experience is an unwarranted inference, exactly the error shown in this lesson's Detailed Case Study.** How do you decide what fidelity of prototype to build for a given test? *What the interviewer is actually evaluating:* Whether the candidate connects fidelity choice explicitly to the specific riskiest assumption being tested, echoing the Prototype Fidelity Match, rather than defaulting to either the fastest possible option or the most realistic possible option regardless of the actual question at hand. Tell me about a usability test you ran using a prototype. What did you learn? *What the interviewer is actually evaluating:* Whether the candidate can describe a genuine think-aloud-style test producing specific, in-the-moment findings, versus a vaguer, retrospective-summary-only account that provides weaker evidence per Lesson 11's framework. A prototype test went well, but the launched product still had usability problems. What might explain that gap? *What the interviewer is actually evaluating:* Whether the candidate recognizes the scope-of-validation issue this lesson's Detailed Case Study illustrates: a successful test validates only the specific dimension it was designed to test, and other, untested dimensions (like realistic performance) can still surface problems later. A prototype is an interactive representation of a solution, ranging from low-fidelity linked static screens to high-fidelity, functionally realistic builds, and sits specifically at the \"concept test\" rung of Lesson 8's confidence ladder, a deliberate, disconfirmable test conducted before the greater cost and commitment of a limited pilot or full delivery. Prototype fidelity should be matched directly to the specific riskiest assumption being tested, following the same discipline as Lesson 21's MVP Scoping Filter, rather than defaulting to either the fastest or the most realistic option regardless of the actual question at hand. Usability testing (observing interaction with a specific built solution) differs from discovery interviewing (understanding existing behavior and needs independent of a solution, per Lesson 12), and the think-aloud technique (having participants verbalize their thoughts continuously during a test) produces more reliable, in-the-moment evidence than relying on retrospective self-report alone, per Lesson 11's stated-versus-revealed-preference distinction. Finally, a successful prototype test validates only the specific dimension it was designed to test; treating that success as validation of the entire experience, including untested dimensions like realistic performance, is a scope error this lesson's Detailed Case Study makes concrete. A prototype ranges from low-fidelity (linked static screens) to high-fidelity (functionally realistic), and sits at the \"concept test\" rung of Lesson 8's confidence ladder. Prototype fidelity should be matched to the specific riskiest assumption being tested, following the same discipline as Lesson 21's MVP Scoping Filter, neither over-engineered nor under-fidelitous relative to the actual question at hand. Usability testing (observing interaction with a built solution) differs from discovery interviewing (understanding existing behavior independent of a solution). Both serve distinct, complementary purposes. The think-aloud technique produces more reliable, in-the-moment evidence than relying on a participant's after-the-fact summary alone. \"Prototype as finished product\" and \"over-engineered prototype\" are opposite failure patterns, both distorting appropriate fidelity matching. A successful prototype test validates only the specific dimension it was designed to test: extending that success to other, untested dimensions (like realistic performance) is an unwarranted inference. Skipping prototyping entirely and moving from a validated wireframe directly to full delivery skips a specific rung on the confidence ladder, losing the chance to catch usability problems cheaply. **Prototype = interactive, ranges low-to-high fidelity**: sits at the \"concept test\" rung of the confidence ladder (Lesson 8). **Match fidelity to the specific riskiest assumption**: same discipline as the MVP Scoping Filter (Lesson 21). **Usability testing ≠ discovery interviewing**: observing interaction with a built solution vs. understanding existing behavior independent of one. **Think-aloud > retrospective summary**: in-the-moment observation beats after-the-fact recall (Lesson 11's stated/revealed distinction). **Avoid both extremes:** prototype-as-finished-product (false expectations) and over-engineered prototype (wasted investment). **A successful test validates only what it tested**: don't assume success on one dimension (navigation) validates untested dimensions (performance). Prototype An interactive representation of a solution, ranging from low-fidelity linked screens to high-fidelity functional builds. Low-Fidelity Prototype A prototype built from linked static screens with simulated, non-functional interactivity. High-Fidelity Prototype A prototype with real or realistic underlying functionality, data handling, or performance characteristics. Usability Testing Observing how a person interacts with a specific, already-built solution to identify friction or confusion. Think-Aloud Technique A usability testing method where participants verbalize their thoughts continuously while interacting with a prototype. Prototype Fidelity Match A discipline for choosing prototype fidelity based specifically on the riskiest assumption being tested. Jakob Nielsen's widely cited public writing on usability testing methodology, including the think-aloud protocol referenced in this lesson. Todd Zaki Warfel, *Prototyping: A Practitioner's Guide* a detailed treatment of choosing appropriate prototype fidelity for different testing goals. Steve Krug, *Rocket Surgery Made Easy* a practical, widely used guide to running lightweight, effective usability tests, directly relevant to this lesson's core techniques. What is a prototype, and where does it sit on Lesson 8's confidence ladder? An interactive representation of a solution, ranging from low- to high-fidelity; it sits specifically at the \"concept test\" rung, before the cost of a limited pilot or full delivery. What determines whether a low- or high-fidelity prototype is appropriate for a given test? The specific riskiest assumption being tested, matching fidelity to that assumption, following the same discipline as the MVP Scoping Filter, rather than defaulting to either extreme. How does usability testing differ from discovery interviewing? Usability testing observes interaction with a specific, already-built solution; discovery interviewing understands existing behavior and needs, typically independent of any specific solution. What is the think-aloud technique, and why is it valuable? Having a test participant verbalize their thoughts continuously while interacting with a prototype; it captures moments of hesitation or confusion as they happen, producing more reliable evidence than retrospective self-report alone. What are the two opposite prototyping failure patterns described in this lesson? \"Prototype as finished product\" (presenting a testing artifact as launch-ready, creating false expectations) and \"over-engineered prototype\" (investing more fidelity than the specific assumption requires). In the Detailed Case Study, what specific assumption went untested by the original low-fidelity prototype? Whether users would tolerate a multi-second real-world delay during a real-time shipping cost calculation. The prototype tested navigation flow successfully but never tested realistic loading/performance behavior. Why is it a scope error to treat a successful prototype test as validating the entire experience? A successful test validates only the specific dimension it was designed to test; other, untested dimensions (like realistic performance) can still contain problems, as shown when the checkout flow's navigation tested well but its real-world loading behavior caused a conversion drop after launch. You are the PM for a telehealth app, testing a new feature letting patients upload photos of a symptom before a video consultation. Your team has validated the wireframe structure (Lesson 25) and is now deciding how to prototype and test it. Work through the following, in writing, before reading further: Identify at least two distinct riskiest assumptions this feature might involve (consider: whether patients will feel comfortable uploading a photo at all, and whether the upload-and-preview experience works smoothly on a range of real mobile devices and camera qualities). For each assumption identified, propose an appropriate prototype fidelity level, and justify why that level is sufficient (or necessary) for that specific question. Write a brief think-aloud test script prompt you would give a participant before testing the upload flow (e.g., what you would ask them to verbalize while completing the task). Identify one way this project could fall into the \"over-engineered prototype\" failure pattern, and one way it could fall into \"prototype as finished product.\" Using the Prototype Test Scope Table, explicitly state what a successful test of the upload flow's navigation would, and would not, tell you about the feature's real-world readiness. There is no single correct answer. The purpose of this exercise is to practice explicitly separating multiple distinct riskiest assumptions and matching prototype fidelity and test scope to each one individually, rather than treating \"the prototype\" as a single, undifferentiated test of the entire feature. What is a prototype, according to this lesson? Interactivity is the defining property, and fidelity varies widely within it. A static mockup lacks the interaction; a shipped product is past the point of being a testing artifact. Where does prototyping sit on Lesson 8's confidence ladder? It buys interactive evidence before the commitment of a pilot. A team going from wireframe straight to delivery has skipped this rung, which is the discipline Lesson 8 warned about. What should determine whether a low- or high-fidelity prototype is appropriate for a given test? Navigation questions are answered by linked screens. Questions about tolerating a real delay, or reading live data correctly, are not, and the assumption decides which you are facing. How does usability testing differ from discovery interviewing (Lesson 12)? Both involve real users and answer different questions. Discovery establishes the job and the pain; usability checks whether this particular solution resolves it without introducing new friction. What is the think-aloud technique? What they are looking at, what they expect next, what confuses them, said as it happens rather than reconstructed at the end. Why is the think-aloud technique considered more reliable than relying solely on a participant's after-the-fact summary? Someone who paused for four seconds at step three will often report afterwards that it felt intuitive, and mean it. The pause is the finding, and only a live protocol catches it. What is \"over-engineered prototype,\" as described in this lesson? This is MVP creep relocated to the prototyping stage. Real backend logic adds cost and does not improve a test of whether people can find the next button. In the Detailed Case Study, what specific assumption did the original low-fidelity prototype fail to test, leading to the post-launch conversion drop? Navigation tested well and was tested honestly. Linked static screens cannot simulate a real API's latency, so that risk went out of the door untouched. (Scenario) A team successfully tests a low-fidelity prototype's navigation flow with real users and concludes the entire checkout experience is now fully validated and ready for development. According to this lesson, what is the flaw in this conclusion? A test validates the dimension it was built to examine and no others. Extending the result to untested dimensions is inference, not evidence. (Product Thinking) A team is testing whether users understand a new multi-step onboarding flow's navigation, with no need to test realistic data or backend performance. According to the Prototype Fidelity Match, what is the most appropriate prototype fidelity? The simplest fidelity that can answer the question is the right one. Adding backend realism here spends time without changing what the test can tell you. (Interview Reasoning) A candidate describes building a fully functional, production-quality prototype (with real backend integration) for every usability test, regardless of the specific question being tested, explaining that \"more realistic is always better.\" What might this signal, based on this lesson's Interview Perspective section? Defaulting to maximum realism turns a cheap rung of the ladder into an expensive one, and slows the cycle without improving the answers on most questions. (Product Thinking, Higher Difficulty) A team identifies two distinct riskiest assumptions for a new feature: one concerning whether users can navigate a specific flow, and one concerning whether users will tolerate a specific real-world performance characteristic. According to this lesson, should these be tested using the same single prototype, or should the team consider a different approach? The two questions want different fidelities. Forcing them into one artifact means over-building for the first question or under-building for the second. (Interview Reasoning, Higher Difficulty) An interviewer describes a scenario where a prototype tested very well with users, but the candidate is asked what additional information they would want before feeling confident proceeding to full development. A weak answer would most likely include which of the following? The question invites the candidate to name what is still unknown. Treating one good result as sufficient is the exact inference the case study punished. (Product Thinking, Higher Difficulty) A team presents a high-fidelity, functionally realistic prototype to company leadership during a project update, and leadership subsequently begins referencing a specific launch date, apparently believing the prototype represents a nearly finished product. What failure pattern does this illustrate, and what should the team have done differently? The fidelity may have been right for the test it was built for. What was missing was a sentence telling the room what they were looking at. (Highest Difficulty) A team runs a rigorous, well-scoped, think-aloud usability test on a low-fidelity prototype, correctly limited to testing navigation flow, and explicitly documents that realistic performance remains untested. Engineering later implements the feature, and a performance issue similar to the Detailed Case Study's shipping-delay problem emerges, despite the team's explicit documentation of this gap. What does this scenario suggest about the limits of prototyping discipline alone? This team did better than the case study's: they named the gap. A named gap that nobody owns or schedules a follow-up test for produces the same outcome as an unnamed one.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "Mental Model: The Prototype Fidelity Match",
+      "Real Company Example",
+      "Real World Perspective: Prototyping at Different Company Stages",
+      "Detailed Case Study: The Prototype That Skipped the Real Test",
+      "Framework Explanation: The Prototype Test Scope Table",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "Prototype",
+    "Low-Fidelity Prototype",
+    "High-Fidelity Prototype",
+    "Usability Testing",
+    "Think-Aloud Technique",
+    "Prototype Fidelity Match"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

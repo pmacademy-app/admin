@@ -1,0 +1,847 @@
+{
+  "schemaVersion": 2,
+  "id": "les_7ndnsg",
+  "contentHash": "178e1b1c0faa7c041dbecc8982b3f0ceb9be937ce18809f2ccd0910691a0fa11",
+  "title": "Build, Buy, or Partner: Platform vs. Point Solution Decisions",
+  "slug": "lesson-078",
+  "module": "strategy",
+  "order": 8,
+  "totalInModule": 10,
+  "difficulty": 7,
+  "estimatedReadingTime": 40,
+  "estimatedCompletionTime": 55,
+  "prerequisites": [
+    "les_nyhd19",
+    "les_ymfbn4",
+    "les_0tbo74",
+    "les_x2upyf",
+    "les_eyguum"
+  ],
+  "sourceFile": "content/lessons/lesson-078.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 78: Build, Buy, or Partner: Platform vs. Point Solution Decisions",
+      "blockId": "blk_51d4dfc830"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson has been owed to you since Lesson 61, and it draws together threads from across this entire module. Lesson 61 first raised the question of whether a capability belongs at Layer 1 (built internally) or should instead be acquired through an external ecosystem. Lesson 62's API design discipline matters directly to how well a bought or partnered capability will actually integrate. Lesson 69's Friction Ledger established that internal platform investment carries real, often underestimated cost. Lesson 75's Moat Durability Matrix established that not every current capability is worth defending as though it were a genuine competitive advantage. Lesson 76's Integration Continuum addressed what happens once you've acquired a capability through M&A. Lesson 77's Portfolio Health Grid established that resources committed to any bet, including an internal build, deserve stage-appropriate scrutiny rather than momentum-driven continuation.",
+      "blockId": "blk_b1fb8c6578"
+    },
+    {
+      "type": "paragraph",
+      "text": "The build-versus-buy-versus-partner decision is one of the most consequential and most frequently mishandled decisions a product organization makes, because it is rarely approached as a single, explicit decision at all. Far more often, a capability simply gets built, by default, because building feels like the natural extension of what an engineering organization already knows how to do, without anyone ever seriously evaluating whether buying an existing solution or partnering with an external provider would better serve the company's actual strategic position. This default-to-build pattern, sometimes called \"not invented here\" syndrome, can consume years of engineering effort duplicating capability that was never going to differentiate the company in any meaningful way.",
+      "blockId": "blk_2cbfbd8420"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson introduces the Capability Sourcing Matrix, this lesson's core mental model, to give you a structured way to make this decision deliberately, using the moat, migration, and portfolio disciplines this module has already built.",
+      "blockId": "blk_61961b33d8"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "Explain why \"not invented here\" syndrome causes companies to default to building capabilities that would be better bought or partnered for.",
+        "Apply the Capability Sourcing Matrix to determine whether a given capability should be built, bought, or partnered for.",
+        "Identify the role of the Moat Durability Matrix in determining whether a capability is genuinely worth building internally.",
+        "Explain how the total cost of an internal build, including ongoing Friction Ledger and Sunset Runway maintenance burden, should factor into a sourcing decision.",
+        "Evaluate a proposed internal build decision for whether it is justified by genuine strategic differentiation or merely by organizational default."
+      ],
+      "blockId": "blk_22f7c62501"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson assumes fluency with the Leverage Stack (Lesson 61), the Friction Ledger (Lesson 69), the Moat Durability Matrix (Lesson 75), the Integration Continuum (Lesson 76), and the Portfolio Health Grid (Lesson 77), since this lesson explicitly integrates all five into a single sourcing decision framework.",
+      "blockId": "blk_77d0f50dbb"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Why Companies Default to Building",
+          "blockId": "blk_a20670e266"
+        },
+        {
+          "type": "paragraph",
+          "text": "**\"Not invented here\" syndrome** describes an organizational tendency to prefer building a capability internally over acquiring it externally, often for reasons that have little to do with genuine strategic advantage: internal engineering teams often find building more interesting and career-advancing than integrating a third-party solution, existing organizational structure and headcount naturally expand to justify more internal ownership, and there is a comforting illusion of control in owning a capability outright, even when that control provides no meaningful strategic benefit. This default is dangerous specifically because it consumes real resources (engineering time, ongoing maintenance burden per the Friction Ledger from Lesson 69, and opportunity cost against genuinely differentiating work) without any corresponding strategic return, since a capability that provides no competitive differentiation gains nothing from being built rather than bought.",
+          "blockId": "blk_e728e29303"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Capability Sourcing Matrix",
+          "blockId": "blk_8018762f3b"
+        },
+        {
+          "type": "paragraph",
+          "text": "This lesson introduces the **Capability Sourcing Matrix**, evaluating a capability along two dimensions: how central it is to genuine competitive differentiation, and how mature the external market's existing solutions for that capability already are.",
+          "blockId": "blk_caa8ab5982"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_2e6675e769",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[\"High Differentiation +<br/>Immature External Market<br/>→ BUILD\"]\r\n    B[\"Low Differentiation +<br/>Mature External Market<br/>→ BUY\"]\r\n    C[\"High Differentiation +<br/>Mature External Market<br/>→ PARTNER (selectively)\"]\r\n    D[\"Low Differentiation +<br/>Immature External Market<br/>→ Reconsider need, or Buy/Partner the closest available fit\"]",
+          "normalized": "graph TD\r\n    A[\"High Differentiation +<br/>Immature External Market<br/>→ BUILD\"]\r\n    B[\"Low Differentiation +<br/>Mature External Market<br/>→ BUY\"]\r\n    C[\"High Differentiation +<br/>Mature External Market<br/>→ PARTNER (selectively)\"]\r\n    D[\"Low Differentiation +<br/>Immature External Market<br/>→ Reconsider need, or Buy/Partner the closest available fit\"]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020971923-191\" xmlns=\"http://www.w3.org/2000/svg\" width=\"2028.63\" height=\"158\" viewBox=\"-43 -14 2028.63 158\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: High Differentiation +Immature External Market→ BUILD → Low Differentiation +Mature External Market→ BUY → High Differentiation +Mature External Market→ PARTNER (selectively) → Low Differentiation +Immature External Market→ Reconsider need, or Buy/Partner the closest available fit\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: High Differentiation +Immature External Market→ BUILD → Low Differentiation +Mature External Market→ BUY → High Differentiation +Mature External Market→ PARTNER (selectively) → Low Differentiation +Immature External Market→ Reconsider need, or Buy/Partner the closest available fit</title><style>#mermaid-svg-1795020971923-191{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020971923-191 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020971923-191 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020971923-191 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020971923-191 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020971923-191 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020971923-191 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020971923-191 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020971923-191 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020971923-191 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020971923-191 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020971923-191 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020971923-191 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020971923-191 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020971923-191 p{margin:0;}#mermaid-svg-1795020971923-191 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020971923-191 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020971923-191 .cluster-label span{color:#171A17;}#mermaid-svg-1795020971923-191 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020971923-191 .label text,#mermaid-svg-1795020971923-191 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020971923-191 .node rect,#mermaid-svg-1795020971923-191 .node circle,#mermaid-svg-1795020971923-191 .node ellipse,#mermaid-svg-1795020971923-191 .node polygon,#mermaid-svg-1795020971923-191 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020971923-191 .rough-node .label text,#mermaid-svg-1795020971923-191 .node .label text,#mermaid-svg-1795020971923-191 .image-shape .label,#mermaid-svg-1795020971923-191 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020971923-191 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020971923-191 .rough-node .label,#mermaid-svg-1795020971923-191 .node .label,#mermaid-svg-1795020971923-191 .image-shape .label,#mermaid-svg-1795020971923-191 .icon-shape .label{text-align:center;}#mermaid-svg-1795020971923-191 .node.clickable{cursor:pointer;}#mermaid-svg-1795020971923-191 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020971923-191 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020971923-191 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020971923-191 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020971923-191 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020971923-191 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020971923-191 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020971923-191 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020971923-191 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020971923-191 .cluster text{fill:#171A17;}#mermaid-svg-1795020971923-191 .cluster span{color:#171A17;}#mermaid-svg-1795020971923-191 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020971923-191 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020971923-191 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020971923-191 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020971923-191 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020971923-191 .icon-shape,#mermaid-svg-1795020971923-191 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020971923-191 .icon-shape p,#mermaid-svg-1795020971923-191 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020971923-191 .icon-shape .label rect,#mermaid-svg-1795020971923-191 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020971923-191 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020971923-191 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020971923-191 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020971923-191 [data-look=\"neo\"].node rect,#mermaid-svg-1795020971923-191 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020971923-191 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020971923-191-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020971923-191 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020971923-191 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020971923-191-gradient);stroke-width:1px;}#mermaid-svg-1795020971923-191 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020971923-191 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020971923-191 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020971923-191-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020971923-191 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020971923-191 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020971923-191-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020971923-191 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020971923-191-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020971923-191 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020971923-191_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020971923-191_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020971923-191_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020971923-191_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020971923-191_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020971923-191_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020971923-191_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020971923-191_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020971923-191_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020971923-191_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020971923-191_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020971923-191_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"></g><g class=\"edgeLabels\"></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020971923-191-flowchart-A-0\" data-look=\"classic\" transform=\"translate(201, 79)\"><rect class=\"basic label-container\" style=\"\" x=\"-150\" y=\"-57\" width=\"300\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-118, -41)\"><rect></rect><foreignObject width=\"236\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>High Differentiation +<br>Immature External Market<br>→ BUILD</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020971923-191-flowchart-B-1\" data-look=\"classic\" transform=\"translate(619.25, 79)\"><rect class=\"basic label-container\" style=\"\" x=\"-141.5\" y=\"-57\" width=\"283\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-109.5, -41)\"><rect></rect><foreignObject width=\"219\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Low Differentiation +<br>Mature External Market<br>→ BUY</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020971923-191-flowchart-C-2\" data-look=\"classic\" transform=\"translate(1031.125, 79)\"><rect class=\"basic label-container\" style=\"\" x=\"-145.75\" y=\"-57\" width=\"291.5\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-113.75, -41)\"><rect></rect><foreignObject width=\"227.5\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>High Differentiation +<br>Mature External Market<br>→ PARTNER (selectively)</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020971923-191-flowchart-D-3\" data-look=\"classic\" transform=\"translate(1678.875, 79)\"><rect class=\"basic label-container\" style=\"\" x=\"-298.75\" y=\"-57\" width=\"597.5\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-266.75, -41)\"><rect></rect><foreignObject width=\"533.5\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Low Differentiation +<br>Immature External Market<br>→ Reconsider need, or Buy/Partner the closest available fit</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020971923-191-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020971923-191-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020971923-191-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_2e6675e769"
+        },
+        {
+          "type": "paragraph",
+          "text": "A capability that is both genuinely core to the company's moat, per the Moat Durability Matrix from Lesson 75, and has no mature external solution available should generally be **built**, since building is the only way to obtain a capability that provides genuine differentiation and cannot be acquired otherwise. A capability that provides no meaningful differentiation and has mature, well-established external solutions available should generally be **bought**, since building it internally would consume resources duplicating something that offers no strategic return. A capability that is genuinely differentiating but where mature external solutions do already exist calls for a more nuanced **partner** approach, often integrating an external provider's capability while retaining differentiation through how that capability is applied, combined, or presented, rather than through owning the underlying technology itself. A capability that is neither differentiating nor well-served by mature external solutions should prompt a more fundamental question about whether the capability is genuinely needed at all, or whether the closest available external fit, however imperfect, is still preferable to an internal build with no strategic justification.",
+          "blockId": "blk_827f59bc1a"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Total Cost of Ownership, Not Just Initial Build Cost",
+          "blockId": "blk_e1e0151b05"
+        },
+        {
+          "type": "paragraph",
+          "text": "A sourcing decision evaluated only on initial build cost systematically underestimates the true cost of building, because it ignores the ongoing maintenance burden a built capability imposes, precisely the Friction Ledger concern from Lesson 69, since an internally built capability becomes, in effect, an internal platform that must be maintained, documented, and supported indefinitely, and precisely the Sunset Runway concern from Lesson 68, since retiring a built capability later, once dependents have accumulated, carries its own significant migration cost. A capability that seemed reasonably cheap to build in isolation can become considerably more expensive once its full lifecycle cost (ongoing maintenance, internal support burden, and eventual retirement difficulty if it's ever superseded by a better external solution) is honestly accounted for.",
+          "blockId": "blk_a5875003cd"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Revisiting Existing Builds Through the Portfolio Health Grid",
+          "blockId": "blk_f547937ba2"
+        },
+        {
+          "type": "paragraph",
+          "text": "The Capability Sourcing Matrix is not only relevant for new capability decisions; it should periodically be applied to existing internally-built capabilities as well, since a capability that was correctly built years ago, when no mature external market existed, may no longer justify continued internal investment if a mature external market has since developed. This connects directly to the Portfolio Health Grid from Lesson 77: an existing internal build should be evaluated with the same stage-appropriate, evidence-based rigor as any other ongoing bet, rather than continuing indefinitely simply because it already exists and reversing the decision would require politically difficult acknowledgment that a prior investment should now be reconsidered.",
+          "blockId": "blk_0224b56016"
+        }
+      ],
+      "blockId": "blk_a1696d8278"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Defaulting to build without seriously evaluating whether mature external solutions already exist",
+          "body": "\"Not invented here\" syndrome causes many capabilities to be built internally by default, without a genuine market scan of available alternatives."
+        },
+        {
+          "title": "Evaluating a build decision using only initial development cost, ignoring ongoing maintenance and eventual retirement cost",
+          "body": "This systematically understates the true cost of building relative to buying or partnering."
+        },
+        {
+          "title": "Assuming any capability the company has built must be strategically important, simply because resources have already been invested in it",
+          "body": "Sunk cost should not substitute for an honest Moat Durability Matrix assessment of whether the capability is genuinely differentiating."
+        },
+        {
+          "title": "Treating \"buy\" as always cheaper and \"build\" as always more strategically valuable, without checking the specific quadrant a capability actually occupies",
+          "body": "Buying a genuinely differentiating capability from an external vendor can hand a strategic advantage to any competitor who buys the same solution; building a non-differentiating capability wastes resources with no corresponding strategic gain."
+        },
+        {
+          "title": "Failing to periodically revisit existing build decisions as the external market matures",
+          "body": "A build decision that was correct at the time it was made can become outdated as external solutions improve, and failing to revisit it wastes ongoing resources on maintaining a now-unnecessary internal capability.\n\n"
+        }
+      ],
+      "blockId": "blk_4f8a5cd98c"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The Capability Sourcing Matrix",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "The Capability Sourcing Matrix introduced above is this lesson's core takeaway tool. For any capability decision, whether new or previously built, ask:",
+          "blockId": "blk_2f7b5cadc9"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**Is this capability genuinely central to the company's moat**, per the Moat Durability Matrix from Lesson 75, or does it merely feel important because significant resources have already been invested in it?",
+            "**How mature are the external market's existing solutions** for this specific capability, and has this been genuinely researched rather than assumed?",
+            "**Which quadrant does this capability actually occupy**, and does the company's current or proposed sourcing approach match that quadrant, rather than defaulting to build out of organizational habit?",
+            "**If evaluating an existing internal build, has its Portfolio Health Grid status been honestly reassessed**, accounting for its full total cost of ownership including ongoing Friction Ledger and Sunset Runway burden, rather than assuming its continuation is automatically justified?"
+          ],
+          "blockId": "blk_00c0ded77d"
+        },
+        {
+          "type": "paragraph",
+          "text": "A sourcing decision that can answer all four questions deliberately is far less likely to fall into the specific, costly trap of building a non-differentiating capability by default, or of failing to notice when a previously justified build no longer deserves continued internal investment.",
+          "blockId": "blk_ea5eb8fe1e"
+        }
+      ],
+      "blockId": "blk_626c007f68"
+    },
+    {
+      "type": "companyExample",
+      "company": "Microsoft's partnership with OpenAI",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "**Microsoft's partnership with OpenAI** is directly documented across a series of the companies' own announcements, and its evolution over time makes it a sharper illustration of this lesson's build/buy/partner framing than a static description would. Microsoft's own newsroom confirmed a $1 billion investment and an exclusive Azure computing partnership in July 2019; OpenAI's own site confirmed a further multi-year, multi-billion-dollar extension in January 2023, and CNBC reported the cumulative total reaching roughly $13 billion by April 2023. Throughout this period, Microsoft simultaneously built substantial AI and cloud infrastructure entirely in-house for Azure's core platform, and separately acquired GitHub outright in 2018: three different sourcing strategies (partner, build, buy) applied to three different capabilities, based on which approach fit each one, not a single default strategy applied uniformly.",
+          "blockId": "blk_8b926da703"
+        },
+        {
+          "type": "paragraph",
+          "text": "The partnership's own trajectory is worth naming directly, since it complicates any tidy account: Forbes reported in April 2026 that Microsoft and OpenAI formally ended their exclusivity and revenue-sharing arrangement, after roughly six years and $13 billion invested. That reversal doesn't undermine the lesson. If anything it reinforces it: a partnership is a sourcing decision suited to a particular moment's constraints (in 2019, OpenAI needed capital and compute Microsoft could provide; Microsoft needed AI capability it didn't yet have in-house), and as both companies' positions and needs evolved, the terms that made sense at the outset stopped fitting, requiring renegotiation rather than remaining fixed indefinitely.",
+          "blockId": "blk_d0e7b842ae"
+        },
+        {
+          "type": "paragraph",
+          "text": "*(Source: Microsoft's own official newsroom (2019), OpenAI's own official site (2023), CNBC's April 2023 reporting on the cumulative investment total, and Forbes' April 2026 reporting on the partnership's restructuring.)*",
+          "blockId": "blk_66a2cdc8a8"
+        }
+      ],
+      "blockId": "blk_22b2b1befc"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "Startup",
+          "body": "Early-stage companies typically default heavily toward buying or partnering for any non-core capability (payments processing, authentication, basic infrastructure), reserving scarce engineering resources almost entirely for the specific capability that constitutes the company's actual differentiation, since building non-differentiating infrastructure at this stage represents a particularly costly opportunity cost relative to the company's limited resources."
+        },
+        {
+          "context": "Mid-size company",
+          "body": "This is typically where \"not invented here\" syndrome first becomes a genuine organizational risk, as growing engineering headcount and organizational structure create internal pressure to build capabilities in-house that could reasonably be bought or partnered for, often justified by comfortable but ultimately unexamined assumptions about strategic importance."
+        },
+        {
+          "context": "Big Tech",
+          "body": "Large, resource-rich organizations typically maintain the internal capability to build almost anything, making the Capability Sourcing Matrix's discipline especially important precisely because the constraint at this scale is rarely whether building is technically feasible, but whether it represents the best use of resources relative to genuinely differentiating alternative investments."
+        }
+      ],
+      "blockId": "blk_8670adce5d"
+    },
+    {
+      "type": "caseStudy",
+      "title": "The Custom Analytics Platform",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A mid-size e-commerce company decided, several years prior, to build a custom internal analytics and business intelligence platform, reasoning at the time that off-the-shelf analytics solutions were immature and poorly suited to the company's specific data needs: a defensible build decision under the Capability Sourcing Matrix's logic at that time, given a genuinely immature external market. The internal platform was built by a dedicated team of engineers and became deeply embedded across the company's reporting and decision-making processes.",
+          "blockId": "blk_691d060e9c"
+        },
+        {
+          "type": "paragraph",
+          "text": "Over the following several years, the external market for analytics and business intelligence platforms matured substantially, with several vendors developing sophisticated, highly capable, and reasonably priced solutions that would have met the company's evolving needs. No one within the company, however, ever revisited the original build decision, since the internal platform was functioning adequately, and questioning a multi-year internal investment felt organizationally uncomfortable. The dedicated internal team continued growing over time to maintain and extend the platform (a direct, escalating Friction Ledger cost from Lesson 69), even as external alternatives that would have required a small fraction of that ongoing investment became genuinely superior in capability.",
+          "blockId": "blk_66cbec6ad5"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong?** Using the Capability Sourcing Matrix, the original build decision was reasonable at the time it was made, but the capability's classification should have been periodically revisited as the external market matured. Analytics and business intelligence, for this particular company, had never been a genuine source of competitive differentiation (the company's actual moat, per Lesson 75, rested elsewhere, in its product selection and logistics capability), meaning the capability had, in fact, drifted from a defensible \"high differentiation, immature market\" Build quadrant into a \"low differentiation, mature market\" Buy quadrant over time, without anyone applying the Portfolio Health Grid's discipline to notice and act on that drift.",
+          "blockId": "blk_22db4a266c"
+        },
+        {
+          "type": "paragraph",
+          "text": "The company's recovery involved a deliberate, honest reassessment using the Capability Sourcing Matrix, ultimately transitioning to a mature external analytics platform and redeploying the internal team's engineering capacity toward genuinely differentiating work in the company's actual core competency: a transition that itself required careful Sunset Runway-style migration planning from Lesson 68, given how deeply the internal platform had become embedded across the organization's existing workflows.",
+          "blockId": "blk_b9b0de1a95"
+        }
+      ],
+      "blockId": "blk_88d1c0282c"
+    },
+    {
+      "type": "framework",
+      "name": "The Build-Buy-Partner Decision Checklist",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Before finalizing a sourcing decision, whether for a new capability or a reassessment of an existing build, a PM can use the following checklist:",
+          "blockId": "blk_99ea401dd3"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Checklist Item",
+            "Question to Ask",
+            "Risk if Skipped"
+          ],
+          "rows": [
+            [
+              "Genuine Differentiation",
+              "Does this capability genuinely contribute to the company's moat, per the Moat Durability Matrix?",
+              "Resources are invested in building non-differentiating capability with no strategic return"
+            ],
+            [
+              "External Market Maturity",
+              "Has the external market genuinely been researched, rather than assumed to be immature by default?",
+              "A mature, superior external solution is overlooked in favor of an unnecessary internal build"
+            ],
+            [
+              "Total Cost of Ownership",
+              "Does the cost analysis include ongoing Friction Ledger maintenance burden and eventual Sunset Runway retirement cost, not just initial build cost?",
+              "The true cost of building is systematically underestimated"
+            ],
+            [
+              "Integration Compatibility",
+              "If buying or partnering, does the external solution meet the Promise Tiers and API design standards from Lesson 62?",
+              "A poorly integrated external solution creates its own friction and reliability risk"
+            ],
+            [
+              "Periodic Reassessment",
+              "Is there a process for periodically revisiting this sourcing decision as the external market evolves?",
+              "A previously correct build decision becomes outdated without anyone noticing, as in the Case Study"
+            ]
+          ],
+          "blockId": "blk_76c933ebac"
+        },
+        {
+          "type": "paragraph",
+          "text": "A \"no\" on Periodic Reassessment should be treated as a meaningful long-term risk, since, as the Case Study shows, even a genuinely correct original decision can become costly over time if never revisited.",
+          "blockId": "blk_a90e67e0de"
+        }
+      ],
+      "blockId": "blk_a0c574fe06"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "How would you decide whether to build a new capability internally, buy an existing solution, or partner with an external provider?",
+          "whatItEvaluates": "The interviewer is evaluating whether you propose something resembling the Capability Sourcing Matrix, genuinely assessing differentiation and external market maturity, rather than defaulting to build out of organizational habit or assuming buy is always cheaper."
+        },
+        {
+          "question": "What's the risk of 'not invented here' syndrome in a growing engineering organization?",
+          "whatItEvaluates": "The interviewer is testing whether you recognize this as a genuine organizational tendency with real resource costs, rather than a rare or unusual failure mode."
+        },
+        {
+          "question": "Tell me about a time a company you know of built something internally that probably should have been bought instead, or vice versa.",
+          "whatItEvaluates": "The interviewer is listening for a diagnosis resembling the Custom Analytics Platform case study: a capability whose sourcing classification became outdated over time, or was never genuinely differentiating in the first place, rather than a vague account of \"engineering just liked building things.\""
+        }
+      ],
+      "blockId": "blk_abe1589fac"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Companies default to building capabilities internally more often than a genuine strategic assessment would justify, driven by \"not invented here\" syndrome: organizational and individual incentives that favor internal ownership regardless of whether it provides genuine competitive return. The Capability Sourcing Matrix evaluates a capability along genuine competitive differentiation, drawing directly on the Moat Durability Matrix from Lesson 75, and external market maturity, recommending Build only when a capability is both genuinely differentiating and poorly served by existing external solutions, Buy when a capability offers no meaningful differentiation and mature external solutions exist, and a more nuanced Partner approach when a capability is differentiating despite a mature external market already existing. A sourcing decision evaluated only on initial build cost systematically understates the true cost of building, since it ignores the ongoing Friction Ledger maintenance burden and eventual Sunset Runway retirement cost a built capability imposes over its full lifecycle. Critically, the Capability Sourcing Matrix should be applied not only to new capability decisions but periodically to existing internal builds as well, using the same stage-appropriate rigor as the Portfolio Health Grid from Lesson 77, since a build decision that was genuinely correct when originally made can drift into an outdated, costly default as external markets mature: exactly the failure this lesson's Case Study illustrates, where organizational discomfort with revisiting a multi-year investment allowed a once-justified internal build to consume resources long after a superior external alternative had emerged.",
+          "blockId": "blk_5c3ee008ff"
+        }
+      ],
+      "blockId": "blk_80abbf97db"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "\"Not invented here\" syndrome causes organizations to default to building capabilities internally for reasons unrelated to genuine strategic advantage.",
+        "The Capability Sourcing Matrix evaluates a capability by genuine competitive differentiation (per the Moat Durability Matrix) and external market maturity, recommending Build, Buy, or Partner accordingly.",
+        "Total cost of ownership for an internal build must include ongoing Friction Ledger maintenance burden and eventual Sunset Runway retirement cost, not just initial development cost.",
+        "A capability that is genuinely differentiating but has mature external alternatives calls for a nuanced Partner approach rather than a simple Build-or-Buy binary.",
+        "Existing internal builds should be periodically revisited using the Capability Sourcing Matrix, since a genuinely correct original decision can become outdated as external markets mature.",
+        "Organizational discomfort with reversing a prior investment should not substitute for an honest reassessment of a capability's genuine strategic value.",
+        "A build decision should never be assumed justified simply because significant resources have already been invested in it."
+      ],
+      "blockId": "blk_fdf5b36675"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "\"Not invented here\" is a real organizational bias, not just an occasional exception. Watch for it.",
+        "Capability Sourcing Matrix: differentiation × external market maturity → Build, Buy, Partner, or Reconsider.",
+        "Total cost of ownership includes ongoing maintenance (Friction Ledger) and eventual retirement (Sunset Runway), not just initial build cost.",
+        "Revisit existing builds periodically. A correct decision years ago can be outdated today.",
+        "Sunk cost is not a reason to keep building or maintaining a non-differentiating capability."
+      ],
+      "blockId": "blk_0f095f169d"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "Not Invented Here Syndrome",
+          "definition": "An organizational tendency to prefer building internally over acquiring externally, often for non-strategic reasons",
+          "relatedConcepts": [
+            "Capability Sourcing Matrix"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Capability Sourcing Matrix",
+          "definition": "A model evaluating whether a capability should be built, bought, or partnered for, based on differentiation and external market maturity",
+          "relatedConcepts": [
+            "Moat Durability Matrix (Lesson 75)"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Total Cost of Ownership",
+          "definition": "The full lifecycle cost of a capability, including initial build, ongoing maintenance, and eventual retirement",
+          "relatedConcepts": [
+            "Friction Ledger (Lesson 69)",
+            "Sunset Runway (Lesson 68)"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Build-Buy-Partner Decision Checklist",
+          "definition": "A five-item checklist confirming a sourcing decision is genuinely justified rather than defaulted",
+          "relatedConcepts": [
+            "Capability Sourcing Matrix"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Periodic Reassessment",
+          "definition": "The practice of revisiting an existing sourcing decision as external market conditions evolve",
+          "relatedConcepts": [
+            "Portfolio Health Grid (Lesson 77)"
+          ],
+          "difficulty": 2
+        }
+      ],
+      "blockId": "blk_c662f1b74a"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "Clayton Christensen, *The Innovator's Dilemma*"
+        },
+        {
+          "citation": "Simon Wardley, *Wardley Maps*"
+        },
+        {
+          "citation": "Matthew Skelton and Manuel Pais, *Team Topologies*"
+        }
+      ],
+      "blockId": "blk_92be49afb6"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_7ndnsg",
+      "cards": [
+        {
+          "id": "fc-les_7ndnsg-1",
+          "front": "What is \"not invented here\" syndrome?",
+          "back": "An organizational tendency to prefer building a capability internally over acquiring it externally, often for reasons unrelated to genuine strategic advantage.",
+          "difficulty": 2,
+          "tags": [
+            "build-buy-partner",
+            "core-concept"
+          ]
+        },
+        {
+          "id": "fc-les_7ndnsg-2",
+          "front": "What are the two axes of the Capability Sourcing Matrix?",
+          "back": "Genuine competitive differentiation and external market maturity.",
+          "difficulty": 2,
+          "tags": [
+            "capability-sourcing-matrix"
+          ]
+        },
+        {
+          "id": "fc-les_7ndnsg-3",
+          "front": "When should a capability generally be built internally?",
+          "back": "When it is genuinely central to the company's moat and no mature external solution already exists.",
+          "difficulty": 2,
+          "tags": [
+            "build-decision"
+          ]
+        },
+        {
+          "id": "fc-les_7ndnsg-4",
+          "front": "Why does evaluating a build decision on initial cost alone understate its true cost?",
+          "back": "It ignores ongoing Friction Ledger maintenance burden and eventual Sunset Runway retirement cost over the capability's full lifecycle.",
+          "difficulty": 2,
+          "tags": [
+            "total-cost-of-ownership"
+          ]
+        },
+        {
+          "id": "fc-les_7ndnsg-5",
+          "front": "What went wrong in the Custom Analytics Platform case study?",
+          "back": "A build decision that was reasonable when the external market was immature was never revisited as the market matured, allowing a non-differentiating internal platform to consume growing resources long after superior external alternatives existed.",
+          "difficulty": 2,
+          "tags": [
+            "case-study",
+            "capability-sourcing-matrix"
+          ]
+        },
+        {
+          "id": "fc-les_7ndnsg-6",
+          "front": "Why should existing internal builds be periodically reassessed?",
+          "back": "A build decision that was genuinely correct when made can become outdated as external markets mature, and organizational discomfort with reversing prior investment shouldn't prevent honest reassessment.",
+          "difficulty": 2,
+          "tags": [
+            "periodic-reassessment"
+          ]
+        },
+        {
+          "id": "fc-les_7ndnsg-7",
+          "front": "What quadrant of the Capability Sourcing Matrix calls for a Partner approach?",
+          "back": "High differentiation combined with a mature external market, where integrating an external provider while retaining differentiation elsewhere is often preferable to building from scratch.",
+          "difficulty": 2,
+          "tags": [
+            "partner-quadrant"
+          ]
+        }
+      ],
+      "blockId": "blk_9c908ab0d9"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "You are the PM responsible for a company's internal customer support ticketing system, built in-house five years ago when the company judged available off-the-shelf solutions to be a poor fit for its specific workflow needs. The system now requires a small but growing dedicated maintenance team, and you've recently learned that several external vendors now offer sophisticated, highly customizable solutions that may meet the company's current needs.",
+        "There is no single correct answer to the prompts below: the goal is to practice applying the Capability Sourcing Matrix and the Build-Buy-Partner Decision Checklist to reassess a multi-year-old build decision.",
+        "Using the Moat Durability Matrix from Lesson 75, is a customer support ticketing system likely to be a genuine source of competitive differentiation for this company? Why or why not?",
+        "Using the Capability Sourcing Matrix, which quadrant did this capability likely occupy five years ago, and which quadrant might it occupy today?",
+        "What would a genuine total cost of ownership analysis look like, including the ongoing Friction Ledger burden of the current maintenance team?",
+        "What organizational resistance might you expect when proposing to reassess this five-year-old build decision, and how would you address it?",
+        "If you decide to transition to an external solution, what Sunset Runway considerations from Lesson 68 would be most important to plan for?"
+      ],
+      "blockId": "blk_a80e6944c7"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_7ndnsg",
+      "questions": [
+        {
+          "id": "q-les_7ndnsg-1",
+          "question": "What is \"not invented here\" syndrome?",
+          "options": [
+            "A legal rule barring firms from using outside vendors",
+            "Preferring internal builds over buying, for non-strategic reasons",
+            "A budgeting method that always favors the cheapest vendor",
+            "A hiring policy limiting external contractor use"
+          ],
+          "correctAnswer": 1,
+          "explanation": "This term describes the organizational and individual incentives favoring internal build regardless of genuine strategic return.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_7ndnsg-2",
+          "question": "What are the two axes of the Capability Sourcing Matrix?",
+          "options": [
+            "Competitive differentiation and external market maturity",
+            "Team headcount and quarterly revenue growth",
+            "Time-to-market and initial development budget",
+            "Customer satisfaction and support ticket volume"
+          ],
+          "correctAnswer": 0,
+          "explanation": "These two dimensions are explicitly introduced in the Theory section as the Matrix's evaluative axes.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_7ndnsg-3",
+          "question": "When does the Capability Sourcing Matrix recommend Build?",
+          "options": [
+            "Whenever a rival already built something similar",
+            "Whenever engineering has free capacity that quarter",
+            "High differentiation and an immature external market",
+            "Low differentiation but a mature external market"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Build is recommended specifically for the high-differentiation, immature-market quadrant.",
+          "objectivesTested": [
+            2,
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_7ndnsg-4",
+          "question": "How does the Moat Durability Matrix from Lesson 75 factor into the Capability Sourcing Matrix?",
+          "options": [
+            "It replaces the Capability Sourcing Matrix entirely",
+            "It applies only when a company is evaluating a Buy",
+            "It has no real bearing on sourcing choices at all",
+            "It supplies the differentiation axis used in the Matrix"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The lesson explicitly draws on the Moat Durability Matrix to assess the differentiation axis of the Capability Sourcing Matrix.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_7ndnsg-5",
+          "question": "Why does evaluating a build decision using only initial development cost understate the true cost of building?",
+          "options": [
+            "Initial development cost is impossible to estimate accurately",
+            "It excludes ongoing maintenance and eventual retirement cost",
+            "Maintenance costs are usually negligible for most software",
+            "Initial cost is always the largest component of total cost"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The lesson connects total cost of ownership to the ongoing maintenance and eventual retirement concerns raised in Lessons 68 and 69.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_7ndnsg-6",
+          "question": "In the Custom Analytics Platform case study, why was the original build decision reasonable at the time it was made?",
+          "options": [
+            "The external analytics market was genuinely immature then",
+            "Competitors had not yet built any analytics tooling at all",
+            "The decision was never actually defensible, even at the time",
+            "The company had unlimited engineering budget available"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The case study explicitly frames the original decision as defensible given the genuinely immature external market at that time.",
+          "objectivesTested": [
+            2,
+            5
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_7ndnsg-7",
+          "question": "What was the actual root cause of the Custom Analytics Platform's ongoing problem?",
+          "options": [
+            "External vendors never developed any viable competing tools",
+            "The company stopped investing in the platform entirely",
+            "The sourcing decision was never revisited as the market matured",
+            "The internal platform had always been technically broken"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The failure was a lack of periodic reassessment, not an inherently flawed original decision or technical failure.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_7ndnsg-8",
+          "question": "According to the Build-Buy-Partner Decision Checklist, what does a \"no\" on Periodic Reassessment indicate?",
+          "options": [
+            "That the capability must be discontinued immediately",
+            "A minor gap with essentially no real consequence",
+            "Proof the original build decision was always wrong",
+            "A meaningful long-term risk even for a once-correct decision"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The lesson treats the absence of periodic reassessment as a meaningful risk given how sourcing decisions can become outdated.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_7ndnsg-9",
+          "question": "What sourcing approach does the Capability Sourcing Matrix recommend when a capability is genuinely differentiating but mature external solutions already exist?",
+          "options": [
+            "Always Build, regardless of how mature the market has become",
+            "A nuanced Partner approach, not a simple Build-or-Buy choice",
+            "Immediately abandon the capability rather than source it",
+            "Always Buy, regardless of the differentiation involved"
+          ],
+          "correctAnswer": 1,
+          "explanation": "This specific quadrant calls for the more nuanced Partner recommendation rather than a simple Build-or-Buy binary.",
+          "objectivesTested": [
+            2,
+            3
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_7ndnsg-10",
+          "question": "Why might early-stage startups typically default toward buying or partnering for non-core capabilities, per the Real World Perspective section?",
+          "options": [
+            "Building non-core infrastructure wastes scarce engineering time",
+            "Startups are legally barred from building infrastructure",
+            "Off-the-shelf tools are always technically superior somehow",
+            "Startups typically have no real need for infrastructure"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The Real World Perspective section frames this as a reasonable resource-allocation trade-off given a startup's limited engineering capacity.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_7ndnsg-11",
+          "question": "Why does \"not invented here\" syndrome become a genuine organizational risk at mid-size companies specifically, per the Real World Perspective section?",
+          "options": [
+            "Mid-size firms are legally required to build everything in-house",
+            "This risk only ever appears at the largest tech companies",
+            "Growing headcount creates pressure to build what could be bought",
+            "Mid-size firms rarely have engineering resources to spare"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The Real World Perspective section connects this specific risk to the organizational dynamics typical of growing mid-size companies.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_7ndnsg-12",
+          "question": "(Scenario) A company built a payment processing system internally three years ago, when external options were limited, but mature, well-regarded external payment providers have since emerged. Using the Capability Sourcing Matrix, what should the company investigate?",
+          "options": [
+            "Whether any competitor has built a similar payment system",
+            "Whether the original decision should be locked in forever",
+            "Whether to abandon the system with no transition plan",
+            "Whether the capability's quadrant has shifted since the build"
+          ],
+          "correctAnswer": 3,
+          "explanation": "This directly applies the lesson's periodic reassessment discipline to a capability whose external market maturity has likely shifted since the original decision.",
+          "objectivesTested": [
+            2,
+            4,
+            5
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_7ndnsg-13",
+          "question": "(Product Thinking) A PM is told that reassessing a five-year-old internal build would be organizationally uncomfortable given the team already dedicated to maintaining it. Using this lesson's frameworks, what is the most defensible response?",
+          "options": [
+            "Disband the team immediately with no transition planning",
+            "Run an honest reassessment despite the discomfort involved",
+            "Skip the reassessment entirely to avoid any friction",
+            "Assume the old decision is still correct without checking"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The correct response conducts an honest reassessment despite organizational discomfort, mirroring the Case Study's recovery process.",
+          "objectivesTested": [
+            4,
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_7ndnsg-14",
+          "question": "(Interview Reasoning) A candidate, asked how they'd decide whether to build or buy a new capability, focuses entirely on which option is cheaper in the short term, with no mention of differentiation or long-term maintenance cost. What does this most likely signal, per the Interview Perspective section?",
+          "options": [
+            "Missing differentiation and total-cost-of-ownership thinking",
+            "Readiness for a senior sourcing-strategy role right away",
+            "Nothing notable, since short-term cost is the only factor",
+            "A complete and well-rounded grasp of sourcing decisions"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The Interview Perspective section specifically listens for recognition of differentiation and total cost of ownership, which this answer omits.",
+          "objectivesTested": [
+            2,
+            4,
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_7ndnsg-15",
+          "question": "(Product Thinking, Highest Difficulty) A company's internally-built analytics platform, once justified by an immature external market, now competes against mature, superior external alternatives, but the internal team maintaining it resists any suggestion of change. Using only the frameworks in this lesson, what is the most defensible course of action?",
+          "options": [
+            "Add more features to justify the team's continued existence",
+            "Terminate the platform immediately with no migration plan",
+            "Reassess honestly, then plan a careful Sunset Runway transition",
+            "Preserve the platform indefinitely to avoid team conflict"
+          ],
+          "correctAnswer": 2,
+          "explanation": "This mirrors the Reflection Exercise and Case Study: the correct response conducts an honest, evidence-based reassessment and executes a careful, Sunset-Runway-disciplined transition rather than either preserving the status quo indefinitely or making an abrupt, poorly-planned change.",
+          "objectivesTested": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_96d3e92b00"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_eyguum",
+        "title": "Lesson 77: Innovation Accounting and Portfolio Management",
+        "module": "strategy"
+      },
+      "current": {
+        "id": "les_7ndnsg",
+        "title": "Lesson 78, Build, Buy, or Partner: Platform vs. Point Solution Decisions"
+      },
+      "next": {
+        "id": "les_585ko0",
+        "title": "Lesson 79, Pricing Strategy at Scale: Enterprise Contracts and Negotiation",
+        "module": "strategy"
+      },
+      "unlocks": [
+        {
+          "lesson": {
+            "id": "les_td6v2u",
+            "title": "Module Synthesis",
+            "module": "strategy"
+          },
+          "coreIdea": "Treats the Capability Sourcing Matrix as established canon alongside Module 8's other strategic frameworks"
+        }
+      ],
+      "blockId": "blk_5654ba1780"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 78: Build, Buy, or Partner: Platform vs. Point Solution Decisions This lesson has been owed to you since Lesson 61, and it draws together threads from across this entire module. Lesson 61 first raised the question of whether a capability belongs at Layer 1 (built internally) or should instead be acquired through an external ecosystem. Lesson 62's API design discipline matters directly to how well a bought or partnered capability will actually integrate. Lesson 69's Friction Ledger established that internal platform investment carries real, often underestimated cost. Lesson 75's Moat Durability Matrix established that not every current capability is worth defending as though it were a genuine competitive advantage. Lesson 76's Integration Continuum addressed what happens once you've acquired a capability through M&A. Lesson 77's Portfolio Health Grid established that resources committed to any bet, including an internal build, deserve stage-appropriate scrutiny rather than momentum-driven continuation. The build-versus-buy-versus-partner decision is one of the most consequential and most frequently mishandled decisions a product organization makes, because it is rarely approached as a single, explicit decision at all. Far more often, a capability simply gets built, by default, because building feels like the natural extension of what an engineering organization already knows how to do, without anyone ever seriously evaluating whether buying an existing solution or partnering with an external provider would better serve the company's actual strategic position. This default-to-build pattern, sometimes called \"not invented here\" syndrome, can consume years of engineering effort duplicating capability that was never going to differentiate the company in any meaningful way. This lesson introduces the Capability Sourcing Matrix, this lesson's core mental model, to give you a structured way to make this decision deliberately, using the moat, migration, and portfolio disciplines this module has already built. Explain why \"not invented here\" syndrome causes companies to default to building capabilities that would be better bought or partnered for. Apply the Capability Sourcing Matrix to determine whether a given capability should be built, bought, or partnered for. Identify the role of the Moat Durability Matrix in determining whether a capability is genuinely worth building internally. Explain how the total cost of an internal build, including ongoing Friction Ledger and Sunset Runway maintenance burden, should factor into a sourcing decision. Evaluate a proposed internal build decision for whether it is justified by genuine strategic differentiation or merely by organizational default. This lesson assumes fluency with the Leverage Stack (Lesson 61), the Friction Ledger (Lesson 69), the Moat Durability Matrix (Lesson 75), the Integration Continuum (Lesson 76), and the Portfolio Health Grid (Lesson 77), since this lesson explicitly integrates all five into a single sourcing decision framework. Why Companies Default to Building **\"Not invented here\" syndrome** describes an organizational tendency to prefer building a capability internally over acquiring it externally, often for reasons that have little to do with genuine strategic advantage: internal engineering teams often find building more interesting and career-advancing than integrating a third-party solution, existing organizational structure and headcount naturally expand to justify more internal ownership, and there is a comforting illusion of control in owning a capability outright, even when that control provides no meaningful strategic benefit. This default is dangerous specifically because it consumes real resources (engineering time, ongoing maintenance burden per the Friction Ledger from Lesson 69, and opportunity cost against genuinely differentiating work) without any corresponding strategic return, since a capability that provides no competitive differentiation gains nothing from being built rather than bought. The Capability Sourcing Matrix This lesson introduces the **Capability Sourcing Matrix**, evaluating a capability along two dimensions: how central it is to genuine competitive differentiation, and how mature the external market's existing solutions for that capability already are. A capability that is both genuinely core to the company's moat, per the Moat Durability Matrix from Lesson 75, and has no mature external solution available should generally be **built**, since building is the only way to obtain a capability that provides genuine differentiation and cannot be acquired otherwise. A capability that provides no meaningful differentiation and has mature, well-established external solutions available should generally be **bought**, since building it internally would consume resources duplicating something that offers no strategic return. A capability that is genuinely differentiating but where mature external solutions do already exist calls for a more nuanced **partner** approach, often integrating an external provider's capability while retaining differentiation through how that capability is applied, combined, or presented, rather than through owning the underlying technology itself. A capability that is neither differentiating nor well-served by mature external solutions should prompt a more fundamental question about whether the capability is genuinely needed at all, or whether the closest available external fit, however imperfect, is still preferable to an internal build with no strategic justification. Total Cost of Ownership, Not Just Initial Build Cost A sourcing decision evaluated only on initial build cost systematically underestimates the true cost of building, because it ignores the ongoing maintenance burden a built capability imposes, precisely the Friction Ledger concern from Lesson 69, since an internally built capability becomes, in effect, an internal platform that must be maintained, documented, and supported indefinitely, and precisely the Sunset Runway concern from Lesson 68, since retiring a built capability later, once dependents have accumulated, carries its own significant migration cost. A capability that seemed reasonably cheap to build in isolation can become considerably more expensive once its full lifecycle cost (ongoing maintenance, internal support burden, and eventual retirement difficulty if it's ever superseded by a better external solution) is honestly accounted for. Revisiting Existing Builds Through the Portfolio Health Grid The Capability Sourcing Matrix is not only relevant for new capability decisions; it should periodically be applied to existing internally-built capabilities as well, since a capability that was correctly built years ago, when no mature external market existed, may no longer justify continued internal investment if a mature external market has since developed. This connects directly to the Portfolio Health Grid from Lesson 77: an existing internal build should be evaluated with the same stage-appropriate, evidence-based rigor as any other ongoing bet, rather than continuing indefinitely simply because it already exists and reversing the decision would require politically difficult acknowledgment that a prior investment should now be reconsidered. Defaulting to build without seriously evaluating whether mature external solutions already exist \"Not invented here\" syndrome causes many capabilities to be built internally by default, without a genuine market scan of available alternatives. Evaluating a build decision using only initial development cost, ignoring ongoing maintenance and eventual retirement cost This systematically understates the true cost of building relative to buying or partnering. Assuming any capability the company has built must be strategically important, simply because resources have already been invested in it Sunk cost should not substitute for an honest Moat Durability Matrix assessment of whether the capability is genuinely differentiating. Treating \"buy\" as always cheaper and \"build\" as always more strategically valuable, without checking the specific quadrant a capability actually occupies Buying a genuinely differentiating capability from an external vendor can hand a strategic advantage to any competitor who buys the same solution; building a non-differentiating capability wastes resources with no corresponding strategic gain. Failing to periodically revisit existing build decisions as the external market matures A build decision that was correct at the time it was made can become outdated as external solutions improve, and failing to revisit it wastes ongoing resources on maintaining a now-unnecessary internal capability. The Capability Sourcing Matrix The Capability Sourcing Matrix introduced above is this lesson's core takeaway tool. For any capability decision, whether new or previously built, ask: **Is this capability genuinely central to the company's moat**, per the Moat Durability Matrix from Lesson 75, or does it merely feel important because significant resources have already been invested in it? **How mature are the external market's existing solutions** for this specific capability, and has this been genuinely researched rather than assumed? **Which quadrant does this capability actually occupy**, and does the company's current or proposed sourcing approach match that quadrant, rather than defaulting to build out of organizational habit? **If evaluating an existing internal build, has its Portfolio Health Grid status been honestly reassessed**, accounting for its full total cost of ownership including ongoing Friction Ledger and Sunset Runway burden, rather than assuming its continuation is automatically justified? A sourcing decision that can answer all four questions deliberately is far less likely to fall into the specific, costly trap of building a non-differentiating capability by default, or of failing to notice when a previously justified build no longer deserves continued internal investment. Microsoft's partnership with OpenAI **Microsoft's partnership with OpenAI** is directly documented across a series of the companies' own announcements, and its evolution over time makes it a sharper illustration of this lesson's build/buy/partner framing than a static description would. Microsoft's own newsroom confirmed a $1 billion investment and an exclusive Azure computing partnership in July 2019; OpenAI's own site confirmed a further multi-year, multi-billion-dollar extension in January 2023, and CNBC reported the cumulative total reaching roughly $13 billion by April 2023. Throughout this period, Microsoft simultaneously built substantial AI and cloud infrastructure entirely in-house for Azure's core platform, and separately acquired GitHub outright in 2018: three different sourcing strategies (partner, build, buy) applied to three different capabilities, based on which approach fit each one, not a single default strategy applied uniformly. The partnership's own trajectory is worth naming directly, since it complicates any tidy account: Forbes reported in April 2026 that Microsoft and OpenAI formally ended their exclusivity and revenue-sharing arrangement, after roughly six years and $13 billion invested. That reversal doesn't undermine the lesson. If anything it reinforces it: a partnership is a sourcing decision suited to a particular moment's constraints (in 2019, OpenAI needed capital and compute Microsoft could provide; Microsoft needed AI capability it didn't yet have in-house), and as both companies' positions and needs evolved, the terms that made sense at the outset stopped fitting, requiring renegotiation rather than remaining fixed indefinitely. *(Source: Microsoft's own official newsroom (2019), OpenAI's own official site (2023), CNBC's April 2023 reporting on the cumulative investment total, and Forbes' April 2026 reporting on the partnership's restructuring.)* Startup Early-stage companies typically default heavily toward buying or partnering for any non-core capability (payments processing, authentication, basic infrastructure), reserving scarce engineering resources almost entirely for the specific capability that constitutes the company's actual differentiation, since building non-differentiating infrastructure at this stage represents a particularly costly opportunity cost relative to the company's limited resources. Mid-size company This is typically where \"not invented here\" syndrome first becomes a genuine organizational risk, as growing engineering headcount and organizational structure create internal pressure to build capabilities in-house that could reasonably be bought or partnered for, often justified by comfortable but ultimately unexamined assumptions about strategic importance. Big Tech Large, resource-rich organizations typically maintain the internal capability to build almost anything, making the Capability Sourcing Matrix's discipline especially important precisely because the constraint at this scale is rarely whether building is technically feasible, but whether it represents the best use of resources relative to genuinely differentiating alternative investments. The Custom Analytics Platform A mid-size e-commerce company decided, several years prior, to build a custom internal analytics and business intelligence platform, reasoning at the time that off-the-shelf analytics solutions were immature and poorly suited to the company's specific data needs: a defensible build decision under the Capability Sourcing Matrix's logic at that time, given a genuinely immature external market. The internal platform was built by a dedicated team of engineers and became deeply embedded across the company's reporting and decision-making processes. Over the following several years, the external market for analytics and business intelligence platforms matured substantially, with several vendors developing sophisticated, highly capable, and reasonably priced solutions that would have met the company's evolving needs. No one within the company, however, ever revisited the original build decision, since the internal platform was functioning adequately, and questioning a multi-year internal investment felt organizationally uncomfortable. The dedicated internal team continued growing over time to maintain and extend the platform (a direct, escalating Friction Ledger cost from Lesson 69), even as external alternatives that would have required a small fraction of that ongoing investment became genuinely superior in capability. **What went wrong?** Using the Capability Sourcing Matrix, the original build decision was reasonable at the time it was made, but the capability's classification should have been periodically revisited as the external market matured. Analytics and business intelligence, for this particular company, had never been a genuine source of competitive differentiation (the company's actual moat, per Lesson 75, rested elsewhere, in its product selection and logistics capability), meaning the capability had, in fact, drifted from a defensible \"high differentiation, immature market\" Build quadrant into a \"low differentiation, mature market\" Buy quadrant over time, without anyone applying the Portfolio Health Grid's discipline to notice and act on that drift. The company's recovery involved a deliberate, honest reassessment using the Capability Sourcing Matrix, ultimately transitioning to a mature external analytics platform and redeploying the internal team's engineering capacity toward genuinely differentiating work in the company's actual core competency: a transition that itself required careful Sunset Runway-style migration planning from Lesson 68, given how deeply the internal platform had become embedded across the organization's existing workflows. The Build-Buy-Partner Decision Checklist Before finalizing a sourcing decision, whether for a new capability or a reassessment of an existing build, a PM can use the following checklist: A \"no\" on Periodic Reassessment should be treated as a meaningful long-term risk, since, as the Case Study shows, even a genuinely correct original decision can become costly over time if never revisited. How would you decide whether to build a new capability internally, buy an existing solution, or partner with an external provider? The interviewer is evaluating whether you propose something resembling the Capability Sourcing Matrix, genuinely assessing differentiation and external market maturity, rather than defaulting to build out of organizational habit or assuming buy is always cheaper. What's the risk of 'not invented here' syndrome in a growing engineering organization? The interviewer is testing whether you recognize this as a genuine organizational tendency with real resource costs, rather than a rare or unusual failure mode. Tell me about a time a company you know of built something internally that probably should have been bought instead, or vice versa. The interviewer is listening for a diagnosis resembling the Custom Analytics Platform case study: a capability whose sourcing classification became outdated over time, or was never genuinely differentiating in the first place, rather than a vague account of \"engineering just liked building things.\" Companies default to building capabilities internally more often than a genuine strategic assessment would justify, driven by \"not invented here\" syndrome: organizational and individual incentives that favor internal ownership regardless of whether it provides genuine competitive return. The Capability Sourcing Matrix evaluates a capability along genuine competitive differentiation, drawing directly on the Moat Durability Matrix from Lesson 75, and external market maturity, recommending Build only when a capability is both genuinely differentiating and poorly served by existing external solutions, Buy when a capability offers no meaningful differentiation and mature external solutions exist, and a more nuanced Partner approach when a capability is differentiating despite a mature external market already existing. A sourcing decision evaluated only on initial build cost systematically understates the true cost of building, since it ignores the ongoing Friction Ledger maintenance burden and eventual Sunset Runway retirement cost a built capability imposes over its full lifecycle. Critically, the Capability Sourcing Matrix should be applied not only to new capability decisions but periodically to existing internal builds as well, using the same stage-appropriate rigor as the Portfolio Health Grid from Lesson 77, since a build decision that was genuinely correct when originally made can drift into an outdated, costly default as external markets mature: exactly the failure this lesson's Case Study illustrates, where organizational discomfort with revisiting a multi-year investment allowed a once-justified internal build to consume resources long after a superior external alternative had emerged. \"Not invented here\" syndrome causes organizations to default to building capabilities internally for reasons unrelated to genuine strategic advantage. The Capability Sourcing Matrix evaluates a capability by genuine competitive differentiation (per the Moat Durability Matrix) and external market maturity, recommending Build, Buy, or Partner accordingly. Total cost of ownership for an internal build must include ongoing Friction Ledger maintenance burden and eventual Sunset Runway retirement cost, not just initial development cost. A capability that is genuinely differentiating but has mature external alternatives calls for a nuanced Partner approach rather than a simple Build-or-Buy binary. Existing internal builds should be periodically revisited using the Capability Sourcing Matrix, since a genuinely correct original decision can become outdated as external markets mature. Organizational discomfort with reversing a prior investment should not substitute for an honest reassessment of a capability's genuine strategic value. A build decision should never be assumed justified simply because significant resources have already been invested in it. \"Not invented here\" is a real organizational bias, not just an occasional exception. Watch for it. Capability Sourcing Matrix: differentiation × external market maturity → Build, Buy, Partner, or Reconsider. Total cost of ownership includes ongoing maintenance (Friction Ledger) and eventual retirement (Sunset Runway), not just initial build cost. Revisit existing builds periodically. A correct decision years ago can be outdated today. Sunk cost is not a reason to keep building or maintaining a non-differentiating capability. Not Invented Here Syndrome An organizational tendency to prefer building internally over acquiring externally, often for non-strategic reasons Capability Sourcing Matrix A model evaluating whether a capability should be built, bought, or partnered for, based on differentiation and external market maturity Total Cost of Ownership The full lifecycle cost of a capability, including initial build, ongoing maintenance, and eventual retirement Build-Buy-Partner Decision Checklist A five-item checklist confirming a sourcing decision is genuinely justified rather than defaulted Periodic Reassessment The practice of revisiting an existing sourcing decision as external market conditions evolve Clayton Christensen, *The Innovator's Dilemma* Simon Wardley, *Wardley Maps* Matthew Skelton and Manuel Pais, *Team Topologies* What is \"not invented here\" syndrome? An organizational tendency to prefer building a capability internally over acquiring it externally, often for reasons unrelated to genuine strategic advantage. What are the two axes of the Capability Sourcing Matrix? Genuine competitive differentiation and external market maturity. When should a capability generally be built internally? When it is genuinely central to the company's moat and no mature external solution already exists. Why does evaluating a build decision on initial cost alone understate its true cost? It ignores ongoing Friction Ledger maintenance burden and eventual Sunset Runway retirement cost over the capability's full lifecycle. What went wrong in the Custom Analytics Platform case study? A build decision that was reasonable when the external market was immature was never revisited as the market matured, allowing a non-differentiating internal platform to consume growing resources long after superior external alternatives existed. Why should existing internal builds be periodically reassessed? A build decision that was genuinely correct when made can become outdated as external markets mature, and organizational discomfort with reversing prior investment shouldn't prevent honest reassessment. What quadrant of the Capability Sourcing Matrix calls for a Partner approach? High differentiation combined with a mature external market, where integrating an external provider while retaining differentiation elsewhere is often preferable to building from scratch. You are the PM responsible for a company's internal customer support ticketing system, built in-house five years ago when the company judged available off-the-shelf solutions to be a poor fit for its specific workflow needs. The system now requires a small but growing dedicated maintenance team, and you've recently learned that several external vendors now offer sophisticated, highly customizable solutions that may meet the company's current needs. There is no single correct answer to the prompts below: the goal is to practice applying the Capability Sourcing Matrix and the Build-Buy-Partner Decision Checklist to reassess a multi-year-old build decision. Using the Moat Durability Matrix from Lesson 75, is a customer support ticketing system likely to be a genuine source of competitive differentiation for this company? Why or why not? Using the Capability Sourcing Matrix, which quadrant did this capability likely occupy five years ago, and which quadrant might it occupy today? What would a genuine total cost of ownership analysis look like, including the ongoing Friction Ledger burden of the current maintenance team? What organizational resistance might you expect when proposing to reassess this five-year-old build decision, and how would you address it? If you decide to transition to an external solution, what Sunset Runway considerations from Lesson 68 would be most important to plan for? What is \"not invented here\" syndrome? This term describes the organizational and individual incentives favoring internal build regardless of genuine strategic return. What are the two axes of the Capability Sourcing Matrix? These two dimensions are explicitly introduced in the Theory section as the Matrix's evaluative axes. When does the Capability Sourcing Matrix recommend Build? Build is recommended specifically for the high-differentiation, immature-market quadrant. How does the Moat Durability Matrix from Lesson 75 factor into the Capability Sourcing Matrix? The lesson explicitly draws on the Moat Durability Matrix to assess the differentiation axis of the Capability Sourcing Matrix. Why does evaluating a build decision using only initial development cost understate the true cost of building? The lesson connects total cost of ownership to the ongoing maintenance and eventual retirement concerns raised in Lessons 68 and 69. In the Custom Analytics Platform case study, why was the original build decision reasonable at the time it was made? The case study explicitly frames the original decision as defensible given the genuinely immature external market at that time. What was the actual root cause of the Custom Analytics Platform's ongoing problem? The failure was a lack of periodic reassessment, not an inherently flawed original decision or technical failure. According to the Build-Buy-Partner Decision Checklist, what does a \"no\" on Periodic Reassessment indicate? The lesson treats the absence of periodic reassessment as a meaningful risk given how sourcing decisions can become outdated. What sourcing approach does the Capability Sourcing Matrix recommend when a capability is genuinely differentiating but mature external solutions already exist? This specific quadrant calls for the more nuanced Partner recommendation rather than a simple Build-or-Buy binary. Why might early-stage startups typically default toward buying or partnering for non-core capabilities, per the Real World Perspective section? The Real World Perspective section frames this as a reasonable resource-allocation trade-off given a startup's limited engineering capacity. Why does \"not invented here\" syndrome become a genuine organizational risk at mid-size companies specifically, per the Real World Perspective section? The Real World Perspective section connects this specific risk to the organizational dynamics typical of growing mid-size companies. (Scenario) A company built a payment processing system internally three years ago, when external options were limited, but mature, well-regarded external payment providers have since emerged. Using the Capability Sourcing Matrix, what should the company investigate? This directly applies the lesson's periodic reassessment discipline to a capability whose external market maturity has likely shifted since the original decision. (Product Thinking) A PM is told that reassessing a five-year-old internal build would be organizationally uncomfortable given the team already dedicated to maintaining it. Using this lesson's frameworks, what is the most defensible response? The correct response conducts an honest reassessment despite organizational discomfort, mirroring the Case Study's recovery process. (Interview Reasoning) A candidate, asked how they'd decide whether to build or buy a new capability, focuses entirely on which option is cheaper in the short term, with no mention of differentiation or long-term maintenance cost. What does this most likely signal, per the Interview Perspective section? The Interview Perspective section specifically listens for recognition of differentiation and total cost of ownership, which this answer omits. (Product Thinking, Highest Difficulty) A company's internally-built analytics platform, once justified by an immature external market, now competes against mature, superior external alternatives, but the internal team maintaining it resists any suggestion of change. Using only the frameworks in this lesson, what is the most defensible course of action? This mirrors the Reflection Exercise and Case Study: the correct response conducts an honest, evidence-based reassessment and executes a careful, Sunset-Runway-disciplined transition rather than either preserving the status quo indefinitely or making an abrupt, poorly-planned change.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "Mental Model: The Capability Sourcing Matrix",
+      "Real Company Example",
+      "Real World Perspective: Build, Buy, or Partner: Platform vs. Point Solution Decisions at Different Company Stages",
+      "Detailed Case Study: The Custom Analytics Platform",
+      "Framework Explanation: The Build-Buy-Partner Decision Checklist",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "Not Invented Here Syndrome",
+    "Capability Sourcing Matrix",
+    "Total Cost of Ownership",
+    "Build-Buy-Partner Decision Checklist",
+    "Periodic Reassessment"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

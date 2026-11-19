@@ -1,0 +1,995 @@
+{
+  "schemaVersion": 2,
+  "id": "les_sgqm62",
+  "contentHash": "953676ef38a8f286811ca6f92e6a28ec9fc1a75dc2608a5513b9995e754bcd31",
+  "title": "Opportunity Identification",
+  "slug": "lesson-019",
+  "module": "discovery",
+  "order": 9,
+  "totalInModule": 10,
+  "difficulty": 4,
+  "estimatedReadingTime": 25,
+  "estimatedCompletionTime": 40,
+  "prerequisites": [
+    "les_ta3qpf",
+    "les_4s6aif",
+    "les_9gu1rs"
+  ],
+  "seoTitle": "Opportunity Identification: Finding High-Impact Product Bets",
+  "seoDescription": "Identify and size product opportunities systematically. Use Opportunity Solution Trees to connect customer problems directly to measurable business outcomes.",
+  "inShort": "Opportunity identification is the practice of recognizing unmet customer needs, underserved workflows, or emerging market gaps that can be converted into measurable business value. By visualizing candidate opportunities on an Opportunity Solution Tree, product teams connect target business outcomes to verified user pain points, sizing potential impact before committing development effort to specific technical solutions.",
+  "sourceFile": "content/lessons/lesson-019.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 19: Opportunity Identification",
+      "blockId": "blk_e85a9e7210"
+    },
+    {
+      "type": "paragraph",
+      "text": "Module 2 has built an entire research and synthesis pipeline: interviews and surveys (Lessons 12–13), personas and journey maps (Lessons 14–15), pain points characterized by severity and frequency (Lesson 16), problem statements written without solutions (Lesson 17), and validated segments (Lesson 18). At this point, a team typically has more validated problems, pain points, and segment insights than it could possibly act on simultaneously. This lesson answers the natural next question: given a genuinely large pool of validated candidates, how do you systematically identify and size which ones represent the biggest actual opportunities, before committing to solve any particular one?",
+      "blockId": "blk_d581befbfa"
+    },
+    {
+      "type": "paragraph",
+      "text": "**Opportunity identification** is the practice of surfacing, characterizing, and comparatively sizing candidate problems or unmet needs, so that a team can make a deliberate choice about where to focus limited discovery and delivery resources, rather than defaulting to whichever problem statement was written most recently or championed most persuasively. This lesson sits at the seam between research (which surfaces raw material) and strategy (Lesson 10) and prioritization (Lesson 29, still ahead): it is the disciplined practice of turning a pile of validated findings into a ranked, comparable set of genuine opportunities.",
+      "blockId": "blk_ff846e6f38"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "Define an opportunity and distinguish it from a raw pain point, a problem statement, and a solution.",
+        "Apply the Opportunity Solution Tree as a technique for organizing multiple candidate opportunities beneath a shared outcome.",
+        "Size an opportunity using both qualitative importance/satisfaction data and quantitative segment-based prevalence (Lesson 18).",
+        "Identify the \"opportunity sprawl\" failure pattern and explain why an unbounded list of opportunities is as unusable as no list at all.",
+        "Distinguish a genuine opportunity from a restated business goal, and explain why the latter provides no real direction for discovery."
+      ],
+      "blockId": "blk_919ad85b71"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 16 (Pain Points), Lesson 17 (Problem Statements), and Lesson 18 (Customer Segmentation). This lesson assumes you can characterize a pain point's severity and frequency, write a solution-free problem statement, and validate a segment. An opportunity, in this lesson's sense, is what emerges when these three prior artifacts are organized and compared against each other systematically.",
+      "blockId": "blk_f2c41621e9"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Core Definition, and Distinguishing an Opportunity from Its Neighbors",
+          "blockId": "blk_1c479c6533"
+        },
+        {
+          "type": "paragraph",
+          "text": "An opportunity is a validated, sized candidate for where a team could focus its next discovery and delivery effort, sitting conceptually between a raw pain point (Lesson 16) and a fully specified solution. It is useful to place these concepts on a single continuum:",
+          "blockId": "blk_d2868b1734"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_7cd554eb70",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[Raw Pain Point a Specific, Laddered<br/>Friction Someone Experiences] --> B[Problem Statement Lesson 17: the Pain<br/>Point Formalized, Solution-free,<br/>Evidence-cited]\r\n    B --> C[Opportunity the Problem Statement, Sized<br/>and Compared Against Other Candidates<br/>for Relative Value]\r\n    C --> D[Solution Lesson 21 MVP and Beyond: a<br/>Specific Proposed Way to Address the<br/>Chosen Opportunity]",
+          "normalized": "graph LR\r\n    A[Raw Pain Point a Specific, Laddered<br/>Friction Someone Experiences] --> B[Problem Statement Lesson 17: the Pain<br/>Point Formalized, Solution-free,<br/>Evidence-cited]\r\n    B --> C[Opportunity the Problem Statement, Sized<br/>and Compared Against Other Candidates<br/>for Relative Value]\r\n    C --> D[Solution Lesson 21 MVP and Beyond: a<br/>Specific Proposed Way to Address the<br/>Chosen Opportunity]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020938912-45\" xmlns=\"http://www.w3.org/2000/svg\" width=\"2535.88\" height=\"171\" viewBox=\"-66.375 -27 2535.88 171\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Raw Pain Point a Specific, LadderedFriction Someone Experiences → Problem Statement Lesson 17: the PainPoint Formalized, Solution-free,Evidence-cited → Opportunity the Problem Statement, Sizedand Compared Against Other Candidatesfor Relative Value → Solution Lesson 21 MVP and Beyond: aSpecific Proposed Way to Address theChosen Opportunity\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Raw Pain Point a Specific, LadderedFriction Someone Experiences → Problem Statement Lesson 17: the PainPoint Formalized, Solution-free,Evidence-cited → Opportunity the Problem Statement, Sizedand Compared Against Other Candidatesfor Relative Value → Solution Lesson 21 MVP and Beyond: aSpecific Proposed Way to Address theChosen Opportunity</title><style>#mermaid-svg-1795020938912-45{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020938912-45 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020938912-45 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020938912-45 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020938912-45 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020938912-45 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020938912-45 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020938912-45 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020938912-45 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020938912-45 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020938912-45 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020938912-45 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020938912-45 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020938912-45 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020938912-45 p{margin:0;}#mermaid-svg-1795020938912-45 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020938912-45 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020938912-45 .cluster-label span{color:#171A17;}#mermaid-svg-1795020938912-45 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020938912-45 .label text,#mermaid-svg-1795020938912-45 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020938912-45 .node rect,#mermaid-svg-1795020938912-45 .node circle,#mermaid-svg-1795020938912-45 .node ellipse,#mermaid-svg-1795020938912-45 .node polygon,#mermaid-svg-1795020938912-45 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020938912-45 .rough-node .label text,#mermaid-svg-1795020938912-45 .node .label text,#mermaid-svg-1795020938912-45 .image-shape .label,#mermaid-svg-1795020938912-45 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020938912-45 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020938912-45 .rough-node .label,#mermaid-svg-1795020938912-45 .node .label,#mermaid-svg-1795020938912-45 .image-shape .label,#mermaid-svg-1795020938912-45 .icon-shape .label{text-align:center;}#mermaid-svg-1795020938912-45 .node.clickable{cursor:pointer;}#mermaid-svg-1795020938912-45 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020938912-45 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020938912-45 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020938912-45 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020938912-45 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020938912-45 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020938912-45 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020938912-45 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020938912-45 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020938912-45 .cluster text{fill:#171A17;}#mermaid-svg-1795020938912-45 .cluster span{color:#171A17;}#mermaid-svg-1795020938912-45 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020938912-45 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020938912-45 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020938912-45 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020938912-45 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020938912-45 .icon-shape,#mermaid-svg-1795020938912-45 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020938912-45 .icon-shape p,#mermaid-svg-1795020938912-45 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020938912-45 .icon-shape .label rect,#mermaid-svg-1795020938912-45 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020938912-45 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020938912-45 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020938912-45 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020938912-45 [data-look=\"neo\"].node rect,#mermaid-svg-1795020938912-45 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020938912-45 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020938912-45-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020938912-45 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020938912-45 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020938912-45-gradient);stroke-width:1px;}#mermaid-svg-1795020938912-45 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020938912-45 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020938912-45 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020938912-45-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020938912-45 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020938912-45 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020938912-45-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020938912-45 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020938912-45-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020938912-45 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020938912-45_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020938912-45_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020938912-45_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020938912-45_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020938912-45_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020938912-45_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020938912-45_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020938912-45_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020938912-45_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020938912-45_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020938912-45_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020938912-45_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M534.25,79L543,79C551.75,79,569.25,79,586.083,79C602.917,79,619.083,79,627.167,79L635.25,79\" id=\"mermaid-svg-1795020938912-45-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NTM0LjI1LCJ5Ijo3OX0seyJ4Ijo1ODYuNzUsInkiOjc5fSx7IngiOjYzOS4yNSwieSI6Nzl9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020938912-45_flowchart-v2-pointEnd)\"></path><path d=\"M1191,79L1199.75,79C1208.5,79,1226,79,1242.833,79C1259.667,79,1275.833,79,1283.917,79L1292,79\" id=\"mermaid-svg-1795020938912-45-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6MTE5MSwieSI6Nzl9LHsieCI6MTI0My41LCJ5Ijo3OX0seyJ4IjoxMjk2LCJ5Ijo3OX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020938912-45_flowchart-v2-pointEnd)\"></path><path d=\"M1886,79L1894.75,79C1903.5,79,1921,79,1937.833,79C1954.667,79,1970.833,79,1978.917,79L1987,79\" id=\"mermaid-svg-1795020938912-45-L_C_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_D_0\" data-points=\"W3sieCI6MTg4NiwieSI6Nzl9LHsieCI6MTkzOC41LCJ5Ijo3OX0seyJ4IjoxOTkxLCJ5Ijo3OX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020938912-45_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020938912-45-flowchart-A-0\" data-look=\"classic\" transform=\"translate(271.125, 79)\"><rect class=\"basic label-container\" style=\"\" x=\"-196.75\" y=\"-46\" width=\"393.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-164.75, -30)\"><rect></rect><foreignObject width=\"329.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Raw Pain Point a Specific, Laddered<br>Friction Someone Experiences</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020938912-45-flowchart-B-1\" data-look=\"classic\" transform=\"translate(915.125, 79)\"><rect class=\"basic label-container\" style=\"\" x=\"-205.25\" y=\"-57\" width=\"410.5\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-173.25, -41)\"><rect></rect><foreignObject width=\"346.5\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Problem Statement Lesson 17: the Pain<br>Point Formalized, Solution-free,<br>Evidence-cited</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020938912-45-flowchart-C-3\" data-look=\"classic\" transform=\"translate(1591, 79)\"><rect class=\"basic label-container\" style=\"\" x=\"-218\" y=\"-57\" width=\"436\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-186, -41)\"><rect></rect><foreignObject width=\"372\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Opportunity the Problem Statement, Sized<br>and Compared Against Other Candidates<br>for Relative Value</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020938912-45-flowchart-D-5\" data-look=\"classic\" transform=\"translate(2260.5, 79)\"><rect class=\"basic label-container\" style=\"\" x=\"-201\" y=\"-57\" width=\"402\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-169, -41)\"><rect></rect><foreignObject width=\"338\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Solution Lesson 21 MVP and Beyond: a<br>Specific Proposed Way to Address the<br>Chosen Opportunity</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020938912-45-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020938912-45-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020938912-45-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_7cd554eb70"
+        },
+        {
+          "type": "paragraph",
+          "text": "A pain point tells you something hurts. A problem statement tells you precisely what hurts, for whom, and why it matters, without committing to a fix. An opportunity adds the comparative dimension: how does this specific, validated problem compare in size and value to every other validated problem currently competing for the same limited discovery and delivery capacity? Skipping straight from a problem statement to a solution, without ever explicitly sizing and comparing it against alternatives, means a team may invest heavily in solving a real, validated problem that turns out to be far smaller in impact than several other, equally real, validated problems that were never seriously considered.",
+          "blockId": "blk_459e55e93a"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Opportunity Solution Tree",
+          "blockId": "blk_2953ce1bc8"
+        },
+        {
+          "type": "paragraph",
+          "text": "A widely used technique for organizing multiple candidate opportunities is the **Opportunity Solution Tree** (closely associated with Teresa Torres's continuous discovery methodology), which structures a team's discovery work as a tree with a single desired outcome at the root, multiple opportunities as branches beneath it, and, eventually, multiple candidate solutions beneath each opportunity:",
+          "blockId": "blk_f81b977972"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_413d162737",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Desired Outcome E.g. Increase<br/>Trial-to-paid Conversion Rate] --> B[Opportunity 1 Users Don't Understand<br/>Core Value Before Trial Ends]\r\n    A --> C[Opportunity 2 Users Abandon<br/>During a Specific Onboarding Step]\r\n    A --> D[Opportunity 3 Users Can't Find a<br/>Specific Needed Integration]\r\n    B --> E[Candidate Solution 1a]\r\n    B --> F[Candidate Solution 1b]\r\n    C --> G[Candidate Solution 2a]",
+          "normalized": "graph TD\r\n    A[Desired Outcome E.g. Increase<br/>Trial-to-paid Conversion Rate] --> B[Opportunity 1 Users Don't Understand<br/>Core Value Before Trial Ends]\r\n    A --> C[Opportunity 2 Users Abandon<br/>During a Specific Onboarding Step]\r\n    A --> D[Opportunity 3 Users Can't Find a<br/>Specific Needed Integration]\r\n    B --> E[Candidate Solution 1a]\r\n    B --> F[Candidate Solution 1b]\r\n    C --> G[Candidate Solution 2a]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020939069-46\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1822.81\" height=\"497\" viewBox=\"-38 -27 1822.81 497\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Desired Outcome E.g. IncreaseTrial-to-paid Conversion Rate → Opportunity 1 Users Don't UnderstandCore Value Before Trial Ends → Opportunity 2 Users AbandonDuring a Specific Onboarding Step → Opportunity 3 Users Can't Find aSpecific Needed Integration → Candidate Solution 1a...\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Desired Outcome E.g. IncreaseTrial-to-paid Conversion Rate → Opportunity 1 Users Don't UnderstandCore Value Before Trial Ends → Opportunity 2 Users AbandonDuring a Specific Onboarding Step → Opportunity 3 Users Can't Find aSpecific Needed Integration → Candidate Solution 1a...</title><style>#mermaid-svg-1795020939069-46{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020939069-46 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020939069-46 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020939069-46 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020939069-46 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020939069-46 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020939069-46 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020939069-46 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020939069-46 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020939069-46 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020939069-46 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020939069-46 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020939069-46 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020939069-46 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020939069-46 p{margin:0;}#mermaid-svg-1795020939069-46 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020939069-46 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020939069-46 .cluster-label span{color:#171A17;}#mermaid-svg-1795020939069-46 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020939069-46 .label text,#mermaid-svg-1795020939069-46 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020939069-46 .node rect,#mermaid-svg-1795020939069-46 .node circle,#mermaid-svg-1795020939069-46 .node ellipse,#mermaid-svg-1795020939069-46 .node polygon,#mermaid-svg-1795020939069-46 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020939069-46 .rough-node .label text,#mermaid-svg-1795020939069-46 .node .label text,#mermaid-svg-1795020939069-46 .image-shape .label,#mermaid-svg-1795020939069-46 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020939069-46 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020939069-46 .rough-node .label,#mermaid-svg-1795020939069-46 .node .label,#mermaid-svg-1795020939069-46 .image-shape .label,#mermaid-svg-1795020939069-46 .icon-shape .label{text-align:center;}#mermaid-svg-1795020939069-46 .node.clickable{cursor:pointer;}#mermaid-svg-1795020939069-46 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020939069-46 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020939069-46 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020939069-46 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020939069-46 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020939069-46 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020939069-46 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020939069-46 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020939069-46 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020939069-46 .cluster text{fill:#171A17;}#mermaid-svg-1795020939069-46 .cluster span{color:#171A17;}#mermaid-svg-1795020939069-46 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020939069-46 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020939069-46 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020939069-46 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020939069-46 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020939069-46 .icon-shape,#mermaid-svg-1795020939069-46 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020939069-46 .icon-shape p,#mermaid-svg-1795020939069-46 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020939069-46 .icon-shape .label rect,#mermaid-svg-1795020939069-46 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020939069-46 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020939069-46 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020939069-46 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020939069-46 [data-look=\"neo\"].node rect,#mermaid-svg-1795020939069-46 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020939069-46 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020939069-46-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020939069-46 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020939069-46 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020939069-46-gradient);stroke-width:1px;}#mermaid-svg-1795020939069-46 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020939069-46 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020939069-46 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020939069-46-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020939069-46 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020939069-46 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020939069-46-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020939069-46 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020939069-46-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020939069-46 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020939069-46_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020939069-46_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020939069-46_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020939069-46_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020939069-46_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020939069-46_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020939069-46_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020939069-46_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020939069-46_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020939069-46_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020939069-46_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020939069-46_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M828.563,93.807L753.51,104.422C678.458,115.038,528.354,136.269,453.302,153.134C378.25,170,378.25,182.5,378.25,188.75L378.25,195\" id=\"mermaid-svg-1795020939069-46-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6ODI4LjU2MjUsInkiOjkzLjgwNjgxMjkyMjMzNjM5fSx7IngiOjM3OC4yNSwieSI6MTU3LjV9LHsieCI6Mzc4LjI1LCJ5IjoxOTl9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020939069-46_flowchart-v2-pointEnd)\"></path><path d=\"M1053.438,116L1053.438,122.917C1053.438,129.833,1053.438,143.667,1053.438,156.833C1053.438,170,1053.438,182.5,1053.438,188.75L1053.438,195\" id=\"mermaid-svg-1795020939069-46-L_A_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_C_0\" data-points=\"W3sieCI6MTA1My40Mzc1LCJ5IjoxMTZ9LHsieCI6MTA1My40Mzc1LCJ5IjoxNTcuNX0seyJ4IjoxMDUzLjQzNzUsInkiOjE5OX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020939069-46_flowchart-v2-pointEnd)\"></path><path d=\"M1278.313,101.816L1330.729,111.096C1383.146,120.377,1487.979,138.939,1540.396,154.469C1592.813,170,1592.813,182.5,1592.813,188.75L1592.813,195\" id=\"mermaid-svg-1795020939069-46-L_A_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_D_0\" data-points=\"W3sieCI6MTI3OC4zMTI1LCJ5IjoxMDEuODE1NjQzMTA1NDQ2MTN9LHsieCI6MTU5Mi44MTI1LCJ5IjoxNTcuNX0seyJ4IjoxNTkyLjgxMjUsInkiOjE5OX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020939069-46_flowchart-v2-pointEnd)\"></path><path d=\"M267.211,307L252.988,313.917C238.765,320.833,210.32,334.667,196.098,347.833C181.875,361,181.875,373.5,181.875,379.75L181.875,386\" id=\"mermaid-svg-1795020939069-46-L_B_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_E_0\" data-points=\"W3sieCI6MjY3LjIxMDczMjk4NDI5MzIsInkiOjMwN30seyJ4IjoxODEuODc1LCJ5IjozNDguNX0seyJ4IjoxODEuODc1LCJ5IjozOTB9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020939069-46_flowchart-v2-pointEnd)\"></path><path d=\"M489.289,307L503.512,313.917C517.735,320.833,546.18,334.667,560.402,347.833C574.625,361,574.625,373.5,574.625,379.75L574.625,386\" id=\"mermaid-svg-1795020939069-46-L_B_F_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_F_0\" data-points=\"W3sieCI6NDg5LjI4OTI2NzAxNTcwNjgsInkiOjMwN30seyJ4Ijo1NzQuNjI1LCJ5IjozNDguNX0seyJ4Ijo1NzQuNjI1LCJ5IjozOTB9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020939069-46_flowchart-v2-pointEnd)\"></path><path d=\"M1053.438,307L1053.438,313.917C1053.438,320.833,1053.438,334.667,1053.438,347.833C1053.438,361,1053.438,373.5,1053.438,379.75L1053.438,386\" id=\"mermaid-svg-1795020939069-46-L_C_G_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_G_0\" data-points=\"W3sieCI6MTA1My40Mzc1LCJ5IjozMDd9LHsieCI6MTA1My40Mzc1LCJ5IjozNDguNX0seyJ4IjoxMDUzLjQzNzUsInkiOjM5MH1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020939069-46_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_F_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_G_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020939069-46-flowchart-A-0\" data-look=\"classic\" transform=\"translate(1053.4375, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-171.25\" y=\"-46\" width=\"342.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-139.25, -30)\"><rect></rect><foreignObject width=\"278.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Desired Outcome E.g. Increase<br>Trial-to-paid Conversion Rate</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020939069-46-flowchart-B-1\" data-look=\"classic\" transform=\"translate(378.25, 253)\"><rect class=\"basic label-container\" style=\"\" x=\"-201\" y=\"-46\" width=\"402\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-169, -30)\"><rect></rect><foreignObject width=\"338\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Opportunity 1 Users Don't Understand<br>Core Value Before Trial Ends</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020939069-46-flowchart-C-3\" data-look=\"classic\" transform=\"translate(1053.4375, 253)\"><rect class=\"basic label-container\" style=\"\" x=\"-188.25\" y=\"-46\" width=\"376.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-156.25, -30)\"><rect></rect><foreignObject width=\"312.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Opportunity 2 Users Abandon<br>During a Specific Onboarding Step</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020939069-46-flowchart-D-5\" data-look=\"classic\" transform=\"translate(1592.8125, 253)\"><rect class=\"basic label-container\" style=\"\" x=\"-184\" y=\"-46\" width=\"368\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-152, -30)\"><rect></rect><foreignObject width=\"304\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Opportunity 3 Users Can't Find a<br>Specific Needed Integration</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020939069-46-flowchart-E-7\" data-look=\"classic\" transform=\"translate(181.875, 427)\"><rect class=\"basic label-container\" style=\"\" x=\"-137.25\" y=\"-35\" width=\"274.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-105.25, -19)\"><rect></rect><foreignObject width=\"210.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Candidate Solution 1a</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020939069-46-flowchart-F-9\" data-look=\"classic\" transform=\"translate(574.625, 427)\"><rect class=\"basic label-container\" style=\"\" x=\"-137.25\" y=\"-35\" width=\"274.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-105.25, -19)\"><rect></rect><foreignObject width=\"210.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Candidate Solution 1b</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020939069-46-flowchart-G-11\" data-look=\"classic\" transform=\"translate(1053.4375, 427)\"><rect class=\"basic label-container\" style=\"\" x=\"-137.25\" y=\"-35\" width=\"274.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-105.25, -19)\"><rect></rect><foreignObject width=\"210.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Candidate Solution 2a</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020939069-46-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020939069-46-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020939069-46-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_413d162737"
+        },
+        {
+          "type": "paragraph",
+          "text": "This structure enforces a specific, valuable discipline: multiple opportunities are laid out side by side, beneath a single shared outcome, *before* any solution work begins for any of them. This prevents a team from tunneling into deep solution work on the first opportunity that happened to surface, without ever seeing it alongside the full set of alternatives that might have delivered more value toward the same desired outcome. The tree also visually enforces Lesson 17's discipline at the opportunity level: a genuine opportunity, like a genuine problem statement, should sit at the level of a validated user problem, with candidate solutions kept as distinct child nodes underneath it, not merged into the opportunity itself.",
+          "blockId": "blk_734ded1b6a"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Sizing an Opportunity: Combining Importance/Satisfaction and Prevalence",
+          "blockId": "blk_7f7211b18e"
+        },
+        {
+          "type": "paragraph",
+          "text": "A practical technique for sizing and comparing opportunities combines two dimensions, directly extending this module's qualitative and quantitative methods:",
+          "blockId": "blk_2c40fd385f"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**Importance and satisfaction gap** (often gathered via a structured survey technique, sometimes called an \"outcome-driven\" or \"importance-satisfaction\" survey): asking a representative sample how important a specific job or outcome is to them, and how satisfied they currently are with existing solutions for it. A large gap between high importance and low satisfaction indicates a genuinely underserved opportunity; a job rated as unimportant, or one where satisfaction is already high, indicates a comparatively weaker opportunity regardless of how vividly it was described in a single interview.",
+            "**Segment-validated prevalence** (Lesson 18): how large is the validated segment experiencing this specific gap, and how does that segment's overall strategic or commercial value compare to other segments experiencing different gaps?"
+          ],
+          "blockId": "blk_eb431ab7f5"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_5bb398c74e",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Candidate Opportunity] --> B{Importance-Satisfaction Gap: High<br/>Importance, Low Satisfaction?}\r\n    A --> C{Segment Prevalence: How Large and How<br/>Strategically Valuable Is the Affected<br/>Segment?}\r\n    B --> D[Combine Both Dimensions to Rank<br/>Opportunities Comparatively]\r\n    C --> D",
+          "normalized": "graph TD\r\n    A[Candidate Opportunity] --> B{Importance-Satisfaction Gap: High<br/>Importance, Low Satisfaction?}\r\n    A --> C{Segment Prevalence: How Large and How<br/>Strategically Valuable Is the Affected<br/>Segment?}\r\n    B --> D[Combine Both Dimensions to Rank<br/>Opportunities Comparatively]\r\n    C --> D",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020939261-47\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1161.13\" height=\"852\" viewBox=\"-54.875 -27 1161.13 852\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Candidate Opportunity → Importance-Satisfaction Gap: HighImportance, Low Satisfaction? → Segment Prevalence: How Large and HowStrategically Valuable Is the AffectedSegment? → Combine Both Dimensions to RankOpportunities Comparatively\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Candidate Opportunity → Importance-Satisfaction Gap: HighImportance, Low Satisfaction? → Segment Prevalence: How Large and HowStrategically Valuable Is the AffectedSegment? → Combine Both Dimensions to RankOpportunities Comparatively</title><style>#mermaid-svg-1795020939261-47{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020939261-47 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020939261-47 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020939261-47 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020939261-47 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020939261-47 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020939261-47 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020939261-47 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020939261-47 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020939261-47 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020939261-47 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020939261-47 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020939261-47 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020939261-47 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020939261-47 p{margin:0;}#mermaid-svg-1795020939261-47 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020939261-47 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020939261-47 .cluster-label span{color:#171A17;}#mermaid-svg-1795020939261-47 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020939261-47 .label text,#mermaid-svg-1795020939261-47 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020939261-47 .node rect,#mermaid-svg-1795020939261-47 .node circle,#mermaid-svg-1795020939261-47 .node ellipse,#mermaid-svg-1795020939261-47 .node polygon,#mermaid-svg-1795020939261-47 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020939261-47 .rough-node .label text,#mermaid-svg-1795020939261-47 .node .label text,#mermaid-svg-1795020939261-47 .image-shape .label,#mermaid-svg-1795020939261-47 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020939261-47 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020939261-47 .rough-node .label,#mermaid-svg-1795020939261-47 .node .label,#mermaid-svg-1795020939261-47 .image-shape .label,#mermaid-svg-1795020939261-47 .icon-shape .label{text-align:center;}#mermaid-svg-1795020939261-47 .node.clickable{cursor:pointer;}#mermaid-svg-1795020939261-47 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020939261-47 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020939261-47 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020939261-47 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020939261-47 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020939261-47 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020939261-47 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020939261-47 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020939261-47 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020939261-47 .cluster text{fill:#171A17;}#mermaid-svg-1795020939261-47 .cluster span{color:#171A17;}#mermaid-svg-1795020939261-47 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020939261-47 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020939261-47 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020939261-47 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020939261-47 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020939261-47 .icon-shape,#mermaid-svg-1795020939261-47 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020939261-47 .icon-shape p,#mermaid-svg-1795020939261-47 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020939261-47 .icon-shape .label rect,#mermaid-svg-1795020939261-47 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020939261-47 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020939261-47 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020939261-47 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020939261-47 [data-look=\"neo\"].node rect,#mermaid-svg-1795020939261-47 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020939261-47 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020939261-47-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020939261-47 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020939261-47 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020939261-47-gradient);stroke-width:1px;}#mermaid-svg-1795020939261-47 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020939261-47 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020939261-47 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020939261-47-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020939261-47 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020939261-47 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020939261-47-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020939261-47 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020939261-47-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020939261-47 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020939261-47_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020939261-47_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020939261-47_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020939261-47_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020939261-47_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020939261-47_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020939261-47_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020939261-47_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020939261-47_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020939261-47_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020939261-47_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020939261-47_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M423.596,82L397.267,88.917C370.939,95.833,318.282,109.667,291.953,128.208C265.625,146.75,265.625,170,265.625,181.625L265.625,193.25\" id=\"mermaid-svg-1795020939261-47-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NDIzLjU5NTkzOTQ5MDQ0NTg2LCJ5Ijo4Mn0seyJ4IjoyNjUuNjI1LCJ5IjoxMjMuNX0seyJ4IjoyNjUuNjI1LCJ5IjoxOTcuMjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020939261-47_flowchart-v2-pointEnd)\"></path><path d=\"M705.279,82L731.608,88.917C757.936,95.833,810.593,109.667,836.922,122.833C863.25,136,863.25,148.5,863.25,154.75L863.25,161\" id=\"mermaid-svg-1795020939261-47-L_A_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_C_0\" data-points=\"W3sieCI6NzA1LjI3OTA2MDUwOTU1NDEsInkiOjgyfSx7IngiOjg2My4yNSwieSI6MTIzLjV9LHsieCI6ODYzLjI1LCJ5IjoxNjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020939261-47_flowchart-v2-pointEnd)\"></path><path d=\"M265.625,712.5L265.625,706.333C265.625,700.167,265.625,687.833,286.632,688.38C307.638,688.927,349.652,702.355,370.659,709.069L391.665,715.782\" id=\"mermaid-svg-1795020939261-47-L_B_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_D_0\" data-points=\"W3sieCI6MjY1LjYyNSwieSI6NzEyLjV9LHsieCI6MjY1LjYyNSwieSI6Njc1LjV9LHsieCI6Mzk1LjQ3NTQ1ODExNTE4MzI0LCJ5Ijo3MTd9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020939261-47_flowchart-v2-pointEnd)\"></path><path d=\"M863.25,755L863.25,741.75C863.25,728.5,863.25,702,842.243,695.464C821.237,688.927,779.223,702.355,758.216,709.069L737.21,715.782\" id=\"mermaid-svg-1795020939261-47-L_C_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_D_0\" data-points=\"W3sieCI6ODYzLjI1LCJ5Ijo3NTV9LHsieCI6ODYzLjI1LCJ5Ijo2NzUuNX0seyJ4Ijo3MzMuMzk5NTQxODg0ODE2NywieSI6NzE3fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020939261-47_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020939261-47-flowchart-A-0\" data-look=\"classic\" transform=\"translate(564.4375, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-137.25\" y=\"-35\" width=\"274.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-105.25, -19)\"><rect></rect><foreignObject width=\"210.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Candidate Opportunity</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020939261-47-flowchart-B-1\" data-look=\"classic\" transform=\"translate(265.625, 399.5)\"><polygon points=\"202.25,0 404.5,-202.25 202.25,-404.5 0,-202.25\" class=\"label-container\" transform=\"translate(-201.75, 202.25)\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-156.25, -30)\"><rect></rect><foreignObject width=\"312.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Importance-Satisfaction Gap: High<br>Importance, Low Satisfaction?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020939261-47-flowchart-C-3\" data-look=\"classic\" transform=\"translate(863.25, 399.5)\"><polygon points=\"234.5,0 469,-234.5 234.5,-469 0,-234.5\" class=\"label-container\" transform=\"translate(-234, 234.5)\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-177.5, -41)\"><rect></rect><foreignObject width=\"355\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Segment Prevalence: How Large and How<br>Strategically Valuable Is the Affected<br>Segment?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020939261-47-flowchart-D-5\" data-look=\"classic\" transform=\"translate(564.4375, 771)\"><rect class=\"basic label-container\" style=\"\" x=\"-179.75\" y=\"-46\" width=\"359.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-147.75, -30)\"><rect></rect><foreignObject width=\"295.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Combine Both Dimensions to Rank<br>Opportunities Comparatively</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020939261-47-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020939261-47-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020939261-47-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_5bb398c74e"
+        },
+        {
+          "type": "paragraph",
+          "text": "An opportunity that scores well on both dimensions (a large importance-satisfaction gap affecting a large, strategically valuable, validated segment) represents the clearest, highest-value candidate. An opportunity strong on only one dimension (a severe gap affecting a small, low-value segment, or a modest gap affecting a very large segment) requires the same kind of deliberate, explicit judgment Lesson 16 described for off-diagonal severity/frequency cases, rather than either automatic prioritization or automatic dismissal.",
+          "blockId": "blk_74667406a7"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The \"Opportunity Sprawl\" Failure Pattern",
+          "blockId": "blk_353ecbf874"
+        },
+        {
+          "type": "paragraph",
+          "text": "A specific, recurring failure (closely related to Lesson 14's \"too many personas\" and Lesson 18's \"segmentation for its own sake\" patterns) is **opportunity sprawl**: generating an ever-growing, unbounded list of candidate opportunities from ongoing research, without ever consolidating, comparing, or pruning the list down to a manageable set the team can actually reason about and act on. A list of forty loosely characterized \"opportunities,\" none of which have been sized or compared against each other using the importance-satisfaction and prevalence dimensions above, provides essentially the same lack of direction as having identified no opportunities at all: the volume of raw material creates an illusion of thoroughness while actually obscuring which few items genuinely deserve the team's limited attention.",
+          "blockId": "blk_f034a57bb2"
+        },
+        {
+          "type": "paragraph",
+          "text": "The corrective discipline, directly parallel to Lesson 10's exclusion principle, is periodic, deliberate pruning: consolidating overlapping or redundant opportunities, explicitly deprioritizing (not merely ignoring) low-scoring candidates, and maintaining a genuinely short, actively reasoned-about list rather than an ever-growing backlog of undifferentiated possibilities.",
+          "blockId": "blk_9eca7e4383"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Distinguishing a Genuine Opportunity from a Restated Business Goal",
+          "blockId": "blk_5078c7d3ec"
+        },
+        {
+          "type": "paragraph",
+          "text": "A final, important distinction, directly echoing Lesson 10's \"mistaking goals for strategy\" failure: a genuine opportunity names a specific, validated user problem or unmet need (echoing Lesson 17's problem statement discipline), while a restated business goal simply names a desired business outcome without identifying any specific underlying user-side driver. \"Increase revenue by 15%\" is a goal, not an opportunity: it says nothing about *which* validated user problem, if solved, would plausibly move that number. A genuine opportunity, sitting beneath a desired outcome in the Opportunity Solution Tree, must be specific enough to be evaluated using the importance-satisfaction and prevalence dimensions above; a restated goal cannot be evaluated this way at all, because it isn't yet a hypothesis about a specific underlying cause.",
+          "blockId": "blk_92ef468acf"
+        }
+      ],
+      "blockId": "blk_b27d74cb14"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Moving directly from a single problem statement to a solution, without comparing it against alternative opportunities",
+          "body": "This risks investing heavily in a real, validated problem that turns out to be smaller in impact than several other equally real problems that were never seriously considered side by side."
+        },
+        {
+          "title": "Merging a candidate solution into the opportunity itself within an Opportunity Solution Tree",
+          "body": "An opportunity should remain at the level of a validated user problem; folding a specific solution into the same node prematurely forecloses the comparison of multiple candidate solutions later, echoing Lesson 17's solution-contamination warning."
+        },
+        {
+          "title": "Sizing an opportunity using only vivid anecdote or a single interview, without importance-satisfaction or prevalence data",
+          "body": "This repeats Lesson 16's \"vivid but rare\" distortion at the level of opportunity comparison, rather than pain point comparison specifically."
+        },
+        {
+          "title": "Allowing an opportunity list to grow indefinitely without consolidation or pruning",
+          "body": "Opportunity sprawl produces an illusion of thoroughness while actually obscuring which few candidates genuinely deserve focused attention, echoing Lesson 14's \"too many personas\" pattern."
+        },
+        {
+          "title": "Treating a restated business goal as if it were a genuine opportunity",
+          "body": "\"Increase revenue\" or \"reduce churn\" names a desired outcome, not a specific, validated user-side driver that could be sized and compared using this lesson's framework.\n\n"
+        }
+      ],
+      "blockId": "blk_6aa0d0ee62"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The Opportunity Comparison Grid",
+      "diagram": {
+        "blockId": "blk_99ab1c0987",
+        "type": "mermaid"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "This lesson's mental model is the **Opportunity Comparison Grid**, plotting candidate opportunities by importance-satisfaction gap and segment prevalence/value, directly parallel to Lesson 16's Severity/Frequency Grid but operating one level up, at the opportunity-comparison stage rather than the individual pain-point stage.",
+          "blockId": "blk_2cadf48fd9"
+        },
+        {
+          "type": "paragraph",
+          "text": "Use this grid whenever more than a small handful of validated problem statements exist simultaneously: rather than defaulting to whichever one is freshest in memory or most forcefully argued, plot each candidate explicitly and let the comparison, not the loudest voice, guide where the team focuses next.",
+          "blockId": "blk_4e0a226bfa"
+        }
+      ],
+      "blockId": "blk_50358c987d"
+    },
+    {
+      "type": "mermaid",
+      "id": "blk_99ab1c0987",
+      "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[List Candidate<br/>Opportunities from Problem Statements] --> B[Score Each on<br/>Importance-Satisfaction Gap]\r\n    A --> C[Score Each on Segment<br/>Prevalence and Strategic Value]\r\n    B --> D[Plot on the Grid]\r\n    C --> D\r\n    D --> E[Focus Discovery and Delivery on the<br/>Highest-Scoring Opportunities;<br/>Explicitly Prune or Deprioritize the<br/>Rest]",
+      "normalized": "graph TD\r\n    A[List Candidate<br/>Opportunities from Problem Statements] --> B[Score Each on<br/>Importance-Satisfaction Gap]\r\n    A --> C[Score Each on Segment<br/>Prevalence and Strategic Value]\r\n    B --> D[Plot on the Grid]\r\n    C --> D\r\n    D --> E[Focus Discovery and Delivery on the<br/>Highest-Scoring Opportunities;<br/>Explicitly Prune or Deprioritize the<br/>Rest]",
+      "authorTheme": {
+        "background": "#0b0b0c",
+        "primaryColor": "#1f1f23",
+        "primaryTextColor": "#ffffff",
+        "primaryBorderColor": "#8b5cf6",
+        "lineColor": "#d1d5db",
+        "secondaryColor": "#18181b",
+        "tertiaryColor": "#111111",
+        "mainBkg": "#1f1f23",
+        "nodeBorder": "#8b5cf6",
+        "clusterBkg": "#000000",
+        "clusterBorder": "#27272a",
+        "titleColor": "#ffffff",
+        "edgeLabelBackground": "#0b0b0c",
+        "nodeTextColor": "#ffffff",
+        "edgeLabelColor": "#ffffff",
+        "actorBorder": "#8b5cf6",
+        "actorBkg": "#1f1f23",
+        "actorTextColor": "#ffffff",
+        "sequenceNumberColor": "#ffffff",
+        "signalColor": "#8b5cf6",
+        "signalTextColor": "#ffffff",
+        "textColor": "#ffffff",
+        "classText": "#ffffff",
+        "classBorder": "#8b5cf6",
+        "classBkg": "#1f1f23"
+      },
+      "svg": "<svg id=\"mermaid-svg-1795020939402-48\" xmlns=\"http://www.w3.org/2000/svg\" width=\"941.38\" height=\"738\" viewBox=\"-49.375 -27 941.38 738\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: List CandidateOpportunities from Problem Statements → Score Each onImportance-Satisfaction Gap → Score Each on SegmentPrevalence and Strategic Value → Plot on the Grid → Focus Discovery and Delivery on theHighest-Scoring Opportunities;Explicitly Prune or Deprioritize theRest\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: List CandidateOpportunities from Problem Statements → Score Each onImportance-Satisfaction Gap → Score Each on SegmentPrevalence and Strategic Value → Plot on the Grid → Focus Discovery and Delivery on theHighest-Scoring Opportunities;Explicitly Prune or Deprioritize theRest</title><style>#mermaid-svg-1795020939402-48{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020939402-48 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020939402-48 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020939402-48 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020939402-48 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020939402-48 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020939402-48 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020939402-48 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020939402-48 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020939402-48 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020939402-48 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020939402-48 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020939402-48 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020939402-48 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020939402-48 p{margin:0;}#mermaid-svg-1795020939402-48 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020939402-48 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020939402-48 .cluster-label span{color:#171A17;}#mermaid-svg-1795020939402-48 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020939402-48 .label text,#mermaid-svg-1795020939402-48 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020939402-48 .node rect,#mermaid-svg-1795020939402-48 .node circle,#mermaid-svg-1795020939402-48 .node ellipse,#mermaid-svg-1795020939402-48 .node polygon,#mermaid-svg-1795020939402-48 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020939402-48 .rough-node .label text,#mermaid-svg-1795020939402-48 .node .label text,#mermaid-svg-1795020939402-48 .image-shape .label,#mermaid-svg-1795020939402-48 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020939402-48 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020939402-48 .rough-node .label,#mermaid-svg-1795020939402-48 .node .label,#mermaid-svg-1795020939402-48 .image-shape .label,#mermaid-svg-1795020939402-48 .icon-shape .label{text-align:center;}#mermaid-svg-1795020939402-48 .node.clickable{cursor:pointer;}#mermaid-svg-1795020939402-48 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020939402-48 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020939402-48 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020939402-48 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020939402-48 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020939402-48 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020939402-48 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020939402-48 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020939402-48 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020939402-48 .cluster text{fill:#171A17;}#mermaid-svg-1795020939402-48 .cluster span{color:#171A17;}#mermaid-svg-1795020939402-48 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020939402-48 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020939402-48 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020939402-48 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020939402-48 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020939402-48 .icon-shape,#mermaid-svg-1795020939402-48 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020939402-48 .icon-shape p,#mermaid-svg-1795020939402-48 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020939402-48 .icon-shape .label rect,#mermaid-svg-1795020939402-48 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020939402-48 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020939402-48 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020939402-48 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020939402-48 [data-look=\"neo\"].node rect,#mermaid-svg-1795020939402-48 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020939402-48 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020939402-48-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020939402-48 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020939402-48 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020939402-48-gradient);stroke-width:1px;}#mermaid-svg-1795020939402-48 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020939402-48 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020939402-48 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020939402-48-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020939402-48 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020939402-48 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020939402-48-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020939402-48 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020939402-48-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020939402-48 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020939402-48_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020939402-48_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020939402-48_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020939402-48_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020939402-48_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020939402-48_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020939402-48_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020939402-48_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020939402-48_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020939402-48_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020939402-48_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020939402-48_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M326.238,116L308.552,122.917C290.867,129.833,255.496,143.667,237.81,156.833C220.125,170,220.125,182.5,220.125,188.75L220.125,195\" id=\"mermaid-svg-1795020939402-48-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6MzI2LjIzNzg5MjY3MDE1NzA3LCJ5IjoxMTZ9LHsieCI6MjIwLjEyNSwieSI6MTU3LjV9LHsieCI6MjIwLjEyNSwieSI6MTk5fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020939402-48_flowchart-v2-pointEnd)\"></path><path d=\"M602.387,116L620.073,122.917C637.758,129.833,673.129,143.667,690.815,156.833C708.5,170,708.5,182.5,708.5,188.75L708.5,195\" id=\"mermaid-svg-1795020939402-48-L_A_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_C_0\" data-points=\"W3sieCI6NjAyLjM4NzEwNzMyOTg0MjksInkiOjExNn0seyJ4Ijo3MDguNSwieSI6MTU3LjV9LHsieCI6NzA4LjUsInkiOjE5OX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020939402-48_flowchart-v2-pointEnd)\"></path><path d=\"M220.125,307L220.125,313.917C220.125,320.833,220.125,334.667,241.006,348.296C261.887,361.925,303.648,375.351,324.529,382.063L345.41,388.776\" id=\"mermaid-svg-1795020939402-48-L_B_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_D_0\" data-points=\"W3sieCI6MjIwLjEyNSwieSI6MzA3fSx7IngiOjIyMC4xMjUsInkiOjM0OC41fSx7IngiOjM0OS4yMTc3NTQ3NzcwNzAwNywieSI6MzkwfV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020939402-48_flowchart-v2-pointEnd)\"></path><path d=\"M708.5,307L708.5,313.917C708.5,320.833,708.5,334.667,687.619,348.296C666.738,361.925,624.977,375.351,604.096,382.063L583.215,388.776\" id=\"mermaid-svg-1795020939402-48-L_C_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_D_0\" data-points=\"W3sieCI6NzA4LjUsInkiOjMwN30seyJ4Ijo3MDguNSwieSI6MzQ4LjV9LHsieCI6NTc5LjQwNzI0NTIyMjkzLCJ5IjozOTB9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020939402-48_flowchart-v2-pointEnd)\"></path><path d=\"M464.313,464L464.313,470.917C464.313,477.833,464.313,491.667,464.313,504.833C464.313,518,464.313,530.5,464.313,536.75L464.313,543\" id=\"mermaid-svg-1795020939402-48-L_D_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_E_0\" data-points=\"W3sieCI6NDY0LjMxMjUsInkiOjQ2NH0seyJ4Ijo0NjQuMzEyNSwieSI6NTA1LjV9LHsieCI6NDY0LjMxMjUsInkiOjU0N31d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020939402-48_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_D_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020939402-48-flowchart-A-0\" data-look=\"classic\" transform=\"translate(464.3125, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-205.25\" y=\"-46\" width=\"410.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-173.25, -30)\"><rect></rect><foreignObject width=\"346.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>List Candidate<br>Opportunities from Problem Statements</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020939402-48-flowchart-B-1\" data-look=\"classic\" transform=\"translate(220.125, 253)\"><rect class=\"basic label-container\" style=\"\" x=\"-162.75\" y=\"-46\" width=\"325.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-130.75, -30)\"><rect></rect><foreignObject width=\"261.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Score Each on<br>Importance-Satisfaction Gap</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020939402-48-flowchart-C-3\" data-look=\"classic\" transform=\"translate(708.5, 253)\"><rect class=\"basic label-container\" style=\"\" x=\"-175.5\" y=\"-46\" width=\"351\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-143.5, -30)\"><rect></rect><foreignObject width=\"287\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Score Each on Segment<br>Prevalence and Strategic Value</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020939402-48-flowchart-D-5\" data-look=\"classic\" transform=\"translate(464.3125, 427)\"><rect class=\"basic label-container\" style=\"\" x=\"-116\" y=\"-35\" width=\"232\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-84, -19)\"><rect></rect><foreignObject width=\"168\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Plot on the Grid</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020939402-48-flowchart-E-9\" data-look=\"classic\" transform=\"translate(464.3125, 635)\"><rect class=\"basic label-container\" style=\"\" x=\"-201\" y=\"-68\" width=\"402\" height=\"136\"></rect><g class=\"label\" style=\"\" transform=\"translate(-169, -52)\"><rect></rect><foreignObject width=\"338\" height=\"104\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Focus Discovery and Delivery on the<br>Highest-Scoring Opportunities;<br>Explicitly Prune or Deprioritize the<br>Rest</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020939402-48-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020939402-48-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020939402-48-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+      "blockId": "blk_99ab1c0987"
+    },
+    {
+      "type": "companyExample",
+      "company": "Intercom",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "**Intercom** is one of the more directly documented examples of a company building its product and go-to-market strategy around Jobs to Be Done: the company has published its own methodology publicly, including a dedicated book, *Intercom on Jobs-to-be-Done*, and co-founder Des Traynor has spoken and written extensively about applying it internally. Intercom's own account emphasizes Tony Ulwick's \"opportunity algorithm\" (the idea that an unmet need exists specifically where a job outcome is rated both highly important and poorly satisfied by current solutions) as the sizing method for comparing candidate opportunities before committing engineering resources to any one of them.",
+          "blockId": "blk_50099a234a"
+        },
+        {
+          "type": "paragraph",
+          "text": "This is a useful illustration of comparing multiple candidate opportunities before committing to a specific solution, precisely the discipline this lesson's Opportunity Solution Tree and importance-satisfaction sizing technique formalize: organize strategy discussions around a small number of clearly named customer outcomes, lay out multiple candidate opportunities against those outcomes, and let the comparison, not whichever feature idea was most recently discussed in a meeting, determine what gets built next.",
+          "blockId": "blk_d705e7ac76"
+        },
+        {
+          "type": "paragraph",
+          "text": "*(Source: Intercom's own published blog and book on the topic, corroborated by public talks from co-founder Des Traynor. This curriculum does not claim certainty about the company's complete current internal prioritization process.)*",
+          "blockId": "blk_a76cf95f07"
+        }
+      ],
+      "blockId": "blk_ae7b9b5912"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "At a startup",
+          "body": "Opportunity identification is often concentrated on a small number of existentially important candidates, directly tied to whether the core product concept addresses a real, sufficiently important and underserved job at all (echoing Lesson 8's foundational discovery risk). Startups rarely have the luxury of an extensive Opportunity Solution Tree with many branches; the discipline instead often centers on rigorously validating whether the single most promising opportunity is real before committing scarce resources."
+        },
+        {
+          "context": "At a mid-size company",
+          "body": "Opportunity identification often becomes a more structured, recurring practice, periodically reviewing and re-scoring a maintained Opportunity Solution Tree as new research emerges, and using importance-satisfaction survey techniques at increasing scale to compare candidates more rigorously than a startup's more improvised, resource-constrained approach typically allows."
+        },
+        {
+          "context": "At Big Tech",
+          "body": "Opportunity identification at scale often involves formal, recurring quantitative surveys (echoing Lesson 13) run across large populations specifically to maintain an up-to-date importance-satisfaction map across many potential opportunity areas simultaneously, and a significant part of senior product strategy work involves periodically pruning and consolidating an otherwise sprawling opportunity backlog across multiple product lines, preventing the exact \"opportunity sprawl\" failure this lesson warns against at organizational scale."
+        }
+      ],
+      "blockId": "blk_2949a274b3"
+    },
+    {
+      "type": "caseStudy",
+      "title": "The Opportunity List That Never Got Smaller",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Consider a simplified, illustrative scenario common across B2B SaaS product teams practicing continuous discovery.",
+          "blockId": "blk_a7f01d4210"
+        },
+        {
+          "type": "paragraph",
+          "text": "A team building a customer support platform adopts continuous discovery practices (echoing Lesson 8) and begins maintaining an Opportunity Solution Tree, updated after every round of customer interviews. Over eighteen months, driven by genuine enthusiasm for the practice, the team accumulates 47 distinct \"opportunities\" beneath their shared outcome (\"reduce average ticket resolution time\"), each one a real, laddered finding from an actual interview.",
+          "blockId": "blk_c5a3a24d83"
+        },
+        {
+          "type": "paragraph",
+          "text": "Despite the genuine research effort behind each item, the team finds itself increasingly unable to make forward progress: planning meetings devolve into lengthy debates about which of the 47 items to discuss, no consistent method exists for comparing their relative importance, and several near-duplicate opportunities (three separate entries describing closely related variations of \"agents struggle to find relevant historical context on a ticket\") are tracked separately, further inflating the list without adding genuinely distinct information.",
+          "blockId": "blk_211ea4ad5e"
+        },
+        {
+          "type": "paragraph",
+          "text": "A new discovery lead, brought in to help, spends a full sprint specifically consolidating and re-scoring the list: merging near-duplicate opportunities, running a structured importance-satisfaction survey (Lesson 13's technique, applied per this lesson's sizing method) across a representative sample of support agents to establish genuine relative sizing rather than relying on interview-recency or vividness, and validating segment prevalence (Lesson 18) for the remaining candidates. The exercise reduces the list from 47 loosely characterized items to 6 genuinely distinct, sized, and ranked opportunities, and reveals that the single highest-scoring opportunity (agents lacking a fast way to see a customer's full prior interaction history across multiple channels) had been sitting in the original list, undifferentiated among 46 other items, for over a year without ever being specifically prioritized.",
+          "blockId": "blk_0a937086f9"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong?**",
+          "blockId": "blk_d289d312d9"
+        },
+        {
+          "type": "paragraph",
+          "text": "Applying this lesson's frameworks:",
+          "blockId": "blk_94d0bec77b"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**The team fell into opportunity sprawl**: genuine research effort produced a continuously growing list without a corresponding, disciplined practice of consolidation, sizing, and pruning, echoing Lesson 14's \"too many personas\" pattern applied at the opportunity level.",
+            "**No importance-satisfaction or prevalence sizing was applied consistently across the list**, meaning opportunities were effectively being compared (when compared at all) based on how recently or memorably they had come up in a meeting, rather than through the systematic Opportunity Comparison Grid this lesson recommends.",
+            "**Near-duplicate opportunities were tracked separately rather than consolidated**, artificially inflating the apparent size of the list and obscuring which underlying themes were actually most significant once properly merged."
+          ],
+          "blockId": "blk_e01e1b9ea0"
+        },
+        {
+          "type": "paragraph",
+          "text": "A team applying this lesson's discipline from the outset would have periodically (not just once, after the problem had already become severe) consolidated and re-scored its Opportunity Solution Tree, likely surfacing the historical-context opportunity (the eventual highest-scoring candidate) well before a full year had passed with it sitting undifferentiated among dozens of other, less significant items.",
+          "blockId": "blk_d363f7c6b6"
+        },
+        {
+          "type": "paragraph",
+          "text": "This case connects directly back to **Lesson 8's continuous discovery principle**: discovery itself was being conducted diligently and continuously in this case study, but the corresponding discipline of continuous *synthesis and pruning* was missing, showing that genuine research volume alone does not guarantee genuine strategic clarity.",
+          "blockId": "blk_72f2e4897b"
+        }
+      ],
+      "blockId": "blk_27d180c855"
+    },
+    {
+      "type": "framework",
+      "name": "The Opportunity Pruning Cadence",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A practical framework for preventing opportunity sprawl, structured as a recurring cadence rather than a one-time cleanup:",
+          "blockId": "blk_a01cc50d1b"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Cadence Step",
+            "Frequency",
+            "Purpose"
+          ],
+          "rows": [
+            [
+              "**Consolidate near-duplicates**",
+              "Each time new opportunities are added",
+              "Prevents artificial list inflation from closely related findings tracked separately"
+            ],
+            [
+              "**Re-score using importance-satisfaction and prevalence data**",
+              "Quarterly, or whenever significant new survey/segment data becomes available",
+              "Keeps rankings current rather than static or based on outdated impressions"
+            ],
+            [
+              "**Explicitly deprioritize (not silently ignore) low-scoring candidates**",
+              "Quarterly",
+              "Maintains a genuinely short, actionable list, following Lesson 10's exclusion discipline"
+            ],
+            [
+              "**Re-validate the shared outcome at the root of the tree**",
+              "Whenever strategy (Lesson 10) or vision (Lesson 9) is revisited",
+              "Ensures the entire tree remains connected to current strategic priorities, not an outdated one"
+            ]
+          ],
+          "blockId": "blk_1906d989cd"
+        },
+        {
+          "type": "paragraph",
+          "text": "The recurring theme across this cadence: **opportunity identification is not a one-time exercise that produces a static, permanent list. It requires the same ongoing, disciplined maintenance this curriculum has emphasized for personas (Lesson 14), journey maps (Lesson 15), and segments (Lesson 18), or it will drift toward exactly the sprawl this lesson's Detailed Case Study describes.**",
+          "blockId": "blk_5ef69d2903"
+        }
+      ],
+      "blockId": "blk_b410a72588"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "How do you decide which of several validated customer problems to focus on next?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate has a systematic comparison method (importance-satisfaction, segment prevalence) rather than defaulting to whichever problem was most recently or forcefully raised, directly echoing Lesson 16's related question, now applied at the level of comparing entire opportunities rather than individual pain points."
+        },
+        {
+          "question": "Tell me about a time your team had too many candidate ideas or findings and needed to narrow them down.",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Direct experience with the opportunity-sprawl problem and its correction, whether the candidate can describe a genuine consolidation and re-scoring process, echoing this lesson's Detailed Case Study, rather than simply describing an unstructured, intuitive winnowing process."
+        },
+        {
+          "question": "What's the difference between a business goal and a product opportunity?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate can articulate the specific distinction this lesson draws: a goal names a desired outcome, while an opportunity names a specific, validated user-side driver that could plausibly move that outcome, echoing Lesson 10's goal-versus-strategy distinction applied at the discovery level."
+        }
+      ],
+      "blockId": "blk_43a039bd6d"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "An opportunity is a validated, sized candidate problem sitting between a raw pain point and a specific solution: it adds a comparative dimension that a problem statement alone does not provide, asking how a given validated problem compares in size and value to every other validated problem currently competing for limited resources. The Opportunity Solution Tree organizes multiple candidate opportunities beneath a single shared desired outcome, keeping opportunities distinct from candidate solutions and enabling side-by-side comparison before any solution work begins. Sizing an opportunity combines an importance-satisfaction gap (how important is this job, and how well is it currently served) with segment-validated prevalence (Lesson 18) and strategic value. \"Opportunity sprawl\" (an ever-growing, unconsolidated list of candidate opportunities) provides no more real direction than having identified none at all, and requires a disciplined, recurring pruning cadence to correct. Finally, a genuine opportunity must be distinguished from a restated business goal: a goal names a desired outcome, while an opportunity names the specific, validated user-side driver that could plausibly move it.",
+          "blockId": "blk_9940685184"
+        }
+      ],
+      "blockId": "blk_7182931748"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "An opportunity sits between a raw pain point and a specific solution, adding the comparative dimension of relative size and value against other validated candidates.",
+        "The Opportunity Solution Tree organizes multiple opportunities beneath a shared desired outcome, keeping opportunities distinct from candidate solutions to enable genuine side-by-side comparison.",
+        "Sizing an opportunity combines an importance-satisfaction gap with segment-validated prevalence and strategic value, not vivid anecdote alone.",
+        "\"Opportunity sprawl\" (an unconsolidated, ever-growing list) provides no more real direction than an empty list, and requires disciplined, recurring pruning.",
+        "A restated business goal (\"increase revenue\") is not itself an opportunity; a genuine opportunity names the specific, validated user-side driver that could plausibly move that goal.",
+        "Near-duplicate opportunities should be consolidated, not tracked separately, to avoid artificially inflating the apparent size of a candidate list.",
+        "Opportunity identification requires ongoing, periodic maintenance (consolidation, re-scoring, and explicit deprioritization), not a one-time exercise producing a static list."
+      ],
+      "blockId": "blk_ad60786f1b"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "**Pain point → Problem Statement → Opportunity → Solution.** Each step adds specificity or comparison; don't skip the comparison step.",
+        "**Opportunity Solution Tree:** shared outcome at root, opportunities as branches, solutions as leaves. Keep opportunities and solutions distinct nodes.",
+        "**Sizing = Importance-Satisfaction Gap + Segment Prevalence/Value**: not vivid anecdote.",
+        "**Opportunity sprawl** = an unconsolidated, ever-growing list = no more useful than no list at all.",
+        "**Goal ≠ Opportunity.** \"Increase revenue\" isn't an opportunity; the specific validated driver behind it is.",
+        "**Pruning cadence:** consolidate duplicates → re-score → explicitly deprioritize → re-validate against current strategy."
+      ],
+      "blockId": "blk_a086900d11"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "Opportunity",
+          "definition": "A validated, sized candidate problem, positioned for comparison against alternatives before a solution is chosen.",
+          "relatedConcepts": [
+            "Problem Statement (Lesson 17)",
+            "Pain Point (Lesson 16)"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Opportunity Solution Tree",
+          "definition": "A structure organizing a desired outcome, multiple candidate opportunities beneath it, and candidate solutions beneath each opportunity.",
+          "relatedConcepts": [
+            "Continuous Discovery (Lesson 8)"
+          ],
+          "difficulty": 3
+        },
+        {
+          "term": "Importance-Satisfaction Gap",
+          "definition": "A sizing technique measuring how important a job is to users versus how satisfied they currently are with existing solutions for it.",
+          "relatedConcepts": [
+            "Opportunity Comparison Grid"
+          ],
+          "difficulty": 3
+        },
+        {
+          "term": "Opportunity Sprawl",
+          "definition": "The failure pattern of an ever-growing, unconsolidated list of candidate opportunities that provides no real strategic direction.",
+          "relatedConcepts": [
+            "Too Many Personas (Lesson 14)"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Opportunity Pruning Cadence",
+          "definition": "A recurring practice of consolidating, re-scoring, and explicitly deprioritizing candidate opportunities to prevent sprawl.",
+          "relatedConcepts": [
+            "Opportunity Sprawl"
+          ],
+          "difficulty": 3
+        }
+      ],
+      "blockId": "blk_10c1166d27"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "Teresa Torres, *Continuous Discovery Habits*",
+          "note": "the primary source for the Opportunity Solution Tree structure referenced throughout this lesson."
+        },
+        {
+          "citation": "Tony Ulwick, *What Customers Want*",
+          "note": "the origin of the importance-satisfaction (outcome-driven innovation) sizing technique described in this lesson."
+        },
+        {
+          "citation": "Marty Cagan, *Inspired*",
+          "note": "discusses organizing product discovery around outcomes and opportunities rather than jumping directly to features, closely related to this lesson's overall framing."
+        }
+      ],
+      "blockId": "blk_529a0e3a57"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_sgqm62",
+      "cards": [
+        {
+          "id": "fc-les_sgqm62-1",
+          "front": "Where does an \"opportunity\" sit on the continuum from pain point to solution?",
+          "back": "Between a problem statement and a solution. It adds the comparative dimension of relative size and value against other validated candidates, which a problem statement alone does not provide.",
+          "difficulty": 2,
+          "tags": [
+            "opportunity-definition"
+          ]
+        },
+        {
+          "id": "fc-les_sgqm62-2",
+          "front": "What is an Opportunity Solution Tree?",
+          "back": "A structure with a shared desired outcome at the root, multiple candidate opportunities as branches, and candidate solutions as leaves beneath each opportunity, keeping opportunities and solutions as distinct nodes.",
+          "difficulty": 3,
+          "tags": [
+            "opportunity-solution-tree"
+          ]
+        },
+        {
+          "id": "fc-les_sgqm62-3",
+          "front": "What two dimensions combine to size an opportunity, according to this lesson?",
+          "back": "The importance-satisfaction gap (how important the job is versus how well it's currently served) and segment-validated prevalence/strategic value.",
+          "difficulty": 2,
+          "tags": [
+            "opportunity-sizing"
+          ]
+        },
+        {
+          "id": "fc-les_sgqm62-4",
+          "front": "What is \"opportunity sprawl\"?",
+          "back": "The failure pattern of an ever-growing, unconsolidated list of candidate opportunities that provides no more real strategic direction than having identified none at all.",
+          "difficulty": 2,
+          "tags": [
+            "opportunity-sprawl"
+          ]
+        },
+        {
+          "id": "fc-les_sgqm62-5",
+          "front": "Why is \"increase revenue by 15%\" not a genuine opportunity, according to this lesson?",
+          "back": "It names a desired business outcome, not a specific, validated user-side driver that could plausibly move that outcome. A genuine opportunity must be specific enough to be sized and compared.",
+          "difficulty": 2,
+          "tags": [
+            "goal-vs-opportunity"
+          ]
+        },
+        {
+          "id": "fc-les_sgqm62-6",
+          "front": "In the Detailed Case Study, what specific mistake inflated the team's opportunity list beyond its genuine size?",
+          "back": "Near-duplicate opportunities (three separate entries describing closely related variations of the same underlying issue) were tracked separately rather than consolidated.",
+          "difficulty": 3,
+          "tags": [
+            "case-study"
+          ]
+        },
+        {
+          "id": "fc-les_sgqm62-7",
+          "front": "What are the four steps of the Opportunity Pruning Cadence?",
+          "back": "Consolidate near-duplicates, re-score using importance-satisfaction and prevalence data, explicitly deprioritize low-scoring candidates, and re-validate the shared outcome against current strategy.",
+          "difficulty": 3,
+          "tags": [
+            "pruning-cadence"
+          ]
+        }
+      ],
+      "blockId": "blk_54617f472c"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "You are the PM for a note-taking app, and your team's continuous discovery work (per Lesson 8) has surfaced five candidate opportunities beneath the shared outcome \"increase weekly active usage\": (1) users forget to open the app after the first week; (2) users can't easily find notes taken more than a month ago; (3) users want better formatting options for tables; (4) users on mobile report the app feels slow to open; (5) users want to share notes with people who don't have the app.",
+        "Work through the following, in writing, before reading further:",
+        "Organize these five items into an Opportunity Solution Tree, confirming each is genuinely an opportunity (a validated user problem) rather than a disguised solution or a restated goal.",
+        "Propose one importance-satisfaction survey question you would ask to size two of these five opportunities against each other.",
+        "Identify whether any of the five items might actually be near-duplicates or closely related variations of a shared underlying theme, and explain your reasoning.",
+        "Using the Opportunity Comparison Grid, make a rough, reasoned guess about which one or two of these five likely represent the highest-value opportunities, explicitly noting what additional evidence would most change your ranking.",
+        "Referencing the Opportunity Pruning Cadence, describe when and how you would revisit this list in the future to prevent it from growing into unmanaged sprawl.",
+        "There is no single correct answer. The purpose of this exercise is to practice comparing multiple validated opportunities systematically, rather than defaulting to whichever one feels most vivid or was most recently discussed."
+      ],
+      "blockId": "blk_4a0c2c42de"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_sgqm62",
+      "questions": [
+        {
+          "id": "q-les_sgqm62-1",
+          "question": "Where does an \"opportunity\" sit on the continuum described in this lesson?",
+          "options": [
+            "Between a problem statement and a specific solution",
+            "Before a raw pain point has even been identified",
+            "After a specific solution has been built and launched",
+            "Opportunities and pain points are the same concept"
+          ],
+          "correctAnswer": 0,
+          "explanation": "A pain point says something hurts. A problem statement says precisely what, for whom, and why. An opportunity adds the comparison: how does this rank against every other validated problem competing for the same capacity?",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_sgqm62-2",
+          "question": "What is the core structure of an Opportunity Solution Tree?",
+          "options": [
+            "A demographic breakdown of the whole customer base by segment",
+            "A timeline of customer support tickets over the past twelve months",
+            "A single list of candidate features ranked by estimated engineering cost",
+            "A shared outcome at root, opportunities as branches, solutions below"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Keeping opportunities and solutions as distinct node types is what makes side-by-side comparison possible before anyone tunnels into building the first idea that surfaced.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_sgqm62-3",
+          "question": "Which two dimensions does this lesson recommend combining to size a candidate opportunity?",
+          "options": [
+            "Engineering cost and available marketing budget",
+            "Importance-satisfaction gap and segment prevalence",
+            "How recently it was raised and how senior the source is",
+            "The number of competitor products in a similar area"
+          ],
+          "correctAnswer": 1,
+          "explanation": "A wide gap on a job people care about, affecting a large and strategically valuable segment, is the clearest candidate. Strength on only one dimension needs an explicit judgment call.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_sgqm62-4",
+          "question": "What is \"opportunity sprawl\"?",
+          "options": [
+            "A well-organised Opportunity Solution Tree, actively pruned each quarter",
+            "A technique for validating a segment's actual prevalence",
+            "A method for writing solution-free problem statements",
+            "An unconsolidated list giving no more direction than an empty one"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Forty loosely characterised items nobody has sized creates an impression of thoroughness while hiding which few actually deserve the team's attention.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_sgqm62-5",
+          "question": "Why is \"increase revenue by 15%\" not considered a genuine opportunity, according to this lesson?",
+          "options": [
+            "Because revenue goals are never legitimate business objectives",
+            "Because opportunities are best expressed in percentage terms overall",
+            "Because 15% is far too large a target to be realistic here",
+            "Because it names an outcome without a validated user-side driver"
+          ],
+          "correctAnswer": 3,
+          "explanation": "It works well as the root of a tree and cannot be scored on importance-satisfaction or prevalence, because it is not yet a hypothesis about any particular cause.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_sgqm62-6",
+          "question": "In the Detailed Case Study, what specific practice was missing that allowed the opportunity list to grow to 47 items?",
+          "options": [
+            "The team never conducted any customer interviews at all",
+            "Genuine continuous discovery without consolidating, sizing, or pruning the list",
+            "The team refused to use any structured framework whatsoever",
+            "The team interviewed one customer across eighteen months"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The research was real and the synthesis never happened. Discovery that only ever adds, without a matching habit of merging and cutting, produces exactly this.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_sgqm62-7",
+          "question": "What specific consequence resulted from tracking near-duplicate opportunities separately in the Detailed Case Study?",
+          "options": [
+            "The opportunity list became more accurate and more useful",
+            "No meaningful consequence resulted from the practice at all",
+            "The list inflated, obscuring which themes actually mattered most",
+            "The near-duplicates were automatically prioritised above all others"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Three fragments of one theme look like three small items rather than one large one, which systematically understates the thing that most deserved attention.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_sgqm62-8",
+          "question": "According to the Opportunity Pruning Cadence, what should happen to low-scoring candidate opportunities during a review cycle?",
+          "options": [
+            "They are explicitly deprioritised rather than silently ignored",
+            "They are deleted at once and never reconsidered afterwards",
+            "They are merged automatically into the highest-scoring item",
+            "They are left in place, since every candidate deserves tracking"
+          ],
+          "correctAnswer": 0,
+          "explanation": "This is Lesson 10's exclusion discipline applied to a backlog. An item quietly ignored still occupies the list; an item explicitly set aside no longer competes for attention.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_sgqm62-9",
+          "question": "(Scenario) A team has validated five distinct problem statements (per Lesson 17) but has not yet compared them against each other using importance-satisfaction or prevalence data. According to this lesson, what is the most appropriate next step before committing to a solution for any one of them?",
+          "options": [
+            "Size and compare all five on the grid before committing resources",
+            "Build a solution for whichever statement was written most recently",
+            "Build solutions for all five at once, whatever their relative value",
+            "Discard four of the five without comparative evaluation"
+          ],
+          "correctAnswer": 0,
+          "explanation": "All five may describe real problems. Without sizing, the team could invest heavily in the smallest of them and never learn that it did.",
+          "objectivesTested": [
+            1,
+            3
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_sgqm62-10",
+          "question": "(Product Thinking) An opportunity scores high on the importance-satisfaction gap but affects only a very small, strategically low-value segment. According to this lesson, what is the most appropriate response?",
+          "options": [
+            "Automatically treat it as top priority on gap score alone",
+            "Ignore the importance-satisfaction data and use segment size",
+            "Discard it automatically, since small segments never matter",
+            "Weigh the off-diagonal case deliberately and explicitly"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Strong on one axis and weak on the other is the same shape of problem as Lesson 16's rare-but-severe pain point, and it calls for the same explicit reasoning rather than a rule.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_sgqm62-11",
+          "question": "(Interview Reasoning) A candidate describes prioritizing whichever customer problem was most recently discussed in a stakeholder meeting, without any structured comparison against other known validated problems. What might this signal, based on this lesson's Interview Perspective section?",
+          "options": [
+            "A strong and systematic opportunity identification process overall",
+            "Recency substituting for genuine gap and prevalence comparison",
+            "Extensive practical experience with the Opportunity Solution Tree",
+            "Nothing of note, since recency is an appropriate factor to weigh"
+          ],
+          "correctAnswer": 1,
+          "explanation": "This is Lesson 16's most-recent-complaint pattern operating one level up, where the cost of choosing badly is a quarter of delivery rather than a single fix.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_sgqm62-12",
+          "question": "(Product Thinking, Higher Difficulty) A team merges three previously separate opportunities into one, after discovering through re-scoring that they all describe variations of the same underlying theme (agents lacking fast access to historical context). What should happen to this newly merged opportunity's importance-satisfaction and prevalence scores?",
+          "options": [
+            "Average the three original scores without further investigation",
+            "Assign the merged item the lowest of the three original scores",
+            "Re-establish scores for the consolidated item, since the originals were fragmented",
+            "No re-scoring is needed, since merging has no effect on sizing"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Each original score measured a partial view of the real theme. Combining three partial measurements arithmetically does not produce a measurement of the whole.",
+          "objectivesTested": [
+            3,
+            4
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_sgqm62-13",
+          "question": "(Interview Reasoning, Higher Difficulty) An interviewer asks a candidate to distinguish a business goal from a genuine opportunity, and the candidate responds that \"reduce customer churn\" is itself a valid opportunity to add to an Opportunity Solution Tree. What is the strongest critique of this answer, based on this lesson?",
+          "options": [
+            "It is a root-level desired outcome, not an opportunity",
+            "It is an excellent, fully specified opportunity needing no refinement",
+            "Business goals should never appear anywhere in the tree at all",
+            "The answer is correct, since any measurable metric is an opportunity"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Churn reduction belongs at the root, where it does useful work. As a branch it names no user-side driver and therefore cannot be scored against the branches beside it.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_sgqm62-14",
+          "question": "(Product Thinking, Higher Difficulty) A team runs an importance-satisfaction survey and finds that a candidate opportunity has both low importance and low satisfaction scores among users. What does this combination most likely suggest, according to this lesson's framework?",
+          "options": [
+            "Importance and satisfaction are irrelevant when prevalence is high",
+            "This combination cannot be interpreted using the framework at all",
+            "A comparatively weaker opportunity, since the job itself matters little to users",
+            "Automatically the top priority, since low satisfaction signals urgency"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Serving a job badly only matters if the job matters. Low satisfaction on something users do not care about is a gap nobody is waiting to have closed.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_sgqm62-15",
+          "question": "(Highest Difficulty) A team has a well-maintained, properly pruned Opportunity Solution Tree with six genuinely distinct, sized opportunities. The company's overall strategy (per Lesson 10) then shifts significantly due to a new market entrant. According to this lesson and its connections to Lesson 9 and Lesson 10, what is the most appropriate response?",
+          "options": [
+            "Continue with the existing tree, since it was properly pruned before",
+            "Re-validate the root outcome, since a well-pruned tree can still go stale",
+            "Discard the tree and start again from a completely empty list",
+            "Assume permanent validity, given the original rigour of the sizing"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Every branch is measured against the root. If the root outcome no longer matches the guiding policy, six well-sized opportunities are being ranked against the wrong target.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_d6d9edbcb3"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_9gu1rs",
+        "title": "Lesson 18: Customer Segmentation",
+        "module": "discovery"
+      },
+      "current": {
+        "id": "les_sgqm62",
+        "title": "Lesson 19: Opportunity Identification"
+      },
+      "next": {
+        "id": "les_abduwx",
+        "title": "Lesson 20: Product Discovery Process",
+        "module": "discovery"
+      },
+      "unlocks": [
+        {
+          "lesson": {
+            "id": "les_bhb1lc",
+            "title": "MVP",
+            "module": "design"
+          },
+          "coreIdea": "Uses the highest-scoring, chosen opportunity as the basis for scoping the smallest viable solution to test"
+        }
+      ],
+      "blockId": "blk_76cf8154d9"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 19: Opportunity Identification Module 2 has built an entire research and synthesis pipeline: interviews and surveys (Lessons 12–13), personas and journey maps (Lessons 14–15), pain points characterized by severity and frequency (Lesson 16), problem statements written without solutions (Lesson 17), and validated segments (Lesson 18). At this point, a team typically has more validated problems, pain points, and segment insights than it could possibly act on simultaneously. This lesson answers the natural next question: given a genuinely large pool of validated candidates, how do you systematically identify and size which ones represent the biggest actual opportunities, before committing to solve any particular one? **Opportunity identification** is the practice of surfacing, characterizing, and comparatively sizing candidate problems or unmet needs, so that a team can make a deliberate choice about where to focus limited discovery and delivery resources, rather than defaulting to whichever problem statement was written most recently or championed most persuasively. This lesson sits at the seam between research (which surfaces raw material) and strategy (Lesson 10) and prioritization (Lesson 29, still ahead): it is the disciplined practice of turning a pile of validated findings into a ranked, comparable set of genuine opportunities. Define an opportunity and distinguish it from a raw pain point, a problem statement, and a solution. Apply the Opportunity Solution Tree as a technique for organizing multiple candidate opportunities beneath a shared outcome. Size an opportunity using both qualitative importance/satisfaction data and quantitative segment-based prevalence (Lesson 18). Identify the \"opportunity sprawl\" failure pattern and explain why an unbounded list of opportunities is as unusable as no list at all. Distinguish a genuine opportunity from a restated business goal, and explain why the latter provides no real direction for discovery. Lesson 16 (Pain Points), Lesson 17 (Problem Statements), and Lesson 18 (Customer Segmentation). This lesson assumes you can characterize a pain point's severity and frequency, write a solution-free problem statement, and validate a segment. An opportunity, in this lesson's sense, is what emerges when these three prior artifacts are organized and compared against each other systematically. The Core Definition, and Distinguishing an Opportunity from Its Neighbors An opportunity is a validated, sized candidate for where a team could focus its next discovery and delivery effort, sitting conceptually between a raw pain point (Lesson 16) and a fully specified solution. It is useful to place these concepts on a single continuum: A pain point tells you something hurts. A problem statement tells you precisely what hurts, for whom, and why it matters, without committing to a fix. An opportunity adds the comparative dimension: how does this specific, validated problem compare in size and value to every other validated problem currently competing for the same limited discovery and delivery capacity? Skipping straight from a problem statement to a solution, without ever explicitly sizing and comparing it against alternatives, means a team may invest heavily in solving a real, validated problem that turns out to be far smaller in impact than several other, equally real, validated problems that were never seriously considered. The Opportunity Solution Tree A widely used technique for organizing multiple candidate opportunities is the **Opportunity Solution Tree** (closely associated with Teresa Torres's continuous discovery methodology), which structures a team's discovery work as a tree with a single desired outcome at the root, multiple opportunities as branches beneath it, and, eventually, multiple candidate solutions beneath each opportunity: This structure enforces a specific, valuable discipline: multiple opportunities are laid out side by side, beneath a single shared outcome, *before* any solution work begins for any of them. This prevents a team from tunneling into deep solution work on the first opportunity that happened to surface, without ever seeing it alongside the full set of alternatives that might have delivered more value toward the same desired outcome. The tree also visually enforces Lesson 17's discipline at the opportunity level: a genuine opportunity, like a genuine problem statement, should sit at the level of a validated user problem, with candidate solutions kept as distinct child nodes underneath it, not merged into the opportunity itself. Sizing an Opportunity: Combining Importance/Satisfaction and Prevalence A practical technique for sizing and comparing opportunities combines two dimensions, directly extending this module's qualitative and quantitative methods: **Importance and satisfaction gap** (often gathered via a structured survey technique, sometimes called an \"outcome-driven\" or \"importance-satisfaction\" survey): asking a representative sample how important a specific job or outcome is to them, and how satisfied they currently are with existing solutions for it. A large gap between high importance and low satisfaction indicates a genuinely underserved opportunity; a job rated as unimportant, or one where satisfaction is already high, indicates a comparatively weaker opportunity regardless of how vividly it was described in a single interview. **Segment-validated prevalence** (Lesson 18): how large is the validated segment experiencing this specific gap, and how does that segment's overall strategic or commercial value compare to other segments experiencing different gaps? An opportunity that scores well on both dimensions (a large importance-satisfaction gap affecting a large, strategically valuable, validated segment) represents the clearest, highest-value candidate. An opportunity strong on only one dimension (a severe gap affecting a small, low-value segment, or a modest gap affecting a very large segment) requires the same kind of deliberate, explicit judgment Lesson 16 described for off-diagonal severity/frequency cases, rather than either automatic prioritization or automatic dismissal. The \"Opportunity Sprawl\" Failure Pattern A specific, recurring failure (closely related to Lesson 14's \"too many personas\" and Lesson 18's \"segmentation for its own sake\" patterns) is **opportunity sprawl**: generating an ever-growing, unbounded list of candidate opportunities from ongoing research, without ever consolidating, comparing, or pruning the list down to a manageable set the team can actually reason about and act on. A list of forty loosely characterized \"opportunities,\" none of which have been sized or compared against each other using the importance-satisfaction and prevalence dimensions above, provides essentially the same lack of direction as having identified no opportunities at all: the volume of raw material creates an illusion of thoroughness while actually obscuring which few items genuinely deserve the team's limited attention. The corrective discipline, directly parallel to Lesson 10's exclusion principle, is periodic, deliberate pruning: consolidating overlapping or redundant opportunities, explicitly deprioritizing (not merely ignoring) low-scoring candidates, and maintaining a genuinely short, actively reasoned-about list rather than an ever-growing backlog of undifferentiated possibilities. Distinguishing a Genuine Opportunity from a Restated Business Goal A final, important distinction, directly echoing Lesson 10's \"mistaking goals for strategy\" failure: a genuine opportunity names a specific, validated user problem or unmet need (echoing Lesson 17's problem statement discipline), while a restated business goal simply names a desired business outcome without identifying any specific underlying user-side driver. \"Increase revenue by 15%\" is a goal, not an opportunity: it says nothing about *which* validated user problem, if solved, would plausibly move that number. A genuine opportunity, sitting beneath a desired outcome in the Opportunity Solution Tree, must be specific enough to be evaluated using the importance-satisfaction and prevalence dimensions above; a restated goal cannot be evaluated this way at all, because it isn't yet a hypothesis about a specific underlying cause. Moving directly from a single problem statement to a solution, without comparing it against alternative opportunities This risks investing heavily in a real, validated problem that turns out to be smaller in impact than several other equally real problems that were never seriously considered side by side. Merging a candidate solution into the opportunity itself within an Opportunity Solution Tree An opportunity should remain at the level of a validated user problem; folding a specific solution into the same node prematurely forecloses the comparison of multiple candidate solutions later, echoing Lesson 17's solution-contamination warning. Sizing an opportunity using only vivid anecdote or a single interview, without importance-satisfaction or prevalence data This repeats Lesson 16's \"vivid but rare\" distortion at the level of opportunity comparison, rather than pain point comparison specifically. Allowing an opportunity list to grow indefinitely without consolidation or pruning Opportunity sprawl produces an illusion of thoroughness while actually obscuring which few candidates genuinely deserve focused attention, echoing Lesson 14's \"too many personas\" pattern. Treating a restated business goal as if it were a genuine opportunity \"Increase revenue\" or \"reduce churn\" names a desired outcome, not a specific, validated user-side driver that could be sized and compared using this lesson's framework. The Opportunity Comparison Grid This lesson's mental model is the **Opportunity Comparison Grid**, plotting candidate opportunities by importance-satisfaction gap and segment prevalence/value, directly parallel to Lesson 16's Severity/Frequency Grid but operating one level up, at the opportunity-comparison stage rather than the individual pain-point stage. Use this grid whenever more than a small handful of validated problem statements exist simultaneously: rather than defaulting to whichever one is freshest in memory or most forcefully argued, plot each candidate explicitly and let the comparison, not the loudest voice, guide where the team focuses next. Intercom **Intercom** is one of the more directly documented examples of a company building its product and go-to-market strategy around Jobs to Be Done: the company has published its own methodology publicly, including a dedicated book, *Intercom on Jobs-to-be-Done*, and co-founder Des Traynor has spoken and written extensively about applying it internally. Intercom's own account emphasizes Tony Ulwick's \"opportunity algorithm\" (the idea that an unmet need exists specifically where a job outcome is rated both highly important and poorly satisfied by current solutions) as the sizing method for comparing candidate opportunities before committing engineering resources to any one of them. This is a useful illustration of comparing multiple candidate opportunities before committing to a specific solution, precisely the discipline this lesson's Opportunity Solution Tree and importance-satisfaction sizing technique formalize: organize strategy discussions around a small number of clearly named customer outcomes, lay out multiple candidate opportunities against those outcomes, and let the comparison, not whichever feature idea was most recently discussed in a meeting, determine what gets built next. *(Source: Intercom's own published blog and book on the topic, corroborated by public talks from co-founder Des Traynor. This curriculum does not claim certainty about the company's complete current internal prioritization process.)* At a startup Opportunity identification is often concentrated on a small number of existentially important candidates, directly tied to whether the core product concept addresses a real, sufficiently important and underserved job at all (echoing Lesson 8's foundational discovery risk). Startups rarely have the luxury of an extensive Opportunity Solution Tree with many branches; the discipline instead often centers on rigorously validating whether the single most promising opportunity is real before committing scarce resources. At a mid-size company Opportunity identification often becomes a more structured, recurring practice, periodically reviewing and re-scoring a maintained Opportunity Solution Tree as new research emerges, and using importance-satisfaction survey techniques at increasing scale to compare candidates more rigorously than a startup's more improvised, resource-constrained approach typically allows. At Big Tech Opportunity identification at scale often involves formal, recurring quantitative surveys (echoing Lesson 13) run across large populations specifically to maintain an up-to-date importance-satisfaction map across many potential opportunity areas simultaneously, and a significant part of senior product strategy work involves periodically pruning and consolidating an otherwise sprawling opportunity backlog across multiple product lines, preventing the exact \"opportunity sprawl\" failure this lesson warns against at organizational scale. The Opportunity List That Never Got Smaller Consider a simplified, illustrative scenario common across B2B SaaS product teams practicing continuous discovery. A team building a customer support platform adopts continuous discovery practices (echoing Lesson 8) and begins maintaining an Opportunity Solution Tree, updated after every round of customer interviews. Over eighteen months, driven by genuine enthusiasm for the practice, the team accumulates 47 distinct \"opportunities\" beneath their shared outcome (\"reduce average ticket resolution time\"), each one a real, laddered finding from an actual interview. Despite the genuine research effort behind each item, the team finds itself increasingly unable to make forward progress: planning meetings devolve into lengthy debates about which of the 47 items to discuss, no consistent method exists for comparing their relative importance, and several near-duplicate opportunities (three separate entries describing closely related variations of \"agents struggle to find relevant historical context on a ticket\") are tracked separately, further inflating the list without adding genuinely distinct information. A new discovery lead, brought in to help, spends a full sprint specifically consolidating and re-scoring the list: merging near-duplicate opportunities, running a structured importance-satisfaction survey (Lesson 13's technique, applied per this lesson's sizing method) across a representative sample of support agents to establish genuine relative sizing rather than relying on interview-recency or vividness, and validating segment prevalence (Lesson 18) for the remaining candidates. The exercise reduces the list from 47 loosely characterized items to 6 genuinely distinct, sized, and ranked opportunities, and reveals that the single highest-scoring opportunity (agents lacking a fast way to see a customer's full prior interaction history across multiple channels) had been sitting in the original list, undifferentiated among 46 other items, for over a year without ever being specifically prioritized. **What went wrong?** Applying this lesson's frameworks: **The team fell into opportunity sprawl**: genuine research effort produced a continuously growing list without a corresponding, disciplined practice of consolidation, sizing, and pruning, echoing Lesson 14's \"too many personas\" pattern applied at the opportunity level. **No importance-satisfaction or prevalence sizing was applied consistently across the list**, meaning opportunities were effectively being compared (when compared at all) based on how recently or memorably they had come up in a meeting, rather than through the systematic Opportunity Comparison Grid this lesson recommends. **Near-duplicate opportunities were tracked separately rather than consolidated**, artificially inflating the apparent size of the list and obscuring which underlying themes were actually most significant once properly merged. A team applying this lesson's discipline from the outset would have periodically (not just once, after the problem had already become severe) consolidated and re-scored its Opportunity Solution Tree, likely surfacing the historical-context opportunity (the eventual highest-scoring candidate) well before a full year had passed with it sitting undifferentiated among dozens of other, less significant items. This case connects directly back to **Lesson 8's continuous discovery principle**: discovery itself was being conducted diligently and continuously in this case study, but the corresponding discipline of continuous *synthesis and pruning* was missing, showing that genuine research volume alone does not guarantee genuine strategic clarity. The Opportunity Pruning Cadence A practical framework for preventing opportunity sprawl, structured as a recurring cadence rather than a one-time cleanup: The recurring theme across this cadence: **opportunity identification is not a one-time exercise that produces a static, permanent list. It requires the same ongoing, disciplined maintenance this curriculum has emphasized for personas (Lesson 14), journey maps (Lesson 15), and segments (Lesson 18), or it will drift toward exactly the sprawl this lesson's Detailed Case Study describes.** How do you decide which of several validated customer problems to focus on next? *What the interviewer is actually evaluating:* Whether the candidate has a systematic comparison method (importance-satisfaction, segment prevalence) rather than defaulting to whichever problem was most recently or forcefully raised, directly echoing Lesson 16's related question, now applied at the level of comparing entire opportunities rather than individual pain points. Tell me about a time your team had too many candidate ideas or findings and needed to narrow them down. *What the interviewer is actually evaluating:* Direct experience with the opportunity-sprawl problem and its correction, whether the candidate can describe a genuine consolidation and re-scoring process, echoing this lesson's Detailed Case Study, rather than simply describing an unstructured, intuitive winnowing process. What's the difference between a business goal and a product opportunity? *What the interviewer is actually evaluating:* Whether the candidate can articulate the specific distinction this lesson draws: a goal names a desired outcome, while an opportunity names a specific, validated user-side driver that could plausibly move that outcome, echoing Lesson 10's goal-versus-strategy distinction applied at the discovery level. An opportunity is a validated, sized candidate problem sitting between a raw pain point and a specific solution: it adds a comparative dimension that a problem statement alone does not provide, asking how a given validated problem compares in size and value to every other validated problem currently competing for limited resources. The Opportunity Solution Tree organizes multiple candidate opportunities beneath a single shared desired outcome, keeping opportunities distinct from candidate solutions and enabling side-by-side comparison before any solution work begins. Sizing an opportunity combines an importance-satisfaction gap (how important is this job, and how well is it currently served) with segment-validated prevalence (Lesson 18) and strategic value. \"Opportunity sprawl\" (an ever-growing, unconsolidated list of candidate opportunities) provides no more real direction than having identified none at all, and requires a disciplined, recurring pruning cadence to correct. Finally, a genuine opportunity must be distinguished from a restated business goal: a goal names a desired outcome, while an opportunity names the specific, validated user-side driver that could plausibly move it. An opportunity sits between a raw pain point and a specific solution, adding the comparative dimension of relative size and value against other validated candidates. The Opportunity Solution Tree organizes multiple opportunities beneath a shared desired outcome, keeping opportunities distinct from candidate solutions to enable genuine side-by-side comparison. Sizing an opportunity combines an importance-satisfaction gap with segment-validated prevalence and strategic value, not vivid anecdote alone. \"Opportunity sprawl\" (an unconsolidated, ever-growing list) provides no more real direction than an empty list, and requires disciplined, recurring pruning. A restated business goal (\"increase revenue\") is not itself an opportunity; a genuine opportunity names the specific, validated user-side driver that could plausibly move that goal. Near-duplicate opportunities should be consolidated, not tracked separately, to avoid artificially inflating the apparent size of a candidate list. Opportunity identification requires ongoing, periodic maintenance (consolidation, re-scoring, and explicit deprioritization), not a one-time exercise producing a static list. **Pain point → Problem Statement → Opportunity → Solution.** Each step adds specificity or comparison; don't skip the comparison step. **Opportunity Solution Tree:** shared outcome at root, opportunities as branches, solutions as leaves. Keep opportunities and solutions distinct nodes. **Sizing = Importance-Satisfaction Gap + Segment Prevalence/Value**: not vivid anecdote. **Opportunity sprawl** = an unconsolidated, ever-growing list = no more useful than no list at all. **Goal ≠ Opportunity.** \"Increase revenue\" isn't an opportunity; the specific validated driver behind it is. **Pruning cadence:** consolidate duplicates → re-score → explicitly deprioritize → re-validate against current strategy. Opportunity A validated, sized candidate problem, positioned for comparison against alternatives before a solution is chosen. Opportunity Solution Tree A structure organizing a desired outcome, multiple candidate opportunities beneath it, and candidate solutions beneath each opportunity. Importance-Satisfaction Gap A sizing technique measuring how important a job is to users versus how satisfied they currently are with existing solutions for it. Opportunity Sprawl The failure pattern of an ever-growing, unconsolidated list of candidate opportunities that provides no real strategic direction. Opportunity Pruning Cadence A recurring practice of consolidating, re-scoring, and explicitly deprioritizing candidate opportunities to prevent sprawl. Teresa Torres, *Continuous Discovery Habits* the primary source for the Opportunity Solution Tree structure referenced throughout this lesson. Tony Ulwick, *What Customers Want* the origin of the importance-satisfaction (outcome-driven innovation) sizing technique described in this lesson. Marty Cagan, *Inspired* discusses organizing product discovery around outcomes and opportunities rather than jumping directly to features, closely related to this lesson's overall framing. Where does an \"opportunity\" sit on the continuum from pain point to solution? Between a problem statement and a solution. It adds the comparative dimension of relative size and value against other validated candidates, which a problem statement alone does not provide. What is an Opportunity Solution Tree? A structure with a shared desired outcome at the root, multiple candidate opportunities as branches, and candidate solutions as leaves beneath each opportunity, keeping opportunities and solutions as distinct nodes. What two dimensions combine to size an opportunity, according to this lesson? The importance-satisfaction gap (how important the job is versus how well it's currently served) and segment-validated prevalence/strategic value. What is \"opportunity sprawl\"? The failure pattern of an ever-growing, unconsolidated list of candidate opportunities that provides no more real strategic direction than having identified none at all. Why is \"increase revenue by 15%\" not a genuine opportunity, according to this lesson? It names a desired business outcome, not a specific, validated user-side driver that could plausibly move that outcome. A genuine opportunity must be specific enough to be sized and compared. In the Detailed Case Study, what specific mistake inflated the team's opportunity list beyond its genuine size? Near-duplicate opportunities (three separate entries describing closely related variations of the same underlying issue) were tracked separately rather than consolidated. What are the four steps of the Opportunity Pruning Cadence? Consolidate near-duplicates, re-score using importance-satisfaction and prevalence data, explicitly deprioritize low-scoring candidates, and re-validate the shared outcome against current strategy. You are the PM for a note-taking app, and your team's continuous discovery work (per Lesson 8) has surfaced five candidate opportunities beneath the shared outcome \"increase weekly active usage\": (1) users forget to open the app after the first week; (2) users can't easily find notes taken more than a month ago; (3) users want better formatting options for tables; (4) users on mobile report the app feels slow to open; (5) users want to share notes with people who don't have the app. Work through the following, in writing, before reading further: Organize these five items into an Opportunity Solution Tree, confirming each is genuinely an opportunity (a validated user problem) rather than a disguised solution or a restated goal. Propose one importance-satisfaction survey question you would ask to size two of these five opportunities against each other. Identify whether any of the five items might actually be near-duplicates or closely related variations of a shared underlying theme, and explain your reasoning. Using the Opportunity Comparison Grid, make a rough, reasoned guess about which one or two of these five likely represent the highest-value opportunities, explicitly noting what additional evidence would most change your ranking. Referencing the Opportunity Pruning Cadence, describe when and how you would revisit this list in the future to prevent it from growing into unmanaged sprawl. There is no single correct answer. The purpose of this exercise is to practice comparing multiple validated opportunities systematically, rather than defaulting to whichever one feels most vivid or was most recently discussed. Where does an \"opportunity\" sit on the continuum described in this lesson? A pain point says something hurts. A problem statement says precisely what, for whom, and why. An opportunity adds the comparison: how does this rank against every other validated problem competing for the same capacity? What is the core structure of an Opportunity Solution Tree? Keeping opportunities and solutions as distinct node types is what makes side-by-side comparison possible before anyone tunnels into building the first idea that surfaced. Which two dimensions does this lesson recommend combining to size a candidate opportunity? A wide gap on a job people care about, affecting a large and strategically valuable segment, is the clearest candidate. Strength on only one dimension needs an explicit judgment call. What is \"opportunity sprawl\"? Forty loosely characterised items nobody has sized creates an impression of thoroughness while hiding which few actually deserve the team's attention. Why is \"increase revenue by 15%\" not considered a genuine opportunity, according to this lesson? It works well as the root of a tree and cannot be scored on importance-satisfaction or prevalence, because it is not yet a hypothesis about any particular cause. In the Detailed Case Study, what specific practice was missing that allowed the opportunity list to grow to 47 items? The research was real and the synthesis never happened. Discovery that only ever adds, without a matching habit of merging and cutting, produces exactly this. What specific consequence resulted from tracking near-duplicate opportunities separately in the Detailed Case Study? Three fragments of one theme look like three small items rather than one large one, which systematically understates the thing that most deserved attention. According to the Opportunity Pruning Cadence, what should happen to low-scoring candidate opportunities during a review cycle? This is Lesson 10's exclusion discipline applied to a backlog. An item quietly ignored still occupies the list; an item explicitly set aside no longer competes for attention. (Scenario) A team has validated five distinct problem statements (per Lesson 17) but has not yet compared them against each other using importance-satisfaction or prevalence data. According to this lesson, what is the most appropriate next step before committing to a solution for any one of them? All five may describe real problems. Without sizing, the team could invest heavily in the smallest of them and never learn that it did. (Product Thinking) An opportunity scores high on the importance-satisfaction gap but affects only a very small, strategically low-value segment. According to this lesson, what is the most appropriate response? Strong on one axis and weak on the other is the same shape of problem as Lesson 16's rare-but-severe pain point, and it calls for the same explicit reasoning rather than a rule. (Interview Reasoning) A candidate describes prioritizing whichever customer problem was most recently discussed in a stakeholder meeting, without any structured comparison against other known validated problems. What might this signal, based on this lesson's Interview Perspective section? This is Lesson 16's most-recent-complaint pattern operating one level up, where the cost of choosing badly is a quarter of delivery rather than a single fix. (Product Thinking, Higher Difficulty) A team merges three previously separate opportunities into one, after discovering through re-scoring that they all describe variations of the same underlying theme (agents lacking fast access to historical context). What should happen to this newly merged opportunity's importance-satisfaction and prevalence scores? Each original score measured a partial view of the real theme. Combining three partial measurements arithmetically does not produce a measurement of the whole. (Interview Reasoning, Higher Difficulty) An interviewer asks a candidate to distinguish a business goal from a genuine opportunity, and the candidate responds that \"reduce customer churn\" is itself a valid opportunity to add to an Opportunity Solution Tree. What is the strongest critique of this answer, based on this lesson? Churn reduction belongs at the root, where it does useful work. As a branch it names no user-side driver and therefore cannot be scored against the branches beside it. (Product Thinking, Higher Difficulty) A team runs an importance-satisfaction survey and finds that a candidate opportunity has both low importance and low satisfaction scores among users. What does this combination most likely suggest, according to this lesson's framework? Serving a job badly only matters if the job matters. Low satisfaction on something users do not care about is a gap nobody is waiting to have closed. (Highest Difficulty) A team has a well-maintained, properly pruned Opportunity Solution Tree with six genuinely distinct, sized opportunities. The company's overall strategy (per Lesson 10) then shifts significantly due to a new market entrant. According to this lesson and its connections to Lesson 9 and Lesson 10, what is the most appropriate response? Every branch is measured against the root. If the root outcome no longer matches the guiding policy, six well-sized opportunities are being ranked against the wrong target.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "Mental Model: The Opportunity Comparison Grid",
+      "Real Company Example",
+      "Real World Perspective: Opportunity Identification at Different Company Stages",
+      "Detailed Case Study: The Opportunity List That Never Got Smaller",
+      "Framework Explanation: The Opportunity Pruning Cadence",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "Opportunity",
+    "Opportunity Solution Tree",
+    "Importance-Satisfaction Gap",
+    "Opportunity Sprawl",
+    "Opportunity Pruning Cadence"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

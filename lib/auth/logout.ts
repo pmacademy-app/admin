@@ -1,0 +1,129 @@
+/**
+ * The one place logout happens on the client.
+ *
+ * Logging out is two independent network calls — revoking the Supabase session
+ * and clearing the httpOnly cookies the server sets — and the earlier duplicated
+ * implementations ran both inside a single `try` with the navigation at the end.
+ * Two consequences followed (F-COR-6): a failing provider sign-out skipped the
+ * cookie clear entirely, leaving a usable server-side session behind, and any
+ * throw left the user sitting on an authenticated-looking page with no feedback.
+ *
+ * Here each step is settled on its own, navigation happens in `finally` so it
+ * cannot be skipped, and the outcome is returned rather than swallowed.
+ *
+ * ## B13-A — one call, not two
+ *
+ * The provider sign-out used to happen here, via `createBrowserSupabaseClient()`.
+ * With `persistSession` disabled there is no browser-held session left to revoke, so
+ * that call would have become a no-op that still reported success — the worst kind of
+ * security control. Revocation moved server-side into `POST /api/auth/session`, which
+ * holds the refresh token in an httpOnly cookie and can actually invalidate it.
+ *
+ * That is a strengthening, not a simplification: previously a failed browser
+ * `signOut()` left a valid refresh token at the provider and the code recorded it as a
+ * `provider_sign_out` failure the user could do nothing about. Now the side that owns
+ * the credential revokes it, and the step names below reflect where the work happens.
+ */
+
+import { apiPost } from '@/lib/api/client'
+
+/** Learner-facing destination after logout. */
+export const LEARNER_LOGIN_PATH = '/login'
+
+/** Admin-console destination after logout. */
+export const ADMIN_LOGIN_PATH = '/admin/login'
+
+/** The subset of the Next.js router this helper needs, so it stays testable. */
+export interface LogoutRouter {
+  push: (href: string) => void
+  refresh: () => void
+}
+
+export type LogoutStep = 'provider_sign_out' | 'session_cookie_clear'
+
+export interface LogoutFailure {
+  step: LogoutStep
+  /** Short, non-sensitive reason. Never carries a token or a response body. */
+  reason: string
+}
+
+export interface LogoutResult {
+  /** True only when both the provider revocation and the cookie clear succeeded. */
+  ok: boolean
+  failures: LogoutFailure[]
+}
+
+export interface LogoutOptions {
+  /**
+   * Where to send the user afterwards. Must be an app-relative path; a
+   * protocol-relative or absolute URL is rejected in favour of the learner
+   * login page so a bad caller cannot turn logout into an open redirect.
+   */
+  redirectTo: string
+}
+
+const MAX_REASON_LENGTH = 200
+
+function describe(error: unknown): string {
+  const raw = error instanceof Error ? error.message : String(error)
+  return raw.slice(0, MAX_REASON_LENGTH)
+}
+
+function safeDestination(redirectTo: string): string {
+  if (!redirectTo.startsWith('/') || redirectTo.startsWith('//')) {
+    // Admin split: the only login on this host is the admin one.
+    return ADMIN_LOGIN_PATH
+  }
+  return redirectTo
+}
+
+/**
+ * Signs the current user out and navigates to `redirectTo`.
+ *
+ * Navigation is guaranteed: it runs in `finally`, so an offline browser or a
+ * failing auth provider still moves the user off the authenticated view.
+ * Callers decide how to surface `failures` — the helper itself never throws.
+ */
+export async function logout(
+  router: LogoutRouter,
+  { redirectTo }: LogoutOptions
+): Promise<LogoutResult> {
+  const failures: LogoutFailure[] = []
+
+  try {
+    // One server call now does both halves: it revokes the refresh token at the
+    // provider using the httpOnly cookie, then clears the cookies. The response
+    // reports the revocation outcome separately, because a cleared cookie with a
+    // live refresh token behind it is a different situation from a clean logout.
+    try {
+      const result = await apiPost<{ revocation?: string }>('/api/auth/session', {
+        action: 'sign_out',
+      })
+
+      if (!result.ok) {
+        if (result.error.kind === 'parse' && result.error.status >= 200 && result.error.status < 300) {
+          // An unreadable 2xx sign-out body is treated as success rather than inventing a failure
+        } else {
+          failures.push({
+            step: 'session_cookie_clear',
+            reason: result.error.kind === 'network' ? 'Failed to fetch' : `server responded ${result.error.status}`,
+          })
+        }
+      } else if (result.data?.revocation === 'failed') {
+        failures.push({ step: 'provider_sign_out', reason: 'provider revocation failed' })
+      }
+    } catch (err) {
+      failures.push({ step: 'session_cookie_clear', reason: describe(err) })
+    }
+  } finally {
+    router.push(safeDestination(redirectTo))
+    router.refresh()
+  }
+
+  return { ok: failures.length === 0, failures }
+}
+
+/** Formats a result for logging without leaking response bodies. */
+export function formatLogoutFailures(result: LogoutResult): string {
+  return result.failures.map((f) => `${f.step}: ${f.reason}`).join('; ')
+}

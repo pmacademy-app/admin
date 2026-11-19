@@ -1,0 +1,981 @@
+{
+  "schemaVersion": 2,
+  "id": "les_go5z1d",
+  "contentHash": "0ebf4c25b4fd234bd3a42c50666f333ca0cb108fc72026c1ff42fa49b532f719",
+  "title": "UX Principles for Product Managers",
+  "slug": "lesson-027",
+  "module": "design",
+  "order": 7,
+  "totalInModule": 10,
+  "difficulty": 3,
+  "estimatedReadingTime": 25,
+  "estimatedCompletionTime": 40,
+  "prerequisites": [
+    "les_apad14",
+    "les_emiqho"
+  ],
+  "sourceFile": "content/lessons/lesson-027.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 27: UX Principles for Product Managers",
+      "blockId": "blk_aad7bef5f8"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lessons 25 and 26 covered *how* to iterate on structure and interactivity cheaply, before committing to full development: wireframes for layout, prototypes for interaction. What neither lesson addressed is *what actually makes an interface good*, once you're deciding between two structurally valid layouts or two functionally working interaction patterns. This lesson fills that gap with a small set of durable UX principles, not a comprehensive design education, which is a genuinely separate discipline with its own multi-year expertise, but the specific, well-established principles a PM needs to participate meaningfully in design decisions, ask good questions, and recognize when a proposed design is likely to cause real friction, without overstepping into territory that belongs to a trained designer's expertise.",
+      "blockId": "blk_916b39b246"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson exists because PMs sit in an uncomfortable middle position on design: enough involvement to ask good questions and catch clear problems, not enough formal training to make expert visual or interaction design judgments unilaterally. The principles covered here are chosen specifically because they're durable (not trend-dependent), broadly applicable across product categories, and genuinely useful for a PM's actual job: evaluating whether a design decision serves the validated problem (Lesson 17) and the user's actual cognitive experience, not dictating the specific visual execution, which properly belongs to design expertise per Lesson 22's Precision Dial.",
+      "blockId": "blk_209956075f"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "Explain and apply Hick's Law and Fitts's Law to evaluate interface decisions involving choice quantity and target interaction.",
+        "Apply the concept of cognitive load to identify when an interface is asking too much of a user's working memory.",
+        "Distinguish recognition from recall, and explain why interfaces that favor recognition generally reduce user effort.",
+        "Identify the \"PM as design dictator\" failure pattern, distinguishing legitimate UX evaluation from overstepping into design's domain of expertise.",
+        "Apply these principles as a review lens on a wireframe or prototype, without prescribing specific visual solutions."
+      ],
+      "blockId": "blk_27f4fb42f1"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 22 (Product Requirements Document) and Lesson 26 (Prototyping). This lesson assumes fluency with the Precision Dial (specifying the what/why while leaving the how to design expertise) and extends it directly: these UX principles give a PM a *what* to specify (reduced cognitive load, favoring recognition, appropriate choice quantity) without dictating the specific *how* a designer would use to achieve it.",
+      "blockId": "blk_4b902d50c1"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Hick's Law: More Choices, More Time",
+          "blockId": "blk_14570c320b"
+        },
+        {
+          "type": "paragraph",
+          "text": "**Hick's Law** states that the time it takes a person to make a decision increases with the number and complexity of choices available. This has a direct, practical implication for interface design: a screen presenting many options simultaneously (a long navigation menu, an extensive settings page, a form with many equally weighted fields) increases the cognitive burden and decision time for every person who encounters it, regardless of how well each individual option is designed.",
+          "blockId": "blk_58879bd116"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_2d794458a5",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[Number of Choices Presented] --> B[Decision Time Required]\r\n    A -.->|More choices| B",
+          "normalized": "graph LR\r\n    A[Number of Choices Presented] --> B[Decision Time Required]\r\n    A -.->|More choices| B",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020944780-72\" xmlns=\"http://www.w3.org/2000/svg\" width=\"990.38\" height=\"140.99\" viewBox=\"-49.375 -27 990.38 140.99\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Number of Choices Presented → Decision Time Required\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Number of Choices Presented → Decision Time Required</title><style>#mermaid-svg-1795020944780-72{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020944780-72 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020944780-72 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020944780-72 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020944780-72 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020944780-72 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020944780-72 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020944780-72 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020944780-72 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020944780-72 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020944780-72 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020944780-72 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020944780-72 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020944780-72 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020944780-72 p{margin:0;}#mermaid-svg-1795020944780-72 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020944780-72 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020944780-72 .cluster-label span{color:#171A17;}#mermaid-svg-1795020944780-72 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020944780-72 .label text,#mermaid-svg-1795020944780-72 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020944780-72 .node rect,#mermaid-svg-1795020944780-72 .node circle,#mermaid-svg-1795020944780-72 .node ellipse,#mermaid-svg-1795020944780-72 .node polygon,#mermaid-svg-1795020944780-72 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020944780-72 .rough-node .label text,#mermaid-svg-1795020944780-72 .node .label text,#mermaid-svg-1795020944780-72 .image-shape .label,#mermaid-svg-1795020944780-72 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020944780-72 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020944780-72 .rough-node .label,#mermaid-svg-1795020944780-72 .node .label,#mermaid-svg-1795020944780-72 .image-shape .label,#mermaid-svg-1795020944780-72 .icon-shape .label{text-align:center;}#mermaid-svg-1795020944780-72 .node.clickable{cursor:pointer;}#mermaid-svg-1795020944780-72 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020944780-72 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020944780-72 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020944780-72 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020944780-72 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020944780-72 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020944780-72 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020944780-72 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020944780-72 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020944780-72 .cluster text{fill:#171A17;}#mermaid-svg-1795020944780-72 .cluster span{color:#171A17;}#mermaid-svg-1795020944780-72 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020944780-72 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020944780-72 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020944780-72 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020944780-72 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020944780-72 .icon-shape,#mermaid-svg-1795020944780-72 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020944780-72 .icon-shape p,#mermaid-svg-1795020944780-72 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020944780-72 .icon-shape .label rect,#mermaid-svg-1795020944780-72 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020944780-72 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020944780-72 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020944780-72 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020944780-72 [data-look=\"neo\"].node rect,#mermaid-svg-1795020944780-72 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020944780-72 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020944780-72-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944780-72 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020944780-72 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020944780-72-gradient);stroke-width:1px;}#mermaid-svg-1795020944780-72 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944780-72 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020944780-72 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020944780-72-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944780-72 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020944780-72 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020944780-72-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944780-72 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020944780-72-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944780-72 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020944780-72_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944780-72_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944780-72_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944780-72_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020944780-72_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944780-72_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944780-72_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944780-72_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944780-72_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944780-72_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944780-72_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020944780-72_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M432.25,35.605L447.167,34.171C462.083,32.737,491.917,29.868,521.087,29.967C550.258,30.065,578.765,33.13,593.019,34.662L607.273,36.194\" id=\"mermaid-svg-1795020944780-72-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NDMyLjI1LCJ5IjozNS42MDUwNTU5NDY5NTM5OTZ9LHsieCI6NTIxLjc1LCJ5IjoyN30seyJ4Ijo2MTEuMjUsInkiOjM2LjYyMTg3MjEwMzc5OTgyfV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020944780-72_flowchart-v2-pointEnd)\"></path><path d=\"M432.25,76.395L447.167,77.829C462.083,79.263,491.917,82.132,521.087,82.033C550.258,81.935,578.765,78.87,593.019,77.338L607.273,75.806\" id=\"mermaid-svg-1795020944780-72-L_A_B_2\" class=\"edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_2\" data-points=\"W3sieCI6NDMyLjI1LCJ5Ijo3Ni4zOTQ5NDQwNTMwNDZ9LHsieCI6NTIxLjc1LCJ5Ijo4NX0seyJ4Ijo2MTEuMjUsInkiOjc1LjM3ODEyNzg5NjIwMDE4fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020944780-72_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(521.80121, 84.99449)\"><g class=\"label\" data-id=\"L_A_B_2\" transform=\"translate(-67, -19)\"><foreignObject width=\"134\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>More choices</p></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020944780-72-flowchart-A-0\" data-look=\"classic\" transform=\"translate(220.125, 56)\"><rect class=\"basic label-container\" style=\"\" x=\"-162.75\" y=\"-35\" width=\"325.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-130.75, -19)\"><rect></rect><foreignObject width=\"261.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Number of Choices Presented</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020944780-72-flowchart-B-1\" data-look=\"classic\" transform=\"translate(791.5, 56)\"><rect class=\"basic label-container\" style=\"\" x=\"-141.5\" y=\"-35\" width=\"283\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-109.5, -19)\"><rect></rect><foreignObject width=\"219\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Decision Time Required</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020944780-72-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020944780-72-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020944780-72-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_2d794458a5"
+        },
+        {
+          "type": "paragraph",
+          "text": "This does not mean fewer options are always better in an absolute sense: some tasks genuinely require presenting many options (a product catalog, for instance), but it does mean that **unnecessary** choice proliferation carries a real cost, and that progressive disclosure (revealing options only as needed, rather than presenting everything simultaneously) is often a legitimate design response to Hick's Law, one a PM can advocate for at the level of \"should we reduce the number of simultaneous choices here\" without dictating the specific visual mechanism (a dropdown, a multi-step wizard, a search-first interface) design should use to achieve it.",
+          "blockId": "blk_da6c1798cf"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Fitts's Law: Distance, Size, and Time to Target",
+          "blockId": "blk_57948b6bab"
+        },
+        {
+          "type": "paragraph",
+          "text": "**Fitts's Law** describes the relationship between the time required to move to and successfully select a target and two factors: the target's size and its distance from the user's current position. Larger, closer targets are faster and easier to select accurately; smaller, more distant targets take longer and are more error-prone.",
+          "blockId": "blk_ddffe05614"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_a89983114b",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Target Size] --> C[Time to Successfully Select Target]\r\n    B[Distance to Target] --> C\r\n    A -.->|Larger = Faster, More Accurate| C\r\n    B -.->|Closer = Faster, More Accurate| C",
+          "normalized": "graph TD\r\n    A[Target Size] --> C[Time to Successfully Select Target]\r\n    B[Distance to Target] --> C\r\n    A -.->|Larger = Faster, More Accurate| C\r\n    B -.->|Closer = Faster, More Accurate| C",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020944874-73\" xmlns=\"http://www.w3.org/2000/svg\" width=\"763.07\" height=\"272\" viewBox=\"-38 -27 763.07 272\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Target Size → Time to Successfully Select Target → Distance to Target\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Target Size → Time to Successfully Select Target → Distance to Target</title><style>#mermaid-svg-1795020944874-73{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020944874-73 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020944874-73 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020944874-73 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020944874-73 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020944874-73 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020944874-73 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020944874-73 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020944874-73 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020944874-73 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020944874-73 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020944874-73 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020944874-73 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020944874-73 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020944874-73 p{margin:0;}#mermaid-svg-1795020944874-73 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020944874-73 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020944874-73 .cluster-label span{color:#171A17;}#mermaid-svg-1795020944874-73 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020944874-73 .label text,#mermaid-svg-1795020944874-73 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020944874-73 .node rect,#mermaid-svg-1795020944874-73 .node circle,#mermaid-svg-1795020944874-73 .node ellipse,#mermaid-svg-1795020944874-73 .node polygon,#mermaid-svg-1795020944874-73 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020944874-73 .rough-node .label text,#mermaid-svg-1795020944874-73 .node .label text,#mermaid-svg-1795020944874-73 .image-shape .label,#mermaid-svg-1795020944874-73 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020944874-73 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020944874-73 .rough-node .label,#mermaid-svg-1795020944874-73 .node .label,#mermaid-svg-1795020944874-73 .image-shape .label,#mermaid-svg-1795020944874-73 .icon-shape .label{text-align:center;}#mermaid-svg-1795020944874-73 .node.clickable{cursor:pointer;}#mermaid-svg-1795020944874-73 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020944874-73 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020944874-73 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020944874-73 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020944874-73 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020944874-73 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020944874-73 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020944874-73 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020944874-73 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020944874-73 .cluster text{fill:#171A17;}#mermaid-svg-1795020944874-73 .cluster span{color:#171A17;}#mermaid-svg-1795020944874-73 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020944874-73 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020944874-73 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020944874-73 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020944874-73 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020944874-73 .icon-shape,#mermaid-svg-1795020944874-73 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020944874-73 .icon-shape p,#mermaid-svg-1795020944874-73 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020944874-73 .icon-shape .label rect,#mermaid-svg-1795020944874-73 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020944874-73 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020944874-73 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020944874-73 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020944874-73 [data-look=\"neo\"].node rect,#mermaid-svg-1795020944874-73 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020944874-73 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020944874-73-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944874-73 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020944874-73 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020944874-73-gradient);stroke-width:1px;}#mermaid-svg-1795020944874-73 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944874-73 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020944874-73 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020944874-73-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944874-73 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020944874-73 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020944874-73-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944874-73 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020944874-73-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020944874-73 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020944874-73_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944874-73_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944874-73_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944874-73_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020944874-73_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944874-73_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944874-73_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944874-73_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020944874-73_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944874-73_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020944874-73_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020944874-73_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M89.148,82L80.623,88.917C72.099,95.833,55.049,109.667,71.455,123.326C87.861,136.985,137.722,150.47,162.652,157.213L187.583,163.956\" id=\"mermaid-svg-1795020944874-73-L_A_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_C_0\" data-points=\"W3sieCI6ODkuMTQ4MDg5MTcxOTc0NTIsInkiOjgyfSx7IngiOjM4LCJ5IjoxMjMuNX0seyJ4IjoxOTEuNDQ0MjY3NTE1OTIzNTcsInkiOjE2NX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020944874-73_flowchart-v2-pointEnd)\"></path><path d=\"M476.148,82L467.623,88.917C459.099,95.833,442.049,109.667,425.518,123.08C408.986,136.493,392.972,149.486,384.965,155.983L376.958,162.48\" id=\"mermaid-svg-1795020944874-73-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6NDc2LjE0ODA4OTE3MTk3NDUsInkiOjgyfSx7IngiOjQyNSwieSI6MTIzLjV9LHsieCI6MzczLjg1MTkxMDgyODAyNTUsInkiOjE2NX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020944874-73_flowchart-v2-pointEnd)\"></path><path d=\"M180.352,82L188.877,88.917C197.401,95.833,214.451,109.667,230.982,123.08C247.514,136.493,263.528,149.486,271.535,155.983L279.542,162.48\" id=\"mermaid-svg-1795020944874-73-L_A_C_2\" class=\"edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_C_2\" data-points=\"W3sieCI6MTgwLjM1MTkxMDgyODAyNTUsInkiOjgyfSx7IngiOjIzMS41LCJ5IjoxMjMuNX0seyJ4IjoyODIuNjQ4MDg5MTcxOTc0NSwieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020944874-73_flowchart-v2-pointEnd)\"></path><path d=\"M567.352,82L575.877,88.917C584.401,95.833,601.451,109.667,585.045,123.326C568.639,136.985,518.778,150.47,493.848,157.213L468.917,163.956\" id=\"mermaid-svg-1795020944874-73-L_B_C_2\" class=\"edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_2\" data-points=\"W3sieCI6NTY3LjM1MTkxMDgyODAyNTQsInkiOjgyfSx7IngiOjYxOC41LCJ5IjoxMjMuNX0seyJ4Ijo0NjUuMDU1NzMyNDg0MDc2NDMsInkiOjE2NX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020944874-73_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(231.5, 123.5)\"><g class=\"label\" data-id=\"L_A_C_2\" transform=\"translate(-143.5, -19)\"><foreignObject width=\"287\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Larger = Faster, More Accurate</p></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(573.56886, 135.65192)\"><g class=\"label\" data-id=\"L_B_C_2\" transform=\"translate(-143.5, -19)\"><foreignObject width=\"287\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Closer = Faster, More Accurate</p></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020944874-73-flowchart-A-0\" data-look=\"classic\" transform=\"translate(134.75, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-94.75\" y=\"-35\" width=\"189.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-62.75, -19)\"><rect></rect><foreignObject width=\"125.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Target Size</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020944874-73-flowchart-C-1\" data-look=\"classic\" transform=\"translate(328.25, 202)\"><rect class=\"basic label-container\" style=\"\" x=\"-192.5\" y=\"-35\" width=\"385\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-160.5, -19)\"><rect></rect><foreignObject width=\"321\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Time to Successfully Select Target</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020944874-73-flowchart-B-2\" data-look=\"classic\" transform=\"translate(521.75, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-124.5\" y=\"-35\" width=\"249\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-92.5, -19)\"><rect></rect><foreignObject width=\"185\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Distance to Target</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020944874-73-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020944874-73-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020944874-73-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_a89983114b"
+        },
+        {
+          "type": "paragraph",
+          "text": "This principle has direct, practical implications for interaction design that a PM can evaluate without needing to specify exact pixel measurements: is a frequently used action (like a primary call-to-action button) sized and positioned appropriately for its importance and frequency of use, or is it small and tucked into a corner, forcing users to move precisely to a small, distant target repeatedly? A PM applying Fitts's Law as a review lens asks \"is this important, frequent action easy to reach and hit reliably?\" (a what-level question) rather than specifying \"make the button exactly 48 pixels tall and position it at these exact coordinates,\" which is properly a design implementation decision.",
+          "blockId": "blk_0d66e576ba"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Cognitive Load",
+          "blockId": "blk_35bb0d5a40"
+        },
+        {
+          "type": "paragraph",
+          "text": "**Cognitive load** refers to the total amount of mental effort being used in a person's working memory at a given moment. Interfaces that require a user to remember multiple pieces of information simultaneously, track state across several screens, or process several unrelated decisions at once impose higher cognitive load than interfaces that surface only what's immediately relevant, reduce the need to hold information in memory across steps, and clearly indicate current state.",
+          "blockId": "blk_a2f54cc4e6"
+        },
+        {
+          "type": "paragraph",
+          "text": "A practical, PM-relevant application of this principle: reviewing a multi-step flow (echoing Lesson 15's journey maps and Lesson 25's wireframes) and asking, at each step, whether the user is being asked to remember something from a previous step that the interface could instead simply display again, or whether multiple, unrelated decisions have been bundled into a single screen when they could be sequenced or grouped more coherently. This is a question about the user's cognitive experience, squarely within a PM's legitimate concern, since it connects directly to the validated pain points and jobs (Lessons 6 and 16) the solution is meant to serve, without dictating the specific visual or interaction design used to reduce that load.",
+          "blockId": "blk_3b8bf5daf0"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Recognition vs. Recall",
+          "blockId": "blk_8a4ddb7943"
+        },
+        {
+          "type": "paragraph",
+          "text": "A closely related, highly practical principle: **recognition** (identifying something correctly when it's presented, such as choosing the right option from a visible list) is generally easier and faster for people than **recall** (retrieving information from memory without any cue, such as remembering and typing an exact command or a previously seen value). Interfaces that favor recognition (showing available options, previously entered information, or relevant context directly, rather than requiring a user to remember and re-enter or re-derive it) generally reduce user effort and error.",
+          "blockId": "blk_e580fbc113"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_b06991263f",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[Recognition Identifying<br/>Something When Presented] --> C[Generally Easier,<br/>Faster, Less Error-prone]\r\n    B[Recall Retrieving<br/>Information from Memory Unprompted] --> D[Generally Harder,<br/>Slower, More Error-prone]",
+          "normalized": "graph LR\r\n    A[Recognition Identifying<br/>Something When Presented] --> C[Generally Easier,<br/>Faster, Less Error-prone]\r\n    B[Recall Retrieving<br/>Information from Memory Unprompted] --> D[Generally Harder,<br/>Slower, More Error-prone]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020945005-74\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1041.75\" height=\"296\" viewBox=\"-64.25 -27 1041.75 296\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Recognition IdentifyingSomething When Presented → Generally Easier,Faster, Less Error-prone → Recall RetrievingInformation from Memory Unprompted → Generally Harder,Slower, More Error-prone\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Recognition IdentifyingSomething When Presented → Generally Easier,Faster, Less Error-prone → Recall RetrievingInformation from Memory Unprompted → Generally Harder,Slower, More Error-prone</title><style>#mermaid-svg-1795020945005-74{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020945005-74 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020945005-74 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020945005-74 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020945005-74 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020945005-74 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020945005-74 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020945005-74 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020945005-74 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020945005-74 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020945005-74 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020945005-74 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020945005-74 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020945005-74 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020945005-74 p{margin:0;}#mermaid-svg-1795020945005-74 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020945005-74 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020945005-74 .cluster-label span{color:#171A17;}#mermaid-svg-1795020945005-74 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020945005-74 .label text,#mermaid-svg-1795020945005-74 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020945005-74 .node rect,#mermaid-svg-1795020945005-74 .node circle,#mermaid-svg-1795020945005-74 .node ellipse,#mermaid-svg-1795020945005-74 .node polygon,#mermaid-svg-1795020945005-74 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020945005-74 .rough-node .label text,#mermaid-svg-1795020945005-74 .node .label text,#mermaid-svg-1795020945005-74 .image-shape .label,#mermaid-svg-1795020945005-74 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020945005-74 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020945005-74 .rough-node .label,#mermaid-svg-1795020945005-74 .node .label,#mermaid-svg-1795020945005-74 .image-shape .label,#mermaid-svg-1795020945005-74 .icon-shape .label{text-align:center;}#mermaid-svg-1795020945005-74 .node.clickable{cursor:pointer;}#mermaid-svg-1795020945005-74 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020945005-74 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020945005-74 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020945005-74 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020945005-74 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020945005-74 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020945005-74 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020945005-74 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020945005-74 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020945005-74 .cluster text{fill:#171A17;}#mermaid-svg-1795020945005-74 .cluster span{color:#171A17;}#mermaid-svg-1795020945005-74 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020945005-74 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020945005-74 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020945005-74 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020945005-74 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020945005-74 .icon-shape,#mermaid-svg-1795020945005-74 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020945005-74 .icon-shape p,#mermaid-svg-1795020945005-74 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020945005-74 .icon-shape .label rect,#mermaid-svg-1795020945005-74 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020945005-74 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020945005-74 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020945005-74 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020945005-74 [data-look=\"neo\"].node rect,#mermaid-svg-1795020945005-74 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020945005-74 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020945005-74-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945005-74 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020945005-74 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020945005-74-gradient);stroke-width:1px;}#mermaid-svg-1795020945005-74 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945005-74 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020945005-74 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020945005-74-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945005-74 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020945005-74 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020945005-74-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945005-74 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020945005-74-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945005-74 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020945005-74_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945005-74_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945005-74_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945005-74_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020945005-74_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945005-74_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945005-74_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945005-74_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945005-74_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945005-74_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945005-74_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020945005-74_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M457.75,62L477.125,62C496.5,62,535.25,62,562.708,62C590.167,62,606.333,62,614.417,62L622.5,62\" id=\"mermaid-svg-1795020945005-74-L_A_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_C_0\" data-points=\"W3sieCI6NDU3Ljc1LCJ5Ijo2Mn0seyJ4Ijo1NzQsInkiOjYyfSx7IngiOjYyNi41LCJ5Ijo2Mn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945005-74_flowchart-v2-pointEnd)\"></path><path d=\"M521.5,215L530.25,215C539,215,556.5,215,573.333,215C590.167,215,606.333,215,614.417,215L622.5,215\" id=\"mermaid-svg-1795020945005-74-L_B_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_D_0\" data-points=\"W3sieCI6NTIxLjUsInkiOjIxNX0seyJ4Ijo1NzQsInkiOjIxNX0seyJ4Ijo2MjYuNSwieSI6MjE1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945005-74_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020945005-74-flowchart-A-0\" data-look=\"classic\" transform=\"translate(264.75, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-150\" y=\"-46\" width=\"300\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-118, -30)\"><rect></rect><foreignObject width=\"236\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Recognition Identifying<br>Something When Presented</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945005-74-flowchart-C-1\" data-look=\"classic\" transform=\"translate(819.5, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-150\" y=\"-46\" width=\"300\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-118, -30)\"><rect></rect><foreignObject width=\"236\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Generally Easier,<br>Faster, Less Error-prone</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945005-74-flowchart-B-2\" data-look=\"classic\" transform=\"translate(264.75, 215)\"><rect class=\"basic label-container\" style=\"\" x=\"-192.5\" y=\"-46\" width=\"385\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-160.5, -30)\"><rect></rect><foreignObject width=\"321\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Recall Retrieving<br>Information from Memory Unprompted</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945005-74-flowchart-D-3\" data-look=\"classic\" transform=\"translate(819.5, 215)\"><rect class=\"basic label-container\" style=\"\" x=\"-150\" y=\"-46\" width=\"300\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-118, -30)\"><rect></rect><foreignObject width=\"236\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Generally Harder,<br>Slower, More Error-prone</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020945005-74-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020945005-74-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020945005-74-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_b06991263f"
+        },
+        {
+          "type": "paragraph",
+          "text": "A practical example: an interface requiring a user to remember an account number from a previous screen and manually re-type it later favors recall; an interface that instead displays the relevant account information directly at the point where it's needed favors recognition. A PM reviewing a design can legitimately ask \"are we requiring users to recall information we could instead simply show them again,\" a what-level observation, without specifying exactly how a designer should visually surface that information.",
+          "blockId": "blk_62adb7b249"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The \"PM as Design Dictator\" Failure Pattern",
+          "blockId": "blk_c4aedf0b84"
+        },
+        {
+          "type": "paragraph",
+          "text": "A specific, important failure pattern (directly extending Lesson 22's over-specification warning) is a PM using these UX principles (or any design knowledge) as license to dictate specific visual or interaction design solutions, rather than raising the underlying cognitive or usability concern and trusting design expertise to determine the best specific execution. \"This button needs to be blue and 60 pixels wide\" is design dictation; \"this frequently used action seems hard to locate and select reliably. Can we make it easier to find and hit?\" is legitimate UX evaluation, appropriately pitched at the level of the underlying principle (Fitts's Law, in this case) rather than a specific implementation prescription.",
+          "blockId": "blk_ef5cdb18d6"
+        },
+        {
+          "type": "paragraph",
+          "text": "This distinction matters for the same reason Lesson 22 emphasized it at the level of a PRD: a PM's UX knowledge, however genuine, is not equivalent to a trained designer's expertise in visual design, interaction patterns, accessibility standards, and the many other considerations that inform a well-executed specific solution. A PM who has learned these principles well enough to notice a real problem has done valuable, legitimate work; a PM who uses that same knowledge to unilaterally prescribe the specific fix has overstepped into a domain where a different kind of expertise deserves to lead.",
+          "blockId": "blk_56578c016b"
+        }
+      ],
+      "blockId": "blk_99d6ca3bfb"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Using Hick's Law to argue that fewer options are always better, regardless of the task",
+          "body": "Some tasks genuinely require presenting many options; the principle concerns the cost of *unnecessary* choice proliferation, not a blanket mandate for minimalism regardless of context."
+        },
+        {
+          "title": "Applying Fitts's Law by specifying exact pixel dimensions or coordinates, rather than raising the underlying concern",
+          "body": "This crosses from legitimate UX evaluation into design dictation. The appropriate PM-level observation is \"is this important action easy to reach and hit reliably,\" not a specific implementation prescription."
+        },
+        {
+          "title": "Failing to recognize cognitive load concerns in a multi-step flow, focusing only on individual screens in isolation",
+          "body": "Cognitive load often accumulates across a sequence of steps (echoing Lesson 15's full-journey view), not just within any single screen. A review that only evaluates screens independently can miss load that builds up across the whole flow."
+        },
+        {
+          "title": "Requiring users to recall information the interface could simply display again (favoring recall over recognition) without noticing the cost",
+          "body": "This is a subtle, easy-to-miss usability cost, since the interface may function correctly in a narrow technical sense while still imposing unnecessary user effort."
+        },
+        {
+          "title": "Treating UX principle fluency as license to dictate specific visual or interaction design solutions",
+          "body": "This is the \"PM as design dictator\" failure pattern: raising a genuine concern is valuable; prescribing the specific fix oversteps into design's domain of expertise.\n\n"
+        }
+      ],
+      "blockId": "blk_4eacf83585"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The UX Principle Review Lens",
+      "diagram": {
+        "blockId": "blk_0640229a70",
+        "type": "mermaid"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "This lesson's mental model is the **UX Principle Review Lens**, a set of questions, derived from the four principles above, that a PM can apply when reviewing a wireframe or prototype, pitched consistently at the level of underlying concern rather than specific implementation.",
+          "blockId": "blk_8321698393"
+        },
+        {
+          "type": "paragraph",
+          "text": "Use this lens consistently as a review discipline: for each question, if a genuine concern surfaces, raise it explicitly and specifically (naming the principle and the specific step or element involved), then stop: resist the pull toward specifying the exact fix, and trust the design conversation that follows to determine the best specific solution.",
+          "blockId": "blk_76676381a7"
+        }
+      ],
+      "blockId": "blk_1e30cd00b3"
+    },
+    {
+      "type": "mermaid",
+      "id": "blk_0640229a70",
+      "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Wireframe or Prototype Under Review] --> B{Hick Law: Are There More Simultaneous<br/>Choices Here Than Necessary?}\r\n    A --> C{Fitts Law: Are Important, Frequent<br/>Actions Easy to Reach and Hit Reliably?}\r\n    A --> D{Cognitive Load: Does This Step, or This<br/>Flow, Ask Users to Hold Too Much in<br/>Memory?}\r\n    A --> E{Recognition Vs. Recall: Are Users Being<br/>Asked to Remember Information the<br/>Interface Could Simply Show Again?}\r\n    B --> F[Raise Concerns at This Level: Trust<br/>Design Expertise for the Specific<br/>Execution]\r\n    C --> F\r\n    D --> F\r\n    E --> F",
+      "normalized": "graph TD\r\n    A[Wireframe or Prototype Under Review] --> B{Hick Law: Are There More Simultaneous<br/>Choices Here Than Necessary?}\r\n    A --> C{Fitts Law: Are Important, Frequent<br/>Actions Easy to Reach and Hit Reliably?}\r\n    A --> D{Cognitive Load: Does This Step, or This<br/>Flow, Ask Users to Hold Too Much in<br/>Memory?}\r\n    A --> E{Recognition Vs. Recall: Are Users Being<br/>Asked to Remember Information the<br/>Interface Could Simply Show Again?}\r\n    B --> F[Raise Concerns at This Level: Trust<br/>Design Expertise for the Specific<br/>Execution]\r\n    C --> F\r\n    D --> F\r\n    E --> F",
+      "authorTheme": {
+        "background": "#0b0b0c",
+        "primaryColor": "#1f1f23",
+        "primaryTextColor": "#ffffff",
+        "primaryBorderColor": "#8b5cf6",
+        "lineColor": "#d1d5db",
+        "secondaryColor": "#18181b",
+        "tertiaryColor": "#111111",
+        "mainBkg": "#1f1f23",
+        "nodeBorder": "#8b5cf6",
+        "clusterBkg": "#000000",
+        "clusterBorder": "#27272a",
+        "titleColor": "#ffffff",
+        "edgeLabelBackground": "#0b0b0c",
+        "nodeTextColor": "#ffffff",
+        "edgeLabelColor": "#ffffff",
+        "actorBorder": "#8b5cf6",
+        "actorBkg": "#1f1f23",
+        "actorTextColor": "#ffffff",
+        "sequenceNumberColor": "#ffffff",
+        "signalColor": "#8b5cf6",
+        "signalTextColor": "#ffffff",
+        "textColor": "#ffffff",
+        "classText": "#ffffff",
+        "classBorder": "#8b5cf6",
+        "classBkg": "#1f1f23"
+      },
+      "svg": "<svg id=\"mermaid-svg-1795020945132-75\" xmlns=\"http://www.w3.org/2000/svg\" width=\"2515.75\" height=\"888.5\" viewBox=\"-63.375 -27 2515.75 888.5\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Wireframe or Prototype Under Review → Hick Law: Are There More SimultaneousChoices Here Than Necessary? → Fitts Law: Are Important, FrequentActions Easy to Reach and Hit Reliably? → Cognitive Load: Does This Step, or ThisFlow, Ask Users to Hold Too Much inMemory? → Recognition Vs. Recall: Are Users BeingAsked to Remember Information theInterface Could Simply Show Again?...\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Wireframe or Prototype Under Review → Hick Law: Are There More SimultaneousChoices Here Than Necessary? → Fitts Law: Are Important, FrequentActions Easy to Reach and Hit Reliably? → Cognitive Load: Does This Step, or ThisFlow, Ask Users to Hold Too Much inMemory? → Recognition Vs. Recall: Are Users BeingAsked to Remember Information theInterface Could Simply Show Again?...</title><style>#mermaid-svg-1795020945132-75{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020945132-75 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020945132-75 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020945132-75 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020945132-75 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020945132-75 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020945132-75 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020945132-75 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020945132-75 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020945132-75 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020945132-75 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020945132-75 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020945132-75 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020945132-75 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020945132-75 p{margin:0;}#mermaid-svg-1795020945132-75 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020945132-75 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020945132-75 .cluster-label span{color:#171A17;}#mermaid-svg-1795020945132-75 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020945132-75 .label text,#mermaid-svg-1795020945132-75 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020945132-75 .node rect,#mermaid-svg-1795020945132-75 .node circle,#mermaid-svg-1795020945132-75 .node ellipse,#mermaid-svg-1795020945132-75 .node polygon,#mermaid-svg-1795020945132-75 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020945132-75 .rough-node .label text,#mermaid-svg-1795020945132-75 .node .label text,#mermaid-svg-1795020945132-75 .image-shape .label,#mermaid-svg-1795020945132-75 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020945132-75 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020945132-75 .rough-node .label,#mermaid-svg-1795020945132-75 .node .label,#mermaid-svg-1795020945132-75 .image-shape .label,#mermaid-svg-1795020945132-75 .icon-shape .label{text-align:center;}#mermaid-svg-1795020945132-75 .node.clickable{cursor:pointer;}#mermaid-svg-1795020945132-75 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020945132-75 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020945132-75 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020945132-75 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020945132-75 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020945132-75 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020945132-75 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020945132-75 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020945132-75 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020945132-75 .cluster text{fill:#171A17;}#mermaid-svg-1795020945132-75 .cluster span{color:#171A17;}#mermaid-svg-1795020945132-75 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020945132-75 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020945132-75 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020945132-75 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020945132-75 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020945132-75 .icon-shape,#mermaid-svg-1795020945132-75 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020945132-75 .icon-shape p,#mermaid-svg-1795020945132-75 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020945132-75 .icon-shape .label rect,#mermaid-svg-1795020945132-75 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020945132-75 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020945132-75 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020945132-75 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020945132-75 [data-look=\"neo\"].node rect,#mermaid-svg-1795020945132-75 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020945132-75 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020945132-75-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945132-75 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020945132-75 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020945132-75-gradient);stroke-width:1px;}#mermaid-svg-1795020945132-75 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945132-75 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020945132-75 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020945132-75-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945132-75 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020945132-75 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020945132-75-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945132-75 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020945132-75-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020945132-75 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020945132-75_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945132-75_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945132-75_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945132-75_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020945132-75_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945132-75_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945132-75_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945132-75_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020945132-75_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945132-75_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020945132-75_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020945132-75_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M973.125,66.855L859.458,76.295C745.792,85.736,518.458,104.618,404.792,123.559C291.125,142.5,291.125,161.5,291.125,171L291.125,180.5\" id=\"mermaid-svg-1795020945132-75-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6OTczLjEyNSwieSI6NjYuODU0NTgyNzI3MTUyNDl9LHsieCI6MjkxLjEyNSwieSI6MTIzLjV9LHsieCI6MjkxLjEyNSwieSI6MTg0LjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945132-75_flowchart-v2-pointEnd)\"></path><path d=\"M1084.892,82L1056.597,88.917C1028.303,95.833,971.714,109.667,943.419,124.667C915.125,139.667,915.125,155.833,915.125,163.917L915.125,172\" id=\"mermaid-svg-1795020945132-75-L_A_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_C_0\" data-points=\"W3sieCI6MTA4NC44OTE3MTk3NDUyMjI5LCJ5Ijo4Mn0seyJ4Ijo5MTUuMTI1LCJ5IjoxMjMuNX0seyJ4Ijo5MTUuMTI1LCJ5IjoxNzZ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945132-75_flowchart-v2-pointEnd)\"></path><path d=\"M1387.608,82L1415.903,88.917C1444.197,95.833,1500.786,109.667,1529.081,122.833C1557.375,136,1557.375,148.5,1557.375,154.75L1557.375,161\" id=\"mermaid-svg-1795020945132-75-L_A_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_D_0\" data-points=\"W3sieCI6MTM4Ny42MDgyODAyNTQ3NzcxLCJ5Ijo4Mn0seyJ4IjoxNTU3LjM3NSwieSI6MTIzLjV9LHsieCI6MTU1Ny4zNzUsInkiOjE2NX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945132-75_flowchart-v2-pointEnd)\"></path><path d=\"M1499.375,66.319L1617,75.849C1734.625,85.379,1969.875,104.44,2087.5,120.22C2205.125,136,2205.125,148.5,2205.125,154.75L2205.125,161\" id=\"mermaid-svg-1795020945132-75-L_A_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_E_0\" data-points=\"W3sieCI6MTQ5OS4zNzUsInkiOjY2LjMxODg2MjA4MjMxMTk3fSx7IngiOjIyMDUuMTI1LCJ5IjoxMjMuNX0seyJ4IjoyMjA1LjEyNSwieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945132-75_flowchart-v2-pointEnd)\"></path><path d=\"M291.125,750.75L291.125,739.625C291.125,728.5,291.125,706.25,404.13,708.576C517.134,710.902,743.144,737.805,856.148,751.256L969.153,764.707\" id=\"mermaid-svg-1795020945132-75-L_B_F_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_F_0\" data-points=\"W3sieCI6MjkxLjEyNSwieSI6NzUwLjc1fSx7IngiOjI5MS4xMjUsInkiOjY4NH0seyJ4Ijo5NzMuMTI1LCJ5Ijo3NjUuMTc5NzM4MTI5ODc3fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945132-75_flowchart-v2-pointEnd)\"></path><path d=\"M915.125,767.75L915.125,753.792C915.125,739.833,915.125,711.917,934.239,704.655C953.353,697.392,991.581,710.785,1010.695,717.481L1029.809,724.177\" id=\"mermaid-svg-1795020945132-75-L_C_F_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_F_0\" data-points=\"W3sieCI6OTE1LjEyNSwieSI6NzY3Ljc1fSx7IngiOjkxNS4xMjUsInkiOjY4NH0seyJ4IjoxMDMzLjU4NDQ0NDQ0NDQ0NDQsInkiOjcyNS41fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945132-75_flowchart-v2-pointEnd)\"></path><path d=\"M1557.375,767.75L1557.375,753.792C1557.375,739.833,1557.375,711.917,1538.261,704.655C1519.147,697.392,1480.919,710.785,1461.805,717.481L1442.691,724.177\" id=\"mermaid-svg-1795020945132-75-L_D_F_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_F_0\" data-points=\"W3sieCI6MTU1Ny4zNzUsInkiOjc2Ny43NX0seyJ4IjoxNTU3LjM3NSwieSI6Njg0fSx7IngiOjE0MzguOTE1NTU1NTU1NTU1NiwieSI6NzI1LjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945132-75_flowchart-v2-pointEnd)\"></path><path d=\"M2205.125,767.75L2205.125,753.792C2205.125,739.833,2205.125,711.917,2088.162,711.539C1971.199,711.162,1737.274,738.324,1620.311,751.905L1503.348,765.486\" id=\"mermaid-svg-1795020945132-75-L_E_F_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_E_F_0\" data-points=\"W3sieCI6MjIwNS4xMjUsInkiOjc2Ny43NX0seyJ4IjoyMjA1LjEyNSwieSI6Njg0fSx7IngiOjE0OTkuMzc1LCJ5Ijo3NjUuOTQ3NDkwNjQ2MzY4Mn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020945132-75_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_F_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_F_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_D_F_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_E_F_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020945132-75-flowchart-A-0\" data-look=\"classic\" transform=\"translate(1236.25, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-196.75\" y=\"-35\" width=\"393.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-164.75, -19)\"><rect></rect><foreignObject width=\"329.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Wireframe or Prototype Under Review</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945132-75-flowchart-B-1\" data-look=\"classic\" transform=\"translate(291.125, 403.75)\"><polygon points=\"219.25,0 438.5,-219.25 219.25,-438.5 0,-219.25\" class=\"label-container\" transform=\"translate(-218.75, 219.25)\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-173.25, -30)\"><rect></rect><foreignObject width=\"346.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Hick Law: Are There More Simultaneous<br>Choices Here Than Necessary?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945132-75-flowchart-C-3\" data-look=\"classic\" transform=\"translate(915.125, 403.75)\"><polygon points=\"227.75,0 455.5,-227.75 227.75,-455.5 0,-227.75\" class=\"label-container\" transform=\"translate(-227.25, 227.75)\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-181.75, -30)\"><rect></rect><foreignObject width=\"363.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Fitts Law: Are Important, Frequent<br>Actions Easy to Reach and Hit Reliably?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945132-75-flowchart-D-5\" data-look=\"classic\" transform=\"translate(1557.375, 403.75)\"><polygon points=\"238.75,0 477.5,-238.75 238.75,-477.5 0,-238.75\" class=\"label-container\" transform=\"translate(-238.25, 238.75)\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-181.75, -41)\"><rect></rect><foreignObject width=\"363.5\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Cognitive Load: Does This Step, or This<br>Flow, Ask Users to Hold Too Much in<br>Memory?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945132-75-flowchart-E-7\" data-look=\"classic\" transform=\"translate(2205.125, 403.75)\"><polygon points=\"238.75,0 477.5,-238.75 238.75,-477.5 0,-238.75\" class=\"label-container\" transform=\"translate(-238.25, 238.75)\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-181.75, -41)\"><rect></rect><foreignObject width=\"363.5\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Recognition Vs. Recall: Are Users Being<br>Asked to Remember Information the<br>Interface Could Simply Show Again?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020945132-75-flowchart-F-9\" data-look=\"classic\" transform=\"translate(1236.25, 796.5)\"><rect class=\"basic label-container\" style=\"\" x=\"-196.75\" y=\"-57\" width=\"393.5\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-164.75, -41)\"><rect></rect><foreignObject width=\"329.5\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Raise Concerns at This Level: Trust<br>Design Expertise for the Specific<br>Execution</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020945132-75-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020945132-75-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020945132-75-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+      "blockId": "blk_0640229a70"
+    },
+    {
+      "type": "companyExample",
+      "company": "Google",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "**Google**'s well-documented emphasis on minimizing cognitive load and choice complexity in its core search interface (a single input field, deliberately free of the extensive simultaneous options many competing products in adjacent categories present) is a widely discussed illustration of Hick's Law and cognitive load principles applied at the highest level of a product's core interaction. Public design commentary and Google's own publicly shared design philosophy documentation have described a long-standing emphasis on simplicity and minimal cognitive burden in the core search experience specifically, even as many advanced options and features exist and are deliberately kept out of the primary, most frequently used interaction surface, a practical example of progressive disclosure responding directly to the choice-proliferation cost this lesson describes.",
+          "blockId": "blk_db95e1c620"
+        }
+      ],
+      "assumptionFlags": [
+        "this reflects widely reported, publicly shared descriptions of Google's general design philosophy rather than a claim about the company's complete, current internal design rationale for every specific feature, which this curriculum does not claim certainty about."
+      ],
+      "blockId": "blk_ae5a9ffa62"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "At a startup",
+          "body": "PMs often work in especially close, informal collaboration with a small design team (or, in the earliest stages, may be responsible for some design work themselves), making fluency with these principles directly useful for making faster, more confident calls in the absence of a large, formal design review process. The risk of \"PM as design dictator\" is often heightened at this stage precisely because informal collaboration can blur the line between raising a concern and unilaterally deciding a specific solution."
+        },
+        {
+          "context": "At a mid-size company",
+          "body": "UX principle fluency helps a PM participate credibly and usefully in more formal design review processes, asking specific, principle-grounded questions rather than vague aesthetic preferences, and helps build productive working relationships with design teams who generally welcome informed, well-articulated concerns pitched at the appropriate level, rather than either uninformed silence or inappropriate design dictation."
+        },
+        {
+          "context": "At Big Tech",
+          "body": "UX principles often intersect with established, rigorously tested design systems and platform-level interaction conventions, and a PM's most valuable contribution at this scale is often recognizing when a proposed design deviates from well-established, principle-grounded conventions for a good reason versus for an insufficiently examined one, bringing genuine scrutiny without assuming every deviation from convention is automatically wrong."
+        }
+      ],
+      "blockId": "blk_bbd4389a07"
+    },
+    {
+      "type": "caseStudy",
+      "title": "The Form That Asked Too Much at Once",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Consider a simplified, illustrative scenario common across B2B software onboarding flows.",
+          "blockId": "blk_cbc2b8a1f3"
+        },
+        {
+          "type": "paragraph",
+          "text": "A team designs a new account-setup form for a project management tool, presenting all required fields (company name, team size, primary use case, industry, preferred notification settings, and integration preferences) simultaneously on a single screen, reasoning that a single screen is more \"efficient\" than a multi-step flow. During internal review, a PM familiar with UX principles from this lesson raises a specific concern: \"This screen presents six distinct, largely unrelated decisions simultaneously. Per Hick's Law and cognitive load principles, this is likely to increase abandonment, since users are being asked to process too much at once before receiving any value from the product.\" The PM does not, however, specify a particular alternative layout, deferring that decision to the design team's expertise.",
+          "blockId": "blk_99a410bca7"
+        },
+        {
+          "type": "paragraph",
+          "text": "The design team responds by proposing a specific, appropriately staged solution: splitting the form into a shorter, immediately necessary first step (company name and team size, required to create a functional account) followed by progressively disclosed additional steps (use case, industry, and integration preferences) presented later, once the user has already experienced some initial product value, directly applying progressive disclosure as the design team's own chosen response to the cognitive-load concern the PM raised.",
+          "blockId": "blk_146e5c1bf1"
+        },
+        {
+          "type": "paragraph",
+          "text": "Usability testing on the revised, staged flow shows meaningfully improved completion rates compared to the original single-screen version, confirming the concern was genuine and worth addressing.",
+          "blockId": "blk_30584d23d6"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong, and then went right?**",
+          "blockId": "blk_1792a16e66"
+        },
+        {
+          "type": "paragraph",
+          "text": "Applying this lesson's frameworks:",
+          "blockId": "blk_da9b6176d7"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**The original single-screen design violated both Hick's Law and cognitive load principles simultaneously**: presenting six distinct, largely unrelated decisions at once forced users to process an unnecessarily high decision burden before receiving any product value, a foreseeable risk this lesson's principles would have flagged before the design was even built.",
+            "**The PM's intervention was correctly pitched at the level of underlying concern, not specific implementation.** The PM named the specific principles (Hick's Law, cognitive load) and the specific problem (six unrelated decisions bundled together), but explicitly left the choice of solution (a staged, progressively disclosed flow, in this case) to the design team's expertise, avoiding the \"PM as design dictator\" failure pattern while still raising a genuinely valuable, principle-grounded concern.",
+            "**The design team's chosen solution (progressive disclosure via staged steps) was validated through subsequent usability testing (Lesson 26)**, rather than assumed correct simply because it addressed the stated concern, closing the loop between raising a UX concern and confirming, through genuine testing, that the resulting solution actually resolved it."
+          ],
+          "blockId": "blk_1e635e41b1"
+        },
+        {
+          "type": "paragraph",
+          "text": "This case connects directly back to **Lesson 22's Precision Dial**: the PM specified the what (an unnecessary cognitive burden, tied to a specific, well-established principle) and the why (likely increased abandonment), while explicitly leaving the how (the specific staging and disclosure mechanism) to design's expertise, precisely the discipline this lesson's failure-pattern warning describes.",
+          "blockId": "blk_4eaa033381"
+        }
+      ],
+      "blockId": "blk_319ed77507"
+    },
+    {
+      "type": "framework",
+      "name": "The Principle-to-Concern Translation Table",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A practical table for translating each UX principle into an appropriately pitched, what-level review question, rather than a specific implementation prescription:",
+          "blockId": "blk_623ebb49ee"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Principle",
+            "Appropriately Pitched Question",
+            "Inappropriate Overstep"
+          ],
+          "rows": [
+            [
+              "Hick's Law",
+              "\"Are we presenting more simultaneous choices here than the user actually needs at this moment?\"",
+              "\"Reduce this to exactly three options and use a dropdown.\""
+            ],
+            [
+              "Fitts's Law",
+              "\"Is this important, frequently used action easy to reach and select reliably?\"",
+              "\"Make this button exactly 48 pixels tall and move it to the top-right corner.\""
+            ],
+            [
+              "Cognitive Load",
+              "\"Are we asking users to hold too much information in mind across this flow?\"",
+              "\"Combine these three screens into exactly two, structured this specific way.\""
+            ],
+            [
+              "Recognition vs. Recall",
+              "\"Are we requiring users to remember something we could simply show them again?\"",
+              "\"Add a tooltip here that displays this exact text in this exact location.\""
+            ]
+          ],
+          "blockId": "blk_379083e8ca"
+        },
+        {
+          "type": "paragraph",
+          "text": "The consistent discipline this table reinforces: **every principle translates into a question about user experience and cognitive burden, never into a specific visual or interaction design prescription**: the question is the PM's legitimate contribution; the answer belongs to design.",
+          "blockId": "blk_fedfa5245c"
+        }
+      ],
+      "blockId": "blk_563af74b0d"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "How do you evaluate whether a proposed design is likely to cause usability problems, without a formal design background?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate can name specific, established principles (Hick's Law, Fitts's Law, cognitive load) and apply them as genuine review questions, rather than relying on vague, untethered aesthetic preference or personal intuition alone."
+        },
+        {
+          "question": "Tell me about a time you raised a UX concern with a design team. How did you frame it?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate framed the concern at the level of underlying principle and user impact, deferring specific solution choice to design's expertise, versus prescribing a specific fix unilaterally, directly testing for the \"PM as design dictator\" failure pattern."
+        },
+        {
+          "question": "How do you balance having enough UX knowledge to be useful in design reviews without overstepping into design's domain?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Direct self-awareness of the boundary this lesson describes: whether the candidate can articulate a clear, principled distinction between raising a legitimate concern and dictating a specific solution, rather than treating the boundary as vague or unimportant."
+        }
+      ],
+      "blockId": "blk_ebfe1120bd"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A small set of durable UX principles, Hick's Law (more choices increase decision time), Fitts's Law (target size and distance affect interaction speed and accuracy), cognitive load (the total mental effort required at a given moment), and recognition versus recall (recognizing presented information is generally easier than recalling it from memory), give a PM enough grounding to participate meaningfully in design review without requiring full design expertise. Each principle translates into a specific, appropriately pitched review question about user experience and cognitive burden, never into a specific visual or interaction design prescription, which is properly design's domain. The \"PM as design dictator\" failure pattern describes using UX knowledge as license to unilaterally prescribe specific solutions rather than raising the underlying concern and trusting design expertise to determine execution, directly extending Lesson 22's Precision Dial into the design-review context. As shown in this lesson's Detailed Case Study, a well-pitched, principle-grounded concern (raised at the level of \"why,\" not \"how\") can lead to a genuinely better design outcome, validated through subsequent usability testing, without the PM ever needing to specify the exact solution themselves.",
+          "blockId": "blk_bb14f2b0a5"
+        }
+      ],
+      "blockId": "blk_c1d20211f5"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "Hick's Law: decision time increases with the number and complexity of available choices. Unnecessary choice proliferation carries a real cost.",
+        "Fitts's Law: target size and distance affect interaction speed and accuracy. Important, frequent actions should be easy to reach and hit reliably.",
+        "Cognitive load: interfaces that require holding multiple pieces of information in working memory across steps impose real, measurable user effort.",
+        "Recognition (identifying presented information) is generally easier than recall (retrieving information from memory unprompted). Interfaces favoring recognition reduce user effort.",
+        "Every principle should translate into a what-level review question about user experience, never into a specific visual or interaction design prescription.",
+        "\"PM as design dictator\" describes overstepping from legitimate concern-raising into unilateral solution prescription, which belongs to design's expertise.",
+        "A well-pitched, principle-grounded concern, left open for design's expertise to resolve, can produce genuinely validated improvements, as shown in this lesson's Detailed Case Study."
+      ],
+      "blockId": "blk_2f87baeb25"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "**Hick's Law:** more choices = more decision time. Watch for unnecessary choice proliferation.",
+        "**Fitts's Law:** bigger, closer targets = faster, more accurate selection. Check important actions are easy to reach and hit.",
+        "**Cognitive load:** don't make users hold too much in working memory across a flow.",
+        "**Recognition > Recall:** show information again rather than requiring users to remember it.",
+        "**Pitch every concern as a \"what/why\" question** (\"is this easy to reach?\"), never a \"how\" prescription (\"make it 48px\").",
+        "**PM as Design Dictator** = overstepping from concern to unilateral solution. Always defer specific execution to design expertise."
+      ],
+      "blockId": "blk_6bde8fb716"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "Hick's Law",
+          "definition": "The principle that decision time increases with the number and complexity of available choices.",
+          "relatedConcepts": [
+            "Cognitive Load"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Fitts's Law",
+          "definition": "The principle relating target size and distance to the speed and accuracy of interaction.",
+          "relatedConcepts": [
+            "UX Principle Review Lens"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Cognitive Load",
+          "definition": "The total amount of mental effort used in working memory at a given moment.",
+          "relatedConcepts": [
+            "Hick's Law",
+            "Recognition vs. Recall"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Recognition vs. Recall",
+          "definition": "The distinction between identifying presented information (easier) and retrieving information from memory unprompted (harder).",
+          "relatedConcepts": [
+            "Cognitive Load"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "\"PM as Design Dictator\" (Failure Pattern)",
+          "definition": "Using UX knowledge to unilaterally prescribe specific design solutions rather than raising concerns and deferring execution to design expertise.",
+          "relatedConcepts": [
+            "Precision Dial (Lesson 22)"
+          ],
+          "difficulty": 2
+        }
+      ],
+      "blockId": "blk_b5a43c000b"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "Don Norman, *The Design of Everyday Things*",
+          "note": "a foundational, widely cited treatment of usability principles including cognitive load and recognition/recall, directly relevant to this lesson's core concepts."
+        },
+        {
+          "citation": "Steve Krug, *Don't Make Me Think*",
+          "note": "a practical, accessible treatment of reducing cognitive burden in interface design, closely related to this lesson's core arguments."
+        },
+        {
+          "citation": "Susan Weinschenk, *100 Things Every Designer Needs to Know About People*",
+          "note": "includes accessible treatments of Hick's Law, Fitts's Law, and related cognitive principles for practitioners without formal design training."
+        }
+      ],
+      "blockId": "blk_3764795d11"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_go5z1d",
+      "cards": [
+        {
+          "id": "fc-les_go5z1d-1",
+          "front": "What does Hick's Law state, and what is its practical implication for interface design?",
+          "back": "Decision time increases with the number and complexity of available choices; unnecessary choice proliferation carries a real cognitive cost, making progressive disclosure a common design response.",
+          "difficulty": 2,
+          "tags": [
+            "hicks-law"
+          ]
+        },
+        {
+          "id": "fc-les_go5z1d-2",
+          "front": "What does Fitts's Law state?",
+          "back": "The time required to move to and successfully select a target depends on the target's size and distance: larger, closer targets are faster and more accurate to select.",
+          "difficulty": 2,
+          "tags": [
+            "fitts-law"
+          ]
+        },
+        {
+          "id": "fc-les_go5z1d-3",
+          "front": "What is cognitive load, and why does it matter for a multi-step flow?",
+          "back": "The total mental effort used in working memory at a given moment; cognitive load can accumulate across a sequence of steps, not just within any single screen, making full-flow review important.",
+          "difficulty": 2,
+          "tags": [
+            "cognitive-load"
+          ]
+        },
+        {
+          "id": "fc-les_go5z1d-4",
+          "front": "Why do interfaces favoring recognition over recall generally reduce user effort?",
+          "back": "Recognizing presented information is generally easier and faster than retrieving information from memory unprompted: showing relevant information again, rather than requiring users to remember it, reduces effort and error.",
+          "difficulty": 2,
+          "tags": [
+            "recognition-vs-recall"
+          ]
+        },
+        {
+          "id": "fc-les_go5z1d-5",
+          "front": "What is the \"PM as design dictator\" failure pattern?",
+          "back": "Using UX principle knowledge to unilaterally prescribe specific visual or interaction design solutions, rather than raising the underlying concern and deferring specific execution to design expertise.",
+          "difficulty": 2,
+          "tags": [
+            "pm-as-design-dictator"
+          ]
+        },
+        {
+          "id": "fc-les_go5z1d-6",
+          "front": "How should a PM appropriately pitch a UX concern, according to this lesson?",
+          "back": "At the level of underlying principle and user impact (the \"what/why,\" e.g., \"is this important action easy to reach?\"), never as a specific implementation prescription (the \"how,\" e.g., exact pixel dimensions).",
+          "difficulty": 2,
+          "tags": [
+            "appropriate-pitch"
+          ]
+        },
+        {
+          "id": "fc-les_go5z1d-7",
+          "front": "In the Detailed Case Study, what specific solution did the design team propose in response to the PM's cognitive-load concern, and how was it validated?",
+          "back": "A staged, progressively disclosed flow (splitting six simultaneous decisions into an immediate first step and later, deferred steps); it was validated through usability testing showing improved completion rates compared to the original single-screen version.",
+          "difficulty": 3,
+          "tags": [
+            "case-study"
+          ]
+        }
+      ],
+      "blockId": "blk_3c86bb5c24"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "You are the PM for a subscription meal-kit app, reviewing a wireframe for a new \"customize your next delivery\" screen, which currently displays fifteen simultaneous options: recipe substitutions, portion size, delivery date, delivery address, dietary restriction filters, packaging preferences, and several others, all on one screen.",
+        "Work through the following, in writing, before reading further:",
+        "Apply Hick's Law to this screen: what specific concern would you raise, and how would you phrase it at the appropriate \"what/why\" level rather than prescribing a specific fix?",
+        "Identify one element on this screen that might raise a Fitts's Law concern (consider which action is likely used most frequently, and whether it's likely to be easy or hard to reach and select based on the description given).",
+        "Describe one specific way this screen might impose unnecessary cognitive load across a broader flow (consider whether users need to remember something from an earlier step, such as their dietary restrictions, that this screen could simply display again).",
+        "Using the Principle-to-Concern Translation Table, write your review feedback for this screen in a form that raises genuine concerns without dictating specific visual solutions.",
+        "Identify one boundary you would deliberately not cross in this review, to avoid the \"PM as design dictator\" failure pattern, and explain why.",
+        "There is no single correct answer. The purpose of this exercise is to practice applying these principles as review questions pitched at the appropriate level, rather than either ignoring genuine usability concerns or overstepping into design's domain of expertise."
+      ],
+      "blockId": "blk_969593b075"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_go5z1d",
+      "questions": [
+        {
+          "id": "q-les_go5z1d-1",
+          "question": "What does Hick's Law state?",
+          "options": [
+            "Larger interaction targets are invariably more appealing visually",
+            "Decision time rises with the number of available choices",
+            "Users prefer recall-based interfaces over recognition-based ones",
+            "Cognitive load matters within a screen but not across a flow"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Complexity of the choices counts alongside their number. The practical consequence is that every avoidable option on a screen costs every user who meets it.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_go5z1d-2",
+          "question": "What does Fitts's Law describe?",
+          "options": [
+            "The number of distinct colours a designer should use in an interface",
+            "How target size and distance affect selection speed and accuracy",
+            "The maximum number of screens a single user flow should contain",
+            "The link between cognitive load and reported satisfaction scores"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Bigger and nearer is faster and more accurate. A frequent action tucked small into a corner is paid for on every repetition.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_go5z1d-3",
+          "question": "Why is unnecessary choice proliferation a concern, according to Hick's Law, even though presenting many options is sometimes genuinely necessary?",
+          "options": [
+            "Extra choices add decision time and burden without matching value",
+            "Because more options look visually cluttered on any given screen",
+            "Because users should be given a single choice in every situation",
+            "Because it breaches most accessibility standards in force"
+          ],
+          "correctAnswer": 0,
+          "explanation": "A product catalogue genuinely needs many options. The law is about the cost of the ones that are there for no reason, and progressive disclosure is one legitimate answer.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_go5z1d-4",
+          "question": "Which of the following is the clearest example of favoring recall over recognition, a pattern this lesson identifies as generally increasing user effort?",
+          "options": [
+            "Displaying the saved shipping address again at checkout for confirmation",
+            "Showing a dropdown of valid options for the user to pick from",
+            "Making a user remember and retype an account number seen earlier",
+            "Displaying a clear error message right after an invalid entry"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The information exists and the interface declines to show it, so the user holds it in working memory and retypes it from there. That is recall, and it is where errors come from.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_go5z1d-5",
+          "question": "What is the \"PM as design dictator\" failure pattern?",
+          "options": [
+            "Prescribing the specific solution rather than raising the concern",
+            "A PM who offers no feedback at all on any design work",
+            "A required leadership position within a design organisation",
+            "A PM who reviews wireframes but declines to review any prototypes"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Noticing a real problem is valuable PM work. Deciding the fix reaches past it into visual design, interaction patterns, and accessibility, where another expertise should lead.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_go5z1d-6",
+          "question": "Which of the following review comments correctly applies Fitts's Law without overstepping into design dictation, according to this lesson?",
+          "options": [
+            "\"Change this button's colour to blue before the next review.\"",
+            "\"I have no particular thoughts on this button's size or place.\"",
+            "\"Make this button 48 pixels tall and move it to the top right.\"",
+            "\"This action is our most frequent: is it easy to reach and hit?\""
+          ],
+          "correctAnswer": 3,
+          "explanation": "It names the principle's concern and stops there. The pixel figure in C is a design decision arrived at by someone without design's training in it.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_go5z1d-7",
+          "question": "In the Detailed Case Study, which two UX principles did the original single-screen account-setup form violate simultaneously?",
+          "options": [
+            "Fitts's Law together with recognition versus recall",
+            "Cognitive load alone, with no other principle involved",
+            "Hick's Law alone, with no other principle involved here",
+            "Hick's Law together with cognitive load across the screen"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Six unrelated decisions on one screen is both too many simultaneous choices and too much to hold in mind at once, which is why the two principles show up together so often.",
+          "objectivesTested": [
+            2,
+            3
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_go5z1d-8",
+          "question": "How did the PM in the Detailed Case Study correctly avoid the \"PM as design dictator\" failure pattern?",
+          "options": [
+            "By declining to raise any concern about the form at all",
+            "By naming the principle and problem, leaving the fix to design",
+            "By specifying the exact steps and fields for each stage personally",
+            "By requiring the design team to adopt a specific named methodology"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The PM supplied the diagnosis; design supplied progressive disclosure across staged steps. Neither contribution would have been as good coming from the other side.",
+          "objectivesTested": [
+            4,
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_go5z1d-9",
+          "question": "(Scenario) A PM reviewing a wireframe notices that a checkout flow requires users to remember a promo code they saw on an earlier marketing email, with no way to view or reference it again during checkout. Which principle is most directly relevant to this concern?",
+          "options": [
+            "Recognition versus recall, since the code must be held in memory",
+            "Fitts's Law, concerning target size and distance to reach",
+            "Hick's Law, concerning the number of simultaneous choices",
+            "No principle from this lesson applies to the situation"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The user is asked to retrieve a string from memory with no cue available. Surfacing the code, or letting them look it up in place, converts recall back into recognition.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_go5z1d-10",
+          "question": "(Product Thinking) A PM raises a cognitive-load concern about a multi-step flow, correctly noting that later steps require remembering choices made in earlier steps. According to this lesson, what should the PM do next?",
+          "options": [
+            "Redesign the flow personally, without involving the design team",
+            "Raise it at the level of principle and leave the fix to design",
+            "Disregard it, since cognitive load is not a PM-level concern",
+            "Demand the whole flow collapse to one screen, whatever the cost"
+          ],
+          "correctAnswer": 1,
+          "explanation": "A summary panel, a review step, or inline echoes of earlier choices are all plausible answers. Picking among them is the part that belongs to design.",
+          "objectivesTested": [
+            4,
+            5
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_go5z1d-11",
+          "question": "(Interview Reasoning) A candidate describes reviewing a prototype and telling the design team exactly which specific font size, color, and spacing to use for every element, based on their own reading about UX principles. What might this signal, based on this lesson's Interview Perspective section?",
+          "options": [
+            "Strong, well-informed UX judgment counting as a core strength",
+            "That the candidate suits a design role rather than a product one",
+            "The design-dictator pattern, overstepping into design",
+            "Nothing of note, since exact visual detail is a PM call once read"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Having read about the principles is what makes the overstep tempting. Real fluency shows up as a sharper question, not a more confident prescription.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_go5z1d-12",
+          "question": "(Product Thinking, Higher Difficulty) A design team proposes reducing a settings page from twelve simultaneous options to four, citing Hick's Law, but a PM is concerned this might remove options some users genuinely need regularly. What is the most appropriate way to resolve this tension, according to this lesson?",
+          "options": [
+            "Defer wholly to the design team's citation, since the law is settled",
+            "Insist all twelve stay visible, overriding the proposal outright",
+            "Raise the specific concern and suggest validation, without dictating",
+            "Disregard Hick's Law here, since it conflicts with instinct"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Hick's Law is real and does not settle which four. Whether the hidden eight are needed regularly is an empirical question, and usability testing can answer it.",
+          "objectivesTested": [
+            2,
+            4,
+            5
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_go5z1d-13",
+          "question": "(Interview Reasoning, Higher Difficulty) An interviewer asks a candidate how they would respond if a designer disagreed with a UX concern the candidate raised, arguing that a specific established convention justified the design as-is. What is the strongest response, based on this lesson?",
+          "options": [
+            "Engage the convention and propose a test in this context",
+            "Insist the designer is wrong, whatever convention was cited",
+            "Drop the concern at once, whatever its underlying merit was",
+            "Escalate to senior leadership without engaging the designer further"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The convention may well hold here and may not. Treating the disagreement as an answerable question respects the expertise and keeps the concern alive.",
+          "objectivesTested": [
+            4,
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_go5z1d-14",
+          "question": "(Product Thinking, Higher Difficulty) A PM notices that an interface violates cognitive load principles by requiring users to remember dietary restrictions entered on a previous screen. The PM raises this concern, and the design team responds by adding a persistent summary panel that displays these restrictions throughout the flow. How should the PM verify this solution actually resolves the concern, rather than simply assuming it does?",
+          "options": [
+            "Assume it is resolved once a visible change has been made at all",
+            "Skip verification, since design expertise stands unquestioned",
+            "Insist on a wholly different solution, without testing either option",
+            "Test the revised flow with real users to confirm the burden dropped"
+          ],
+          "correctAnswer": 3,
+          "explanation": "A plausible fix for a real problem is still a hypothesis. The panel might be ignored, or add clutter that costs more than the recall it removed.",
+          "objectivesTested": [
+            4,
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_go5z1d-15",
+          "question": "(Highest Difficulty) A PM has become skilled at applying Hick's Law, Fitts's Law, cognitive load, and recognition/recall principles, and routinely raises well-pitched, appropriately leveled concerns during design reviews. Over time, however, the PM notices that the design team has started deferring almost every decision to the PM's stated principle-based preferences, rather than exercising independent design judgment. What does this scenario suggest, and what should the PM do?",
+          "options": [
+            "Stop raising UX concerns at all, to remove any risk of overstepping",
+            "Continue as before, since the deference reflects sounder judgment",
+            "This carries no real implications and needs no change",
+            "Encourage design to propose and test their own solutions"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Each individual comment was pitched correctly and the accumulated effect still moved authority. Phrasing concerns well is necessary; watching what the pattern does to the room is the rest of it.",
+          "objectivesTested": [
+            4,
+            5
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_193a7e4231"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_emiqho",
+        "title": "Lesson 26: Prototyping",
+        "module": "design"
+      },
+      "current": {
+        "id": "les_go5z1d",
+        "title": "Lesson 27: UX Principles for Product Managers"
+      },
+      "next": {
+        "id": "les_7r8npj",
+        "title": "Lesson 28: Information Architecture",
+        "module": "design"
+      },
+      "unlocks": [
+        {
+          "lesson": {
+            "id": "les_8prxyi",
+            "title": "Prioritization Fundamentals",
+            "module": "design"
+          },
+          "coreIdea": "Uses UX-informed usability considerations as one input into broader initiative prioritization"
+        }
+      ],
+      "blockId": "blk_17100bcb91"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 27: UX Principles for Product Managers Lessons 25 and 26 covered *how* to iterate on structure and interactivity cheaply, before committing to full development: wireframes for layout, prototypes for interaction. What neither lesson addressed is *what actually makes an interface good*, once you're deciding between two structurally valid layouts or two functionally working interaction patterns. This lesson fills that gap with a small set of durable UX principles, not a comprehensive design education, which is a genuinely separate discipline with its own multi-year expertise, but the specific, well-established principles a PM needs to participate meaningfully in design decisions, ask good questions, and recognize when a proposed design is likely to cause real friction, without overstepping into territory that belongs to a trained designer's expertise. This lesson exists because PMs sit in an uncomfortable middle position on design: enough involvement to ask good questions and catch clear problems, not enough formal training to make expert visual or interaction design judgments unilaterally. The principles covered here are chosen specifically because they're durable (not trend-dependent), broadly applicable across product categories, and genuinely useful for a PM's actual job: evaluating whether a design decision serves the validated problem (Lesson 17) and the user's actual cognitive experience, not dictating the specific visual execution, which properly belongs to design expertise per Lesson 22's Precision Dial. Explain and apply Hick's Law and Fitts's Law to evaluate interface decisions involving choice quantity and target interaction. Apply the concept of cognitive load to identify when an interface is asking too much of a user's working memory. Distinguish recognition from recall, and explain why interfaces that favor recognition generally reduce user effort. Identify the \"PM as design dictator\" failure pattern, distinguishing legitimate UX evaluation from overstepping into design's domain of expertise. Apply these principles as a review lens on a wireframe or prototype, without prescribing specific visual solutions. Lesson 22 (Product Requirements Document) and Lesson 26 (Prototyping). This lesson assumes fluency with the Precision Dial (specifying the what/why while leaving the how to design expertise) and extends it directly: these UX principles give a PM a *what* to specify (reduced cognitive load, favoring recognition, appropriate choice quantity) without dictating the specific *how* a designer would use to achieve it. Hick's Law: More Choices, More Time **Hick's Law** states that the time it takes a person to make a decision increases with the number and complexity of choices available. This has a direct, practical implication for interface design: a screen presenting many options simultaneously (a long navigation menu, an extensive settings page, a form with many equally weighted fields) increases the cognitive burden and decision time for every person who encounters it, regardless of how well each individual option is designed. This does not mean fewer options are always better in an absolute sense: some tasks genuinely require presenting many options (a product catalog, for instance), but it does mean that **unnecessary** choice proliferation carries a real cost, and that progressive disclosure (revealing options only as needed, rather than presenting everything simultaneously) is often a legitimate design response to Hick's Law, one a PM can advocate for at the level of \"should we reduce the number of simultaneous choices here\" without dictating the specific visual mechanism (a dropdown, a multi-step wizard, a search-first interface) design should use to achieve it. Fitts's Law: Distance, Size, and Time to Target **Fitts's Law** describes the relationship between the time required to move to and successfully select a target and two factors: the target's size and its distance from the user's current position. Larger, closer targets are faster and easier to select accurately; smaller, more distant targets take longer and are more error-prone. This principle has direct, practical implications for interaction design that a PM can evaluate without needing to specify exact pixel measurements: is a frequently used action (like a primary call-to-action button) sized and positioned appropriately for its importance and frequency of use, or is it small and tucked into a corner, forcing users to move precisely to a small, distant target repeatedly? A PM applying Fitts's Law as a review lens asks \"is this important, frequent action easy to reach and hit reliably?\" (a what-level question) rather than specifying \"make the button exactly 48 pixels tall and position it at these exact coordinates,\" which is properly a design implementation decision. Cognitive Load **Cognitive load** refers to the total amount of mental effort being used in a person's working memory at a given moment. Interfaces that require a user to remember multiple pieces of information simultaneously, track state across several screens, or process several unrelated decisions at once impose higher cognitive load than interfaces that surface only what's immediately relevant, reduce the need to hold information in memory across steps, and clearly indicate current state. A practical, PM-relevant application of this principle: reviewing a multi-step flow (echoing Lesson 15's journey maps and Lesson 25's wireframes) and asking, at each step, whether the user is being asked to remember something from a previous step that the interface could instead simply display again, or whether multiple, unrelated decisions have been bundled into a single screen when they could be sequenced or grouped more coherently. This is a question about the user's cognitive experience, squarely within a PM's legitimate concern, since it connects directly to the validated pain points and jobs (Lessons 6 and 16) the solution is meant to serve, without dictating the specific visual or interaction design used to reduce that load. Recognition vs. Recall A closely related, highly practical principle: **recognition** (identifying something correctly when it's presented, such as choosing the right option from a visible list) is generally easier and faster for people than **recall** (retrieving information from memory without any cue, such as remembering and typing an exact command or a previously seen value). Interfaces that favor recognition (showing available options, previously entered information, or relevant context directly, rather than requiring a user to remember and re-enter or re-derive it) generally reduce user effort and error. A practical example: an interface requiring a user to remember an account number from a previous screen and manually re-type it later favors recall; an interface that instead displays the relevant account information directly at the point where it's needed favors recognition. A PM reviewing a design can legitimately ask \"are we requiring users to recall information we could instead simply show them again,\" a what-level observation, without specifying exactly how a designer should visually surface that information. The \"PM as Design Dictator\" Failure Pattern A specific, important failure pattern (directly extending Lesson 22's over-specification warning) is a PM using these UX principles (or any design knowledge) as license to dictate specific visual or interaction design solutions, rather than raising the underlying cognitive or usability concern and trusting design expertise to determine the best specific execution. \"This button needs to be blue and 60 pixels wide\" is design dictation; \"this frequently used action seems hard to locate and select reliably. Can we make it easier to find and hit?\" is legitimate UX evaluation, appropriately pitched at the level of the underlying principle (Fitts's Law, in this case) rather than a specific implementation prescription. This distinction matters for the same reason Lesson 22 emphasized it at the level of a PRD: a PM's UX knowledge, however genuine, is not equivalent to a trained designer's expertise in visual design, interaction patterns, accessibility standards, and the many other considerations that inform a well-executed specific solution. A PM who has learned these principles well enough to notice a real problem has done valuable, legitimate work; a PM who uses that same knowledge to unilaterally prescribe the specific fix has overstepped into a domain where a different kind of expertise deserves to lead. Using Hick's Law to argue that fewer options are always better, regardless of the task Some tasks genuinely require presenting many options; the principle concerns the cost of *unnecessary* choice proliferation, not a blanket mandate for minimalism regardless of context. Applying Fitts's Law by specifying exact pixel dimensions or coordinates, rather than raising the underlying concern This crosses from legitimate UX evaluation into design dictation. The appropriate PM-level observation is \"is this important action easy to reach and hit reliably,\" not a specific implementation prescription. Failing to recognize cognitive load concerns in a multi-step flow, focusing only on individual screens in isolation Cognitive load often accumulates across a sequence of steps (echoing Lesson 15's full-journey view), not just within any single screen. A review that only evaluates screens independently can miss load that builds up across the whole flow. Requiring users to recall information the interface could simply display again (favoring recall over recognition) without noticing the cost This is a subtle, easy-to-miss usability cost, since the interface may function correctly in a narrow technical sense while still imposing unnecessary user effort. Treating UX principle fluency as license to dictate specific visual or interaction design solutions This is the \"PM as design dictator\" failure pattern: raising a genuine concern is valuable; prescribing the specific fix oversteps into design's domain of expertise. The UX Principle Review Lens This lesson's mental model is the **UX Principle Review Lens**, a set of questions, derived from the four principles above, that a PM can apply when reviewing a wireframe or prototype, pitched consistently at the level of underlying concern rather than specific implementation. Use this lens consistently as a review discipline: for each question, if a genuine concern surfaces, raise it explicitly and specifically (naming the principle and the specific step or element involved), then stop: resist the pull toward specifying the exact fix, and trust the design conversation that follows to determine the best specific solution. Google **Google**'s well-documented emphasis on minimizing cognitive load and choice complexity in its core search interface (a single input field, deliberately free of the extensive simultaneous options many competing products in adjacent categories present) is a widely discussed illustration of Hick's Law and cognitive load principles applied at the highest level of a product's core interaction. Public design commentary and Google's own publicly shared design philosophy documentation have described a long-standing emphasis on simplicity and minimal cognitive burden in the core search experience specifically, even as many advanced options and features exist and are deliberately kept out of the primary, most frequently used interaction surface, a practical example of progressive disclosure responding directly to the choice-proliferation cost this lesson describes. At a startup PMs often work in especially close, informal collaboration with a small design team (or, in the earliest stages, may be responsible for some design work themselves), making fluency with these principles directly useful for making faster, more confident calls in the absence of a large, formal design review process. The risk of \"PM as design dictator\" is often heightened at this stage precisely because informal collaboration can blur the line between raising a concern and unilaterally deciding a specific solution. At a mid-size company UX principle fluency helps a PM participate credibly and usefully in more formal design review processes, asking specific, principle-grounded questions rather than vague aesthetic preferences, and helps build productive working relationships with design teams who generally welcome informed, well-articulated concerns pitched at the appropriate level, rather than either uninformed silence or inappropriate design dictation. At Big Tech UX principles often intersect with established, rigorously tested design systems and platform-level interaction conventions, and a PM's most valuable contribution at this scale is often recognizing when a proposed design deviates from well-established, principle-grounded conventions for a good reason versus for an insufficiently examined one, bringing genuine scrutiny without assuming every deviation from convention is automatically wrong. The Form That Asked Too Much at Once Consider a simplified, illustrative scenario common across B2B software onboarding flows. A team designs a new account-setup form for a project management tool, presenting all required fields (company name, team size, primary use case, industry, preferred notification settings, and integration preferences) simultaneously on a single screen, reasoning that a single screen is more \"efficient\" than a multi-step flow. During internal review, a PM familiar with UX principles from this lesson raises a specific concern: \"This screen presents six distinct, largely unrelated decisions simultaneously. Per Hick's Law and cognitive load principles, this is likely to increase abandonment, since users are being asked to process too much at once before receiving any value from the product.\" The PM does not, however, specify a particular alternative layout, deferring that decision to the design team's expertise. The design team responds by proposing a specific, appropriately staged solution: splitting the form into a shorter, immediately necessary first step (company name and team size, required to create a functional account) followed by progressively disclosed additional steps (use case, industry, and integration preferences) presented later, once the user has already experienced some initial product value, directly applying progressive disclosure as the design team's own chosen response to the cognitive-load concern the PM raised. Usability testing on the revised, staged flow shows meaningfully improved completion rates compared to the original single-screen version, confirming the concern was genuine and worth addressing. **What went wrong, and then went right?** Applying this lesson's frameworks: **The original single-screen design violated both Hick's Law and cognitive load principles simultaneously**: presenting six distinct, largely unrelated decisions at once forced users to process an unnecessarily high decision burden before receiving any product value, a foreseeable risk this lesson's principles would have flagged before the design was even built. **The PM's intervention was correctly pitched at the level of underlying concern, not specific implementation.** The PM named the specific principles (Hick's Law, cognitive load) and the specific problem (six unrelated decisions bundled together), but explicitly left the choice of solution (a staged, progressively disclosed flow, in this case) to the design team's expertise, avoiding the \"PM as design dictator\" failure pattern while still raising a genuinely valuable, principle-grounded concern. **The design team's chosen solution (progressive disclosure via staged steps) was validated through subsequent usability testing (Lesson 26)**, rather than assumed correct simply because it addressed the stated concern, closing the loop between raising a UX concern and confirming, through genuine testing, that the resulting solution actually resolved it. This case connects directly back to **Lesson 22's Precision Dial**: the PM specified the what (an unnecessary cognitive burden, tied to a specific, well-established principle) and the why (likely increased abandonment), while explicitly leaving the how (the specific staging and disclosure mechanism) to design's expertise, precisely the discipline this lesson's failure-pattern warning describes. The Principle-to-Concern Translation Table A practical table for translating each UX principle into an appropriately pitched, what-level review question, rather than a specific implementation prescription: The consistent discipline this table reinforces: **every principle translates into a question about user experience and cognitive burden, never into a specific visual or interaction design prescription**: the question is the PM's legitimate contribution; the answer belongs to design. How do you evaluate whether a proposed design is likely to cause usability problems, without a formal design background? *What the interviewer is actually evaluating:* Whether the candidate can name specific, established principles (Hick's Law, Fitts's Law, cognitive load) and apply them as genuine review questions, rather than relying on vague, untethered aesthetic preference or personal intuition alone. Tell me about a time you raised a UX concern with a design team. How did you frame it? *What the interviewer is actually evaluating:* Whether the candidate framed the concern at the level of underlying principle and user impact, deferring specific solution choice to design's expertise, versus prescribing a specific fix unilaterally, directly testing for the \"PM as design dictator\" failure pattern. How do you balance having enough UX knowledge to be useful in design reviews without overstepping into design's domain? *What the interviewer is actually evaluating:* Direct self-awareness of the boundary this lesson describes: whether the candidate can articulate a clear, principled distinction between raising a legitimate concern and dictating a specific solution, rather than treating the boundary as vague or unimportant. A small set of durable UX principles, Hick's Law (more choices increase decision time), Fitts's Law (target size and distance affect interaction speed and accuracy), cognitive load (the total mental effort required at a given moment), and recognition versus recall (recognizing presented information is generally easier than recalling it from memory), give a PM enough grounding to participate meaningfully in design review without requiring full design expertise. Each principle translates into a specific, appropriately pitched review question about user experience and cognitive burden, never into a specific visual or interaction design prescription, which is properly design's domain. The \"PM as design dictator\" failure pattern describes using UX knowledge as license to unilaterally prescribe specific solutions rather than raising the underlying concern and trusting design expertise to determine execution, directly extending Lesson 22's Precision Dial into the design-review context. As shown in this lesson's Detailed Case Study, a well-pitched, principle-grounded concern (raised at the level of \"why,\" not \"how\") can lead to a genuinely better design outcome, validated through subsequent usability testing, without the PM ever needing to specify the exact solution themselves. Hick's Law: decision time increases with the number and complexity of available choices. Unnecessary choice proliferation carries a real cost. Fitts's Law: target size and distance affect interaction speed and accuracy. Important, frequent actions should be easy to reach and hit reliably. Cognitive load: interfaces that require holding multiple pieces of information in working memory across steps impose real, measurable user effort. Recognition (identifying presented information) is generally easier than recall (retrieving information from memory unprompted). Interfaces favoring recognition reduce user effort. Every principle should translate into a what-level review question about user experience, never into a specific visual or interaction design prescription. \"PM as design dictator\" describes overstepping from legitimate concern-raising into unilateral solution prescription, which belongs to design's expertise. A well-pitched, principle-grounded concern, left open for design's expertise to resolve, can produce genuinely validated improvements, as shown in this lesson's Detailed Case Study. **Hick's Law:** more choices = more decision time. Watch for unnecessary choice proliferation. **Fitts's Law:** bigger, closer targets = faster, more accurate selection. Check important actions are easy to reach and hit. **Cognitive load:** don't make users hold too much in working memory across a flow. **Recognition > Recall:** show information again rather than requiring users to remember it. **Pitch every concern as a \"what/why\" question** (\"is this easy to reach?\"), never a \"how\" prescription (\"make it 48px\"). **PM as Design Dictator** = overstepping from concern to unilateral solution. Always defer specific execution to design expertise. Hick's Law The principle that decision time increases with the number and complexity of available choices. Fitts's Law The principle relating target size and distance to the speed and accuracy of interaction. Cognitive Load The total amount of mental effort used in working memory at a given moment. Recognition vs. Recall The distinction between identifying presented information (easier) and retrieving information from memory unprompted (harder). \"PM as Design Dictator\" (Failure Pattern) Using UX knowledge to unilaterally prescribe specific design solutions rather than raising concerns and deferring execution to design expertise. Don Norman, *The Design of Everyday Things* a foundational, widely cited treatment of usability principles including cognitive load and recognition/recall, directly relevant to this lesson's core concepts. Steve Krug, *Don't Make Me Think* a practical, accessible treatment of reducing cognitive burden in interface design, closely related to this lesson's core arguments. Susan Weinschenk, *100 Things Every Designer Needs to Know About People* includes accessible treatments of Hick's Law, Fitts's Law, and related cognitive principles for practitioners without formal design training. What does Hick's Law state, and what is its practical implication for interface design? Decision time increases with the number and complexity of available choices; unnecessary choice proliferation carries a real cognitive cost, making progressive disclosure a common design response. What does Fitts's Law state? The time required to move to and successfully select a target depends on the target's size and distance: larger, closer targets are faster and more accurate to select. What is cognitive load, and why does it matter for a multi-step flow? The total mental effort used in working memory at a given moment; cognitive load can accumulate across a sequence of steps, not just within any single screen, making full-flow review important. Why do interfaces favoring recognition over recall generally reduce user effort? Recognizing presented information is generally easier and faster than retrieving information from memory unprompted: showing relevant information again, rather than requiring users to remember it, reduces effort and error. What is the \"PM as design dictator\" failure pattern? Using UX principle knowledge to unilaterally prescribe specific visual or interaction design solutions, rather than raising the underlying concern and deferring specific execution to design expertise. How should a PM appropriately pitch a UX concern, according to this lesson? At the level of underlying principle and user impact (the \"what/why,\" e.g., \"is this important action easy to reach?\"), never as a specific implementation prescription (the \"how,\" e.g., exact pixel dimensions). In the Detailed Case Study, what specific solution did the design team propose in response to the PM's cognitive-load concern, and how was it validated? A staged, progressively disclosed flow (splitting six simultaneous decisions into an immediate first step and later, deferred steps); it was validated through usability testing showing improved completion rates compared to the original single-screen version. You are the PM for a subscription meal-kit app, reviewing a wireframe for a new \"customize your next delivery\" screen, which currently displays fifteen simultaneous options: recipe substitutions, portion size, delivery date, delivery address, dietary restriction filters, packaging preferences, and several others, all on one screen. Work through the following, in writing, before reading further: Apply Hick's Law to this screen: what specific concern would you raise, and how would you phrase it at the appropriate \"what/why\" level rather than prescribing a specific fix? Identify one element on this screen that might raise a Fitts's Law concern (consider which action is likely used most frequently, and whether it's likely to be easy or hard to reach and select based on the description given). Describe one specific way this screen might impose unnecessary cognitive load across a broader flow (consider whether users need to remember something from an earlier step, such as their dietary restrictions, that this screen could simply display again). Using the Principle-to-Concern Translation Table, write your review feedback for this screen in a form that raises genuine concerns without dictating specific visual solutions. Identify one boundary you would deliberately not cross in this review, to avoid the \"PM as design dictator\" failure pattern, and explain why. There is no single correct answer. The purpose of this exercise is to practice applying these principles as review questions pitched at the appropriate level, rather than either ignoring genuine usability concerns or overstepping into design's domain of expertise. What does Hick's Law state? Complexity of the choices counts alongside their number. The practical consequence is that every avoidable option on a screen costs every user who meets it. What does Fitts's Law describe? Bigger and nearer is faster and more accurate. A frequent action tucked small into a corner is paid for on every repetition. Why is unnecessary choice proliferation a concern, according to Hick's Law, even though presenting many options is sometimes genuinely necessary? A product catalogue genuinely needs many options. The law is about the cost of the ones that are there for no reason, and progressive disclosure is one legitimate answer. Which of the following is the clearest example of favoring recall over recognition, a pattern this lesson identifies as generally increasing user effort? The information exists and the interface declines to show it, so the user holds it in working memory and retypes it from there. That is recall, and it is where errors come from. What is the \"PM as design dictator\" failure pattern? Noticing a real problem is valuable PM work. Deciding the fix reaches past it into visual design, interaction patterns, and accessibility, where another expertise should lead. Which of the following review comments correctly applies Fitts's Law without overstepping into design dictation, according to this lesson? It names the principle's concern and stops there. The pixel figure in C is a design decision arrived at by someone without design's training in it. In the Detailed Case Study, which two UX principles did the original single-screen account-setup form violate simultaneously? Six unrelated decisions on one screen is both too many simultaneous choices and too much to hold in mind at once, which is why the two principles show up together so often. How did the PM in the Detailed Case Study correctly avoid the \"PM as design dictator\" failure pattern? The PM supplied the diagnosis; design supplied progressive disclosure across staged steps. Neither contribution would have been as good coming from the other side. (Scenario) A PM reviewing a wireframe notices that a checkout flow requires users to remember a promo code they saw on an earlier marketing email, with no way to view or reference it again during checkout. Which principle is most directly relevant to this concern? The user is asked to retrieve a string from memory with no cue available. Surfacing the code, or letting them look it up in place, converts recall back into recognition. (Product Thinking) A PM raises a cognitive-load concern about a multi-step flow, correctly noting that later steps require remembering choices made in earlier steps. According to this lesson, what should the PM do next? A summary panel, a review step, or inline echoes of earlier choices are all plausible answers. Picking among them is the part that belongs to design. (Interview Reasoning) A candidate describes reviewing a prototype and telling the design team exactly which specific font size, color, and spacing to use for every element, based on their own reading about UX principles. What might this signal, based on this lesson's Interview Perspective section? Having read about the principles is what makes the overstep tempting. Real fluency shows up as a sharper question, not a more confident prescription. (Product Thinking, Higher Difficulty) A design team proposes reducing a settings page from twelve simultaneous options to four, citing Hick's Law, but a PM is concerned this might remove options some users genuinely need regularly. What is the most appropriate way to resolve this tension, according to this lesson? Hick's Law is real and does not settle which four. Whether the hidden eight are needed regularly is an empirical question, and usability testing can answer it. (Interview Reasoning, Higher Difficulty) An interviewer asks a candidate how they would respond if a designer disagreed with a UX concern the candidate raised, arguing that a specific established convention justified the design as-is. What is the strongest response, based on this lesson? The convention may well hold here and may not. Treating the disagreement as an answerable question respects the expertise and keeps the concern alive. (Product Thinking, Higher Difficulty) A PM notices that an interface violates cognitive load principles by requiring users to remember dietary restrictions entered on a previous screen. The PM raises this concern, and the design team responds by adding a persistent summary panel that displays these restrictions throughout the flow. How should the PM verify this solution actually resolves the concern, rather than simply assuming it does? A plausible fix for a real problem is still a hypothesis. The panel might be ignored, or add clutter that costs more than the recall it removed. (Highest Difficulty) A PM has become skilled at applying Hick's Law, Fitts's Law, cognitive load, and recognition/recall principles, and routinely raises well-pitched, appropriately leveled concerns during design reviews. Over time, however, the PM notices that the design team has started deferring almost every decision to the PM's stated principle-based preferences, rather than exercising independent design judgment. What does this scenario suggest, and what should the PM do? Each individual comment was pitched correctly and the accumulated effect still moved authority. Phrasing concerns well is necessary; watching what the pattern does to the room is the rest of it.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "Mental Model: The UX Principle Review Lens",
+      "Real Company Example",
+      "Real World Perspective: UX Principles for Product Managers at Different Company Stages",
+      "Detailed Case Study: The Form That Asked Too Much at Once",
+      "Framework Explanation: The Principle-to-Concern Translation Table",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "Hick's Law",
+    "Fitts's Law",
+    "Cognitive Load",
+    "Recognition vs. Recall",
+    "\"PM as Design Dictator\" (Failure Pattern)"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

@@ -1,0 +1,225 @@
+/**
+ * Transactional Email Service via Resend API.
+ *
+ * Rules:
+ * - Server-only. RESEND_API_KEY is never exposed to the browser.
+ * - If RESEND_API_KEY is missing, logs email to console without throwing.
+ */
+
+import { BRAND } from '@/lib/brand'
+import { resolvePrimaryProvider } from '@/lib/notifications/config'
+
+export interface EmailRecipient {
+  email: string
+  name?: string
+}
+
+/**
+ * Formats a sender identity into the canonical RFC 5322 "Display Name <email@domain>" format.
+ * Defaults to `BRAND.emailFromName` ("Team Prodily") if no name is provided in the input or env vars.
+ */
+export function formatFromEmail(rawFrom?: string, defaultName = BRAND.emailFromName): string {
+  const from = rawFrom?.trim() || (process.env.BREVO_FROM_EMAIL || process.env.RESEND_FROM_EMAIL)?.trim()
+  if (!from) {
+    return `${defaultName} <${BRAND.emailFromAddress}>`
+  }
+  const match = from.match(/^(.*?)\s*<([^>]+)>$/)
+  if (match) {
+    const name = match[1].trim() || defaultName
+    const email = match[2].trim()
+    return `${name} <${email}>`
+  }
+  return `${defaultName} <${from}>`
+}
+
+/**
+ * Parses a sender string (either "Name <email@domain>" or bare "email@domain")
+ * into discrete name and email components, ensuring `name` defaults to `BRAND.emailFromName`.
+ */
+export function parseFromEmail(rawFrom?: string, defaultName = BRAND.emailFromName): { name: string; email: string } {
+  const formatted = formatFromEmail(rawFrom, defaultName)
+  const match = formatted.match(/^(.*?)\s*<([^>]+)>$/)
+  if (match) {
+    return { name: match[1].trim() || defaultName, email: match[2].trim() }
+  }
+  return { name: defaultName, email: rawFrom?.trim() || BRAND.emailFromAddress }
+}
+
+export function getFromEmail(): string {
+  return formatFromEmail()
+}
+
+export interface SendEmailResult {
+  success: boolean
+  id?: string
+  error?: string
+  statusCode?: number
+  /**
+   * The provider's own error code/message. Brevo signals credit exhaustion as an
+   * HTTP 400 with `{"code":"not_enough_credits"}`, so the status code alone cannot
+   * decide failover eligibility. See `failure-classification.ts`.
+   */
+  providerCode?: string
+  provider?: 'resend' | 'brevo' | 'simulated'
+}
+
+export function maskEmail(email: string): string {
+  if (!email || !email.includes('@')) return '***'
+  const [local, domain] = email.split('@')
+  if (local.length <= 2) return `*@${domain}`
+  return `${local[0]}***${local[local.length - 1]}@${domain}`
+}
+
+export async function sendEmail({
+  to,
+  subject,
+  html,
+  text,
+  fromEmail: customFromEmail,
+  replyTo,
+  preferProvider,
+  isCritical,
+  checkSuppression,
+  idempotencyKey,
+}: {
+  to: string
+  subject: string
+  html: string
+  text: string
+  fromEmail?: string
+  replyTo?: string
+  /**
+   * Start on this provider instead of the configured primary.
+   *
+   * Set by the governed gateway when it has already established that the configured
+   * primary is out of credit for the day, so this send should not spend a request
+   * rediscovering that. When it differs from the configured primary, failing back
+   * onto the skipped provider is suppressed — it was skipped deliberately.
+   *
+   * The decision is passed in rather than looked up here so that the common path
+   * stays a single provider call with no extra database round-trip.
+   */
+  preferProvider?: 'brevo' | 'resend'
+  /**
+   * Optional flag to indicate critical operational/system messages that can bypass
+   * the EMAIL_ENABLED kill switch if explicitly configured.
+   */
+  isCritical?: boolean
+  /**
+   * Optional flag to enforce suppression check directly on raw transport.
+   */
+  checkSuppression?: boolean
+  /**
+   * Stable logical identity of the message. Forwarded to the provider transport for
+   * idempotent same-provider retries, and — together with `isCritical` — it drives the
+   * ambiguous-timeout failover policy in `sendEmailWithFailover`.
+   */
+  idempotencyKey?: string
+}): Promise<SendEmailResult> {
+  const fromEmail = customFromEmail || getFromEmail()
+
+  // 1. Kill switch guard (I-04-B2)
+  // Ensures direct sends also respect the platform-wide EMAIL_ENABLED kill switch.
+  if (!isCritical) {
+    try {
+      const { globalFeatureFlagService } = await import('@/lib/notifications/feature-flags/service')
+      const emailEnabled = globalFeatureFlagService.isEnabled('EMAIL_ENABLED')
+      if (!emailEnabled) {
+        console.warn(`[email] Direct send blocked: EMAIL_ENABLED kill switch is active (target: ${maskEmail(to)})`)
+        return {
+          success: false,
+          error: 'Email delivery is disabled by platform kill switch (EMAIL_ENABLED=false)',
+          statusCode: 503,
+          provider: 'simulated',
+        }
+      }
+    } catch (err) {
+      console.error('[email] Error checking EMAIL_ENABLED kill switch:', err)
+    }
+
+    // 1b. Suppression check for direct non-critical sends (when enabled)
+    if (checkSuppression) {
+      try {
+        const { createServiceRoleClient } = await import('@/lib/supabase')
+        const supabase = createServiceRoleClient()
+        const { data: suppression } = await supabase
+          .from('email_suppressions')
+          .select('id')
+          .eq('email', to.trim().toLowerCase())
+          .maybeSingle()
+
+        if (suppression && (suppression as { id: string }).id) {
+          console.warn(`[email] Direct send blocked: recipient is suppressed (target: ${maskEmail(to)})`)
+          return {
+            success: false,
+            error: 'Recipient email address is suppressed',
+            statusCode: 400,
+            provider: 'simulated',
+          }
+        }
+      } catch (suppressErr) {
+        console.error('[email] Error checking email suppression:', suppressErr)
+      }
+    }
+  }
+
+  const brevoApiKey = process.env.BREVO_API_KEY
+  const resendApiKey = process.env.RESEND_API_KEY
+  const isTest = process.env.NODE_ENV === 'test' && process.env.ALLOW_TEST_NETWORK_EMAILS !== 'true'
+  const isSimulated = process.env.BREVO_SIMULATE === 'true' || process.env.RESEND_SIMULATE === 'true'
+  const hasAnyKey = Boolean(brevoApiKey || resendApiKey)
+  const primaryProvider = resolvePrimaryProvider()
+
+  if (!hasAnyKey || isSimulated || isTest) {
+    console.log(
+      `[email] Email sending simulated (isTest=${isTest}, simulate=${isSimulated}, primary=${primaryProvider}) to ${maskEmail(to)}: "${subject}" from "${fromEmail}"`
+    )
+    return { success: true, id: `simulated-${primaryProvider}-${Date.now()}`, provider: 'simulated', statusCode: 200 }
+  }
+
+  // 2. Unified Canonical Provider Transport with Failover (I-04-B4)
+  // Direct sends delegate to the canonical provider registry and failover state machine.
+  const { sendEmailWithFailover, globalProviderRegistry } = await import('@/lib/notifications/providers')
+
+  const failoverResult = await sendEmailWithFailover(
+    {
+      recipient: { email: to },
+      channel: 'email',
+      templateKey: 'direct.email',
+      templateVersion: 1,
+      variables: {
+        subject,
+        html,
+        text,
+        fromEmail,
+        replyTo,
+      },
+      operation: 'email.direct_send',
+      // A direct send flagged critical (auth mail via the governed gateway) prefers
+      // delivery over avoiding a rare duplicate on an ambiguous timeout.
+      criticality: isCritical ? 'critical' : 'standard',
+      idempotencyKey,
+    },
+    globalProviderRegistry,
+    preferProvider
+  )
+
+  if (failoverResult.success) {
+    return {
+      success: true,
+      id: failoverResult.externalId,
+      provider: failoverResult.provider as 'resend' | 'brevo' | 'simulated',
+      statusCode: 200,
+    }
+  }
+
+  const lastAttempt = failoverResult.attempts[failoverResult.attempts.length - 1]
+  return {
+    success: false,
+    id: failoverResult.externalId,
+    error: failoverResult.error || lastAttempt?.error,
+    statusCode: lastAttempt?.statusCode ?? 500,
+    providerCode: lastAttempt?.providerCode,
+    provider: (failoverResult.provider || lastAttempt?.providerName) as 'resend' | 'brevo' | 'simulated',
+  }
+}

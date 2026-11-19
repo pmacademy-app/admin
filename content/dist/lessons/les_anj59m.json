@@ -1,0 +1,965 @@
+{
+  "schemaVersion": 2,
+  "id": "les_anj59m",
+  "contentHash": "0b4cc73bfa1767eb0b73196ec2cef5fd4efa2f9b9763541235b03452e374a674",
+  "title": "User Stories",
+  "slug": "lesson-023",
+  "module": "design",
+  "order": 3,
+  "totalInModule": 10,
+  "difficulty": 3,
+  "estimatedReadingTime": 25,
+  "estimatedCompletionTime": 40,
+  "prerequisites": [
+    "les_bhb1lc",
+    "les_apad14"
+  ],
+  "sourceFile": "content/lessons/lesson-023.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 23: User Stories",
+      "blockId": "blk_5db44c367d"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 22 ended with a well-formed PRD: problem-first, appropriately precise, genuinely collaborative. But a PRD describes a solution at the level of an entire feature or initiative; it does not, by itself, tell an engineering team what to build this week, or how to sequence work across a sprint. This lesson covers the artifact that closes that final gap: the **user story**, a small, specific unit of functionality described from the perspective of the person who benefits from it, sized to be independently implementable, testable, and deliverable within a short time frame.",
+      "blockId": "blk_506f255b8d"
+    },
+    {
+      "type": "paragraph",
+      "text": "A user story's format is famously simple: \"As a [role], I want [capability], so that [benefit]\", deceptively so, because the format itself is not the hard part. The hard part, and this lesson's real subject, is *splitting* a larger scoped solution (an MVP, a PRD's functional requirements) into stories that are each genuinely independent, genuinely valuable on their own, and genuinely small enough to build and verify quickly, without splitting so finely that individual stories lose all standalone meaning, or so coarsely that a single story becomes an unmanageable, multi-week undertaking in disguise.",
+      "blockId": "blk_053ef16c08"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "Write a user story using the standard format, and explain why each of its three clauses matters.",
+        "Apply the INVEST criteria to evaluate whether a candidate user story is well-formed.",
+        "Apply at least three specific story-splitting techniques to break a large story (\"epic\") into smaller, independently valuable stories.",
+        "Identify the \"story as a disguised task\" failure pattern and distinguish a genuine user story from a technical task wearing story-format grammar.",
+        "Distinguish appropriate story granularity from over-splitting, and explain the risks of each extreme."
+      ],
+      "blockId": "blk_04acc0f335"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 21 (MVP) and Lesson 22 (Product Requirements Document). This lesson assumes you can scope a minimal solution and write a clear functional requirement. A user story is the unit that breaks a PRD's requirements down into concretely sequenceable, implementable, and testable pieces of work.",
+      "blockId": "blk_619bec1969"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Standard Format and Why Each Clause Matters",
+          "blockId": "blk_edd7e2d75e"
+        },
+        {
+          "type": "paragraph",
+          "text": "The canonical user story format is: **\"As a [role/persona], I want [capability], so that [benefit].\"** Each clause serves a specific, deliberate purpose:",
+          "blockId": "blk_e1c43dad74"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**\"As a [role]\"** ties the story back to a specific persona (Lesson 14) or user type, preventing the same undifferentiated \"the user\" language this curriculum has repeatedly warned against.",
+            "**\"I want [capability]\"** states the specific functionality being requested, at a level of granularity appropriate for a single, small unit of work.",
+            "**\"So that [benefit]\"** states the underlying value or job (Lesson 6) the capability serves, and this clause is frequently the most important, and most frequently omitted or treated as an afterthought, because it is what allows anyone reading the story (not just the person who wrote it) to judge whether an implementation choice actually serves the intended purpose."
+          ],
+          "blockId": "blk_39c9c1d75b"
+        },
+        {
+          "type": "paragraph",
+          "text": "A story missing the \"so that\" clause loses exactly the connective tissue that lets an engineer make good judgment calls on ambiguous implementation details. Recall Lesson 22's Precision Dial: a well-specified \"so that\" clause is often what allows a PM to appropriately under-specify the \"how,\" because the underlying reason gives the implementer enough context to make a sound decision independently.",
+          "blockId": "blk_2f40c598ba"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The INVEST Criteria",
+          "blockId": "blk_a4c8ce9d47"
+        },
+        {
+          "type": "paragraph",
+          "text": "A widely used, practical checklist for evaluating whether a candidate user story is well-formed is the **INVEST** acronym:",
+          "blockId": "blk_2f12cc0305"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**Independent**: the story can be built and delivered without being blocked by, or tightly coupled to, other stories.",
+            "**Negotiable**: the story describes a need, not a rigid, final specification. The specific implementation remains open for discussion between the team members involved (directly echoing Lesson 22's Precision Dial).",
+            "**Valuable**: the story delivers genuine value to the named persona or the business, not merely a technical intermediate step (directly connecting to the next section's core distinction).",
+            "**Estimable**: the team can reasonably estimate the effort required to complete it, which requires the story to be specific and bounded enough to reason about.",
+            "**Small**: the story is sized to be completed within a short time frame (often within a single sprint, sometimes within a few days), not a multi-week undertaking in disguise.",
+            "**Testable**: there is a clear, verifiable way to determine whether the story has actually been completed (a concept extended fully in Lesson 24's acceptance criteria)."
+          ],
+          "blockId": "blk_0ec10e97fa"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_1c7c585fe6",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Candidate User Story] --> B[Independent]\r\n    A --> C[Negotiable]\r\n    A --> D[Valuable]\r\n    A --> E[Estimable]\r\n    A --> F[Small]\r\n    A --> G[Testable]\r\n    B --> H[Passes INVEST: Well-Formed Story]\r\n    C --> H\r\n    D --> H\r\n    E --> H\r\n    F --> H\r\n    G --> H",
+          "normalized": "graph TD\r\n    A[Candidate User Story] --> B[Independent]\r\n    A --> C[Negotiable]\r\n    A --> D[Valuable]\r\n    A --> E[Estimable]\r\n    A --> F[Small]\r\n    A --> G[Testable]\r\n    B --> H[Passes INVEST: Well-Formed Story]\r\n    C --> H\r\n    D --> H\r\n    E --> H\r\n    F --> H\r\n    G --> H",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020941973-58\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1400.25\" height=\"429\" viewBox=\"-38 -27 1400.25 429\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Candidate User Story → Independent → Negotiable → Valuable → Estimable...\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Candidate User Story → Independent → Negotiable → Valuable → Estimable...</title><style>#mermaid-svg-1795020941973-58{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020941973-58 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020941973-58 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020941973-58 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020941973-58 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020941973-58 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020941973-58 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020941973-58 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020941973-58 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020941973-58 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020941973-58 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020941973-58 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020941973-58 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020941973-58 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020941973-58 p{margin:0;}#mermaid-svg-1795020941973-58 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020941973-58 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020941973-58 .cluster-label span{color:#171A17;}#mermaid-svg-1795020941973-58 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020941973-58 .label text,#mermaid-svg-1795020941973-58 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020941973-58 .node rect,#mermaid-svg-1795020941973-58 .node circle,#mermaid-svg-1795020941973-58 .node ellipse,#mermaid-svg-1795020941973-58 .node polygon,#mermaid-svg-1795020941973-58 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020941973-58 .rough-node .label text,#mermaid-svg-1795020941973-58 .node .label text,#mermaid-svg-1795020941973-58 .image-shape .label,#mermaid-svg-1795020941973-58 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020941973-58 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020941973-58 .rough-node .label,#mermaid-svg-1795020941973-58 .node .label,#mermaid-svg-1795020941973-58 .image-shape .label,#mermaid-svg-1795020941973-58 .icon-shape .label{text-align:center;}#mermaid-svg-1795020941973-58 .node.clickable{cursor:pointer;}#mermaid-svg-1795020941973-58 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020941973-58 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020941973-58 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020941973-58 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020941973-58 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020941973-58 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020941973-58 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020941973-58 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020941973-58 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020941973-58 .cluster text{fill:#171A17;}#mermaid-svg-1795020941973-58 .cluster span{color:#171A17;}#mermaid-svg-1795020941973-58 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020941973-58 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020941973-58 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020941973-58 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020941973-58 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020941973-58 .icon-shape,#mermaid-svg-1795020941973-58 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020941973-58 .icon-shape p,#mermaid-svg-1795020941973-58 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020941973-58 .icon-shape .label rect,#mermaid-svg-1795020941973-58 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020941973-58 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020941973-58 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020941973-58 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020941973-58 [data-look=\"neo\"].node rect,#mermaid-svg-1795020941973-58 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020941973-58 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020941973-58-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020941973-58 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020941973-58 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020941973-58-gradient);stroke-width:1px;}#mermaid-svg-1795020941973-58 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020941973-58 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020941973-58 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020941973-58-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020941973-58 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020941973-58 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020941973-58-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020941973-58 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020941973-58-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020941973-58 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020941973-58_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020941973-58_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020941973-58_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020941973-58_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020941973-58_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020941973-58_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020941973-58_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020941973-58_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020941973-58_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020941973-58_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020941973-58_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020941973-58_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M565.938,66.369L491.302,75.891C416.667,85.413,267.396,104.456,192.76,120.228C118.125,136,118.125,148.5,118.125,154.75L118.125,161\" id=\"mermaid-svg-1795020941973-58-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NTY1LjkzNzUsInkiOjY2LjM2OTIyMjk1NTgxNTEzfSx7IngiOjExOC4xMjUsInkiOjEyMy41fSx7IngiOjExOC4xMjUsInkiOjE2NX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941973-58_flowchart-v2-pointEnd)\"></path><path d=\"M565.938,81.889L534.448,88.824C502.958,95.76,439.979,109.63,408.49,122.815C377,136,377,148.5,377,154.75L377,161\" id=\"mermaid-svg-1795020941973-58-L_A_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_C_0\" data-points=\"W3sieCI6NTY1LjkzNzUsInkiOjgxLjg4OTM1NjQ3OTA0NjExfSx7IngiOjM3NywieSI6MTIzLjV9LHsieCI6Mzc3LCJ5IjoxNjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941973-58_flowchart-v2-pointEnd)\"></path><path d=\"M678.438,82L668.157,88.917C657.876,95.833,637.313,109.667,627.031,122.833C616.75,136,616.75,148.5,616.75,154.75L616.75,161\" id=\"mermaid-svg-1795020941973-58-L_A_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_D_0\" data-points=\"W3sieCI6Njc4LjQzODI5NjE3ODM0NCwieSI6ODJ9LHsieCI6NjE2Ljc1LCJ5IjoxMjMuNX0seyJ4Ijo2MTYuNzUsInkiOjE2NX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941973-58_flowchart-v2-pointEnd)\"></path><path d=\"M788.437,82L798.718,88.917C808.999,95.833,829.562,109.667,839.844,122.833C850.125,136,850.125,148.5,850.125,154.75L850.125,161\" id=\"mermaid-svg-1795020941973-58-L_A_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_E_0\" data-points=\"W3sieCI6Nzg4LjQzNjcwMzgyMTY1NiwieSI6ODJ9LHsieCI6ODUwLjEyNSwieSI6MTIzLjV9LHsieCI6ODUwLjEyNSwieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941973-58_flowchart-v2-pointEnd)\"></path><path d=\"M889.421,82L918.58,88.917C947.739,95.833,1006.057,109.667,1035.216,122.833C1064.375,136,1064.375,148.5,1064.375,154.75L1064.375,161\" id=\"mermaid-svg-1795020941973-58-L_A_F_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_F_0\" data-points=\"W3sieCI6ODg5LjQyMDc4MDI1NDc3NzEsInkiOjgyfSx7IngiOjEwNjQuMzc1LCJ5IjoxMjMuNX0seyJ4IjoxMDY0LjM3NSwieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941973-58_flowchart-v2-pointEnd)\"></path><path d=\"M900.938,69.403L962.823,78.419C1024.708,87.435,1148.479,105.468,1210.365,120.734C1272.25,136,1272.25,148.5,1272.25,154.75L1272.25,161\" id=\"mermaid-svg-1795020941973-58-L_A_G_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_G_0\" data-points=\"W3sieCI6OTAwLjkzNzUsInkiOjY5LjQwMzIwMTQ4NDc0NjU1fSx7IngiOjEyNzIuMjUsInkiOjEyMy41fSx7IngiOjEyNzIuMjUsInkiOjE2NX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941973-58_flowchart-v2-pointEnd)\"></path><path d=\"M118.125,239L118.125,245.917C118.125,252.833,118.125,266.667,179.349,281.394C240.573,296.122,363.021,311.743,424.246,319.554L485.47,327.365\" id=\"mermaid-svg-1795020941973-58-L_B_H_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_H_0\" data-points=\"W3sieCI6MTE4LjEyNSwieSI6MjM5fSx7IngiOjExOC4xMjUsInkiOjI4MC41fSx7IngiOjQ4OS40Mzc1LCJ5IjozMjcuODcxMTAyMDgyMjc1M31d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941973-58_flowchart-v2-pointEnd)\"></path><path d=\"M377,239L377,245.917C377,252.833,377,266.667,407.755,280.357C438.51,294.047,500.019,307.593,530.774,314.366L561.529,321.14\" id=\"mermaid-svg-1795020941973-58-L_C_H_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_H_0\" data-points=\"W3sieCI6Mzc3LCJ5IjoyMzl9LHsieCI6Mzc3LCJ5IjoyODAuNX0seyJ4Ijo1NjUuNDM1MTExNDY0OTY4MSwieSI6MzIyfV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941973-58_flowchart-v2-pointEnd)\"></path><path d=\"M616.75,239L616.75,245.917C616.75,252.833,616.75,266.667,626.478,280.128C636.206,293.589,655.663,306.678,665.391,313.223L675.119,319.767\" id=\"mermaid-svg-1795020941973-58-L_D_H_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_H_0\" data-points=\"W3sieCI6NjE2Ljc1LCJ5IjoyMzl9LHsieCI6NjE2Ljc1LCJ5IjoyODAuNX0seyJ4Ijo2NzguNDM4Mjk2MTc4MzQ0LCJ5IjozMjJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941973-58_flowchart-v2-pointEnd)\"></path><path d=\"M850.125,239L850.125,245.917C850.125,252.833,850.125,266.667,840.397,280.128C830.669,293.589,811.212,306.678,801.484,313.223L791.756,319.767\" id=\"mermaid-svg-1795020941973-58-L_E_H_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_E_H_0\" data-points=\"W3sieCI6ODUwLjEyNSwieSI6MjM5fSx7IngiOjg1MC4xMjUsInkiOjI4MC41fSx7IngiOjc4OC40MzY3MDM4MjE2NTYsInkiOjMyMn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941973-58_flowchart-v2-pointEnd)\"></path><path d=\"M1064.375,239L1064.375,245.917C1064.375,252.833,1064.375,266.667,1035.865,280.346C1007.354,294.026,950.334,307.551,921.823,314.314L893.313,321.077\" id=\"mermaid-svg-1795020941973-58-L_F_H_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_F_H_0\" data-points=\"W3sieCI6MTA2NC4zNzUsInkiOjIzOX0seyJ4IjoxMDY0LjM3NSwieSI6MjgwLjV9LHsieCI6ODg5LjQyMDc4MDI1NDc3NzEsInkiOjMyMn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941973-58_flowchart-v2-pointEnd)\"></path><path d=\"M1272.25,239L1272.25,245.917C1272.25,252.833,1272.25,266.667,1223.774,280.646C1175.299,294.625,1078.347,308.75,1029.871,315.812L981.396,322.875\" id=\"mermaid-svg-1795020941973-58-L_G_H_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_G_H_0\" data-points=\"W3sieCI6MTI3Mi4yNSwieSI6MjM5fSx7IngiOjEyNzIuMjUsInkiOjI4MC41fSx7IngiOjk3Ny40Mzc1LCJ5IjozMjMuNDUxNDU1NzQ3NTkzMDZ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941973-58_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_F_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_G_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_H_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_H_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_D_H_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_E_H_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_F_H_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_G_H_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020941973-58-flowchart-A-0\" data-look=\"classic\" transform=\"translate(733.4375, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-133\" y=\"-35\" width=\"266\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-101, -19)\"><rect></rect><foreignObject width=\"202\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Candidate User Story</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020941973-58-flowchart-B-1\" data-look=\"classic\" transform=\"translate(118.125, 202)\"><rect class=\"basic label-container\" style=\"\" x=\"-94.75\" y=\"-35\" width=\"189.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-62.75, -19)\"><rect></rect><foreignObject width=\"125.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Independent</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020941973-58-flowchart-C-3\" data-look=\"classic\" transform=\"translate(377, 202)\"><rect class=\"basic label-container\" style=\"\" x=\"-90.5\" y=\"-35\" width=\"181\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-58.5, -19)\"><rect></rect><foreignObject width=\"117\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Negotiable</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020941973-58-flowchart-D-5\" data-look=\"classic\" transform=\"translate(616.75, 202)\"><rect class=\"basic label-container\" style=\"\" x=\"-82\" y=\"-35\" width=\"164\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-50, -19)\"><rect></rect><foreignObject width=\"100\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Valuable</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020941973-58-flowchart-E-7\" data-look=\"classic\" transform=\"translate(850.125, 202)\"><rect class=\"basic label-container\" style=\"\" x=\"-86.25\" y=\"-35\" width=\"172.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-54.25, -19)\"><rect></rect><foreignObject width=\"108.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Estimable</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020941973-58-flowchart-F-9\" data-look=\"classic\" transform=\"translate(1064.375, 202)\"><rect class=\"basic label-container\" style=\"\" x=\"-69.25\" y=\"-35\" width=\"138.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-37.25, -19)\"><rect></rect><foreignObject width=\"74.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Small</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020941973-58-flowchart-G-11\" data-look=\"classic\" transform=\"translate(1272.25, 202)\"><rect class=\"basic label-container\" style=\"\" x=\"-82\" y=\"-35\" width=\"164\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-50, -19)\"><rect></rect><foreignObject width=\"100\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Testable</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020941973-58-flowchart-H-13\" data-look=\"classic\" transform=\"translate(733.4375, 359)\"><rect class=\"basic label-container\" style=\"\" x=\"-184\" y=\"-35\" width=\"368\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-152, -19)\"><rect></rect><foreignObject width=\"304\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Passes INVEST: Well-Formed Story</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020941973-58-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020941973-58-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020941973-58-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_1c7c585fe6"
+        },
+        {
+          "type": "paragraph",
+          "text": "A story failing any single INVEST criterion is not necessarily useless, but should prompt specific attention: a story that isn't independent may need resequencing or restructuring; a story that isn't valuable may actually be a disguised technical task (see below); a story that isn't small may need splitting, which is the primary technique this lesson covers next.",
+          "blockId": "blk_cf50e0a185"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Story-Splitting Techniques",
+          "blockId": "blk_35f72841f5"
+        },
+        {
+          "type": "paragraph",
+          "text": "The central practical skill in this lesson is **splitting** a large story (sometimes called an \"epic\" once it's clearly too large to be a single INVEST-compliant story) into smaller stories that each remain independently valuable. Several widely used techniques:",
+          "blockId": "blk_15d864097a"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**Split by workflow steps**: if a capability involves a multi-step process, each step can sometimes become its own valuable story: for example, splitting \"As a user, I want to book and pay for an appointment\" into \"As a user, I want to book an appointment\" and \"As a user, I want to pay for a booked appointment,\" provided each step delivers standalone value on its own (which should be checked, not assumed).",
+            "**Split by business rule variations**: if a capability has multiple variants or edge cases (different payment methods, different user permission levels), the core, most common case can become its own story, with variants split into subsequent stories, directly echoing Lesson 21's MVP discipline of testing the riskiest, most essential version first.",
+            "**Split by data variations**: if a capability must handle multiple types of input or data, the most common or simplest type can become its own story first, with additional types added incrementally.",
+            "**Split by interface variations**: if a capability needs to work across multiple platforms or interfaces (web, mobile, API), the primary platform can become its own story, with others following."
+          ],
+          "blockId": "blk_57ea94599b"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_56766daa9b",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Large Story / Epic] --> B[Split by Workflow Steps]\r\n    A --> C[Split by Business Rule Variations]\r\n    A --> D[Split by Data Variations]\r\n    A --> E[Split by Interface Variations]\r\n    B --> F[Each Resulting Split Must Still Pass<br/>INVEST: Especially Valuable and<br/>Independent]\r\n    C --> F\r\n    D --> F\r\n    E --> F",
+          "normalized": "graph TD\r\n    A[Large Story / Epic] --> B[Split by Workflow Steps]\r\n    A --> C[Split by Business Rule Variations]\r\n    A --> D[Split by Data Variations]\r\n    A --> E[Split by Interface Variations]\r\n    B --> F[Each Resulting Split Must Still Pass<br/>INVEST: Especially Valuable and<br/>Independent]\r\n    C --> F\r\n    D --> F\r\n    E --> F",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020942217-59\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1848\" height=\"485\" viewBox=\"-40.875 -27 1848 485\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Large Story / Epic → Split by Workflow Steps → Split by Business Rule Variations → Split by Data Variations → Split by Interface Variations...\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Large Story / Epic → Split by Workflow Steps → Split by Business Rule Variations → Split by Data Variations → Split by Interface Variations...</title><style>#mermaid-svg-1795020942217-59{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020942217-59 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020942217-59 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020942217-59 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020942217-59 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020942217-59 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020942217-59 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020942217-59 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020942217-59 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020942217-59 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020942217-59 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020942217-59 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020942217-59 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020942217-59 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020942217-59 p{margin:0;}#mermaid-svg-1795020942217-59 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020942217-59 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020942217-59 .cluster-label span{color:#171A17;}#mermaid-svg-1795020942217-59 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020942217-59 .label text,#mermaid-svg-1795020942217-59 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020942217-59 .node rect,#mermaid-svg-1795020942217-59 .node circle,#mermaid-svg-1795020942217-59 .node ellipse,#mermaid-svg-1795020942217-59 .node polygon,#mermaid-svg-1795020942217-59 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020942217-59 .rough-node .label text,#mermaid-svg-1795020942217-59 .node .label text,#mermaid-svg-1795020942217-59 .image-shape .label,#mermaid-svg-1795020942217-59 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020942217-59 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020942217-59 .rough-node .label,#mermaid-svg-1795020942217-59 .node .label,#mermaid-svg-1795020942217-59 .image-shape .label,#mermaid-svg-1795020942217-59 .icon-shape .label{text-align:center;}#mermaid-svg-1795020942217-59 .node.clickable{cursor:pointer;}#mermaid-svg-1795020942217-59 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020942217-59 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020942217-59 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020942217-59 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020942217-59 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020942217-59 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020942217-59 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020942217-59 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020942217-59 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020942217-59 .cluster text{fill:#171A17;}#mermaid-svg-1795020942217-59 .cluster span{color:#171A17;}#mermaid-svg-1795020942217-59 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020942217-59 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020942217-59 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020942217-59 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020942217-59 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020942217-59 .icon-shape,#mermaid-svg-1795020942217-59 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020942217-59 .icon-shape p,#mermaid-svg-1795020942217-59 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020942217-59 .icon-shape .label rect,#mermaid-svg-1795020942217-59 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020942217-59 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020942217-59 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020942217-59 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020942217-59 [data-look=\"neo\"].node rect,#mermaid-svg-1795020942217-59 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020942217-59 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020942217-59-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942217-59 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020942217-59 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020942217-59-gradient);stroke-width:1px;}#mermaid-svg-1795020942217-59 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942217-59 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020942217-59 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020942217-59-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942217-59 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020942217-59 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020942217-59-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942217-59 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020942217-59-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942217-59 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020942217-59_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942217-59_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942217-59_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942217-59_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020942217-59_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020942217-59_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020942217-59_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020942217-59_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020942217-59_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942217-59_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942217-59_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020942217-59_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M766.063,61.728L670.823,72.024C575.583,82.319,385.104,102.909,289.865,119.455C194.625,136,194.625,148.5,194.625,154.75L194.625,161\" id=\"mermaid-svg-1795020942217-59-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NzY2LjA2MjUsInkiOjYxLjcyODI4OTg3MDA0MDQ1Nn0seyJ4IjoxOTQuNjI1LCJ5IjoxMjMuNX0seyJ4IjoxOTQuNjI1LCJ5IjoxNjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020942217-59_flowchart-v2-pointEnd)\"></path><path d=\"M805.718,82L784.202,88.917C762.687,95.833,719.656,109.667,698.14,122.833C676.625,136,676.625,148.5,676.625,154.75L676.625,161\" id=\"mermaid-svg-1795020942217-59-L_A_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_C_0\" data-points=\"W3sieCI6ODA1LjcxNzc1NDc3NzA3LCJ5Ijo4Mn0seyJ4Ijo2NzYuNjI1LCJ5IjoxMjMuNX0seyJ4Ijo2NzYuNjI1LCJ5IjoxNjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020942217-59_flowchart-v2-pointEnd)\"></path><path d=\"M1035.907,82L1057.423,88.917C1078.938,95.833,1121.969,109.667,1143.485,122.833C1165,136,1165,148.5,1165,154.75L1165,161\" id=\"mermaid-svg-1795020942217-59-L_A_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_D_0\" data-points=\"W3sieCI6MTAzNS45MDcyNDUyMjI5MywieSI6ODJ9LHsieCI6MTE2NSwieSI6MTIzLjV9LHsieCI6MTE2NSwieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020942217-59_flowchart-v2-pointEnd)\"></path><path d=\"M1075.563,62.181L1167.615,72.401C1259.667,82.621,1443.771,103.06,1535.823,119.53C1627.875,136,1627.875,148.5,1627.875,154.75L1627.875,161\" id=\"mermaid-svg-1795020942217-59-L_A_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_E_0\" data-points=\"W3sieCI6MTA3NS41NjI1LCJ5Ijo2Mi4xODA3NjU0OTEwMjgwMn0seyJ4IjoxNjI3Ljg3NSwieSI6MTIzLjV9LHsieCI6MTYyNy44NzUsInkiOjE2NX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020942217-59_flowchart-v2-pointEnd)\"></path><path d=\"M194.625,239L194.625,245.917C194.625,252.833,194.625,266.667,270.081,285.273C345.537,303.879,496.448,327.258,571.904,338.948L647.36,350.637\" id=\"mermaid-svg-1795020942217-59-L_B_F_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_F_0\" data-points=\"W3sieCI6MTk0LjYyNSwieSI6MjM5fSx7IngiOjE5NC42MjUsInkiOjI4MC41fSx7IngiOjY1MS4zMTI1LCJ5IjozNTEuMjQ5NDE5MDU0OTk2MX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020942217-59_flowchart-v2-pointEnd)\"></path><path d=\"M676.625,239L676.625,245.917C676.625,252.833,676.625,266.667,691.033,280.221C705.44,293.775,734.255,307.051,748.663,313.689L763.07,320.326\" id=\"mermaid-svg-1795020942217-59-L_C_F_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_F_0\" data-points=\"W3sieCI6Njc2LjYyNSwieSI6MjM5fSx7IngiOjY3Ni42MjUsInkiOjI4MC41fSx7IngiOjc2Ni43MDMwNTU1NTU1NTU2LCJ5IjozMjJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020942217-59_flowchart-v2-pointEnd)\"></path><path d=\"M1165,239L1165,245.917C1165,252.833,1165,266.667,1150.592,280.221C1136.185,293.775,1107.37,307.051,1092.962,313.689L1078.555,320.326\" id=\"mermaid-svg-1795020942217-59-L_D_F_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_F_0\" data-points=\"W3sieCI6MTE2NSwieSI6MjM5fSx7IngiOjExNjUsInkiOjI4MC41fSx7IngiOjEwNzQuOTIxOTQ0NDQ0NDQ0NSwieSI6MzIyfV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020942217-59_flowchart-v2-pointEnd)\"></path><path d=\"M1627.875,239L1627.875,245.917C1627.875,252.833,1627.875,266.667,1555.606,285.082C1483.338,303.497,1338.8,326.494,1266.532,337.993L1194.263,349.492\" id=\"mermaid-svg-1795020942217-59-L_E_F_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_E_F_0\" data-points=\"W3sieCI6MTYyNy44NzUsInkiOjIzOX0seyJ4IjoxNjI3Ljg3NSwieSI6MjgwLjV9LHsieCI6MTE5MC4zMTI1LCJ5IjozNTAuMTIwMTI3Mjg3MTkxNzR9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020942217-59_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_F_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_F_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_D_F_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_E_F_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020942217-59-flowchart-A-0\" data-look=\"classic\" transform=\"translate(920.8125, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-124.5\" y=\"-35\" width=\"249\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-92.5, -19)\"><rect></rect><foreignObject width=\"185\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Large Story / Epic</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020942217-59-flowchart-B-1\" data-look=\"classic\" transform=\"translate(194.625, 202)\"><rect class=\"basic label-container\" style=\"\" x=\"-145.75\" y=\"-35\" width=\"291.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-113.75, -19)\"><rect></rect><foreignObject width=\"227.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Split by Workflow Steps</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020942217-59-flowchart-C-3\" data-look=\"classic\" transform=\"translate(676.625, 202)\"><rect class=\"basic label-container\" style=\"\" x=\"-188.25\" y=\"-35\" width=\"376.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-156.25, -19)\"><rect></rect><foreignObject width=\"312.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Split by Business Rule Variations</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020942217-59-flowchart-D-5\" data-look=\"classic\" transform=\"translate(1165, 202)\"><rect class=\"basic label-container\" style=\"\" x=\"-150\" y=\"-35\" width=\"300\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-118, -19)\"><rect></rect><foreignObject width=\"236\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Split by Data Variations</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020942217-59-flowchart-E-7\" data-look=\"classic\" transform=\"translate(1627.875, 202)\"><rect class=\"basic label-container\" style=\"\" x=\"-171.25\" y=\"-35\" width=\"342.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-139.25, -19)\"><rect></rect><foreignObject width=\"278.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Split by Interface Variations</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020942217-59-flowchart-F-9\" data-look=\"classic\" transform=\"translate(920.8125, 393)\"><rect class=\"basic label-container\" style=\"\" x=\"-201\" y=\"-57\" width=\"402\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-169, -41)\"><rect></rect><foreignObject width=\"338\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Each Resulting Split Must Still Pass<br>INVEST: Especially Valuable and<br>Independent</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020942217-59-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020942217-59-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020942217-59-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_56766daa9b"
+        },
+        {
+          "type": "paragraph",
+          "text": "Crucially, every split must be checked against the INVEST criteria afterward, particularly **Valuable** and **Independent**: a mechanical split that produces a piece with no standalone value (for example, splitting a login flow into \"build the username field\" and \"build the password field\" as separate stories) has produced fragments, not genuine stories, echoing Lesson 21's car-wheel failure at the level of individual units of work rather than an entire MVP.",
+          "blockId": "blk_8a266ddc65"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The \"Story as a Disguised Task\" Failure Pattern",
+          "blockId": "blk_6d6f57df67"
+        },
+        {
+          "type": "paragraph",
+          "text": "A specific, common failure (closely related to Lesson 17's disguised-solution problem and Lesson 21's car-wheel failure) is writing something in user-story grammar (\"As a [role], I want...\") that is actually a technical task with no standalone value to the named persona, rather than a genuine, valuable capability. \"As a developer, I want to refactor the authentication module\" is grammatically a story, but names no benefit to an actual product user, and would fail the INVEST \"Valuable\" criterion when evaluated honestly against the persona it claims to serve.",
+          "blockId": "blk_5d72ba2a74"
+        },
+        {
+          "type": "paragraph",
+          "text": "This does not mean technical work (refactoring, infrastructure improvements, technical debt reduction, covered further in Lesson 39) is illegitimate or unimportant; it means such work should generally be tracked and communicated using language appropriate to what it actually is (a technical task, not a user story) rather than forced into story-format grammar that implies a standalone value to an end user that isn't actually present. Mislabeling technical tasks as user stories obscures the genuine distinction between value-delivering and infrastructure-supporting work, making it harder to have honest conversations about the trade-off between the two during planning and prioritization.",
+          "blockId": "blk_bcd0e1a9eb"
+        }
+      ],
+      "blockId": "blk_2fbb818e39"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Omitting or treating the \"so that\" clause as an afterthought",
+          "body": "This clause provides the connective context that allows implementers to make good independent judgment calls on ambiguous details. Omitting it removes exactly the information that would otherwise let a PM appropriately avoid over-specifying the \"how.\""
+        },
+        {
+          "title": "Splitting a story mechanically without checking the result against INVEST, especially \"Valuable\" and \"Independent.",
+          "body": "A split that produces fragments with no standalone value (echoing Lesson 21's car-wheel failure) has not actually produced genuine, smaller user stories, merely smaller, disconnected pieces of a larger plan."
+        },
+        {
+          "title": "Writing technical tasks in user-story grammar without genuine standalone value to the named persona",
+          "body": "\"As a developer, I want to refactor X\" is grammatically a story but fails the \"Valuable\" INVEST criterion when evaluated honestly. Such work should be tracked and communicated as what it actually is."
+        },
+        {
+          "title": "Leaving a story too large (\"Small\" INVEST failure) because splitting feels like unnecessary overhead",
+          "body": "A story that takes multiple weeks to complete is difficult to estimate accurately, difficult to prioritize meaningfully against other work, and delays the delivery of standalone value that a properly split version would have delivered incrementally."
+        },
+        {
+          "title": "Over-splitting a story until individual pieces no longer deliver standalone value",
+          "body": "Splitting too finely (down to the level of individual UI elements or database fields) produces exactly the same \"fragments without standalone value\" problem as mechanical, uncritical splitting, just from the opposite direction.\n\n"
+        }
+      ],
+      "blockId": "blk_4b2153e1a5"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The Story Value Test",
+      "diagram": {
+        "blockId": "blk_74451b7e1a",
+        "type": "mermaid"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "This lesson's mental model is the **Story Value Test**, a quick check applied to any candidate user story, whether freshly written or the result of a split, before it's added to a backlog.",
+          "blockId": "blk_cbf9e44388"
+        },
+        {
+          "type": "paragraph",
+          "text": "Apply this test to every candidate story: if it were the only thing shipped this sprint, with nothing else, would the named persona (or the business) genuinely be better off? If the honest answer is no (if the story only matters in combination with several other, not-yet-built pieces), the story has likely been split too finely, or was never a genuine story (a task in disguise) to begin with.",
+          "blockId": "blk_f9097936b7"
+        }
+      ],
+      "blockId": "blk_d0074b15d8"
+    },
+    {
+      "type": "mermaid",
+      "id": "blk_74451b7e1a",
+      "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Candidate User Story] --> B{Does This Story, on Its Own, Deliver<br/>Genuine, Standalone Value to the Named<br/>Persona or Business If Built and Shipped<br/>Alone?}\r\n    B -->|Yes| C[Passes the Story Value<br/>Test: Genuine User Story]\r\n    B -->|No| D[Fails: Likely a Disguised Task or an<br/>Over-split Fragment; Reconsider Scope]",
+      "normalized": "graph TD\r\n    A[Candidate User Story] --> B{Does This Story, on Its Own, Deliver<br/>Genuine, Standalone Value to the Named<br/>Persona or Business If Built and Shipped<br/>Alone?}\r\n    B -->|Yes| C[Passes the Story Value<br/>Test: Genuine User Story]\r\n    B -->|No| D[Fails: Likely a Disguised Task or an<br/>Over-split Fragment; Reconsider Scope]",
+      "authorTheme": {
+        "background": "#0b0b0c",
+        "primaryColor": "#1f1f23",
+        "primaryTextColor": "#ffffff",
+        "primaryBorderColor": "#8b5cf6",
+        "lineColor": "#d1d5db",
+        "secondaryColor": "#18181b",
+        "tertiaryColor": "#111111",
+        "mainBkg": "#1f1f23",
+        "nodeBorder": "#8b5cf6",
+        "clusterBkg": "#000000",
+        "clusterBorder": "#27272a",
+        "titleColor": "#ffffff",
+        "edgeLabelBackground": "#0b0b0c",
+        "nodeTextColor": "#ffffff",
+        "edgeLabelColor": "#ffffff",
+        "actorBorder": "#8b5cf6",
+        "actorBkg": "#1f1f23",
+        "actorTextColor": "#ffffff",
+        "sequenceNumberColor": "#ffffff",
+        "signalColor": "#8b5cf6",
+        "signalTextColor": "#ffffff",
+        "textColor": "#ffffff",
+        "classText": "#ffffff",
+        "classBorder": "#8b5cf6",
+        "classBkg": "#1f1f23"
+      },
+      "svg": "<svg id=\"mermaid-svg-1795020942407-60\" xmlns=\"http://www.w3.org/2000/svg\" width=\"971.13\" height=\"891\" viewBox=\"-43 -27 971.13 891\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Candidate User Story → Does This Story, on Its Own, DeliverGenuine, Standalone Value to the NamedPersona or Business If Built and ShippedAlone? → Passes the Story ValueTest: Genuine User Story → Fails: Likely a Disguised Task or anOver-split Fragment; Reconsider Scope\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Candidate User Story → Does This Story, on Its Own, DeliverGenuine, Standalone Value to the NamedPersona or Business If Built and ShippedAlone? → Passes the Story ValueTest: Genuine User Story → Fails: Likely a Disguised Task or anOver-split Fragment; Reconsider Scope</title><style>#mermaid-svg-1795020942407-60{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020942407-60 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020942407-60 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020942407-60 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020942407-60 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020942407-60 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020942407-60 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020942407-60 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020942407-60 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020942407-60 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020942407-60 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020942407-60 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020942407-60 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020942407-60 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020942407-60 p{margin:0;}#mermaid-svg-1795020942407-60 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020942407-60 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020942407-60 .cluster-label span{color:#171A17;}#mermaid-svg-1795020942407-60 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020942407-60 .label text,#mermaid-svg-1795020942407-60 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020942407-60 .node rect,#mermaid-svg-1795020942407-60 .node circle,#mermaid-svg-1795020942407-60 .node ellipse,#mermaid-svg-1795020942407-60 .node polygon,#mermaid-svg-1795020942407-60 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020942407-60 .rough-node .label text,#mermaid-svg-1795020942407-60 .node .label text,#mermaid-svg-1795020942407-60 .image-shape .label,#mermaid-svg-1795020942407-60 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020942407-60 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020942407-60 .rough-node .label,#mermaid-svg-1795020942407-60 .node .label,#mermaid-svg-1795020942407-60 .image-shape .label,#mermaid-svg-1795020942407-60 .icon-shape .label{text-align:center;}#mermaid-svg-1795020942407-60 .node.clickable{cursor:pointer;}#mermaid-svg-1795020942407-60 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020942407-60 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020942407-60 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020942407-60 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020942407-60 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020942407-60 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020942407-60 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020942407-60 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020942407-60 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020942407-60 .cluster text{fill:#171A17;}#mermaid-svg-1795020942407-60 .cluster span{color:#171A17;}#mermaid-svg-1795020942407-60 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020942407-60 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020942407-60 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020942407-60 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020942407-60 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020942407-60 .icon-shape,#mermaid-svg-1795020942407-60 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020942407-60 .icon-shape p,#mermaid-svg-1795020942407-60 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020942407-60 .icon-shape .label rect,#mermaid-svg-1795020942407-60 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020942407-60 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020942407-60 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020942407-60 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020942407-60 [data-look=\"neo\"].node rect,#mermaid-svg-1795020942407-60 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020942407-60 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020942407-60-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942407-60 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020942407-60 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020942407-60-gradient);stroke-width:1px;}#mermaid-svg-1795020942407-60 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942407-60 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020942407-60 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020942407-60-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942407-60 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020942407-60 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020942407-60-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942407-60 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020942407-60-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942407-60 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020942407-60_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942407-60_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942407-60_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942407-60_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020942407-60_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020942407-60_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020942407-60_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020942407-60_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020942407-60_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942407-60_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942407-60_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020942407-60_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M457.938,82L457.938,88.917C457.938,95.833,457.938,109.667,457.938,122.833C457.938,136,457.938,148.5,457.938,154.75L457.938,161\" id=\"mermaid-svg-1795020942407-60-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NDU3LjkzNzUsInkiOjgyfSx7IngiOjQ1Ny45Mzc1LCJ5IjoxMjMuNX0seyJ4Ijo0NTcuOTM3NSwieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020942407-60_flowchart-v2-pointEnd)\"></path><path d=\"M284.689,618.251L270.74,634.293C256.792,650.334,228.896,682.417,214.948,704.709C201,727,201,739.5,201,745.75L201,752\" id=\"mermaid-svg-1795020942407-60-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6Mjg0LjY4ODU0NjQ5ODQ3MjcsInkiOjYxOC4yNTEwNDY0OTg0NzI2fSx7IngiOjIwMSwieSI6NzE0LjV9LHsieCI6MjAxLCJ5Ijo3NTZ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020942407-60_flowchart-v2-pointEnd)\"></path><path d=\"M631.186,618.251L645.135,634.293C659.083,650.334,686.979,682.417,700.927,704.709C714.875,727,714.875,739.5,714.875,745.75L714.875,752\" id=\"mermaid-svg-1795020942407-60-L_B_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_D_0\" data-points=\"W3sieCI6NjMxLjE4NjQ1MzUwMTUyNzQsInkiOjYxOC4yNTEwNDY0OTg0NzI2fSx7IngiOjcxNC44NzUsInkiOjcxNC41fSx7IngiOjcxNC44NzUsInkiOjc1Nn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020942407-60_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(201, 714.5)\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Yes</p></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(714.875, 714.5)\"><g class=\"label\" data-id=\"L_B_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>No</p></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020942407-60-flowchart-A-0\" data-look=\"classic\" transform=\"translate(457.9375, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-133\" y=\"-35\" width=\"266\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-101, -19)\"><rect></rect><foreignObject width=\"202\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Candidate User Story</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020942407-60-flowchart-B-1\" data-look=\"classic\" transform=\"translate(457.9375, 419)\"><polygon points=\"254,0 508,-254 254,-508 0,-254\" class=\"label-container\" transform=\"translate(-253.5, 254)\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-186, -52)\"><rect></rect><foreignObject width=\"372\" height=\"104\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Does This Story, on Its Own, Deliver<br>Genuine, Standalone Value to the Named<br>Persona or Business If Built and Shipped<br>Alone?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020942407-60-flowchart-C-3\" data-look=\"classic\" transform=\"translate(201, 810)\"><rect class=\"basic label-container\" style=\"\" x=\"-150\" y=\"-46\" width=\"300\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-118, -30)\"><rect></rect><foreignObject width=\"236\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Passes the Story Value<br>Test: Genuine User Story</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020942407-60-flowchart-D-5\" data-look=\"classic\" transform=\"translate(714.875, 810)\"><rect class=\"basic label-container\" style=\"\" x=\"-205.25\" y=\"-46\" width=\"410.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-173.25, -30)\"><rect></rect><foreignObject width=\"346.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Fails: Likely a Disguised Task or an<br>Over-split Fragment; Reconsider Scope</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020942407-60-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020942407-60-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020942407-60-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+      "blockId": "blk_74451b7e1a"
+    },
+    {
+      "type": "companyExample",
+      "company": "GitLab",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "**GitLab** offers a more directly documented illustration of the INVEST discipline than a general \"squads ship small increments\" gesture, because the company's engineering handbook is public. GitLab names \"Iteration\" as one of its core values, defined explicitly as doing the smallest useful thing and getting it shipped. The handbook instructs engineers to actively look for ways to split a large merge request into smaller, independently reviewable, independently valuable pieces, and even runs automated tooling that flags merge requests judged too large. The handbook is explicit that horizontal slicing (splitting by technical layer: frontend, backend, database) is often the wrong way to split work, echoing this lesson's INVEST emphasis on each split piece remaining independently *valuable*, not just independently small.",
+          "blockId": "blk_1ddd9fdce7"
+        },
+        {
+          "type": "paragraph",
+          "text": "This is useful because it makes visible what \"the story-splitting discipline\" actually costs in practice: GitLab's own material acknowledges engineers must proactively flag scope-cutting opportunities to product management throughout planning and development, not just during a single up-front splitting exercise: splitting well is an ongoing discipline, not a one-time step.",
+          "blockId": "blk_8c44d3dad3"
+        },
+        {
+          "type": "paragraph",
+          "text": "*(Source: GitLab's own public engineering handbook, which is exceptional among large companies for being openly published rather than reconstructed from secondhand reporting.)*",
+          "blockId": "blk_e24e9b0d3e"
+        }
+      ],
+      "blockId": "blk_dd2e4b0241"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "At a startup",
+          "body": "User stories are often written informally and quickly, sometimes without strict adherence to the full \"as a/I want/so that\" format, given close daily collaboration and shared context among a small team. The INVEST criteria remain useful as an informal mental checklist even when the formal grammar isn't rigidly applied, particularly the \"Valuable\" and \"Small\" criteria, since startups especially benefit from shipping small, validated increments quickly."
+        },
+        {
+          "context": "At a mid-size company",
+          "body": "User stories typically become a more standardized artifact within a formal backlog and sprint-planning process (previewed further in Lesson 34), and story-splitting technique becomes an increasingly valuable, deliberately taught skill as the volume and complexity of work grows beyond what informal, close collaboration alone can manage."
+        },
+        {
+          "context": "At Big Tech",
+          "body": "User stories at scale often need to account for cross-team dependencies and platform variations (web, mobile, multiple regions) more explicitly, making the \"Independent\" INVEST criterion both more important and more genuinely difficult to satisfy. A significant part of experienced product and engineering leadership's planning work involves deliberately sequencing and structuring stories to minimize cross-team blocking dependencies, given the scale and organizational complexity involved."
+        }
+      ],
+      "blockId": "blk_7b202171da"
+    },
+    {
+      "type": "caseStudy",
+      "title": "The Epic That Never Shipped",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Consider a simplified, illustrative scenario common across B2B software teams.",
+          "blockId": "blk_fb73b2452e"
+        },
+        {
+          "type": "paragraph",
+          "text": "A team is delivering a scoped MVP (per Lesson 21) for a new expense-approval workflow, following a well-formed PRD (per Lesson 22). The team writes a single user story: \"As a finance manager, I want a complete expense-approval workflow, so that I can review and approve team expenses efficiently.\" This single story is estimated at approximately six weeks of combined engineering effort (far beyond the \"Small\" INVEST criterion), but the team proceeds anyway, reasoning that the workflow \"doesn't make sense to split, since it's all one connected process.\"",
+          "blockId": "blk_6909bf00c8"
+        },
+        {
+          "type": "paragraph",
+          "text": "Over the following six weeks, no functionality reaches real users at all, since the single large story remains in progress the entire time. Partway through, a change in company expense-reporting policy (an external event unrelated to the team's own planning) makes one specific piece of the originally planned workflow (multi-level approval chains for expenses above a certain threshold) unnecessary for the foreseeable future. Because the team never split the work into independently valuable pieces, this now-unnecessary piece cannot simply be dropped from the current release without re-estimating and restructuring nearly the entire remaining engineering effort, since the single large story had been implemented as one tightly interwoven unit of work rather than several independent stories.",
+          "blockId": "blk_085ea2b202"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong?**",
+          "blockId": "blk_367a967b7b"
+        },
+        {
+          "type": "paragraph",
+          "text": "Applying this lesson's frameworks:",
+          "blockId": "blk_92179df0b6"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**The story clearly failed the \"Small\" INVEST criterion**, and the team's reasoning that \"it doesn't make sense to split\" was never actually tested against the specific story-splitting techniques this lesson describes: a workflow-step split (separating basic single-level approval from more complex multi-level approval chains, for instance) would very likely have produced genuinely valuable, independent pieces.",
+            "**No standalone value reached real users for six full weeks**, meaning the team had no opportunity to gather real usage feedback, catch implementation issues early, or adjust based on genuine learning during that period, echoing this module's broader emphasis on continuous, incremental validation rather than large, delayed releases.",
+            "**The external policy change exposed the specific cost of failing to split**: had the multi-level approval chain functionality been its own independent story (via a business-rule-variation split), it could have simply been deprioritized or dropped without disrupting the rest of the already-in-progress work, rather than requiring a disruptive mid-project re-scoping effort."
+          ],
+          "blockId": "blk_0fa1d06184"
+        },
+        {
+          "type": "paragraph",
+          "text": "A team applying this lesson's discipline from the outset would have applied at least a workflow-step or business-rule-variation split to the original epic, likely producing a first story for basic, single-level expense approval (immediately valuable and shippable on its own), with multi-level approval chains, notification preferences, and other variants as separate, subsequent stories, allowing continuous, incremental delivery of value and far greater resilience to the kind of external change that occurred partway through the case study's six-week effort.",
+          "blockId": "blk_33af3c8c20"
+        },
+        {
+          "type": "paragraph",
+          "text": "This case connects directly back to **Lesson 21's skateboard-versus-car analogy**: the single, unsplit six-week story is precisely a car-wheel-style undertaking: a large, tightly coupled piece of a bigger plan that delivers no independent value until the entire thing is finished, while a properly split set of stories would have delivered a series of \"skateboards,\" each valuable and shippable on its own.",
+          "blockId": "blk_e6f6135d73"
+        }
+      ],
+      "blockId": "blk_958031bb8f"
+    },
+    {
+      "type": "framework",
+      "name": "The Story-Splitting Decision Table",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A practical table for choosing which splitting technique to apply to a candidate epic:",
+          "blockId": "blk_841e832115"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "If the Epic Involves...",
+            "Consider This Split",
+            "Watch For"
+          ],
+          "rows": [
+            [
+              "A multi-step process (e.g., book, then pay)",
+              "Split by workflow steps",
+              "Confirm each step genuinely delivers standalone value alone, not just as a fragment of the full process"
+            ],
+            [
+              "Multiple variants or edge cases (e.g., different user permission levels)",
+              "Split by business rule variations",
+              "Start with the most common, essential case first (echoing Lesson 21's riskiest-assumption discipline)"
+            ],
+            [
+              "Multiple types of input or data",
+              "Split by data variations",
+              "Ensure the simplest data type handled first still represents a meaningful, real use case, not a trivial or unrealistic one"
+            ],
+            [
+              "Multiple platforms or interfaces",
+              "Split by interface variations",
+              "Confirm the primary platform chosen first is genuinely the one that matters most for the current validated opportunity"
+            ]
+          ],
+          "blockId": "blk_f454852819"
+        },
+        {
+          "type": "paragraph",
+          "text": "The consistent discipline across this table: **whichever technique is used, every resulting story must be re-checked against the full INVEST criteria afterward**: a mechanically applied split is not automatically a well-formed story; it is a candidate that still requires verification.",
+          "blockId": "blk_0735ab6998"
+        }
+      ],
+      "blockId": "blk_cfd8b13687"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "How do you split a large feature into smaller user stories?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate names specific, concrete splitting techniques (workflow steps, business rule variations, data variations, interface variations) rather than a vague intention to \"break it down,\" and whether they mention checking the result against INVEST afterward."
+        },
+        {
+          "question": "Tell me about a user story that turned out to be much bigger than expected. How did you handle it?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Direct experience recognizing an INVEST \"Small\" failure mid-project and applying a genuine splitting technique to recover, rather than either pushing through an oversized story (echoing this lesson's Detailed Case Study) or abandoning the work entirely."
+        },
+        {
+          "question": "How do you decide whether something belongs in the backlog as a user story or as a technical task?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Fluency with the \"story as disguised task\" distinction: whether the candidate can articulate that a genuine story must deliver standalone value to a named persona, while acknowledging that legitimate technical work still deserves honest tracking, just not story-format grammar that implies value it doesn't have."
+        }
+      ],
+      "blockId": "blk_2ccea2e59a"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A user story (\"As a [role], I want [capability], so that [benefit]\") breaks a larger scoped solution down into a small, specific, independently valuable, testable unit of work, with the \"so that\" clause providing crucial context that lets implementers make sound judgment calls on details a PM should appropriately leave open. The INVEST criteria (Independent, Negotiable, Valuable, Estimable, Small, Testable) provide a practical checklist for evaluating whether a candidate story is well-formed, and specific splitting techniques (by workflow steps, business rule variations, data variations, or interface variations) break oversized epics into smaller stories, provided every resulting split is re-checked against INVEST, particularly \"Valuable\" and \"Independent,\" to avoid producing valueless fragments. The \"story as a disguised task\" failure pattern describes writing technical work in story-format grammar without genuine standalone value to a named persona, which should instead be tracked honestly as what it is. Finally, appropriate granularity sits between an oversized story (delaying value delivery and resisting change, as shown in this lesson's Detailed Case Study) and over-splitting (producing fragments with no standalone value, echoing Lesson 21's car-wheel failure).",
+          "blockId": "blk_f2531ceea8"
+        }
+      ],
+      "blockId": "blk_9032ff0e47"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "The user story format's three clauses each matter: \"as a [role]\" ties to a specific persona, \"I want [capability]\" states the specific ask, and \"so that [benefit]\" provides context that enables appropriate under-specification of implementation details.",
+        "INVEST (Independent, Negotiable, Valuable, Estimable, Small, Testable) is the practical checklist for evaluating whether a candidate story is well-formed.",
+        "Story-splitting techniques (workflow steps, business rule variations, data variations, interface variations) break oversized epics into smaller, more manageable pieces.",
+        "Every split must be re-checked against INVEST, especially \"Valuable\" and \"Independent\": mechanical splitting can produce valueless fragments just as easily as genuine, independently valuable stories.",
+        "\"Story as a disguised task\" describes technical work written in story-format grammar without genuine standalone value to a named persona. Such work should be tracked honestly as a technical task instead.",
+        "An oversized, unsplit story delays value delivery, resists incorporating new learning or change, and makes accurate estimation difficult.",
+        "Over-splitting produces fragments with no standalone value, echoing Lesson 21's car-wheel failure at the level of individual units of work."
+      ],
+      "blockId": "blk_bc1dceb9c9"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "**Format:** \"As a [role], I want [capability], so that [benefit].\" Don't skip the \"so that\" clause.",
+        "**INVEST:** Independent, Negotiable, Valuable, Estimable, Small, Testable.",
+        "**Splitting techniques:** workflow steps, business rule variations, data variations, interface variations.",
+        "**Always re-check splits against INVEST**, especially Valuable and Independent: mechanical splitting can produce valueless fragments.",
+        "**\"Story as disguised task\"**: technical work in story grammar with no standalone user value; track it honestly instead.",
+        "**Story Value Test:** if this were the only thing shipped, would the named persona genuinely be better off?"
+      ],
+      "blockId": "blk_75a4842ec6"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "User Story",
+          "definition": "A small, specific unit of functionality described as \"As a [role], I want [capability], so that [benefit].\"",
+          "relatedConcepts": [
+            "Persona (Lesson 14)",
+            "Acceptance Criteria (Lesson 24)"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "INVEST Criteria",
+          "definition": "A checklist (Independent, Negotiable, Valuable, Estimable, Small, Testable) for evaluating whether a user story is well-formed.",
+          "relatedConcepts": [
+            "Story-Splitting"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Story-Splitting",
+          "definition": "The practice of breaking a large story (\"epic\") into smaller, independently valuable stories, using techniques like workflow-step or business-rule-variation splits.",
+          "relatedConcepts": [
+            "INVEST Criteria"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "\"Story as a Disguised Task\" (Failure Pattern)",
+          "definition": "Writing technical work in user-story grammar without genuine standalone value to a named persona.",
+          "relatedConcepts": [
+            "Disguised Solution (Lesson 17)"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Story Value Test",
+          "definition": "A quick check asking whether a candidate story, if shipped alone, would genuinely benefit the named persona or business.",
+          "relatedConcepts": [
+            "INVEST Criteria"
+          ],
+          "difficulty": 2
+        }
+      ],
+      "blockId": "blk_9c6e9323c7"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "Mike Cohn, *User Stories Applied*",
+          "note": "the foundational, widely referenced source for the user story format and the INVEST criteria discussed in this lesson."
+        },
+        {
+          "citation": "Bill Wake's original writing introducing the INVEST acronym, directly referenced throughout this lesson's Theory section."
+        },
+        {
+          "citation": "Richard Lawrence's publicly available guides on story-splitting patterns, closely related to the specific techniques covered in this lesson's Framework Explanation."
+        }
+      ],
+      "blockId": "blk_57ef86cb6e"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_anj59m",
+      "cards": [
+        {
+          "id": "fc-les_anj59m-1",
+          "front": "What is the standard user story format, and why does the \"so that\" clause matter?",
+          "back": "\"As a [role], I want [capability], so that [benefit].\" The \"so that\" clause provides context that lets implementers make sound independent judgment calls on ambiguous details, enabling appropriate under-specification of the \"how.\"",
+          "difficulty": 1,
+          "tags": [
+            "user-story-format"
+          ]
+        },
+        {
+          "id": "fc-les_anj59m-2",
+          "front": "What does each letter in INVEST stand for?",
+          "back": "Independent, Negotiable, Valuable, Estimable, Small, Testable.",
+          "difficulty": 2,
+          "tags": [
+            "invest-criteria"
+          ]
+        },
+        {
+          "id": "fc-les_anj59m-3",
+          "front": "Name four story-splitting techniques covered in this lesson.",
+          "back": "Split by workflow steps, split by business rule variations, split by data variations, split by interface variations.",
+          "difficulty": 2,
+          "tags": [
+            "story-splitting-techniques"
+          ]
+        },
+        {
+          "id": "fc-les_anj59m-4",
+          "front": "Why must every split be re-checked against INVEST, especially \"Valuable\" and \"Independent\"?",
+          "back": "Mechanical splitting can produce fragments with no standalone value, just as easily as genuine, independently valuable smaller stories: the split itself doesn't guarantee a good result.",
+          "difficulty": 2,
+          "tags": [
+            "re-checking-splits"
+          ]
+        },
+        {
+          "id": "fc-les_anj59m-5",
+          "front": "What is the \"story as a disguised task\" failure pattern?",
+          "back": "Writing technical work (like a refactor) in user-story grammar without genuine standalone value to a named persona. Such work fails the \"Valuable\" INVEST criterion and should be tracked honestly as a technical task instead.",
+          "difficulty": 2,
+          "tags": [
+            "disguised-task"
+          ]
+        },
+        {
+          "id": "fc-les_anj59m-6",
+          "front": "What is the Story Value Test?",
+          "back": "A check asking: if this story were the only thing shipped this sprint, would the named persona or business genuinely be better off? If no, the story has likely been over-split or was never a genuine story.",
+          "difficulty": 2,
+          "tags": [
+            "story-value-test"
+          ]
+        },
+        {
+          "id": "fc-les_anj59m-7",
+          "front": "In the Detailed Case Study, what was the specific cost of leaving the expense-approval epic unsplit?",
+          "back": "No functionality reached real users for six weeks, and when an external policy change made part of the workflow unnecessary, the team couldn't simply drop that piece without disrupting nearly the entire in-progress effort, since it had been built as one tightly interwoven unit rather than independent stories.",
+          "difficulty": 3,
+          "tags": [
+            "case-study"
+          ]
+        }
+      ],
+      "blockId": "blk_fbe205a388"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "You are the PM for a fitness app, and your team has a scoped MVP epic: \"As a user, I want to create and follow a custom workout plan, so that I can track my progress toward a specific fitness goal.\"",
+        "Work through the following, in writing, before reading further:",
+        "Estimate whether this epic, as currently written, would likely pass the \"Small\" INVEST criterion, and explain your reasoning.",
+        "Apply at least two different story-splitting techniques (from this lesson's four) to break this epic into smaller candidate stories.",
+        "For each resulting candidate story, apply the Story Value Test: would a user genuinely be better off if only this specific story were shipped, with nothing else?",
+        "Identify one candidate story from your split that might actually be a \"disguised task\" rather than a genuine story, and explain how you would reframe or relocate it.",
+        "Propose a sensible sequencing for your final set of stories, explaining which one should be built first and why, referencing Lesson 21's riskiest-assumption discipline.",
+        "There is no single correct answer. The purpose of this exercise is to practice applying genuine story-splitting technique and the INVEST/Story Value Test checks, rather than either leaving an epic oversized or over-splitting it into valueless fragments."
+      ],
+      "blockId": "blk_5f82b52be6"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_anj59m",
+      "questions": [
+        {
+          "id": "q-les_anj59m-1",
+          "question": "What is the standard format for a user story, according to this lesson?",
+          "options": [
+            "\"Given [context], when [action], then [expected outcome].\"",
+            "\"The team will build [feature] by the agreed target date.\"",
+            "\"As a [role], I want [capability], so that [benefit].\"",
+            "\"The system shall provide [requirement] under all conditions.\""
+          ],
+          "correctAnswer": 2,
+          "explanation": "Option A is the acceptance-criteria format covered in Lesson 24, B is a delivery commitment, and D is a formal requirements statement. Only C names a role, a capability, and a reason.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_anj59m-2",
+          "question": "Why does this lesson emphasize the importance of the \"so that\" clause in a user story?",
+          "options": [
+            "Because it is the single clause a story truly requires to be valid",
+            "Because it must invariably run longer than the \"I want\" clause",
+            "Because engineering is only permitted to read that one clause",
+            "Because it lets implementers judge ambiguous details soundly"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The reason behind a capability is what lets someone resolve an unspecified detail sensibly on their own. A well-written \"so that\" is often what permits the \"how\" to stay open.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_anj59m-3",
+          "question": "What does the \"I\" in INVEST stand for?",
+          "options": [
+            "Independent: buildable without being blocked by other stories",
+            "Iterative: delivered in repeated cycles over time",
+            "Integrated: connected to the surrounding system",
+            "Interesting: engaging enough to motivate the team"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The full set is Independent, Negotiable, Valuable, Estimable, Small, and Testable. Independence is what allows stories to be sequenced and dropped freely.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_anj59m-4",
+          "question": "Which of the following user stories most clearly fails the \"Valuable\" INVEST criterion, as described in this lesson?",
+          "options": [
+            "\"As a customer, I want an email confirmation after checkout, so I know it worked.\"",
+            "\"As a user, I want to filter by price, so I can stay in budget.\"",
+            "\"As an admin, I want to export a CSV report, so I can analyse it in a sheet.\"",
+            "\"As a developer, I want to refactor the payment module's code structure.\""
+          ],
+          "correctAnswer": 3,
+          "explanation": "The refactor may well be necessary and it delivers nothing a product user would notice. Tracking it honestly as a technical task keeps the value conversation clear.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_anj59m-5",
+          "question": "Which story-splitting technique would be most appropriate for an epic involving a multi-step booking-and-payment process?",
+          "options": [
+            "Split by workflow steps, taking booking and payment apart",
+            "Split by data variations across differing input types",
+            "Split by interface variations across several separate platforms",
+            "No splitting technique suits a multi-step process here"
+          ],
+          "correctAnswer": 0,
+          "explanation": "A sequence of distinct steps is the textbook case for this split, provided each resulting step still stands on its own rather than becoming a fragment of the full flow.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_anj59m-6",
+          "question": "Why must every story-splitting result be re-checked against the INVEST criteria, according to this lesson?",
+          "options": [
+            "Because INVEST applies to unsplit epics rather than split stories",
+            "Because splitting reliably yields perfectly formed stories by itself",
+            "Because mechanical splitting can produce fragments with no standalone value",
+            "Because re-checking matters only for splits by data variation"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Applying a technique correctly does not guarantee the output is a story. A username field and a password field are a clean split and neither one lets anybody log in.",
+          "objectivesTested": [
+            3,
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_anj59m-7",
+          "question": "In the Detailed Case Study, what specific INVEST criterion did the original, unsplit expense-approval story clearly fail?",
+          "options": [
+            "Testable: no clear way to verify completion existed",
+            "Negotiable: the implementation was fixed in advance",
+            "Independent: it was blocked by other queued stories",
+            "Small: six weeks is not a single sprint's work"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Six weeks of estimated effort in one item is the failure the team could see and chose not to act on, and every later difficulty followed from it.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_anj59m-8",
+          "question": "What specific consequence resulted from the team's failure to split the expense-approval epic before an external policy change occurred?",
+          "options": [
+            "The team shipped the whole epic ahead of its schedule regardless",
+            "The redundant work could not be dropped without restructuring the rest",
+            "The team dropped the now-unnecessary approval logic without any disruption",
+            "The external policy change had no effect on the project at all"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Built as one interwoven unit, the obsolete portion had no seam to cut along. A split set would have allowed the affected stories to be dropped and the rest to continue.",
+          "objectivesTested": [
+            2,
+            3
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_anj59m-9",
+          "question": "(Scenario) A team splits a login feature into two separate stories: \"build the username input field\" and \"build the password input field.\" According to this lesson, what is the likely problem with this split?",
+          "options": [
+            "Over-split; neither fragment lets a user actually log in",
+            "An excellent, well-formed split with no issues at all to address",
+            "A correct application of the interface-variation technique",
+            "A split that should have used data variations instead"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Shipping either one alone changes nothing for anybody. This is the car-wheel failure from Lesson 21, arriving at the scale of a single sprint item.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_anj59m-10",
+          "question": "(Product Thinking) A team has a story: \"As a user, I want to see all products, filter by category, filter by price, and sort by rating, so that I can find what I need.\" According to this lesson, what is the most likely issue, and how should it be addressed?",
+          "options": [
+            "Rewrite it entirely as a technical task, since it spans many queries",
+            "Split it into separate capabilities, checked against INVEST",
+            "Discard it outright, since filtering and sorting add little value",
+            "Leave it as written; the story is appropriately sized already"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Four distinct capabilities are bundled here, and each plausibly delivers value alone. Estimating and building them as one unit forfeits that flexibility for no gain.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_anj59m-11",
+          "question": "(Interview Reasoning) A candidate describes routinely writing technical infrastructure work (e.g., \"As a developer, I want to migrate our database to a new server\") in user-story format alongside genuine, persona-valuable stories in the same backlog, without distinction. What might this signal, based on this lesson's Interview Perspective section?",
+          "options": [
+            "Likely the disguised-task pattern, blurring value and infra work",
+            "Excellent backlog management practice with no real concerns raised",
+            "Deep technical expertise that counts as a core product strength",
+            "Nothing of note, since every backlog item should share one single format"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The migration may be essential. Dressing it in story grammar makes it harder to have the honest planning conversation about how much capacity goes to user value versus foundations.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_anj59m-12",
+          "question": "(Product Thinking, Higher Difficulty) A team splits an epic by business rule variations, producing a first story for the most common case and several subsequent stories for edge cases and variants. How does this practice connect to Lesson 21's MVP discipline?",
+          "options": [
+            "Business rule splits apply only to mature, post-MVP products",
+            "It echoes the riskiest-assumption discipline: essential case first",
+            "There is no connection to MVP scoping principles whatsoever",
+            "Such splits should run in reverse, starting from the rarest edge case"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Building the common case first and deferring the variants is the same logic as scoping an MVP around what must be tested now, applied to a single epic instead of a whole initiative.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_anj59m-13",
+          "question": "(Interview Reasoning, Higher Difficulty) An interviewer describes a story that passes \"Independent,\" \"Negotiable,\" \"Estimable,\" \"Small,\" and \"Testable,\" but the team is unsure whether it satisfies \"Valuable.\" What is the strongest diagnostic question a candidate should ask, based on this lesson's Story Value Test?",
+          "options": [
+            "\"Has this story been assigned to a specific engineer yet?\"",
+            "\"Is this story written in the correct grammatical format?\"",
+            "\"If this shipped alone this sprint, would the persona be better off?\"",
+            "\"How long will this story take the team to estimate accurately?\""
+          ],
+          "correctAnswer": 2,
+          "explanation": "The question isolates value from every other property. If the honest answer is no, the item is either a fragment or a task, whatever its grammar and estimate look like.",
+          "objectivesTested": [
+            4,
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_anj59m-14",
+          "question": "(Product Thinking, Higher Difficulty) A team has an oversized story and considers two options: leaving it unsplit but committing extra sprint time to it, or applying a data-variation split that would produce a first story handling only the single most common input type, with additional types added later. According to this lesson, which option is generally preferable, and why?",
+          "options": [
+            "Neither option is appropriate; the story should be discarded outright",
+            "Leave it unsplit, since splitting adds needless complexity",
+            "Both options are equally preferable in essentially all circumstances",
+            "Split it, enabling incremental value and resilience to change"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The case study showed what the unsplit path costs when circumstances shift mid-build. A split set delivers value earlier and can absorb a change without restructuring everything.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_anj59m-15",
+          "question": "(Highest Difficulty) A team applies a workflow-step split to a large epic, producing what appear to be several INVEST-compliant stories. Midway through implementation, however, engineering discovers that two of the \"independent\" stories actually share a tightly coupled underlying data model, such that changes to one frequently require rework in the other. What does this reveal about the team's original splitting process, and what should they do differently going forward?",
+          "options": [
+            "The coupling is unavoidable and expected across all split stories",
+            "Independence was never satisfied; verify it with engineering before finalising",
+            "Merge them back into one epic and avoid splitting them again",
+            "The coupling is irrelevant to INVEST and needs no attention"
+          ],
+          "correctAnswer": 1,
+          "explanation": "A split can read as independent at the description level and be tightly bound underneath. Only the people who can see the data model are positioned to confirm that criterion.",
+          "objectivesTested": [
+            2,
+            3
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_ef4f9d4dc7"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_apad14",
+        "title": "Lesson 22: Product Requirements Document (PRD)",
+        "module": "design"
+      },
+      "current": {
+        "id": "les_anj59m",
+        "title": "Lesson 23: User Stories"
+      },
+      "next": {
+        "id": "les_6qg1gx",
+        "title": "Lesson 24: Acceptance Criteria",
+        "module": "design"
+      },
+      "unlocks": [
+        {
+          "lesson": {
+            "id": "les_vlut0b",
+            "title": "Sprint Planning & Backlog Grooming",
+            "module": "execution"
+          },
+          "coreIdea": "Uses well-formed, appropriately sized user stories as the fundamental unit of sprint planning and estimation"
+        }
+      ],
+      "blockId": "blk_6042473c59"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 23: User Stories Lesson 22 ended with a well-formed PRD: problem-first, appropriately precise, genuinely collaborative. But a PRD describes a solution at the level of an entire feature or initiative; it does not, by itself, tell an engineering team what to build this week, or how to sequence work across a sprint. This lesson covers the artifact that closes that final gap: the **user story**, a small, specific unit of functionality described from the perspective of the person who benefits from it, sized to be independently implementable, testable, and deliverable within a short time frame. A user story's format is famously simple: \"As a [role], I want [capability], so that [benefit]\", deceptively so, because the format itself is not the hard part. The hard part, and this lesson's real subject, is *splitting* a larger scoped solution (an MVP, a PRD's functional requirements) into stories that are each genuinely independent, genuinely valuable on their own, and genuinely small enough to build and verify quickly, without splitting so finely that individual stories lose all standalone meaning, or so coarsely that a single story becomes an unmanageable, multi-week undertaking in disguise. Write a user story using the standard format, and explain why each of its three clauses matters. Apply the INVEST criteria to evaluate whether a candidate user story is well-formed. Apply at least three specific story-splitting techniques to break a large story (\"epic\") into smaller, independently valuable stories. Identify the \"story as a disguised task\" failure pattern and distinguish a genuine user story from a technical task wearing story-format grammar. Distinguish appropriate story granularity from over-splitting, and explain the risks of each extreme. Lesson 21 (MVP) and Lesson 22 (Product Requirements Document). This lesson assumes you can scope a minimal solution and write a clear functional requirement. A user story is the unit that breaks a PRD's requirements down into concretely sequenceable, implementable, and testable pieces of work. The Standard Format and Why Each Clause Matters The canonical user story format is: **\"As a [role/persona], I want [capability], so that [benefit].\"** Each clause serves a specific, deliberate purpose: **\"As a [role]\"** ties the story back to a specific persona (Lesson 14) or user type, preventing the same undifferentiated \"the user\" language this curriculum has repeatedly warned against. **\"I want [capability]\"** states the specific functionality being requested, at a level of granularity appropriate for a single, small unit of work. **\"So that [benefit]\"** states the underlying value or job (Lesson 6) the capability serves, and this clause is frequently the most important, and most frequently omitted or treated as an afterthought, because it is what allows anyone reading the story (not just the person who wrote it) to judge whether an implementation choice actually serves the intended purpose. A story missing the \"so that\" clause loses exactly the connective tissue that lets an engineer make good judgment calls on ambiguous implementation details. Recall Lesson 22's Precision Dial: a well-specified \"so that\" clause is often what allows a PM to appropriately under-specify the \"how,\" because the underlying reason gives the implementer enough context to make a sound decision independently. The INVEST Criteria A widely used, practical checklist for evaluating whether a candidate user story is well-formed is the **INVEST** acronym: **Independent**: the story can be built and delivered without being blocked by, or tightly coupled to, other stories. **Negotiable**: the story describes a need, not a rigid, final specification. The specific implementation remains open for discussion between the team members involved (directly echoing Lesson 22's Precision Dial). **Valuable**: the story delivers genuine value to the named persona or the business, not merely a technical intermediate step (directly connecting to the next section's core distinction). **Estimable**: the team can reasonably estimate the effort required to complete it, which requires the story to be specific and bounded enough to reason about. **Small**: the story is sized to be completed within a short time frame (often within a single sprint, sometimes within a few days), not a multi-week undertaking in disguise. **Testable**: there is a clear, verifiable way to determine whether the story has actually been completed (a concept extended fully in Lesson 24's acceptance criteria). A story failing any single INVEST criterion is not necessarily useless, but should prompt specific attention: a story that isn't independent may need resequencing or restructuring; a story that isn't valuable may actually be a disguised technical task (see below); a story that isn't small may need splitting, which is the primary technique this lesson covers next. Story-Splitting Techniques The central practical skill in this lesson is **splitting** a large story (sometimes called an \"epic\" once it's clearly too large to be a single INVEST-compliant story) into smaller stories that each remain independently valuable. Several widely used techniques: **Split by workflow steps**: if a capability involves a multi-step process, each step can sometimes become its own valuable story: for example, splitting \"As a user, I want to book and pay for an appointment\" into \"As a user, I want to book an appointment\" and \"As a user, I want to pay for a booked appointment,\" provided each step delivers standalone value on its own (which should be checked, not assumed). **Split by business rule variations**: if a capability has multiple variants or edge cases (different payment methods, different user permission levels), the core, most common case can become its own story, with variants split into subsequent stories, directly echoing Lesson 21's MVP discipline of testing the riskiest, most essential version first. **Split by data variations**: if a capability must handle multiple types of input or data, the most common or simplest type can become its own story first, with additional types added incrementally. **Split by interface variations**: if a capability needs to work across multiple platforms or interfaces (web, mobile, API), the primary platform can become its own story, with others following. Crucially, every split must be checked against the INVEST criteria afterward, particularly **Valuable** and **Independent**: a mechanical split that produces a piece with no standalone value (for example, splitting a login flow into \"build the username field\" and \"build the password field\" as separate stories) has produced fragments, not genuine stories, echoing Lesson 21's car-wheel failure at the level of individual units of work rather than an entire MVP. The \"Story as a Disguised Task\" Failure Pattern A specific, common failure (closely related to Lesson 17's disguised-solution problem and Lesson 21's car-wheel failure) is writing something in user-story grammar (\"As a [role], I want...\") that is actually a technical task with no standalone value to the named persona, rather than a genuine, valuable capability. \"As a developer, I want to refactor the authentication module\" is grammatically a story, but names no benefit to an actual product user, and would fail the INVEST \"Valuable\" criterion when evaluated honestly against the persona it claims to serve. This does not mean technical work (refactoring, infrastructure improvements, technical debt reduction, covered further in Lesson 39) is illegitimate or unimportant; it means such work should generally be tracked and communicated using language appropriate to what it actually is (a technical task, not a user story) rather than forced into story-format grammar that implies a standalone value to an end user that isn't actually present. Mislabeling technical tasks as user stories obscures the genuine distinction between value-delivering and infrastructure-supporting work, making it harder to have honest conversations about the trade-off between the two during planning and prioritization. Omitting or treating the \"so that\" clause as an afterthought This clause provides the connective context that allows implementers to make good independent judgment calls on ambiguous details. Omitting it removes exactly the information that would otherwise let a PM appropriately avoid over-specifying the \"how.\" Splitting a story mechanically without checking the result against INVEST, especially \"Valuable\" and \"Independent. A split that produces fragments with no standalone value (echoing Lesson 21's car-wheel failure) has not actually produced genuine, smaller user stories, merely smaller, disconnected pieces of a larger plan. Writing technical tasks in user-story grammar without genuine standalone value to the named persona \"As a developer, I want to refactor X\" is grammatically a story but fails the \"Valuable\" INVEST criterion when evaluated honestly. Such work should be tracked and communicated as what it actually is. Leaving a story too large (\"Small\" INVEST failure) because splitting feels like unnecessary overhead A story that takes multiple weeks to complete is difficult to estimate accurately, difficult to prioritize meaningfully against other work, and delays the delivery of standalone value that a properly split version would have delivered incrementally. Over-splitting a story until individual pieces no longer deliver standalone value Splitting too finely (down to the level of individual UI elements or database fields) produces exactly the same \"fragments without standalone value\" problem as mechanical, uncritical splitting, just from the opposite direction. The Story Value Test This lesson's mental model is the **Story Value Test**, a quick check applied to any candidate user story, whether freshly written or the result of a split, before it's added to a backlog. Apply this test to every candidate story: if it were the only thing shipped this sprint, with nothing else, would the named persona (or the business) genuinely be better off? If the honest answer is no (if the story only matters in combination with several other, not-yet-built pieces), the story has likely been split too finely, or was never a genuine story (a task in disguise) to begin with. GitLab **GitLab** offers a more directly documented illustration of the INVEST discipline than a general \"squads ship small increments\" gesture, because the company's engineering handbook is public. GitLab names \"Iteration\" as one of its core values, defined explicitly as doing the smallest useful thing and getting it shipped. The handbook instructs engineers to actively look for ways to split a large merge request into smaller, independently reviewable, independently valuable pieces, and even runs automated tooling that flags merge requests judged too large. The handbook is explicit that horizontal slicing (splitting by technical layer: frontend, backend, database) is often the wrong way to split work, echoing this lesson's INVEST emphasis on each split piece remaining independently *valuable*, not just independently small. This is useful because it makes visible what \"the story-splitting discipline\" actually costs in practice: GitLab's own material acknowledges engineers must proactively flag scope-cutting opportunities to product management throughout planning and development, not just during a single up-front splitting exercise: splitting well is an ongoing discipline, not a one-time step. *(Source: GitLab's own public engineering handbook, which is exceptional among large companies for being openly published rather than reconstructed from secondhand reporting.)* At a startup User stories are often written informally and quickly, sometimes without strict adherence to the full \"as a/I want/so that\" format, given close daily collaboration and shared context among a small team. The INVEST criteria remain useful as an informal mental checklist even when the formal grammar isn't rigidly applied, particularly the \"Valuable\" and \"Small\" criteria, since startups especially benefit from shipping small, validated increments quickly. At a mid-size company User stories typically become a more standardized artifact within a formal backlog and sprint-planning process (previewed further in Lesson 34), and story-splitting technique becomes an increasingly valuable, deliberately taught skill as the volume and complexity of work grows beyond what informal, close collaboration alone can manage. At Big Tech User stories at scale often need to account for cross-team dependencies and platform variations (web, mobile, multiple regions) more explicitly, making the \"Independent\" INVEST criterion both more important and more genuinely difficult to satisfy. A significant part of experienced product and engineering leadership's planning work involves deliberately sequencing and structuring stories to minimize cross-team blocking dependencies, given the scale and organizational complexity involved. The Epic That Never Shipped Consider a simplified, illustrative scenario common across B2B software teams. A team is delivering a scoped MVP (per Lesson 21) for a new expense-approval workflow, following a well-formed PRD (per Lesson 22). The team writes a single user story: \"As a finance manager, I want a complete expense-approval workflow, so that I can review and approve team expenses efficiently.\" This single story is estimated at approximately six weeks of combined engineering effort (far beyond the \"Small\" INVEST criterion), but the team proceeds anyway, reasoning that the workflow \"doesn't make sense to split, since it's all one connected process.\" Over the following six weeks, no functionality reaches real users at all, since the single large story remains in progress the entire time. Partway through, a change in company expense-reporting policy (an external event unrelated to the team's own planning) makes one specific piece of the originally planned workflow (multi-level approval chains for expenses above a certain threshold) unnecessary for the foreseeable future. Because the team never split the work into independently valuable pieces, this now-unnecessary piece cannot simply be dropped from the current release without re-estimating and restructuring nearly the entire remaining engineering effort, since the single large story had been implemented as one tightly interwoven unit of work rather than several independent stories. **What went wrong?** Applying this lesson's frameworks: **The story clearly failed the \"Small\" INVEST criterion**, and the team's reasoning that \"it doesn't make sense to split\" was never actually tested against the specific story-splitting techniques this lesson describes: a workflow-step split (separating basic single-level approval from more complex multi-level approval chains, for instance) would very likely have produced genuinely valuable, independent pieces. **No standalone value reached real users for six full weeks**, meaning the team had no opportunity to gather real usage feedback, catch implementation issues early, or adjust based on genuine learning during that period, echoing this module's broader emphasis on continuous, incremental validation rather than large, delayed releases. **The external policy change exposed the specific cost of failing to split**: had the multi-level approval chain functionality been its own independent story (via a business-rule-variation split), it could have simply been deprioritized or dropped without disrupting the rest of the already-in-progress work, rather than requiring a disruptive mid-project re-scoping effort. A team applying this lesson's discipline from the outset would have applied at least a workflow-step or business-rule-variation split to the original epic, likely producing a first story for basic, single-level expense approval (immediately valuable and shippable on its own), with multi-level approval chains, notification preferences, and other variants as separate, subsequent stories, allowing continuous, incremental delivery of value and far greater resilience to the kind of external change that occurred partway through the case study's six-week effort. This case connects directly back to **Lesson 21's skateboard-versus-car analogy**: the single, unsplit six-week story is precisely a car-wheel-style undertaking: a large, tightly coupled piece of a bigger plan that delivers no independent value until the entire thing is finished, while a properly split set of stories would have delivered a series of \"skateboards,\" each valuable and shippable on its own. The Story-Splitting Decision Table A practical table for choosing which splitting technique to apply to a candidate epic: The consistent discipline across this table: **whichever technique is used, every resulting story must be re-checked against the full INVEST criteria afterward**: a mechanically applied split is not automatically a well-formed story; it is a candidate that still requires verification. How do you split a large feature into smaller user stories? *What the interviewer is actually evaluating:* Whether the candidate names specific, concrete splitting techniques (workflow steps, business rule variations, data variations, interface variations) rather than a vague intention to \"break it down,\" and whether they mention checking the result against INVEST afterward. Tell me about a user story that turned out to be much bigger than expected. How did you handle it? *What the interviewer is actually evaluating:* Direct experience recognizing an INVEST \"Small\" failure mid-project and applying a genuine splitting technique to recover, rather than either pushing through an oversized story (echoing this lesson's Detailed Case Study) or abandoning the work entirely. How do you decide whether something belongs in the backlog as a user story or as a technical task? *What the interviewer is actually evaluating:* Fluency with the \"story as disguised task\" distinction: whether the candidate can articulate that a genuine story must deliver standalone value to a named persona, while acknowledging that legitimate technical work still deserves honest tracking, just not story-format grammar that implies value it doesn't have. A user story (\"As a [role], I want [capability], so that [benefit]\") breaks a larger scoped solution down into a small, specific, independently valuable, testable unit of work, with the \"so that\" clause providing crucial context that lets implementers make sound judgment calls on details a PM should appropriately leave open. The INVEST criteria (Independent, Negotiable, Valuable, Estimable, Small, Testable) provide a practical checklist for evaluating whether a candidate story is well-formed, and specific splitting techniques (by workflow steps, business rule variations, data variations, or interface variations) break oversized epics into smaller stories, provided every resulting split is re-checked against INVEST, particularly \"Valuable\" and \"Independent,\" to avoid producing valueless fragments. The \"story as a disguised task\" failure pattern describes writing technical work in story-format grammar without genuine standalone value to a named persona, which should instead be tracked honestly as what it is. Finally, appropriate granularity sits between an oversized story (delaying value delivery and resisting change, as shown in this lesson's Detailed Case Study) and over-splitting (producing fragments with no standalone value, echoing Lesson 21's car-wheel failure). The user story format's three clauses each matter: \"as a [role]\" ties to a specific persona, \"I want [capability]\" states the specific ask, and \"so that [benefit]\" provides context that enables appropriate under-specification of implementation details. INVEST (Independent, Negotiable, Valuable, Estimable, Small, Testable) is the practical checklist for evaluating whether a candidate story is well-formed. Story-splitting techniques (workflow steps, business rule variations, data variations, interface variations) break oversized epics into smaller, more manageable pieces. Every split must be re-checked against INVEST, especially \"Valuable\" and \"Independent\": mechanical splitting can produce valueless fragments just as easily as genuine, independently valuable stories. \"Story as a disguised task\" describes technical work written in story-format grammar without genuine standalone value to a named persona. Such work should be tracked honestly as a technical task instead. An oversized, unsplit story delays value delivery, resists incorporating new learning or change, and makes accurate estimation difficult. Over-splitting produces fragments with no standalone value, echoing Lesson 21's car-wheel failure at the level of individual units of work. **Format:** \"As a [role], I want [capability], so that [benefit].\" Don't skip the \"so that\" clause. **INVEST:** Independent, Negotiable, Valuable, Estimable, Small, Testable. **Splitting techniques:** workflow steps, business rule variations, data variations, interface variations. **Always re-check splits against INVEST**, especially Valuable and Independent: mechanical splitting can produce valueless fragments. **\"Story as disguised task\"**: technical work in story grammar with no standalone user value; track it honestly instead. **Story Value Test:** if this were the only thing shipped, would the named persona genuinely be better off? User Story A small, specific unit of functionality described as \"As a [role], I want [capability], so that [benefit].\" INVEST Criteria A checklist (Independent, Negotiable, Valuable, Estimable, Small, Testable) for evaluating whether a user story is well-formed. Story-Splitting The practice of breaking a large story (\"epic\") into smaller, independently valuable stories, using techniques like workflow-step or business-rule-variation splits. \"Story as a Disguised Task\" (Failure Pattern) Writing technical work in user-story grammar without genuine standalone value to a named persona. Story Value Test A quick check asking whether a candidate story, if shipped alone, would genuinely benefit the named persona or business. Mike Cohn, *User Stories Applied* the foundational, widely referenced source for the user story format and the INVEST criteria discussed in this lesson. Bill Wake's original writing introducing the INVEST acronym, directly referenced throughout this lesson's Theory section. Richard Lawrence's publicly available guides on story-splitting patterns, closely related to the specific techniques covered in this lesson's Framework Explanation. What is the standard user story format, and why does the \"so that\" clause matter? \"As a [role], I want [capability], so that [benefit].\" The \"so that\" clause provides context that lets implementers make sound independent judgment calls on ambiguous details, enabling appropriate under-specification of the \"how.\" What does each letter in INVEST stand for? Independent, Negotiable, Valuable, Estimable, Small, Testable. Name four story-splitting techniques covered in this lesson. Split by workflow steps, split by business rule variations, split by data variations, split by interface variations. Why must every split be re-checked against INVEST, especially \"Valuable\" and \"Independent\"? Mechanical splitting can produce fragments with no standalone value, just as easily as genuine, independently valuable smaller stories: the split itself doesn't guarantee a good result. What is the \"story as a disguised task\" failure pattern? Writing technical work (like a refactor) in user-story grammar without genuine standalone value to a named persona. Such work fails the \"Valuable\" INVEST criterion and should be tracked honestly as a technical task instead. What is the Story Value Test? A check asking: if this story were the only thing shipped this sprint, would the named persona or business genuinely be better off? If no, the story has likely been over-split or was never a genuine story. In the Detailed Case Study, what was the specific cost of leaving the expense-approval epic unsplit? No functionality reached real users for six weeks, and when an external policy change made part of the workflow unnecessary, the team couldn't simply drop that piece without disrupting nearly the entire in-progress effort, since it had been built as one tightly interwoven unit rather than independent stories. You are the PM for a fitness app, and your team has a scoped MVP epic: \"As a user, I want to create and follow a custom workout plan, so that I can track my progress toward a specific fitness goal.\" Work through the following, in writing, before reading further: Estimate whether this epic, as currently written, would likely pass the \"Small\" INVEST criterion, and explain your reasoning. Apply at least two different story-splitting techniques (from this lesson's four) to break this epic into smaller candidate stories. For each resulting candidate story, apply the Story Value Test: would a user genuinely be better off if only this specific story were shipped, with nothing else? Identify one candidate story from your split that might actually be a \"disguised task\" rather than a genuine story, and explain how you would reframe or relocate it. Propose a sensible sequencing for your final set of stories, explaining which one should be built first and why, referencing Lesson 21's riskiest-assumption discipline. There is no single correct answer. The purpose of this exercise is to practice applying genuine story-splitting technique and the INVEST/Story Value Test checks, rather than either leaving an epic oversized or over-splitting it into valueless fragments. What is the standard format for a user story, according to this lesson? Option A is the acceptance-criteria format covered in Lesson 24, B is a delivery commitment, and D is a formal requirements statement. Only C names a role, a capability, and a reason. Why does this lesson emphasize the importance of the \"so that\" clause in a user story? The reason behind a capability is what lets someone resolve an unspecified detail sensibly on their own. A well-written \"so that\" is often what permits the \"how\" to stay open. What does the \"I\" in INVEST stand for? The full set is Independent, Negotiable, Valuable, Estimable, Small, and Testable. Independence is what allows stories to be sequenced and dropped freely. Which of the following user stories most clearly fails the \"Valuable\" INVEST criterion, as described in this lesson? The refactor may well be necessary and it delivers nothing a product user would notice. Tracking it honestly as a technical task keeps the value conversation clear. Which story-splitting technique would be most appropriate for an epic involving a multi-step booking-and-payment process? A sequence of distinct steps is the textbook case for this split, provided each resulting step still stands on its own rather than becoming a fragment of the full flow. Why must every story-splitting result be re-checked against the INVEST criteria, according to this lesson? Applying a technique correctly does not guarantee the output is a story. A username field and a password field are a clean split and neither one lets anybody log in. In the Detailed Case Study, what specific INVEST criterion did the original, unsplit expense-approval story clearly fail? Six weeks of estimated effort in one item is the failure the team could see and chose not to act on, and every later difficulty followed from it. What specific consequence resulted from the team's failure to split the expense-approval epic before an external policy change occurred? Built as one interwoven unit, the obsolete portion had no seam to cut along. A split set would have allowed the affected stories to be dropped and the rest to continue. (Scenario) A team splits a login feature into two separate stories: \"build the username input field\" and \"build the password input field.\" According to this lesson, what is the likely problem with this split? Shipping either one alone changes nothing for anybody. This is the car-wheel failure from Lesson 21, arriving at the scale of a single sprint item. (Product Thinking) A team has a story: \"As a user, I want to see all products, filter by category, filter by price, and sort by rating, so that I can find what I need.\" According to this lesson, what is the most likely issue, and how should it be addressed? Four distinct capabilities are bundled here, and each plausibly delivers value alone. Estimating and building them as one unit forfeits that flexibility for no gain. (Interview Reasoning) A candidate describes routinely writing technical infrastructure work (e.g., \"As a developer, I want to migrate our database to a new server\") in user-story format alongside genuine, persona-valuable stories in the same backlog, without distinction. What might this signal, based on this lesson's Interview Perspective section? The migration may be essential. Dressing it in story grammar makes it harder to have the honest planning conversation about how much capacity goes to user value versus foundations. (Product Thinking, Higher Difficulty) A team splits an epic by business rule variations, producing a first story for the most common case and several subsequent stories for edge cases and variants. How does this practice connect to Lesson 21's MVP discipline? Building the common case first and deferring the variants is the same logic as scoping an MVP around what must be tested now, applied to a single epic instead of a whole initiative. (Interview Reasoning, Higher Difficulty) An interviewer describes a story that passes \"Independent,\" \"Negotiable,\" \"Estimable,\" \"Small,\" and \"Testable,\" but the team is unsure whether it satisfies \"Valuable.\" What is the strongest diagnostic question a candidate should ask, based on this lesson's Story Value Test? The question isolates value from every other property. If the honest answer is no, the item is either a fragment or a task, whatever its grammar and estimate look like. (Product Thinking, Higher Difficulty) A team has an oversized story and considers two options: leaving it unsplit but committing extra sprint time to it, or applying a data-variation split that would produce a first story handling only the single most common input type, with additional types added later. According to this lesson, which option is generally preferable, and why? The case study showed what the unsplit path costs when circumstances shift mid-build. A split set delivers value earlier and can absorb a change without restructuring everything. (Highest Difficulty) A team applies a workflow-step split to a large epic, producing what appear to be several INVEST-compliant stories. Midway through implementation, however, engineering discovers that two of the \"independent\" stories actually share a tightly coupled underlying data model, such that changes to one frequently require rework in the other. What does this reveal about the team's original splitting process, and what should they do differently going forward? A split can read as independent at the description level and be tightly bound underneath. Only the people who can see the data model are positioned to confirm that criterion.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "Mental Model: The Story Value Test",
+      "Real Company Example",
+      "Real World Perspective: User Stories at Different Company Stages",
+      "Detailed Case Study: The Epic That Never Shipped",
+      "Framework Explanation: The Story-Splitting Decision Table",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "User Story",
+    "INVEST Criteria",
+    "Story-Splitting",
+    "\"Story as a Disguised Task\" (Failure Pattern)",
+    "Story Value Test"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

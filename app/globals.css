@@ -1,0 +1,509 @@
+/**
+ * Prodily admin console: global styles (copied from the web repo globals.css,
+ * marketing-only motion and surface effects removed).
+ *
+ * Implements every Sprint 1 design token.
+ * In Tailwind v4, all theme configuration lives here via @theme.
+ * Raw hex values live ONLY in this file — never in component classes.
+ *
+ * There is no dark mode (owner decision D9). Do not add dark tokens or variants.
+ */
+
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+/*---break---
+ */
+
+/* ─── Fonts ──────────────────────────────────────────────────────────────────
+   Loaded via next/font in app/layout.tsx and injected as CSS variables.
+   Fallbacks ensure no FOUT before the font loads.
+---------------------------------------------------------------------------- */
+
+/* ─── Light Mode Tokens (Sprint 1 §4) ───────────────────────────────────────
+   These are the single source of truth for all color values.
+   Components reference these variables — never raw hex.
+---------------------------------------------------------------------------- */
+
+:root {
+  /* Core Palette */
+  --color-background:        #FBFAF6;
+  --color-foreground:        #171A17;
+  --color-surface:           #FFFFFF;
+  --color-surface-muted:     #F2EFE7;
+  --color-border:            #DED8CB;
+  --color-border-strong:     #BDB4A2;
+  --color-primary:           #1F6B4E;
+  --color-primary-foreground:#FFFFFF;
+  --color-accent:            #D98B24;
+  --color-accent-foreground: #211204;
+  --color-focus:             #2F80ED;
+
+  /* Semantic Palette */
+  --color-success:           #15803D;
+  --color-success-bg:        #EAF7EE;
+  --color-warning:           #B45309;
+  --color-warning-bg:        #FFF4D6;
+  --color-danger:            #C2410C;
+  --color-danger-bg:         #FFF0E8;
+  --color-destructive:       #C2410C;
+  --color-destructive-foreground: #FFFFFF;
+  --color-info:              #2563EB;
+  --color-info-bg:           #EBF2FF;
+  --color-locked:            #8A8174;
+  --color-ai:                #7C3AED;
+
+  /* Marketing polish pass: secondary copy and a pressed/hover primary.
+     `locked` (#8A8174) measures ~3.8:1 on the page background, below WCAG AA for body
+     text, so long-form secondary copy uses `ink-muted` (~6.4:1) instead. */
+  --color-ink-muted:         #625A4E;
+  --color-primary-hover:     #18553E;
+  --color-primary-soft:      #EAF5EF;
+
+  /* Competency Colors (Sprint 1 §4.3) */
+  --color-skill-discovery:   #0F766E;
+  --color-skill-strategy:    #1D4ED8;
+  --color-skill-design:      #DB2777;
+  --color-skill-execution:   #7C3AED;
+  --color-skill-growth:      #16A34A;
+  --color-skill-leadership:  #D97706;
+  --color-skill-technical:   #475569;
+
+  /* Shadows (Sprint 1 §9) */
+  --shadow-xs:               0 1px 2px rgba(23,26,23,.06);
+  --shadow-sm:               0 4px 12px rgba(23,26,23,.08);
+  --shadow-md:               0 12px 32px rgba(23,26,23,.12);
+  --shadow-glow-primary:     0 0 0 4px rgba(31,107,78,.14);
+  --shadow-glow-accent:      0 0 24px rgba(217,139,36,.22);
+
+  /* Motion (Sprint 1 §12) */
+  --duration-fast:           120ms;
+  --duration-standard:       180ms;
+  --duration-complex:        240ms;
+  --ease-out:                cubic-bezier(0, 0, 0.2, 1);
+
+  /* Z-Index */
+  --z-nav:     50;
+  --z-popover: 60;
+  --z-dialog:  70;
+  --z-toast:   80;
+  --background:        #F8F6F0;
+  --foreground:        #171A17;
+  --card:              #FFFFFF;
+  --card-foreground:   #171A17;
+  --popover:           #FFFFFF;
+  --popover-foreground:#171A17;
+  --primary:           #1F6B4E;
+  --primary-foreground:#FFFFFF;
+  --secondary:         #F2EFE7;
+  --secondary-foreground:#171A17;
+  --muted:             #F2EFE7;
+  --muted-foreground:  #625A4E;
+  --accent:            #F2EFE7;
+  --accent-foreground: #171A17;
+  --destructive:       #C2410C;
+  --destructive-foreground: #FFFFFF;
+  --border:            #DED8CB;
+  --input:             #DED8CB;
+  --ring:              #2F80ED;
+  --radius:            0.625rem;
+  --sidebar:           #F8F6F0;
+  --sidebar-foreground:#171A17;
+  --sidebar-primary:   #1F6B4E;
+  --sidebar-primary-foreground:#FFFFFF;
+  --sidebar-accent:    #F2EFE7;
+  --sidebar-accent-foreground:#171A17;
+  --sidebar-border:    #DED8CB;
+  --sidebar-ring:      #2F80ED;
+}
+
+/* ─── Admin Panel Brand Tokens ───────────────────────────────────────────────
+   Clean, modern Prodily SaaS palette scoped to the Admin Panel shell (.admin-console).
+   Aligns directly with the core Prodily identity: clean light canvas (#F8FAFC / #FFFFFF),
+   crisp neutral borders (#E2E8F0), slate typography (#0F172A), and Prodily green (#019E75).
+---------------------------------------------------------------------------- */
+
+.admin-console {
+  /* Foundation */
+  --admin-bg:               #F8FAFC;
+  --admin-surface:          #FFFFFF;
+  --admin-surface-raised:   #F1F5F9;
+  --admin-border:           #E2E8F0;
+  --admin-border-strong:    #CBD5E1;
+
+  /* Text */
+  --admin-fg:               #0F172A;
+  --admin-fg-muted:         #475569;
+  --admin-fg-subtle:        #94A3B8;
+
+  /* Accent (Prodily brand green) */
+  --admin-accent:           #019E75;
+  --admin-accent-fg:        #FFFFFF;
+  --admin-accent-soft:      rgba(1, 158, 117, 0.08);
+
+  /* Semantic */
+  --admin-success:          #16A34A;
+  --admin-success-soft:     rgba(22, 163, 74, 0.1);
+  --admin-warning:          #D97706;
+  --admin-warning-soft:     rgba(217, 119, 6, 0.1);
+  --admin-danger:           #DC2626;
+  --admin-danger-soft:      rgba(220, 38, 38, 0.1);
+  --admin-info:             #2563EB;
+  --admin-info-soft:        rgba(37, 99, 235, 0.1);
+  --admin-neutral:          #64748B;
+}
+
+/* ─── Tailwind v4 Theme ──────────────────────────────────────────────────────
+   Maps every CSS variable to a Tailwind utility class.
+   Usage: bg-background, text-primary, border-border-strong, etc.
+---------------------------------------------------------------------------- */
+
+@theme inline {
+  /* Fonts — Unified Modern Sans-Serif Typography */
+  --font-sans:    var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Brand wordmark only (the word "Prodily" beside the mark). */
+  --font-wordmark: var(--font-jakarta), var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif:   var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Admin Panel (scoped: values live on .admin-console) */
+  --color-admin-bg:              var(--admin-bg);
+  --color-admin-surface:         var(--admin-surface);
+  --color-admin-surface-raised:  var(--admin-surface-raised);
+  --color-admin-border:          var(--admin-border);
+  --color-admin-border-strong:   var(--admin-border-strong);
+  --color-admin-fg:              var(--admin-fg);
+  --color-admin-fg-muted:        var(--admin-fg-muted);
+  --color-admin-fg-subtle:       var(--admin-fg-subtle);
+  --color-admin-accent:          var(--admin-accent);
+  --color-admin-accent-fg:       var(--admin-accent-fg);
+  --color-admin-accent-soft:     var(--admin-accent-soft);
+  --color-admin-success:         var(--admin-success);
+  --color-admin-success-soft:    var(--admin-success-soft);
+  --color-admin-warning:         var(--admin-warning);
+  --color-admin-warning-soft:    var(--admin-warning-soft);
+  --color-admin-danger:          var(--admin-danger);
+  --color-admin-danger-soft:     var(--admin-danger-soft);
+  --color-admin-info:            var(--admin-info);
+  --color-admin-info-soft:       var(--admin-info-soft);
+  --color-admin-neutral:         var(--admin-neutral);
+
+  /* Colors — Core */
+  --color-background:        var(--color-background);
+  --color-foreground:        var(--color-foreground);
+  --color-surface:           var(--color-surface);
+  --color-surface-muted:     var(--color-surface-muted);
+  --color-border:            var(--color-border);
+  --color-border-strong:     var(--color-border-strong);
+  --color-primary:           var(--color-primary);
+  --color-primary-foreground:var(--color-primary-foreground);
+  --color-accent:            var(--color-accent);
+  --color-accent-foreground: var(--color-accent-foreground);
+  --color-focus:             var(--color-focus);
+
+  /* Colors — Semantic */
+  --color-success:           var(--color-success);
+  --color-success-bg:        var(--color-success-bg);
+  --color-warning:           var(--color-warning);
+  --color-warning-bg:        var(--color-warning-bg);
+  --color-danger:            var(--color-danger);
+  --color-danger-bg:         var(--color-danger-bg);
+  --color-info:              var(--color-info);
+  --color-info-bg:           var(--color-info-bg);
+  --color-locked:            var(--color-locked);
+  --color-ink-muted:         var(--color-ink-muted);
+  --color-primary-hover:     var(--color-primary-hover);
+  --color-primary-soft:      var(--color-primary-soft);
+  --color-ai:                var(--color-ai);
+
+  /* Colors — Competency */
+  --color-skill-discovery:   var(--color-skill-discovery);
+  --color-skill-strategy:    var(--color-skill-strategy);
+  --color-skill-design:      var(--color-skill-design);
+  --color-skill-execution:   var(--color-skill-execution);
+  --color-skill-growth:      var(--color-skill-growth);
+  --color-skill-leadership:  var(--color-skill-leadership);
+  --color-skill-technical:   var(--color-skill-technical);
+
+  /* Border Radius (Sprint 1 §8) */
+  --radius-xs:   4px;
+  --radius-sm:   6px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-xs:           var(--shadow-xs);
+  --shadow-sm:           var(--shadow-sm);
+  --shadow-md:           var(--shadow-md);
+  --shadow-glow-primary: var(--shadow-glow-primary);
+  --shadow-glow-accent:  var(--shadow-glow-accent);
+  /* Marketing depth (homepage round 2): primary-tinted, defined per mode below */
+  --shadow-tinted:       var(--shadow-tinted);
+  --shadow-tinted-lg:    var(--shadow-tinted-lg);
+
+  /* Typography Scale (Sprint 1 §5) */
+  --text-display-xl: 3.5rem;    /* 56px */
+  --text-display-lg: 2.75rem;   /* 44px */
+  --text-h1:         2.25rem;   /* 36px */
+  --text-h2:         1.75rem;   /* 28px */
+  --text-h3:         1.375rem;  /* 22px */
+  --text-h4:         1.125rem;  /* 18px */
+  --text-body-lg:    1.125rem;  /* 18px */
+  --text-body:       1rem;      /* 16px */
+  --text-body-sm:    0.875rem;  /* 14px */
+  --text-caption:    0.75rem;   /* 12px */
+  --text-micro:      0.6875rem; /* 11px */
+
+  /* Spacing (Sprint 1 §6) */
+  --spacing-1:  0.25rem;   /* 4px */
+  --spacing-2:  0.5rem;    /* 8px */
+  --spacing-3:  0.75rem;   /* 12px */
+  --spacing-4:  1rem;      /* 16px */
+  --spacing-5:  1.25rem;   /* 20px */
+  --spacing-6:  1.5rem;    /* 24px */
+  --spacing-8:  2rem;      /* 32px */
+  --spacing-10: 2.5rem;    /* 40px */
+  --spacing-12: 3rem;      /* 48px */
+  --spacing-16: 4rem;      /* 64px */
+  --spacing-24: 6rem;      /* 96px */
+
+  /* Transition Durations */
+  --duration-fast:     120ms;
+  --duration-standard: 180ms;
+  --duration-complex:  240ms;
+  --font-heading:        var(--font-sans);
+  --color-sidebar-ring:        var(--sidebar-ring);
+  --color-sidebar-border:        var(--sidebar-border);
+  --color-sidebar-accent-foreground:        var(--sidebar-accent-foreground);
+  --color-sidebar-accent:        var(--sidebar-accent);
+  --color-sidebar-primary-foreground:        var(--sidebar-primary-foreground);
+  --color-sidebar-primary:        var(--sidebar-primary);
+  --color-sidebar-foreground:        var(--sidebar-foreground);
+  --color-sidebar:        var(--sidebar);
+  --color-chart-5:        var(--chart-5);
+  --color-chart-4:        var(--chart-4);
+  --color-chart-3:        var(--chart-3);
+  --color-chart-2:        var(--chart-2);
+  --color-chart-1:        var(--chart-1);
+  --color-ring:        var(--ring);
+  --color-input:        var(--input);
+  --color-destructive:        var(--destructive);
+  --color-muted-foreground:        var(--muted-foreground);
+  --color-muted:        var(--muted);
+  --color-secondary-foreground:        var(--secondary-foreground);
+  --color-secondary:        var(--secondary);
+  --color-popover-foreground:        var(--popover-foreground);
+  --color-popover:        var(--popover);
+  --color-card-foreground:        var(--card-foreground);
+  --color-card:        var(--card);
+  --radius-2xl:        calc(var(--radius) * 1.8);
+  --radius-3xl:        calc(var(--radius) * 2.2);
+  --radius-4xl:        calc(var(--radius) * 2.6);
+}
+
+/* ─── Base Styles ────────────────────────────────────────────────────────────
+   Applied globally. Components inherit from these.
+---------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans, system-ui, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Focus Styles ───────────────────────────────────────────────────────────
+   Visible focus rings using the Sprint 1 focus token.
+   Applied via focus-visible (keyboard only — not on mouse click).
+---------------------------------------------------------------------------- */
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ─── Selection ──────────────────────────────────────────────────────────────*/
+
+::selection {
+  background-color: color-mix(in srgb, var(--color-primary) 18%, transparent);
+  color: var(--color-foreground);
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────────*/
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface-muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: var(--radius-full);
+}
+
+/* ─── Utility: Screen-reader only ────────────────────────────────────────────
+   Elements marked .sr-only are visually hidden but readable by screen readers.
+---------------------------------------------------------------------------- */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only:focus,
+.sr-only:focus-within {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+@utility perspective-1000 {
+  perspective: 1000px;
+}
+
+@utility transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+@utility backface-hidden {
+  backface-visibility: hidden;
+}
+
+@utility rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/*---break---
+ */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+/* ── Mermaid Static SVG Rendering ─────────────────────────────────────────── */
+.mermaid-static-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+.mermaid-static-svg foreignObject {
+  overflow: visible;
+}
+
+.mermaid-diagram-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  padding: 1rem 0;
+}
+
+/* Prodily Print & PDF Export Styles */
+@media print {
+  @page {
+    size: landscape;
+    margin: 0.4in;
+  }
+  html,
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide all page chrome by default — only the certificate prints */
+  body * {
+    visibility: hidden;
+  }
+  .certificate-print-container,
+  .certificate-print-container * {
+    visibility: visible;
+  }
+  .certificate-print-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+
+  .no-print,
+  .no-print-area {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+}
+
+@keyframes brand-logo-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+/* Admin console: no motion at all when the user asks for reduced motion.
+   Covers skeleton pulses, spinners, the alert counter and every transition. */
+@media (prefers-reduced-motion: reduce) {
+  .admin-console,
+  .admin-console *,
+  .admin-console *::before,
+  .admin-console *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

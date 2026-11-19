@@ -1,0 +1,916 @@
+{
+  "schemaVersion": 2,
+  "id": "les_85m4a2",
+  "contentHash": "36cd853f5c6f1bc20df9f4f9b482cea03ca57275bc49a7eaeba88bf640b95061",
+  "title": "Roadmapping",
+  "slug": "lesson-035",
+  "module": "execution",
+  "order": 5,
+  "totalInModule": 10,
+  "difficulty": 5,
+  "estimatedReadingTime": 35,
+  "estimatedCompletionTime": 50,
+  "prerequisites": [
+    "les_8prxyi",
+    "les_091713",
+    "les_vlut0b"
+  ],
+  "sourceFile": "content/lessons/lesson-035.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 35: Roadmapping",
+      "blockId": "blk_585b6eed80"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 34 took you inside a single Sprint: how a backlog item gets groomed, estimated, and planned into a two-week (or similar) window. But a Sprint Backlog only ever shows a few weeks of a much longer story. Stakeholders, executives, sales teams, and customers routinely need a view further out than a single Sprint can offer, not because they need Sprint-level detail six months in advance, which this curriculum has already established (Lesson 31) is rarely knowable that precisely, but because they need a credible sense of *direction and sequence* that a single Sprint Backlog can't provide on its own.",
+      "blockId": "blk_ee6e3fb04e"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson addresses the tool built for exactly that gap: the **product roadmap**. It is also one of the most consistently mishandled artifacts in product management, because roadmaps sit at an uncomfortable intersection: they must satisfy a genuine organizational need for forward visibility, while resisting the temptation to promise a level of certainty about the future that Lesson 31's entire premise (short feedback loops beat long up-front plans) explicitly warns against. A roadmap built as a list of features with fixed dates routinely turns into a source of broken promises and eroded trust; a roadmap built well becomes one of a PM's most valuable tools for aligning an organization around outcomes rather than a list of commitments. This lesson teaches you to build the second kind.",
+      "blockId": "blk_fae6c310bd"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "Explain why a feature-and-fixed-date roadmap tends to create false certainty, and connect this failure mode to the Agile values introduced in Lesson 31.",
+        "Describe the Now-Next-Later roadmap format and explain why its structure deliberately varies in specificity across time horizons.",
+        "Distinguish an outcome-based roadmap from a feature-based roadmap, and explain the trade-offs of each.",
+        "Explain how a roadmap should relate to a Sprint Backlog and a Sprint Goal (Lesson 32, Lesson 34) without collapsing the distinction between the two altitudes.",
+        "Design a roadmap communication approach for a stakeholder audience that preserves honesty about uncertainty while still providing genuinely useful forward direction."
+      ],
+      "blockId": "blk_cf94007cb7"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson assumes **Lesson 29's** prioritization discipline, since a roadmap is, in large part, a prioritized backlog presented at a longer time horizon and coarser grain. It also directly assumes **Lesson 31's** core Agile value (\"responding to change over following a plan\"), because the central tension in this lesson (how to give forward visibility without over-promising) is a direct, practical instance of that value under real organizational pressure. Finally, it assumes **Lesson 34's** Sprint-level vocabulary (Sprint Backlog, Sprint Goal), since this lesson is explicitly about the altitude one level above that one.",
+      "blockId": "blk_6f43d97f5a"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Core Failure Mode: The Date-Driven Feature Roadmap",
+          "blockId": "blk_3274ecae8b"
+        },
+        {
+          "type": "paragraph",
+          "text": "The most common, and most damaging, roadmap format is a simple table or Gantt-style chart listing specific features against specific calendar dates, often stretching six to twelve months into the future. This format feels reassuring to stakeholders in the moment it's presented: it looks precise, confident, and easy to plan around. It is also, in most real product organizations, close to fiction the moment it's published, for exactly the reasons established in Lesson 31: requirements clarify, priorities shift, and unexpected discoveries reshape plans as teams actually build and learn. A roadmap presented as a set of fixed promises will, with near certainty, be broken in some particulars, and every broken date quietly erodes trust in the PM who published it, even when the underlying reasons for the change were entirely sound.",
+          "blockId": "blk_063c45cf2b"
+        },
+        {
+          "type": "paragraph",
+          "text": "This is not an argument against forward planning: stakeholders have a legitimate need for direction, and refusing to provide any (Lesson 31's Mistake 5) is its own failure. It is an argument for choosing a roadmap *format* whose structure matches the actual level of certainty available at each time horizon, rather than a format that manufactures false precision uniformly across the whole timeline.",
+          "blockId": "blk_456d891039"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Now-Next-Later Format",
+          "blockId": "blk_2bf18a8983"
+        },
+        {
+          "type": "paragraph",
+          "text": "A widely adopted alternative, popularized by Janna Bastow, organizes a roadmap into three horizons instead of fixed calendar dates:",
+          "blockId": "blk_f9b827a867"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_d2ee7ff73d",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[\"NOW High Confidence,<br/>Specific, in Active Development\"] --> B[\"NEXT Medium Confidence, Directional,<br/>Likely Within 1-2 Quarters\"]\r\n    B --> C[\"LATER Low Confidence,<br/>Thematic, Problem Areas Being Explored\"]",
+          "normalized": "graph LR\r\n    A[\"NOW High Confidence,<br/>Specific, in Active Development\"] --> B[\"NEXT Medium Confidence, Directional,<br/>Likely Within 1-2 Quarters\"]\r\n    B --> C[\"LATER Low Confidence,<br/>Thematic, Problem Areas Being Explored\"]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020950363-98\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1789.88\" height=\"143\" viewBox=\"-57.875 -27 1789.88 143\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: NOW High Confidence,Specific, in Active Development → NEXT Medium Confidence, Directional,Likely Within 1-2 Quarters → LATER Low Confidence,Thematic, Problem Areas Being Explored\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: NOW High Confidence,Specific, in Active Development → NEXT Medium Confidence, Directional,Likely Within 1-2 Quarters → LATER Low Confidence,Thematic, Problem Areas Being Explored</title><style>#mermaid-svg-1795020950363-98{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020950363-98 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020950363-98 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020950363-98 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020950363-98 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020950363-98 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020950363-98 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020950363-98 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020950363-98 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020950363-98 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020950363-98 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020950363-98 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020950363-98 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020950363-98 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020950363-98 p{margin:0;}#mermaid-svg-1795020950363-98 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020950363-98 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020950363-98 .cluster-label span{color:#171A17;}#mermaid-svg-1795020950363-98 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020950363-98 .label text,#mermaid-svg-1795020950363-98 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020950363-98 .node rect,#mermaid-svg-1795020950363-98 .node circle,#mermaid-svg-1795020950363-98 .node ellipse,#mermaid-svg-1795020950363-98 .node polygon,#mermaid-svg-1795020950363-98 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020950363-98 .rough-node .label text,#mermaid-svg-1795020950363-98 .node .label text,#mermaid-svg-1795020950363-98 .image-shape .label,#mermaid-svg-1795020950363-98 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020950363-98 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020950363-98 .rough-node .label,#mermaid-svg-1795020950363-98 .node .label,#mermaid-svg-1795020950363-98 .image-shape .label,#mermaid-svg-1795020950363-98 .icon-shape .label{text-align:center;}#mermaid-svg-1795020950363-98 .node.clickable{cursor:pointer;}#mermaid-svg-1795020950363-98 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020950363-98 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020950363-98 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020950363-98 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020950363-98 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020950363-98 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020950363-98 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020950363-98 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020950363-98 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020950363-98 .cluster text{fill:#171A17;}#mermaid-svg-1795020950363-98 .cluster span{color:#171A17;}#mermaid-svg-1795020950363-98 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020950363-98 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020950363-98 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020950363-98 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020950363-98 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020950363-98 .icon-shape,#mermaid-svg-1795020950363-98 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020950363-98 .icon-shape p,#mermaid-svg-1795020950363-98 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020950363-98 .icon-shape .label rect,#mermaid-svg-1795020950363-98 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020950363-98 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020950363-98 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020950363-98 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020950363-98 [data-look=\"neo\"].node rect,#mermaid-svg-1795020950363-98 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020950363-98 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020950363-98-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020950363-98 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020950363-98 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020950363-98-gradient);stroke-width:1px;}#mermaid-svg-1795020950363-98 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020950363-98 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020950363-98 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020950363-98-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020950363-98 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020950363-98 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020950363-98-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020950363-98 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020950363-98-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020950363-98 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020950363-98_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020950363-98_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020950363-98_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020950363-98_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020950363-98_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020950363-98_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020950363-98_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020950363-98_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020950363-98_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020950363-98_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020950363-98_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020950363-98_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M483.25,62L492,62C500.75,62,518.25,62,535.083,62C551.917,62,568.083,62,576.167,62L584.25,62\" id=\"mermaid-svg-1795020950363-98-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NDgzLjI1LCJ5Ijo2Mn0seyJ4Ijo1MzUuNzUsInkiOjYyfSx7IngiOjU4OC4yNSwieSI6NjJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020950363-98_flowchart-v2-pointEnd)\"></path><path d=\"M1127.25,62L1136,62C1144.75,62,1162.25,62,1179.083,62C1195.917,62,1212.083,62,1220.167,62L1228.25,62\" id=\"mermaid-svg-1795020950363-98-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6MTEyNy4yNSwieSI6NjJ9LHsieCI6MTE3OS43NSwieSI6NjJ9LHsieCI6MTIzMi4yNSwieSI6NjJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020950363-98_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020950363-98-flowchart-A-0\" data-look=\"classic\" transform=\"translate(245.625, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-179.75\" y=\"-46\" width=\"359.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-147.75, -30)\"><rect></rect><foreignObject width=\"295.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>NOW High Confidence,<br>Specific, in Active Development</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020950363-98-flowchart-B-1\" data-look=\"classic\" transform=\"translate(857.75, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-201\" y=\"-46\" width=\"402\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-169, -30)\"><rect></rect><foreignObject width=\"338\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>NEXT Medium Confidence, Directional,<br>Likely Within 1-2 Quarters</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020950363-98-flowchart-C-3\" data-look=\"classic\" transform=\"translate(1514.5, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-209.5\" y=\"-46\" width=\"419\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-177.5, -30)\"><rect></rect><foreignObject width=\"355\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>LATER Low Confidence,<br>Thematic, Problem Areas Being Explored</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020950363-98-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020950363-98-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020950363-98-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_d2ee7ff73d"
+        },
+        {
+          "type": "paragraph",
+          "text": "The critical design principle is that **specificity and confidence are meant to decrease as the horizon extends**, and this is stated openly rather than hidden. \"Now\" items can be described with real feature-level detail, because they're already well-groomed (Lesson 34) and actively being built. \"Later\" items are deliberately described as problem areas or themes (\"improving new-user onboarding,\" not \"add a five-step interactive tutorial with X, Y, Z screens\"), because committing to specific solutions that far out would misrepresent how much is actually known. This structure lets a PM be simultaneously honest and useful: precise where precision is earned, and appropriately vague where it isn't, rather than uniformly vague (unhelpful) or uniformly precise (dishonest).",
+          "blockId": "blk_4aa006d251"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Outcome-Based vs. Feature-Based Roadmaps",
+          "blockId": "blk_a349315a4e"
+        },
+        {
+          "type": "paragraph",
+          "text": "A second, related distinction concerns *what a roadmap's rows represent*. A **feature-based roadmap** lists specific things to be built (\"add SSO login,\" \"redesign the search page\"). An **outcome-based roadmap** lists problems to be solved or metrics to be moved (\"reduce enterprise sales friction from authentication concerns,\" \"improve search result relevance\"), leaving the specific solution open, especially for items further out on the Now-Next-Later horizon.",
+          "blockId": "blk_09debb38e4"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "",
+            "Feature-Based Roadmap",
+            "Outcome-Based Roadmap"
+          ],
+          "rows": [
+            [
+              "**Strength**",
+              "Concrete, easy for stakeholders to visualize",
+              "Preserves flexibility to change approach as evidence accumulates"
+            ],
+            [
+              "**Risk**",
+              "Can lock in a specific solution before it's validated, and reads as a broken promise if that solution changes",
+              "Can feel vague or evasive to stakeholders unaccustomed to this format"
+            ],
+            [
+              "**Best fit**",
+              "\"Now\" horizon items, already well-specified through grooming",
+              "\"Next\" and especially \"Later\" horizon items"
+            ]
+          ],
+          "blockId": "blk_cc9d4e29da"
+        },
+        {
+          "type": "paragraph",
+          "text": "In practice, most healthy roadmaps blend the two: feature-specific in the \"Now\" column, progressively more outcome-oriented moving into \"Next\" and \"Later\", which is precisely the Now-Next-Later structure's underlying logic applied to content, not just to labeled time buckets.",
+          "blockId": "blk_9e787619e0"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "How a Roadmap Relates to a Sprint Backlog",
+          "blockId": "blk_08680d6625"
+        },
+        {
+          "type": "paragraph",
+          "text": "It's worth being explicit about the altitude difference here, since new PMs sometimes collapse these into one artifact. A roadmap operates at the level of quarters-to-a-year, expressed as outcomes or themes with decreasing specificity; a Sprint Backlog (Lesson 32, Lesson 34) operates at the level of a single Sprint, expressed as specific, groomed, INVEST-compliant items. The relationship between them should flow in one clear direction: a roadmap's \"Now\" items should be traceable down into the current Sprint's actual work, and a Sprint Goal (Lesson 32) should be explainable in terms of which roadmap theme it serves. A roadmap that has no visible connection to what a team is actually sprinting on has become disconnected fiction; a Sprint Backlog with no visible connection to any roadmap theme has lost sight of its longer-horizon purpose.",
+          "blockId": "blk_e8a94c2180"
+        }
+      ],
+      "blockId": "blk_31bb2a1269"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Publishing a roadmap with fixed dates for items many months out",
+          "body": "As covered above, this manufactures false precision and reliably produces broken promises, since Lesson 31's entire premise is that far-future specifics are rarely knowable with confidence."
+        },
+        {
+          "title": "Treating \"Later\" items as promises rather than exploration themes",
+          "body": "A \"Later\" item should read as \"we believe this is an important problem area,\" not \"we will ship exactly this feature in exactly this quarter.\" Stakeholders who mistake the former for the latter will, reasonably, feel misled when the eventual solution differs from what they imagined."
+        },
+        {
+          "title": "Refusing to give any forward-looking view at all, out of excessive caution",
+          "body": "This is the mirror-image failure to Mistake 1, and was flagged already in Lesson 31 (Mistake 5): using \"we can't know the future\" as an excuse to withhold any useful directional information, which leaves stakeholders unable to plan around the PM's team at all."
+        },
+        {
+          "title": "Building a roadmap with no visible connection to current Sprint work",
+          "body": "As covered above, a roadmap that has drifted out of sync with what the team is actually building has stopped functioning as a real planning tool and become a disconnected communication artifact, often discovered only when a stakeholder asks \"so is this roadmap item happening this quarter?\" and no one on the team can answer confidently."
+        },
+        {
+          "title": "Using the same roadmap format and content for every audience",
+          "body": "An engineering-facing roadmap discussion can meaningfully include more technical specificity and dependency detail than a sales-facing or customer-facing one; a roadmap shared externally with customers typically needs to be far more conservative about \"Later\" specifics than one shared internally with engineering leadership. Using one undifferentiated roadmap for every audience risks either overwhelming some audiences with irrelevant detail or under-informing others who need more.\n\n"
+        }
+      ],
+      "blockId": "blk_30e7037d91"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The Confidence Gradient",
+      "diagram": {
+        "blockId": "blk_bb3ada055b",
+        "type": "mermaid"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "This lesson's core takeaway tool visualizes the Now-Next-Later structure not as three discrete buckets, but as a continuous gradient of decreasing confidence and specificity, which is the more accurate mental picture and helps avoid Mistake 2 above:",
+          "blockId": "blk_4d2a7d0b72"
+        },
+        {
+          "type": "paragraph",
+          "text": "Use the Confidence Gradient as a standing discipline whenever you're deciding how to describe a roadmap item: ask explicitly, \"how much do I actually know about this, and does my description's specificity honestly reflect that?\" An item described with feature-level detail should genuinely have feature-level certainty behind it; an item that's still mostly a hypothesis should be described as a theme or problem area, regardless of how satisfying a more specific-sounding description might feel to write or present.",
+          "blockId": "blk_4944c016c5"
+        }
+      ],
+      "blockId": "blk_1a8b40cbce"
+    },
+    {
+      "type": "mermaid",
+      "id": "blk_bb3ada055b",
+      "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[\"High Confidence<br/>Specific Features (Now)\"] -.->|decreasing certainty| B[\"Medium Confidence<br/>Directional Themes (Next)\"] -.->|decreasing certainty| C[\"Low Confidence<br/>Problem Areas Only (Later)\"]",
+      "normalized": "graph LR\r\n    A[\"High Confidence<br/>Specific Features (Now)\"] -.->|decreasing certainty| B[\"Medium Confidence<br/>Directional Themes (Next)\"] -.->|decreasing certainty| C[\"Low Confidence<br/>Problem Areas Only (Later)\"]",
+      "authorTheme": {
+        "background": "#0b0b0c",
+        "primaryColor": "#1f1f23",
+        "primaryTextColor": "#ffffff",
+        "primaryBorderColor": "#8b5cf6",
+        "lineColor": "#d1d5db",
+        "secondaryColor": "#18181b",
+        "tertiaryColor": "#111111",
+        "mainBkg": "#1f1f23",
+        "nodeBorder": "#8b5cf6",
+        "clusterBkg": "#000000",
+        "clusterBorder": "#27272a",
+        "titleColor": "#ffffff",
+        "edgeLabelBackground": "#0b0b0c",
+        "nodeTextColor": "#ffffff",
+        "edgeLabelColor": "#ffffff",
+        "actorBorder": "#8b5cf6",
+        "actorBkg": "#1f1f23",
+        "actorTextColor": "#ffffff",
+        "sequenceNumberColor": "#ffffff",
+        "signalColor": "#8b5cf6",
+        "signalTextColor": "#ffffff",
+        "textColor": "#ffffff",
+        "classText": "#ffffff",
+        "classBorder": "#8b5cf6",
+        "classBkg": "#1f1f23"
+      },
+      "svg": "<svg id=\"mermaid-svg-1795020950526-99\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1687.13\" height=\"124\" viewBox=\"-40.875 -8 1687.13 124\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: High ConfidenceSpecific Features (Now) → Medium ConfidenceDirectional Themes (Next) → Low ConfidenceProblem Areas Only (Later)\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: High ConfidenceSpecific Features (Now) → Medium ConfidenceDirectional Themes (Next) → Low ConfidenceProblem Areas Only (Later)</title><style>#mermaid-svg-1795020950526-99{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020950526-99 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020950526-99 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020950526-99 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020950526-99 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020950526-99 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020950526-99 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020950526-99 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020950526-99 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020950526-99 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020950526-99 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020950526-99 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020950526-99 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020950526-99 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020950526-99 p{margin:0;}#mermaid-svg-1795020950526-99 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020950526-99 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020950526-99 .cluster-label span{color:#171A17;}#mermaid-svg-1795020950526-99 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020950526-99 .label text,#mermaid-svg-1795020950526-99 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020950526-99 .node rect,#mermaid-svg-1795020950526-99 .node circle,#mermaid-svg-1795020950526-99 .node ellipse,#mermaid-svg-1795020950526-99 .node polygon,#mermaid-svg-1795020950526-99 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020950526-99 .rough-node .label text,#mermaid-svg-1795020950526-99 .node .label text,#mermaid-svg-1795020950526-99 .image-shape .label,#mermaid-svg-1795020950526-99 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020950526-99 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020950526-99 .rough-node .label,#mermaid-svg-1795020950526-99 .node .label,#mermaid-svg-1795020950526-99 .image-shape .label,#mermaid-svg-1795020950526-99 .icon-shape .label{text-align:center;}#mermaid-svg-1795020950526-99 .node.clickable{cursor:pointer;}#mermaid-svg-1795020950526-99 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020950526-99 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020950526-99 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020950526-99 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020950526-99 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020950526-99 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020950526-99 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020950526-99 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020950526-99 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020950526-99 .cluster text{fill:#171A17;}#mermaid-svg-1795020950526-99 .cluster span{color:#171A17;}#mermaid-svg-1795020950526-99 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020950526-99 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020950526-99 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020950526-99 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020950526-99 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020950526-99 .icon-shape,#mermaid-svg-1795020950526-99 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020950526-99 .icon-shape p,#mermaid-svg-1795020950526-99 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020950526-99 .icon-shape .label rect,#mermaid-svg-1795020950526-99 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020950526-99 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020950526-99 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020950526-99 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020950526-99 [data-look=\"neo\"].node rect,#mermaid-svg-1795020950526-99 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020950526-99 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020950526-99-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020950526-99 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020950526-99 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020950526-99-gradient);stroke-width:1px;}#mermaid-svg-1795020950526-99 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020950526-99 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020950526-99 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020950526-99-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020950526-99 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020950526-99 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020950526-99-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020950526-99 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020950526-99-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020950526-99 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020950526-99_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020950526-99_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020950526-99_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020950526-99_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020950526-99_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020950526-99_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020950526-99_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020950526-99_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020950526-99_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020950526-99_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020950526-99_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020950526-99_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M381.25,62L401.833,62C422.417,62,463.583,62,504.083,62C544.583,62,584.417,62,604.333,62L624.25,62\" id=\"mermaid-svg-1795020950526-99-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6MzgxLjI1LCJ5Ijo2Mn0seyJ4Ijo1MDQuNzUsInkiOjYyfSx7IngiOjYyOC4yNSwieSI6NjJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020950526-99_flowchart-v2-pointEnd)\"></path><path d=\"M1027,62L1047.583,62C1068.167,62,1109.333,62,1149.833,62C1190.333,62,1230.167,62,1250.083,62L1270,62\" id=\"mermaid-svg-1795020950526-99-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6MTAyNywieSI6NjJ9LHsieCI6MTE1MC41LCJ5Ijo2Mn0seyJ4IjoxMjc0LCJ5Ijo2Mn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020950526-99_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\" transform=\"translate(504.75, 62)\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-101, -19)\"><foreignObject width=\"202\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>decreasing certainty</p></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(1150.5, 62)\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-101, -19)\"><foreignObject width=\"202\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>decreasing certainty</p></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020950526-99-flowchart-A-0\" data-look=\"classic\" transform=\"translate(194.625, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-145.75\" y=\"-46\" width=\"291.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-113.75, -30)\"><rect></rect><foreignObject width=\"227.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>High Confidence<br>Specific Features (Now)</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020950526-99-flowchart-B-1\" data-look=\"classic\" transform=\"translate(827.625, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-154.25\" y=\"-46\" width=\"308.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-122.25, -30)\"><rect></rect><foreignObject width=\"244.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Medium Confidence<br>Directional Themes (Next)</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020950526-99-flowchart-C-2\" data-look=\"classic\" transform=\"translate(1479.75, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-158.5\" y=\"-46\" width=\"317\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-126.5, -30)\"><rect></rect><foreignObject width=\"253\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Low Confidence<br>Problem Areas Only (Later)</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020950526-99-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020950526-99-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020950526-99-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+      "blockId": "blk_bb3ada055b"
+    },
+    {
+      "type": "companyExample",
+      "company": "Notion",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "**Notion** has been publicly associated with maintaining a public-facing roadmap that organizes upcoming work by theme and rough time horizon rather than as a list of specific features with committed ship dates, a format broadly consistent with the outcome-and-horizon-based approach described in this lesson.",
+          "blockId": "blk_50988644fb"
+        },
+        {
+          "type": "paragraph",
+          "text": "The underlying principle connects directly to this lesson's Theory: a public roadmap, seen by customers, prospects, and the broader community, carries even higher reputational cost for broken specific promises than an internal one, making the discipline of matching specificity to actual confidence especially important in a customer-facing context.",
+          "blockId": "blk_e8074f7a4a"
+        }
+      ],
+      "assumptionFlags": [
+        "this reflects a general, publicly observable pattern in how product roadmaps are commonly presented by software companies, based on publicly available roadmap pages, not a confirmed, complete, or current account of Notion's specific internal roadmapping process or philosophy today. Public roadmap formats and practices evolve over time at any company; the durable lesson is the underlying principle: matching a roadmap's specificity to genuine confidence, especially for external audiences, rather than a claim about Notion's exact current practice."
+      ],
+      "blockId": "blk_65264da9da"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "At a startup",
+          "body": "Roadmaps are often informal (a simple document or slide reviewed periodically with the founding team) and may skip external publication altogether. The risk here is usually Mistake 3: because the team is small and things change fast, a founder-PM may avoid committing to any roadmap at all, leaving even close internal stakeholders (like a sales co-founder trying to set customer expectations) without useful directional information."
+        },
+        {
+          "context": "At a mid-size company",
+          "body": "Roadmaps typically become a more formal, recurring artifact reviewed quarterly with leadership and shared, in some form, with sales, customer success, and sometimes customers directly. This is the stage where Mistake 5 (one-size-fits-all roadmap) most commonly appears, as the same document gets stretched to serve audiences with genuinely different needs."
+        },
+        {
+          "context": "At Big Tech",
+          "body": "Roadmaps often exist at multiple nested altitudes simultaneously: a company-wide roadmap, an organization-level roadmap, and team-level roadmaps, each needing to stay visibly connected to the ones above and below it. The PM's job shifts toward ensuring their team's roadmap items trace clearly up into larger organizational themes and down into actual Sprint work, since disconnection at either end (an isolated team roadmap with no larger context, or a leadership roadmap with no visible grounding in real team execution) becomes increasingly likely as the number of intermediate layers grows."
+        }
+      ],
+      "blockId": "blk_e617e97ea3"
+    },
+    {
+      "type": "caseStudy",
+      "title": "The Roadmap That Promised Too Much",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Consider a simplified, illustrative scenario common at growing product organizations building their first formal roadmap.",
+          "blockId": "blk_cbbcce0ed4"
+        },
+        {
+          "type": "paragraph",
+          "text": "A PM at a mid-size B2B software company builds a roadmap for the upcoming year at the request of the sales team, who want something concrete to show prospective enterprise customers during the sales cycle. Eager to be helpful, the PM lists twelve specific features, each with a target quarter, stretching a full year out, including several \"Later\"-horizon ideas that were, at the time, barely more than early hallway conversations about possible directions.",
+          "blockId": "blk_e03e2a44cf"
+        },
+        {
+          "type": "paragraph",
+          "text": "Sales enthusiastically uses this roadmap in customer conversations throughout the year, sometimes referencing specific quarter commitments directly in contract negotiations. By year's end, four of the twelve features shipped roughly on schedule, three shipped in a substantially different form than originally described (after user research revealed the original approach wouldn't solve the underlying problem), and five were deprioritized entirely in favor of higher-value work discovered along the way. Several enterprise customers, holding a printed copy of the original roadmap, raise pointed complaints during renewal conversations about \"promises that were never kept.\"",
+          "blockId": "blk_090cccbd34"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong?**",
+          "blockId": "blk_95efbe5df7"
+        },
+        {
+          "type": "paragraph",
+          "text": "The PM's underlying prioritization judgment may have been entirely sound: deprioritizing five items in favor of better-validated opportunities is exactly the kind of adaptive, evidence-driven behavior Lesson 31 endorses. The failure was in the roadmap's *format*, not necessarily its content: presenting a full year of specific features at specific dates manufactured a level of certainty about \"Later\"-horizon items that never actually existed, and handed sales a document that functioned, in practice, as a set of contractual promises rather than a directional communication tool.",
+          "blockId": "blk_d771365204"
+        },
+        {
+          "type": "paragraph",
+          "text": "A Now-Next-Later format, applied honestly, would have prevented most of this damage. The four features that shipped roughly as planned were very likely genuine \"Now\" items with real confidence behind them, appropriate to describe specifically. The three that changed substantially and the five that were deprioritized were, in hindsight, \"Later\"-horizon ideas dressed up with false \"Now\"-level specificity, exactly the failure mode this lesson's Confidence Gradient is designed to prevent. The deeper organizational fix (training sales on how to use a Now-Next-Later roadmap responsibly in customer conversations, including what language is and isn't safe to use with prospects) is addressed directly in **Lesson 47 (Stakeholder Management)**, and the specific mechanics of coordinating a roadmap with an actual release calendar are covered in **Lesson 36 (Release Planning & Launch Management)**.",
+          "blockId": "blk_fd008517cb"
+        }
+      ],
+      "blockId": "blk_d74fcf3699"
+    },
+    {
+      "type": "framework",
+      "name": "The Roadmap Format Selector",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A second, more tactical tool: use this table to decide which roadmap format and specificity level fits a given audience and time horizon.",
+          "blockId": "blk_3b10e81c42"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Audience / Horizon",
+            "Recommended Format",
+            "Specificity Level"
+          ],
+          "rows": [
+            [
+              "Engineering, \"Now\" horizon",
+              "Feature-level, tied directly to current Sprint Backlog items",
+              "High: specific features, real estimates"
+            ],
+            [
+              "Engineering, \"Next\"/\"Later\" horizon",
+              "Outcome/theme-based, with early technical considerations noted",
+              "Medium to low"
+            ],
+            [
+              "Internal leadership, all horizons",
+              "Outcome-based with visible traceability to strategic goals",
+              "Medium, increasing toward \"Now\""
+            ],
+            [
+              "Sales / Customer Success, \"Now\" horizon",
+              "Feature-level, but explicitly labeled as \"shipping soon\" rather than a fixed date",
+              "High, but hedged"
+            ],
+            [
+              "Sales / Customer Success, \"Next\"/\"Later\" horizon",
+              "Theme-based only, explicitly framed as directional, not committed",
+              "Low: themes only, no specific dates"
+            ],
+            [
+              "External customers/public",
+              "Now-Next-Later, themes only beyond \"Now,\" no fixed dates beyond the current quarter",
+              "Low to medium, conservative by design"
+            ]
+          ],
+          "blockId": "blk_3589d89a03"
+        },
+        {
+          "type": "paragraph",
+          "text": "The general rule this table encodes: specificity should be earned by confidence, and confidence should be earned by proximity to actual, groomed (Lesson 34) work, never by audience pressure to sound more certain than the underlying reality supports.",
+          "blockId": "blk_c96587bfee"
+        }
+      ],
+      "blockId": "blk_72766c4946"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "How do you build and communicate a product roadmap?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate defaults to a feature-and-fixed-date format (a common but risky default) or demonstrates awareness of formats like Now-Next-Later that match specificity to actual confidence."
+        },
+        {
+          "question": "A sales leader is pressuring you to commit to a specific date for a feature that's still in early exploration. How do you respond?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate can hold a principled line on honest specificity under real organizational pressure, offering a useful alternative (a themed, hedged commitment) rather than either caving to false precision or unhelpfully refusing to engage at all."
+        },
+        {
+          "question": "Tell me about a roadmap commitment that didn't work out. What happened, and what would you do differently?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate can distinguish a sound prioritization decision (deprioritizing something for good reasons) from a format failure (having presented uncertain information with false certainty in the first place), precisely the distinction drawn in this lesson's Case Study."
+        }
+      ],
+      "blockId": "blk_69f97b0ed2"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A product roadmap exists to give stakeholders a credible sense of direction and sequence beyond what a single Sprint Backlog can show, but the most common roadmap format (a list of specific features tied to fixed calendar dates, stretching many months out) manufactures a level of certainty about the future that directly contradicts Lesson 31's founding premise, reliably producing broken promises and eroded trust. The Now-Next-Later format resolves this by deliberately decreasing specificity and confidence as the time horizon extends: precise where precision is earned (the \"Now\" horizon, grounded in already-groomed Sprint work), thematic and outcome-oriented where it isn't (the \"Later\" horizon, still mostly hypothesis). This same logic extends to the choice between feature-based and outcome-based roadmap rows, and to tailoring format and specificity by audience, since a roadmap shared externally with customers carries a different, higher reputational cost for broken specifics than one shared internally with engineering. A roadmap's \"Now\" items should always be traceable down into actual current Sprint work, and a Sprint Goal should be explainable in terms of which roadmap theme it serves. A roadmap or Sprint Backlog that has lost this visible connection to the other has stopped functioning as a coherent planning system.",
+          "blockId": "blk_fe0dcfc528"
+        }
+      ],
+      "blockId": "blk_99857dd603"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "A roadmap listing specific features against fixed, far-future dates manufactures false certainty and reliably produces broken promises, directly contradicting Lesson 31's core Agile premise.",
+        "The Now-Next-Later format deliberately decreases specificity and confidence as the time horizon extends, allowing a PM to be both honest and useful simultaneously.",
+        "Outcome-based roadmap items (problems/metrics) preserve flexibility for \"Next\" and \"Later\" horizons; feature-based items are appropriate mainly for well-groomed \"Now\" horizon work.",
+        "A roadmap's \"Now\" items should trace down into actual current Sprint work, and a Sprint Goal should trace up into a roadmap theme. Disconnection at either end signals dysfunction.",
+        "Refusing to provide any forward-looking roadmap view at all, out of excessive caution, is a real and damaging mistake, not a safe default.",
+        "Roadmap format and specificity should be tailored by audience: external customer-facing roadmaps generally warrant more conservative specificity than internal engineering-facing ones.",
+        "A sound prioritization decision (deprioritizing something for good reasons) is different from a format failure (having presented uncertain information with false certainty in the first place): a broken roadmap promise is often the latter, not the former."
+      ],
+      "blockId": "blk_360bee39a7"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "**Core failure:** fixed dates + specific features, far out in time, manufacture false certainty.",
+        "**Now-Next-Later:** specificity and confidence decrease as horizon extends: precise Now, thematic Later.",
+        "**Feature-based vs. outcome-based:** features for \"Now\" (earned specificity); outcomes/themes for \"Next\"/\"Later.\"",
+        "**Roadmap ↔ Sprint link:** \"Now\" items trace into current Sprint work; Sprint Goals trace up into roadmap themes.",
+        "**Don't over-correct:** refusing any forward view at all is its own failure (Lesson 31, Mistake 5).",
+        "**Tailor by audience:** external/customer-facing = more conservative; internal engineering = can carry more detail.",
+        "**Diagnose broken promises correctly:** was it a bad prioritization call, or a format failure presenting uncertainty as certainty?"
+      ],
+      "blockId": "blk_3a5b301590"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "Product roadmap",
+          "definition": "A longer-horizon (quarters-to-a-year) artifact communicating direction and sequence beyond what a single Sprint Backlog shows",
+          "relatedConcepts": [
+            "Now-Next-Later"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "Now-Next-Later",
+          "definition": "A roadmap format organizing work into three horizons with decreasing specificity and confidence",
+          "relatedConcepts": [
+            "Confidence Gradient"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "Confidence Gradient",
+          "definition": "This lesson's mental model: a continuous decrease in specificity and confidence as roadmap time horizon extends",
+          "relatedConcepts": [
+            "Now-Next-Later"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Feature-based roadmap",
+          "definition": "A roadmap whose rows describe specific things to be built",
+          "relatedConcepts": [
+            "Outcome-based roadmap"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "Outcome-based roadmap",
+          "definition": "A roadmap whose rows describe problems to be solved or metrics to be moved, leaving the specific solution open",
+          "relatedConcepts": [
+            "Feature-based roadmap"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Roadmap-Sprint traceability",
+          "definition": "The principle that a roadmap's \"Now\" items should connect visibly to current Sprint work, and vice versa",
+          "relatedConcepts": [
+            "Sprint Goal (Lesson 32)"
+          ],
+          "difficulty": 2
+        }
+      ],
+      "blockId": "blk_0c08eeed0a"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "*Product Roadmaps Relaunched* by C. Todd Lombardo, Bruce McCarthy, Evan Ryan, and Michael Connors",
+          "note": "a detailed practitioner treatment of outcome-based roadmapping formats."
+        },
+        {
+          "citation": "\"Now-Next-Later Roadmaps\" by Janna Bastow (ProdPad)",
+          "note": "the original articulation of the Now-Next-Later format referenced in this lesson."
+        },
+        {
+          "citation": "*Escaping the Build Trap* by Melissa Perri",
+          "note": "situates roadmapping within the broader discipline of outcome-oriented product strategy."
+        }
+      ],
+      "blockId": "blk_b43f8e1533"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_85m4a2",
+      "cards": [
+        {
+          "id": "fc-les_85m4a2-1",
+          "front": "What is the core failure mode of a feature-and-fixed-date roadmap?",
+          "back": "It manufactures false certainty about far-future specifics, reliably producing broken promises since requirements and priorities inevitably shift.",
+          "difficulty": 1,
+          "tags": [
+            "date-driven-roadmap"
+          ]
+        },
+        {
+          "id": "fc-les_85m4a2-2",
+          "front": "What are the three horizons in a Now-Next-Later roadmap?",
+          "back": "Now (high confidence, specific, active development), Next (medium confidence, directional), Later (low confidence, thematic/problem areas).",
+          "difficulty": 1,
+          "tags": [
+            "now-next-later"
+          ]
+        },
+        {
+          "id": "fc-les_85m4a2-3",
+          "front": "What's the difference between a feature-based and an outcome-based roadmap row?",
+          "back": "A feature-based row describes a specific thing to build; an outcome-based row describes a problem to solve or metric to move, leaving the solution open.",
+          "difficulty": 2,
+          "tags": [
+            "feature-based",
+            "outcome-based"
+          ]
+        },
+        {
+          "id": "fc-les_85m4a2-4",
+          "front": "How should a roadmap's \"Now\" items relate to a team's current Sprint Backlog?",
+          "back": "They should be directly traceable: \"Now\" roadmap items should be visible in what the team is actually sprinting on, and Sprint Goals should trace back up into a roadmap theme.",
+          "difficulty": 2,
+          "tags": [
+            "traceability"
+          ]
+        },
+        {
+          "id": "fc-les_85m4a2-5",
+          "front": "Why is refusing to give any forward-looking roadmap a mistake, not a safe choice?",
+          "back": "It leaves stakeholders unable to plan around the team at all, repeating Lesson 31's Mistake 5 of using uncertainty as an excuse to withhold useful direction.",
+          "difficulty": 2,
+          "tags": [
+            "mistake-5",
+            "forward-visibility"
+          ]
+        },
+        {
+          "id": "fc-les_85m4a2-6",
+          "front": "In the Detailed Case Study, was the PM's prioritization judgment or the roadmap's format the primary failure?",
+          "back": "The format: presenting a full year of specific features at specific dates manufactured false certainty, even though the underlying prioritization decisions (deprioritizing weaker ideas for better ones) were reasonable.",
+          "difficulty": 2,
+          "tags": [
+            "case-study"
+          ]
+        }
+      ],
+      "blockId": "blk_0eb8fecb9c"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "Consider the following novel scenario: You're a PM at a company preparing its first-ever public roadmap page, to be linked from the marketing website. Your engineering lead wants to include ambitious, specific \"Later\"-horizon items to generate excitement about the product's future direction. Your head of sales wants specific dates attached to everything, to use in customer conversations. You know from experience that specifics that far out are rarely reliable.",
+        "There is no single correct answer to the prompts below: the goal is to practice applying the Confidence Gradient and Roadmap Format Selector, not to reach one \"right\" answer.",
+        "Using the Roadmap Format Selector, what specificity level would you recommend for the public-facing \"Later\" horizon, and why?",
+        "How would you respond to the engineering lead's request for ambitious, specific \"Later\" items, without simply refusing to include any exciting future direction at all?",
+        "How would you respond to the sales leader's request for specific dates, in a way that still gives sales something useful for customer conversations?",
+        "What language would you use on the public roadmap page itself to signal, honestly, which parts are commitments and which are directional themes?",
+        "Six months from now, a \"Later\" item you described as a theme turns into a very different feature than anyone imagined. How would the format you chose today help or hurt you in explaining that change publicly?"
+      ],
+      "blockId": "blk_3b5ed3f879"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_85m4a2",
+      "questions": [
+        {
+          "id": "q-les_85m4a2-1",
+          "question": "What is the main risk of a roadmap that lists specific features against fixed calendar dates many months out?",
+          "options": [
+            "It manufactures certainty that rarely holds, producing broken promises",
+            "It costs noticeably more engineering time to draft than other formats",
+            "It cannot be paired with a Sprint Backlog under any circumstances",
+            "It is unreadable by non-technical stakeholders reviewing it"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Far-future dates attached to specific features manufacture a false sense of certainty, and Lesson 31's premise is that such specifics rarely hold as priorities shift.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_85m4a2-2",
+          "question": "In the Now-Next-Later format, how should specificity change as the time horizon extends?",
+          "options": [
+            "It should stay flat across all three horizons at all times",
+            "It should decrease, moving from specific \"Now\" work to thematic \"Later\" ideas",
+            "It should increase, since distant items need more detail to plan around",
+            "It should be randomized so stakeholders don't over-rely on any horizon"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The format is built so specificity and confidence deliberately decrease as the horizon extends, from concrete \"Now\" work to thematic \"Later\" ideas.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_85m4a2-3",
+          "question": "What best describes an outcome-based roadmap row, compared to a feature-based one?",
+          "options": [
+            "It lists a specific interface element scheduled for redesign",
+            "It is only ever appropriate for the \"Now\" horizon of a roadmap",
+            "It states a problem or metric to move, leaving the solution open",
+            "It always includes a committed ship date for stakeholders"
+          ],
+          "correctAnswer": 2,
+          "explanation": "An outcome-based row names a problem or metric rather than a specific build, preserving flexibility for horizons where the solution isn't yet validated.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_85m4a2-4",
+          "question": "According to this lesson, what should a roadmap's \"Now\" items connect to?",
+          "options": [
+            "A rival company's most recently published roadmap",
+            "The organization's long-range five-year budget plan",
+            "Nothing in particular, since \"Now\" items stand on their own",
+            "The team's actual, currently groomed Sprint Backlog work"
+          ],
+          "correctAnswer": 3,
+          "explanation": "A roadmap's \"Now\" items should be traceable down into current Sprint work, and a Sprint Goal should trace back up into the roadmap theme it serves.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_85m4a2-5",
+          "question": "Why does this lesson treat refusing to publish any forward-looking roadmap as a real mistake?",
+          "options": [
+            "It leaves stakeholders with nothing to plan around, echoing Lesson 31",
+            "Because every company is contractually required to maintain one",
+            "Because the Scrum Guide mandates a published roadmap document",
+            "Because engineering cannot begin grooming without one existing"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Withholding all forward direction under the excuse of uncertainty leaves stakeholders unable to plan, repeating the mirror-image mistake already flagged in Lesson 31.",
+          "objectivesTested": [
+            1,
+            5
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_85m4a2-6",
+          "question": "In the Detailed Case Study, what was the PM's primary mistake in building the year-long roadmap?",
+          "options": [
+            "Deprioritizing five items after discovering better-validated opportunities",
+            "Presenting early-stage ideas with fixed dates and feature-level detail",
+            "Using an outcome-based format for every single roadmap row",
+            "Declining to share any roadmap details with the sales team"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The failure was in the format, not the prioritization judgment: early, uncertain ideas were dressed up with a specificity they hadn't earned.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_85m4a2-7",
+          "question": "Using the Roadmap Format Selector, what specificity is recommended for external, customer-facing \"Next\"/\"Later\" items?",
+          "options": [
+            "High detail matching exactly what engineering sees internally",
+            "Specific dates, since customers need them for renewal planning",
+            "Themes only, framed as directional, with no fixed dates attached",
+            "No roadmap information should ever reach external audiences"
+          ],
+          "correctAnswer": 2,
+          "explanation": "External audiences at the Next/Later horizon should see low-specificity, theme-only content, framed as directional rather than committed.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_85m4a2-8",
+          "question": "Why does this lesson recommend tailoring roadmap specificity by audience rather than using one format for everyone?",
+          "options": [
+            "Legal teams forbid sharing any roadmap with external parties",
+            "Engineering audiences should never see thematic roadmap content",
+            "Every audience should always receive the exact same document",
+            "Broken specific promises carry a higher reputational cost for some audiences"
+          ],
+          "correctAnswer": 3,
+          "explanation": "A broken specific promise made to an external customer typically carries a higher reputational cost than one made internally, justifying different specificity levels.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_85m4a2-9",
+          "question": "A \"Later\" item is described externally as \"a five-step onboarding wizard with screens A, B, and C, shipping in Q3.\" What does the Confidence Gradient say about this?",
+          "options": [
+            "It applies \"Now\"-level detail to a \"Later\" idea that hasn't earned it",
+            "It should include even more implementation detail to be useful",
+            "\"Later\" items should simply never be mentioned externally at all",
+            "It correctly matches \"Later\"-horizon confidence and specificity"
+          ],
+          "correctAnswer": 0,
+          "explanation": "A \"Later\" item that hasn't been validated should read as a theme, not a specific, dated feature; this description misrepresents how much is actually known.",
+          "objectivesTested": [
+            1,
+            2
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_85m4a2-10",
+          "question": "A team's current Sprint Goal has no visible link to any theme on the published roadmap. What does this most likely signal?",
+          "options": [
+            "That the roadmap needs additional fixed calendar dates added",
+            "That the roadmap and the Sprint Backlog have drifted apart",
+            "Nothing unusual; roadmaps and Sprint Goals are meant to stay unrelated",
+            "That the team should switch immediately from Scrum to Kanban"
+          ],
+          "correctAnswer": 1,
+          "explanation": "A roadmap and Sprint Backlog with no visible connection to each other signals that one of the two artifacts has lost sight of its purpose.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_85m4a2-11",
+          "question": "(Interview Reasoning) A sales leader pressures a PM for a firm ship date on a feature still in early exploration. What response best reflects this lesson's guidance?",
+          "options": [
+            "Commit to the requested date in order to preserve the relationship",
+            "Tell sales the feature has already been permanently cancelled",
+            "Offer a themed, hedged commitment that stays useful without false certainty",
+            "Refuse to discuss the feature with sales in any form whatsoever"
+          ],
+          "correctAnswer": 2,
+          "explanation": "A strong answer holds a principled line on honest specificity while still giving sales something genuinely useful, rather than caving or refusing to engage.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_85m4a2-12",
+          "question": "Why does this lesson recommend blending feature-based and outcome-based rows within a single roadmap?",
+          "options": [
+            "Outcome-based rows are prohibited once a roadmap reaches \"Now\"",
+            "A roadmap must legally use only one row format throughout",
+            "Feature-based rows work only for teams that have abandoned Scrum",
+            "Feature rows suit earned \"Now\" specificity; outcome rows keep later options open"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Blending formats mirrors the Confidence Gradient: concrete features where certainty is earned, open-ended outcomes where it isn't yet.",
+          "objectivesTested": [
+            2,
+            3
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_85m4a2-13",
+          "question": "(Product Thinking) A customer holds a company to a specific date from a year-old roadmap that wasn't met after a validated pivot in approach. What is the most defensible diagnosis?",
+          "options": [
+            "The roadmap format gave an early idea false certainty; the pivot may be sound",
+            "The pivot itself was the error, regardless of the evidence behind it",
+            "The customer's complaint has no legitimate basis whatsoever",
+            "The original roadmap should have added still more technical detail"
+          ],
+          "correctAnswer": 0,
+          "explanation": "A well-reasoned, evidence-driven pivot is a different failure than a format that dressed an uncertain idea up as a fixed promise from the start.",
+          "objectivesTested": [
+            1,
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_85m4a2-14",
+          "question": "Which practice best reflects the principle that specificity should be earned by confidence?",
+          "options": [
+            "Giving \"Later\" items full feature-level detail to build stakeholder excitement",
+            "Describing \"Now\" items concretely, since they're groomed, and \"Later\" items only as themes",
+            "Applying identical specificity to every horizon regardless of grooming status",
+            "Withholding all detail on \"Now\" items since the future is inherently uncertain"
+          ],
+          "correctAnswer": 1,
+          "explanation": "This directly reflects the Confidence Gradient: specificity should track how much is genuinely known, which peaks for already-groomed \"Now\" work.",
+          "objectivesTested": [
+            1,
+            2,
+            5
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_85m4a2-15",
+          "question": "(Product Thinking, Highest Difficulty) A PM is asked to share one unmodified roadmap document with engineering, sales, and external customers at once. What is the likely risk, and the better approach?",
+          "options": [
+            "The safer fix is to give every audience firm dates with no thematic framing",
+            "The safer fix is to strip every horizon down to vague themes, even \"Now\"",
+            "One document risks over-sharing with customers or under-informing engineering",
+            "There is no real risk; a single shared document is always most efficient"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Different audiences carry different reputational stakes for the same specificity; a single undifferentiated document risks failing several of them at once.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_15b83b4b9c"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_vlut0b",
+        "title": "Lesson 34: Sprint Planning & Backlog Grooming",
+        "module": "execution"
+      },
+      "current": {
+        "id": "les_85m4a2",
+        "title": "Lesson 35: Roadmapping"
+      },
+      "next": {
+        "id": "les_9kvh15",
+        "title": "Lesson 36: Release Planning & Launch Management",
+        "module": "execution"
+      },
+      "unlocks": [
+        {
+          "lesson": {
+            "id": "les_55ex5m",
+            "title": "Stakeholder Management",
+            "module": "growth"
+          },
+          "coreIdea": "Develops in full the skill of communicating roadmap changes and hedged commitments to stakeholders under pressure"
+        }
+      ],
+      "blockId": "blk_cfbccb5ce0"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 35: Roadmapping Lesson 34 took you inside a single Sprint: how a backlog item gets groomed, estimated, and planned into a two-week (or similar) window. But a Sprint Backlog only ever shows a few weeks of a much longer story. Stakeholders, executives, sales teams, and customers routinely need a view further out than a single Sprint can offer, not because they need Sprint-level detail six months in advance, which this curriculum has already established (Lesson 31) is rarely knowable that precisely, but because they need a credible sense of *direction and sequence* that a single Sprint Backlog can't provide on its own. This lesson addresses the tool built for exactly that gap: the **product roadmap**. It is also one of the most consistently mishandled artifacts in product management, because roadmaps sit at an uncomfortable intersection: they must satisfy a genuine organizational need for forward visibility, while resisting the temptation to promise a level of certainty about the future that Lesson 31's entire premise (short feedback loops beat long up-front plans) explicitly warns against. A roadmap built as a list of features with fixed dates routinely turns into a source of broken promises and eroded trust; a roadmap built well becomes one of a PM's most valuable tools for aligning an organization around outcomes rather than a list of commitments. This lesson teaches you to build the second kind. Explain why a feature-and-fixed-date roadmap tends to create false certainty, and connect this failure mode to the Agile values introduced in Lesson 31. Describe the Now-Next-Later roadmap format and explain why its structure deliberately varies in specificity across time horizons. Distinguish an outcome-based roadmap from a feature-based roadmap, and explain the trade-offs of each. Explain how a roadmap should relate to a Sprint Backlog and a Sprint Goal (Lesson 32, Lesson 34) without collapsing the distinction between the two altitudes. Design a roadmap communication approach for a stakeholder audience that preserves honesty about uncertainty while still providing genuinely useful forward direction. This lesson assumes **Lesson 29's** prioritization discipline, since a roadmap is, in large part, a prioritized backlog presented at a longer time horizon and coarser grain. It also directly assumes **Lesson 31's** core Agile value (\"responding to change over following a plan\"), because the central tension in this lesson (how to give forward visibility without over-promising) is a direct, practical instance of that value under real organizational pressure. Finally, it assumes **Lesson 34's** Sprint-level vocabulary (Sprint Backlog, Sprint Goal), since this lesson is explicitly about the altitude one level above that one. The Core Failure Mode: The Date-Driven Feature Roadmap The most common, and most damaging, roadmap format is a simple table or Gantt-style chart listing specific features against specific calendar dates, often stretching six to twelve months into the future. This format feels reassuring to stakeholders in the moment it's presented: it looks precise, confident, and easy to plan around. It is also, in most real product organizations, close to fiction the moment it's published, for exactly the reasons established in Lesson 31: requirements clarify, priorities shift, and unexpected discoveries reshape plans as teams actually build and learn. A roadmap presented as a set of fixed promises will, with near certainty, be broken in some particulars, and every broken date quietly erodes trust in the PM who published it, even when the underlying reasons for the change were entirely sound. This is not an argument against forward planning: stakeholders have a legitimate need for direction, and refusing to provide any (Lesson 31's Mistake 5) is its own failure. It is an argument for choosing a roadmap *format* whose structure matches the actual level of certainty available at each time horizon, rather than a format that manufactures false precision uniformly across the whole timeline. The Now-Next-Later Format A widely adopted alternative, popularized by Janna Bastow, organizes a roadmap into three horizons instead of fixed calendar dates: The critical design principle is that **specificity and confidence are meant to decrease as the horizon extends**, and this is stated openly rather than hidden. \"Now\" items can be described with real feature-level detail, because they're already well-groomed (Lesson 34) and actively being built. \"Later\" items are deliberately described as problem areas or themes (\"improving new-user onboarding,\" not \"add a five-step interactive tutorial with X, Y, Z screens\"), because committing to specific solutions that far out would misrepresent how much is actually known. This structure lets a PM be simultaneously honest and useful: precise where precision is earned, and appropriately vague where it isn't, rather than uniformly vague (unhelpful) or uniformly precise (dishonest). Outcome-Based vs. Feature-Based Roadmaps A second, related distinction concerns *what a roadmap's rows represent*. A **feature-based roadmap** lists specific things to be built (\"add SSO login,\" \"redesign the search page\"). An **outcome-based roadmap** lists problems to be solved or metrics to be moved (\"reduce enterprise sales friction from authentication concerns,\" \"improve search result relevance\"), leaving the specific solution open, especially for items further out on the Now-Next-Later horizon. In practice, most healthy roadmaps blend the two: feature-specific in the \"Now\" column, progressively more outcome-oriented moving into \"Next\" and \"Later\", which is precisely the Now-Next-Later structure's underlying logic applied to content, not just to labeled time buckets. How a Roadmap Relates to a Sprint Backlog It's worth being explicit about the altitude difference here, since new PMs sometimes collapse these into one artifact. A roadmap operates at the level of quarters-to-a-year, expressed as outcomes or themes with decreasing specificity; a Sprint Backlog (Lesson 32, Lesson 34) operates at the level of a single Sprint, expressed as specific, groomed, INVEST-compliant items. The relationship between them should flow in one clear direction: a roadmap's \"Now\" items should be traceable down into the current Sprint's actual work, and a Sprint Goal (Lesson 32) should be explainable in terms of which roadmap theme it serves. A roadmap that has no visible connection to what a team is actually sprinting on has become disconnected fiction; a Sprint Backlog with no visible connection to any roadmap theme has lost sight of its longer-horizon purpose. Publishing a roadmap with fixed dates for items many months out As covered above, this manufactures false precision and reliably produces broken promises, since Lesson 31's entire premise is that far-future specifics are rarely knowable with confidence. Treating \"Later\" items as promises rather than exploration themes A \"Later\" item should read as \"we believe this is an important problem area,\" not \"we will ship exactly this feature in exactly this quarter.\" Stakeholders who mistake the former for the latter will, reasonably, feel misled when the eventual solution differs from what they imagined. Refusing to give any forward-looking view at all, out of excessive caution This is the mirror-image failure to Mistake 1, and was flagged already in Lesson 31 (Mistake 5): using \"we can't know the future\" as an excuse to withhold any useful directional information, which leaves stakeholders unable to plan around the PM's team at all. Building a roadmap with no visible connection to current Sprint work As covered above, a roadmap that has drifted out of sync with what the team is actually building has stopped functioning as a real planning tool and become a disconnected communication artifact, often discovered only when a stakeholder asks \"so is this roadmap item happening this quarter?\" and no one on the team can answer confidently. Using the same roadmap format and content for every audience An engineering-facing roadmap discussion can meaningfully include more technical specificity and dependency detail than a sales-facing or customer-facing one; a roadmap shared externally with customers typically needs to be far more conservative about \"Later\" specifics than one shared internally with engineering leadership. Using one undifferentiated roadmap for every audience risks either overwhelming some audiences with irrelevant detail or under-informing others who need more. The Confidence Gradient This lesson's core takeaway tool visualizes the Now-Next-Later structure not as three discrete buckets, but as a continuous gradient of decreasing confidence and specificity, which is the more accurate mental picture and helps avoid Mistake 2 above: Use the Confidence Gradient as a standing discipline whenever you're deciding how to describe a roadmap item: ask explicitly, \"how much do I actually know about this, and does my description's specificity honestly reflect that?\" An item described with feature-level detail should genuinely have feature-level certainty behind it; an item that's still mostly a hypothesis should be described as a theme or problem area, regardless of how satisfying a more specific-sounding description might feel to write or present. Notion **Notion** has been publicly associated with maintaining a public-facing roadmap that organizes upcoming work by theme and rough time horizon rather than as a list of specific features with committed ship dates, a format broadly consistent with the outcome-and-horizon-based approach described in this lesson. The underlying principle connects directly to this lesson's Theory: a public roadmap, seen by customers, prospects, and the broader community, carries even higher reputational cost for broken specific promises than an internal one, making the discipline of matching specificity to actual confidence especially important in a customer-facing context. At a startup Roadmaps are often informal (a simple document or slide reviewed periodically with the founding team) and may skip external publication altogether. The risk here is usually Mistake 3: because the team is small and things change fast, a founder-PM may avoid committing to any roadmap at all, leaving even close internal stakeholders (like a sales co-founder trying to set customer expectations) without useful directional information. At a mid-size company Roadmaps typically become a more formal, recurring artifact reviewed quarterly with leadership and shared, in some form, with sales, customer success, and sometimes customers directly. This is the stage where Mistake 5 (one-size-fits-all roadmap) most commonly appears, as the same document gets stretched to serve audiences with genuinely different needs. At Big Tech Roadmaps often exist at multiple nested altitudes simultaneously: a company-wide roadmap, an organization-level roadmap, and team-level roadmaps, each needing to stay visibly connected to the ones above and below it. The PM's job shifts toward ensuring their team's roadmap items trace clearly up into larger organizational themes and down into actual Sprint work, since disconnection at either end (an isolated team roadmap with no larger context, or a leadership roadmap with no visible grounding in real team execution) becomes increasingly likely as the number of intermediate layers grows. The Roadmap That Promised Too Much Consider a simplified, illustrative scenario common at growing product organizations building their first formal roadmap. A PM at a mid-size B2B software company builds a roadmap for the upcoming year at the request of the sales team, who want something concrete to show prospective enterprise customers during the sales cycle. Eager to be helpful, the PM lists twelve specific features, each with a target quarter, stretching a full year out, including several \"Later\"-horizon ideas that were, at the time, barely more than early hallway conversations about possible directions. Sales enthusiastically uses this roadmap in customer conversations throughout the year, sometimes referencing specific quarter commitments directly in contract negotiations. By year's end, four of the twelve features shipped roughly on schedule, three shipped in a substantially different form than originally described (after user research revealed the original approach wouldn't solve the underlying problem), and five were deprioritized entirely in favor of higher-value work discovered along the way. Several enterprise customers, holding a printed copy of the original roadmap, raise pointed complaints during renewal conversations about \"promises that were never kept.\" **What went wrong?** The PM's underlying prioritization judgment may have been entirely sound: deprioritizing five items in favor of better-validated opportunities is exactly the kind of adaptive, evidence-driven behavior Lesson 31 endorses. The failure was in the roadmap's *format*, not necessarily its content: presenting a full year of specific features at specific dates manufactured a level of certainty about \"Later\"-horizon items that never actually existed, and handed sales a document that functioned, in practice, as a set of contractual promises rather than a directional communication tool. A Now-Next-Later format, applied honestly, would have prevented most of this damage. The four features that shipped roughly as planned were very likely genuine \"Now\" items with real confidence behind them, appropriate to describe specifically. The three that changed substantially and the five that were deprioritized were, in hindsight, \"Later\"-horizon ideas dressed up with false \"Now\"-level specificity, exactly the failure mode this lesson's Confidence Gradient is designed to prevent. The deeper organizational fix (training sales on how to use a Now-Next-Later roadmap responsibly in customer conversations, including what language is and isn't safe to use with prospects) is addressed directly in **Lesson 47 (Stakeholder Management)**, and the specific mechanics of coordinating a roadmap with an actual release calendar are covered in **Lesson 36 (Release Planning & Launch Management)**. The Roadmap Format Selector A second, more tactical tool: use this table to decide which roadmap format and specificity level fits a given audience and time horizon. The general rule this table encodes: specificity should be earned by confidence, and confidence should be earned by proximity to actual, groomed (Lesson 34) work, never by audience pressure to sound more certain than the underlying reality supports. How do you build and communicate a product roadmap? *What the interviewer is actually evaluating:* Whether the candidate defaults to a feature-and-fixed-date format (a common but risky default) or demonstrates awareness of formats like Now-Next-Later that match specificity to actual confidence. A sales leader is pressuring you to commit to a specific date for a feature that's still in early exploration. How do you respond? *What the interviewer is actually evaluating:* Whether the candidate can hold a principled line on honest specificity under real organizational pressure, offering a useful alternative (a themed, hedged commitment) rather than either caving to false precision or unhelpfully refusing to engage at all. Tell me about a roadmap commitment that didn't work out. What happened, and what would you do differently? *What the interviewer is actually evaluating:* Whether the candidate can distinguish a sound prioritization decision (deprioritizing something for good reasons) from a format failure (having presented uncertain information with false certainty in the first place), precisely the distinction drawn in this lesson's Case Study. A product roadmap exists to give stakeholders a credible sense of direction and sequence beyond what a single Sprint Backlog can show, but the most common roadmap format (a list of specific features tied to fixed calendar dates, stretching many months out) manufactures a level of certainty about the future that directly contradicts Lesson 31's founding premise, reliably producing broken promises and eroded trust. The Now-Next-Later format resolves this by deliberately decreasing specificity and confidence as the time horizon extends: precise where precision is earned (the \"Now\" horizon, grounded in already-groomed Sprint work), thematic and outcome-oriented where it isn't (the \"Later\" horizon, still mostly hypothesis). This same logic extends to the choice between feature-based and outcome-based roadmap rows, and to tailoring format and specificity by audience, since a roadmap shared externally with customers carries a different, higher reputational cost for broken specifics than one shared internally with engineering. A roadmap's \"Now\" items should always be traceable down into actual current Sprint work, and a Sprint Goal should be explainable in terms of which roadmap theme it serves. A roadmap or Sprint Backlog that has lost this visible connection to the other has stopped functioning as a coherent planning system. A roadmap listing specific features against fixed, far-future dates manufactures false certainty and reliably produces broken promises, directly contradicting Lesson 31's core Agile premise. The Now-Next-Later format deliberately decreases specificity and confidence as the time horizon extends, allowing a PM to be both honest and useful simultaneously. Outcome-based roadmap items (problems/metrics) preserve flexibility for \"Next\" and \"Later\" horizons; feature-based items are appropriate mainly for well-groomed \"Now\" horizon work. A roadmap's \"Now\" items should trace down into actual current Sprint work, and a Sprint Goal should trace up into a roadmap theme. Disconnection at either end signals dysfunction. Refusing to provide any forward-looking roadmap view at all, out of excessive caution, is a real and damaging mistake, not a safe default. Roadmap format and specificity should be tailored by audience: external customer-facing roadmaps generally warrant more conservative specificity than internal engineering-facing ones. A sound prioritization decision (deprioritizing something for good reasons) is different from a format failure (having presented uncertain information with false certainty in the first place): a broken roadmap promise is often the latter, not the former. **Core failure:** fixed dates + specific features, far out in time, manufacture false certainty. **Now-Next-Later:** specificity and confidence decrease as horizon extends: precise Now, thematic Later. **Feature-based vs. outcome-based:** features for \"Now\" (earned specificity); outcomes/themes for \"Next\"/\"Later.\" **Roadmap ↔ Sprint link:** \"Now\" items trace into current Sprint work; Sprint Goals trace up into roadmap themes. **Don't over-correct:** refusing any forward view at all is its own failure (Lesson 31, Mistake 5). **Tailor by audience:** external/customer-facing = more conservative; internal engineering = can carry more detail. **Diagnose broken promises correctly:** was it a bad prioritization call, or a format failure presenting uncertainty as certainty? Product roadmap A longer-horizon (quarters-to-a-year) artifact communicating direction and sequence beyond what a single Sprint Backlog shows Now-Next-Later A roadmap format organizing work into three horizons with decreasing specificity and confidence Confidence Gradient This lesson's mental model: a continuous decrease in specificity and confidence as roadmap time horizon extends Feature-based roadmap A roadmap whose rows describe specific things to be built Outcome-based roadmap A roadmap whose rows describe problems to be solved or metrics to be moved, leaving the specific solution open Roadmap-Sprint traceability The principle that a roadmap's \"Now\" items should connect visibly to current Sprint work, and vice versa *Product Roadmaps Relaunched* by C. Todd Lombardo, Bruce McCarthy, Evan Ryan, and Michael Connors a detailed practitioner treatment of outcome-based roadmapping formats. \"Now-Next-Later Roadmaps\" by Janna Bastow (ProdPad) the original articulation of the Now-Next-Later format referenced in this lesson. *Escaping the Build Trap* by Melissa Perri situates roadmapping within the broader discipline of outcome-oriented product strategy. What is the core failure mode of a feature-and-fixed-date roadmap? It manufactures false certainty about far-future specifics, reliably producing broken promises since requirements and priorities inevitably shift. What are the three horizons in a Now-Next-Later roadmap? Now (high confidence, specific, active development), Next (medium confidence, directional), Later (low confidence, thematic/problem areas). What's the difference between a feature-based and an outcome-based roadmap row? A feature-based row describes a specific thing to build; an outcome-based row describes a problem to solve or metric to move, leaving the solution open. How should a roadmap's \"Now\" items relate to a team's current Sprint Backlog? They should be directly traceable: \"Now\" roadmap items should be visible in what the team is actually sprinting on, and Sprint Goals should trace back up into a roadmap theme. Why is refusing to give any forward-looking roadmap a mistake, not a safe choice? It leaves stakeholders unable to plan around the team at all, repeating Lesson 31's Mistake 5 of using uncertainty as an excuse to withhold useful direction. In the Detailed Case Study, was the PM's prioritization judgment or the roadmap's format the primary failure? The format: presenting a full year of specific features at specific dates manufactured false certainty, even though the underlying prioritization decisions (deprioritizing weaker ideas for better ones) were reasonable. Consider the following novel scenario: You're a PM at a company preparing its first-ever public roadmap page, to be linked from the marketing website. Your engineering lead wants to include ambitious, specific \"Later\"-horizon items to generate excitement about the product's future direction. Your head of sales wants specific dates attached to everything, to use in customer conversations. You know from experience that specifics that far out are rarely reliable. There is no single correct answer to the prompts below: the goal is to practice applying the Confidence Gradient and Roadmap Format Selector, not to reach one \"right\" answer. Using the Roadmap Format Selector, what specificity level would you recommend for the public-facing \"Later\" horizon, and why? How would you respond to the engineering lead's request for ambitious, specific \"Later\" items, without simply refusing to include any exciting future direction at all? How would you respond to the sales leader's request for specific dates, in a way that still gives sales something useful for customer conversations? What language would you use on the public roadmap page itself to signal, honestly, which parts are commitments and which are directional themes? Six months from now, a \"Later\" item you described as a theme turns into a very different feature than anyone imagined. How would the format you chose today help or hurt you in explaining that change publicly? What is the main risk of a roadmap that lists specific features against fixed calendar dates many months out? Far-future dates attached to specific features manufacture a false sense of certainty, and Lesson 31's premise is that such specifics rarely hold as priorities shift. In the Now-Next-Later format, how should specificity change as the time horizon extends? The format is built so specificity and confidence deliberately decrease as the horizon extends, from concrete \"Now\" work to thematic \"Later\" ideas. What best describes an outcome-based roadmap row, compared to a feature-based one? An outcome-based row names a problem or metric rather than a specific build, preserving flexibility for horizons where the solution isn't yet validated. According to this lesson, what should a roadmap's \"Now\" items connect to? A roadmap's \"Now\" items should be traceable down into current Sprint work, and a Sprint Goal should trace back up into the roadmap theme it serves. Why does this lesson treat refusing to publish any forward-looking roadmap as a real mistake? Withholding all forward direction under the excuse of uncertainty leaves stakeholders unable to plan, repeating the mirror-image mistake already flagged in Lesson 31. In the Detailed Case Study, what was the PM's primary mistake in building the year-long roadmap? The failure was in the format, not the prioritization judgment: early, uncertain ideas were dressed up with a specificity they hadn't earned. Using the Roadmap Format Selector, what specificity is recommended for external, customer-facing \"Next\"/\"Later\" items? External audiences at the Next/Later horizon should see low-specificity, theme-only content, framed as directional rather than committed. Why does this lesson recommend tailoring roadmap specificity by audience rather than using one format for everyone? A broken specific promise made to an external customer typically carries a higher reputational cost than one made internally, justifying different specificity levels. A \"Later\" item is described externally as \"a five-step onboarding wizard with screens A, B, and C, shipping in Q3.\" What does the Confidence Gradient say about this? A \"Later\" item that hasn't been validated should read as a theme, not a specific, dated feature; this description misrepresents how much is actually known. A team's current Sprint Goal has no visible link to any theme on the published roadmap. What does this most likely signal? A roadmap and Sprint Backlog with no visible connection to each other signals that one of the two artifacts has lost sight of its purpose. (Interview Reasoning) A sales leader pressures a PM for a firm ship date on a feature still in early exploration. What response best reflects this lesson's guidance? A strong answer holds a principled line on honest specificity while still giving sales something genuinely useful, rather than caving or refusing to engage. Why does this lesson recommend blending feature-based and outcome-based rows within a single roadmap? Blending formats mirrors the Confidence Gradient: concrete features where certainty is earned, open-ended outcomes where it isn't yet. (Product Thinking) A customer holds a company to a specific date from a year-old roadmap that wasn't met after a validated pivot in approach. What is the most defensible diagnosis? A well-reasoned, evidence-driven pivot is a different failure than a format that dressed an uncertain idea up as a fixed promise from the start. Which practice best reflects the principle that specificity should be earned by confidence? This directly reflects the Confidence Gradient: specificity should track how much is genuinely known, which peaks for already-groomed \"Now\" work. (Product Thinking, Highest Difficulty) A PM is asked to share one unmodified roadmap document with engineering, sales, and external customers at once. What is the likely risk, and the better approach? Different audiences carry different reputational stakes for the same specificity; a single undifferentiated document risks failing several of them at once.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "Mental Model: The Confidence Gradient",
+      "Real Company Example",
+      "Real World Perspective: Roadmapping at Different Company Stages",
+      "Detailed Case Study: The Roadmap That Promised Too Much",
+      "Framework Explanation: The Roadmap Format Selector",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "Product roadmap",
+    "Now-Next-Later",
+    "Confidence Gradient",
+    "Feature-based roadmap",
+    "Outcome-based roadmap",
+    "Roadmap-Sprint traceability"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

@@ -1,0 +1,877 @@
+{
+  "schemaVersion": 2,
+  "id": "les_ilrn3g",
+  "contentHash": "53003d261b95545cae2f868900c67879f21e543163ab729af7adfe1261d61d4a",
+  "title": "Module Synthesis: The Platform PM's Toolkit",
+  "slug": "lesson-070",
+  "module": "technical",
+  "order": 10,
+  "totalInModule": 10,
+  "difficulty": 7,
+  "estimatedReadingTime": 45,
+  "estimatedCompletionTime": 65,
+  "prerequisites": [
+    "les_nyhd19",
+    "les_2h4woh",
+    "les_yhcrnj",
+    "les_43g66w",
+    "les_t2ezpj",
+    "les_m2bfi1",
+    "les_md1mad",
+    "les_3zk3iz",
+    "les_ymfbn4"
+  ],
+  "sourceFile": "content/lessons/lesson-070.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 70: Module Synthesis: The Platform PM's Toolkit",
+      "blockId": "blk_7826626ab2"
+    },
+    {
+      "type": "paragraph",
+      "text": "Module 7 has introduced eight distinct mental models across nine lessons: the Leverage Stack (Lesson 61), Promise Tiers (Lesson 62), the Two-Sided Balance Model (Lesson 63), the Metric Provenance Chain (Lesson 64), the Ownership Zones Model (Lesson 65), the Discovery Frontier (Lesson 66), the Escalation Staircase (Lesson 67), the Sunset Runway (Lesson 68), and the Friction Ledger (Lesson 69). Each was introduced to solve a specific, narrow problem: where does a platform investment belong, what promise does an API make, which side of a marketplace is constrained, whether a metric deserves trust, who owns a model decision, how a recommender should balance exploration, how enforcement should escalate, how a migration should be sequenced, how internal friction should be tracked.",
+      "blockId": "blk_011830a5d0"
+    },
+    {
+      "type": "paragraph",
+      "text": "In real platform work, problems rarely announce which single model applies. A declining third-party developer ecosystem could be a Leverage Stack sequencing failure, a broken Promise Tier commitment, a governance trust failure, or some combination of all three simultaneously, and a PM who only knows how to apply one model at a time, in isolation, will often diagnose only part of what's actually happening. This closing lesson of Module 7 does not introduce new theory in the way the previous nine lessons did. Instead, it does something this curriculum's Lesson 60 capstone modeled for the foundational six modules: it consolidates the module's separate tools into a single, integrated diagnostic practice, so that when you encounter a real platform problem in the future, you reach for the right combination of models rather than forcing a single lens onto a multi-dimensional problem.",
+      "blockId": "blk_7c09b10f94"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "Recall and correctly name all eight mental models introduced across Module 7, and the specific diagnostic question each answers.",
+        "Apply the Platform Health Radar to assess a platform holistically across all eight dimensions simultaneously.",
+        "Use the Cross-Lesson Diagnostic Protocol to determine which combination of models applies to an ambiguous, multi-faceted platform problem.",
+        "Explain how the eight models interconnect, rather than treating them as a disconnected checklist.",
+        "Evaluate a complex platform scenario by correctly identifying which model or models are the primary diagnostic lens, and which are secondary."
+      ],
+      "blockId": "blk_8d1fb2541f"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson assumes fluency with all nine preceding lessons of Module 7 (Lessons 61–69) and the mental models, frameworks, and case studies each introduced. Rather than introducing new prerequisite material, this lesson's purpose is to integrate what those nine lessons already established.",
+      "blockId": "blk_a52dda9db0"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Why Integration, Not Addition, Is the Point",
+          "blockId": "blk_ab8e6a4396"
+        },
+        {
+          "type": "paragraph",
+          "text": "A PM who has memorized eight separate models but always applies exactly one to any given problem has not yet developed platform judgment: they have developed eight narrow reflexes. Platform judgment means recognizing that most real problems are multi-dimensional, and that the first diagnostic task is often determining *which combination* of models is actually relevant, not simply picking the model whose name sounds closest to the symptom being observed.",
+          "blockId": "blk_8225dc5251"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Platform Health Radar",
+          "blockId": "blk_bb68f7e4d8"
+        },
+        {
+          "type": "paragraph",
+          "text": "This lesson introduces the **Platform Health Radar**, a single integrating tool that assesses a platform across all eight Module 7 dimensions at once, rather than one at a time:",
+          "blockId": "blk_7e5e81cbf6"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_9c3c81b152",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    R[Platform Health Radar] --> A[Leverage Stack:<br/>Is investment sequenced correctly by layer?]\r\n    R --> B[Promise Tiers:<br/>Are commitments explicit and honored?]\r\n    R --> C[Two-Sided Balance:<br/>Is the binding constraint correctly identified?]\r\n    R --> D[Metric Provenance:<br/>Are the numbers being trusted actually trustworthy?]\r\n    R --> E[Ownership Zones:<br/>Are model-driven decisions correctly assigned?]\r\n    R --> F[Discovery Frontier:<br/>Is short-term optimization damaging long-term value?]\r\n    R --> G[Escalation Staircase:<br/>Is enforcement proportionate and reversible?]\r\n    R --> H[Sunset Runway:<br/>Are migrations planned around real dependency, not convenience?]",
+          "normalized": "graph TD\r\n    R[Platform Health Radar] --> A[Leverage Stack:<br/>Is investment sequenced correctly by layer?]\r\n    R --> B[Promise Tiers:<br/>Are commitments explicit and honored?]\r\n    R --> C[Two-Sided Balance:<br/>Is the binding constraint correctly identified?]\r\n    R --> D[Metric Provenance:<br/>Are the numbers being trusted actually trustworthy?]\r\n    R --> E[Ownership Zones:<br/>Are model-driven decisions correctly assigned?]\r\n    R --> F[Discovery Frontier:<br/>Is short-term optimization damaging long-term value?]\r\n    R --> G[Escalation Staircase:<br/>Is enforcement proportionate and reversible?]\r\n    R --> H[Sunset Runway:<br/>Are migrations planned around real dependency, not convenience?]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020969667-183\" xmlns=\"http://www.w3.org/2000/svg\" width=\"5811.75\" height=\"300\" viewBox=\"-83.375 -27 5811.75 300\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Platform Health Radar → Leverage Stack:Is investment sequenced correctly by layer? → Promise Tiers:Are commitments explicit and honored? → Two-Sided Balance:Is the binding constraint correctly identified? → Metric Provenance:Are the numbers being trusted actually trustworthy?...\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Platform Health Radar → Leverage Stack:Is investment sequenced correctly by layer? → Promise Tiers:Are commitments explicit and honored? → Two-Sided Balance:Is the binding constraint correctly identified? → Metric Provenance:Are the numbers being trusted actually trustworthy?...</title><style>#mermaid-svg-1795020969667-183{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020969667-183 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020969667-183 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020969667-183 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020969667-183 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020969667-183 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020969667-183 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020969667-183 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020969667-183 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020969667-183 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020969667-183 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020969667-183 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020969667-183 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020969667-183 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020969667-183 p{margin:0;}#mermaid-svg-1795020969667-183 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020969667-183 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020969667-183 .cluster-label span{color:#171A17;}#mermaid-svg-1795020969667-183 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020969667-183 .label text,#mermaid-svg-1795020969667-183 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020969667-183 .node rect,#mermaid-svg-1795020969667-183 .node circle,#mermaid-svg-1795020969667-183 .node ellipse,#mermaid-svg-1795020969667-183 .node polygon,#mermaid-svg-1795020969667-183 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020969667-183 .rough-node .label text,#mermaid-svg-1795020969667-183 .node .label text,#mermaid-svg-1795020969667-183 .image-shape .label,#mermaid-svg-1795020969667-183 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020969667-183 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020969667-183 .rough-node .label,#mermaid-svg-1795020969667-183 .node .label,#mermaid-svg-1795020969667-183 .image-shape .label,#mermaid-svg-1795020969667-183 .icon-shape .label{text-align:center;}#mermaid-svg-1795020969667-183 .node.clickable{cursor:pointer;}#mermaid-svg-1795020969667-183 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020969667-183 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020969667-183 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020969667-183 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020969667-183 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020969667-183 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020969667-183 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020969667-183 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020969667-183 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020969667-183 .cluster text{fill:#171A17;}#mermaid-svg-1795020969667-183 .cluster span{color:#171A17;}#mermaid-svg-1795020969667-183 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020969667-183 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020969667-183 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020969667-183 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020969667-183 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020969667-183 .icon-shape,#mermaid-svg-1795020969667-183 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020969667-183 .icon-shape p,#mermaid-svg-1795020969667-183 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020969667-183 .icon-shape .label rect,#mermaid-svg-1795020969667-183 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020969667-183 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020969667-183 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020969667-183 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020969667-183 [data-look=\"neo\"].node rect,#mermaid-svg-1795020969667-183 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020969667-183 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020969667-183-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020969667-183 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020969667-183 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020969667-183-gradient);stroke-width:1px;}#mermaid-svg-1795020969667-183 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020969667-183 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020969667-183 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020969667-183-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020969667-183 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020969667-183 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020969667-183-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020969667-183 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020969667-183-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020969667-183 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020969667-183_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020969667-183_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020969667-183_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020969667-183_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020969667-183_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020969667-183_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020969667-183_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020969667-183_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020969667-183_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020969667-183_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020969667-183_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020969667-183_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M2565.188,50.647L2191.344,62.789C1817.5,74.932,1069.813,99.216,695.969,117.608C322.125,136,322.125,148.5,322.125,154.75L322.125,161\" id=\"mermaid-svg-1795020969667-183-L_R_A_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_R_A_0\" data-points=\"W3sieCI6MjU2NS4xODc1LCJ5Ijo1MC42NDczMDY3NjczNDUwMzZ9LHsieCI6MzIyLjEyNSwieSI6MTIzLjV9LHsieCI6MzIyLjEyNSwieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020969667-183_flowchart-v2-pointEnd)\"></path><path d=\"M2565.188,52.66L2297.177,64.466C2029.167,76.273,1493.146,99.887,1225.135,117.943C957.125,136,957.125,148.5,957.125,154.75L957.125,161\" id=\"mermaid-svg-1795020969667-183-L_R_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_R_B_0\" data-points=\"W3sieCI6MjU2NS4xODc1LCJ5Ijo1Mi42NTk3NDUzNjE0Mzk0NX0seyJ4Ijo5NTcuMTI1LCJ5IjoxMjMuNX0seyJ4Ijo5NTcuMTI1LCJ5IjoxNjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020969667-183_flowchart-v2-pointEnd)\"></path><path d=\"M2565.188,57.171L2407.26,68.226C2249.333,79.281,1933.479,101.39,1775.552,118.695C1617.625,136,1617.625,148.5,1617.625,154.75L1617.625,161\" id=\"mermaid-svg-1795020969667-183-L_R_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_R_C_0\" data-points=\"W3sieCI6MjU2NS4xODc1LCJ5Ijo1Ny4xNzExNTMwOTU5MTQ4NH0seyJ4IjoxNjE3LjYyNSwieSI6MTIzLjV9LHsieCI6MTYxNy42MjUsInkiOjE2NX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020969667-183_flowchart-v2-pointEnd)\"></path><path d=\"M2565.188,81.722L2532.219,88.685C2499.25,95.648,2433.313,109.574,2400.344,122.787C2367.375,136,2367.375,148.5,2367.375,154.75L2367.375,161\" id=\"mermaid-svg-1795020969667-183-L_R_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_R_D_0\" data-points=\"W3sieCI6MjU2NS4xODc1LCJ5Ijo4MS43MjIyMTI4ODA0NDM5Mn0seyJ4IjoyMzY3LjM3NSwieSI6MTIzLjV9LHsieCI6MjM2Ny4zNzUsInkiOjE2NX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020969667-183_flowchart-v2-pointEnd)\"></path><path d=\"M2912.938,81.722L2945.906,88.685C2978.875,95.648,3044.813,109.574,3077.781,122.787C3110.75,136,3110.75,148.5,3110.75,154.75L3110.75,161\" id=\"mermaid-svg-1795020969667-183-L_R_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_R_E_0\" data-points=\"W3sieCI6MjkxMi45Mzc1LCJ5Ijo4MS43MjIyMTI4ODA0NDM5Mn0seyJ4IjozMTEwLjc1LCJ5IjoxMjMuNX0seyJ4IjozMTEwLjc1LCJ5IjoxNjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020969667-183_flowchart-v2-pointEnd)\"></path><path d=\"M2912.938,57.171L3070.865,68.226C3228.792,79.281,3544.646,101.39,3702.573,118.695C3860.5,136,3860.5,148.5,3860.5,154.75L3860.5,161\" id=\"mermaid-svg-1795020969667-183-L_R_F_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_R_F_0\" data-points=\"W3sieCI6MjkxMi45Mzc1LCJ5Ijo1Ny4xNzExNTMwOTU5MTQ4NH0seyJ4IjozODYwLjUsInkiOjEyMy41fSx7IngiOjM4NjAuNSwieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020969667-183_flowchart-v2-pointEnd)\"></path><path d=\"M2912.938,52.344L3193.698,64.204C3474.458,76.063,4035.979,99.781,4316.74,117.891C4597.5,136,4597.5,148.5,4597.5,154.75L4597.5,161\" id=\"mermaid-svg-1795020969667-183-L_R_G_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_R_G_0\" data-points=\"W3sieCI6MjkxMi45Mzc1LCJ5Ijo1Mi4zNDQ0NDI1NzYwODg3OH0seyJ4Ijo0NTk3LjUsInkiOjEyMy41fSx7IngiOjQ1OTcuNSwieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020969667-183_flowchart-v2-pointEnd)\"></path><path d=\"M2912.938,50.121L3328.219,62.35C3743.5,74.58,4574.063,99.04,4989.344,117.52C5404.625,136,5404.625,148.5,5404.625,154.75L5404.625,161\" id=\"mermaid-svg-1795020969667-183-L_R_H_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_R_H_0\" data-points=\"W3sieCI6MjkxMi45Mzc1LCJ5Ijo1MC4xMjA1NjU1NDY2NzE2N30seyJ4Ijo1NDA0LjYyNSwieSI6MTIzLjV9LHsieCI6NTQwNC42MjUsInkiOjE2NX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020969667-183_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_R_A_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_R_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_R_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_R_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_R_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_R_F_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_R_G_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_R_H_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020969667-183-flowchart-R-0\" data-look=\"classic\" transform=\"translate(2739.0625, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-137.25\" y=\"-35\" width=\"274.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-105.25, -19)\"><rect></rect><foreignObject width=\"210.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Platform Health Radar</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020969667-183-flowchart-A-1\" data-look=\"classic\" transform=\"translate(322.125, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-230.75\" y=\"-46\" width=\"461.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-198.75, -30)\"><rect></rect><foreignObject width=\"397.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Leverage Stack:<br>Is investment sequenced correctly by layer?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020969667-183-flowchart-B-3\" data-look=\"classic\" transform=\"translate(957.125, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-205.25\" y=\"-46\" width=\"410.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-173.25, -30)\"><rect></rect><foreignObject width=\"346.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Promise Tiers:<br>Are commitments explicit and honored?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020969667-183-flowchart-C-5\" data-look=\"classic\" transform=\"translate(1617.625, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-247.75\" y=\"-46\" width=\"495.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-215.75, -30)\"><rect></rect><foreignObject width=\"431.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Two-Sided Balance:<br>Is the binding constraint correctly identified?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020969667-183-flowchart-D-7\" data-look=\"classic\" transform=\"translate(2367.375, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-264.75\" y=\"-46\" width=\"529.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-232.75, -30)\"><rect></rect><foreignObject width=\"465.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Metric Provenance:<br>Are the numbers being trusted actually trustworthy?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020969667-183-flowchart-E-9\" data-look=\"classic\" transform=\"translate(3110.75, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-243.5\" y=\"-46\" width=\"487\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-211.5, -30)\"><rect></rect><foreignObject width=\"423\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Ownership Zones:<br>Are model-driven decisions correctly assigned?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020969667-183-flowchart-F-11\" data-look=\"classic\" transform=\"translate(3860.5, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-269\" y=\"-46\" width=\"538\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-237, -30)\"><rect></rect><foreignObject width=\"474\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Discovery Frontier:<br>Is short-term optimization damaging long-term value?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020969667-183-flowchart-G-13\" data-look=\"classic\" transform=\"translate(4597.5, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-235\" y=\"-46\" width=\"470\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-203, -30)\"><rect></rect><foreignObject width=\"406\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Escalation Staircase:<br>Is enforcement proportionate and reversible?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020969667-183-flowchart-H-15\" data-look=\"classic\" transform=\"translate(5404.625, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-315.75\" y=\"-46\" width=\"631.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-283.75, -30)\"><rect></rect><foreignObject width=\"567.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Sunset Runway:<br>Are migrations planned around real dependency, not convenience?</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020969667-183-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020969667-183-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020969667-183-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_9c3c81b152"
+        },
+        {
+          "type": "paragraph",
+          "text": "A ninth axis, the **Friction Ledger**, applies this same radar internally, asking whether the company's own engineering teams experience the platform with the same rigor external assessment would apply. The Platform Health Radar's discipline is running through all nine questions whenever a platform problem surfaces, rather than stopping at the first model that seems to fit, since real incidents, as this lesson's Case Study will show, are frequently the product of failures across more than one axis simultaneously.",
+          "blockId": "blk_5e59f5613e"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Cross-Lesson Diagnostic Protocol",
+          "blockId": "blk_34d8a13b51"
+        },
+        {
+          "type": "paragraph",
+          "text": "When a platform symptom is observed (declining developer engagement, a damaging incident, an unexpected metric trend), this lesson recommends a **Cross-Lesson Diagnostic Protocol** with a deliberate order of investigation:",
+          "blockId": "blk_181ccccd69"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**Locate the layer** (Leverage Stack, Lesson 61): is the symptom occurring at the Core Product, Developer Surface, Marketplace, or Ecosystem layer?",
+            "**Check the promise** (Promise Tiers, Lesson 62): has an explicit or implicit commitment to developers or partners been broken?",
+            "**Check the balance** (Two-Sided Balance Model, Lesson 63, where applicable): if a marketplace is involved, which side is actually constrained?",
+            "**Check the metric** (Metric Provenance Chain, Lesson 64): is the data being used to diagnose the problem itself trustworthy?",
+            "**Check ownership** (Ownership Zones Model, Lesson 65, where a model is involved): were error costs and business context correctly specified before the model was built?",
+            "**Check the horizon** (Discovery Frontier, Lesson 66, and long-horizon monitoring generally): could a short-term-optimized system be causing long-term damage invisible to daily metrics?",
+            "**Check enforcement proportionality** (Escalation Staircase, Lesson 67, where governance is involved): was any enforcement action proportionate, reversible, and appealable?",
+            "**Check migration discipline** (Sunset Runway, Lesson 68, where a change or deprecation is involved): was dependency genuinely inventoried, or assumed?",
+            "**Check internal friction** (Friction Ledger, Lesson 69): could internal teams be quietly working around the platform rather than raising the issue?"
+          ],
+          "blockId": "blk_1cdf4a8736"
+        },
+        {
+          "type": "paragraph",
+          "text": "This ordered protocol does not mean every investigation touches all nine steps equally (a well-trained platform PM learns to move quickly past steps that clearly don't apply), but the discipline of *checking* each axis, rather than assuming only one applies from the outset, is what separates genuine platform diagnostic skill from pattern-matching a symptom to the first familiar-sounding model.",
+          "blockId": "blk_9d83133a7f"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "How the Models Interconnect",
+          "blockId": "blk_970dde98f5"
+        },
+        {
+          "type": "paragraph",
+          "text": "The nine models are not independent; they form a connected structure. The Leverage Stack (Lesson 61) provides the map on which everything else is located. Promise Tiers (Lesson 62) governs Layer 2 specifically. The Two-Sided Balance Model (Lesson 63) governs Layer 3 specifically, when the platform is a marketplace. The Metric Provenance Chain (Lesson 64) underlies the trustworthiness of any data used to evaluate any other axis. The Ownership Zones Model (Lesson 65) and Discovery Frontier (Lesson 66) both concern model-driven decisions, with the Discovery Frontier being a specific, high-stakes application of Ownership Zones' error-cost logic to ranking and personalization. The Escalation Staircase (Lesson 67) governs Layer 4 (Ecosystem) enforcement specifically, and directly depends on the error-cost reasoning from Lesson 65. The Sunset Runway (Lesson 68) governs the retirement of any Promise Tier commitment, connecting directly back to Lesson 62. The Friction Ledger (Lesson 69) applies the entire structure internally, treating a company's own engineering teams as the platform's Layer 2 customers.",
+          "blockId": "blk_1eaa564a78"
+        }
+      ],
+      "blockId": "blk_bfd2d31bef"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Applying only the first model that seems to fit, without checking whether others are also relevant",
+          "body": "Most real platform incidents involve failures across more than one axis, and stopping the diagnosis early misses compounding causes."
+        },
+        {
+          "title": "Treating the eight models as an unordered checklist rather than a connected structure",
+          "body": "Understanding how the models depend on each other (for example, that Promise Tiers specifically governs Layer 2 of the Leverage Stack) produces faster, more accurate diagnosis than treating each model as unrelated to the others."
+        },
+        {
+          "title": "Skipping the Metric Provenance Chain check when diagnosing any other problem",
+          "body": "Any diagnosis built on untrustworthy data, regardless of how sound the reasoning about the other axes is, inherits that foundational error."
+        },
+        {
+          "title": "Forgetting that the Friction Ledger applies internally, not just to external developers",
+          "body": "A PM fluent in Leverage Stack, Promise Tiers, and Escalation Staircase for external ecosystems can still overlook that the same friction dynamics apply to the company's own engineering teams."
+        },
+        {
+          "title": "Assuming platform judgment is complete once all eight models are individually memorized",
+          "body": "Genuine platform judgment is the ability to recognize which combination applies to a novel, real situation: a skill built through practice, not memorization alone.\n\n"
+        }
+      ],
+      "blockId": "blk_0e6fdb71b4"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The Platform Health Radar",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "The Platform Health Radar introduced above is this lesson's core takeaway tool, synthesizing all of Module 7 into a single integrated diagnostic. When facing any platform problem, however it initially presents, run through the radar's nine axes using the Cross-Lesson Diagnostic Protocol:",
+          "blockId": "blk_2b1dded885"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**Which layer** of the Leverage Stack is implicated?",
+            "**Has a promise** been broken, explicitly or implicitly?",
+            "**If a marketplace, which side** is the actual constraint?",
+            "**Is the underlying data** trustworthy?",
+            "**Were error costs and ownership** correctly assigned for any model involved?",
+            "**Is a short-term optimization** damaging long-term value invisibly?",
+            "**Is enforcement**, if any, proportionate and reversible?",
+            "**Is any migration** genuinely accounting for real dependency?",
+            "**Could internal friction** be driving quiet workarounds?"
+          ],
+          "blockId": "blk_8f9d9a1aae"
+        },
+        {
+          "type": "paragraph",
+          "text": "A platform PM who runs this full radar, rather than stopping at the first familiar-sounding symptom, is far better equipped to diagnose the genuinely multi-dimensional problems that characterize real platform work.",
+          "blockId": "blk_ec9494f84f"
+        }
+      ],
+      "blockId": "blk_04fe55eac1"
+    },
+    {
+      "type": "companyExample",
+      "company": "",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Amazon is a useful synthesis example precisely because its business spans multiple platform types this module has discussed separately: its retail marketplace illustrates the Two-Sided Balance Model (Lesson 63) directly, with sellers and buyers as the two dependent populations; Amazon Web Services illustrates the Leverage Stack and Promise Tiers (Lessons 61–62) through its extensive API versioning and long-term service deprecation policies; and its scale of internal engineering organization makes internal developer platforms and the Friction Ledger (Lesson 69) a genuinely relevant concern, given public commentary describing extensive internal tooling investment to support thousands of internal engineering teams. Public reporting and industry commentary on Amazon's approach across these different platform dimensions illustrates that a single company, even a single product PM's career within that company, may need fluency across several of Module 7's models simultaneously, rather than specializing in only one.",
+          "blockId": "blk_1013075005"
+        },
+        {
+          "type": "paragraph",
+          "text": "**Assumption flagged:** the specifics of Amazon's internal platform strategy, API governance, and marketplace management described here are drawn from public commentary and industry reporting across multiple sources, not confirmed internal company statements, and should be treated as illustrative rather than verified fact.",
+          "blockId": "blk_b2920089bb"
+        }
+      ],
+      "blockId": "blk_1c87bc150d"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "Startup",
+          "body": "Early-stage platform teams typically encounter only one or two of these eight models as immediately relevant, usually the Leverage Stack and Promise Tiers, since the first platform decisions a startup faces tend to concern whether and how to expose a Developer Surface at all, before marketplace, governance, or migration concerns become pressing."
+        },
+        {
+          "context": "Mid-size company",
+          "body": "This is typically where several models become simultaneously relevant for the first time: a growing developer ecosystem raises Promise Tiers and Escalation Staircase concerns together, while growing internal engineering headcount raises Friction Ledger concerns, often within the same period, testing whether a PM can hold multiple frameworks in mind simultaneously rather than addressing them one at a time in isolation."
+        },
+        {
+          "context": "Big Tech",
+          "body": "Mature platform organizations typically have dedicated specialists for different axes of this radar (developer relations teams focused on Promise Tiers and API design, trust and safety teams focused on the Escalation Staircase, internal platform teams focused on the Friction Ledger), making the PM's synthesis role less about personally applying every model and more about ensuring the specialized teams are coordinating around a shared, integrated understanding of the platform's overall health."
+        }
+      ],
+      "blockId": "blk_e410d0a3da"
+    },
+    {
+      "type": "caseStudy",
+      "title": "The Multi-Front Ecosystem Decline",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A B2B software platform noticed, over two consecutive quarters, a decline in third-party developer engagement: fewer new integrations submitted to its partner marketplace, several vocal complaints from existing partners on social media, and a slower overall pace of ecosystem growth compared to the prior year. Leadership's initial instinct was to treat this as a single problem requiring a single fix: specifically, a renewed marketing push to attract new developers, on the theory that the ecosystem simply needed more top-of-funnel awareness.",
+          "blockId": "blk_dd3137a1b6"
+        },
+        {
+          "type": "paragraph",
+          "text": "A more thorough investigation using the Cross-Lesson Diagnostic Protocol revealed a more complicated picture. First, the Metric Provenance Chain check (Lesson 64) revealed that the company's own dashboard for \"active integrations\" had drifted in definition over the prior year, following a platform migration, meaning the reported decline was partly a measurement artifact rather than a purely real trend, though a real decline did exist underneath the artifact once the metric was corrected. Second, the Promise Tiers check (Lesson 62) revealed that a breaking API change had, in fact, been shipped eight months earlier without adequate notice, consistent with the kind of Layer 2 trust failure discussed in that lesson's Case Study, and several of the public partner complaints directly referenced this incident. Third, the Escalation Staircase check (Lesson 67) revealed that the company's fraud-detection system for the partner marketplace had, around the same time, wrongly suspended a small number of legitimate long-standing partners with no functioning appeals process, further damaging trust among exactly the population whose continued participation the ecosystem depended on.",
+          "blockId": "blk_c28ab150b0"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong?** Using the Platform Health Radar across multiple axes at once, the true picture was a compounding, multi-front trust failure: a broken Promise Tier commitment (Lesson 62), a governance enforcement failure with no adequate appeals process (Lesson 67), and a metric-definition drift (Lesson 64) that had partially obscured the real scope of the problem from leadership's own dashboards. A marketing-only response, as leadership initially proposed, would have addressed none of these underlying causes and likely worsened the situation by attracting new developers into an ecosystem whose existing trust problems had not yet been fixed.",
+          "blockId": "blk_a8e12ba482"
+        },
+        {
+          "type": "paragraph",
+          "text": "The company's recovery required addressing all three fronts simultaneously: correcting the metric definition and re-baselining the \"active integrations\" dashboard, formally apologizing to affected partners for the earlier breaking change with a concrete Layer 2 stability commitment going forward, and overhauling the marketplace's enforcement system with graduated, appealable responses per the Escalation Staircase, illustrating precisely why this lesson's synthesis, rather than any single model in isolation, was necessary to correctly diagnose and resolve the situation.",
+          "blockId": "blk_5ec3ea1eb2"
+        }
+      ],
+      "blockId": "blk_8e00dbf38a"
+    },
+    {
+      "type": "framework",
+      "name": "The Cross-Lesson Diagnostic Protocol (Reference Table)",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "The following table summarizes the nine-step protocol introduced in the Theory section, for quick reference when facing a real platform problem:",
+          "blockId": "blk_d87c83dbd1"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Step",
+            "Model",
+            "Core Diagnostic Question"
+          ],
+          "rows": [
+            [
+              "1",
+              "Leverage Stack (Lesson 61)",
+              "Which layer (Core, Developer Surface, Marketplace, Ecosystem) is implicated?"
+            ],
+            [
+              "2",
+              "Promise Tiers (Lesson 62)",
+              "Has an explicit or implicit commitment been broken?"
+            ],
+            [
+              "3",
+              "Two-Sided Balance Model (Lesson 63)",
+              "If a marketplace, which side is the binding constraint?"
+            ],
+            [
+              "4",
+              "Metric Provenance Chain (Lesson 64)",
+              "Is the data used to diagnose this problem itself trustworthy?"
+            ],
+            [
+              "5",
+              "Ownership Zones Model (Lesson 65)",
+              "Were error costs and business context correctly specified for any model involved?"
+            ],
+            [
+              "6",
+              "Discovery Frontier (Lesson 66)",
+              "Could short-term optimization be damaging long-term value invisibly?"
+            ],
+            [
+              "7",
+              "Escalation Staircase (Lesson 67)",
+              "Was any enforcement proportionate, reversible, and appealable?"
+            ],
+            [
+              "8",
+              "Sunset Runway (Lesson 68)",
+              "Was any migration genuinely dependency-aware, or assumption-based?"
+            ],
+            [
+              "9",
+              "Friction Ledger (Lesson 69)",
+              "Could internal teams be quietly working around the platform?"
+            ]
+          ],
+          "blockId": "blk_8de39bb0bb"
+        },
+        {
+          "type": "paragraph",
+          "text": "A thorough platform investigation moves through this table deliberately, ruling axes in or out with evidence, rather than stopping at the first plausible-sounding explanation.",
+          "blockId": "blk_b7056565f4"
+        }
+      ],
+      "blockId": "blk_6b7e1ee887"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "Walk me through how you'd investigate a sudden decline in third-party developer engagement on a platform you manage.",
+          "whatItEvaluates": "The interviewer is evaluating whether you approach this as a potentially multi-dimensional problem, checking multiple axes (broken promises, enforcement issues, metric reliability) rather than jumping to a single explanation and a single fix."
+        },
+        {
+          "question": "How do the concepts of platform layering and API stability relate to each other?",
+          "whatItEvaluates": "The interviewer is testing whether you understand the interconnection between the Leverage Stack and Promise Tiers specifically: that Promise Tiers governs Layer 2, and instability there caps everything built on top of it."
+        },
+        {
+          "question": "Tell me about the most complex platform problem you've had to diagnose, and how you approached it.",
+          "whatItEvaluates": "The interviewer is listening for evidence of genuine synthesis (an investigation that considered and ruled in or out multiple contributing causes) rather than a story where a single framework, applied once, fully explained everything."
+        }
+      ],
+      "blockId": "blk_764e85adeb"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Module 7 introduced eight distinct mental models, plus the Friction Ledger's internal application, each answering a specific diagnostic question about a different aspect of platform health: where an investment belongs (Leverage Stack), what commitment an API makes (Promise Tiers), which side of a marketplace is constrained (Two-Sided Balance Model), whether a metric deserves trust (Metric Provenance Chain), who owns a model-driven decision (Ownership Zones Model), whether short-term optimization is damaging long-term value (Discovery Frontier), whether enforcement is proportionate (Escalation Staircase), whether a migration accounts for real dependency (Sunset Runway), and whether internal teams are experiencing unaddressed friction (Friction Ledger). Real platform problems are frequently multi-dimensional, and the Platform Health Radar, applied through the Cross-Lesson Diagnostic Protocol, provides a disciplined way to check all nine axes rather than stopping at whichever single model first seems to fit a given symptom. The models are not an unordered checklist but a connected structure: Promise Tiers governs Layer 2 of the Leverage Stack specifically, the Two-Sided Balance Model governs Layer 3 when a marketplace is involved, the Discovery Frontier is a specialized application of the Ownership Zones Model's error-cost logic, and the Escalation Staircase depends on that same error-cost reasoning applied to Layer 4 enforcement. Genuine platform judgment is the ability to recognize, in a real and often ambiguous situation, which combination of these tools actually applies: a skill this module has built lesson by lesson, and one this synthesis lesson has now explicitly connected into a single integrated practice.",
+          "blockId": "blk_b037439f8c"
+        }
+      ],
+      "blockId": "blk_e51a68d8ab"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "Module 7 introduced nine interconnected mental models: Leverage Stack, Promise Tiers, Two-Sided Balance Model, Metric Provenance Chain, Ownership Zones Model, Discovery Frontier, Escalation Staircase, Sunset Runway, and Friction Ledger.",
+        "The Platform Health Radar assesses a platform across all nine dimensions simultaneously, rather than applying one model in isolation.",
+        "The Cross-Lesson Diagnostic Protocol provides an ordered approach to investigating an ambiguous platform problem across multiple axes.",
+        "The nine models form a connected structure, not an unordered checklist: for example, Promise Tiers specifically governs Layer 2 of the Leverage Stack.",
+        "Real platform incidents are frequently the product of failures across more than one axis simultaneously, as illustrated by the Multi-Front Ecosystem Decline case study.",
+        "A single-cause diagnosis and a single-lever fix, applied to a genuinely multi-dimensional problem, often fails to resolve the underlying issue and can worsen it.",
+        "Genuine platform judgment is the applied skill of recognizing which combination of models fits a real situation, built through deliberate practice across increasingly complex scenarios."
+      ],
+      "blockId": "blk_08bbd8374d"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "Nine axes: Leverage Stack, Promise Tiers, Two-Sided Balance, Metric Provenance, Ownership Zones, Discovery Frontier, Escalation Staircase, Sunset Runway, Friction Ledger.",
+        "Don't stop at the first model that fits: run the full Cross-Lesson Diagnostic Protocol.",
+        "The models connect: Promise Tiers → Layer 2. Two-Sided Balance → Layer 3 marketplaces. Discovery Frontier → a special case of Ownership Zones. Escalation Staircase → depends on Ownership Zones' error-cost logic, applied to Layer 4.",
+        "Multi-front problems need multi-front fixes: a single lever rarely resolves a compounding failure.",
+        "Platform judgment = knowing which combination applies, not just memorizing each model individually."
+      ],
+      "blockId": "blk_45623e43cc"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "Platform Health Radar",
+          "definition": "A nine-axis integrated diagnostic tool synthesizing all of Module 7's mental models",
+          "relatedConcepts": [
+            "Cross-Lesson Diagnostic Protocol"
+          ],
+          "difficulty": 3
+        },
+        {
+          "term": "Cross-Lesson Diagnostic Protocol",
+          "definition": "An ordered, nine-step investigative approach for diagnosing multi-dimensional platform problems",
+          "relatedConcepts": [
+            "Platform Health Radar"
+          ],
+          "difficulty": 3
+        },
+        {
+          "term": "Multi-Front Failure",
+          "definition": "A platform incident caused by compounding failures across more than one diagnostic axis simultaneously",
+          "relatedConcepts": [
+            "Platform Health Radar"
+          ],
+          "difficulty": 3
+        },
+        {
+          "term": "Platform Judgment",
+          "definition": "The applied skill of recognizing which combination of models fits a real, often ambiguous situation",
+          "relatedConcepts": [
+            "Platform Health Radar"
+          ],
+          "difficulty": 3
+        }
+      ],
+      "blockId": "blk_fedacdbf74"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "Geoffrey Parker, Marshall Van Alstyne, and Sangeet Paul Choudary, *Platform Revolution*"
+        },
+        {
+          "citation": "Michael Cusumano, Annabelle Gawer, and David Yoffie, *The Business of Platforms*"
+        },
+        {
+          "citation": "Donella Meadows, *Thinking in Systems*"
+        }
+      ],
+      "blockId": "blk_b0dbb43d1f"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_ilrn3g",
+      "cards": [
+        {
+          "id": "fc-les_ilrn3g-1",
+          "front": "Name all nine Module 7 mental models in the order they were introduced.",
+          "back": "Leverage Stack, Promise Tiers, Two-Sided Balance Model, Metric Provenance Chain, Ownership Zones Model, Discovery Frontier, Escalation Staircase, Sunset Runway, Friction Ledger.",
+          "difficulty": 2,
+          "tags": [
+            "module-synthesis"
+          ]
+        },
+        {
+          "id": "fc-les_ilrn3g-2",
+          "front": "What is the Platform Health Radar?",
+          "back": "An integrated diagnostic tool that assesses a platform across all nine Module 7 dimensions simultaneously, rather than applying one model in isolation.",
+          "difficulty": 2,
+          "tags": [
+            "platform-health-radar"
+          ]
+        },
+        {
+          "id": "fc-les_ilrn3g-3",
+          "front": "How does Promise Tiers relate to the Leverage Stack?",
+          "back": "Promise Tiers specifically governs Layer 2 (Developer Surface) of the Leverage Stack, formalizing what stability commitments mean at that layer.",
+          "difficulty": 2,
+          "tags": [
+            "model-interconnection"
+          ]
+        },
+        {
+          "id": "fc-les_ilrn3g-4",
+          "front": "How does the Discovery Frontier relate to the Ownership Zones Model?",
+          "back": "The Discovery Frontier is a specialized, high-stakes application of the Ownership Zones Model's error-cost logic to ranking and personalization decisions specifically.",
+          "difficulty": 2,
+          "tags": [
+            "model-interconnection"
+          ]
+        },
+        {
+          "id": "fc-les_ilrn3g-5",
+          "front": "Why did the Multi-Front Ecosystem Decline case study require more than one model to diagnose correctly?",
+          "back": "The true cause was a compounding failure across Promise Tiers (a broken API commitment), Escalation Staircase (a governance enforcement failure), and Metric Provenance Chain (a partially obscuring metric drift) simultaneously.",
+          "difficulty": 2,
+          "tags": [
+            "case-study",
+            "multi-front-failure"
+          ]
+        },
+        {
+          "id": "fc-les_ilrn3g-6",
+          "front": "What is the risk of applying only the first model that seems to fit a platform symptom?",
+          "back": "Most real platform incidents involve failures across more than one axis, and stopping the diagnosis early misses compounding causes.",
+          "difficulty": 2,
+          "tags": [
+            "diagnostic-discipline"
+          ]
+        },
+        {
+          "id": "fc-les_ilrn3g-7",
+          "front": "What does genuine \"platform judgment\" mean, per this synthesis lesson?",
+          "back": "The applied skill of recognizing which combination of models fits a real, ambiguous situation, not simply memorizing each model individually.",
+          "difficulty": 2,
+          "tags": [
+            "platform-judgment"
+          ]
+        }
+      ],
+      "blockId": "blk_3dd5c99de9"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "You are the PM for a developer tools company. Over the past quarter, you've noticed: a decline in new third-party plugin submissions, a rise in support tickets referencing \"unexpected behavior\" after a recent internal system update, and an internal engineering team casually mentioning they built their own version of a shared internal library rather than waiting for the platform team's roadmap.",
+        "There is no single correct answer to the prompts below: the goal is to practice applying the Platform Health Radar and Cross-Lesson Diagnostic Protocol to a genuinely multi-symptom scenario.",
+        "Using the Cross-Lesson Diagnostic Protocol's nine steps, which steps would you investigate first given these three symptoms, and why?",
+        "Could the decline in plugin submissions and the \"unexpected behavior\" support tickets share a common root cause? What model would you use to check this?",
+        "How does the internal engineering team's workaround relate to, or potentially compound, the external-facing symptoms you're also observing?",
+        "Propose a plan for investigating all three symptoms in parallel, rather than addressing them as three unrelated problems.",
+        "Once you've diagnosed the root cause(s), how would you decide which fixes to prioritize first if resources don't allow addressing everything simultaneously?"
+      ],
+      "blockId": "blk_983e7e9975"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_ilrn3g",
+      "questions": [
+        {
+          "id": "q-les_ilrn3g-1",
+          "question": "What is the primary purpose of the Platform Health Radar?",
+          "options": [
+            "To eliminate the need for the Cross-Lesson Diagnostic Protocol entirely",
+            "To assess a platform across all nine Module 7 dimensions at once",
+            "To replace all eight prior Module 7 models with one new model",
+            "To measure only a platform's marketing performance in isolation"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The Radar is explicitly an integrating tool that assesses all nine dimensions together, not a replacement for the models it draws on.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_ilrn3g-2",
+          "question": "Why do real platform problems often resist single-model diagnosis, per this lesson?",
+          "options": [
+            "Real problems are frequently multi-dimensional, involving more than one axis",
+            "Single-model diagnosis is generally sufficient for most real-world issues",
+            "Multi-dimensional problems are described as rarely occurring in practice",
+            "Platform problems tend to be simpler than they first appear to be"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The lesson's central argument is that platform incidents are often produced by failures across multiple axes at once, not a single cause.",
+          "objectivesTested": [
+            1,
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_ilrn3g-3",
+          "question": "How does Promise Tiers (Lesson 62) relate to the Leverage Stack (Lesson 61)?",
+          "options": [
+            "Promise Tiers specifically governs Layer 2, the Developer Surface",
+            "Promise Tiers is presented as a full replacement for the Leverage Stack",
+            "Promise Tiers is described as applying only to Layer 4, the Ecosystem",
+            "The two models are treated as entirely unrelated to one another"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The Theory section explicitly connects Promise Tiers to Layer 2 specifically, illustrating how the nine models interconnect.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_ilrn3g-4",
+          "question": "How does the Discovery Frontier (Lesson 66) relate to the Ownership Zones Model (Lesson 65)?",
+          "options": [
+            "The two models are presented as unrelated, covering separate topics",
+            "It is a specialized application of Ownership Zones' error-cost logic",
+            "The Discovery Frontier replaces the Ownership Zones Model entirely",
+            "Ownership Zones is described as applying only to marketplace problems"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The lesson frames the Discovery Frontier as a high-stakes, specific case of the general error-cost reasoning from the Ownership Zones Model.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_ilrn3g-5",
+          "question": "In the Cross-Lesson Diagnostic Protocol, what does the Metric Provenance Chain step check?",
+          "options": [
+            "Whether an enforcement action taken was proportionate to the violation",
+            "Whether a marketplace has a binding supply-side or demand-side limit",
+            "Whether an API has a documented, formally versioned Promise Tier",
+            "Whether the data used to diagnose a problem is itself trustworthy"
+          ],
+          "correctAnswer": 3,
+          "explanation": "This step checks the reliability of the data underlying any other diagnosis, a foundational concern regardless of which other axes apply.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_ilrn3g-6",
+          "question": "In the Multi-Front Ecosystem Decline case study, what did the initial marketing-focused response fail to address?",
+          "options": [
+            "The advertising budget, which had actually caused the decline",
+            "A single technical bug leadership believed was the sole cause",
+            "The broken API promise, enforcement failure, and metric drift",
+            "Nothing; the marketing plan would have fully resolved things"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The case study's core lesson is that a single-lever fix would have left the actual compounding causes entirely unaddressed.",
+          "objectivesTested": [
+            3,
+            5
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_ilrn3g-7",
+          "question": "Why might attracting new developers through marketing have worsened the case study's situation rather than helping?",
+          "options": [
+            "The company reportedly had no marketing budget available at the time",
+            "Marketing campaigns are described as generally ineffective at scale",
+            "New developers would enter an ecosystem whose trust issues remained",
+            "New sign-ups are said to always lower ecosystem health regardless"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Attracting more participants into an untrusted ecosystem, without fixing the underlying trust issues, risks compounding the problem.",
+          "objectivesTested": [
+            3,
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_ilrn3g-8",
+          "question": "What does the Friction Ledger check specifically investigate within the Cross-Lesson Diagnostic Protocol?",
+          "options": [
+            "Whether a recommender system has fallen into a filter bubble",
+            "Whether external developers currently trust the platform's API",
+            "Whether internal teams could be quietly working around the platform",
+            "Whether a marketplace's supply side is currently under-resourced"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The Friction Ledger's role in the protocol is specifically to check for internal, rather than external, workaround behavior.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_ilrn3g-9",
+          "question": "Per the Real World Perspective section, why might a Big Tech PM's synthesis role differ from a startup PM's?",
+          "options": [
+            "Big Tech PMs are described as never needing to understand any model",
+            "There is described as being no meaningful difference between the two",
+            "Startup PMs alone are said to ever need to apply these models",
+            "Specialist teams handle different axes, shifting the PM toward coordination"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The section describes this shift from personal application to cross-team coordination as scale increases, not the absence of a role.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_ilrn3g-10",
+          "question": "What is \"platform judgment,\" as defined in this lesson's Key Takeaways?",
+          "options": [
+            "A formal certification awarded on completion of Module 7",
+            "The ability to memorize all nine models' names precisely",
+            "The skill of recognizing which combination of models fits a situation",
+            "The ability to build a platform without any diagnostic framework"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The lesson explicitly distinguishes memorization from the applied, situational skill of correctly combining models.",
+          "objectivesTested": [
+            1,
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_ilrn3g-11",
+          "question": "Why is checking the Metric Provenance Chain considered foundational to any other diagnostic step?",
+          "options": [
+            "It is described as relevant only to marketplace-specific problems",
+            "A diagnosis built on untrustworthy data inherits that same error",
+            "The other eight models cannot function without it applied first",
+            "It is simply the most complex of the nine models by design"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The Common Beginner Mistakes section warns that skipping this check undermines any other diagnosis built on the same faulty data.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_ilrn3g-12",
+          "question": "(Scenario) A PM observes declining developer engagement and immediately proposes more marketing spend. What is the appropriate first response?",
+          "options": [
+            "Approve the spend, since engagement problems are usually about awareness",
+            "Assume the decline is coincidental and take no action at all",
+            "Reject the proposal outright with no further investigation",
+            "Run the Cross-Lesson Diagnostic Protocol before committing to one fix"
+          ],
+          "correctAnswer": 3,
+          "explanation": "This mirrors the Case Study's core lesson: a single-cause assumption should be checked against the full protocol before committing resources.",
+          "objectivesTested": [
+            2,
+            3,
+            5
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_ilrn3g-13",
+          "question": "(Product Thinking) A PM notices declining submissions, a rise in support tickets, and a team quietly building its own tool. What is the most defensible first step?",
+          "options": [
+            "Address only the internal workaround as inherently the most urgent",
+            "Treat each symptom as three entirely separate investigations",
+            "Investigate a shared root cause using the full diagnostic protocol",
+            "Wait for further symptoms before taking any real action at all"
+          ],
+          "correctAnswer": 2,
+          "explanation": "This mirrors the Reflection Exercise: multiple symptoms may share a root cause, and the protocol supports investigating them together.",
+          "objectivesTested": [
+            3,
+            4,
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_ilrn3g-14",
+          "question": "(Interview Reasoning) A candidate applies one model thoroughly and stops once it yields a plausible explanation. What does this most likely signal?",
+          "options": [
+            "A complete and sufficient diagnostic approach to the problem",
+            "A gap in checking for compounding causes across other axes",
+            "Readiness for a senior platform PM role right away",
+            "Nothing of concern; one plausible explanation usually suffices"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The Interview Perspective section specifically listens for evidence of checking multiple causes, not stopping at one plausible explanation.",
+          "objectivesTested": [
+            3,
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_ilrn3g-15",
+          "question": "(Product Thinking, Highest Difficulty) A platform faces a broken API promise, aggressive enforcement, and a metric drift that obscured the true scope. What is the most defensible response?",
+          "options": [
+            "Launch a marketing campaign before addressing any underlying cause",
+            "Address the single cause that seems worst, assuming others resolve",
+            "Take no action for now, since the situation seems too complex",
+            "Address all three causes in parallel with a coordinated response"
+          ],
+          "correctAnswer": 3,
+          "explanation": "This mirrors the case study directly: a compounding, multi-axis failure requires a coordinated response, not a single lever or inaction.",
+          "objectivesTested": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_25ae19516f"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_ymfbn4",
+        "title": "Lesson 69: Internal Platforms and Developer Experience (DevEx) as a Product",
+        "module": "technical"
+      },
+      "current": {
+        "id": "les_ilrn3g",
+        "title": "Lesson 70, Module Synthesis: The Platform PM's Toolkit"
+      },
+      "next": {
+        "id": "les_e18dsm",
+        "title": "Lesson 71, Product Strategy Frameworks: From Vision to Bets",
+        "module": "strategy"
+      },
+      "unlocks": [
+        {
+          "lesson": {
+            "id": "les_7ndnsg",
+            "title": "Build",
+            "module": "strategy"
+          },
+          "coreIdea": "Draws on the full Module 7 toolkit, especially the Leverage Stack and Sunset Runway, when evaluating internal-build platform decisions"
+        }
+      ],
+      "blockId": "blk_76859c2f48"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 70: Module Synthesis: The Platform PM's Toolkit Module 7 has introduced eight distinct mental models across nine lessons: the Leverage Stack (Lesson 61), Promise Tiers (Lesson 62), the Two-Sided Balance Model (Lesson 63), the Metric Provenance Chain (Lesson 64), the Ownership Zones Model (Lesson 65), the Discovery Frontier (Lesson 66), the Escalation Staircase (Lesson 67), the Sunset Runway (Lesson 68), and the Friction Ledger (Lesson 69). Each was introduced to solve a specific, narrow problem: where does a platform investment belong, what promise does an API make, which side of a marketplace is constrained, whether a metric deserves trust, who owns a model decision, how a recommender should balance exploration, how enforcement should escalate, how a migration should be sequenced, how internal friction should be tracked. In real platform work, problems rarely announce which single model applies. A declining third-party developer ecosystem could be a Leverage Stack sequencing failure, a broken Promise Tier commitment, a governance trust failure, or some combination of all three simultaneously, and a PM who only knows how to apply one model at a time, in isolation, will often diagnose only part of what's actually happening. This closing lesson of Module 7 does not introduce new theory in the way the previous nine lessons did. Instead, it does something this curriculum's Lesson 60 capstone modeled for the foundational six modules: it consolidates the module's separate tools into a single, integrated diagnostic practice, so that when you encounter a real platform problem in the future, you reach for the right combination of models rather than forcing a single lens onto a multi-dimensional problem. Recall and correctly name all eight mental models introduced across Module 7, and the specific diagnostic question each answers. Apply the Platform Health Radar to assess a platform holistically across all eight dimensions simultaneously. Use the Cross-Lesson Diagnostic Protocol to determine which combination of models applies to an ambiguous, multi-faceted platform problem. Explain how the eight models interconnect, rather than treating them as a disconnected checklist. Evaluate a complex platform scenario by correctly identifying which model or models are the primary diagnostic lens, and which are secondary. This lesson assumes fluency with all nine preceding lessons of Module 7 (Lessons 61–69) and the mental models, frameworks, and case studies each introduced. Rather than introducing new prerequisite material, this lesson's purpose is to integrate what those nine lessons already established. Why Integration, Not Addition, Is the Point A PM who has memorized eight separate models but always applies exactly one to any given problem has not yet developed platform judgment: they have developed eight narrow reflexes. Platform judgment means recognizing that most real problems are multi-dimensional, and that the first diagnostic task is often determining *which combination* of models is actually relevant, not simply picking the model whose name sounds closest to the symptom being observed. The Platform Health Radar This lesson introduces the **Platform Health Radar**, a single integrating tool that assesses a platform across all eight Module 7 dimensions at once, rather than one at a time: A ninth axis, the **Friction Ledger**, applies this same radar internally, asking whether the company's own engineering teams experience the platform with the same rigor external assessment would apply. The Platform Health Radar's discipline is running through all nine questions whenever a platform problem surfaces, rather than stopping at the first model that seems to fit, since real incidents, as this lesson's Case Study will show, are frequently the product of failures across more than one axis simultaneously. The Cross-Lesson Diagnostic Protocol When a platform symptom is observed (declining developer engagement, a damaging incident, an unexpected metric trend), this lesson recommends a **Cross-Lesson Diagnostic Protocol** with a deliberate order of investigation: **Locate the layer** (Leverage Stack, Lesson 61): is the symptom occurring at the Core Product, Developer Surface, Marketplace, or Ecosystem layer? **Check the promise** (Promise Tiers, Lesson 62): has an explicit or implicit commitment to developers or partners been broken? **Check the balance** (Two-Sided Balance Model, Lesson 63, where applicable): if a marketplace is involved, which side is actually constrained? **Check the metric** (Metric Provenance Chain, Lesson 64): is the data being used to diagnose the problem itself trustworthy? **Check ownership** (Ownership Zones Model, Lesson 65, where a model is involved): were error costs and business context correctly specified before the model was built? **Check the horizon** (Discovery Frontier, Lesson 66, and long-horizon monitoring generally): could a short-term-optimized system be causing long-term damage invisible to daily metrics? **Check enforcement proportionality** (Escalation Staircase, Lesson 67, where governance is involved): was any enforcement action proportionate, reversible, and appealable? **Check migration discipline** (Sunset Runway, Lesson 68, where a change or deprecation is involved): was dependency genuinely inventoried, or assumed? **Check internal friction** (Friction Ledger, Lesson 69): could internal teams be quietly working around the platform rather than raising the issue? This ordered protocol does not mean every investigation touches all nine steps equally (a well-trained platform PM learns to move quickly past steps that clearly don't apply), but the discipline of *checking* each axis, rather than assuming only one applies from the outset, is what separates genuine platform diagnostic skill from pattern-matching a symptom to the first familiar-sounding model. How the Models Interconnect The nine models are not independent; they form a connected structure. The Leverage Stack (Lesson 61) provides the map on which everything else is located. Promise Tiers (Lesson 62) governs Layer 2 specifically. The Two-Sided Balance Model (Lesson 63) governs Layer 3 specifically, when the platform is a marketplace. The Metric Provenance Chain (Lesson 64) underlies the trustworthiness of any data used to evaluate any other axis. The Ownership Zones Model (Lesson 65) and Discovery Frontier (Lesson 66) both concern model-driven decisions, with the Discovery Frontier being a specific, high-stakes application of Ownership Zones' error-cost logic to ranking and personalization. The Escalation Staircase (Lesson 67) governs Layer 4 (Ecosystem) enforcement specifically, and directly depends on the error-cost reasoning from Lesson 65. The Sunset Runway (Lesson 68) governs the retirement of any Promise Tier commitment, connecting directly back to Lesson 62. The Friction Ledger (Lesson 69) applies the entire structure internally, treating a company's own engineering teams as the platform's Layer 2 customers. Applying only the first model that seems to fit, without checking whether others are also relevant Most real platform incidents involve failures across more than one axis, and stopping the diagnosis early misses compounding causes. Treating the eight models as an unordered checklist rather than a connected structure Understanding how the models depend on each other (for example, that Promise Tiers specifically governs Layer 2 of the Leverage Stack) produces faster, more accurate diagnosis than treating each model as unrelated to the others. Skipping the Metric Provenance Chain check when diagnosing any other problem Any diagnosis built on untrustworthy data, regardless of how sound the reasoning about the other axes is, inherits that foundational error. Forgetting that the Friction Ledger applies internally, not just to external developers A PM fluent in Leverage Stack, Promise Tiers, and Escalation Staircase for external ecosystems can still overlook that the same friction dynamics apply to the company's own engineering teams. Assuming platform judgment is complete once all eight models are individually memorized Genuine platform judgment is the ability to recognize which combination applies to a novel, real situation: a skill built through practice, not memorization alone. The Platform Health Radar The Platform Health Radar introduced above is this lesson's core takeaway tool, synthesizing all of Module 7 into a single integrated diagnostic. When facing any platform problem, however it initially presents, run through the radar's nine axes using the Cross-Lesson Diagnostic Protocol: **Which layer** of the Leverage Stack is implicated? **Has a promise** been broken, explicitly or implicitly? **If a marketplace, which side** is the actual constraint? **Is the underlying data** trustworthy? **Were error costs and ownership** correctly assigned for any model involved? **Is a short-term optimization** damaging long-term value invisibly? **Is enforcement**, if any, proportionate and reversible? **Is any migration** genuinely accounting for real dependency? **Could internal friction** be driving quiet workarounds? A platform PM who runs this full radar, rather than stopping at the first familiar-sounding symptom, is far better equipped to diagnose the genuinely multi-dimensional problems that characterize real platform work. Amazon is a useful synthesis example precisely because its business spans multiple platform types this module has discussed separately: its retail marketplace illustrates the Two-Sided Balance Model (Lesson 63) directly, with sellers and buyers as the two dependent populations; Amazon Web Services illustrates the Leverage Stack and Promise Tiers (Lessons 61–62) through its extensive API versioning and long-term service deprecation policies; and its scale of internal engineering organization makes internal developer platforms and the Friction Ledger (Lesson 69) a genuinely relevant concern, given public commentary describing extensive internal tooling investment to support thousands of internal engineering teams. Public reporting and industry commentary on Amazon's approach across these different platform dimensions illustrates that a single company, even a single product PM's career within that company, may need fluency across several of Module 7's models simultaneously, rather than specializing in only one. **Assumption flagged:** the specifics of Amazon's internal platform strategy, API governance, and marketplace management described here are drawn from public commentary and industry reporting across multiple sources, not confirmed internal company statements, and should be treated as illustrative rather than verified fact. Startup Early-stage platform teams typically encounter only one or two of these eight models as immediately relevant, usually the Leverage Stack and Promise Tiers, since the first platform decisions a startup faces tend to concern whether and how to expose a Developer Surface at all, before marketplace, governance, or migration concerns become pressing. Mid-size company This is typically where several models become simultaneously relevant for the first time: a growing developer ecosystem raises Promise Tiers and Escalation Staircase concerns together, while growing internal engineering headcount raises Friction Ledger concerns, often within the same period, testing whether a PM can hold multiple frameworks in mind simultaneously rather than addressing them one at a time in isolation. Big Tech Mature platform organizations typically have dedicated specialists for different axes of this radar (developer relations teams focused on Promise Tiers and API design, trust and safety teams focused on the Escalation Staircase, internal platform teams focused on the Friction Ledger), making the PM's synthesis role less about personally applying every model and more about ensuring the specialized teams are coordinating around a shared, integrated understanding of the platform's overall health. The Multi-Front Ecosystem Decline A B2B software platform noticed, over two consecutive quarters, a decline in third-party developer engagement: fewer new integrations submitted to its partner marketplace, several vocal complaints from existing partners on social media, and a slower overall pace of ecosystem growth compared to the prior year. Leadership's initial instinct was to treat this as a single problem requiring a single fix: specifically, a renewed marketing push to attract new developers, on the theory that the ecosystem simply needed more top-of-funnel awareness. A more thorough investigation using the Cross-Lesson Diagnostic Protocol revealed a more complicated picture. First, the Metric Provenance Chain check (Lesson 64) revealed that the company's own dashboard for \"active integrations\" had drifted in definition over the prior year, following a platform migration, meaning the reported decline was partly a measurement artifact rather than a purely real trend, though a real decline did exist underneath the artifact once the metric was corrected. Second, the Promise Tiers check (Lesson 62) revealed that a breaking API change had, in fact, been shipped eight months earlier without adequate notice, consistent with the kind of Layer 2 trust failure discussed in that lesson's Case Study, and several of the public partner complaints directly referenced this incident. Third, the Escalation Staircase check (Lesson 67) revealed that the company's fraud-detection system for the partner marketplace had, around the same time, wrongly suspended a small number of legitimate long-standing partners with no functioning appeals process, further damaging trust among exactly the population whose continued participation the ecosystem depended on. **What went wrong?** Using the Platform Health Radar across multiple axes at once, the true picture was a compounding, multi-front trust failure: a broken Promise Tier commitment (Lesson 62), a governance enforcement failure with no adequate appeals process (Lesson 67), and a metric-definition drift (Lesson 64) that had partially obscured the real scope of the problem from leadership's own dashboards. A marketing-only response, as leadership initially proposed, would have addressed none of these underlying causes and likely worsened the situation by attracting new developers into an ecosystem whose existing trust problems had not yet been fixed. The company's recovery required addressing all three fronts simultaneously: correcting the metric definition and re-baselining the \"active integrations\" dashboard, formally apologizing to affected partners for the earlier breaking change with a concrete Layer 2 stability commitment going forward, and overhauling the marketplace's enforcement system with graduated, appealable responses per the Escalation Staircase, illustrating precisely why this lesson's synthesis, rather than any single model in isolation, was necessary to correctly diagnose and resolve the situation. The Cross-Lesson Diagnostic Protocol (Reference Table) The following table summarizes the nine-step protocol introduced in the Theory section, for quick reference when facing a real platform problem: A thorough platform investigation moves through this table deliberately, ruling axes in or out with evidence, rather than stopping at the first plausible-sounding explanation. Walk me through how you'd investigate a sudden decline in third-party developer engagement on a platform you manage. The interviewer is evaluating whether you approach this as a potentially multi-dimensional problem, checking multiple axes (broken promises, enforcement issues, metric reliability) rather than jumping to a single explanation and a single fix. How do the concepts of platform layering and API stability relate to each other? The interviewer is testing whether you understand the interconnection between the Leverage Stack and Promise Tiers specifically: that Promise Tiers governs Layer 2, and instability there caps everything built on top of it. Tell me about the most complex platform problem you've had to diagnose, and how you approached it. The interviewer is listening for evidence of genuine synthesis (an investigation that considered and ruled in or out multiple contributing causes) rather than a story where a single framework, applied once, fully explained everything. Module 7 introduced eight distinct mental models, plus the Friction Ledger's internal application, each answering a specific diagnostic question about a different aspect of platform health: where an investment belongs (Leverage Stack), what commitment an API makes (Promise Tiers), which side of a marketplace is constrained (Two-Sided Balance Model), whether a metric deserves trust (Metric Provenance Chain), who owns a model-driven decision (Ownership Zones Model), whether short-term optimization is damaging long-term value (Discovery Frontier), whether enforcement is proportionate (Escalation Staircase), whether a migration accounts for real dependency (Sunset Runway), and whether internal teams are experiencing unaddressed friction (Friction Ledger). Real platform problems are frequently multi-dimensional, and the Platform Health Radar, applied through the Cross-Lesson Diagnostic Protocol, provides a disciplined way to check all nine axes rather than stopping at whichever single model first seems to fit a given symptom. The models are not an unordered checklist but a connected structure: Promise Tiers governs Layer 2 of the Leverage Stack specifically, the Two-Sided Balance Model governs Layer 3 when a marketplace is involved, the Discovery Frontier is a specialized application of the Ownership Zones Model's error-cost logic, and the Escalation Staircase depends on that same error-cost reasoning applied to Layer 4 enforcement. Genuine platform judgment is the ability to recognize, in a real and often ambiguous situation, which combination of these tools actually applies: a skill this module has built lesson by lesson, and one this synthesis lesson has now explicitly connected into a single integrated practice. Module 7 introduced nine interconnected mental models: Leverage Stack, Promise Tiers, Two-Sided Balance Model, Metric Provenance Chain, Ownership Zones Model, Discovery Frontier, Escalation Staircase, Sunset Runway, and Friction Ledger. The Platform Health Radar assesses a platform across all nine dimensions simultaneously, rather than applying one model in isolation. The Cross-Lesson Diagnostic Protocol provides an ordered approach to investigating an ambiguous platform problem across multiple axes. The nine models form a connected structure, not an unordered checklist: for example, Promise Tiers specifically governs Layer 2 of the Leverage Stack. Real platform incidents are frequently the product of failures across more than one axis simultaneously, as illustrated by the Multi-Front Ecosystem Decline case study. A single-cause diagnosis and a single-lever fix, applied to a genuinely multi-dimensional problem, often fails to resolve the underlying issue and can worsen it. Genuine platform judgment is the applied skill of recognizing which combination of models fits a real situation, built through deliberate practice across increasingly complex scenarios. Nine axes: Leverage Stack, Promise Tiers, Two-Sided Balance, Metric Provenance, Ownership Zones, Discovery Frontier, Escalation Staircase, Sunset Runway, Friction Ledger. Don't stop at the first model that fits: run the full Cross-Lesson Diagnostic Protocol. The models connect: Promise Tiers → Layer 2. Two-Sided Balance → Layer 3 marketplaces. Discovery Frontier → a special case of Ownership Zones. Escalation Staircase → depends on Ownership Zones' error-cost logic, applied to Layer 4. Multi-front problems need multi-front fixes: a single lever rarely resolves a compounding failure. Platform judgment = knowing which combination applies, not just memorizing each model individually. Platform Health Radar A nine-axis integrated diagnostic tool synthesizing all of Module 7's mental models Cross-Lesson Diagnostic Protocol An ordered, nine-step investigative approach for diagnosing multi-dimensional platform problems Multi-Front Failure A platform incident caused by compounding failures across more than one diagnostic axis simultaneously Platform Judgment The applied skill of recognizing which combination of models fits a real, often ambiguous situation Geoffrey Parker, Marshall Van Alstyne, and Sangeet Paul Choudary, *Platform Revolution* Michael Cusumano, Annabelle Gawer, and David Yoffie, *The Business of Platforms* Donella Meadows, *Thinking in Systems* Name all nine Module 7 mental models in the order they were introduced. Leverage Stack, Promise Tiers, Two-Sided Balance Model, Metric Provenance Chain, Ownership Zones Model, Discovery Frontier, Escalation Staircase, Sunset Runway, Friction Ledger. What is the Platform Health Radar? An integrated diagnostic tool that assesses a platform across all nine Module 7 dimensions simultaneously, rather than applying one model in isolation. How does Promise Tiers relate to the Leverage Stack? Promise Tiers specifically governs Layer 2 (Developer Surface) of the Leverage Stack, formalizing what stability commitments mean at that layer. How does the Discovery Frontier relate to the Ownership Zones Model? The Discovery Frontier is a specialized, high-stakes application of the Ownership Zones Model's error-cost logic to ranking and personalization decisions specifically. Why did the Multi-Front Ecosystem Decline case study require more than one model to diagnose correctly? The true cause was a compounding failure across Promise Tiers (a broken API commitment), Escalation Staircase (a governance enforcement failure), and Metric Provenance Chain (a partially obscuring metric drift) simultaneously. What is the risk of applying only the first model that seems to fit a platform symptom? Most real platform incidents involve failures across more than one axis, and stopping the diagnosis early misses compounding causes. What does genuine \"platform judgment\" mean, per this synthesis lesson? The applied skill of recognizing which combination of models fits a real, ambiguous situation, not simply memorizing each model individually. You are the PM for a developer tools company. Over the past quarter, you've noticed: a decline in new third-party plugin submissions, a rise in support tickets referencing \"unexpected behavior\" after a recent internal system update, and an internal engineering team casually mentioning they built their own version of a shared internal library rather than waiting for the platform team's roadmap. There is no single correct answer to the prompts below: the goal is to practice applying the Platform Health Radar and Cross-Lesson Diagnostic Protocol to a genuinely multi-symptom scenario. Using the Cross-Lesson Diagnostic Protocol's nine steps, which steps would you investigate first given these three symptoms, and why? Could the decline in plugin submissions and the \"unexpected behavior\" support tickets share a common root cause? What model would you use to check this? How does the internal engineering team's workaround relate to, or potentially compound, the external-facing symptoms you're also observing? Propose a plan for investigating all three symptoms in parallel, rather than addressing them as three unrelated problems. Once you've diagnosed the root cause(s), how would you decide which fixes to prioritize first if resources don't allow addressing everything simultaneously? What is the primary purpose of the Platform Health Radar? The Radar is explicitly an integrating tool that assesses all nine dimensions together, not a replacement for the models it draws on. Why do real platform problems often resist single-model diagnosis, per this lesson? The lesson's central argument is that platform incidents are often produced by failures across multiple axes at once, not a single cause. How does Promise Tiers (Lesson 62) relate to the Leverage Stack (Lesson 61)? The Theory section explicitly connects Promise Tiers to Layer 2 specifically, illustrating how the nine models interconnect. How does the Discovery Frontier (Lesson 66) relate to the Ownership Zones Model (Lesson 65)? The lesson frames the Discovery Frontier as a high-stakes, specific case of the general error-cost reasoning from the Ownership Zones Model. In the Cross-Lesson Diagnostic Protocol, what does the Metric Provenance Chain step check? This step checks the reliability of the data underlying any other diagnosis, a foundational concern regardless of which other axes apply. In the Multi-Front Ecosystem Decline case study, what did the initial marketing-focused response fail to address? The case study's core lesson is that a single-lever fix would have left the actual compounding causes entirely unaddressed. Why might attracting new developers through marketing have worsened the case study's situation rather than helping? Attracting more participants into an untrusted ecosystem, without fixing the underlying trust issues, risks compounding the problem. What does the Friction Ledger check specifically investigate within the Cross-Lesson Diagnostic Protocol? The Friction Ledger's role in the protocol is specifically to check for internal, rather than external, workaround behavior. Per the Real World Perspective section, why might a Big Tech PM's synthesis role differ from a startup PM's? The section describes this shift from personal application to cross-team coordination as scale increases, not the absence of a role. What is \"platform judgment,\" as defined in this lesson's Key Takeaways? The lesson explicitly distinguishes memorization from the applied, situational skill of correctly combining models. Why is checking the Metric Provenance Chain considered foundational to any other diagnostic step? The Common Beginner Mistakes section warns that skipping this check undermines any other diagnosis built on the same faulty data. (Scenario) A PM observes declining developer engagement and immediately proposes more marketing spend. What is the appropriate first response? This mirrors the Case Study's core lesson: a single-cause assumption should be checked against the full protocol before committing resources. (Product Thinking) A PM notices declining submissions, a rise in support tickets, and a team quietly building its own tool. What is the most defensible first step? This mirrors the Reflection Exercise: multiple symptoms may share a root cause, and the protocol supports investigating them together. (Interview Reasoning) A candidate applies one model thoroughly and stops once it yields a plausible explanation. What does this most likely signal? The Interview Perspective section specifically listens for evidence of checking multiple causes, not stopping at one plausible explanation. (Product Thinking, Highest Difficulty) A platform faces a broken API promise, aggressive enforcement, and a metric drift that obscured the true scope. What is the most defensible response? This mirrors the case study directly: a compounding, multi-axis failure requires a coordinated response, not a single lever or inaction.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "Mental Model: The Platform Health Radar",
+      "Real Company Example",
+      "Real World Perspective: Module Synthesis: The Platform PM's Toolkit at Different Company Stages",
+      "Detailed Case Study: The Multi-Front Ecosystem Decline",
+      "Framework Explanation: The Cross-Lesson Diagnostic Protocol (Reference Table)",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "Platform Health Radar",
+    "Cross-Lesson Diagnostic Protocol",
+    "Multi-Front Failure",
+    "Platform Judgment"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

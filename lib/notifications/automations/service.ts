@@ -1,0 +1,307 @@
+import { createServiceRoleClient } from '@/lib/supabase'
+import { currentDailyQuotaKey } from '../daily-quota-key'
+import { EMAIL_HTTP_TIMEOUT_MS } from '../config'
+import type {
+  EmailAutomationKey,
+  EmailAutomationMeta,
+  EmailAutomationsState,
+  EmailDigestSchedules,
+  WeeklyRecapSchedule,
+  DailyReminderSchedule,
+} from './types'
+
+export const DEFAULT_DIGEST_SCHEDULES: EmailDigestSchedules = {
+  weeklyRecap: {
+    enabled: true,
+    dayOfWeek: 1, // Monday
+    hourUtc: 3,   // 03:30 UTC (09:00 AM IST)
+    lastRunAt: null,
+  },
+  dailyReminder: {
+    enabled: true,
+    hourUtc: 3,   // 03:30 UTC (09:00 AM IST)
+    lastRunAt: null,
+  },
+}
+
+export const AUTOMATION_METADATA: Array<Omit<EmailAutomationMeta, 'enabled'>> = [
+  // Critical Auth (Always On - Non-Toggleable)
+  { key: 'auth.verify_email', name: 'Email Verification', description: 'Immediate account verification email with secure token link.', category: 'Transactional', isCritical: true },
+  { key: 'auth.password_reset', name: 'Password Reset', description: 'Immediate password reset link email for recovery.', category: 'Transactional', isCritical: true },
+  { key: 'auth.email_change_verify', name: 'Email Change Verification', description: 'Confirmation link sent when a user changes their account email (Settings → Security).', category: 'Transactional', isCritical: true },
+
+  // Optional Transactional
+  { key: 'auth.welcome', name: 'Welcome Email', description: 'Triggered exactly once upon new user account creation.', category: 'Transactional', isCritical: false },
+  { key: 'learning.module_complete', name: 'Module Completion', description: 'Triggered when a learner completes a module or capstone.', category: 'Transactional', isCritical: false },
+  { key: 'achievement.badge_earned', name: 'Badge Earned', description: 'Triggered when a learner earns a new achievement badge.', category: 'Transactional', isCritical: false },
+  { key: 'achievement.level_up', name: 'Level Up', description: 'Triggered when a learner reaches a new XP level milestone.', category: 'Transactional', isCritical: false },
+  { key: 'achievement.certificate', name: 'Certificate Generated', description: 'Triggered when a digital completion certificate is issued.', category: 'Transactional', isCritical: false },
+  { key: 'achievement.portfolio_published', name: 'Portfolio Published', description: 'Triggered when a user publishes their portfolio.', category: 'Transactional', isCritical: false },
+  { key: 'achievement.fellow_granted', name: 'PM Fellow Granted', description: 'Triggered when a learner is granted PM Fellow status.', category: 'Transactional', isCritical: false },
+  { key: 'nudge.portfolio_ready', name: 'Portfolio Ready Nudge', description: 'Asks learners whose portfolio is ready but private to publish it (once, plus one reminder after 7 days; 30% holdout).', category: 'Scheduled', isCritical: false },
+  { key: 'nudge.fellow_eligible', name: 'Fellow Eligible Nudge', description: 'Tells learners who qualify for PM Fellow (and were never rejected) to request it (once, plus one reminder; 30% holdout).', category: 'Scheduled', isCritical: false },
+  { key: 'achievement.capstone_published', name: 'Capstone Published', description: 'Triggered when a reviewed capstone is published to the learner\'s portfolio.', category: 'Transactional', isCritical: false },
+
+  // Scheduled Digests
+  { key: 'learning.weekly_recap', name: 'Weekly Recap', description: 'Weekly summary email sent to active learners (Mondays 09:00 IST / 03:30 UTC).', category: 'Scheduled', isCritical: false },
+  { key: 'learning.daily_reminder', name: 'Daily Review Reminder', description: 'Daily SRS review and streak alert sent to active learners (Daily 09:00 IST / 03:30 UTC).', category: 'Scheduled', isCritical: false },
+
+  // Deferred Post-Launch
+  { key: 'inactive.resume_learning', name: 'Resume Learning', description: 'Re-engagement prompt for inactive learners (Deferred for launch).', category: 'Scheduled', isCritical: false, isDeferred: true },
+
+  // Phase 1.5 — Lifecycle Reactivation Sequences (30% deterministic holdout)
+  { key: 'lifecycle.d1_never_started', name: 'D+1 Never Started', description: 'Nudges learners who signed up ~1 day ago but have not started any lesson.', category: 'Scheduled', isCritical: false },
+  { key: 'lifecycle.d3_started_not_finished', name: 'D+3 Started, Not Finished', description: 'Brings back learners who started ~3 days ago but have not completed the first milestone.', category: 'Scheduled', isCritical: false },
+  { key: 'lifecycle.streak_broken', name: 'Streak Broken Comeback', description: 'Reactivates previously-active learners whose streak broke and who have since gone quiet.', category: 'Scheduled', isCritical: false },
+]
+
+export const DEFAULT_AUTOMATION_TOGGLES: Record<EmailAutomationKey, boolean> = {
+  'auth.verify_email': true,
+  'auth.password_reset': true,
+  'auth.email_change_verify': true,
+  'auth.welcome': true,
+  'learning.module_complete': true,
+  'achievement.badge_earned': true,
+  'achievement.level_up': true,
+  'achievement.certificate': true,
+  'achievement.portfolio_published': true,
+  'achievement.fellow_granted': true,
+  'achievement.capstone_published': true,
+  'nudge.portfolio_ready': true,
+  'nudge.fellow_eligible': true,
+  'learning.weekly_recap': true,
+  'learning.daily_reminder': true,
+  'inactive.resume_learning': false,
+  'lifecycle.d1_never_started': true,
+  'lifecycle.d3_started_not_finished': true,
+  'lifecycle.streak_broken': true,
+}
+
+export class EmailAutomationsService {
+  /**
+   * Fetches full Email Automations state from Supabase system_settings.
+   */
+  public static async getState(): Promise<EmailAutomationsState> {
+    const supabase = createServiceRoleClient()
+    // Single definition, pinned to UTC to match the SQL functions. See
+    // lib/notifications/daily-quota-key.ts and migration 20260908000002.
+    const todayKey = currentDailyQuotaKey()
+
+    try {
+      const { data: rawRows } = await supabase
+        .from('system_settings')
+        .select('key, value')
+        .in('key', ['email_global_pause', 'email_daily_send_limit', 'email_automations', 'email_digest_schedules', todayKey])
+
+      let globalPause = false
+      let dailyLimit = 100
+      let dailySentCount = 0
+      let resendOutboundCount = 0
+      let toggles: Record<string, boolean> = { ...DEFAULT_AUTOMATION_TOGGLES }
+      const digestSchedules: EmailDigestSchedules = {
+        weeklyRecap: { ...DEFAULT_DIGEST_SCHEDULES.weeklyRecap },
+        dailyReminder: { ...DEFAULT_DIGEST_SCHEDULES.dailyReminder },
+      }
+
+      // Fetch actual Resend outbound usage
+      try {
+        const resendApiKey = process.env.RESEND_API_KEY
+        if (resendApiKey) {
+          const res = await fetch('https://api.resend.com/emails', {
+            headers: { Authorization: `Bearer ${resendApiKey}` },
+            signal: AbortSignal.timeout(EMAIL_HTTP_TIMEOUT_MS),
+          })
+          
+          if (res.ok) {
+            const dailyQuota = res.headers.get('x-resend-daily-quota')
+            if (dailyQuota) {
+              resendOutboundCount = parseInt(dailyQuota, 10)
+            } else {
+              const data = await res.json()
+              resendOutboundCount = Array.isArray(data?.data) ? data.data.length : 0
+            }
+          }
+        }
+      } catch (err) {
+        console.error('[EmailAutomationsService] Failed to fetch Resend usage metrics', err)
+      }
+
+      const rows = (rawRows || []) as Array<{ key: string; value: unknown }>
+      for (const row of rows) {
+        if (row.key === 'email_global_pause' && row.value && typeof row.value === 'object') {
+          globalPause = Boolean((row.value as Record<string, unknown>).enabled)
+        }
+        if (row.key === 'email_daily_send_limit' && row.value && typeof row.value === 'object') {
+          dailyLimit = Number((row.value as Record<string, unknown>).limit) || 100
+        }
+        if (row.key === todayKey && row.value && typeof row.value === 'object') {
+          dailySentCount = Number((row.value as Record<string, unknown>).count) || 0
+        }
+        if (row.key === 'email_automations' && row.value && typeof row.value === 'object') {
+          toggles = { ...toggles, ...(row.value as Record<string, boolean>) }
+        }
+        if (row.key === 'email_digest_schedules' && row.value && typeof row.value === 'object') {
+          const rawSched = row.value as Partial<EmailDigestSchedules>
+          if (rawSched.weeklyRecap) {
+            digestSchedules.weeklyRecap = { ...digestSchedules.weeklyRecap, ...rawSched.weeklyRecap }
+          }
+          if (rawSched.dailyReminder) {
+            digestSchedules.dailyReminder = { ...digestSchedules.dailyReminder, ...rawSched.dailyReminder }
+          }
+        }
+      }
+
+      const automations: EmailAutomationMeta[] = AUTOMATION_METADATA.map((meta) => ({
+        ...meta,
+        enabled: meta.isCritical ? true : Boolean(toggles[meta.key] ?? DEFAULT_AUTOMATION_TOGGLES[meta.key]),
+      }))
+
+      return {
+        globalPause,
+        dailyLimit,
+        dailySentCount,
+        resendOutboundCount,
+        automations,
+        digestSchedules,
+      }
+    } catch {
+      return {
+        globalPause: false,
+        dailyLimit: 100,
+        dailySentCount: 0,
+        resendOutboundCount: 0,
+        automations: AUTOMATION_METADATA.map((meta) => ({ ...meta, enabled: meta.isCritical ? true : (DEFAULT_AUTOMATION_TOGGLES[meta.key] ?? false) })),
+        digestSchedules: { ...DEFAULT_DIGEST_SCHEDULES },
+      }
+    }
+  }
+
+  /**
+   * Fetches persisted digest schedules.
+   */
+  public static async getDigestSchedules(): Promise<EmailDigestSchedules> {
+    const state = await this.getState()
+    return state.digestSchedules
+  }
+
+  /**
+   * Updates digest schedules in system_settings.
+   */
+  public static async updateDigestSchedule(
+    updates: Partial<{ weeklyRecap: Partial<WeeklyRecapSchedule>; dailyReminder: Partial<DailyReminderSchedule> }>
+  ): Promise<{ success: boolean; error?: string }> {
+    const supabase = createServiceRoleClient()
+    try {
+      const current = await this.getDigestSchedules()
+      const updated: EmailDigestSchedules = {
+        weeklyRecap: { ...current.weeklyRecap, ...(updates.weeklyRecap || {}) },
+        dailyReminder: { ...current.dailyReminder, ...(updates.dailyReminder || {}) },
+      }
+
+      const { error } = await supabase
+        .from('system_settings')
+        .upsert({
+          key: 'email_digest_schedules',
+          value: updated as unknown as import('@/lib/supabase').Json,
+          updated_at: new Date().toISOString(),
+        })
+
+      if (error) return { success: false, error: error.message }
+      return { success: true }
+    } catch (err) {
+      return { success: false, error: err instanceof Error ? err.message : 'Database update failed' }
+    }
+  }
+
+  /**
+   * Records execution timestamp of a digest run for duplicate cron prevention.
+   */
+  public static async recordDigestRun(digestKey: 'weeklyRecap' | 'dailyReminder'): Promise<void> {
+    const supabase = createServiceRoleClient()
+    try {
+      const current = await this.getDigestSchedules()
+      const updated: EmailDigestSchedules = {
+        ...current,
+        [digestKey]: {
+          ...current[digestKey],
+          lastRunAt: new Date().toISOString(),
+        },
+      }
+
+      await supabase
+        .from('system_settings')
+        .upsert({
+          key: 'email_digest_schedules',
+          value: updated as unknown as import('@/lib/supabase').Json,
+          updated_at: new Date().toISOString(),
+        })
+    } catch (err) {
+      console.warn(`[EmailAutomationsService.recordDigestRun] Non-fatal timestamp update warning:`, err)
+    }
+  }
+
+  /**
+   * Checks if an individual automation is enabled.
+   */
+  public static async isAutomationEnabled(key: EmailAutomationKey): Promise<boolean> {
+    if (key === 'auth.verify_email' || key === 'auth.password_reset' || key === 'auth.email_change_verify') return true
+    const state = await this.getState()
+    const automation = state.automations.find((a) => a.key === key)
+    return Boolean(automation?.enabled)
+  }
+
+  /**
+   * Checks if global pause is active.
+   */
+  public static async isGlobalPauseActive(): Promise<boolean> {
+    const state = await this.getState()
+    return state.globalPause
+  }
+
+  /**
+   * Mutates an automation toggle, global pause, or daily send limit in Supabase.
+   */
+  public static async updateSetting(
+    settingKey: 'toggle' | 'global_pause' | 'daily_limit',
+    payload: { automationKey?: EmailAutomationKey; enabled?: boolean; limit?: number }
+  ): Promise<{ success: boolean; error?: string }> {
+    const supabase = createServiceRoleClient()
+
+    try {
+      if (settingKey === 'global_pause') {
+        const { error } = await supabase
+          .from('system_settings')
+          .upsert({ key: 'email_global_pause', value: { enabled: Boolean(payload.enabled) }, updated_at: new Date().toISOString() })
+        if (error) return { success: false, error: error.message }
+      } else if (settingKey === 'daily_limit') {
+        const limitVal = Math.max(10, Math.min(1000, Number(payload.limit) || 100))
+        const { error } = await supabase
+          .from('system_settings')
+          .upsert({ key: 'email_daily_send_limit', value: { limit: limitVal }, updated_at: new Date().toISOString() })
+        if (error) return { success: false, error: error.message }
+      } else if (settingKey === 'toggle' && payload.automationKey) {
+        if (
+          payload.automationKey === 'auth.verify_email' ||
+          payload.automationKey === 'auth.password_reset' ||
+          payload.automationKey === 'auth.email_change_verify'
+        ) {
+          return { success: false, error: 'Critical authentication emails cannot be disabled.' }
+        }
+        const state = await this.getState()
+        const updatedToggles: Record<string, boolean> = {}
+        state.automations.forEach((a) => {
+          updatedToggles[a.key] = a.key === payload.automationKey ? Boolean(payload.enabled) : a.enabled
+        })
+
+        const { error } = await supabase
+          .from('system_settings')
+          .upsert({ key: 'email_automations', value: updatedToggles, updated_at: new Date().toISOString() })
+        if (error) return { success: false, error: error.message }
+      }
+
+      return { success: true }
+    } catch (err) {
+      return { success: false, error: err instanceof Error ? err.message : 'Database update failed' }
+    }
+  }
+}

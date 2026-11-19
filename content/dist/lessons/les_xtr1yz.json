@@ -1,0 +1,983 @@
+{
+  "schemaVersion": 2,
+  "id": "les_xtr1yz",
+  "contentHash": "dc234fcbc0b98525bbae9f4efacf58f7cb4cf3f071d66f964fd014e2cef68d5e",
+  "title": "Scrum Framework",
+  "slug": "lesson-032",
+  "module": "execution",
+  "order": 2,
+  "totalInModule": 10,
+  "difficulty": 4,
+  "estimatedReadingTime": 35,
+  "estimatedCompletionTime": 50,
+  "prerequisites": [
+    "les_091713"
+  ],
+  "sourceFile": "content/lessons/lesson-032.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 32: Scrum Framework",
+      "blockId": "blk_90c5d4c525"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 31 established the philosophy underneath all Agile practice: short feedback loops beat long up-front plans, and the real test of an Agile team is whether it genuinely *responds* to what each iteration reveals, not merely whether it runs the right-named meetings on schedule. That lesson deliberately stayed at the level of values and mental models, because before learning any specific framework, you need to be able to judge whether that framework is being used well or used as theater.",
+      "blockId": "blk_b1a6787b4e"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson introduces the framework most teams mean when they say \"we're Agile\": **Scrum**. Scrum is the single most widely adopted concrete implementation of the Iteration Loop from Lesson 31, and it is also the framework most frequently reduced to empty ceremony, precisely because its events (sprint planning, daily standup, review, retrospective) are so easy to schedule and so easy to run without ever engaging the underlying empiricism they exist to produce. If Lesson 31 gave you the values test, this lesson gives you the specific vocabulary, roles, and mechanics you'll actually work inside for most of your PM career, and the specific failure patterns to watch for, since Scrum done badly is often *worse* than no process at all, because it creates a false sense that rigor is already present.",
+      "blockId": "blk_9b99e67494"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "Name and explain Scrum's three pillars of empiricism (transparency, inspection, adaptation) and connect each to a specific Scrum event or artifact.",
+        "List Scrum's three roles, three artifacts (plus their associated commitments), and five events, and state the purpose of each in one sentence.",
+        "Explain the difference between a Sprint Goal and a sprint backlog, and why conflating the two undermines a sprint's coherence.",
+        "Diagnose \"Zombie Scrum\" (a team running all Scrum events without empirical value) using the Agile Fit Checklist from Lesson 31.",
+        "Explain the specific responsibilities of the Product Owner role, and distinguish them from the responsibilities of the Scrum Master and the Developers."
+      ],
+      "blockId": "blk_bca8a599bb"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson builds directly on **Lesson 31 (Agile Fundamentals)**, which assumed no prior framework knowledge and established the Iteration Loop and the Agile Fit Checklist as generic diagnostic tools. This lesson assumes you can already distinguish \"doing Agile\" from \"being Agile,\" because Scrum is the framework in which that distinction is tested most often: its five events map so cleanly onto a calendar that a team can run every one of them for years without ever practicing genuine empiricism. If that distinction from Lesson 31 feels shaky, revisit it before continuing, since much of this lesson's Common Beginner Mistakes and Case Study sections depend on it.",
+      "blockId": "blk_b336173f64"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Origins and the Empirical Foundation",
+          "blockId": "blk_428f35da62"
+        },
+        {
+          "type": "paragraph",
+          "text": "Scrum was formalized in the early 1990s by Ken Schwaber and Jeff Sutherland and later codified in the **Scrum Guide**, which both authors have continued to maintain and periodically revise. Scrum describes itself not as a full methodology but as a lightweight **framework**: a minimal set of roles, events, and artifacts within which teams solve complex problems, with the actual work of planning and execution left to the team itself.",
+          "blockId": "blk_4b2efaa2f2"
+        },
+        {
+          "type": "paragraph",
+          "text": "Scrum rests on three pillars, collectively called **empiricism**:",
+          "blockId": "blk_f8eac80b90"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**Transparency**: the state of the work and the process must be visible and understood by everyone involved, using a shared, honest vocabulary. A \"90% done\" status that hides an unresolved technical risk violates transparency.",
+            "**Inspection**: progress toward a goal must be examined frequently enough to detect problems before they compound. Scrum's events exist largely to create scheduled, structured moments of inspection.",
+            "**Adaptation**: when inspection reveals that an aspect of the work is unacceptable, or that the resulting product will be unacceptable, adjustments must be made promptly."
+          ],
+          "blockId": "blk_4920bb1115"
+        },
+        {
+          "type": "paragraph",
+          "text": "Notice the direct lineage from Lesson 31: transparency and inspection generate the \"Feedback\" step of the Iteration Loop, and adaptation is precisely the \"informs next batch\" step. Scrum is, in this sense, a specific, named implementation of Lesson 31's generic Iteration Loop, with a fixed cadence (the Sprint) and a specific set of scheduled moments where inspection and adaptation are supposed to happen.",
+          "blockId": "blk_9aefe02436"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Three Roles",
+          "blockId": "blk_b7b45d631c"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Role",
+            "Primary Accountability"
+          ],
+          "rows": [
+            [
+              "**Product Owner**",
+              "Maximizing the value of the product resulting from the team's work; owns and orders the Product Backlog"
+            ],
+            [
+              "**Scrum Master**",
+              "Establishing Scrum as defined in the Scrum Guide; coaching the team and organization; removing impediments to the team's progress"
+            ],
+            [
+              "**Developers**",
+              "The people doing the work of creating the Increment each Sprint (engineers, designers, QA: anyone building the product)"
+            ]
+          ],
+          "blockId": "blk_cb1564098e"
+        },
+        {
+          "type": "paragraph",
+          "text": "Notice that \"Product Owner\" is a Scrum-specific title for a responsibility this curriculum has been describing since Lesson 1 under the broader term \"Product Manager.\" In many organizations the titles are used interchangeably; in some larger organizations, a single PM may oversee multiple Product Owners embedded in different Scrum teams, or the PM and PO responsibilities may be split across two people. Either way, the accountability described here (owning and ordering the backlog toward maximum value) is precisely the \"problem-solution-value fit\" accountability from Lesson 1, expressed inside Scrum's specific vocabulary.",
+          "blockId": "blk_b2a068b0e0"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Three Artifacts and Their Commitments",
+          "blockId": "blk_31fa88701e"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Artifact",
+            "What It Represents",
+            "Associated Commitment"
+          ],
+          "rows": [
+            [
+              "**Product Backlog**",
+              "The complete, ordered list of everything known to be needed in the product",
+              "**Product Goal**: the longer-term objective the Product Backlog is working toward"
+            ],
+            [
+              "**Sprint Backlog**",
+              "The Product Backlog items selected for the current Sprint, plus a plan for delivering them",
+              "**Sprint Goal**: the single objective the current Sprint exists to achieve"
+            ],
+            [
+              "**Increment**",
+              "A concrete, working step toward the Product Goal, meeting the Definition of Done",
+              "**Definition of Done**: a shared, explicit standard of quality every Increment must meet"
+            ]
+          ],
+          "blockId": "blk_0515aea8d4"
+        },
+        {
+          "type": "paragraph",
+          "text": "The commitments matter as much as the artifacts themselves, and are frequently the part new PMs skip. Without a Sprint Goal, a Sprint Backlog degrades into an arbitrary list of tickets with no coherent story connecting them, which makes mid-sprint trade-off decisions (should we drop item C if item A takes longer than expected?) essentially unanswerable, because there's no shared objective to weigh them against.",
+          "blockId": "blk_202f2b206d"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Five Events",
+          "blockId": "blk_006ba94a33"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_fbed9abbaf",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[Sprint Planning] --> B((Sprint))\r\n    B --> C[Daily Scrum Repeats Daily]\r\n    C -.-> B\r\n    B --> D[Sprint Review]\r\n    D --> E[Sprint Retrospective]\r\n    E --> A",
+          "normalized": "graph LR\r\n    A[Sprint Planning] --> B((Sprint))\r\n    B --> C[Daily Scrum Repeats Daily]\r\n    C -.-> B\r\n    B --> D[Sprint Review]\r\n    D --> E[Sprint Retrospective]\r\n    E --> A",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020948676-91\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1472\" height=\"279.75\" viewBox=\"-38 -27 1472 279.75\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Sprint Planning → Sprint → Daily Scrum Repeats Daily → Sprint Review → Sprint Retrospective\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Sprint Planning → Sprint → Daily Scrum Repeats Daily → Sprint Review → Sprint Retrospective</title><style>#mermaid-svg-1795020948676-91{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020948676-91 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020948676-91 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020948676-91 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020948676-91 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020948676-91 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020948676-91 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020948676-91 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020948676-91 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020948676-91 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020948676-91 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020948676-91 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020948676-91 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020948676-91 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020948676-91 p{margin:0;}#mermaid-svg-1795020948676-91 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020948676-91 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020948676-91 .cluster-label span{color:#171A17;}#mermaid-svg-1795020948676-91 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020948676-91 .label text,#mermaid-svg-1795020948676-91 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020948676-91 .node rect,#mermaid-svg-1795020948676-91 .node circle,#mermaid-svg-1795020948676-91 .node ellipse,#mermaid-svg-1795020948676-91 .node polygon,#mermaid-svg-1795020948676-91 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020948676-91 .rough-node .label text,#mermaid-svg-1795020948676-91 .node .label text,#mermaid-svg-1795020948676-91 .image-shape .label,#mermaid-svg-1795020948676-91 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020948676-91 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020948676-91 .rough-node .label,#mermaid-svg-1795020948676-91 .node .label,#mermaid-svg-1795020948676-91 .image-shape .label,#mermaid-svg-1795020948676-91 .icon-shape .label{text-align:center;}#mermaid-svg-1795020948676-91 .node.clickable{cursor:pointer;}#mermaid-svg-1795020948676-91 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020948676-91 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020948676-91 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020948676-91 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020948676-91 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020948676-91 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020948676-91 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020948676-91 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020948676-91 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020948676-91 .cluster text{fill:#171A17;}#mermaid-svg-1795020948676-91 .cluster span{color:#171A17;}#mermaid-svg-1795020948676-91 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020948676-91 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020948676-91 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020948676-91 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020948676-91 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020948676-91 .icon-shape,#mermaid-svg-1795020948676-91 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020948676-91 .icon-shape p,#mermaid-svg-1795020948676-91 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020948676-91 .icon-shape .label rect,#mermaid-svg-1795020948676-91 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020948676-91 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020948676-91 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020948676-91 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020948676-91 [data-look=\"neo\"].node rect,#mermaid-svg-1795020948676-91 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020948676-91 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020948676-91-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020948676-91 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020948676-91 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020948676-91-gradient);stroke-width:1px;}#mermaid-svg-1795020948676-91 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020948676-91 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020948676-91 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020948676-91-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020948676-91 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020948676-91 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020948676-91-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020948676-91 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020948676-91-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020948676-91 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020948676-91_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020948676-91_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020948676-91_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020948676-91_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020948676-91_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020948676-91_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020948676-91_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020948676-91_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020948676-91_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020948676-91_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020948676-91_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020948676-91_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M217.478,143.75L236.523,134.208C255.569,124.667,293.659,105.583,323.58,96.042C353.5,86.5,375.25,86.5,386.125,86.5L397,86.5\" id=\"mermaid-svg-1795020948676-91-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6MjE3LjQ3Nzc4NTE0NTg4ODYsInkiOjE0My43NX0seyJ4IjozMzEuNzUsInkiOjg2LjV9LHsieCI6NDAxLCJ5Ijo4Ni41fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020948676-91_flowchart-v2-pointEnd)\"></path><path d=\"M494.755,64.326L507.171,58.105C519.587,51.884,544.418,39.442,564.922,34.152C585.425,28.862,601.601,30.725,609.689,31.656L617.776,32.587\" id=\"mermaid-svg-1795020948676-91-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6NDk0Ljc1NTQ5NjM3NjE5MjMsInkiOjY0LjMyNTY2NzA3ODg3NjI4fSx7IngiOjU2OS4yNSwieSI6Mjd9LHsieCI6NjIxLjc1LCJ5IjozMy4wNDQ2NjUwMTI0MDY5NX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020948676-91_flowchart-v2-pointEnd)\"></path><path d=\"M621.75,80.143L613,81.202C604.25,82.262,586.75,84.381,567.125,85.44C547.5,86.5,525.75,86.5,514.875,86.5L504,86.5\" id=\"mermaid-svg-1795020948676-91-L_C_B_0\" class=\"edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_B_0\" data-points=\"W3sieCI6NjIxLjc1LCJ5Ijo4MC4xNDI2Nzk5MDA3NDQ0MX0seyJ4Ijo1NjkuMjUsInkiOjg2LjV9LHsieCI6NTAwLCJ5Ijo4Ni41fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020948676-91_flowchart-v2-pointEnd)\"></path><path d=\"M490.19,116.08L503.367,125.9C516.543,135.72,542.897,155.36,576.907,165.18C610.917,175,652.583,175,673.417,175L694.25,175\" id=\"mermaid-svg-1795020948676-91-L_B_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_D_0\" data-points=\"W3sieCI6NDkwLjE5MDA1OTg2MjA0MzQsInkiOjExNi4wNzk1MzkzNDk4MTc2Mn0seyJ4Ijo1NjkuMjUsInkiOjE3NX0seyJ4Ijo2OTguMjUsInkiOjE3NX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020948676-91_flowchart-v2-pointEnd)\"></path><path d=\"M944,175L965.5,175C987,175,1030,175,1059.591,176.278C1089.183,177.556,1105.366,180.112,1113.457,181.39L1121.549,182.669\" id=\"mermaid-svg-1795020948676-91-L_D_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_E_0\" data-points=\"W3sieCI6OTQ0LCJ5IjoxNzV9LHsieCI6MTA3MywieSI6MTc1fSx7IngiOjExMjUuNSwieSI6MTgzLjI5MjYxMzYzNjM2MzYzfV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020948676-91_flowchart-v2-pointEnd)\"></path><path d=\"M1125.5,236.207L1116.75,237.589C1108,238.972,1090.5,241.736,1039.771,243.118C989.042,244.5,905.083,244.5,821.125,244.5C737.167,244.5,653.208,244.5,591.438,244.5C529.667,244.5,490.083,244.5,450.5,244.5C410.917,244.5,371.333,244.5,339.017,240.256C306.7,236.011,281.65,227.523,269.125,223.278L256.6,219.034\" id=\"mermaid-svg-1795020948676-91-L_E_A_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_E_A_0\" data-points=\"W3sieCI6MTEyNS41LCJ5IjoyMzYuMjA3Mzg2MzYzNjM2Mzd9LHsieCI6MTA3MywieSI6MjQ0LjV9LHsieCI6ODIxLjEyNSwieSI6MjQ0LjV9LHsieCI6NTY5LjI1LCJ5IjoyNDQuNX0seyJ4Ijo0NTAuNSwieSI6MjQ0LjV9LHsieCI6MzMxLjc1LCJ5IjoyNDQuNX0seyJ4IjoyNTIuODExMjc0NTA5ODAzOTIsInkiOjIxNy43NX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020948676-91_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_D_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_E_A_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020948676-91-flowchart-A-0\" data-look=\"classic\" transform=\"translate(143.625, 180.75)\"><rect class=\"basic label-container\" style=\"\" x=\"-111.75\" y=\"-35\" width=\"223.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-79.75, -19)\"><rect></rect><foreignObject width=\"159.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Sprint Planning</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020948676-91-flowchart-B-1\" data-look=\"classic\" transform=\"translate(450.5, 86.5)\"><circle class=\"basic label-container\" style=\"\" r=\"49.5\" cx=\"0\" cy=\"0\"></circle><g class=\"label\" style=\"\" transform=\"translate(-41.5, -19)\"><rect></rect><foreignObject width=\"83\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Sprint</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020948676-91-flowchart-C-3\" data-look=\"classic\" transform=\"translate(821.125, 56)\"><rect class=\"basic label-container\" style=\"\" x=\"-154.25\" y=\"-35\" width=\"308.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-122.25, -19)\"><rect></rect><foreignObject width=\"244.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Daily Scrum Repeats Daily</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020948676-91-flowchart-D-7\" data-look=\"classic\" transform=\"translate(821.125, 175)\"><rect class=\"basic label-container\" style=\"\" x=\"-103.25\" y=\"-35\" width=\"206.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-71.25, -19)\"><rect></rect><foreignObject width=\"142.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Sprint Review</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020948676-91-flowchart-E-9\" data-look=\"classic\" transform=\"translate(1293, 209.75)\"><rect class=\"basic label-container\" style=\"\" x=\"-133\" y=\"-35\" width=\"266\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-101, -19)\"><rect></rect><foreignObject width=\"202\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Sprint Retrospective</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020948676-91-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020948676-91-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020948676-91-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_fbed9abbaf"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**The Sprint**: a fixed-length container (commonly one to four weeks) for all other events; a new Sprint starts immediately after the previous one ends, with no gap.",
+            "**Sprint Planning**: the team selects Sprint Backlog items and forms a Sprint Goal, answering \"why is this Sprint valuable?\" and \"what can be done this Sprint?\"",
+            "**Daily Scrum**: a short, daily inspection of progress toward the Sprint Goal, used to adapt the plan for the next 24 hours, not a status report to the PM, a distinction covered further below.",
+            "**Sprint Review**: the team and stakeholders inspect the Increment together and adapt the Product Backlog based on what was learned; this is the event most directly tied to Lesson 31's Iteration Loop feedback step.",
+            "**Sprint Retrospective**: the team inspects its own process and interpersonal effectiveness, and plans adaptations to how it works, closing the loop before the next Sprint Planning begins."
+          ],
+          "blockId": "blk_4cc20d48a8"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Daily Scrum Is Not a Status Meeting for the PM",
+          "blockId": "blk_f2a0a20cb7"
+        },
+        {
+          "type": "paragraph",
+          "text": "A specific, frequent PM mistake deserves its own subsection because it recurs so often: treating the Daily Scrum as an opportunity to receive individual status updates (\"what did you do yesterday, what will you do today, any blockers\"), directed at and primarily for the PM's benefit. The Scrum Guide frames the Daily Scrum as belonging to the Developers, for the Developers' own re-planning of the next day's work toward the Sprint Goal. A PM who dominates this event, or attends expecting a personal briefing, subtly converts a peer-coordination ritual into a supervisory one, which tends to make the meeting slower, more guarded, and less genuinely useful for the people actually doing the work.",
+          "blockId": "blk_82d30cda33"
+        }
+      ],
+      "blockId": "blk_cf856911b7"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Treating the Product Owner role as a project-manager-style status tracker",
+          "body": "The Product Owner's job is maximizing product value through backlog ordering: a strategic, prioritization-heavy accountability, not a scheduling or status-reporting one. A PO who spends most of their time updating a burndown chart, rather than refining and reordering the backlog based on evidence, has drifted into exactly the role confusion Lesson 1 and Lesson 31 both warned against."
+        },
+        {
+          "title": "Confusing a Sprint Backlog with a Sprint Goal",
+          "body": "A list of ten tickets is not a Sprint Goal. A Sprint Goal is a single coherent objective (\"reduce onboarding drop-off for new mobile users\") that the ten tickets exist to serve. Teams that skip forming a real Sprint Goal lose their ability to make sound mid-sprint trade-offs, because there's no shared \"why\" to weigh a dropped or added item against."
+        },
+        {
+          "title": "Running all five events without empirical value: \"Zombie Scrum.",
+          "body": "This is Scrum's version of Lesson 31's \"doing Agile without being Agile.\" A team can hold Sprint Planning, Daily Scrums, a Sprint Review, and a Retrospective every single Sprint, on schedule, while transparency is thin (status is fudged), inspection is shallow (no one asks hard questions), and adaptation never actually happens (the same retrospective action items recur unaddressed). The calendar shows a functioning Scrum team; the outcomes show otherwise."
+        },
+        {
+          "title": "Treating the Sprint Review as a one-way demo rather than a two-way inspection",
+          "body": "The Sprint Review exists to inspect the Increment *with stakeholders* and adapt the Product Backlog based on what's learned: it is a feedback-gathering event, not a presentation. A team that treats it purely as \"showing off what we built,\" without genuinely updating backlog priorities based on stakeholder reaction, has converted an inspection event into a status broadcast."
+        },
+        {
+          "title": "Skipping or trivializing the Definition of Done",
+          "body": "Without an explicit, shared Definition of Done, \"done\" silently means different things to different people: an engineer may consider a ticket done once code is merged, while a PM may consider it done once it's live for all users. This ambiguity routinely surfaces as a painful surprise during the Sprint Review, when stakeholders discover that \"done\" items aren't actually usable yet.\n\n"
+        }
+      ],
+      "blockId": "blk_a9bc9f095d"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The Empirical Loop of a Sprint",
+      "diagram": {
+        "blockId": "blk_e66699710e",
+        "type": "mermaid"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "This lesson's core takeaway tool builds directly on the five-events diagram above, but reframes it around Scrum's three pillars rather than its calendar structure, useful because it's the pillars, not the event names, that determine whether Scrum is working:",
+          "blockId": "blk_dc493f7567"
+        },
+        {
+          "type": "paragraph",
+          "text": "Use this as your standing diagnostic whenever a Scrum team feels \"off.\" Ask, in order: Is the current state of the work actually transparent, or is someone (often unconsciously) protecting appearances? Is inspection happening with real scrutiny, or is it perfunctory? When inspection reveals a problem, does adaptation actually follow (a re-planned Sprint Backlog, a reordered Product Backlog, a changed process), or does the problem get named and then quietly repeated next Sprint? A team failing any one of these three questions is running Scrum's calendar without Scrum's substance: the exact \"Zombie Scrum\" pattern from Mistake 3 above.",
+          "blockId": "blk_450d67559b"
+        }
+      ],
+      "blockId": "blk_a754f78b90"
+    },
+    {
+      "type": "mermaid",
+      "id": "blk_e66699710e",
+      "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Transparency Honest, Visible State] --> B[Inspection Daily Scrum, Sprint Review]\r\n    B --> C{Is Something Unacceptable?}\r\n    C -->|Yes| D[Adaptation Re-plan, Reorder Backlog]\r\n    C -->|No| E[Continue Toward Sprint Goal]\r\n    D --> A\r\n    E --> A",
+      "normalized": "graph TD\r\n    A[Transparency Honest, Visible State] --> B[Inspection Daily Scrum, Sprint Review]\r\n    B --> C{Is Something Unacceptable?}\r\n    C -->|Yes| D[Adaptation Re-plan, Reorder Backlog]\r\n    C -->|No| E[Continue Toward Sprint Goal]\r\n    D --> A\r\n    E --> A",
+      "authorTheme": {
+        "background": "#0b0b0c",
+        "primaryColor": "#1f1f23",
+        "primaryTextColor": "#ffffff",
+        "primaryBorderColor": "#8b5cf6",
+        "lineColor": "#d1d5db",
+        "secondaryColor": "#18181b",
+        "tertiaryColor": "#111111",
+        "mainBkg": "#1f1f23",
+        "nodeBorder": "#8b5cf6",
+        "clusterBkg": "#000000",
+        "clusterBorder": "#27272a",
+        "titleColor": "#ffffff",
+        "edgeLabelBackground": "#0b0b0c",
+        "nodeTextColor": "#ffffff",
+        "edgeLabelColor": "#ffffff",
+        "actorBorder": "#8b5cf6",
+        "actorBkg": "#1f1f23",
+        "actorTextColor": "#ffffff",
+        "sequenceNumberColor": "#ffffff",
+        "signalColor": "#8b5cf6",
+        "signalTextColor": "#ffffff",
+        "textColor": "#ffffff",
+        "classText": "#ffffff",
+        "classBorder": "#8b5cf6",
+        "classBkg": "#1f1f23"
+      },
+      "svg": "<svg id=\"mermaid-svg-1795020948844-92\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1199.69\" height=\"835\" viewBox=\"-70.625 -27 1199.69 835\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Transparency Honest, Visible State → Inspection Daily Scrum, Sprint Review → Is Something Unacceptable? → Adaptation Re-plan, Reorder Backlog → Continue Toward Sprint Goal\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Transparency Honest, Visible State → Inspection Daily Scrum, Sprint Review → Is Something Unacceptable? → Adaptation Re-plan, Reorder Backlog → Continue Toward Sprint Goal</title><style>#mermaid-svg-1795020948844-92{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020948844-92 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020948844-92 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020948844-92 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020948844-92 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020948844-92 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020948844-92 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020948844-92 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020948844-92 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020948844-92 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020948844-92 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020948844-92 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020948844-92 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020948844-92 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020948844-92 p{margin:0;}#mermaid-svg-1795020948844-92 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020948844-92 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020948844-92 .cluster-label span{color:#171A17;}#mermaid-svg-1795020948844-92 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020948844-92 .label text,#mermaid-svg-1795020948844-92 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020948844-92 .node rect,#mermaid-svg-1795020948844-92 .node circle,#mermaid-svg-1795020948844-92 .node ellipse,#mermaid-svg-1795020948844-92 .node polygon,#mermaid-svg-1795020948844-92 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020948844-92 .rough-node .label text,#mermaid-svg-1795020948844-92 .node .label text,#mermaid-svg-1795020948844-92 .image-shape .label,#mermaid-svg-1795020948844-92 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020948844-92 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020948844-92 .rough-node .label,#mermaid-svg-1795020948844-92 .node .label,#mermaid-svg-1795020948844-92 .image-shape .label,#mermaid-svg-1795020948844-92 .icon-shape .label{text-align:center;}#mermaid-svg-1795020948844-92 .node.clickable{cursor:pointer;}#mermaid-svg-1795020948844-92 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020948844-92 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020948844-92 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020948844-92 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020948844-92 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020948844-92 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020948844-92 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020948844-92 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020948844-92 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020948844-92 .cluster text{fill:#171A17;}#mermaid-svg-1795020948844-92 .cluster span{color:#171A17;}#mermaid-svg-1795020948844-92 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020948844-92 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020948844-92 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020948844-92 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020948844-92 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020948844-92 .icon-shape,#mermaid-svg-1795020948844-92 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020948844-92 .icon-shape p,#mermaid-svg-1795020948844-92 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020948844-92 .icon-shape .label rect,#mermaid-svg-1795020948844-92 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020948844-92 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020948844-92 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020948844-92 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020948844-92 [data-look=\"neo\"].node rect,#mermaid-svg-1795020948844-92 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020948844-92 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020948844-92-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020948844-92 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020948844-92 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020948844-92-gradient);stroke-width:1px;}#mermaid-svg-1795020948844-92 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020948844-92 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020948844-92 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020948844-92-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020948844-92 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020948844-92 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020948844-92-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020948844-92 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020948844-92-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020948844-92 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020948844-92_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020948844-92_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020948844-92_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020948844-92_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020948844-92_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020948844-92_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020948844-92_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020948844-92_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020948844-92_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020948844-92_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020948844-92_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020948844-92_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M489.69,82L455.387,88.917C421.085,95.833,352.48,109.667,318.177,122.833C283.875,136,283.875,148.5,283.875,154.75L283.875,161\" id=\"mermaid-svg-1795020948844-92-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NDg5LjY4OTg4ODUzNTAzMTg2LCJ5Ijo4Mn0seyJ4IjoyODMuODc1LCJ5IjoxMjMuNX0seyJ4IjoyODMuODc1LCJ5IjoxNjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020948844-92_flowchart-v2-pointEnd)\"></path><path d=\"M283.875,239L283.875,245.917C283.875,252.833,283.875,266.667,283.875,279.833C283.875,293,283.875,305.5,283.875,311.75L283.875,318\" id=\"mermaid-svg-1795020948844-92-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6MjgzLjg3NSwieSI6MjM5fSx7IngiOjI4My44NzUsInkiOjI4MC41fSx7IngiOjI4My44NzUsInkiOjMyMn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020948844-92_flowchart-v2-pointEnd)\"></path><path d=\"M283.875,737L283.875,728.583C283.875,720.167,283.875,703.333,296.866,701.531C309.858,699.728,335.841,712.957,348.832,719.571L361.824,726.185\" id=\"mermaid-svg-1795020948844-92-L_C_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_D_0\" data-points=\"W3sieCI6MjgzLjg3NSwieSI6NzM3fSx7IngiOjI4My44NzUsInkiOjY4Ni41fSx7IngiOjM2NS4zODgxMzY5NDI2NzUxNSwieSI6NzI4fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020948844-92_flowchart-v2-pointEnd)\"></path><path d=\"M457.257,563.618L501.579,584.098C545.901,604.578,634.544,645.539,698.95,672.725C763.357,699.911,803.526,713.322,823.611,720.028L843.695,726.733\" id=\"mermaid-svg-1795020948844-92-L_C_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_E_0\" data-points=\"W3sieCI6NDU3LjI1NzQ1NTk2OTY0MDk0LCJ5Ijo1NjMuNjE3NTQ0MDMwMzU5fSx7IngiOjcyMy4xODc1LCJ5Ijo2ODYuNX0seyJ4Ijo4NDcuNDg5MjUxNTkyMzU2NywieSI6NzI4fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020948844-92_flowchart-v2-pointEnd)\"></path><path d=\"M548.886,728L569.603,721.083C590.32,714.167,631.754,700.333,652.471,659.583C673.188,618.833,673.188,551.167,673.188,483.5C673.188,415.833,673.188,348.167,673.188,301.25C673.188,254.333,673.188,228.167,673.188,202C673.188,175.833,673.188,149.667,673.188,130.333C673.188,111,673.188,98.5,673.188,92.25L673.188,86\" id=\"mermaid-svg-1795020948844-92-L_D_A_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_A_0\" data-points=\"W3sieCI6NTQ4Ljg4NTc0ODQwNzY0MzMsInkiOjcyOH0seyJ4Ijo2NzMuMTg3NSwieSI6Njg2LjV9LHsieCI6NjczLjE4NzUsInkiOjQ4My41fSx7IngiOjY3My4xODc1LCJ5IjoyODAuNX0seyJ4Ijo2NzMuMTg3NSwieSI6MjAyfSx7IngiOjY3My4xODc1LCJ5IjoxMjMuNX0seyJ4Ijo2NzMuMTg3NSwieSI6ODJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020948844-92_flowchart-v2-pointEnd)\"></path><path d=\"M970.096,728L972.299,721.083C974.501,714.167,978.907,700.333,981.11,659.583C983.313,618.833,983.313,551.167,983.313,483.5C983.313,415.833,983.313,348.167,983.313,301.25C983.313,254.333,983.313,228.167,983.313,202C983.313,175.833,983.313,149.667,956.634,129.83C929.955,109.994,876.597,96.488,849.918,89.735L823.239,82.982\" id=\"mermaid-svg-1795020948844-92-L_E_A_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_E_A_0\" data-points=\"W3sieCI6OTcwLjA5NTkzOTQ5MDQ0NTksInkiOjcyOH0seyJ4Ijo5ODMuMzEyNSwieSI6Njg2LjV9LHsieCI6OTgzLjMxMjUsInkiOjQ4My41fSx7IngiOjk4My4zMTI1LCJ5IjoyODAuNX0seyJ4Ijo5ODMuMzEyNSwieSI6MjAyfSx7IngiOjk4My4zMTI1LCJ5IjoxMjMuNX0seyJ4Ijo4MTkuMzYxMDY2ODc4OTgwOSwieSI6ODJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020948844-92_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(283.875, 686.5)\"><g class=\"label\" data-id=\"L_C_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Yes</p></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(649.70252, 652.54365)\"><g class=\"label\" data-id=\"L_C_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>No</p></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_D_A_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_E_A_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020948844-92-flowchart-A-0\" data-look=\"classic\" transform=\"translate(673.1875, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-192.5\" y=\"-35\" width=\"385\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-160.5, -19)\"><rect></rect><foreignObject width=\"321\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Transparency Honest, Visible State</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020948844-92-flowchart-B-1\" data-look=\"classic\" transform=\"translate(283.875, 202)\"><rect class=\"basic label-container\" style=\"\" x=\"-205.25\" y=\"-35\" width=\"410.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-173.25, -19)\"><rect></rect><foreignObject width=\"346.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Inspection Daily Scrum, Sprint Review</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020948844-92-flowchart-C-3\" data-look=\"classic\" transform=\"translate(283.875, 483.5)\"><polygon points=\"161.5,0 323,-161.5 161.5,-323 0,-161.5\" class=\"label-container\" transform=\"translate(-161, 161.5)\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-126.5, -19)\"><rect></rect><foreignObject width=\"253\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Is Something Unacceptable?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020948844-92-flowchart-D-5\" data-look=\"classic\" transform=\"translate(438.0625, 765)\"><rect class=\"basic label-container\" style=\"\" x=\"-196.75\" y=\"-35\" width=\"393.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-164.75, -19)\"><rect></rect><foreignObject width=\"329.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Adaptation Re-plan, Reorder Backlog</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020948844-92-flowchart-E-7\" data-look=\"classic\" transform=\"translate(958.3125, 765)\"><rect class=\"basic label-container\" style=\"\" x=\"-162.75\" y=\"-35\" width=\"325.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-130.75, -19)\"><rect></rect><foreignObject width=\"261.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Continue Toward Sprint Goal</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020948844-92-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020948844-92-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020948844-92-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+      "blockId": "blk_e66699710e"
+    },
+    {
+      "type": "companyExample",
+      "company": "Salesforce",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "**Salesforce**'s V2MOM (Vision, Values, Methods, Obstacles, Measures) is a directly sourceable example, not secondhand reporting: CEO Marc Benioff developed it personally in Salesforce's early days and has written about it in both his book *Behind the Cloud* and directly on Salesforce's own company blog, describing it as the process that lets the company \"scale the process of setting priorities for tens or hundreds of thousands of employees\" while keeping everyone's work traceably connected to a shared strategic direction.",
+          "blockId": "blk_9543fc311a"
+        },
+        {
+          "type": "paragraph",
+          "text": "The pairing illustrates a useful structural point: V2MOM-style strategic goal-setting and Scrum-style sprint execution are meant to operate at different altitudes and reinforce each other. V2MOM (or an equivalent strategic framework) answers longer-horizon questions about direction; Scrum's Sprint Goals should, in a healthy team, be visibly traceable back to that longer-horizon direction, rather than existing as disconnected two-week objectives.",
+          "blockId": "blk_138cf31243"
+        },
+        {
+          "type": "paragraph",
+          "text": "*(Source: Marc Benioff's own book *Behind the Cloud* and Salesforce's official company blog. The V2MOM-Scrum pairing itself (how the two are meant to interact day to day) reflects this curriculum's structural argument rather than a specific claim about Salesforce's current internal Agile tooling, which this curriculum does not claim certainty about.)*",
+          "blockId": "blk_778072d55b"
+        }
+      ],
+      "blockId": "blk_a844958b2c"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "At a startup",
+          "body": "Scrum, if used at all, is often adopted in a lightweight, partial form: a Sprint Goal and a rough weekly check-in, without necessarily running all five named events formally. This is often appropriate: with five people in one room, transparency and inspection can happen constantly and informally, without needing a scheduled Daily Scrum to manufacture them. The risk here is different from Zombie Scrum: it's under-formalization to the point that adaptation happens on gut feel rather than any structured backlog reordering, which can work at small scale but breaks down as headcount grows."
+        },
+        {
+          "context": "At a mid-size company",
+          "body": "Scrum is typically formalized with all five events running on a fixed cadence, often across multiple teams that need to stay loosely coordinated. This is precisely the stage where Zombie Scrum risk peaks: enough process exists to create the appearance of rigor, but the organization hasn't yet built the muscle (or psychological safety) for genuinely honest transparency and hard-hitting inspection."
+        },
+        {
+          "context": "At Big Tech",
+          "body": "Scrum is frequently one of several coexisting frameworks (some teams may run Scrum, others Kanban, covered in Lesson 33, depending on the nature of their work), often supported by dedicated Agile coaches and standardized tooling. The PM's job shifts toward ensuring their team's Sprint Goals visibly ladder up to broader organizational objectives across many parallel teams, and toward protecting genuine inspection and adaptation at a scale where it's easy for ceremonies to become perfunctory simply because so many teams are running them simultaneously."
+        }
+      ],
+      "blockId": "blk_1956c753ca"
+    },
+    {
+      "type": "caseStudy",
+      "title": "The Retrospective That Never Changed Anything",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Consider a simplified, illustrative scenario common at mid-size product organizations several quarters into Scrum adoption.",
+          "blockId": "blk_6c59fc13d5"
+        },
+        {
+          "type": "paragraph",
+          "text": "A nine-person Scrum team has run two-week Sprints for over a year. Every Sprint includes all five events, performed diligently and on schedule. At every Sprint Retrospective, the same two issues surface: (1) the team is frequently blocked waiting on a shared design resource who splits time across three teams, and (2) the Definition of Done is inconsistently applied: some Increments demoed at Sprint Review turn out to need additional QA work the following Sprint. Both issues have appeared in roughly eight consecutive retrospectives. Each time, the team writes an action item (\"follow up with design lead about capacity,\" \"clarify Definition of Done\"), and each time, the next retrospective reveals the same two problems, unresolved.",
+          "blockId": "blk_c5c75e18d7"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong?**",
+          "blockId": "blk_b9e1ebfe24"
+        },
+        {
+          "type": "paragraph",
+          "text": "By the letter of the Scrum Guide, this team is doing everything correctly: five events, on schedule, with retrospective action items dutifully recorded. But applying this lesson's Mental Model, the failure is visible immediately: **inspection** is functioning (the same two problems keep surfacing, meaning the team is honestly noticing them), but **adaptation** is not (nothing about the design-resource constraint or the Definition of Done actually changes between retrospectives). Recording an action item is not the same as executing an adaptation, and a team that mistakes the former for the latter will experience Scrum as an elaborate mechanism for documenting the same unsolved problems indefinitely.",
+          "blockId": "blk_2f6335ca70"
+        },
+        {
+          "type": "paragraph",
+          "text": "The design-resource issue, notably, is not solvable by the team's Scrum Master alone, because it's a cross-team resourcing constraint: it requires the Product Owner to escalate it as a structural blocker to the broader organization, rather than treating it as an internal process problem the team can fix through willpower. The Definition of Done issue, by contrast, is entirely within the team's control and should have been resolved after its first appearance. This distinction (which problems a team can adapt to on its own versus which require the PM/PO to escalate outward) will be addressed directly in **Lesson 37 (Working with Engineering Teams)**, and the specific mechanics of writing a Definition of Done that actually prevents this kind of QA surprise will be covered in **Lesson 34 (Sprint Planning & Backlog Grooming)**.",
+          "blockId": "blk_7f9a116f4d"
+        }
+      ],
+      "blockId": "blk_1c57c55509"
+    },
+    {
+      "type": "framework",
+      "name": "The Scrum Health Diagnostic",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A second, more tactical tool: use this table to audit whether a specific Scrum team is operating on genuine empiricism or Zombie Scrum, checking each pillar against a concrete, observable signal.",
+          "blockId": "blk_c496e291cd"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Pillar",
+            "Healthy Signal",
+            "Warning Sign"
+          ],
+          "rows": [
+            [
+              "Transparency",
+              "Blockers and risks are raised as soon as they're known, even when uncomfortable",
+              "Status is reported as \"on track\" until it suddenly isn't"
+            ],
+            [
+              "Inspection (Daily Scrum)",
+              "Developers actively re-plan the next day based on new information",
+              "The meeting is a recitation of yesterday's tasks with no real re-planning"
+            ],
+            [
+              "Inspection (Sprint Review)",
+              "Stakeholders' reactions visibly change the Product Backlog's order afterward",
+              "The Review is a one-way demo with no backlog changes following it"
+            ],
+            [
+              "Adaptation (Retrospective)",
+              "Action items from the previous retrospective are visibly resolved before new ones are added",
+              "The same 2 or 3 issues recur across multiple consecutive retrospectives"
+            ],
+            [
+              "Sprint Goal coherence",
+              "Every item in the Sprint Backlog can be explained in terms of the Sprint Goal",
+              "The Sprint Backlog is a list of tickets with no shared \"why\" connecting them"
+            ]
+          ],
+          "blockId": "blk_3e87431864"
+        },
+        {
+          "type": "paragraph",
+          "text": "This diagnostic pairs directly with the Agile Fit Checklist from Lesson 31: that checklist audits Agile values generically; this one applies the same audit specifically to Scrum's named pillars and events.",
+          "blockId": "blk_9cc1501872"
+        }
+      ],
+      "blockId": "blk_b4a0a400b5"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "Walk me through how you'd run a Sprint Retrospective.",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate understands that a retrospective's purpose is adaptation, not merely inspection: a weak answer describes generating a list of complaints; a strong answer describes ensuring previous action items were actually resolved before adding new ones, directly reflecting this lesson's Case Study."
+        },
+        {
+          "question": "What's the difference between a Product Owner and a Scrum Master?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Basic role fluency, and whether the candidate understands that these are genuinely distinct accountabilities (value/backlog vs. process/facilitation) rather than interchangeable titles for \"the person who runs the sprint.\""
+        },
+        {
+          "question": "Tell me about a Scrum team you've worked with that wasn't functioning well. What was actually wrong?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate can diagnose process dysfunction at the level of the three pillars (transparency, inspection, adaptation) rather than superficially (\"we didn't have enough meetings\" or \"our tickets weren't estimated well\"). A strong answer names which specific pillar was breaking down and why, echoing this lesson's Mental Model and Framework Explanation."
+        }
+      ],
+      "blockId": "blk_3a404a3078"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Scrum is the most widely adopted concrete framework built on top of Lesson 31's Iteration Loop, structured around three pillars of empiricism (transparency, inspection, and adaptation) expressed through three roles (Product Owner, Scrum Master, Developers), three artifacts with their associated commitments (Product Backlog/Product Goal, Sprint Backlog/Sprint Goal, Increment/Definition of Done), and five events (Sprint, Sprint Planning, Daily Scrum, Sprint Review, Sprint Retrospective). The Product Owner role maps directly onto this curriculum's definition of the PM from Lesson 1: accountable for maximizing value through backlog ordering, not for status tracking or ceremony facilitation. The single most important diagnostic skill this lesson teaches is recognizing \"Zombie Scrum\": a team running all five events faithfully while transparency is thin, inspection is shallow, or adaptation never actually follows from what inspection reveals, as illustrated in this lesson's Case Study of a retrospective that recorded the same unresolved issues for eight consecutive Sprints. A functioning Scrum team is not defined by whether it holds the right meetings; it is defined by whether those meetings produce genuine, visible change.",
+          "blockId": "blk_89aeecd7fa"
+        }
+      ],
+      "blockId": "blk_f5e958bd5c"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "Scrum is a lightweight framework built on three pillars of empiricism: transparency, inspection, and adaptation, a specific, named implementation of Lesson 31's generic Iteration Loop.",
+        "The three roles (Product Owner, Scrum Master, Developers) carry genuinely distinct accountabilities; the Product Owner role maps onto this curriculum's definition of the PM from Lesson 1.",
+        "The three artifacts (Product Backlog, Sprint Backlog, Increment) each have an associated commitment (Product Goal, Sprint Goal, Definition of Done) that gives the artifact coherence and purpose.",
+        "A Sprint Backlog without a real Sprint Goal degrades into an arbitrary ticket list, making mid-sprint trade-offs unanswerable.",
+        "\"Zombie Scrum\" (running all five events on schedule without genuine empirical value) is Scrum's specific version of Lesson 31's \"doing Agile without being Agile.\"",
+        "The Daily Scrum belongs to the Developers for their own re-planning, not to the PM as a personal status briefing.",
+        "Recording a retrospective action item is not the same as executing an adaptation; a healthy team resolves previous action items before adding new ones."
+      ],
+      "blockId": "blk_14e6d13900"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "**Three pillars:** Transparency, Inspection, Adaptation (empiricism).",
+        "**Three roles:** Product Owner (value/backlog), Scrum Master (process), Developers (building the Increment).",
+        "**Three artifacts + commitments:** Product Backlog/Product Goal, Sprint Backlog/Sprint Goal, Increment/Definition of Done.",
+        "**Five events:** Sprint, Sprint Planning, Daily Scrum, Sprint Review, Sprint Retrospective.",
+        "**Zombie Scrum test:** are the pillars actually functioning, or are the events just happening on schedule?",
+        "**Daily Scrum:** belongs to Developers, not a status meeting for the PM.",
+        "**Retrospective test:** were last Sprint's action items actually resolved, not just repeated?"
+      ],
+      "blockId": "blk_186b136d46"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "Scrum",
+          "definition": "A lightweight Agile framework built on empiricism, with three roles, three artifacts, and five events",
+          "relatedConcepts": [
+            "Empiricism",
+            "Iteration Loop"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "Empiricism",
+          "definition": "Scrum's foundational principle: knowledge comes from experience and decisions are based on what is observed (transparency, inspection, adaptation)",
+          "relatedConcepts": [
+            "Transparency",
+            "Inspection",
+            "Adaptation"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Product Owner",
+          "definition": "The Scrum role accountable for maximizing product value through Product Backlog ownership and ordering",
+          "relatedConcepts": [
+            "Product Manager",
+            "Product Backlog"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "Sprint Goal",
+          "definition": "The single coherent objective a Sprint exists to achieve, giving the Sprint Backlog's items a shared \"why\"",
+          "relatedConcepts": [
+            "Sprint Backlog"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Definition of Done",
+          "definition": "A shared, explicit quality standard every Increment must meet before being considered complete",
+          "relatedConcepts": [
+            "Increment"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Zombie Scrum",
+          "definition": "A team running all five Scrum events on schedule without genuine transparency, inspection, or adaptation",
+          "relatedConcepts": [
+            "Doing Agile vs. Being Agile (Lesson 31)"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Sprint Retrospective",
+          "definition": "The event where the team inspects its own process and plans adaptations before the next Sprint",
+          "relatedConcepts": [
+            "Adaptation"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "Daily Scrum",
+          "definition": "A short daily event for Developers to inspect progress toward the Sprint Goal and re-plan the next 24 hours",
+          "relatedConcepts": [
+            "Inspection"
+          ],
+          "difficulty": 1
+        }
+      ],
+      "blockId": "blk_2ece75b4de"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "*The Scrum Guide* by Ken Schwaber and Jeff Sutherland",
+          "note": "the original, continually maintained source defining Scrum's roles, events, and artifacts."
+        },
+        {
+          "citation": "*Scrum: The Art of Doing Twice the Work in Half the Time* by Jeff Sutherland",
+          "note": "a practitioner account of Scrum's origins and its emphasis on empirical process control."
+        },
+        {
+          "citation": "*Essential Scrum: A Practical Guide to the Most Popular Agile Process* by Kenneth Rubin",
+          "note": "a detailed, practitioner-oriented treatment of Scrum roles, artifacts, and common implementation pitfalls."
+        }
+      ],
+      "blockId": "blk_0c1a4164eb"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_xtr1yz",
+      "cards": [
+        {
+          "id": "fc-les_xtr1yz-1",
+          "front": "What are Scrum's three pillars of empiricism?",
+          "back": "Transparency, Inspection, and Adaptation.",
+          "difficulty": 1,
+          "tags": [
+            "pillars",
+            "empiricism"
+          ]
+        },
+        {
+          "id": "fc-les_xtr1yz-2",
+          "front": "What are Scrum's three roles?",
+          "back": "Product Owner, Scrum Master, and Developers.",
+          "difficulty": 1,
+          "tags": [
+            "roles"
+          ]
+        },
+        {
+          "id": "fc-les_xtr1yz-3",
+          "front": "Match each Scrum artifact to its associated commitment.",
+          "back": "Product Backlog → Product Goal; Sprint Backlog → Sprint Goal; Increment → Definition of Done.",
+          "difficulty": 2,
+          "tags": [
+            "artifacts",
+            "commitments"
+          ]
+        },
+        {
+          "id": "fc-les_xtr1yz-4",
+          "front": "What is \"Zombie Scrum\"?",
+          "back": "A team that runs all five Scrum events on schedule without genuine transparency, inspection, or adaptation: the Scrum-specific version of \"doing Agile without being Agile.\"",
+          "difficulty": 2,
+          "tags": [
+            "diagnosis",
+            "zombie-scrum"
+          ]
+        },
+        {
+          "id": "fc-les_xtr1yz-5",
+          "front": "Who does the Daily Scrum belong to, and what is it for?",
+          "back": "It belongs to the Developers, for their own re-planning of the next 24 hours toward the Sprint Goal, not a status briefing for the PM.",
+          "difficulty": 2,
+          "tags": [
+            "daily-scrum",
+            "roles"
+          ]
+        },
+        {
+          "id": "fc-les_xtr1yz-6",
+          "front": "What distinguishes a healthy Sprint Retrospective from an unhealthy one, per this lesson's Case Study?",
+          "back": "A healthy one resolves previous action items before adding new ones; an unhealthy one records the same unresolved issues repeatedly across consecutive Sprints.",
+          "difficulty": 2,
+          "tags": [
+            "retrospective",
+            "adaptation"
+          ]
+        },
+        {
+          "id": "fc-les_xtr1yz-7",
+          "front": "Why is a Sprint Backlog without a real Sprint Goal a problem?",
+          "back": "It becomes an arbitrary list of tickets with no shared objective, making mid-sprint trade-off decisions (what to drop or add) unanswerable.",
+          "difficulty": 2,
+          "tags": [
+            "sprint-goal"
+          ]
+        }
+      ],
+      "blockId": "blk_83e222658b"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "Consider the following novel scenario: You've become the Product Owner for a seven-person Scrum team midway through a project. The team's Sprint Reviews are well-attended by stakeholders, who ask sharp questions and give detailed feedback on the demoed Increment. However, you notice that the Product Backlog's top ten items have not changed in order for the last five Sprints, regardless of what stakeholders said in each Review.",
+        "There is no single correct answer to the prompts below: the goal is to practice diagnosing Scrum health using this lesson's Mental Model and Framework Explanation, not to reach one \"right\" fix.",
+        "Using the Empirical Loop mental model, which specific pillar appears to be functioning, and which appears to be breaking down?",
+        "Is this pattern more likely a transparency problem, an inspection problem, or an adaptation problem? Justify your answer using evidence from the scenario.",
+        "What questions would you ask the team (or yourself, as PO) to understand why stakeholder feedback isn't reaching the backlog's actual ordering?",
+        "Could this be a sign that the Sprint Review has become a one-way demo rather than a two-way inspection, as described in Common Beginner Mistake #4? What evidence would confirm or rule that out?",
+        "As the incoming Product Owner, what is the first concrete change you would make, and how would you know within one or two Sprints whether it worked?"
+      ],
+      "blockId": "blk_26f2a13022"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_xtr1yz",
+      "questions": [
+        {
+          "id": "q-les_xtr1yz-1",
+          "question": "What are Scrum's three pillars of empiricism?",
+          "options": [
+            "Speed, Quality, Cost",
+            "Backlog, Sprint, Increment",
+            "Transparency, Inspection, Adaptation",
+            "Planning, Estimation, Reporting"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The Theory section names transparency, inspection, and adaptation as Scrum's three pillars of empiricism.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_xtr1yz-2",
+          "question": "Which Scrum event most directly generates the \"feedback\" step of Lesson 31's Iteration Loop?",
+          "options": [
+            "Sprint Review",
+            "Daily Scrum",
+            "Sprint Planning",
+            "None of the events tie back to the Iteration Loop"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The Sprint Review is where the team and stakeholders inspect the Increment together and adapt the Product Backlog, ties directly to the Iteration Loop's feedback step.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_xtr1yz-3",
+          "question": "Which artifact is paired with the Definition of Done?",
+          "options": [
+            "Sprint Backlog",
+            "Sprint Goal",
+            "Product Backlog",
+            "Increment"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The artifacts table pairs the Increment with the Definition of Done as its associated commitment.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_xtr1yz-4",
+          "question": "Why does the lesson caution against conflating a Sprint Backlog with a Sprint Goal?",
+          "options": [
+            "Sprint Goals are described as fully optional in Scrum",
+            "Without a Sprint Goal, trade-offs have no shared \"why\"",
+            "A Sprint Backlog is always shorter than a Sprint Goal",
+            "Only the Scrum Master may set a team's Sprint Goal"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Without a real Sprint Goal there's no shared \"why\" to weigh a dropped or added item against, making mid-sprint trade-offs unanswerable.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_xtr1yz-5",
+          "question": "A team runs all five Scrum events every Sprint, but retrospective action items are never resolved and Sprint Reviews never change the Product Backlog's order. What does this lesson call this pattern?",
+          "options": [
+            "A healthy, well-functioning Scrum team",
+            "Waterfall running in disguise",
+            "Zombie Scrum",
+            "Kanban applied to a Scrum board"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Zombie Scrum is exactly this pattern: events running on schedule without genuine transparency, inspection, or adaptation.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_xtr1yz-6",
+          "question": "Who does the Daily Scrum primarily belong to, according to this lesson?",
+          "options": [
+            "The Developers, for their own re-planning toward the Sprint Goal",
+            "The Product Owner, for collecting individual status updates",
+            "Stakeholders outside the team",
+            "The Scrum Master, as a personal check-in tool"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The Daily Scrum belongs to the Developers for their own re-planning of the next 24 hours, not as a status briefing for the PM.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_xtr1yz-7",
+          "question": "What is the Product Owner's primary accountability, according to this lesson?",
+          "options": [
+            "Facilitating all five Scrum events for the team",
+            "Tracking and maintaining the team's velocity chart",
+            "Writing the code behind each Sprint's Increment",
+            "Maximizing product value by owning the Product Backlog"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The roles table defines the Product Owner's accountability as maximizing product value through Product Backlog ownership and ordering.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_xtr1yz-8",
+          "question": "Which role is accountable for establishing Scrum as defined in the Scrum Guide and removing impediments to the team's progress?",
+          "options": [
+            "Product Owner",
+            "Scrum Master",
+            "Developers",
+            "Executive sponsor"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The roles table assigns this accountability specifically to the Scrum Master.",
+          "objectivesTested": [
+            2,
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_xtr1yz-9",
+          "question": "In the Case Study, why couldn't the team resolve the design-resource blocker on its own, unlike the Definition of Done issue?",
+          "options": [
+            "The Scrum Master had explicitly refused to get involved",
+            "The team wasn't holding enough retrospectives to surface it",
+            "It was a cross-team resourcing issue needing PO escalation",
+            "The blocker, on closer inspection, turned out not to be real"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The Case Study distinguishes the cross-team resourcing issue, which required PO escalation, from the Definition of Done issue, which was entirely within the team's control.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_xtr1yz-10",
+          "question": "A Sprint Review is well-attended, but afterward the Product Backlog's order never changes based on what stakeholders said. Using the Scrum Health Diagnostic, which signal is this team most clearly failing?",
+          "options": [
+            "Sprint Review inspection",
+            "Sprint Goal coherence",
+            "Daily Scrum inspection",
+            "Transparency"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The healthy signal for Sprint Review inspection is stakeholder reactions visibly changing the Product Backlog's order; a one-way demo with no resulting change is the named warning sign.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_xtr1yz-11",
+          "question": "Why does the lesson describe recording a retrospective action item as insufficient on its own?",
+          "options": [
+            "Only the Scrum Master may write down an action item",
+            "Action items aren't a recognized part of the Scrum Guide",
+            "Retrospectives should never surface any real problems",
+            "Recording an item isn't the same as executing an adaptation"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The Case Study team recorded action items every retrospective, but the same two problems persisted because adaptation, not just recording, never actually followed.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_xtr1yz-12",
+          "question": "A new PM insists on running the Daily Scrum as a personal status briefing, asking each Developer to report to them individually. According to this lesson, what is the likely effect?",
+          "options": [
+            "It improves transparency by centralizing information",
+            "It turns a peer ritual into a slower, guarded briefing",
+            "It has no meaningful effect on the team at all",
+            "It follows the Scrum Guide's intended purpose exactly"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The \"Daily Scrum Is Not a Status Meeting for the PM\" subsection describes exactly this effect: the meeting becomes slower, more guarded, and less useful.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_xtr1yz-13",
+          "question": "(Product Thinking) A Product Owner spends most of their time each Sprint updating a burndown chart and tracking ticket status, with the Product Backlog left unrefined for weeks. Using this lesson's frameworks, what is the most likely underlying problem?",
+          "options": [
+            "The PO is correctly performing the role's core duties",
+            "The team simply needs a Scrum Master alongside its PO",
+            "The PO has drifted into project-coordination work instead",
+            "This means the team should abandon Scrum for Kanban"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The PO's defining accountability is backlog ownership and value maximization, not status tracking. Spending most effort on the latter is the role-confusion this lesson warns against.",
+          "objectivesTested": [
+            2,
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_xtr1yz-14",
+          "question": "(Interview Reasoning) A candidate describes a dysfunctional Scrum team and answers: \"We just didn't have enough meetings, more standups would have fixed it.\" What does this signal, per the Interview Perspective section?",
+          "options": [
+            "A superficial diagnosis that doesn't identify which of the three pillars was actually breaking down",
+            "A sophisticated, well-reasoned diagnosis of the team's underlying process",
+            "That the candidate should have proposed switching to Kanban instead",
+            "Correct reasoning, since additional meetings reliably improve any Scrum team"
+          ],
+          "correctAnswer": 0,
+          "explanation": "A strong answer names which specific pillar (transparency, inspection, or adaptation) was breaking down; \"not enough meetings\" fails to diagnose at that level.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_xtr1yz-15",
+          "question": "(Product Thinking, Highest Difficulty) A Scrum team's Sprint Reviews consistently surface strong stakeholder interest in a specific unplanned feature, and the team's retrospectives consistently surface the same recurring blocker involving a shared resource from another team. How should the Product Owner most appropriately respond to these two different signals?",
+          "options": [
+            "Treat both signals identically, since both surfaced formally",
+            "Ignore both, since Sprint commitments shouldn't ever change",
+            "Ask the Scrum Master to handle both types of issue",
+            "Reorder the backlog on the review feedback; escalate the blocker"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Sprint Review feedback about product direction falls within the PO's backlog-ownership authority, while a cross-team structural blocker recurring across retrospectives requires PO escalation, since the team can't solve it alone.",
+          "objectivesTested": [
+            1,
+            4,
+            5
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_b9f88e6730"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_091713",
+        "title": "Lesson 31: Agile Fundamentals",
+        "module": "execution"
+      },
+      "current": {
+        "id": "les_xtr1yz",
+        "title": "Lesson 32: Scrum Framework"
+      },
+      "next": {
+        "id": "les_kqyucz",
+        "title": "Lesson 33: Kanban Framework",
+        "module": "execution"
+      },
+      "unlocks": [
+        {
+          "lesson": {
+            "id": "les_vlut0b",
+            "title": "Sprint Planning & Backlog Grooming",
+            "module": "execution"
+          },
+          "coreIdea": "Goes deep on Sprint Planning and resolves the Definition of Done ambiguity raised in this lesson's Case Study"
+        }
+      ],
+      "blockId": "blk_1987e08d34"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 32: Scrum Framework Lesson 31 established the philosophy underneath all Agile practice: short feedback loops beat long up-front plans, and the real test of an Agile team is whether it genuinely *responds* to what each iteration reveals, not merely whether it runs the right-named meetings on schedule. That lesson deliberately stayed at the level of values and mental models, because before learning any specific framework, you need to be able to judge whether that framework is being used well or used as theater. This lesson introduces the framework most teams mean when they say \"we're Agile\": **Scrum**. Scrum is the single most widely adopted concrete implementation of the Iteration Loop from Lesson 31, and it is also the framework most frequently reduced to empty ceremony, precisely because its events (sprint planning, daily standup, review, retrospective) are so easy to schedule and so easy to run without ever engaging the underlying empiricism they exist to produce. If Lesson 31 gave you the values test, this lesson gives you the specific vocabulary, roles, and mechanics you'll actually work inside for most of your PM career, and the specific failure patterns to watch for, since Scrum done badly is often *worse* than no process at all, because it creates a false sense that rigor is already present. Name and explain Scrum's three pillars of empiricism (transparency, inspection, adaptation) and connect each to a specific Scrum event or artifact. List Scrum's three roles, three artifacts (plus their associated commitments), and five events, and state the purpose of each in one sentence. Explain the difference between a Sprint Goal and a sprint backlog, and why conflating the two undermines a sprint's coherence. Diagnose \"Zombie Scrum\" (a team running all Scrum events without empirical value) using the Agile Fit Checklist from Lesson 31. Explain the specific responsibilities of the Product Owner role, and distinguish them from the responsibilities of the Scrum Master and the Developers. This lesson builds directly on **Lesson 31 (Agile Fundamentals)**, which assumed no prior framework knowledge and established the Iteration Loop and the Agile Fit Checklist as generic diagnostic tools. This lesson assumes you can already distinguish \"doing Agile\" from \"being Agile,\" because Scrum is the framework in which that distinction is tested most often: its five events map so cleanly onto a calendar that a team can run every one of them for years without ever practicing genuine empiricism. If that distinction from Lesson 31 feels shaky, revisit it before continuing, since much of this lesson's Common Beginner Mistakes and Case Study sections depend on it. Origins and the Empirical Foundation Scrum was formalized in the early 1990s by Ken Schwaber and Jeff Sutherland and later codified in the **Scrum Guide**, which both authors have continued to maintain and periodically revise. Scrum describes itself not as a full methodology but as a lightweight **framework**: a minimal set of roles, events, and artifacts within which teams solve complex problems, with the actual work of planning and execution left to the team itself. Scrum rests on three pillars, collectively called **empiricism**: **Transparency**: the state of the work and the process must be visible and understood by everyone involved, using a shared, honest vocabulary. A \"90% done\" status that hides an unresolved technical risk violates transparency. **Inspection**: progress toward a goal must be examined frequently enough to detect problems before they compound. Scrum's events exist largely to create scheduled, structured moments of inspection. **Adaptation**: when inspection reveals that an aspect of the work is unacceptable, or that the resulting product will be unacceptable, adjustments must be made promptly. Notice the direct lineage from Lesson 31: transparency and inspection generate the \"Feedback\" step of the Iteration Loop, and adaptation is precisely the \"informs next batch\" step. Scrum is, in this sense, a specific, named implementation of Lesson 31's generic Iteration Loop, with a fixed cadence (the Sprint) and a specific set of scheduled moments where inspection and adaptation are supposed to happen. The Three Roles Notice that \"Product Owner\" is a Scrum-specific title for a responsibility this curriculum has been describing since Lesson 1 under the broader term \"Product Manager.\" In many organizations the titles are used interchangeably; in some larger organizations, a single PM may oversee multiple Product Owners embedded in different Scrum teams, or the PM and PO responsibilities may be split across two people. Either way, the accountability described here (owning and ordering the backlog toward maximum value) is precisely the \"problem-solution-value fit\" accountability from Lesson 1, expressed inside Scrum's specific vocabulary. The Three Artifacts and Their Commitments The commitments matter as much as the artifacts themselves, and are frequently the part new PMs skip. Without a Sprint Goal, a Sprint Backlog degrades into an arbitrary list of tickets with no coherent story connecting them, which makes mid-sprint trade-off decisions (should we drop item C if item A takes longer than expected?) essentially unanswerable, because there's no shared objective to weigh them against. The Five Events **The Sprint**: a fixed-length container (commonly one to four weeks) for all other events; a new Sprint starts immediately after the previous one ends, with no gap. **Sprint Planning**: the team selects Sprint Backlog items and forms a Sprint Goal, answering \"why is this Sprint valuable?\" and \"what can be done this Sprint?\" **Daily Scrum**: a short, daily inspection of progress toward the Sprint Goal, used to adapt the plan for the next 24 hours, not a status report to the PM, a distinction covered further below. **Sprint Review**: the team and stakeholders inspect the Increment together and adapt the Product Backlog based on what was learned; this is the event most directly tied to Lesson 31's Iteration Loop feedback step. **Sprint Retrospective**: the team inspects its own process and interpersonal effectiveness, and plans adaptations to how it works, closing the loop before the next Sprint Planning begins. The Daily Scrum Is Not a Status Meeting for the PM A specific, frequent PM mistake deserves its own subsection because it recurs so often: treating the Daily Scrum as an opportunity to receive individual status updates (\"what did you do yesterday, what will you do today, any blockers\"), directed at and primarily for the PM's benefit. The Scrum Guide frames the Daily Scrum as belonging to the Developers, for the Developers' own re-planning of the next day's work toward the Sprint Goal. A PM who dominates this event, or attends expecting a personal briefing, subtly converts a peer-coordination ritual into a supervisory one, which tends to make the meeting slower, more guarded, and less genuinely useful for the people actually doing the work. Treating the Product Owner role as a project-manager-style status tracker The Product Owner's job is maximizing product value through backlog ordering: a strategic, prioritization-heavy accountability, not a scheduling or status-reporting one. A PO who spends most of their time updating a burndown chart, rather than refining and reordering the backlog based on evidence, has drifted into exactly the role confusion Lesson 1 and Lesson 31 both warned against. Confusing a Sprint Backlog with a Sprint Goal A list of ten tickets is not a Sprint Goal. A Sprint Goal is a single coherent objective (\"reduce onboarding drop-off for new mobile users\") that the ten tickets exist to serve. Teams that skip forming a real Sprint Goal lose their ability to make sound mid-sprint trade-offs, because there's no shared \"why\" to weigh a dropped or added item against. Running all five events without empirical value: \"Zombie Scrum. This is Scrum's version of Lesson 31's \"doing Agile without being Agile.\" A team can hold Sprint Planning, Daily Scrums, a Sprint Review, and a Retrospective every single Sprint, on schedule, while transparency is thin (status is fudged), inspection is shallow (no one asks hard questions), and adaptation never actually happens (the same retrospective action items recur unaddressed). The calendar shows a functioning Scrum team; the outcomes show otherwise. Treating the Sprint Review as a one-way demo rather than a two-way inspection The Sprint Review exists to inspect the Increment *with stakeholders* and adapt the Product Backlog based on what's learned: it is a feedback-gathering event, not a presentation. A team that treats it purely as \"showing off what we built,\" without genuinely updating backlog priorities based on stakeholder reaction, has converted an inspection event into a status broadcast. Skipping or trivializing the Definition of Done Without an explicit, shared Definition of Done, \"done\" silently means different things to different people: an engineer may consider a ticket done once code is merged, while a PM may consider it done once it's live for all users. This ambiguity routinely surfaces as a painful surprise during the Sprint Review, when stakeholders discover that \"done\" items aren't actually usable yet. The Empirical Loop of a Sprint This lesson's core takeaway tool builds directly on the five-events diagram above, but reframes it around Scrum's three pillars rather than its calendar structure, useful because it's the pillars, not the event names, that determine whether Scrum is working: Use this as your standing diagnostic whenever a Scrum team feels \"off.\" Ask, in order: Is the current state of the work actually transparent, or is someone (often unconsciously) protecting appearances? Is inspection happening with real scrutiny, or is it perfunctory? When inspection reveals a problem, does adaptation actually follow (a re-planned Sprint Backlog, a reordered Product Backlog, a changed process), or does the problem get named and then quietly repeated next Sprint? A team failing any one of these three questions is running Scrum's calendar without Scrum's substance: the exact \"Zombie Scrum\" pattern from Mistake 3 above. Salesforce **Salesforce**'s V2MOM (Vision, Values, Methods, Obstacles, Measures) is a directly sourceable example, not secondhand reporting: CEO Marc Benioff developed it personally in Salesforce's early days and has written about it in both his book *Behind the Cloud* and directly on Salesforce's own company blog, describing it as the process that lets the company \"scale the process of setting priorities for tens or hundreds of thousands of employees\" while keeping everyone's work traceably connected to a shared strategic direction. The pairing illustrates a useful structural point: V2MOM-style strategic goal-setting and Scrum-style sprint execution are meant to operate at different altitudes and reinforce each other. V2MOM (or an equivalent strategic framework) answers longer-horizon questions about direction; Scrum's Sprint Goals should, in a healthy team, be visibly traceable back to that longer-horizon direction, rather than existing as disconnected two-week objectives. *(Source: Marc Benioff's own book *Behind the Cloud* and Salesforce's official company blog. The V2MOM-Scrum pairing itself (how the two are meant to interact day to day) reflects this curriculum's structural argument rather than a specific claim about Salesforce's current internal Agile tooling, which this curriculum does not claim certainty about.)* At a startup Scrum, if used at all, is often adopted in a lightweight, partial form: a Sprint Goal and a rough weekly check-in, without necessarily running all five named events formally. This is often appropriate: with five people in one room, transparency and inspection can happen constantly and informally, without needing a scheduled Daily Scrum to manufacture them. The risk here is different from Zombie Scrum: it's under-formalization to the point that adaptation happens on gut feel rather than any structured backlog reordering, which can work at small scale but breaks down as headcount grows. At a mid-size company Scrum is typically formalized with all five events running on a fixed cadence, often across multiple teams that need to stay loosely coordinated. This is precisely the stage where Zombie Scrum risk peaks: enough process exists to create the appearance of rigor, but the organization hasn't yet built the muscle (or psychological safety) for genuinely honest transparency and hard-hitting inspection. At Big Tech Scrum is frequently one of several coexisting frameworks (some teams may run Scrum, others Kanban, covered in Lesson 33, depending on the nature of their work), often supported by dedicated Agile coaches and standardized tooling. The PM's job shifts toward ensuring their team's Sprint Goals visibly ladder up to broader organizational objectives across many parallel teams, and toward protecting genuine inspection and adaptation at a scale where it's easy for ceremonies to become perfunctory simply because so many teams are running them simultaneously. The Retrospective That Never Changed Anything Consider a simplified, illustrative scenario common at mid-size product organizations several quarters into Scrum adoption. A nine-person Scrum team has run two-week Sprints for over a year. Every Sprint includes all five events, performed diligently and on schedule. At every Sprint Retrospective, the same two issues surface: (1) the team is frequently blocked waiting on a shared design resource who splits time across three teams, and (2) the Definition of Done is inconsistently applied: some Increments demoed at Sprint Review turn out to need additional QA work the following Sprint. Both issues have appeared in roughly eight consecutive retrospectives. Each time, the team writes an action item (\"follow up with design lead about capacity,\" \"clarify Definition of Done\"), and each time, the next retrospective reveals the same two problems, unresolved. **What went wrong?** By the letter of the Scrum Guide, this team is doing everything correctly: five events, on schedule, with retrospective action items dutifully recorded. But applying this lesson's Mental Model, the failure is visible immediately: **inspection** is functioning (the same two problems keep surfacing, meaning the team is honestly noticing them), but **adaptation** is not (nothing about the design-resource constraint or the Definition of Done actually changes between retrospectives). Recording an action item is not the same as executing an adaptation, and a team that mistakes the former for the latter will experience Scrum as an elaborate mechanism for documenting the same unsolved problems indefinitely. The design-resource issue, notably, is not solvable by the team's Scrum Master alone, because it's a cross-team resourcing constraint: it requires the Product Owner to escalate it as a structural blocker to the broader organization, rather than treating it as an internal process problem the team can fix through willpower. The Definition of Done issue, by contrast, is entirely within the team's control and should have been resolved after its first appearance. This distinction (which problems a team can adapt to on its own versus which require the PM/PO to escalate outward) will be addressed directly in **Lesson 37 (Working with Engineering Teams)**, and the specific mechanics of writing a Definition of Done that actually prevents this kind of QA surprise will be covered in **Lesson 34 (Sprint Planning & Backlog Grooming)**. The Scrum Health Diagnostic A second, more tactical tool: use this table to audit whether a specific Scrum team is operating on genuine empiricism or Zombie Scrum, checking each pillar against a concrete, observable signal. This diagnostic pairs directly with the Agile Fit Checklist from Lesson 31: that checklist audits Agile values generically; this one applies the same audit specifically to Scrum's named pillars and events. Walk me through how you'd run a Sprint Retrospective. *What the interviewer is actually evaluating:* Whether the candidate understands that a retrospective's purpose is adaptation, not merely inspection: a weak answer describes generating a list of complaints; a strong answer describes ensuring previous action items were actually resolved before adding new ones, directly reflecting this lesson's Case Study. What's the difference between a Product Owner and a Scrum Master? *What the interviewer is actually evaluating:* Basic role fluency, and whether the candidate understands that these are genuinely distinct accountabilities (value/backlog vs. process/facilitation) rather than interchangeable titles for \"the person who runs the sprint.\" Tell me about a Scrum team you've worked with that wasn't functioning well. What was actually wrong? *What the interviewer is actually evaluating:* Whether the candidate can diagnose process dysfunction at the level of the three pillars (transparency, inspection, adaptation) rather than superficially (\"we didn't have enough meetings\" or \"our tickets weren't estimated well\"). A strong answer names which specific pillar was breaking down and why, echoing this lesson's Mental Model and Framework Explanation. Scrum is the most widely adopted concrete framework built on top of Lesson 31's Iteration Loop, structured around three pillars of empiricism (transparency, inspection, and adaptation) expressed through three roles (Product Owner, Scrum Master, Developers), three artifacts with their associated commitments (Product Backlog/Product Goal, Sprint Backlog/Sprint Goal, Increment/Definition of Done), and five events (Sprint, Sprint Planning, Daily Scrum, Sprint Review, Sprint Retrospective). The Product Owner role maps directly onto this curriculum's definition of the PM from Lesson 1: accountable for maximizing value through backlog ordering, not for status tracking or ceremony facilitation. The single most important diagnostic skill this lesson teaches is recognizing \"Zombie Scrum\": a team running all five events faithfully while transparency is thin, inspection is shallow, or adaptation never actually follows from what inspection reveals, as illustrated in this lesson's Case Study of a retrospective that recorded the same unresolved issues for eight consecutive Sprints. A functioning Scrum team is not defined by whether it holds the right meetings; it is defined by whether those meetings produce genuine, visible change. Scrum is a lightweight framework built on three pillars of empiricism: transparency, inspection, and adaptation, a specific, named implementation of Lesson 31's generic Iteration Loop. The three roles (Product Owner, Scrum Master, Developers) carry genuinely distinct accountabilities; the Product Owner role maps onto this curriculum's definition of the PM from Lesson 1. The three artifacts (Product Backlog, Sprint Backlog, Increment) each have an associated commitment (Product Goal, Sprint Goal, Definition of Done) that gives the artifact coherence and purpose. A Sprint Backlog without a real Sprint Goal degrades into an arbitrary ticket list, making mid-sprint trade-offs unanswerable. \"Zombie Scrum\" (running all five events on schedule without genuine empirical value) is Scrum's specific version of Lesson 31's \"doing Agile without being Agile.\" The Daily Scrum belongs to the Developers for their own re-planning, not to the PM as a personal status briefing. Recording a retrospective action item is not the same as executing an adaptation; a healthy team resolves previous action items before adding new ones. **Three pillars:** Transparency, Inspection, Adaptation (empiricism). **Three roles:** Product Owner (value/backlog), Scrum Master (process), Developers (building the Increment). **Three artifacts + commitments:** Product Backlog/Product Goal, Sprint Backlog/Sprint Goal, Increment/Definition of Done. **Five events:** Sprint, Sprint Planning, Daily Scrum, Sprint Review, Sprint Retrospective. **Zombie Scrum test:** are the pillars actually functioning, or are the events just happening on schedule? **Daily Scrum:** belongs to Developers, not a status meeting for the PM. **Retrospective test:** were last Sprint's action items actually resolved, not just repeated? Scrum A lightweight Agile framework built on empiricism, with three roles, three artifacts, and five events Empiricism Scrum's foundational principle: knowledge comes from experience and decisions are based on what is observed (transparency, inspection, adaptation) Product Owner The Scrum role accountable for maximizing product value through Product Backlog ownership and ordering Sprint Goal The single coherent objective a Sprint exists to achieve, giving the Sprint Backlog's items a shared \"why\" Definition of Done A shared, explicit quality standard every Increment must meet before being considered complete Zombie Scrum A team running all five Scrum events on schedule without genuine transparency, inspection, or adaptation Sprint Retrospective The event where the team inspects its own process and plans adaptations before the next Sprint Daily Scrum A short daily event for Developers to inspect progress toward the Sprint Goal and re-plan the next 24 hours *The Scrum Guide* by Ken Schwaber and Jeff Sutherland the original, continually maintained source defining Scrum's roles, events, and artifacts. *Scrum: The Art of Doing Twice the Work in Half the Time* by Jeff Sutherland a practitioner account of Scrum's origins and its emphasis on empirical process control. *Essential Scrum: A Practical Guide to the Most Popular Agile Process* by Kenneth Rubin a detailed, practitioner-oriented treatment of Scrum roles, artifacts, and common implementation pitfalls. What are Scrum's three pillars of empiricism? Transparency, Inspection, and Adaptation. What are Scrum's three roles? Product Owner, Scrum Master, and Developers. Match each Scrum artifact to its associated commitment. Product Backlog → Product Goal; Sprint Backlog → Sprint Goal; Increment → Definition of Done. What is \"Zombie Scrum\"? A team that runs all five Scrum events on schedule without genuine transparency, inspection, or adaptation: the Scrum-specific version of \"doing Agile without being Agile.\" Who does the Daily Scrum belong to, and what is it for? It belongs to the Developers, for their own re-planning of the next 24 hours toward the Sprint Goal, not a status briefing for the PM. What distinguishes a healthy Sprint Retrospective from an unhealthy one, per this lesson's Case Study? A healthy one resolves previous action items before adding new ones; an unhealthy one records the same unresolved issues repeatedly across consecutive Sprints. Why is a Sprint Backlog without a real Sprint Goal a problem? It becomes an arbitrary list of tickets with no shared objective, making mid-sprint trade-off decisions (what to drop or add) unanswerable. Consider the following novel scenario: You've become the Product Owner for a seven-person Scrum team midway through a project. The team's Sprint Reviews are well-attended by stakeholders, who ask sharp questions and give detailed feedback on the demoed Increment. However, you notice that the Product Backlog's top ten items have not changed in order for the last five Sprints, regardless of what stakeholders said in each Review. There is no single correct answer to the prompts below: the goal is to practice diagnosing Scrum health using this lesson's Mental Model and Framework Explanation, not to reach one \"right\" fix. Using the Empirical Loop mental model, which specific pillar appears to be functioning, and which appears to be breaking down? Is this pattern more likely a transparency problem, an inspection problem, or an adaptation problem? Justify your answer using evidence from the scenario. What questions would you ask the team (or yourself, as PO) to understand why stakeholder feedback isn't reaching the backlog's actual ordering? Could this be a sign that the Sprint Review has become a one-way demo rather than a two-way inspection, as described in Common Beginner Mistake #4? What evidence would confirm or rule that out? As the incoming Product Owner, what is the first concrete change you would make, and how would you know within one or two Sprints whether it worked? What are Scrum's three pillars of empiricism? The Theory section names transparency, inspection, and adaptation as Scrum's three pillars of empiricism. Which Scrum event most directly generates the \"feedback\" step of Lesson 31's Iteration Loop? The Sprint Review is where the team and stakeholders inspect the Increment together and adapt the Product Backlog, ties directly to the Iteration Loop's feedback step. Which artifact is paired with the Definition of Done? The artifacts table pairs the Increment with the Definition of Done as its associated commitment. Why does the lesson caution against conflating a Sprint Backlog with a Sprint Goal? Without a real Sprint Goal there's no shared \"why\" to weigh a dropped or added item against, making mid-sprint trade-offs unanswerable. A team runs all five Scrum events every Sprint, but retrospective action items are never resolved and Sprint Reviews never change the Product Backlog's order. What does this lesson call this pattern? Zombie Scrum is exactly this pattern: events running on schedule without genuine transparency, inspection, or adaptation. Who does the Daily Scrum primarily belong to, according to this lesson? The Daily Scrum belongs to the Developers for their own re-planning of the next 24 hours, not as a status briefing for the PM. What is the Product Owner's primary accountability, according to this lesson? The roles table defines the Product Owner's accountability as maximizing product value through Product Backlog ownership and ordering. Which role is accountable for establishing Scrum as defined in the Scrum Guide and removing impediments to the team's progress? The roles table assigns this accountability specifically to the Scrum Master. In the Case Study, why couldn't the team resolve the design-resource blocker on its own, unlike the Definition of Done issue? The Case Study distinguishes the cross-team resourcing issue, which required PO escalation, from the Definition of Done issue, which was entirely within the team's control. A Sprint Review is well-attended, but afterward the Product Backlog's order never changes based on what stakeholders said. Using the Scrum Health Diagnostic, which signal is this team most clearly failing? The healthy signal for Sprint Review inspection is stakeholder reactions visibly changing the Product Backlog's order; a one-way demo with no resulting change is the named warning sign. Why does the lesson describe recording a retrospective action item as insufficient on its own? The Case Study team recorded action items every retrospective, but the same two problems persisted because adaptation, not just recording, never actually followed. A new PM insists on running the Daily Scrum as a personal status briefing, asking each Developer to report to them individually. According to this lesson, what is the likely effect? The \"Daily Scrum Is Not a Status Meeting for the PM\" subsection describes exactly this effect: the meeting becomes slower, more guarded, and less useful. (Product Thinking) A Product Owner spends most of their time each Sprint updating a burndown chart and tracking ticket status, with the Product Backlog left unrefined for weeks. Using this lesson's frameworks, what is the most likely underlying problem? The PO's defining accountability is backlog ownership and value maximization, not status tracking. Spending most effort on the latter is the role-confusion this lesson warns against. (Interview Reasoning) A candidate describes a dysfunctional Scrum team and answers: \"We just didn't have enough meetings, more standups would have fixed it.\" What does this signal, per the Interview Perspective section? A strong answer names which specific pillar (transparency, inspection, or adaptation) was breaking down; \"not enough meetings\" fails to diagnose at that level. (Product Thinking, Highest Difficulty) A Scrum team's Sprint Reviews consistently surface strong stakeholder interest in a specific unplanned feature, and the team's retrospectives consistently surface the same recurring blocker involving a shared resource from another team. How should the Product Owner most appropriately respond to these two different signals? Sprint Review feedback about product direction falls within the PO's backlog-ownership authority, while a cross-team structural blocker recurring across retrospectives requires PO escalation, since the team can't solve it alone.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "Mental Model: The Empirical Loop of a Sprint",
+      "Real Company Example",
+      "Real World Perspective: Scrum Framework at Different Company Stages",
+      "Detailed Case Study: The Retrospective That Never Changed Anything",
+      "Framework Explanation: The Scrum Health Diagnostic",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "Scrum",
+    "Empiricism",
+    "Product Owner",
+    "Sprint Goal",
+    "Definition of Done",
+    "Zombie Scrum",
+    "Sprint Retrospective",
+    "Daily Scrum"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

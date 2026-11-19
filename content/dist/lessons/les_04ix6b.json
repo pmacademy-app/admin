@@ -1,0 +1,879 @@
+{
+  "schemaVersion": 2,
+  "id": "les_04ix6b",
+  "contentHash": "0ed555dd0892349fc183d4a4332aa553e25dab72bf30c83c5fbb96d16c3e91dd",
+  "title": "Product Lifecycle",
+  "slug": "lesson-004",
+  "module": "foundations",
+  "order": 4,
+  "totalInModule": 10,
+  "difficulty": 1,
+  "estimatedReadingTime": 20,
+  "estimatedCompletionTime": 30,
+  "prerequisites": [
+    "les_zoyq8a",
+    "les_prrl23",
+    "les_0q4aih"
+  ],
+  "seoTitle": "Product Lifecycle Stages: From Introduction to Decline",
+  "seoDescription": "Explore the four product lifecycle stages: introduction, growth, maturity, and decline. Learn how strategic priorities and metrics shift at each phase.",
+  "inShort": "The product lifecycle traces how a product progresses through introduction, growth, maturity, and decline. Each phase demands distinct strategic priorities, risk management tactics, and success metrics. Transitioning successfully requires validating problem-solution fit early, securing product-market fit to scale during growth, optimizing margins in maturity, and managing transitions during decline.",
+  "sourceFile": "content/lessons/lesson-004.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 4: Product Lifecycle",
+      "blockId": "blk_af6dd2dda3"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 2 established that a product has no natural finish line the way a project does. This lesson doesn't contradict that; it refines it. A product without a fixed end state can still move through recognizably different *stages*, each with different priorities, different risks, and different definitions of what \"good work\" looks like. Understanding which stage a product is in (and recognizing when it's shifting into a new one) is one of the most practically useful diagnostic skills a PM can develop.",
+      "blockId": "blk_a29af3b7aa"
+    },
+    {
+      "type": "paragraph",
+      "text": "This matters because the single most common strategic mistake in product work is applying the priorities of one lifecycle stage to a product that has already moved into another. Chasing growth aggressively in a product that hasn't yet found what users actually want (before problem-solution fit) wastes resources on scaling something not yet worth scaling. Conversely, obsessively re-validating a problem that was already validated years ago, in a mature product, wastes time that should go toward optimization and defense of an established position. This lesson gives you the vocabulary and the diagnostic questions to avoid both mistakes.",
+      "blockId": "blk_893e1da321"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "Name and describe the standard stages of the product lifecycle: Introduction, Growth, Maturity, and Decline (with Problem-Solution Fit and Product-Market Fit as critical pre-Introduction gates).",
+        "Explain why the priorities, risks, and success metrics differ meaningfully across lifecycle stages.",
+        "Diagnose which lifecycle stage a real product is likely in, using observable signals rather than assumption.",
+        "Explain the common failure mode of applying growth-stage tactics to a pre-fit product, and vice versa.",
+        "Describe how a single company can have products in multiple different lifecycle stages simultaneously."
+      ],
+      "blockId": "blk_37d0dd722e"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson assumes you understand Lesson 2's finite/infinite distinction (a product has no fixed end state) and Lesson 3's product thinking habit (examining underlying need before jumping to solutions), since lifecycle diagnosis is itself an act of product thinking applied to the *product as a whole* rather than to a single feature request.",
+      "blockId": "blk_28faaeb6f6"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Stages, at a Glance",
+          "blockId": "blk_772cf07922"
+        },
+        {
+          "type": "paragraph",
+          "text": "While different sources use slightly different terminology, this curriculum will use the following consistent stage names, which map closely to widely used product and marketing lifecycle models:",
+          "blockId": "blk_521f5834e2"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**Problem-Solution Fit**: pre-launch or early-launch validation that a real problem exists and a proposed solution genuinely addresses it for at least a small group of users.",
+            "**Introduction (Product-Market Fit search)**: the product is live, but the team is still actively searching for a repeatable, scalable match between the product and a broader market.",
+            "**Growth**: product-market fit has been found; the primary challenge shifts to scaling adoption, usage, and revenue as efficiently as possible.",
+            "**Maturity**: growth naturally slows as the addressable market becomes saturated; the primary challenge shifts to defending market position, improving efficiency, and finding smaller, adjacent growth opportunities.",
+            "**Decline**: usage, revenue, or relevance is falling, usually due to a shifting market, changing user needs, or superior alternatives; the primary challenge shifts to a deliberate decision: reinvest, harvest, or sunset."
+          ],
+          "blockId": "blk_1b0a9c6736"
+        },
+        {
+          "type": "paragraph",
+          "text": "It is worth being explicit that these stages are not always linear or permanent. A mature product can be reinvigorated into renewed growth (sometimes called a second growth curve) through a significant new capability, market expansion, or business model change. A product in decline is not always doomed: sometimes decline reflects a temporary, addressable problem rather than an inevitable trajectory. The value of the lifecycle model is diagnostic, not deterministic: it tells you what questions to ask right now, not what will necessarily happen next.",
+          "blockId": "blk_cc19a5c914"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Why Priorities Differ by Stage",
+          "blockId": "blk_1f4c1689b2"
+        },
+        {
+          "type": "paragraph",
+          "text": "The reason lifecycle stage matters so much is that the *right question to be asking* is different at each stage, and asking the wrong question wastes real resources.",
+          "blockId": "blk_63ab4c9931"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "In **Problem-Solution Fit**, the right question is: *does this problem, and this proposed solution, actually resonate with real users, even at small scale?* The right metrics are qualitative and small-sample: are early users engaged, do they come back unprompted, would they be genuinely disappointed if the product disappeared?",
+            "In **Introduction**, the right question is: *have we found a specific, describable audience and value proposition that could scale, or are we still guessing?* Metrics start to include early retention curves and word-of-mouth signals, but sample sizes are often still too small for rigorous statistical confidence.",
+            "In **Growth**, the right question is: *how do we acquire, activate, and retain users as efficiently and durably as possible, now that we know the product works for a defined audience?* This is where the acquisition, activation, and retention metrics of Module 4 (AARRR, funnels) become the dominant operating lens.",
+            "In **Maturity**, the right question is: *how do we defend our position, improve margins, and find smaller pockets of adjacent growth, given that the core market is largely saturated?* Metrics shift toward efficiency (cost per acquisition relative to lifetime value), retention defense, and share of an increasingly fixed market.",
+            "In **Decline**, the right question is: *is this decline addressable (a fixable product or market issue) or structural (the underlying need has genuinely moved elsewhere), and what is the deliberate plan: reinvest, harvest for cash with minimal investment, or sunset gracefully?*"
+          ],
+          "blockId": "blk_6944c95407"
+        },
+        {
+          "type": "paragraph",
+          "text": "Applying a Growth-stage mindset (aggressive scaling of acquisition spend) to a product still in Problem-Solution Fit is a specific, common, expensive mistake: it scales a solution that hasn't yet been shown to actually work, multiplying the cost of being wrong before the team even knows whether it's wrong. This is one of the most cited reasons early-stage startups fail: not lack of effort, but premature scaling of an unvalidated model.",
+          "blockId": "blk_ecde441ad7"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Problem-Solution Fit and Product-Market Fit as Gates",
+          "blockId": "blk_76a403b7b2"
+        },
+        {
+          "type": "paragraph",
+          "text": "Two specific milestones deserve special attention because they function as *gates*: thresholds a product should cross before the next stage's priorities become appropriate.",
+          "blockId": "blk_6d36ed69af"
+        },
+        {
+          "type": "paragraph",
+          "text": "**Problem-Solution Fit** is reached when you have real evidence (not assumption) that a specific problem is significant enough, for a specific group of people, that your proposed solution meaningfully addresses it for at least some of them. This is usually established through qualitative methods (interviews, small prototypes, concierge-style manual solutions) covered in Module 2.",
+          "blockId": "blk_c9dba235e8"
+        },
+        {
+          "type": "paragraph",
+          "text": "**Product-Market Fit (PMF)** is reached when that solution has been shown to work not just for a handful of early adopters, but for a definable, reachable market at a scale and consistency that suggests durable demand, often signaled by strong organic retention, word-of-mouth growth, and users expressing something close to genuine reliance on the product (a commonly cited informal signal: a large share of surveyed users saying they would be \"very disappointed\" if the product no longer existed).",
+          "blockId": "blk_599eee06c9"
+        },
+        {
+          "type": "paragraph",
+          "text": "Crucially, PMF is not a permanent state achieved once and then held forever: markets shift, competitors emerge, and a product can lose fit it once had (a transition toward Maturity's defensive posture, or even into Decline). This is why lifecycle diagnosis is something a PM should revisit periodically, not something decided once at launch and never reconsidered.",
+          "blockId": "blk_9917f4fd06"
+        }
+      ],
+      "blockId": "blk_da7258124b"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Assuming lifecycle stage is determined by a product's age, rather than by evidence",
+          "body": "A product that has existed for five years is not automatically in Maturity; if it has been repeatedly repositioned or has never found a clearly resonant audience, it may still be effectively in Introduction, regardless of calendar time elapsed. Lifecycle stage should be diagnosed from evidence (retention behavior, growth pattern, qualitative signals), not inferred from launch date."
+        },
+        {
+          "title": "Applying growth tactics before Problem-Solution Fit is established",
+          "body": "This is the single most expensive version of stage-mismatch: spending heavily on user acquisition for a product that has not yet demonstrated it solves a real problem for real people. Acquiring more users faster does not fix an unvalidated value proposition; it simply multiplies the number of people who churn from it."
+        },
+        {
+          "title": "Treating Maturity as a failure state",
+          "body": "Some PMs, especially those who joined a fast-growing company, treat a shift into Maturity (slowing growth rate) as a sign that something has gone wrong. In reality, Maturity is a normal, often highly profitable stage, and the correct priorities (efficiency, defense, selective adjacent growth) are entirely different from Growth-stage priorities, not a lesser version of the same goals."
+        },
+        {
+          "title": "Assuming an entire company is in one single lifecycle stage",
+          "body": "Large organizations typically have a portfolio of products or product lines in different stages simultaneously: a mature flagship product funding an early-stage bet still searching for Problem-Solution Fit. Treating \"the company\" as a single lifecycle stage, rather than diagnosing each product or product line individually, leads to applying the wrong priorities to the wrong initiative."
+        },
+        {
+          "title": "Treating Product-Market Fit as a permanent achievement rather than a state that must be periodically re-verified",
+          "body": "Some PMs, once a product reaches PMF, treat that milestone as permanently settled and stop revisiting the question. Markets shift, competitors emerge, and user needs evolve, so a product that once had a strong fit can lose it, sliding toward Maturity's defensive posture or even Decline without anyone noticing until the trailing metrics make it obvious. Lifecycle diagnosis is something a PM should revisit periodically, not something decided once at launch and never reconsidered.\n\n"
+        }
+      ],
+      "blockId": "blk_bb0df0d53c"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The Seasons",
+      "diagram": {
+        "blockId": "blk_5ec7ffe447",
+        "type": "mermaid"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "This lesson's mental model maps the five stages onto the four seasons plus an early \"planting\" period, to make the shifting priorities memorable and intuitive.",
+          "blockId": "blk_a7c1894f5a"
+        },
+        {
+          "type": "paragraph",
+          "text": "In **Planting**, you're testing whether the seed (the problem-solution match) is even viable before committing real resources. In **Spring**, growth is fragile and uneven; you're still learning which conditions make it thrive. In **Summer**, conditions are right and the priority is maximizing growth while it's available. In **Autumn**, growth naturally slows, and the priority shifts to harvesting value efficiently and preparing for leaner conditions. In **Winter**, the honest question is whether to invest in surviving until the next Spring (reinvention) or to responsibly wind down.",
+          "blockId": "blk_d9e42f0e60"
+        },
+        {
+          "type": "paragraph",
+          "text": "Use this model as a quick gut-check: if your product's current priorities feel like \"Summer\" tactics (aggressive scaling) but the evidence around you looks like \"Planting\" conditions (still uncertain if the core value proposition resonates), that mismatch is itself a diagnostic signal worth investigating immediately.",
+          "blockId": "blk_ec26081c1c"
+        }
+      ],
+      "blockId": "blk_a28c32d5b7"
+    },
+    {
+      "type": "mermaid",
+      "id": "blk_5ec7ffe447",
+      "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[Planting Problem-Solution Fit] --> B[Spring Introduction / PMF Search]\r\n    B --> C[Summer Growth]\r\n    C --> D[Autumn Maturity]\r\n    D --> E[Winter Decline]\r\n    D -.->|Reinvestment, New Capability| C",
+      "normalized": "graph LR\r\n    A[Planting Problem-Solution Fit] --> B[Spring Introduction / PMF Search]\r\n    B --> C[Summer Growth]\r\n    C --> D[Autumn Maturity]\r\n    D --> E[Winter Decline]\r\n    D -.->|Reinvestment, New Capability| C",
+      "authorTheme": {
+        "background": "#0b0b0c",
+        "primaryColor": "#1f1f23",
+        "primaryTextColor": "#ffffff",
+        "primaryBorderColor": "#8b5cf6",
+        "lineColor": "#d1d5db",
+        "secondaryColor": "#18181b",
+        "tertiaryColor": "#111111",
+        "mainBkg": "#1f1f23",
+        "nodeBorder": "#8b5cf6",
+        "clusterBkg": "#000000",
+        "clusterBorder": "#27272a",
+        "titleColor": "#ffffff",
+        "edgeLabelBackground": "#0b0b0c",
+        "nodeTextColor": "#ffffff",
+        "edgeLabelColor": "#ffffff",
+        "actorBorder": "#8b5cf6",
+        "actorBkg": "#1f1f23",
+        "actorTextColor": "#ffffff",
+        "sequenceNumberColor": "#ffffff",
+        "signalColor": "#8b5cf6",
+        "signalTextColor": "#ffffff",
+        "textColor": "#ffffff",
+        "classText": "#ffffff",
+        "classBorder": "#8b5cf6",
+        "classBkg": "#1f1f23"
+      },
+      "svg": "<svg id=\"mermaid-svg-1795020928243-7\" xmlns=\"http://www.w3.org/2000/svg\" width=\"2391.13\" height=\"141\" viewBox=\"-53.625 -27 2391.13 141\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Planting Problem-Solution Fit → Spring Introduction / PMF Search → Summer Growth → Autumn Maturity → Winter Decline\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Planting Problem-Solution Fit → Spring Introduction / PMF Search → Summer Growth → Autumn Maturity → Winter Decline</title><style>#mermaid-svg-1795020928243-7{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020928243-7 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020928243-7 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020928243-7 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020928243-7 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020928243-7 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020928243-7 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020928243-7 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020928243-7 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020928243-7 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020928243-7 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020928243-7 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020928243-7 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020928243-7 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020928243-7 p{margin:0;}#mermaid-svg-1795020928243-7 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020928243-7 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020928243-7 .cluster-label span{color:#171A17;}#mermaid-svg-1795020928243-7 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020928243-7 .label text,#mermaid-svg-1795020928243-7 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020928243-7 .node rect,#mermaid-svg-1795020928243-7 .node circle,#mermaid-svg-1795020928243-7 .node ellipse,#mermaid-svg-1795020928243-7 .node polygon,#mermaid-svg-1795020928243-7 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020928243-7 .rough-node .label text,#mermaid-svg-1795020928243-7 .node .label text,#mermaid-svg-1795020928243-7 .image-shape .label,#mermaid-svg-1795020928243-7 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020928243-7 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020928243-7 .rough-node .label,#mermaid-svg-1795020928243-7 .node .label,#mermaid-svg-1795020928243-7 .image-shape .label,#mermaid-svg-1795020928243-7 .icon-shape .label{text-align:center;}#mermaid-svg-1795020928243-7 .node.clickable{cursor:pointer;}#mermaid-svg-1795020928243-7 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020928243-7 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020928243-7 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020928243-7 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020928243-7 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020928243-7 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020928243-7 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020928243-7 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020928243-7 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020928243-7 .cluster text{fill:#171A17;}#mermaid-svg-1795020928243-7 .cluster span{color:#171A17;}#mermaid-svg-1795020928243-7 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020928243-7 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020928243-7 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020928243-7 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020928243-7 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020928243-7 .icon-shape,#mermaid-svg-1795020928243-7 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020928243-7 .icon-shape p,#mermaid-svg-1795020928243-7 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020928243-7 .icon-shape .label rect,#mermaid-svg-1795020928243-7 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020928243-7 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020928243-7 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020928243-7 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020928243-7 [data-look=\"neo\"].node rect,#mermaid-svg-1795020928243-7 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020928243-7 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020928243-7-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020928243-7 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020928243-7 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020928243-7-gradient);stroke-width:1px;}#mermaid-svg-1795020928243-7 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020928243-7 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020928243-7 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020928243-7-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020928243-7 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020928243-7 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020928243-7-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020928243-7 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020928243-7-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020928243-7 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020928243-7_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020928243-7_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020928243-7_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020928243-7_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020928243-7_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020928243-7_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020928243-7_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020928243-7_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020928243-7_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020928243-7_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020928243-7_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020928243-7_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M457.75,56L466.5,56C475.25,56,492.75,56,509.583,56C526.417,56,542.583,56,550.667,56L558.75,56\" id=\"mermaid-svg-1795020928243-7-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NDU3Ljc1LCJ5Ijo1Nn0seyJ4Ijo1MTAuMjUsInkiOjU2fSx7IngiOjU2Mi43NSwieSI6NTZ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020928243-7_flowchart-v2-pointEnd)\"></path><path d=\"M1050.75,56L1059.5,56C1068.25,56,1085.75,56,1102.583,56C1119.417,56,1135.583,56,1143.667,56L1151.75,56\" id=\"mermaid-svg-1795020928243-7-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6MTA1MC43NSwieSI6NTZ9LHsieCI6MTEwMy4yNSwieSI6NTZ9LHsieCI6MTE1NS43NSwieSI6NTZ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020928243-7_flowchart-v2-pointEnd)\"></path><path d=\"M1401.5,43.291L1427.75,40.576C1454,37.86,1506.5,32.43,1558.337,32.246C1610.173,32.063,1661.346,37.126,1686.933,39.657L1712.519,42.188\" id=\"mermaid-svg-1795020928243-7-L_C_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_D_0\" data-points=\"W3sieCI6MTQwMS41LCJ5Ijo0My4yOTA2ODIxMjIxNTc4MjZ9LHsieCI6MTU1OSwieSI6Mjd9LHsieCI6MTcxNi41LCJ5Ijo0Mi41ODIwODk1NTIyMzg4MDZ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020928243-7_flowchart-v2-pointEnd)\"></path><path d=\"M1987.75,56L1996.5,56C2005.25,56,2022.75,56,2039.583,56C2056.417,56,2072.583,56,2080.667,56L2088.75,56\" id=\"mermaid-svg-1795020928243-7-L_D_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_E_0\" data-points=\"W3sieCI6MTk4Ny43NSwieSI6NTZ9LHsieCI6MjA0MC4yNSwieSI6NTZ9LHsieCI6MjA5Mi43NSwieSI6NTZ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020928243-7_flowchart-v2-pointEnd)\"></path><path d=\"M1716.5,69.418L1690.25,72.015C1664,74.612,1611.5,79.806,1559.663,79.756C1507.826,79.707,1456.653,74.414,1431.066,71.767L1405.479,69.121\" id=\"mermaid-svg-1795020928243-7-L_D_C_0\" class=\"edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_C_0\" data-points=\"W3sieCI6MTcxNi41LCJ5Ijo2OS40MTc5MTA0NDc3NjExOX0seyJ4IjoxNTU5LCJ5Ijo4NX0seyJ4IjoxNDAxLjUsInkiOjY4LjcwOTMxNzg3Nzg0MjE4fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020928243-7_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_D_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(1558.96452, 84.99633)\"><g class=\"label\" data-id=\"L_D_C_0\" transform=\"translate(-135, -19)\"><foreignObject width=\"270\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Reinvestment, New Capability</p></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020928243-7-flowchart-A-0\" data-look=\"classic\" transform=\"translate(232.875, 56)\"><rect class=\"basic label-container\" style=\"\" x=\"-171.25\" y=\"-35\" width=\"342.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-139.25, -19)\"><rect></rect><foreignObject width=\"278.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Planting Problem-Solution Fit</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020928243-7-flowchart-B-1\" data-look=\"classic\" transform=\"translate(806.75, 56)\"><rect class=\"basic label-container\" style=\"\" x=\"-184\" y=\"-35\" width=\"368\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-152, -19)\"><rect></rect><foreignObject width=\"304\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Spring Introduction / PMF Search</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020928243-7-flowchart-C-3\" data-look=\"classic\" transform=\"translate(1278.625, 56)\"><rect class=\"basic label-container\" style=\"\" x=\"-103.25\" y=\"-35\" width=\"206.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-71.25, -19)\"><rect></rect><foreignObject width=\"142.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Summer Growth</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020928243-7-flowchart-D-5\" data-look=\"classic\" transform=\"translate(1852.125, 56)\"><rect class=\"basic label-container\" style=\"\" x=\"-111.75\" y=\"-35\" width=\"223.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-79.75, -19)\"><rect></rect><foreignObject width=\"159.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Autumn Maturity</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020928243-7-flowchart-E-7\" data-look=\"classic\" transform=\"translate(2222, 56)\"><rect class=\"basic label-container\" style=\"\" x=\"-107.5\" y=\"-35\" width=\"215\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-75.5, -19)\"><rect></rect><foreignObject width=\"151\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Winter Decline</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020928243-7-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020928243-7-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020928243-7-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+      "blockId": "blk_5ec7ffe447"
+    },
+    {
+      "type": "companyExample",
+      "company": "Slack",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "**Slack** offers a well-documented, frequently cited example of the Problem-Solution Fit to Growth transition. Slack originated as an internal communication tool built by a team (Tiny Speck) that was originally developing a different product entirely: an online game. The internal tool the team built for its own communication needs during that process was recognized as solving a real, resonant problem, leading to a deliberate pivot toward building and launching that tool as the primary product.",
+          "blockId": "blk_89e50d57f2"
+        },
+        {
+          "type": "paragraph",
+          "text": "This illustrates the Problem-Solution Fit gate directly: the team had strong, direct evidence (their own intense daily use, and interest from other teams they showed it to) that the underlying problem (fragmented, inefficient team communication) was real and that their solution addressed it, before committing to scaling it as a company-defining product. Slack's subsequent rapid growth phase, including its widely noted early word-of-mouth adoption pattern, reflects the transition into the Growth stage once that fit had been established.",
+          "blockId": "blk_0580aad951"
+        }
+      ],
+      "assumptionFlags": [
+        "this account reflects widely reported public narratives about Slack's origin; internal decision-making details beyond what has been publicly discussed are not claimed here with certainty."
+      ],
+      "blockId": "blk_ee2e71b904"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "At a startup",
+          "body": "Nearly all attention is typically focused on the earliest stages: establishing Problem-Solution Fit and searching for Product-Market Fit. Because runway is finite (as noted in Lesson 1), the central existential question is almost always \"have we actually found something people need,\" rather than optimization questions that only make sense once fit exists."
+        },
+        {
+          "context": "At a mid-size company",
+          "body": "The core product has often reached Growth or early Maturity, while newer initiatives (an adjacent product line, a new market segment) may simultaneously be back in Problem-Solution Fit or Introduction. A PM's job at this stage often includes correctly identifying which stage their *specific* area of ownership is in, since company-wide messaging (\"we're a growth company\") can misleadingly suggest every initiative should be run with growth-stage urgency and tactics."
+        },
+        {
+          "context": "At Big Tech",
+          "body": "It's common to see an extreme range of lifecycle stages within a single company: a flagship product deep in Maturity (optimizing efficiency, defending share) alongside experimental bets still searching for Problem-Solution Fit, often run with deliberately different operating models, funding structures, and success metrics precisely because leadership recognizes that a Maturity-stage playbook applied to an early bet would strangle it before it had a chance to find fit."
+        }
+      ],
+      "blockId": "blk_5bcacca194"
+    },
+    {
+      "type": "caseStudy",
+      "title": "Scaling Before Fit",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A furniture e-commerce startup builds an AI-powered room-design tool that lets users upload a photo of their room and see AI-generated furniture recommendations placed virtually within it. Early feedback from a small group of beta users is enthusiastic. Encouraged, leadership approves a significant paid marketing budget to drive broad user acquisition, reasoning that a clearly innovative feature \"should\" attract strong growth.",
+          "blockId": "blk_b3fa1a9978"
+        },
+        {
+          "type": "paragraph",
+          "text": "Three months later, acquisition numbers look strong (many new users tried the tool), but retention is poor: the vast majority of users try it once and never return, and conversion to actual furniture purchases is far below the company's cost of acquiring each user. The company has spent a significant marketing budget scaling a product that had not yet demonstrated durable Problem-Solution Fit beyond a small, enthusiastic beta group.",
+          "blockId": "blk_4744a97e7a"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong, using this lesson's framework?**",
+          "blockId": "blk_fa8095c158"
+        },
+        {
+          "type": "paragraph",
+          "text": "The enthusiastic beta feedback established, at most, weak early signals: a small sample of engaged early adopters is not the same as evidence of Product-Market Fit across a broader market. The company applied Growth-stage tactics (aggressive paid acquisition) to a product still genuinely in the Introduction stage, where the priority should have been small-scale, low-cost experimentation to understand *why* the small beta group loved it, whether that reason generalized to a wider audience, and what was actually driving the gap between initial trial and repeat use, before spending heavily to bring in users at scale.",
+          "blockId": "blk_226ee395e9"
+        },
+        {
+          "type": "paragraph",
+          "text": "A PM applying the lifecycle model correctly would have paused after the beta phase to ask the Introduction-stage question (\"have we found a specific, describable audience and value proposition that could scale, or are we still guessing?\") rather than the Growth-stage question (\"how do we acquire users as efficiently as possible?\"), and would likely have proposed a smaller, retention-focused validation phase before recommending any significant acquisition spend.",
+          "blockId": "blk_38e8790033"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "What specific evidence was missing when leadership approved the paid marketing budget, and why was the enthusiastic beta feedback insufficient to justify scaling?",
+            "If you were the PM on this product at the end of the beta phase, what low-cost experiment would you propose to determine whether the product was ready for Growth-stage tactics?"
+          ],
+          "blockId": "blk_abe77091c7"
+        }
+      ],
+      "blockId": "blk_bf41009b22"
+    },
+    {
+      "type": "framework",
+      "name": "The Stage Diagnostic Checklist",
+      "diagram": {
+        "blockId": "blk_8c31f165aa",
+        "type": "mermaid"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "This lesson's reusable framework is a short diagnostic checklist for identifying which lifecycle stage a product is actually in, based on observable evidence rather than assumption or company narrative.",
+          "blockId": "blk_580953b779"
+        },
+        {
+          "type": "paragraph",
+          "text": "The value of this checklist is that it forces the diagnosis to rest on specific, checkable evidence (retention behavior, growth trend, breadth of resonance) rather than on convenient assumptions (\"we're clearly a growth company because leadership says so,\" or \"this feature is obviously going to work because early users loved it\"). A PM should be able to point to the specific evidence behind wherever they place their product on this checklist, and should revisit the diagnosis periodically, since stage is a current-state read, not a permanent label.",
+          "blockId": "blk_158362fbc8"
+        }
+      ],
+      "blockId": "blk_55b4592143"
+    },
+    {
+      "type": "mermaid",
+      "id": "blk_8c31f165aa",
+      "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Diagnostic Question] --> B{Do a Small Group of Users<br/>Clearly Rely on This and Would Miss It?}\r\n    B -->|No / Unclear| C[Problem-Solution Fit<br/>Stage: Validate Before Scaling]\r\n    B -->|Yes, small group only| D{Does This Hold Across a Broader,<br/>Describable Market with Strong<br/>Retention?}\r\n    D -->|No / Unclear| E[Introduction Stage: Keep<br/>Searching for Fit, Don't Scale Spend Yet]\r\n    D -->|Yes| F{Is Growth Rate Still<br/>Accelerating or Strong?}\r\n    F -->|Yes| G[Growth Stage: Scale<br/>Acquisition & Retention]\r\n    F -->|Slowing, but stable| H[Maturity Stage: Defend,<br/>Optimize, Find Adjacencies]\r\n    F -->|Declining| I[Decline Stage: Decide:<br/>Reinvest, Harvest, or Sunset]",
+      "normalized": "graph TD\r\n    A[Diagnostic Question] --> B{Do a Small Group of Users<br/>Clearly Rely on This and Would Miss It?}\r\n    B -->|No / Unclear| C[Problem-Solution Fit<br/>Stage: Validate Before Scaling]\r\n    B -->|Yes, small group only| D{Does This Hold Across a Broader,<br/>Describable Market with Strong<br/>Retention?}\r\n    D -->|No / Unclear| E[Introduction Stage: Keep<br/>Searching for Fit, Don't Scale Spend Yet]\r\n    D -->|Yes| F{Is Growth Rate Still<br/>Accelerating or Strong?}\r\n    F -->|Yes| G[Growth Stage: Scale<br/>Acquisition & Retention]\r\n    F -->|Slowing, but stable| H[Maturity Stage: Defend,<br/>Optimize, Find Adjacencies]\r\n    F -->|Declining| I[Decline Stage: Decide:<br/>Reinvest, Harvest, or Sunset]",
+      "authorTheme": {
+        "background": "#0b0b0c",
+        "primaryColor": "#1f1f23",
+        "primaryTextColor": "#ffffff",
+        "primaryBorderColor": "#8b5cf6",
+        "lineColor": "#d1d5db",
+        "secondaryColor": "#18181b",
+        "tertiaryColor": "#111111",
+        "mainBkg": "#1f1f23",
+        "nodeBorder": "#8b5cf6",
+        "clusterBkg": "#000000",
+        "clusterBorder": "#27272a",
+        "titleColor": "#ffffff",
+        "edgeLabelBackground": "#0b0b0c",
+        "nodeTextColor": "#ffffff",
+        "edgeLabelColor": "#ffffff",
+        "actorBorder": "#8b5cf6",
+        "actorBkg": "#1f1f23",
+        "actorTextColor": "#ffffff",
+        "sequenceNumberColor": "#ffffff",
+        "signalColor": "#8b5cf6",
+        "signalTextColor": "#ffffff",
+        "textColor": "#ffffff",
+        "classText": "#ffffff",
+        "classBorder": "#8b5cf6",
+        "classBkg": "#1f1f23"
+      },
+      "svg": "<svg id=\"mermaid-svg-1795020928443-8\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1691.38\" height=\"1742\" viewBox=\"-55.75 -27 1691.38 1742\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Diagnostic Question → Do a Small Group of UsersClearly Rely on This and Would Miss It? → Problem-Solution FitStage: Validate Before Scaling → Does This Hold Across a Broader,Describable Market with StrongRetention? → Introduction Stage: KeepSearching for Fit, Don't Scale Spend Yet...\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Diagnostic Question → Do a Small Group of UsersClearly Rely on This and Would Miss It? → Problem-Solution FitStage: Validate Before Scaling → Does This Hold Across a Broader,Describable Market with StrongRetention? → Introduction Stage: KeepSearching for Fit, Don't Scale Spend Yet...</title><style>#mermaid-svg-1795020928443-8{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020928443-8 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020928443-8 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020928443-8 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020928443-8 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020928443-8 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020928443-8 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020928443-8 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020928443-8 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020928443-8 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020928443-8 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020928443-8 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020928443-8 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020928443-8 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020928443-8 p{margin:0;}#mermaid-svg-1795020928443-8 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020928443-8 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020928443-8 .cluster-label span{color:#171A17;}#mermaid-svg-1795020928443-8 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020928443-8 .label text,#mermaid-svg-1795020928443-8 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020928443-8 .node rect,#mermaid-svg-1795020928443-8 .node circle,#mermaid-svg-1795020928443-8 .node ellipse,#mermaid-svg-1795020928443-8 .node polygon,#mermaid-svg-1795020928443-8 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020928443-8 .rough-node .label text,#mermaid-svg-1795020928443-8 .node .label text,#mermaid-svg-1795020928443-8 .image-shape .label,#mermaid-svg-1795020928443-8 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020928443-8 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020928443-8 .rough-node .label,#mermaid-svg-1795020928443-8 .node .label,#mermaid-svg-1795020928443-8 .image-shape .label,#mermaid-svg-1795020928443-8 .icon-shape .label{text-align:center;}#mermaid-svg-1795020928443-8 .node.clickable{cursor:pointer;}#mermaid-svg-1795020928443-8 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020928443-8 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020928443-8 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020928443-8 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020928443-8 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020928443-8 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020928443-8 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020928443-8 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020928443-8 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020928443-8 .cluster text{fill:#171A17;}#mermaid-svg-1795020928443-8 .cluster span{color:#171A17;}#mermaid-svg-1795020928443-8 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020928443-8 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020928443-8 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020928443-8 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020928443-8 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020928443-8 .icon-shape,#mermaid-svg-1795020928443-8 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020928443-8 .icon-shape p,#mermaid-svg-1795020928443-8 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020928443-8 .icon-shape .label rect,#mermaid-svg-1795020928443-8 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020928443-8 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020928443-8 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020928443-8 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020928443-8 [data-look=\"neo\"].node rect,#mermaid-svg-1795020928443-8 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020928443-8 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020928443-8-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020928443-8 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020928443-8 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020928443-8-gradient);stroke-width:1px;}#mermaid-svg-1795020928443-8 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020928443-8 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020928443-8 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020928443-8-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020928443-8 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020928443-8 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020928443-8-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020928443-8 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020928443-8-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020928443-8 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020928443-8_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020928443-8_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020928443-8_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020928443-8_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020928443-8_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020928443-8_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020928443-8_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020928443-8_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020928443-8_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020928443-8_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020928443-8_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020928443-8_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M457.938,82L457.938,88.917C457.938,95.833,457.938,109.667,457.938,122.833C457.938,136,457.938,148.5,457.938,154.75L457.938,161\" id=\"mermaid-svg-1795020928443-8-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NDU3LjkzNzUsInkiOjgyfSx7IngiOjQ1Ny45Mzc1LCJ5IjoxMjMuNX0seyJ4Ijo0NTcuOTM3NSwieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020928443-8_flowchart-v2-pointEnd)\"></path><path d=\"M294.797,593.61L285.539,605.008C276.281,616.406,257.766,639.203,248.508,682.685C239.25,726.167,239.25,790.333,239.25,822.417L239.25,854.5\" id=\"mermaid-svg-1795020928443-8-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6Mjk0Ljc5NzI0MTI1Nzg0NTU0LCJ5Ijo1OTMuNjA5NzQxMjU3ODQ1NX0seyJ4IjoyMzkuMjUsInkiOjY2Mn0seyJ4IjoyMzkuMjUsInkiOjg1OC41fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020928443-8_flowchart-v2-pointEnd)\"></path><path d=\"M653.991,560.696L673.701,577.58C693.411,594.464,732.83,628.232,752.54,651.366C772.25,674.5,772.25,687,772.25,693.25L772.25,699.5\" id=\"mermaid-svg-1795020928443-8-L_B_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_D_0\" data-points=\"W3sieCI6NjUzLjk5MTQ3ODc5NDA0NTIsInkiOjU2MC42OTYwMjEyMDU5NTQ4fSx7IngiOjc3Mi4yNSwieSI6NjYyfSx7IngiOjc3Mi4yNSwieSI6NzAzLjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020928443-8_flowchart-v2-pointEnd)\"></path><path d=\"M698.456,1143.206L697.401,1146.505C696.346,1149.804,694.235,1156.402,693.18,1183.576C692.125,1210.75,692.125,1258.5,692.125,1282.375L692.125,1306.25\" id=\"mermaid-svg-1795020928443-8-L_D_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_E_0\" data-points=\"W3sieCI6Njk4LjQ1NjIzODE4NTI1NTIsInkiOjExNDMuMjA2MjM4MTg1MjU1Mn0seyJ4Ijo2OTIuMTI1LCJ5IjoxMTYzfSx7IngiOjY5Mi4xMjUsInkiOjEzMTAuMjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020928443-8_flowchart-v2-pointEnd)\"></path><path d=\"M968.44,1020.81L1011.367,1044.508C1054.293,1068.207,1140.147,1115.603,1183.073,1145.552C1226,1175.5,1226,1188,1226,1194.25L1226,1200.5\" id=\"mermaid-svg-1795020928443-8-L_D_F_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_F_0\" data-points=\"W3sieCI6OTY4LjQ0MDA5NTg0NjY0NTQsInkiOjEwMjAuODA5OTA0MTUzMzU0Nn0seyJ4IjoxMjI2LCJ5IjoxMTYzfSx7IngiOjEyMjYsInkiOjEyMDQuNX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020928443-8_flowchart-v2-pointEnd)\"></path><path d=\"M1050.545,1416.795L967.788,1441.579C885.03,1466.363,719.515,1515.932,636.758,1546.966C554,1578,554,1590.5,554,1596.75L554,1603\" id=\"mermaid-svg-1795020928443-8-L_F_G_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_F_G_0\" data-points=\"W3sieCI6MTA1MC41NDUwOTAxODAzNjA4LCJ5IjoxNDE2Ljc5NTA5MDE4MDM2MDh9LHsieCI6NTU0LCJ5IjoxNTY1LjV9LHsieCI6NTU0LCJ5IjoxNjA3fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020928443-8_flowchart-v2-pointEnd)\"></path><path d=\"M1103.271,1469.521L1084.622,1485.518C1065.972,1501.514,1028.674,1533.507,1010.024,1555.754C991.375,1578,991.375,1590.5,991.375,1596.75L991.375,1603\" id=\"mermaid-svg-1795020928443-8-L_F_H_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_F_H_0\" data-points=\"W3sieCI6MTEwMy4yNzEwMDY1OTU5Mjc3LCJ5IjoxNDY5LjUyMTAwNjU5NTkyNzd9LHsieCI6OTkxLjM3NSwieSI6MTU2NS41fSx7IngiOjk5MS4zNzUsInkiOjE2MDd9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020928443-8_flowchart-v2-pointEnd)\"></path><path d=\"M1348.729,1469.521L1367.378,1485.518C1386.028,1501.514,1423.326,1533.507,1441.976,1555.754C1460.625,1578,1460.625,1590.5,1460.625,1596.75L1460.625,1603\" id=\"mermaid-svg-1795020928443-8-L_F_I_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_F_I_0\" data-points=\"W3sieCI6MTM0OC43Mjg5OTM0MDQwNzIzLCJ5IjoxNDY5LjUyMTAwNjU5NTkyNzd9LHsieCI6MTQ2MC42MjUsInkiOjE1NjUuNX0seyJ4IjoxNDYwLjYyNSwieSI6MTYwN31d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020928443-8_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(239.25, 662)\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-67, -19)\"><foreignObject width=\"134\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>No / Unclear</p></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(772.25, 662)\"><g class=\"label\" data-id=\"L_B_D_0\" transform=\"translate(-105.25, -19)\"><foreignObject width=\"210.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Yes, small group only</p></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(692.125, 1163)\"><g class=\"label\" data-id=\"L_D_E_0\" transform=\"translate(-67, -19)\"><foreignObject width=\"134\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>No / Unclear</p></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(1226, 1163)\"><g class=\"label\" data-id=\"L_D_F_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Yes</p></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(554, 1565.5)\"><g class=\"label\" data-id=\"L_F_G_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Yes</p></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(991.375, 1565.5)\"><g class=\"label\" data-id=\"L_F_H_0\" transform=\"translate(-96.75, -19)\"><foreignObject width=\"193.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Slowing, but stable</p></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(1460.625, 1565.5)\"><g class=\"label\" data-id=\"L_F_I_0\" transform=\"translate(-54.25, -19)\"><foreignObject width=\"108.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Declining</p></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020928443-8-flowchart-A-0\" data-look=\"classic\" transform=\"translate(457.9375, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-128.75\" y=\"-35\" width=\"257.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-96.75, -19)\"><rect></rect><foreignObject width=\"193.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Diagnostic Question</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020928443-8-flowchart-B-1\" data-look=\"classic\" transform=\"translate(457.9375, 392.75)\"><polygon points=\"227.75,0 455.5,-227.75 227.75,-455.5 0,-227.75\" class=\"label-container\" transform=\"translate(-227.25, 227.75)\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-181.75, -30)\"><rect></rect><foreignObject width=\"363.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Do a Small Group of Users<br>Clearly Rely on This and Would Miss It?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020928443-8-flowchart-C-3\" data-look=\"classic\" transform=\"translate(239.25, 912.5)\"><rect class=\"basic label-container\" style=\"\" x=\"-175.5\" y=\"-46\" width=\"351\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-143.5, -30)\"><rect></rect><foreignObject width=\"287\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Problem-Solution Fit<br>Stage: Validate Before Scaling</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020928443-8-flowchart-D-5\" data-look=\"classic\" transform=\"translate(772.25, 912.5)\"><polygon points=\"209,0 418,-209 209,-418 0,-209\" class=\"label-container\" transform=\"translate(-208.5, 209)\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-152, -41)\"><rect></rect><foreignObject width=\"304\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Does This Hold Across a Broader,<br>Describable Market with Strong<br>Retention?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020928443-8-flowchart-E-7\" data-look=\"classic\" transform=\"translate(692.125, 1364.25)\"><rect class=\"basic label-container\" style=\"\" x=\"-218\" y=\"-46\" width=\"436\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-186, -30)\"><rect></rect><foreignObject width=\"372\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Introduction Stage: Keep<br>Searching for Fit, Don't Scale Spend Yet</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020928443-8-flowchart-F-9\" data-look=\"classic\" transform=\"translate(1226, 1364.25)\"><polygon points=\"159.75,0 319.5,-159.75 159.75,-319.5 0,-159.75\" class=\"label-container\" transform=\"translate(-159.25, 159.75)\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-113.75, -30)\"><rect></rect><foreignObject width=\"227.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Is Growth Rate Still<br>Accelerating or Strong?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020928443-8-flowchart-G-11\" data-look=\"classic\" transform=\"translate(554, 1661)\"><rect class=\"basic label-container\" style=\"\" x=\"-145.75\" y=\"-46\" width=\"291.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-113.75, -30)\"><rect></rect><foreignObject width=\"227.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Growth Stage: Scale<br>Acquisition &amp; Retention</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020928443-8-flowchart-H-13\" data-look=\"classic\" transform=\"translate(991.375, 1661)\"><rect class=\"basic label-container\" style=\"\" x=\"-158.5\" y=\"-46\" width=\"317\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-126.5, -30)\"><rect></rect><foreignObject width=\"253\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Maturity Stage: Defend,<br>Optimize, Find Adjacencies</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020928443-8-flowchart-I-15\" data-look=\"classic\" transform=\"translate(1460.625, 1661)\"><rect class=\"basic label-container\" style=\"\" x=\"-167\" y=\"-46\" width=\"334\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-135, -30)\"><rect></rect><foreignObject width=\"270\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Decline Stage: Decide:<br>Reinvest, Harvest, or Sunset</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020928443-8-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020928443-8-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020928443-8-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+      "blockId": "blk_8c31f165aa"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "How would you decide whether to invest in growth marketing for this product?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether you first check for evidence of Problem-Solution Fit and durable retention before recommending acquisition spend, or whether you jump straight to acquisition tactics. A weak answer proposes marketing channels immediately. A strong answer first asks what retention and resonance evidence currently exists, explicitly naming that scaling acquisition before fit is established multiplies the cost of an unvalidated model."
+        },
+        {
+          "question": "This product's growth has slowed significantly over the last year. What would you do?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether you correctly diagnose slowing growth as potentially normal (a shift into Maturity) rather than automatically treating it as a crisis requiring the same tactics that worked during Growth. A strong answer distinguishes between a market-saturation explanation (appropriate Maturity response: efficiency, defense, adjacencies) and a competitive or product-quality explanation (potentially early Decline, requiring a different response)."
+        },
+        {
+          "question": "How would you evaluate whether a mature product should be reinvested in or sunset?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether you can reason about lifecycle transitions as deliberate strategic decisions with real trade-offs, rather than treating \"keep investing\" as the automatic default answer regardless of evidence."
+        }
+      ],
+      "blockId": "blk_21725bd5ec"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Products move through recognizable lifecycle stages (Problem-Solution Fit, Introduction, Growth, Maturity, and Decline), each with fundamentally different priorities, risks, and appropriate success metrics. Correctly diagnosing which stage a product is actually in, using observable evidence rather than assumption or company narrative, is essential before applying any stage-specific strategy; the most common and expensive mistake is applying Growth-stage tactics (particularly aggressive scaling of acquisition spend) before Problem-Solution Fit or Product-Market Fit has genuinely been established. Because a company typically operates several products or product lines simultaneously, lifecycle diagnosis should be applied at the level of the specific product or initiative, not assumed uniformly across an entire organization.",
+          "blockId": "blk_018b525722"
+        }
+      ],
+      "blockId": "blk_01f8eeea11"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "The five lifecycle stages are Problem-Solution Fit, Introduction, Growth, Maturity, and Decline; each has a different right question to be asking.",
+        "Problem-Solution Fit and Product-Market Fit function as gates; crossing them prematurely (scaling before fit) is one of the most expensive and common strategic mistakes in product work.",
+        "Lifecycle stage should be diagnosed from evidence (retention, growth pattern, breadth of resonance), not from a product's age or a company's self-narrative.",
+        "Maturity is a normal, often profitable stage, not a failure state, with its own distinct, appropriate priorities (efficiency, defense, adjacent growth).",
+        "A single company routinely has multiple products in different lifecycle stages at once; diagnosis must happen at the level of the individual product."
+      ],
+      "blockId": "blk_e1c440176e"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "**Stages:** Problem-Solution Fit → Introduction (PMF search) → Growth → Maturity → Decline.",
+        "**Gates:** Problem-Solution Fit (small group, real evidence of resonance) and Product-Market Fit (broader market, durable retention) must be crossed before scaling makes sense.",
+        "**Biggest mistake:** scaling acquisition spend before fit is validated, which multiplies the cost of being wrong.",
+        "**Maturity ≠ failure:** it's a normal stage with its own priorities (defend, optimize, find adjacencies).",
+        "**Diagnose per product, not per company:** large companies routinely run products in different stages simultaneously.",
+        "**Diagnostic checklist:** small-group reliance → broader market retention → growth trend (accelerating / stable / declining) tells you the stage."
+      ],
+      "blockId": "blk_b44825547e"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "Product Lifecycle",
+          "definition": "The sequence of recognizable stages a product moves through (Problem-Solution Fit, Introduction, Growth, Maturity, Decline), each with distinct priorities.",
+          "relatedConcepts": [
+            "Product-Market Fit",
+            "Product Strategy (Lesson 10)"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "Problem-Solution Fit",
+          "definition": "Evidence that a specific problem is significant for a specific group of people, and a proposed solution meaningfully addresses it for at least some of them.",
+          "relatedConcepts": [
+            "Product-Market Fit"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "Product-Market Fit (PMF)",
+          "definition": "Evidence that a solution works not just for early adopters but for a definable, reachable market at scale, typically signaled by strong organic retention and word-of-mouth growth.",
+          "relatedConcepts": [
+            "Problem-Solution Fit",
+            "Growth Stage"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Growth Stage",
+          "definition": "The lifecycle stage after PMF, where the primary challenge is scaling acquisition, activation, and retention efficiently.",
+          "relatedConcepts": [
+            "AARRR (Lesson 32)"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "Maturity Stage",
+          "definition": "The lifecycle stage where growth naturally slows due to market saturation; priorities shift to efficiency, defense, and adjacent opportunities.",
+          "relatedConcepts": [
+            "Decline Stage"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Decline Stage",
+          "definition": "The lifecycle stage where usage or relevance is falling, requiring a deliberate decision to reinvest, harvest, or sunset.",
+          "relatedConcepts": [
+            "Maturity Stage"
+          ],
+          "difficulty": 2
+        }
+      ],
+      "blockId": "blk_66338799a3"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "Marty Cagan, *Inspired*",
+          "note": "discusses Problem-Solution Fit and Product-Market Fit as sequential validation gates before scaling."
+        },
+        {
+          "citation": "Geoffrey Moore, *Crossing the Chasm*",
+          "note": "a foundational text on the transition between early adopters and a broader mainstream market, closely related to the Introduction-to-Growth transition described in this lesson."
+        },
+        {
+          "citation": "Slack's official company blog and widely reported technology press coverage of Slack's origin as an internal tool at Tiny Speck",
+          "note": "the basis for the Real Company Example above."
+        }
+      ],
+      "blockId": "blk_55f751a1f8"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_04ix6b",
+      "cards": [
+        {
+          "id": "fc-les_04ix6b-1",
+          "front": "What are the five stages of the product lifecycle used in this curriculum?",
+          "back": "Problem-Solution Fit, Introduction, Growth, Maturity, Decline.",
+          "difficulty": 1,
+          "tags": [
+            "fundamentals",
+            "lifecycle-stages"
+          ]
+        },
+        {
+          "id": "fc-les_04ix6b-2",
+          "front": "What is the most common and expensive lifecycle-related strategic mistake?",
+          "back": "Applying Growth-stage tactics (especially aggressive acquisition spend) before Problem-Solution Fit or Product-Market Fit has actually been established.",
+          "difficulty": 2,
+          "tags": [
+            "mistake",
+            "premature-scaling"
+          ]
+        },
+        {
+          "id": "fc-les_04ix6b-3",
+          "front": "Is Maturity a failure state?",
+          "back": "No, it's a normal, often highly profitable stage with its own distinct priorities: efficiency, defense of market position, and selective adjacent growth.",
+          "difficulty": 2,
+          "tags": [
+            "maturity",
+            "misconception"
+          ]
+        },
+        {
+          "id": "fc-les_04ix6b-4",
+          "front": "How should lifecycle stage be diagnosed, according to this lesson?",
+          "back": "From observable evidence (retention behavior, growth trend, breadth of resonance across a market), not from a product's age or a company's self-narrative.",
+          "difficulty": 2,
+          "tags": [
+            "diagnosis",
+            "evidence"
+          ]
+        },
+        {
+          "id": "fc-les_04ix6b-5",
+          "front": "Can a single company have products in different lifecycle stages simultaneously?",
+          "back": "Yes, this is common and expected; lifecycle diagnosis should happen at the level of the individual product or initiative, not assumed uniformly across the whole company.",
+          "difficulty": 2,
+          "tags": [
+            "portfolio",
+            "multi-stage"
+          ]
+        }
+      ],
+      "blockId": "blk_14e3465bfe"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "Pick a product or company you believe has shifted lifecycle stages at some point in its history (this can be a well-known company or a product you have personal experience with).",
+        "There is no single correct answer. Work through the following before reading further.",
+        "Using the Stage Diagnostic Checklist, identify what evidence would have indicated its stage at an earlier point in time, and what evidence indicates its current stage now.",
+        "Identify the specific transition point (as best you can tell) and what changed: was it a deliberate strategic shift, a market change, competitive pressure, or something else?",
+        "If you were advising the product team during that earlier period, what stage-appropriate priority would you have recommended, and does that match what you believe the team actually did?"
+      ],
+      "blockId": "blk_3bf2c0a523"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_04ix6b",
+      "questions": [
+        {
+          "id": "q-les_04ix6b-1",
+          "question": "What is the correct order of the standard product lifecycle stages used in this lesson?",
+          "options": [
+            "Problem-Solution Fit, Introduction, Growth, Maturity, Decline",
+            "Introduction, Problem-Solution Fit, Growth, Decline, Maturity",
+            "Problem-Solution Fit, Growth, Introduction, Maturity, Decline",
+            "Introduction, Growth, Problem-Solution Fit, Maturity, Decline"
+          ],
+          "correctAnswer": 0,
+          "explanation": "This is the sequence defined in the Theory section, running from earliest small-scale validation through eventual decline or reinvention.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_04ix6b-2",
+          "question": "What does \"Product-Market Fit\" specifically require, beyond Problem-Solution Fit?",
+          "options": [
+            "A defined number of paying customers on annual contracts",
+            "Durable demand across a broader, definable, reachable market",
+            "Formal sign-off from company leadership on the launch plan",
+            "A positive contribution margin on every acquisition channel"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Problem-Solution Fit is evidence that a solution lands for some users. PMF extends that to a market: scale, consistency, and retention durable enough to suggest the demand will hold.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_04ix6b-3",
+          "question": "In the Detailed Case Study, what was the core mistake made by the furniture e-commerce company?",
+          "options": [
+            "The team shipped the room-design feature before designing the checkout",
+            "The team tested the feature with employees rather than with real buyers",
+            "The team scaled paid acquisition on small-sample beta enthusiasm alone",
+            "The team underspent on marketing relative to its established competitors"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The product was still genuinely in Introduction, and the team applied Growth-stage tactics to it. Acquiring users faster does not repair an unvalidated value proposition; it multiplies the number of people who churn from it.",
+          "objectivesTested": [
+            3,
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_04ix6b-4",
+          "question": "Why is Maturity described in this lesson as a normal stage rather than a failure state?",
+          "options": [
+            "Slowing growth reflects saturation, and the stage has its own priorities",
+            "Maturity revenue is guaranteed to hold steady once the stage is reached",
+            "Maturity applies to whole companies rather than to individual products",
+            "Maturity products should be harvested and wound down on a fixed schedule"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Maturity is frequently the most profitable stage a product has. Efficiency, defending position, and finding adjacent pockets of growth are the right goals there, not a diminished version of Growth-stage goals.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_04ix6b-5",
+          "question": "Which of the following is a sign that a PM should investigate a possible lifecycle stage mismatch?",
+          "options": [
+            "A mature product's team concentrates on efficiency and defending share",
+            "An early-stage team runs small, cheap experiments to test resonance",
+            "An Introduction-stage product's team is scaling acquisition spend hard",
+            "A declining product's team is weighing reinvestment against sunsetting"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The other three describe tactics that match the stage the product is actually in. Scaling spend before fit is established is the specific, expensive mismatch this lesson is built around.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_04ix6b-6",
+          "question": "According to this lesson, can a single company have products in different lifecycle stages at the same time?",
+          "options": [
+            "No, a company occupies exactly one lifecycle stage at any given time",
+            "Rarely, this happens mainly at small firms with few product lines",
+            "Chiefly at very large firms with formal portfolio review processes",
+            "Yes, and stage should be diagnosed per product, not per company"
+          ],
+          "correctAnswer": 3,
+          "explanation": "A mature flagship funding an early-stage bet is an ordinary arrangement at almost any company size. Diagnosing at the company level applies the wrong priorities to at least one of them.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_04ix6b-7",
+          "question": "What commonly cited evidence helped establish Slack's early Problem-Solution Fit, as described in this lesson's Real Company Example?",
+          "options": [
+            "A large customer base signed up in the first week of public launch",
+            "The founding team's own heavy internal use, plus early outside interest",
+            "A sustained marketing campaign run in the months before launch",
+            "A patent filing covering the underlying real-time messaging technology"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Intense first-hand use by the team, combined with genuine interest from the first outside teams shown the tool, is small-scale qualitative evidence of resonance, exactly what this gate asks for before scaling.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_04ix6b-8",
+          "question": "In the Seasons mental model, what does \"Winter\" represent?",
+          "options": [
+            "The planting period when the problem-solution match is still being tested",
+            "The Decline stage, where the team chooses to reinvest, harvest, or sunset",
+            "The Summer conditions in which scaling acquisition is most appropriate",
+            "A closed end state in which no further strategic decisions remain open"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Winter maps to Decline, and the model frames it as a decision point rather than a passive ending: survive until the next spring through reinvention, harvest what remains, or wind down responsibly.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_04ix6b-9",
+          "question": "Why does this lesson caution against determining lifecycle stage based on a product's age (e.g., \"it's been five years, so it must be mature\")?",
+          "options": [
+            "A long-lived product without a retained audience may still be early",
+            "Product age correlates with stage only for consumer, not B2B, products",
+            "Age matters less than the number of major releases a product has had",
+            "Most products reach Maturity at roughly the five-year mark regardless"
+          ],
+          "correctAnswer": 0,
+          "explanation": "A product repeatedly repositioned over five years, with no clearly resonant audience, is effectively still in Introduction. Stage is read from retention behavior, growth pattern, and breadth of resonance, not from the calendar.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_04ix6b-10",
+          "question": "(Product Thinking) A mature product's growth has flattened, but retention among existing users remains strong and stable. A newer competitor is not gaining meaningful share. According to this lesson's framework, what is the most appropriate response?",
+          "options": [
+            "Treat the flattening as Decline and reduce further investment sharply",
+            "Restart the search for Product-Market Fit as though the product were new",
+            "Hold the current Growth-stage acquisition plan unchanged through the year",
+            "Read this as Maturity and shift to efficiency, defense, and adjacencies"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Flat growth with stable retention and no share loss is the textbook Maturity signature. Neither panic nor unchanged Growth tactics fit the evidence; the stage-appropriate priorities do.",
+          "objectivesTested": [
+            2,
+            3
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_04ix6b-11",
+          "question": "(Interview Reasoning) An interviewer asks how a candidate would decide whether to invest in growth marketing for a given product. A weak candidate immediately proposes specific marketing channels and budgets. What does this reveal, per this lesson's Interview Perspective section?",
+          "options": [
+            "Strong command of acquisition mechanics applied decisively under pressure",
+            "A failure to check for fit evidence before recommending acquisition spend",
+            "A preference for paid channels over the organic growth the product needs",
+            "An understanding that growth marketing decisions are budget decisions first"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The question is a trap for premature scaling. Channels and budgets are downstream of a prior question the candidate skipped: is there evidence this product retains the users it already has?",
+          "objectivesTested": [
+            3,
+            4
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_04ix6b-12",
+          "question": "(Highest Difficulty, Product Thinking) A company's flagship product is in Maturity, generating stable, efficient revenue. Leadership proposes reallocating most of that product's engineering budget toward an early-stage bet still searching for Problem-Solution Fit. Using this lesson's framework, what is the most important diagnostic question before evaluating this proposal?",
+          "options": [
+            "Whether the flagship product's engineering team supports being reassigned",
+            "Whether the early-stage bet can reach revenue parity within the same year",
+            "Whether the flagship's market is saturated enough to justify the transfer",
+            "Whether each product is being judged by standards appropriate to its stage"
+          ],
+          "correctAnswer": 3,
+          "explanation": "A Maturity product and a pre-fit bet need different operating models, funding structures, and success metrics. Comparing them through one lens guarantees at least one of the two is misjudged.",
+          "objectivesTested": [
+            4,
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_04ix6b-13",
+          "question": "According to the Theory section, is the lifecycle model deterministic: does it predict what a product must do next?",
+          "options": [
+            "Yes, entering Decline reliably predicts that the product will be retired",
+            "Yes, the stages proceed in strict order, which is what makes them useful",
+            "No, it is diagnostic, and a mature product can reach a second growth curve",
+            "No, and stage therefore has little bearing on which questions a PM asks"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Stages are neither strictly linear nor permanent. The model earns its keep by telling you which question to ask right now, not by forecasting a fixed trajectory; decline is sometimes addressable rather than structural.",
+          "objectivesTested": [
+            1,
+            2
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_04ix6b-14",
+          "question": "What is the practical difference between \"Problem-Solution Fit\" and \"Product-Market Fit\" functioning as gates, per the Theory section?",
+          "options": [
+            "They describe the same threshold, reached at the same point in a product's life",
+            "Product-Market Fit is normally established before Problem-Solution Fit is",
+            "One is small-scale qualitative evidence; the other is durable scale demand",
+            "Both are permanent once reached and do not need to be re-verified later"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Problem-Solution Fit comes from interviews, prototypes, and concierge solutions with a few users. PMF requires evidence the demand holds across a reachable market, and unlike the first gate, it can be lost again as markets shift.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_04ix6b-15",
+          "question": "(Highest Difficulty, Product Thinking) A large company's flagship product is clearly in Maturity, while a newer internal bet is still searching for Problem-Solution Fit. Leadership issues a single company-wide OKR: \"grow revenue 20% via aggressive acquisition spend across all product lines this year.\" Using Common Beginner Mistake #4 and the Theory section, what is the strongest critique of this directive?",
+          "options": [
+            "It treats one company as a single stage, misapplying growth tactics to both",
+            "It sets a revenue target when engagement would be the more honest measure",
+            "It should exclude the unvalidated bet and apply to the flagship product only",
+            "It understates the growth rate a mature flagship product can still deliver"
+          ],
+          "correctAnswer": 0,
+          "explanation": "One acquisition mandate lands wrong twice: it scales an unvalidated bet before fit, and it pushes a saturated flagship toward spend when efficiency and defense are the stage-appropriate levers.",
+          "objectivesTested": [
+            4,
+            5
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_0d305a9c7e"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_0q4aih",
+        "title": "Lesson 3: Product Thinking",
+        "module": "foundations"
+      },
+      "current": {
+        "id": "les_04ix6b",
+        "title": "Lesson 4: Product Lifecycle"
+      },
+      "next": {
+        "id": "les_aovj2y",
+        "title": "Lesson 5: Users vs. Customers",
+        "module": "foundations"
+      },
+      "unlocks": [
+        {
+          "lesson": {
+            "id": "les_ji9a3x",
+            "title": "Product Vision",
+            "module": "foundations"
+          },
+          "coreIdea": "A vision must account for which lifecycle stage the product is in and where it's headed next"
+        }
+      ],
+      "blockId": "blk_560890b5d6"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 4: Product Lifecycle Lesson 2 established that a product has no natural finish line the way a project does. This lesson doesn't contradict that; it refines it. A product without a fixed end state can still move through recognizably different *stages*, each with different priorities, different risks, and different definitions of what \"good work\" looks like. Understanding which stage a product is in (and recognizing when it's shifting into a new one) is one of the most practically useful diagnostic skills a PM can develop. This matters because the single most common strategic mistake in product work is applying the priorities of one lifecycle stage to a product that has already moved into another. Chasing growth aggressively in a product that hasn't yet found what users actually want (before problem-solution fit) wastes resources on scaling something not yet worth scaling. Conversely, obsessively re-validating a problem that was already validated years ago, in a mature product, wastes time that should go toward optimization and defense of an established position. This lesson gives you the vocabulary and the diagnostic questions to avoid both mistakes. Name and describe the standard stages of the product lifecycle: Introduction, Growth, Maturity, and Decline (with Problem-Solution Fit and Product-Market Fit as critical pre-Introduction gates). Explain why the priorities, risks, and success metrics differ meaningfully across lifecycle stages. Diagnose which lifecycle stage a real product is likely in, using observable signals rather than assumption. Explain the common failure mode of applying growth-stage tactics to a pre-fit product, and vice versa. Describe how a single company can have products in multiple different lifecycle stages simultaneously. This lesson assumes you understand Lesson 2's finite/infinite distinction (a product has no fixed end state) and Lesson 3's product thinking habit (examining underlying need before jumping to solutions), since lifecycle diagnosis is itself an act of product thinking applied to the *product as a whole* rather than to a single feature request. The Stages, at a Glance While different sources use slightly different terminology, this curriculum will use the following consistent stage names, which map closely to widely used product and marketing lifecycle models: **Problem-Solution Fit**: pre-launch or early-launch validation that a real problem exists and a proposed solution genuinely addresses it for at least a small group of users. **Introduction (Product-Market Fit search)**: the product is live, but the team is still actively searching for a repeatable, scalable match between the product and a broader market. **Growth**: product-market fit has been found; the primary challenge shifts to scaling adoption, usage, and revenue as efficiently as possible. **Maturity**: growth naturally slows as the addressable market becomes saturated; the primary challenge shifts to defending market position, improving efficiency, and finding smaller, adjacent growth opportunities. **Decline**: usage, revenue, or relevance is falling, usually due to a shifting market, changing user needs, or superior alternatives; the primary challenge shifts to a deliberate decision: reinvest, harvest, or sunset. It is worth being explicit that these stages are not always linear or permanent. A mature product can be reinvigorated into renewed growth (sometimes called a second growth curve) through a significant new capability, market expansion, or business model change. A product in decline is not always doomed: sometimes decline reflects a temporary, addressable problem rather than an inevitable trajectory. The value of the lifecycle model is diagnostic, not deterministic: it tells you what questions to ask right now, not what will necessarily happen next. Why Priorities Differ by Stage The reason lifecycle stage matters so much is that the *right question to be asking* is different at each stage, and asking the wrong question wastes real resources. In **Problem-Solution Fit**, the right question is: *does this problem, and this proposed solution, actually resonate with real users, even at small scale?* The right metrics are qualitative and small-sample: are early users engaged, do they come back unprompted, would they be genuinely disappointed if the product disappeared? In **Introduction**, the right question is: *have we found a specific, describable audience and value proposition that could scale, or are we still guessing?* Metrics start to include early retention curves and word-of-mouth signals, but sample sizes are often still too small for rigorous statistical confidence. In **Growth**, the right question is: *how do we acquire, activate, and retain users as efficiently and durably as possible, now that we know the product works for a defined audience?* This is where the acquisition, activation, and retention metrics of Module 4 (AARRR, funnels) become the dominant operating lens. In **Maturity**, the right question is: *how do we defend our position, improve margins, and find smaller pockets of adjacent growth, given that the core market is largely saturated?* Metrics shift toward efficiency (cost per acquisition relative to lifetime value), retention defense, and share of an increasingly fixed market. In **Decline**, the right question is: *is this decline addressable (a fixable product or market issue) or structural (the underlying need has genuinely moved elsewhere), and what is the deliberate plan: reinvest, harvest for cash with minimal investment, or sunset gracefully?* Applying a Growth-stage mindset (aggressive scaling of acquisition spend) to a product still in Problem-Solution Fit is a specific, common, expensive mistake: it scales a solution that hasn't yet been shown to actually work, multiplying the cost of being wrong before the team even knows whether it's wrong. This is one of the most cited reasons early-stage startups fail: not lack of effort, but premature scaling of an unvalidated model. Problem-Solution Fit and Product-Market Fit as Gates Two specific milestones deserve special attention because they function as *gates*: thresholds a product should cross before the next stage's priorities become appropriate. **Problem-Solution Fit** is reached when you have real evidence (not assumption) that a specific problem is significant enough, for a specific group of people, that your proposed solution meaningfully addresses it for at least some of them. This is usually established through qualitative methods (interviews, small prototypes, concierge-style manual solutions) covered in Module 2. **Product-Market Fit (PMF)** is reached when that solution has been shown to work not just for a handful of early adopters, but for a definable, reachable market at a scale and consistency that suggests durable demand, often signaled by strong organic retention, word-of-mouth growth, and users expressing something close to genuine reliance on the product (a commonly cited informal signal: a large share of surveyed users saying they would be \"very disappointed\" if the product no longer existed). Crucially, PMF is not a permanent state achieved once and then held forever: markets shift, competitors emerge, and a product can lose fit it once had (a transition toward Maturity's defensive posture, or even into Decline). This is why lifecycle diagnosis is something a PM should revisit periodically, not something decided once at launch and never reconsidered. Assuming lifecycle stage is determined by a product's age, rather than by evidence A product that has existed for five years is not automatically in Maturity; if it has been repeatedly repositioned or has never found a clearly resonant audience, it may still be effectively in Introduction, regardless of calendar time elapsed. Lifecycle stage should be diagnosed from evidence (retention behavior, growth pattern, qualitative signals), not inferred from launch date. Applying growth tactics before Problem-Solution Fit is established This is the single most expensive version of stage-mismatch: spending heavily on user acquisition for a product that has not yet demonstrated it solves a real problem for real people. Acquiring more users faster does not fix an unvalidated value proposition; it simply multiplies the number of people who churn from it. Treating Maturity as a failure state Some PMs, especially those who joined a fast-growing company, treat a shift into Maturity (slowing growth rate) as a sign that something has gone wrong. In reality, Maturity is a normal, often highly profitable stage, and the correct priorities (efficiency, defense, selective adjacent growth) are entirely different from Growth-stage priorities, not a lesser version of the same goals. Assuming an entire company is in one single lifecycle stage Large organizations typically have a portfolio of products or product lines in different stages simultaneously: a mature flagship product funding an early-stage bet still searching for Problem-Solution Fit. Treating \"the company\" as a single lifecycle stage, rather than diagnosing each product or product line individually, leads to applying the wrong priorities to the wrong initiative. Treating Product-Market Fit as a permanent achievement rather than a state that must be periodically re-verified Some PMs, once a product reaches PMF, treat that milestone as permanently settled and stop revisiting the question. Markets shift, competitors emerge, and user needs evolve, so a product that once had a strong fit can lose it, sliding toward Maturity's defensive posture or even Decline without anyone noticing until the trailing metrics make it obvious. Lifecycle diagnosis is something a PM should revisit periodically, not something decided once at launch and never reconsidered. The Seasons This lesson's mental model maps the five stages onto the four seasons plus an early \"planting\" period, to make the shifting priorities memorable and intuitive. In **Planting**, you're testing whether the seed (the problem-solution match) is even viable before committing real resources. In **Spring**, growth is fragile and uneven; you're still learning which conditions make it thrive. In **Summer**, conditions are right and the priority is maximizing growth while it's available. In **Autumn**, growth naturally slows, and the priority shifts to harvesting value efficiently and preparing for leaner conditions. In **Winter**, the honest question is whether to invest in surviving until the next Spring (reinvention) or to responsibly wind down. Use this model as a quick gut-check: if your product's current priorities feel like \"Summer\" tactics (aggressive scaling) but the evidence around you looks like \"Planting\" conditions (still uncertain if the core value proposition resonates), that mismatch is itself a diagnostic signal worth investigating immediately. Slack **Slack** offers a well-documented, frequently cited example of the Problem-Solution Fit to Growth transition. Slack originated as an internal communication tool built by a team (Tiny Speck) that was originally developing a different product entirely: an online game. The internal tool the team built for its own communication needs during that process was recognized as solving a real, resonant problem, leading to a deliberate pivot toward building and launching that tool as the primary product. This illustrates the Problem-Solution Fit gate directly: the team had strong, direct evidence (their own intense daily use, and interest from other teams they showed it to) that the underlying problem (fragmented, inefficient team communication) was real and that their solution addressed it, before committing to scaling it as a company-defining product. Slack's subsequent rapid growth phase, including its widely noted early word-of-mouth adoption pattern, reflects the transition into the Growth stage once that fit had been established. At a startup Nearly all attention is typically focused on the earliest stages: establishing Problem-Solution Fit and searching for Product-Market Fit. Because runway is finite (as noted in Lesson 1), the central existential question is almost always \"have we actually found something people need,\" rather than optimization questions that only make sense once fit exists. At a mid-size company The core product has often reached Growth or early Maturity, while newer initiatives (an adjacent product line, a new market segment) may simultaneously be back in Problem-Solution Fit or Introduction. A PM's job at this stage often includes correctly identifying which stage their *specific* area of ownership is in, since company-wide messaging (\"we're a growth company\") can misleadingly suggest every initiative should be run with growth-stage urgency and tactics. At Big Tech It's common to see an extreme range of lifecycle stages within a single company: a flagship product deep in Maturity (optimizing efficiency, defending share) alongside experimental bets still searching for Problem-Solution Fit, often run with deliberately different operating models, funding structures, and success metrics precisely because leadership recognizes that a Maturity-stage playbook applied to an early bet would strangle it before it had a chance to find fit. Scaling Before Fit A furniture e-commerce startup builds an AI-powered room-design tool that lets users upload a photo of their room and see AI-generated furniture recommendations placed virtually within it. Early feedback from a small group of beta users is enthusiastic. Encouraged, leadership approves a significant paid marketing budget to drive broad user acquisition, reasoning that a clearly innovative feature \"should\" attract strong growth. Three months later, acquisition numbers look strong (many new users tried the tool), but retention is poor: the vast majority of users try it once and never return, and conversion to actual furniture purchases is far below the company's cost of acquiring each user. The company has spent a significant marketing budget scaling a product that had not yet demonstrated durable Problem-Solution Fit beyond a small, enthusiastic beta group. **What went wrong, using this lesson's framework?** The enthusiastic beta feedback established, at most, weak early signals: a small sample of engaged early adopters is not the same as evidence of Product-Market Fit across a broader market. The company applied Growth-stage tactics (aggressive paid acquisition) to a product still genuinely in the Introduction stage, where the priority should have been small-scale, low-cost experimentation to understand *why* the small beta group loved it, whether that reason generalized to a wider audience, and what was actually driving the gap between initial trial and repeat use, before spending heavily to bring in users at scale. A PM applying the lifecycle model correctly would have paused after the beta phase to ask the Introduction-stage question (\"have we found a specific, describable audience and value proposition that could scale, or are we still guessing?\") rather than the Growth-stage question (\"how do we acquire users as efficiently as possible?\"), and would likely have proposed a smaller, retention-focused validation phase before recommending any significant acquisition spend. What specific evidence was missing when leadership approved the paid marketing budget, and why was the enthusiastic beta feedback insufficient to justify scaling? If you were the PM on this product at the end of the beta phase, what low-cost experiment would you propose to determine whether the product was ready for Growth-stage tactics? The Stage Diagnostic Checklist This lesson's reusable framework is a short diagnostic checklist for identifying which lifecycle stage a product is actually in, based on observable evidence rather than assumption or company narrative. The value of this checklist is that it forces the diagnosis to rest on specific, checkable evidence (retention behavior, growth trend, breadth of resonance) rather than on convenient assumptions (\"we're clearly a growth company because leadership says so,\" or \"this feature is obviously going to work because early users loved it\"). A PM should be able to point to the specific evidence behind wherever they place their product on this checklist, and should revisit the diagnosis periodically, since stage is a current-state read, not a permanent label. How would you decide whether to invest in growth marketing for this product? *What the interviewer is actually evaluating:* Whether you first check for evidence of Problem-Solution Fit and durable retention before recommending acquisition spend, or whether you jump straight to acquisition tactics. A weak answer proposes marketing channels immediately. A strong answer first asks what retention and resonance evidence currently exists, explicitly naming that scaling acquisition before fit is established multiplies the cost of an unvalidated model. This product's growth has slowed significantly over the last year. What would you do? *What the interviewer is actually evaluating:* Whether you correctly diagnose slowing growth as potentially normal (a shift into Maturity) rather than automatically treating it as a crisis requiring the same tactics that worked during Growth. A strong answer distinguishes between a market-saturation explanation (appropriate Maturity response: efficiency, defense, adjacencies) and a competitive or product-quality explanation (potentially early Decline, requiring a different response). How would you evaluate whether a mature product should be reinvested in or sunset? *What the interviewer is actually evaluating:* Whether you can reason about lifecycle transitions as deliberate strategic decisions with real trade-offs, rather than treating \"keep investing\" as the automatic default answer regardless of evidence. Products move through recognizable lifecycle stages (Problem-Solution Fit, Introduction, Growth, Maturity, and Decline), each with fundamentally different priorities, risks, and appropriate success metrics. Correctly diagnosing which stage a product is actually in, using observable evidence rather than assumption or company narrative, is essential before applying any stage-specific strategy; the most common and expensive mistake is applying Growth-stage tactics (particularly aggressive scaling of acquisition spend) before Problem-Solution Fit or Product-Market Fit has genuinely been established. Because a company typically operates several products or product lines simultaneously, lifecycle diagnosis should be applied at the level of the specific product or initiative, not assumed uniformly across an entire organization. The five lifecycle stages are Problem-Solution Fit, Introduction, Growth, Maturity, and Decline; each has a different right question to be asking. Problem-Solution Fit and Product-Market Fit function as gates; crossing them prematurely (scaling before fit) is one of the most expensive and common strategic mistakes in product work. Lifecycle stage should be diagnosed from evidence (retention, growth pattern, breadth of resonance), not from a product's age or a company's self-narrative. Maturity is a normal, often profitable stage, not a failure state, with its own distinct, appropriate priorities (efficiency, defense, adjacent growth). A single company routinely has multiple products in different lifecycle stages at once; diagnosis must happen at the level of the individual product. **Stages:** Problem-Solution Fit → Introduction (PMF search) → Growth → Maturity → Decline. **Gates:** Problem-Solution Fit (small group, real evidence of resonance) and Product-Market Fit (broader market, durable retention) must be crossed before scaling makes sense. **Biggest mistake:** scaling acquisition spend before fit is validated, which multiplies the cost of being wrong. **Maturity ≠ failure:** it's a normal stage with its own priorities (defend, optimize, find adjacencies). **Diagnose per product, not per company:** large companies routinely run products in different stages simultaneously. **Diagnostic checklist:** small-group reliance → broader market retention → growth trend (accelerating / stable / declining) tells you the stage. Product Lifecycle The sequence of recognizable stages a product moves through (Problem-Solution Fit, Introduction, Growth, Maturity, Decline), each with distinct priorities. Problem-Solution Fit Evidence that a specific problem is significant for a specific group of people, and a proposed solution meaningfully addresses it for at least some of them. Product-Market Fit (PMF) Evidence that a solution works not just for early adopters but for a definable, reachable market at scale, typically signaled by strong organic retention and word-of-mouth growth. Growth Stage The lifecycle stage after PMF, where the primary challenge is scaling acquisition, activation, and retention efficiently. Maturity Stage The lifecycle stage where growth naturally slows due to market saturation; priorities shift to efficiency, defense, and adjacent opportunities. Decline Stage The lifecycle stage where usage or relevance is falling, requiring a deliberate decision to reinvest, harvest, or sunset. Marty Cagan, *Inspired* discusses Problem-Solution Fit and Product-Market Fit as sequential validation gates before scaling. Geoffrey Moore, *Crossing the Chasm* a foundational text on the transition between early adopters and a broader mainstream market, closely related to the Introduction-to-Growth transition described in this lesson. Slack's official company blog and widely reported technology press coverage of Slack's origin as an internal tool at Tiny Speck the basis for the Real Company Example above. What are the five stages of the product lifecycle used in this curriculum? Problem-Solution Fit, Introduction, Growth, Maturity, Decline. What is the most common and expensive lifecycle-related strategic mistake? Applying Growth-stage tactics (especially aggressive acquisition spend) before Problem-Solution Fit or Product-Market Fit has actually been established. Is Maturity a failure state? No, it's a normal, often highly profitable stage with its own distinct priorities: efficiency, defense of market position, and selective adjacent growth. How should lifecycle stage be diagnosed, according to this lesson? From observable evidence (retention behavior, growth trend, breadth of resonance across a market), not from a product's age or a company's self-narrative. Can a single company have products in different lifecycle stages simultaneously? Yes, this is common and expected; lifecycle diagnosis should happen at the level of the individual product or initiative, not assumed uniformly across the whole company. Pick a product or company you believe has shifted lifecycle stages at some point in its history (this can be a well-known company or a product you have personal experience with). There is no single correct answer. Work through the following before reading further. Using the Stage Diagnostic Checklist, identify what evidence would have indicated its stage at an earlier point in time, and what evidence indicates its current stage now. Identify the specific transition point (as best you can tell) and what changed: was it a deliberate strategic shift, a market change, competitive pressure, or something else? If you were advising the product team during that earlier period, what stage-appropriate priority would you have recommended, and does that match what you believe the team actually did? What is the correct order of the standard product lifecycle stages used in this lesson? This is the sequence defined in the Theory section, running from earliest small-scale validation through eventual decline or reinvention. What does \"Product-Market Fit\" specifically require, beyond Problem-Solution Fit? Problem-Solution Fit is evidence that a solution lands for some users. PMF extends that to a market: scale, consistency, and retention durable enough to suggest the demand will hold. In the Detailed Case Study, what was the core mistake made by the furniture e-commerce company? The product was still genuinely in Introduction, and the team applied Growth-stage tactics to it. Acquiring users faster does not repair an unvalidated value proposition; it multiplies the number of people who churn from it. Why is Maturity described in this lesson as a normal stage rather than a failure state? Maturity is frequently the most profitable stage a product has. Efficiency, defending position, and finding adjacent pockets of growth are the right goals there, not a diminished version of Growth-stage goals. Which of the following is a sign that a PM should investigate a possible lifecycle stage mismatch? The other three describe tactics that match the stage the product is actually in. Scaling spend before fit is established is the specific, expensive mismatch this lesson is built around. According to this lesson, can a single company have products in different lifecycle stages at the same time? A mature flagship funding an early-stage bet is an ordinary arrangement at almost any company size. Diagnosing at the company level applies the wrong priorities to at least one of them. What commonly cited evidence helped establish Slack's early Problem-Solution Fit, as described in this lesson's Real Company Example? Intense first-hand use by the team, combined with genuine interest from the first outside teams shown the tool, is small-scale qualitative evidence of resonance, exactly what this gate asks for before scaling. In the Seasons mental model, what does \"Winter\" represent? Winter maps to Decline, and the model frames it as a decision point rather than a passive ending: survive until the next spring through reinvention, harvest what remains, or wind down responsibly. Why does this lesson caution against determining lifecycle stage based on a product's age (e.g., \"it's been five years, so it must be mature\")? A product repeatedly repositioned over five years, with no clearly resonant audience, is effectively still in Introduction. Stage is read from retention behavior, growth pattern, and breadth of resonance, not from the calendar. (Product Thinking) A mature product's growth has flattened, but retention among existing users remains strong and stable. A newer competitor is not gaining meaningful share. According to this lesson's framework, what is the most appropriate response? Flat growth with stable retention and no share loss is the textbook Maturity signature. Neither panic nor unchanged Growth tactics fit the evidence; the stage-appropriate priorities do. (Interview Reasoning) An interviewer asks how a candidate would decide whether to invest in growth marketing for a given product. A weak candidate immediately proposes specific marketing channels and budgets. What does this reveal, per this lesson's Interview Perspective section? The question is a trap for premature scaling. Channels and budgets are downstream of a prior question the candidate skipped: is there evidence this product retains the users it already has? (Highest Difficulty, Product Thinking) A company's flagship product is in Maturity, generating stable, efficient revenue. Leadership proposes reallocating most of that product's engineering budget toward an early-stage bet still searching for Problem-Solution Fit. Using this lesson's framework, what is the most important diagnostic question before evaluating this proposal? A Maturity product and a pre-fit bet need different operating models, funding structures, and success metrics. Comparing them through one lens guarantees at least one of the two is misjudged. According to the Theory section, is the lifecycle model deterministic: does it predict what a product must do next? Stages are neither strictly linear nor permanent. The model earns its keep by telling you which question to ask right now, not by forecasting a fixed trajectory; decline is sometimes addressable rather than structural. What is the practical difference between \"Problem-Solution Fit\" and \"Product-Market Fit\" functioning as gates, per the Theory section? Problem-Solution Fit comes from interviews, prototypes, and concierge solutions with a few users. PMF requires evidence the demand holds across a reachable market, and unlike the first gate, it can be lost again as markets shift. (Highest Difficulty, Product Thinking) A large company's flagship product is clearly in Maturity, while a newer internal bet is still searching for Problem-Solution Fit. Leadership issues a single company-wide OKR: \"grow revenue 20% via aggressive acquisition spend across all product lines this year.\" Using Common Beginner Mistake #4 and the Theory section, what is the strongest critique of this directive? One acquisition mandate lands wrong twice: it scales an unvalidated bet before fit, and it pushes a saturated flagship toward spend when efficiency and defense are the stage-appropriate levers.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "Mental Model: The Seasons",
+      "Real Company Example",
+      "Real World Perspective: Product Lifecycle at Different Company Stages",
+      "Detailed Case Study: Scaling Before Fit",
+      "Framework Explanation: The Stage Diagnostic Checklist",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "Product Lifecycle",
+    "Problem-Solution Fit",
+    "Product-Market Fit (PMF)",
+    "Growth Stage",
+    "Maturity Stage",
+    "Decline Stage"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

@@ -1,0 +1,849 @@
+{
+  "schemaVersion": 2,
+  "id": "les_eyguum",
+  "contentHash": "ccc654a6128150ed51fe479559526a8f70c0c6399c80137c3d691534bd89be9c",
+  "title": "Innovation Accounting and Portfolio Management",
+  "slug": "lesson-077",
+  "module": "strategy",
+  "order": 7,
+  "totalInModule": 10,
+  "difficulty": 7,
+  "estimatedReadingTime": 40,
+  "estimatedCompletionTime": 55,
+  "prerequisites": [
+    "les_e18dsm",
+    "les_43g66w"
+  ],
+  "sourceFile": "content/lessons/lesson-077.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 77: Innovation Accounting and Portfolio Management",
+      "blockId": "blk_f8c90dbd02"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 71 introduced the Strategy Cascade and the Three Horizons framework, establishing that a healthy bet portfolio deliberately spans core, adjacent, and transformational risk levels, and specifically warned against judging Horizon 3 bets by the same near-term metrics appropriate for Horizon 1. This lesson makes that warning concrete and actionable: what, exactly, should a company measure for a bet that is genuinely too early to show revenue, and how should a portfolio of many such bets, at different stages of maturity, actually be managed and reported on over time?",
+      "blockId": "blk_39e3bd2779"
+    },
+    {
+      "type": "paragraph",
+      "text": "The natural organizational instinct is to measure every initiative using the same familiar metrics (revenue, user growth, profit margin) regardless of how early-stage or exploratory that initiative genuinely is. This instinct is understandable, since these are the metrics an organization already knows how to read and compare, but applying them uniformly to bets at fundamentally different stages of maturity produces a specific and damaging failure: promising early-stage bets get killed prematurely for failing to show revenue they were never realistically going to show yet, while genuinely failing bets can survive far too long if they happen to generate superficially impressive but ultimately meaningless activity metrics.",
+      "blockId": "blk_5e20a13d95"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson introduces the Portfolio Health Grid, this lesson's core mental model, to give you a structured way to track and evaluate a portfolio of bets at genuinely different stages of maturity, using stage-appropriate evidence rather than forcing every bet through the same evaluative lens regardless of how ready it actually is to produce that kind of evidence.",
+      "blockId": "blk_a9355d142a"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "Explain why applying uniform, revenue-based metrics across bets at different maturity stages produces systematically bad portfolio decisions.",
+        "Apply the Portfolio Health Grid to evaluate a bet using evidence appropriate to its actual stage of maturity.",
+        "Distinguish validated learning metrics from vanity metrics in the context of an early-stage bet.",
+        "Identify the specific risk of both premature bet cancellation and prolonged bet survival caused by metric mismatch.",
+        "Evaluate a portfolio of bets for whether each is being measured using stage-appropriate evidence."
+      ],
+      "blockId": "blk_3ce19e6937"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson assumes the Strategy Cascade, Three Horizons framework, and falsifiable-bet discipline from Lesson 71, since this lesson provides the measurement system that makes ongoing bet evaluation genuinely possible, and the Metric Provenance Chain from Lesson 64, since evaluating any bet's progress depends on the same underlying data trustworthiness that lesson established.",
+      "blockId": "blk_b21b9284a1"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Why Uniform Metrics Fail Across Maturity Stages",
+          "blockId": "blk_b1977ddbfb"
+        },
+        {
+          "type": "paragraph",
+          "text": "A Horizon 1 bet, extending an established core business, can reasonably be judged against revenue, profit margin, and market share, because the underlying business model is proven and the relevant question is one of execution and optimization. A Horizon 3 bet (a genuinely new, exploratory initiative) cannot reasonably be judged against these same metrics in its earliest stages, not because the team is executing poorly, but because the entire premise of an early-stage exploratory bet is that the business model itself has not yet been validated, and demanding revenue-scale proof before that validation has occurred is asking the bet to demonstrate something it is structurally too early to demonstrate. Applying Horizon 1 metrics to a Horizon 3 bet doesn't produce a more rigorous evaluation; it produces a category error that reliably kills promising early bets before they've had a chance to answer the actual questions they were designed to test.",
+          "blockId": "blk_9845d242f4"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Portfolio Health Grid",
+          "blockId": "blk_607c7257d9"
+        },
+        {
+          "type": "paragraph",
+          "text": "This lesson introduces the **Portfolio Health Grid**, plotting each bet in a portfolio along two axes: its Three Horizons classification from Lesson 71, and its actual stage of validated progress.",
+          "blockId": "blk_29455ad0be"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_9d2cbc5381",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    subgraph Validation Stages\r\n    S1[Concept: hypothesis articulated, not yet tested]\r\n    S2[Prototype: minimal version tested with real users]\r\n    S3[Pilot: validated with a limited but real customer segment]\r\n    S4[Scale: validated model being deliberately scaled]\r\n    end\r\n    H1[\"Horizon 1<br/>(Core)\"] --- S4\r\n    H2[\"Horizon 2<br/>(Adjacent)\"] --- S3\r\n    H3[\"Horizon 3<br/>(Transformational)\"] --- S1",
+          "normalized": "graph TD\r\n    subgraph Validation Stages\r\n    S1[Concept: hypothesis articulated, not yet tested]\r\n    S2[Prototype: minimal version tested with real users]\r\n    S3[Pilot: validated with a limited but real customer segment]\r\n    S4[Scale: validated model being deliberately scaled]\r\n    end\r\n    H1[\"Horizon 1<br/>(Core)\"] --- S4\r\n    H2[\"Horizon 2<br/>(Adjacent)\"] --- S3\r\n    H3[\"Horizon 3<br/>(Transformational)\"] --- S1",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020971621-190\" xmlns=\"http://www.w3.org/2000/svg\" width=\"3158.13\" height=\"353\" viewBox=\"-59.375 -27 3158.13 353\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Validation Stages → Concept: hypothesis articulated, not yet tested → Prototype: minimal version tested with real users → Pilot: validated with a limited but real customer segment → Scale: validated model being deliberately scaled...\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Validation Stages → Concept: hypothesis articulated, not yet tested → Prototype: minimal version tested with real users → Pilot: validated with a limited but real customer segment → Scale: validated model being deliberately scaled...</title><style>#mermaid-svg-1795020971621-190{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020971621-190 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020971621-190 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020971621-190 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020971621-190 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020971621-190 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020971621-190 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020971621-190 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020971621-190 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020971621-190 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020971621-190 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020971621-190 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020971621-190 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020971621-190 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020971621-190 p{margin:0;}#mermaid-svg-1795020971621-190 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020971621-190 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020971621-190 .cluster-label span{color:#171A17;}#mermaid-svg-1795020971621-190 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020971621-190 .label text,#mermaid-svg-1795020971621-190 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020971621-190 .node rect,#mermaid-svg-1795020971621-190 .node circle,#mermaid-svg-1795020971621-190 .node ellipse,#mermaid-svg-1795020971621-190 .node polygon,#mermaid-svg-1795020971621-190 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020971621-190 .rough-node .label text,#mermaid-svg-1795020971621-190 .node .label text,#mermaid-svg-1795020971621-190 .image-shape .label,#mermaid-svg-1795020971621-190 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020971621-190 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020971621-190 .rough-node .label,#mermaid-svg-1795020971621-190 .node .label,#mermaid-svg-1795020971621-190 .image-shape .label,#mermaid-svg-1795020971621-190 .icon-shape .label{text-align:center;}#mermaid-svg-1795020971621-190 .node.clickable{cursor:pointer;}#mermaid-svg-1795020971621-190 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020971621-190 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020971621-190 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020971621-190 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020971621-190 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020971621-190 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020971621-190 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020971621-190 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020971621-190 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020971621-190 .cluster text{fill:#171A17;}#mermaid-svg-1795020971621-190 .cluster span{color:#171A17;}#mermaid-svg-1795020971621-190 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020971621-190 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020971621-190 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020971621-190 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020971621-190 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020971621-190 .icon-shape,#mermaid-svg-1795020971621-190 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020971621-190 .icon-shape p,#mermaid-svg-1795020971621-190 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020971621-190 .icon-shape .label rect,#mermaid-svg-1795020971621-190 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020971621-190 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020971621-190 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020971621-190 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020971621-190 [data-look=\"neo\"].node rect,#mermaid-svg-1795020971621-190 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020971621-190 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020971621-190-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020971621-190 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020971621-190 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020971621-190-gradient);stroke-width:1px;}#mermaid-svg-1795020971621-190 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020971621-190 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020971621-190 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020971621-190-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020971621-190 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020971621-190 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020971621-190-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020971621-190 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020971621-190-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020971621-190 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020971621-190_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020971621-190_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020971621-190_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020971621-190_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020971621-190_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020971621-190_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020971621-190_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020971621-190_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020971621-190_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020971621-190_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020971621-190_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020971621-190_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"><g class=\"cluster\" id=\"mermaid-svg-1795020971621-190-subGraph0\" data-look=\"classic\"><rect style=\"\" x=\"8\" y=\"199\" width=\"3082.75\" height=\"119\"></rect><g class=\"cluster-label\" transform=\"translate(1461.125, 199)\"><foreignObject width=\"176.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Validation Stages</p></span></div></foreignObject></g></g></g><g class=\"edgePaths\"><path d=\"M2712.25,116L2712.25,122.917C2712.25,129.833,2712.25,143.667,2712.25,157.5C2712.25,171.333,2712.25,185.167,2712.25,195.833C2712.25,206.5,2712.25,214,2712.25,217.75L2712.25,221.5\" id=\"mermaid-svg-1795020971621-190-L_H1_S4_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_H1_S4_0\" data-points=\"W3sieCI6MjcxMi4yNSwieSI6MTE2fSx7IngiOjI3MTIuMjUsInkiOjE1Ny41fSx7IngiOjI3MTIuMjUsInkiOjE5OX0seyJ4IjoyNzEyLjI1LCJ5IjoyMjEuNX1d\" data-look=\"classic\"></path><path d=\"M1917.875,116L1917.875,122.917C1917.875,129.833,1917.875,143.667,1917.875,157.5C1917.875,171.333,1917.875,185.167,1917.875,195.833C1917.875,206.5,1917.875,214,1917.875,217.75L1917.875,221.5\" id=\"mermaid-svg-1795020971621-190-L_H2_S3_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_H2_S3_0\" data-points=\"W3sieCI6MTkxNy44NzUsInkiOjExNn0seyJ4IjoxOTE3Ljg3NSwieSI6MTU3LjV9LHsieCI6MTkxNy44NzUsInkiOjE5OX0seyJ4IjoxOTE3Ljg3NSwieSI6MjIxLjV9XQ==\" data-look=\"classic\"></path><path d=\"M380.125,116L380.125,122.917C380.125,129.833,380.125,143.667,380.125,157.5C380.125,171.333,380.125,185.167,380.125,195.833C380.125,206.5,380.125,214,380.125,217.75L380.125,221.5\" id=\"mermaid-svg-1795020971621-190-L_H3_S1_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_H3_S1_0\" data-points=\"W3sieCI6MzgwLjEyNSwieSI6MTE2fSx7IngiOjM4MC4xMjUsInkiOjE1Ny41fSx7IngiOjM4MC4xMjUsInkiOjE5OX0seyJ4IjozODAuMTI1LCJ5IjoyMjEuNX1d\" data-look=\"classic\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_H1_S4_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_H2_S3_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_H3_S1_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020971621-190-flowchart-S1-0\" data-look=\"classic\" transform=\"translate(380.125, 258.5)\"><rect class=\"basic label-container\" style=\"\" x=\"-247.75\" y=\"-35\" width=\"495.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-215.75, -19)\"><rect></rect><foreignObject width=\"431.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Concept: hypothesis articulated, not yet tested</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020971621-190-flowchart-S2-1\" data-look=\"classic\" transform=\"translate(1117.125, 258.5)\"><rect class=\"basic label-container\" style=\"\" x=\"-256.25\" y=\"-35\" width=\"512.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-224.25, -19)\"><rect></rect><foreignObject width=\"448.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Prototype: minimal version tested with real users</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020971621-190-flowchart-S3-2\" data-look=\"classic\" transform=\"translate(1917.875, 258.5)\"><rect class=\"basic label-container\" style=\"\" x=\"-290.25\" y=\"-35\" width=\"580.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-258.25, -19)\"><rect></rect><foreignObject width=\"516.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Pilot: validated with a limited but real customer segment</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020971621-190-flowchart-S4-3\" data-look=\"classic\" transform=\"translate(2712.25, 258.5)\"><rect class=\"basic label-container\" style=\"\" x=\"-252\" y=\"-35\" width=\"504\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-220, -19)\"><rect></rect><foreignObject width=\"440\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Scale: validated model being deliberately scaled</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020971621-190-flowchart-H1-4\" data-look=\"classic\" transform=\"translate(2712.25, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-86.25\" y=\"-46\" width=\"172.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-54.25, -30)\"><rect></rect><foreignObject width=\"108.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Horizon 1<br>(Core)</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020971621-190-flowchart-H2-6\" data-look=\"classic\" transform=\"translate(1917.875, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-90.5\" y=\"-46\" width=\"181\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-58.5, -30)\"><rect></rect><foreignObject width=\"117\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Horizon 2<br>(Adjacent)</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020971621-190-flowchart-H3-8\" data-look=\"classic\" transform=\"translate(380.125, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-124.5\" y=\"-46\" width=\"249\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-92.5, -30)\"><rect></rect><foreignObject width=\"185\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Horizon 3<br>(Transformational)</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020971621-190-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020971621-190-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020971621-190-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_9d2cbc5381"
+        },
+        {
+          "type": "paragraph",
+          "text": "The Grid's core discipline is that the *appropriate* metric for any given bet depends on its position on both axes simultaneously: a Horizon 3 bet at the Concept stage should be evaluated on whether its core hypothesis has been clearly articulated and an initial test designed, not on revenue; a Horizon 3 bet that has progressed to Pilot stage should be evaluated on whether a real, if limited, customer segment shows the validated behavior the hypothesis predicted, a meaningfully different and more demanding bar than the Concept stage, but still not the same bar as a mature Horizon 1 business. Placing every bet somewhere on this Grid, rather than evaluating all bets against a single organizational-standard metric, is what makes stage-appropriate evaluation possible at all.",
+          "blockId": "blk_9754a76baa"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Validated Learning vs. Vanity Metrics",
+          "blockId": "blk_fbf89bbb3e"
+        },
+        {
+          "type": "paragraph",
+          "text": "**Validated learning**, a concept from lean startup methodology, refers to evidence that a specific, falsifiable hypothesis about customer behavior or business viability has actually been tested and either confirmed or disconfirmed, directly connecting to the falsifiable Strategic Bet discipline from Lesson 71. **Vanity metrics**, by contrast, are numbers that look impressive and tend to always increase over time (total signups, cumulative downloads, total page views) without actually testing whether the bet's underlying hypothesis is correct. A Horizon 3 bet can generate an impressive-looking vanity metric (a large number of free trial signups, for instance) while providing no validated learning at all about whether those users would actually pay, retain, or behave in the way the bet's underlying hypothesis predicted. Innovation accounting, done well, insists on validated learning metrics specific to the bet's stated hypothesis, rather than accepting vanity metrics as a substitute simply because they are easier to produce and more comfortable to report.",
+          "blockId": "blk_60adb0b99e"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Two Failure Modes of Metric Mismatch",
+          "blockId": "blk_877d8601e7"
+        },
+        {
+          "type": "paragraph",
+          "text": "Metric mismatch produces two distinct, opposite failure modes. **Premature cancellation** occurs when a genuinely promising early-stage bet is killed because it hasn't yet produced Horizon 1-scale results it was never structurally positioned to produce this early: the specific risk Lesson 71 flagged for Horizon 3 bets judged by near-term metrics. **Prolonged survival** occurs when a genuinely failing bet continues to receive resources because it generates comfortable-looking vanity metrics that mask the absence of any real validated learning supporting its underlying hypothesis: a bet can look active and growing by activity metrics while its actual, falsifiable hypothesis has already been quietly disconfirmed by the available evidence, with no one having checked because the vanity metrics provided a comfortable alternative narrative.",
+          "blockId": "blk_458e0a853d"
+        }
+      ],
+      "blockId": "blk_e6f933a45d"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Applying the same revenue and profit metrics to every bet in a portfolio, regardless of Horizon or validation stage",
+          "body": "This produces the category error described in the Theory section, killing promising early bets and providing false comfort for others."
+        },
+        {
+          "title": "Accepting vanity metrics as evidence of progress simply because they are readily available and always trending upward",
+          "body": "Vanity metrics can create a comfortable illusion of progress while providing no actual validated learning about the bet's underlying hypothesis."
+        },
+        {
+          "title": "Failing to explicitly place each bet on the Portfolio Health Grid, leaving its appropriate evaluation criteria ambiguous",
+          "body": "Without an explicit stage classification, there is no principled basis for deciding what evidence should or shouldn't count as meaningful progress."
+        },
+        {
+          "title": "Treating a bet's progression from one validation stage to the next as automatic rather than something that must be genuinely earned by evidence",
+          "body": "A bet should not advance from Prototype to Pilot status, for instance, simply because time has passed, but because specific validated learning milestones have actually been met."
+        },
+        {
+          "title": "Allowing organizational politics or sunk cost to substitute for validated learning evidence when deciding whether to continue or cancel a bet",
+          "body": "A bet's continuation should be justified by genuine evidence at the appropriate stage, not by how much has already been invested or who championed it internally.\n\n"
+        }
+      ],
+      "blockId": "blk_7492cdb148"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The Portfolio Health Grid",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "The Portfolio Health Grid introduced above is this lesson's core takeaway tool. For any bet in a portfolio, ask:",
+          "blockId": "blk_91aead31c8"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**Which Horizon does this bet belong to**, per the Three Horizons framework from Lesson 71?",
+            "**Which validation stage (Concept, Prototype, Pilot, or Scale) has this bet actually, genuinely reached**, based on specific evidence rather than elapsed time or organizational momentum?",
+            "**Is the evidence being used to evaluate this bet appropriate to its actual stage** (a clearly articulated, testable hypothesis for Concept-stage bets, versus real, validated customer behavior for Pilot-stage bets) rather than a uniform standard applied regardless of stage?",
+            "**Is this evidence genuine validated learning specific to the bet's falsifiable hypothesis, or is it a vanity metric that merely looks encouraging without actually testing that hypothesis?**"
+          ],
+          "blockId": "blk_bd8803ef08"
+        },
+        {
+          "type": "paragraph",
+          "text": "A portfolio evaluated through this Grid consistently is far less likely to fall into either of the two metric-mismatch failure modes: prematurely killing promising early bets, or allowing genuinely failing bets to survive on the strength of comfortable but ultimately meaningless activity numbers.",
+          "blockId": "blk_1f362cab7b"
+        }
+      ],
+      "blockId": "blk_c58fb8e990"
+    },
+    {
+      "type": "companyExample",
+      "company": "3M's \"15% Culture,\"",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "**3M's \"15% Culture,\"** confirmed directly on the company's own site, has let employees spend 15 percent of their working time pursuing self-directed projects since approximately 1948, under then-president William McKnight. The policy's own best-known output is a direct, well-documented illustration of this lesson's core argument: 3M scientist Art Fry used his 15% time in 1974 to solve a problem (bookmarks that kept falling out of his hymnal), building on a \"failed\" low-tack adhesive a colleague, Spencer Silver, had developed years earlier and initially considered a failure precisely because it wasn't strong enough to be useful as a normal adhesive. That project became the Post-it Note, one of 3M's most commercially successful products in company history.",
+          "blockId": "blk_1c6f325322"
+        },
+        {
+          "type": "paragraph",
+          "text": "The instructive point for this lesson's Portfolio Balance discipline: Silver's low-tack adhesive would have failed any evaluation standard built for 3M's mature, revenue-generating product lines: it wasn't a better adhesive by any conventional metric. It only became viable because 3M's structure tolerated an idea sitting in an unproven, pre-revenue state for years without forcing it to justify itself against the same bar as an established product line. A portfolio management approach that evaluates every bet (a brand-new exploratory idea and a decade-old cash-generating product line alike) against the same revenue-readiness standard would have killed the Post-it Note before Fry ever found a use for it.",
+          "blockId": "blk_a262e0ebbd"
+        },
+        {
+          "type": "paragraph",
+          "text": "*(Source: 3M's own official site describing the 15% Culture's history and origin, corroborated by the company's own Post-it brand history page.)*",
+          "blockId": "blk_dacebb8bbb"
+        }
+      ],
+      "blockId": "blk_ee1bc90be1"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "Startup",
+          "body": "Early-stage companies typically operate with a portfolio of one or a small number of bets, all effectively Horizon 1 or 2 by necessity, since the company's survival depends on near-term validation, making the Portfolio Health Grid's full range less immediately relevant than it becomes once a company has the resources to sustain genuinely exploratory Horizon 3 work alongside its core business."
+        },
+        {
+          "context": "Mid-size company",
+          "body": "This is typically where a genuine, deliberately-structured multi-horizon portfolio first becomes both possible and organizationally contentious, as resources previously devoted entirely to the core business begin being allocated to exploratory bets that, by design, won't show Horizon 1-style results for some time, creating internal pressure to apply familiar metrics prematurely."
+        },
+        {
+          "context": "Big Tech",
+          "body": "Large organizations typically maintain formal innovation accounting practices and dedicated portfolio management functions specifically responsible for tracking many simultaneous bets across the full Portfolio Health Grid, often reporting portfolio health to leadership using stage-appropriate validated learning metrics rather than a single blended organizational metric."
+        }
+      ],
+      "blockId": "blk_7dfa147680"
+    },
+    {
+      "type": "caseStudy",
+      "title": "The Prematurely Killed Experiment",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A mid-size e-commerce company launched a Horizon 3 exploratory bet: a subscription-based curated product discovery service, built on the hypothesis that a meaningful segment of the company's existing customers would pay a recurring fee for algorithmically and editorially curated product recommendations delivered on a regular schedule. The initiative was staffed by a small team and explicitly framed internally, at launch, as an early-stage experiment rather than an established revenue line.",
+          "blockId": "blk_f6cd3043b7"
+        },
+        {
+          "type": "paragraph",
+          "text": "Three months into the pilot, the initiative's small but genuine base of paying subscribers showed strong early retention and highly positive qualitative feedback: precisely the validated learning signal the bet's underlying hypothesis had predicted, at exactly the Pilot stage on the Portfolio Health Grid the initiative had reasonably reached. However, at the company's quarterly business review, the initiative was evaluated using the same revenue-contribution-to-overall-company-growth metric applied to every other business line, and its absolute revenue contribution, still small in the context of the company's overall size after only three months, appeared negligible next to established Horizon 1 product categories. Leadership, applying this uniform standard, canceled the initiative, redirecting its small team to a Horizon 1 project instead.",
+          "blockId": "blk_5a6327c640"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong?** Using the Portfolio Health Grid, the failure is precise: the initiative had genuinely earned Pilot-stage validated learning status (real customers, real recurring payment, strong retention, a confirmed hypothesis), but was evaluated using a Horizon 1-appropriate metric (absolute revenue contribution to overall company growth) that no Horizon 3 Pilot-stage bet could reasonably be expected to satisfy this early, regardless of how genuinely promising its underlying validated learning actually was. The company had, in effect, demanded Scale-stage evidence from a Pilot-stage bet, producing exactly the premature cancellation failure mode this lesson's Theory section describes.",
+          "blockId": "blk_94f31ea7c5"
+        },
+        {
+          "type": "paragraph",
+          "text": "The company's recovery involved instituting a formal Portfolio Health Grid review process for all future exploratory bets, explicitly requiring quarterly business reviews to evaluate each bet using metrics appropriate to its documented Horizon and validation stage rather than a single company-wide revenue standard, and revisiting several previously-cancelled initiatives to assess whether similar premature cancellations had occurred: a review process this curriculum will connect directly to the build-versus-buy-versus-partner evaluation formalized in Lesson 78.",
+          "blockId": "blk_4a4b47d52b"
+        }
+      ],
+      "blockId": "blk_9214fa88e3"
+    },
+    {
+      "type": "framework",
+      "name": "The Innovation Accounting Metrics Table",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "For each validation stage on the Portfolio Health Grid, a PM can use the following table to identify stage-appropriate evidence:",
+          "blockId": "blk_90e17d59f1"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Stage",
+            "Appropriate Evidence",
+            "Inappropriate Evidence (Category Error)"
+          ],
+          "rows": [
+            [
+              "Concept",
+              "A clearly articulated, falsifiable hypothesis and a designed initial test",
+              "Revenue or user growth targets, which cannot yet exist meaningfully"
+            ],
+            [
+              "Prototype",
+              "Genuine engagement from real users with a minimal version, testing the core hypothesis",
+              "Absolute scale metrics (total users, total revenue) at company-wide comparison levels"
+            ],
+            [
+              "Pilot",
+              "Validated behavior from a limited but real customer segment (retention, willingness to pay, repeat usage) confirming or disconfirming the hypothesis",
+              "Comparison to Horizon 1 business lines' absolute revenue contribution"
+            ],
+            [
+              "Scale",
+              "Revenue, margin, and growth metrics appropriate to a maturing, validated business model",
+              "Continued reliance on qualitative or small-sample pilot-stage evidence alone"
+            ]
+          ],
+          "blockId": "blk_77d72f7d9a"
+        },
+        {
+          "type": "paragraph",
+          "text": "Using evidence one column to the right of a bet's actual stage (for instance, judging a Pilot-stage bet against Scale-stage revenue expectations) is precisely the category error responsible for the Prematurely Killed Experiment case study.",
+          "blockId": "blk_fc3d1c5097"
+        }
+      ],
+      "blockId": "blk_87c85f95d4"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "How would you evaluate whether an early-stage, exploratory product initiative is succeeding?",
+          "whatItEvaluates": "The interviewer is evaluating whether you propose stage-appropriate validated learning metrics, per the Portfolio Health Grid, rather than defaulting to revenue or scale metrics inappropriate to an early-stage bet."
+        },
+        {
+          "question": "What's the difference between a vanity metric and a validated learning metric?",
+          "whatItEvaluates": "The interviewer is testing whether you can clearly distinguish evidence that genuinely tests a bet's falsifiable hypothesis from evidence that merely looks encouraging without actually confirming or disconfirming anything."
+        },
+        {
+          "question": "Tell me about a time a promising initiative was evaluated unfairly, or a failing initiative survived longer than it should have.",
+          "whatItEvaluates": "The interviewer is listening for a diagnosis resembling this lesson's metric-mismatch failure modes: either premature cancellation from an inappropriately demanding metric, or prolonged survival from an inappropriately comfortable one."
+        }
+      ],
+      "blockId": "blk_41177d5da7"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Applying uniform, revenue-based metrics across a portfolio of bets at genuinely different maturity stages produces a category error, since an early-stage Horizon 3 bet is structurally too early to demonstrate the kind of scale evidence a mature Horizon 1 business reasonably should. The Portfolio Health Grid plots each bet along its Three Horizons classification and its actual validation stage (Concept, Prototype, Pilot, or Scale), establishing that the appropriate evidence for evaluating any given bet depends on both dimensions simultaneously, rather than a single organizational-standard metric applied uniformly. Validated learning, evidence that a bet's specific, falsifiable hypothesis has actually been tested and confirmed or disconfirmed, must be distinguished from vanity metrics, numbers that look encouraging and trend upward without actually testing anything meaningful about the underlying hypothesis. Metric mismatch produces two distinct failure modes (premature cancellation of promising early bets judged against inappropriately mature standards, and prolonged survival of genuinely failing bets propped up by comfortable but meaningless vanity metrics), and a disciplined innovation accounting practice, evaluating each bet against stage-appropriate evidence, is the specific defense against both.",
+          "blockId": "blk_2185975dda"
+        }
+      ],
+      "blockId": "blk_6a6cb8811a"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "Applying uniform, revenue-based metrics across bets at different maturity stages produces a category error that systematically distorts portfolio decisions.",
+        "The Portfolio Health Grid plots each bet by Three Horizons classification and validation stage (Concept, Prototype, Pilot, Scale) to determine appropriate evaluation criteria.",
+        "Validated learning metrics test a bet's specific falsifiable hypothesis; vanity metrics merely look encouraging without testing anything meaningful.",
+        "Premature cancellation occurs when promising early bets are judged against inappropriately mature (Horizon 1-style) metrics.",
+        "Prolonged survival occurs when genuinely failing bets are propped up by comfortable vanity metrics that mask the absence of real validated learning.",
+        "A bet's progression from one validation stage to the next should be earned by specific evidence, not assumed based on elapsed time or organizational momentum.",
+        "Formal innovation accounting practices should require stage-appropriate evaluation for every bet, rather than a single company-wide metric applied regardless of context."
+      ],
+      "blockId": "blk_12849774e7"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "Don't judge every bet by the same yardstick. Match the metric to the bet's actual stage.",
+        "Portfolio Health Grid: Horizon (H1/H2/H3) × Validation Stage (Concept/Prototype/Pilot/Scale).",
+        "Validated learning tests a real hypothesis. Vanity metrics just look good and trend up.",
+        "Premature cancellation kills good bets too early; prolonged survival keeps bad bets too long. Both come from metric mismatch.",
+        "Progression between stages must be earned by evidence, not assumed by time passing."
+      ],
+      "blockId": "blk_b56ddd4edc"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "Portfolio Health Grid",
+          "definition": "A model plotting bets by Three Horizons classification and validation stage",
+          "relatedConcepts": [
+            "Three Horizons (Lesson 71)"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Validated Learning",
+          "definition": "Evidence that a bet's specific, falsifiable hypothesis has been tested and confirmed or disconfirmed",
+          "relatedConcepts": [
+            "Strategic Bet (Lesson 71)"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Vanity Metric",
+          "definition": "A metric that looks encouraging and trends upward over time (such as cumulative signups) without indicating actionable product feedback or testing a clear hypothesis.",
+          "relatedConcepts": [
+            "Portfolio Health Grid"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Premature Cancellation",
+          "definition": "Killing a promising early-stage bet by judging it against inappropriately mature metrics",
+          "relatedConcepts": [
+            "Portfolio Health Grid"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Prolonged Survival",
+          "definition": "Allowing a genuinely failing bet to continue based on comfortable but meaningless vanity metrics",
+          "relatedConcepts": [
+            "Portfolio Health Grid"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Validation Stage",
+          "definition": "A bet's position in a four-stage progression: Concept, Prototype, Pilot, Scale",
+          "relatedConcepts": [
+            "Portfolio Health Grid"
+          ],
+          "difficulty": 2
+        }
+      ],
+      "blockId": "blk_ab2b1c08ad"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "Eric Ries, *The Lean Startup*"
+        },
+        {
+          "citation": "Tendayi Viki, Dan Toma, and Esther Gons, *The Corporate Startup*"
+        },
+        {
+          "citation": "Mehrdad Baghai, Stephen Coley, and David White, *The Alchemy of Growth*"
+        }
+      ],
+      "blockId": "blk_1a984b0c33"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_eyguum",
+      "cards": [
+        {
+          "id": "fc-les_eyguum-1",
+          "front": "Why does applying uniform revenue metrics across a portfolio produce a category error?",
+          "back": "An early-stage Horizon 3 bet is structurally too early to demonstrate the scale evidence a mature Horizon 1 business reasonably should, making revenue comparison inappropriate at that stage.",
+          "difficulty": 2,
+          "tags": [
+            "innovation-accounting",
+            "core-concept"
+          ]
+        },
+        {
+          "id": "fc-les_eyguum-2",
+          "front": "Name the four validation stages on the Portfolio Health Grid.",
+          "back": "Concept, Prototype, Pilot, Scale.",
+          "difficulty": 2,
+          "tags": [
+            "portfolio-health-grid"
+          ]
+        },
+        {
+          "id": "fc-les_eyguum-3",
+          "front": "What is the difference between validated learning and a vanity metric?",
+          "back": "Validated learning tests a specific, falsifiable hypothesis and confirms or disconfirms it; a vanity metric merely looks encouraging without testing anything meaningful.",
+          "difficulty": 2,
+          "tags": [
+            "validated-learning"
+          ]
+        },
+        {
+          "id": "fc-les_eyguum-4",
+          "front": "What are the two failure modes caused by metric mismatch?",
+          "back": "Premature cancellation of promising early bets, and prolonged survival of genuinely failing bets.",
+          "difficulty": 2,
+          "tags": [
+            "metric-mismatch"
+          ]
+        },
+        {
+          "id": "fc-les_eyguum-5",
+          "front": "Why was the Pilot-stage subscription initiative killed in the Prematurely Killed Experiment case study?",
+          "back": "It was evaluated using a Horizon 1-appropriate absolute revenue contribution metric, a Scale-stage standard the Pilot-stage bet could not reasonably meet yet, despite genuinely earning validated learning at its actual stage.",
+          "difficulty": 2,
+          "tags": [
+            "case-study",
+            "portfolio-health-grid"
+          ]
+        },
+        {
+          "id": "fc-les_eyguum-6",
+          "front": "What appropriate evidence should a Concept-stage bet be evaluated against?",
+          "back": "A clearly articulated, falsifiable hypothesis and a designed initial test, not revenue or user growth targets.",
+          "difficulty": 2,
+          "tags": [
+            "innovation-accounting-metrics"
+          ]
+        },
+        {
+          "id": "fc-les_eyguum-7",
+          "front": "Why should progression between validation stages be earned by evidence rather than assumed by elapsed time?",
+          "back": "A bet should advance to the next stage only because specific validated learning milestones have actually been met, not simply because time has passed.",
+          "difficulty": 2,
+          "tags": [
+            "validation-stage-progression"
+          ]
+        }
+      ],
+      "blockId": "blk_b620cc5de3"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "You are the PM overseeing a portfolio of three initiatives: a mature core product (Horizon 1), a moderately successful adjacent feature line launched a year ago (Horizon 2), and a brand-new exploratory concept your team just began testing last month (Horizon 3). Leadership has asked for a single quarterly report showing \"how each initiative is performing.\"",
+        "There is no single correct answer to the prompts below: the goal is to practice applying the Portfolio Health Grid and the Innovation Accounting Metrics Table to design a genuinely stage-appropriate reporting structure.",
+        "Using the Portfolio Health Grid, what validation stage would you assign to each of the three initiatives, and why?",
+        "What specific metrics would you propose reporting for the Horizon 3 concept, given it is only one month old?",
+        "How would you explain to leadership why the Horizon 3 concept shouldn't be evaluated using the same metrics as the Horizon 1 core product, without sounding like you're avoiding accountability?",
+        "What risk would you want to guard against if the Horizon 2 feature line's metrics look consistently positive but you suspect they may be more vanity than validated learning?",
+        "How would you design the quarterly report itself so that all three initiatives are presented fairly, without either inflating the Horizon 3 concept's readiness or unfairly penalizing it for its early stage?"
+      ],
+      "blockId": "blk_09d5de50a2"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_eyguum",
+      "questions": [
+        {
+          "id": "q-les_eyguum-1",
+          "question": "Why does judging a Horizon 3 bet by the same revenue metrics used for a mature Horizon 1 business produce a category error, according to this lesson?",
+          "options": [
+            "Revenue metrics are inherently unreliable for guiding any decision",
+            "The bet's business model isn't yet validated, so it's too early to prove revenue",
+            "Horizon 3 bets are exempt from measurement until reaching Scale",
+            "Revenue figures for exploratory bets are typically invented by teams"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The lesson argues that demanding revenue-scale proof before a bet's business model has been validated asks it to demonstrate something it is structurally too early to demonstrate.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_eyguum-2",
+          "question": "What are the four validation stages on the Portfolio Health Grid, in order?",
+          "options": [
+            "Idea, Funding, Launch, Sunset",
+            "Discovery, Design, Delivery, Diagnosis",
+            "Concept, Prototype, Pilot, Scale",
+            "Draft, Review, Approved, Retired"
+          ],
+          "correctAnswer": 2,
+          "explanation": "These four stages are explicitly introduced in the Theory section as the Grid's validation axis.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_eyguum-3",
+          "question": "How does this lesson define \"validated learning\"?",
+          "options": [
+            "Evidence that a bet's falsifiable hypothesis was tested and confirmed or disconfirmed",
+            "Any metric collected during a pilot regardless of what it measures",
+            "The total number of users who have engaged with an early bet",
+            "A qualitative impression drawn from a single customer interview"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Validated learning specifically refers to genuine hypothesis testing, distinct from any metric that simply looks positive or is collected without reference to the hypothesis.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_eyguum-4",
+          "question": "Which of the following best matches this lesson's definition of a \"vanity metric\"?",
+          "options": [
+            "A metric deliberately falsified to make a bet look better than it is",
+            "A metric that only applies to bets classified as Horizon 1",
+            "A metric reported exclusively during quarterly business reviews",
+            "A number that looks impressive and rises without testing the hypothesis"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Vanity metrics are defined by their superficial appeal rather than any genuine deceptive intent, Horizon restriction, or reporting venue.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_eyguum-5",
+          "question": "How does this lesson define \"premature cancellation\"?",
+          "options": [
+            "Ending a bet after its hypothesis has been clearly disconfirmed",
+            "Killing a promising bet for lacking results it wasn't yet positioned to show",
+            "A routine part of quarterly review applying equally at every stage",
+            "Cancelling a bet due to a strategy shift unrelated to performance"
+          ],
+          "correctAnswer": 1,
+          "explanation": "This term specifically describes the mismatch-driven failure mode of applying overly mature standards to a bet before it could reasonably meet them.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_eyguum-6",
+          "question": "How does this lesson define \"prolonged survival\"?",
+          "options": [
+            "A bet advancing normally from Pilot to Scale after earning it",
+            "A Horizon 1 business operating profitably year after year",
+            "A failing bet kept alive by vanity metrics masking absent learning",
+            "A bet deliberately maintained as a hedge against a rival's move"
+          ],
+          "correctAnswer": 2,
+          "explanation": "This is the opposite failure mode from premature cancellation, driven by vanity metrics providing false comfort rather than genuine evidence of progress.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_eyguum-7",
+          "question": "In the Detailed Case Study, what evidence had the subscription initiative genuinely earned by its quarterly review?",
+          "options": [
+            "Pilot-stage learning: real paying subscribers with strong retention",
+            "Scale-stage revenue comparable to established Horizon 1 categories",
+            "Concept-stage evidence only, since no customers had interacted with it",
+            "No usable evidence, since the pilot had not yet launched to customers"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The case study describes genuine Pilot-stage validated learning being present (real customers, recurring payment, and strong retention) at the time of the mismatched cancellation.",
+          "objectivesTested": [
+            2,
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_eyguum-8",
+          "question": "Why was the subscription initiative canceled despite this genuine progress?",
+          "options": [
+            "The subscriber base had quietly churned to zero by the review",
+            "Leadership judged the team had mismanaged the rollout schedule",
+            "The initiative's own hypothesis had been disconfirmed internally",
+            "It was judged against the same revenue-contribution metric as every Horizon 1 line"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The failure was a metric mismatch: a Scale-stage standard demanded of a bet that had genuinely earned only Pilot-stage status.",
+          "objectivesTested": [
+            4,
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_eyguum-9",
+          "question": "Per the Innovation Accounting Metrics Table, what counts as appropriate evidence for a Concept-stage bet?",
+          "options": [
+            "Genuine engagement data from real users testing a minimal version",
+            "Retention and repeat-usage figures from a real customer segment",
+            "A clearly articulated, falsifiable hypothesis with a designed test",
+            "Revenue and margin figures consistent with a maturing business"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Concept-stage evidence is explicitly limited to hypothesis articulation and test design, not user engagement, retention, or revenue metrics reserved for later stages.",
+          "objectivesTested": [
+            2,
+            3
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_eyguum-10",
+          "question": "According to the same table, what is flagged as a category error when evaluating a Pilot-stage bet?",
+          "options": [
+            "Willingness-to-pay signals from a limited but real customer segment",
+            "Comparing its absolute revenue contribution against Horizon 1 lines",
+            "A designed initial test of the bet's core hypothesis",
+            "Genuine engagement from real users testing a minimal version"
+          ],
+          "correctAnswer": 1,
+          "explanation": "This specific comparison is identified in the table as the category error responsible for the case study's premature cancellation.",
+          "objectivesTested": [
+            2,
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_eyguum-11",
+          "question": "Per the Real World Perspective section, why might the full Portfolio Health Grid feel less immediately relevant to an early-stage startup?",
+          "options": [
+            "Startups are structurally incapable of running a Horizon 3 bet",
+            "Investors require every startup bet reported at Scale-stage metrics",
+            "The Grid was designed only for firms with dedicated innovation teams",
+            "A startup's portfolio is typically one or two bets, effectively Horizon 1 or 2"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The Real World Perspective section connects this to the practical resource constraints and survival pressures typical of early-stage companies, not to any structural incapability or requirement.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_eyguum-12",
+          "question": "(Scenario) A Horizon 2 feature line shows steadily rising signups for six months, but no one has checked whether those signups convert into the retention its hypothesis predicted. What risk does this most resemble?",
+          "options": [
+            "Prolonged survival, since signups could mask absent validated learning",
+            "Premature cancellation, since the line is being judged too harshly",
+            "A Concept-stage error, since the line hasn't advanced past Concept",
+            "No risk: rising signups alone prove the bet is healthy"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Unchecked, steadily rising vanity metrics without confirmed validated learning is the classic setup for prolonged survival of a bet that may actually be failing.",
+          "objectivesTested": [
+            3,
+            4,
+            5
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_eyguum-13",
+          "question": "(Product Thinking) A PM is asked to report a one-month-old Horizon 3 concept on the same revenue dashboard used for the mature core business. What is the most defensible response, using this lesson's frameworks?",
+          "options": [
+            "Report the concept's negligible revenue figure, flagged as underperformance",
+            "Decline to report on the concept at all until it reaches Pilot stage",
+            "Propose reporting hypothesis clarity and test design, naming the category error",
+            "Inflate the concept's early metrics so the comparison looks less unfavorable"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The correct response neither complies with an inappropriate metric nor avoids reporting altogether, but proposes genuinely stage-appropriate evidence instead.",
+          "objectivesTested": [
+            2,
+            3,
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_eyguum-14",
+          "question": "(Interview Reasoning) A candidate, asked how they'd evaluate an early-stage exploratory initiative, proposes the same revenue targets used for the mature core product. What does this most likely signal?",
+          "options": [
+            "Strong judgment, since consistent metrics ease cross-portfolio comparison",
+            "A gap in recognizing that stage-appropriate learning, not uniform targets, is required",
+            "Readiness for a senior portfolio leadership role without more work",
+            "Nothing meaningful, since revenue targets suit any stage"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The Interview Perspective section specifically listens for recognition of stage-appropriate evidence, which this answer omits in favor of a uniform standard.",
+          "objectivesTested": [
+            1,
+            2,
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_eyguum-15",
+          "question": "(Product Thinking, Highest Difficulty) A portfolio holds a Horizon 1 core business, a Horizon 2 line with ambiguous vanity-metric growth, and a one-month-old Horizon 3 concept, all on one shared quarterly revenue dashboard. What is the most defensible redesign?",
+          "options": [
+            "Keep the single shared dashboard, since consistency beats accuracy",
+            "Suspend all reporting on the Horizon 3 concept until Pilot stage",
+            "Apply the Horizon 3 concept's early criteria to the Horizon 1 business",
+            "Place each initiative on the Grid by stage and probe the Horizon 2 growth"
+          ],
+          "correctAnswer": 3,
+          "explanation": "This mirrors the Reflection Exercise: the correct response places each initiative on the Grid according to its actual stage, uses appropriately differentiated evidence for each, and specifically investigates the ambiguous Horizon 2 case for a possible vanity-metric mismatch, rather than forcing uniform treatment in either direction.",
+          "objectivesTested": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_7453dab739"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_x2upyf",
+        "title": "Lesson 76: M&A and Product Integration",
+        "module": "strategy"
+      },
+      "current": {
+        "id": "les_eyguum",
+        "title": "Lesson 77: Innovation Accounting and Portfolio Management"
+      },
+      "next": {
+        "id": "les_7ndnsg",
+        "title": "Lesson 78, Build, Buy, or Partner: Platform vs. Point Solution Decisions",
+        "module": "strategy"
+      },
+      "unlocks": [
+        {
+          "lesson": {
+            "id": "les_td6v2u",
+            "title": "Module Synthesis",
+            "module": "strategy"
+          },
+          "coreIdea": "Treats the Portfolio Health Grid as established canon alongside Module 8's other strategic frameworks"
+        }
+      ],
+      "blockId": "blk_9c49d255ef"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 77: Innovation Accounting and Portfolio Management Lesson 71 introduced the Strategy Cascade and the Three Horizons framework, establishing that a healthy bet portfolio deliberately spans core, adjacent, and transformational risk levels, and specifically warned against judging Horizon 3 bets by the same near-term metrics appropriate for Horizon 1. This lesson makes that warning concrete and actionable: what, exactly, should a company measure for a bet that is genuinely too early to show revenue, and how should a portfolio of many such bets, at different stages of maturity, actually be managed and reported on over time? The natural organizational instinct is to measure every initiative using the same familiar metrics (revenue, user growth, profit margin) regardless of how early-stage or exploratory that initiative genuinely is. This instinct is understandable, since these are the metrics an organization already knows how to read and compare, but applying them uniformly to bets at fundamentally different stages of maturity produces a specific and damaging failure: promising early-stage bets get killed prematurely for failing to show revenue they were never realistically going to show yet, while genuinely failing bets can survive far too long if they happen to generate superficially impressive but ultimately meaningless activity metrics. This lesson introduces the Portfolio Health Grid, this lesson's core mental model, to give you a structured way to track and evaluate a portfolio of bets at genuinely different stages of maturity, using stage-appropriate evidence rather than forcing every bet through the same evaluative lens regardless of how ready it actually is to produce that kind of evidence. Explain why applying uniform, revenue-based metrics across bets at different maturity stages produces systematically bad portfolio decisions. Apply the Portfolio Health Grid to evaluate a bet using evidence appropriate to its actual stage of maturity. Distinguish validated learning metrics from vanity metrics in the context of an early-stage bet. Identify the specific risk of both premature bet cancellation and prolonged bet survival caused by metric mismatch. Evaluate a portfolio of bets for whether each is being measured using stage-appropriate evidence. This lesson assumes the Strategy Cascade, Three Horizons framework, and falsifiable-bet discipline from Lesson 71, since this lesson provides the measurement system that makes ongoing bet evaluation genuinely possible, and the Metric Provenance Chain from Lesson 64, since evaluating any bet's progress depends on the same underlying data trustworthiness that lesson established. Why Uniform Metrics Fail Across Maturity Stages A Horizon 1 bet, extending an established core business, can reasonably be judged against revenue, profit margin, and market share, because the underlying business model is proven and the relevant question is one of execution and optimization. A Horizon 3 bet (a genuinely new, exploratory initiative) cannot reasonably be judged against these same metrics in its earliest stages, not because the team is executing poorly, but because the entire premise of an early-stage exploratory bet is that the business model itself has not yet been validated, and demanding revenue-scale proof before that validation has occurred is asking the bet to demonstrate something it is structurally too early to demonstrate. Applying Horizon 1 metrics to a Horizon 3 bet doesn't produce a more rigorous evaluation; it produces a category error that reliably kills promising early bets before they've had a chance to answer the actual questions they were designed to test. The Portfolio Health Grid This lesson introduces the **Portfolio Health Grid**, plotting each bet in a portfolio along two axes: its Three Horizons classification from Lesson 71, and its actual stage of validated progress. The Grid's core discipline is that the *appropriate* metric for any given bet depends on its position on both axes simultaneously: a Horizon 3 bet at the Concept stage should be evaluated on whether its core hypothesis has been clearly articulated and an initial test designed, not on revenue; a Horizon 3 bet that has progressed to Pilot stage should be evaluated on whether a real, if limited, customer segment shows the validated behavior the hypothesis predicted, a meaningfully different and more demanding bar than the Concept stage, but still not the same bar as a mature Horizon 1 business. Placing every bet somewhere on this Grid, rather than evaluating all bets against a single organizational-standard metric, is what makes stage-appropriate evaluation possible at all. Validated Learning vs. Vanity Metrics **Validated learning**, a concept from lean startup methodology, refers to evidence that a specific, falsifiable hypothesis about customer behavior or business viability has actually been tested and either confirmed or disconfirmed, directly connecting to the falsifiable Strategic Bet discipline from Lesson 71. **Vanity metrics**, by contrast, are numbers that look impressive and tend to always increase over time (total signups, cumulative downloads, total page views) without actually testing whether the bet's underlying hypothesis is correct. A Horizon 3 bet can generate an impressive-looking vanity metric (a large number of free trial signups, for instance) while providing no validated learning at all about whether those users would actually pay, retain, or behave in the way the bet's underlying hypothesis predicted. Innovation accounting, done well, insists on validated learning metrics specific to the bet's stated hypothesis, rather than accepting vanity metrics as a substitute simply because they are easier to produce and more comfortable to report. The Two Failure Modes of Metric Mismatch Metric mismatch produces two distinct, opposite failure modes. **Premature cancellation** occurs when a genuinely promising early-stage bet is killed because it hasn't yet produced Horizon 1-scale results it was never structurally positioned to produce this early: the specific risk Lesson 71 flagged for Horizon 3 bets judged by near-term metrics. **Prolonged survival** occurs when a genuinely failing bet continues to receive resources because it generates comfortable-looking vanity metrics that mask the absence of any real validated learning supporting its underlying hypothesis: a bet can look active and growing by activity metrics while its actual, falsifiable hypothesis has already been quietly disconfirmed by the available evidence, with no one having checked because the vanity metrics provided a comfortable alternative narrative. Applying the same revenue and profit metrics to every bet in a portfolio, regardless of Horizon or validation stage This produces the category error described in the Theory section, killing promising early bets and providing false comfort for others. Accepting vanity metrics as evidence of progress simply because they are readily available and always trending upward Vanity metrics can create a comfortable illusion of progress while providing no actual validated learning about the bet's underlying hypothesis. Failing to explicitly place each bet on the Portfolio Health Grid, leaving its appropriate evaluation criteria ambiguous Without an explicit stage classification, there is no principled basis for deciding what evidence should or shouldn't count as meaningful progress. Treating a bet's progression from one validation stage to the next as automatic rather than something that must be genuinely earned by evidence A bet should not advance from Prototype to Pilot status, for instance, simply because time has passed, but because specific validated learning milestones have actually been met. Allowing organizational politics or sunk cost to substitute for validated learning evidence when deciding whether to continue or cancel a bet A bet's continuation should be justified by genuine evidence at the appropriate stage, not by how much has already been invested or who championed it internally. The Portfolio Health Grid The Portfolio Health Grid introduced above is this lesson's core takeaway tool. For any bet in a portfolio, ask: **Which Horizon does this bet belong to**, per the Three Horizons framework from Lesson 71? **Which validation stage (Concept, Prototype, Pilot, or Scale) has this bet actually, genuinely reached**, based on specific evidence rather than elapsed time or organizational momentum? **Is the evidence being used to evaluate this bet appropriate to its actual stage** (a clearly articulated, testable hypothesis for Concept-stage bets, versus real, validated customer behavior for Pilot-stage bets) rather than a uniform standard applied regardless of stage? **Is this evidence genuine validated learning specific to the bet's falsifiable hypothesis, or is it a vanity metric that merely looks encouraging without actually testing that hypothesis?** A portfolio evaluated through this Grid consistently is far less likely to fall into either of the two metric-mismatch failure modes: prematurely killing promising early bets, or allowing genuinely failing bets to survive on the strength of comfortable but ultimately meaningless activity numbers. 3M's \"15% Culture,\" **3M's \"15% Culture,\"** confirmed directly on the company's own site, has let employees spend 15 percent of their working time pursuing self-directed projects since approximately 1948, under then-president William McKnight. The policy's own best-known output is a direct, well-documented illustration of this lesson's core argument: 3M scientist Art Fry used his 15% time in 1974 to solve a problem (bookmarks that kept falling out of his hymnal), building on a \"failed\" low-tack adhesive a colleague, Spencer Silver, had developed years earlier and initially considered a failure precisely because it wasn't strong enough to be useful as a normal adhesive. That project became the Post-it Note, one of 3M's most commercially successful products in company history. The instructive point for this lesson's Portfolio Balance discipline: Silver's low-tack adhesive would have failed any evaluation standard built for 3M's mature, revenue-generating product lines: it wasn't a better adhesive by any conventional metric. It only became viable because 3M's structure tolerated an idea sitting in an unproven, pre-revenue state for years without forcing it to justify itself against the same bar as an established product line. A portfolio management approach that evaluates every bet (a brand-new exploratory idea and a decade-old cash-generating product line alike) against the same revenue-readiness standard would have killed the Post-it Note before Fry ever found a use for it. *(Source: 3M's own official site describing the 15% Culture's history and origin, corroborated by the company's own Post-it brand history page.)* Startup Early-stage companies typically operate with a portfolio of one or a small number of bets, all effectively Horizon 1 or 2 by necessity, since the company's survival depends on near-term validation, making the Portfolio Health Grid's full range less immediately relevant than it becomes once a company has the resources to sustain genuinely exploratory Horizon 3 work alongside its core business. Mid-size company This is typically where a genuine, deliberately-structured multi-horizon portfolio first becomes both possible and organizationally contentious, as resources previously devoted entirely to the core business begin being allocated to exploratory bets that, by design, won't show Horizon 1-style results for some time, creating internal pressure to apply familiar metrics prematurely. Big Tech Large organizations typically maintain formal innovation accounting practices and dedicated portfolio management functions specifically responsible for tracking many simultaneous bets across the full Portfolio Health Grid, often reporting portfolio health to leadership using stage-appropriate validated learning metrics rather than a single blended organizational metric. The Prematurely Killed Experiment A mid-size e-commerce company launched a Horizon 3 exploratory bet: a subscription-based curated product discovery service, built on the hypothesis that a meaningful segment of the company's existing customers would pay a recurring fee for algorithmically and editorially curated product recommendations delivered on a regular schedule. The initiative was staffed by a small team and explicitly framed internally, at launch, as an early-stage experiment rather than an established revenue line. Three months into the pilot, the initiative's small but genuine base of paying subscribers showed strong early retention and highly positive qualitative feedback: precisely the validated learning signal the bet's underlying hypothesis had predicted, at exactly the Pilot stage on the Portfolio Health Grid the initiative had reasonably reached. However, at the company's quarterly business review, the initiative was evaluated using the same revenue-contribution-to-overall-company-growth metric applied to every other business line, and its absolute revenue contribution, still small in the context of the company's overall size after only three months, appeared negligible next to established Horizon 1 product categories. Leadership, applying this uniform standard, canceled the initiative, redirecting its small team to a Horizon 1 project instead. **What went wrong?** Using the Portfolio Health Grid, the failure is precise: the initiative had genuinely earned Pilot-stage validated learning status (real customers, real recurring payment, strong retention, a confirmed hypothesis), but was evaluated using a Horizon 1-appropriate metric (absolute revenue contribution to overall company growth) that no Horizon 3 Pilot-stage bet could reasonably be expected to satisfy this early, regardless of how genuinely promising its underlying validated learning actually was. The company had, in effect, demanded Scale-stage evidence from a Pilot-stage bet, producing exactly the premature cancellation failure mode this lesson's Theory section describes. The company's recovery involved instituting a formal Portfolio Health Grid review process for all future exploratory bets, explicitly requiring quarterly business reviews to evaluate each bet using metrics appropriate to its documented Horizon and validation stage rather than a single company-wide revenue standard, and revisiting several previously-cancelled initiatives to assess whether similar premature cancellations had occurred: a review process this curriculum will connect directly to the build-versus-buy-versus-partner evaluation formalized in Lesson 78. The Innovation Accounting Metrics Table For each validation stage on the Portfolio Health Grid, a PM can use the following table to identify stage-appropriate evidence: Using evidence one column to the right of a bet's actual stage (for instance, judging a Pilot-stage bet against Scale-stage revenue expectations) is precisely the category error responsible for the Prematurely Killed Experiment case study. How would you evaluate whether an early-stage, exploratory product initiative is succeeding? The interviewer is evaluating whether you propose stage-appropriate validated learning metrics, per the Portfolio Health Grid, rather than defaulting to revenue or scale metrics inappropriate to an early-stage bet. What's the difference between a vanity metric and a validated learning metric? The interviewer is testing whether you can clearly distinguish evidence that genuinely tests a bet's falsifiable hypothesis from evidence that merely looks encouraging without actually confirming or disconfirming anything. Tell me about a time a promising initiative was evaluated unfairly, or a failing initiative survived longer than it should have. The interviewer is listening for a diagnosis resembling this lesson's metric-mismatch failure modes: either premature cancellation from an inappropriately demanding metric, or prolonged survival from an inappropriately comfortable one. Applying uniform, revenue-based metrics across a portfolio of bets at genuinely different maturity stages produces a category error, since an early-stage Horizon 3 bet is structurally too early to demonstrate the kind of scale evidence a mature Horizon 1 business reasonably should. The Portfolio Health Grid plots each bet along its Three Horizons classification and its actual validation stage (Concept, Prototype, Pilot, or Scale), establishing that the appropriate evidence for evaluating any given bet depends on both dimensions simultaneously, rather than a single organizational-standard metric applied uniformly. Validated learning, evidence that a bet's specific, falsifiable hypothesis has actually been tested and confirmed or disconfirmed, must be distinguished from vanity metrics, numbers that look encouraging and trend upward without actually testing anything meaningful about the underlying hypothesis. Metric mismatch produces two distinct failure modes (premature cancellation of promising early bets judged against inappropriately mature standards, and prolonged survival of genuinely failing bets propped up by comfortable but meaningless vanity metrics), and a disciplined innovation accounting practice, evaluating each bet against stage-appropriate evidence, is the specific defense against both. Applying uniform, revenue-based metrics across bets at different maturity stages produces a category error that systematically distorts portfolio decisions. The Portfolio Health Grid plots each bet by Three Horizons classification and validation stage (Concept, Prototype, Pilot, Scale) to determine appropriate evaluation criteria. Validated learning metrics test a bet's specific falsifiable hypothesis; vanity metrics merely look encouraging without testing anything meaningful. Premature cancellation occurs when promising early bets are judged against inappropriately mature (Horizon 1-style) metrics. Prolonged survival occurs when genuinely failing bets are propped up by comfortable vanity metrics that mask the absence of real validated learning. A bet's progression from one validation stage to the next should be earned by specific evidence, not assumed based on elapsed time or organizational momentum. Formal innovation accounting practices should require stage-appropriate evaluation for every bet, rather than a single company-wide metric applied regardless of context. Don't judge every bet by the same yardstick. Match the metric to the bet's actual stage. Portfolio Health Grid: Horizon (H1/H2/H3) × Validation Stage (Concept/Prototype/Pilot/Scale). Validated learning tests a real hypothesis. Vanity metrics just look good and trend up. Premature cancellation kills good bets too early; prolonged survival keeps bad bets too long. Both come from metric mismatch. Progression between stages must be earned by evidence, not assumed by time passing. Portfolio Health Grid A model plotting bets by Three Horizons classification and validation stage Validated Learning Evidence that a bet's specific, falsifiable hypothesis has been tested and confirmed or disconfirmed Vanity Metric A metric that looks encouraging and trends upward over time (such as cumulative signups) without indicating actionable product feedback or testing a clear hypothesis. Premature Cancellation Killing a promising early-stage bet by judging it against inappropriately mature metrics Prolonged Survival Allowing a genuinely failing bet to continue based on comfortable but meaningless vanity metrics Validation Stage A bet's position in a four-stage progression: Concept, Prototype, Pilot, Scale Eric Ries, *The Lean Startup* Tendayi Viki, Dan Toma, and Esther Gons, *The Corporate Startup* Mehrdad Baghai, Stephen Coley, and David White, *The Alchemy of Growth* Why does applying uniform revenue metrics across a portfolio produce a category error? An early-stage Horizon 3 bet is structurally too early to demonstrate the scale evidence a mature Horizon 1 business reasonably should, making revenue comparison inappropriate at that stage. Name the four validation stages on the Portfolio Health Grid. Concept, Prototype, Pilot, Scale. What is the difference between validated learning and a vanity metric? Validated learning tests a specific, falsifiable hypothesis and confirms or disconfirms it; a vanity metric merely looks encouraging without testing anything meaningful. What are the two failure modes caused by metric mismatch? Premature cancellation of promising early bets, and prolonged survival of genuinely failing bets. Why was the Pilot-stage subscription initiative killed in the Prematurely Killed Experiment case study? It was evaluated using a Horizon 1-appropriate absolute revenue contribution metric, a Scale-stage standard the Pilot-stage bet could not reasonably meet yet, despite genuinely earning validated learning at its actual stage. What appropriate evidence should a Concept-stage bet be evaluated against? A clearly articulated, falsifiable hypothesis and a designed initial test, not revenue or user growth targets. Why should progression between validation stages be earned by evidence rather than assumed by elapsed time? A bet should advance to the next stage only because specific validated learning milestones have actually been met, not simply because time has passed. You are the PM overseeing a portfolio of three initiatives: a mature core product (Horizon 1), a moderately successful adjacent feature line launched a year ago (Horizon 2), and a brand-new exploratory concept your team just began testing last month (Horizon 3). Leadership has asked for a single quarterly report showing \"how each initiative is performing.\" There is no single correct answer to the prompts below: the goal is to practice applying the Portfolio Health Grid and the Innovation Accounting Metrics Table to design a genuinely stage-appropriate reporting structure. Using the Portfolio Health Grid, what validation stage would you assign to each of the three initiatives, and why? What specific metrics would you propose reporting for the Horizon 3 concept, given it is only one month old? How would you explain to leadership why the Horizon 3 concept shouldn't be evaluated using the same metrics as the Horizon 1 core product, without sounding like you're avoiding accountability? What risk would you want to guard against if the Horizon 2 feature line's metrics look consistently positive but you suspect they may be more vanity than validated learning? How would you design the quarterly report itself so that all three initiatives are presented fairly, without either inflating the Horizon 3 concept's readiness or unfairly penalizing it for its early stage? Why does judging a Horizon 3 bet by the same revenue metrics used for a mature Horizon 1 business produce a category error, according to this lesson? The lesson argues that demanding revenue-scale proof before a bet's business model has been validated asks it to demonstrate something it is structurally too early to demonstrate. What are the four validation stages on the Portfolio Health Grid, in order? These four stages are explicitly introduced in the Theory section as the Grid's validation axis. How does this lesson define \"validated learning\"? Validated learning specifically refers to genuine hypothesis testing, distinct from any metric that simply looks positive or is collected without reference to the hypothesis. Which of the following best matches this lesson's definition of a \"vanity metric\"? Vanity metrics are defined by their superficial appeal rather than any genuine deceptive intent, Horizon restriction, or reporting venue. How does this lesson define \"premature cancellation\"? This term specifically describes the mismatch-driven failure mode of applying overly mature standards to a bet before it could reasonably meet them. How does this lesson define \"prolonged survival\"? This is the opposite failure mode from premature cancellation, driven by vanity metrics providing false comfort rather than genuine evidence of progress. In the Detailed Case Study, what evidence had the subscription initiative genuinely earned by its quarterly review? The case study describes genuine Pilot-stage validated learning being present (real customers, recurring payment, and strong retention) at the time of the mismatched cancellation. Why was the subscription initiative canceled despite this genuine progress? The failure was a metric mismatch: a Scale-stage standard demanded of a bet that had genuinely earned only Pilot-stage status. Per the Innovation Accounting Metrics Table, what counts as appropriate evidence for a Concept-stage bet? Concept-stage evidence is explicitly limited to hypothesis articulation and test design, not user engagement, retention, or revenue metrics reserved for later stages. According to the same table, what is flagged as a category error when evaluating a Pilot-stage bet? This specific comparison is identified in the table as the category error responsible for the case study's premature cancellation. Per the Real World Perspective section, why might the full Portfolio Health Grid feel less immediately relevant to an early-stage startup? The Real World Perspective section connects this to the practical resource constraints and survival pressures typical of early-stage companies, not to any structural incapability or requirement. (Scenario) A Horizon 2 feature line shows steadily rising signups for six months, but no one has checked whether those signups convert into the retention its hypothesis predicted. What risk does this most resemble? Unchecked, steadily rising vanity metrics without confirmed validated learning is the classic setup for prolonged survival of a bet that may actually be failing. (Product Thinking) A PM is asked to report a one-month-old Horizon 3 concept on the same revenue dashboard used for the mature core business. What is the most defensible response, using this lesson's frameworks? The correct response neither complies with an inappropriate metric nor avoids reporting altogether, but proposes genuinely stage-appropriate evidence instead. (Interview Reasoning) A candidate, asked how they'd evaluate an early-stage exploratory initiative, proposes the same revenue targets used for the mature core product. What does this most likely signal? The Interview Perspective section specifically listens for recognition of stage-appropriate evidence, which this answer omits in favor of a uniform standard. (Product Thinking, Highest Difficulty) A portfolio holds a Horizon 1 core business, a Horizon 2 line with ambiguous vanity-metric growth, and a one-month-old Horizon 3 concept, all on one shared quarterly revenue dashboard. What is the most defensible redesign? This mirrors the Reflection Exercise: the correct response places each initiative on the Grid according to its actual stage, uses appropriately differentiated evidence for each, and specifically investigates the ambiguous Horizon 2 case for a possible vanity-metric mismatch, rather than forcing uniform treatment in either direction.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "Mental Model: The Portfolio Health Grid",
+      "Real Company Example",
+      "Real World Perspective: Innovation Accounting and Portfolio Management at Different Company Stages",
+      "Detailed Case Study: The Prematurely Killed Experiment",
+      "Framework Explanation: The Innovation Accounting Metrics Table",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "Portfolio Health Grid",
+    "Validated Learning",
+    "Vanity Metric",
+    "Premature Cancellation",
+    "Prolonged Survival",
+    "Validation Stage"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

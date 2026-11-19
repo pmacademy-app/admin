@@ -1,0 +1,907 @@
+{
+  "schemaVersion": 2,
+  "id": "les_0dl7q7",
+  "contentHash": "b4011636acf152022cf5a64f00ac9072374a682c94a99f33037ff73c6270f101",
+  "title": "AI in Product Management",
+  "slug": "lesson-058",
+  "module": "leadership",
+  "order": 8,
+  "totalInModule": 10,
+  "difficulty": 6,
+  "estimatedReadingTime": 35,
+  "estimatedCompletionTime": 50,
+  "prerequisites": [
+    "les_o7sbis",
+    "les_92tjmj"
+  ],
+  "sourceFile": "content/lessons/lesson-058.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 58: AI in Product Management",
+      "blockId": "blk_1ea26344e9"
+    },
+    {
+      "type": "paragraph",
+      "text": "Every framework this curriculum has built (funnels in Lesson 43, A/B testing in Lesson 45, the ethical reasoning of Lesson 57) was developed against an implicit assumption: that software behaves deterministically, producing the same output from the same input every time, and that quality can be verified once and trusted to hold. AI-powered features, particularly those built on large language models and other probabilistic systems, break this assumption directly. The same input can produce different outputs on different occasions, quality can degrade in ways that are hard to detect through standard metrics alone, and a feature can be confidently, fluently wrong in ways traditional software rarely is. This lesson addresses what changes, and what doesn't, when a PM builds and manages AI-powered product features.",
+      "blockId": "blk_10ccd8c70d"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson matters because AI product features have become common enough that a PM who cannot evaluate them rigorously, communicate their limitations honestly, and design appropriate human oversight around them is significantly under-equipped for a large and growing share of real product work. This lesson does not teach you to build AI models (that remains a specialized technical discipline outside a PM's core responsibility, entirely consistent with Lesson 37's \"give context, not commands\" principle), but it does teach you the product judgment specific to working with AI as a component: how to evaluate it, how to set appropriate user expectations, and how to recognize the specific new failure modes this kind of technology introduces.",
+      "blockId": "blk_0225dfe56f"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "Explain why AI features' probabilistic, non-deterministic behavior requires evaluation methods beyond standard A/B testing alone.",
+        "Describe an evaluation set (eval set) and explain its role in systematically measuring AI feature quality before and after changes.",
+        "Apply the Trust Calibration model to design AI features that help users form accurate confidence in the system's outputs, rather than over-trusting or under-trusting them.",
+        "Distinguish appropriate AI use cases from \"AI for AI's sake,\" extending this curriculum's Lesson 1 output-versus-outcome discipline to AI feature decisions.",
+        "Extend Lesson 57's ethical debt framework to AI-specific harms, particularly hallucination and bias, and design human-in-the-loop safeguards to mitigate them."
+      ],
+      "blockId": "blk_b74da588d7"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson assumes **Lesson 45's** experimentation rigor, since evaluating AI features requires understanding where standard A/B testing remains applicable and where it needs to be supplemented with AI-specific evaluation methods. It also assumes **Lesson 57's** Harm Radius and ethical debt concepts, since AI features introduce specific new categories of potential harm (hallucination, bias) that this lesson treats as direct extensions of that ethical framework.",
+      "blockId": "blk_d971533e83"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Why AI Breaks the Deterministic Assumption",
+          "blockId": "blk_cf0f0c6d61"
+        },
+        {
+          "type": "paragraph",
+          "text": "Traditional software, given the same input, reliably produces the same output: a bug, once fixed, stays fixed; a feature, once verified working, generally continues working the same way. Many AI systems, particularly large language models, are fundamentally **probabilistic**: the same prompt can produce meaningfully different outputs across different invocations, and a system's overall quality is better described as a distribution of possible outputs than a single, fixed behavior. This has a direct, practical consequence for product evaluation: testing an AI feature with a handful of manual examples, the way a PM might sanity-check a traditional feature before launch, provides far weaker assurance of genuine quality than the same practice would for deterministic software, since a handful of good outputs doesn't rule out a meaningfully high rate of poor ones elsewhere in the distribution.",
+          "blockId": "blk_96b45a06ec"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_e46f4d3d93",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[\"Traditional software:<br/>same input → same output<br/>(deterministic)\"] --> B[Manual spot-check<br/>provides strong assurance]\r\n    C[\"AI feature:<br/>same input → distribution<br/>of possible outputs\"] --> D[Manual spot-check provides<br/>weak assurance:<br/>systematic evaluation needed]",
+          "normalized": "graph LR\r\n    A[\"Traditional software:<br/>same input → same output<br/>(deterministic)\"] --> B[Manual spot-check<br/>provides strong assurance]\r\n    C[\"AI feature:<br/>same input → distribution<br/>of possible outputs\"] --> D[Manual spot-check provides<br/>weak assurance:<br/>systematic evaluation needed]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020965242-162\" xmlns=\"http://www.w3.org/2000/svg\" width=\"950.38\" height=\"358\" viewBox=\"-45.125 -27 950.38 358\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Traditional software:same input → same output(deterministic) → Manual spot-checkprovides strong assurance → AI feature:same input → distributionof possible outputs → Manual spot-check providesweak assurance:systematic evaluation needed\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Traditional software:same input → same output(deterministic) → Manual spot-checkprovides strong assurance → AI feature:same input → distributionof possible outputs → Manual spot-check providesweak assurance:systematic evaluation needed</title><style>#mermaid-svg-1795020965242-162{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020965242-162 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020965242-162 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020965242-162 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020965242-162 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020965242-162 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020965242-162 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020965242-162 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020965242-162 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020965242-162 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020965242-162 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020965242-162 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020965242-162 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020965242-162 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020965242-162 p{margin:0;}#mermaid-svg-1795020965242-162 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020965242-162 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020965242-162 .cluster-label span{color:#171A17;}#mermaid-svg-1795020965242-162 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020965242-162 .label text,#mermaid-svg-1795020965242-162 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020965242-162 .node rect,#mermaid-svg-1795020965242-162 .node circle,#mermaid-svg-1795020965242-162 .node ellipse,#mermaid-svg-1795020965242-162 .node polygon,#mermaid-svg-1795020965242-162 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020965242-162 .rough-node .label text,#mermaid-svg-1795020965242-162 .node .label text,#mermaid-svg-1795020965242-162 .image-shape .label,#mermaid-svg-1795020965242-162 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020965242-162 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020965242-162 .rough-node .label,#mermaid-svg-1795020965242-162 .node .label,#mermaid-svg-1795020965242-162 .image-shape .label,#mermaid-svg-1795020965242-162 .icon-shape .label{text-align:center;}#mermaid-svg-1795020965242-162 .node.clickable{cursor:pointer;}#mermaid-svg-1795020965242-162 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020965242-162 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020965242-162 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020965242-162 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020965242-162 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020965242-162 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020965242-162 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020965242-162 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020965242-162 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020965242-162 .cluster text{fill:#171A17;}#mermaid-svg-1795020965242-162 .cluster span{color:#171A17;}#mermaid-svg-1795020965242-162 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020965242-162 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020965242-162 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020965242-162 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020965242-162 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020965242-162 .icon-shape,#mermaid-svg-1795020965242-162 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020965242-162 .icon-shape p,#mermaid-svg-1795020965242-162 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020965242-162 .icon-shape .label rect,#mermaid-svg-1795020965242-162 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020965242-162 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020965242-162 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020965242-162 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020965242-162 [data-look=\"neo\"].node rect,#mermaid-svg-1795020965242-162 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020965242-162 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020965242-162-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020965242-162 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020965242-162 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020965242-162-gradient);stroke-width:1px;}#mermaid-svg-1795020965242-162 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020965242-162 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020965242-162 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020965242-162-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020965242-162 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020965242-162 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020965242-162-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020965242-162 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020965242-162-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020965242-162 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020965242-162_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020965242-162_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020965242-162_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020965242-162_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020965242-162_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020965242-162_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020965242-162_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020965242-162_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020965242-162_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020965242-162_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020965242-162_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020965242-162_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M400.375,79L410.188,79C420,79,439.625,79,460.708,79C481.792,79,504.333,79,515.604,79L526.875,79\" id=\"mermaid-svg-1795020965242-162-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NDAwLjM3NSwieSI6Nzl9LHsieCI6NDU5LjI1LCJ5Ijo3OX0seyJ4Ijo1MzAuODc1LCJ5Ijo3OX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020965242-162_flowchart-v2-pointEnd)\"></path><path d=\"M406.75,266L415.5,266C424.25,266,441.75,266,458.583,266C475.417,266,491.583,266,499.667,266L507.75,266\" id=\"mermaid-svg-1795020965242-162-L_C_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_D_0\" data-points=\"W3sieCI6NDA2Ljc1LCJ5IjoyNjZ9LHsieCI6NDU5LjI1LCJ5IjoyNjZ9LHsieCI6NTExLjc1LCJ5IjoyNjZ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020965242-162_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020965242-162-flowchart-A-0\" data-look=\"classic\" transform=\"translate(207.375, 79)\"><rect class=\"basic label-container\" style=\"\" x=\"-150\" y=\"-57\" width=\"300\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-118, -41)\"><rect></rect><foreignObject width=\"236\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Traditional software:<br>same input → same output<br>(deterministic)</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020965242-162-flowchart-B-1\" data-look=\"classic\" transform=\"translate(730.25, 79)\"><rect class=\"basic label-container\" style=\"\" x=\"-154.25\" y=\"-46\" width=\"308.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-122.25, -30)\"><rect></rect><foreignObject width=\"244.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Manual spot-check<br>provides strong assurance</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020965242-162-flowchart-C-2\" data-look=\"classic\" transform=\"translate(207.375, 266)\"><rect class=\"basic label-container\" style=\"\" x=\"-154.25\" y=\"-57\" width=\"308.5\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-122.25, -41)\"><rect></rect><foreignObject width=\"244.5\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>AI feature:<br>same input → distribution<br>of possible outputs</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020965242-162-flowchart-D-3\" data-look=\"classic\" transform=\"translate(730.25, 266)\"><rect class=\"basic label-container\" style=\"\" x=\"-167\" y=\"-57\" width=\"334\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-135, -41)\"><rect></rect><foreignObject width=\"270\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Manual spot-check provides<br>weak assurance:<br>systematic evaluation needed</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020965242-162-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020965242-162-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020965242-162-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_e46f4d3d93"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Evaluation Sets (Evals)",
+          "blockId": "blk_aa9fbdc8b1"
+        },
+        {
+          "type": "paragraph",
+          "text": "The primary tool for addressing this gap is an **evaluation set (eval set)**: a curated, representative collection of test inputs, ideally covering both common cases and known difficult edge cases, run systematically against the AI system with outputs scored against defined quality criteria, sometimes by human reviewers, sometimes by automated scoring, often by a combination of both. An eval set functions similarly to a regression test suite in traditional software, but accounts for AI's probabilistic nature by running enough test cases, and often enough repeated trials per case, to characterize the actual output distribution's quality rather than relying on a small number of anecdotal spot-checks. Building and maintaining a good eval set is one of the most concretely useful things a PM working on AI features can contribute, since it requires exactly the product judgment (what does \"good\" actually look like for this specific use case, and what are the realistic edge cases users will encounter) that a PM, rather than a model-focused engineer alone, is often best positioned to define.",
+          "blockId": "blk_3f1ddd84b7"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Trust Calibration",
+          "blockId": "blk_691f8d95e8"
+        },
+        {
+          "type": "paragraph",
+          "text": "A specific new design challenge AI features introduce: helping users form **calibrated trust**, confidence in the system's outputs that accurately reflects the system's actual reliability, neither more nor less. **Over-trust** occurs when users treat AI outputs as more reliable than they actually are, acting on incorrect information without verification, a specific risk given that AI-generated text is often fluent and confident-sounding regardless of its actual accuracy. **Under-trust** occurs when users, burned by an early bad experience or general skepticism, discount genuinely useful and accurate AI outputs, failing to realize the value the feature could provide.",
+          "blockId": "blk_21a192351a"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_489cbd9602",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[AI feature output] --> B{Does the user's trust<br/>match the output's<br/>actual reliability?}\r\n    B -->|Over-trust| C[User acts on incorrect<br/>output without verification:<br/>risk of real harm]\r\n    B -->|Under-trust| D[User discounts genuinely<br/>useful output:<br/>value is lost]\r\n    B -->|Calibrated trust| E[User appropriately verifies<br/>uncertain outputs, trusts<br/>reliable ones: healthy usage]",
+          "normalized": "graph TD\r\n    A[AI feature output] --> B{Does the user's trust<br/>match the output's<br/>actual reliability?}\r\n    B -->|Over-trust| C[User acts on incorrect<br/>output without verification:<br/>risk of real harm]\r\n    B -->|Under-trust| D[User discounts genuinely<br/>useful output:<br/>value is lost]\r\n    B -->|Calibrated trust| E[User appropriately verifies<br/>uncertain outputs, trusts<br/>reliable ones: healthy usage]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020965356-163\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1366\" height=\"735.5\" viewBox=\"-51.5 -27 1366 735.5\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: AI feature output → Does the user's trustmatch the output'sactual reliability? → User acts on incorrectoutput without verification:risk of real harm → User discounts genuinelyuseful output:value is lost → User appropriately verifiesuncertain outputs, trustsreliable ones: healthy usage\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: AI feature output → Does the user's trustmatch the output'sactual reliability? → User acts on incorrectoutput without verification:risk of real harm → User discounts genuinelyuseful output:value is lost → User appropriately verifiesuncertain outputs, trustsreliable ones: healthy usage</title><style>#mermaid-svg-1795020965356-163{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020965356-163 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020965356-163 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020965356-163 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020965356-163 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020965356-163 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020965356-163 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020965356-163 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020965356-163 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020965356-163 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020965356-163 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020965356-163 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020965356-163 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020965356-163 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020965356-163 p{margin:0;}#mermaid-svg-1795020965356-163 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020965356-163 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020965356-163 .cluster-label span{color:#171A17;}#mermaid-svg-1795020965356-163 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020965356-163 .label text,#mermaid-svg-1795020965356-163 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020965356-163 .node rect,#mermaid-svg-1795020965356-163 .node circle,#mermaid-svg-1795020965356-163 .node ellipse,#mermaid-svg-1795020965356-163 .node polygon,#mermaid-svg-1795020965356-163 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020965356-163 .rough-node .label text,#mermaid-svg-1795020965356-163 .node .label text,#mermaid-svg-1795020965356-163 .image-shape .label,#mermaid-svg-1795020965356-163 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020965356-163 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020965356-163 .rough-node .label,#mermaid-svg-1795020965356-163 .node .label,#mermaid-svg-1795020965356-163 .image-shape .label,#mermaid-svg-1795020965356-163 .icon-shape .label{text-align:center;}#mermaid-svg-1795020965356-163 .node.clickable{cursor:pointer;}#mermaid-svg-1795020965356-163 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020965356-163 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020965356-163 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020965356-163 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020965356-163 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020965356-163 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020965356-163 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020965356-163 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020965356-163 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020965356-163 .cluster text{fill:#171A17;}#mermaid-svg-1795020965356-163 .cluster span{color:#171A17;}#mermaid-svg-1795020965356-163 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020965356-163 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020965356-163 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020965356-163 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020965356-163 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020965356-163 .icon-shape,#mermaid-svg-1795020965356-163 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020965356-163 .icon-shape p,#mermaid-svg-1795020965356-163 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020965356-163 .icon-shape .label rect,#mermaid-svg-1795020965356-163 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020965356-163 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020965356-163 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020965356-163 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020965356-163 [data-look=\"neo\"].node rect,#mermaid-svg-1795020965356-163 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020965356-163 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020965356-163-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020965356-163 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020965356-163 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020965356-163-gradient);stroke-width:1px;}#mermaid-svg-1795020965356-163 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020965356-163 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020965356-163 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020965356-163-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020965356-163 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020965356-163 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020965356-163-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020965356-163 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020965356-163-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020965356-163 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020965356-163_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020965356-163_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020965356-163_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020965356-163_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020965356-163_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020965356-163_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020965356-163_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020965356-163_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020965356-163_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020965356-163_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020965356-163_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020965356-163_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M683,82L683,88.917C683,95.833,683,109.667,683,122.833C683,136,683,148.5,683,154.75L683,161\" id=\"mermaid-svg-1795020965356-163-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NjgzLCJ5Ijo4Mn0seyJ4Ijo2ODMsInkiOjEyMy41fSx7IngiOjY4MywieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020965356-163_flowchart-v2-pointEnd)\"></path><path d=\"M537.114,392.364L485.345,415.47C433.576,438.576,330.038,484.788,278.269,514.144C226.5,543.5,226.5,556,226.5,562.25L226.5,568.5\" id=\"mermaid-svg-1795020965356-163-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6NTM3LjExMzU5MzMzNTg1NzcsInkiOjM5Mi4zNjM1OTMzMzU4NTc2fSx7IngiOjIyNi41LCJ5Ijo1MzF9LHsieCI6MjI2LjUsInkiOjU3Mi41fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020965356-163_flowchart-v2-pointEnd)\"></path><path d=\"M683,538.25L683,537.042C683,535.833,683,533.417,683,538.458C683,543.5,683,556,683,562.25L683,568.5\" id=\"mermaid-svg-1795020965356-163-L_B_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_D_0\" data-points=\"W3sieCI6NjgzLCJ5Ijo1MzguMjV9LHsieCI6NjgzLCJ5Ijo1MzF9LHsieCI6NjgzLCJ5Ijo1NzIuNX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020965356-163_flowchart-v2-pointEnd)\"></path><path d=\"M828.886,392.364L880.655,415.47C932.424,438.576,1035.962,484.788,1087.731,514.144C1139.5,543.5,1139.5,556,1139.5,562.25L1139.5,568.5\" id=\"mermaid-svg-1795020965356-163-L_B_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_E_0\" data-points=\"W3sieCI6ODI4Ljg4NjQwNjY2NDE0MjMsInkiOjM5Mi4zNjM1OTMzMzU4NTc2fSx7IngiOjExMzkuNSwieSI6NTMxfSx7IngiOjExMzkuNSwieSI6NTcyLjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020965356-163_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(226.5, 531)\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-58.5, -19)\"><foreignObject width=\"117\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Over-trust</p></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(683, 531)\"><g class=\"label\" data-id=\"L_B_D_0\" transform=\"translate(-62.75, -19)\"><foreignObject width=\"125.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Under-trust</p></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(1139.5, 531)\"><g class=\"label\" data-id=\"L_B_E_0\" transform=\"translate(-84, -19)\"><foreignObject width=\"168\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Calibrated trust</p></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020965356-163-flowchart-A-0\" data-look=\"classic\" transform=\"translate(683, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-120.25\" y=\"-35\" width=\"240.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-88.25, -19)\"><rect></rect><foreignObject width=\"176.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>AI feature output</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020965356-163-flowchart-B-1\" data-look=\"classic\" transform=\"translate(683, 327.25)\"><polygon points=\"162.25,0 324.5,-162.25 162.25,-324.5 0,-162.25\" class=\"label-container\" transform=\"translate(-161.75, 162.25)\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-105.25, -41)\"><rect></rect><foreignObject width=\"210.5\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Does the user's trust<br>match the output's<br>actual reliability?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020965356-163-flowchart-C-3\" data-look=\"classic\" transform=\"translate(226.5, 643.5)\"><rect class=\"basic label-container\" style=\"\" x=\"-167\" y=\"-57\" width=\"334\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-135, -41)\"><rect></rect><foreignObject width=\"270\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>User acts on incorrect<br>output without verification:<br>risk of real harm</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020965356-163-flowchart-D-5\" data-look=\"classic\" transform=\"translate(683, 643.5)\"><rect class=\"basic label-container\" style=\"\" x=\"-150\" y=\"-57\" width=\"300\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-118, -41)\"><rect></rect><foreignObject width=\"236\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>User discounts genuinely<br>useful output:<br>value is lost</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020965356-163-flowchart-E-7\" data-look=\"classic\" transform=\"translate(1139.5, 643.5)\"><rect class=\"basic label-container\" style=\"\" x=\"-167\" y=\"-57\" width=\"334\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-135, -41)\"><rect></rect><foreignObject width=\"270\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>User appropriately verifies<br>uncertain outputs, trusts<br>reliable ones: healthy usage</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020965356-163-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020965356-163-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020965356-163-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_489cbd9602"
+        },
+        {
+          "type": "paragraph",
+          "text": "Designing for calibrated trust involves specific product decisions: surfacing confidence signals where genuinely available, making it easy for users to verify or correct an AI output rather than only accept or reject it wholesale, and being honest in product communication about the system's actual failure modes and limitations rather than presenting it as more capable or reliable than it genuinely is.",
+          "blockId": "blk_9e2a5f5348"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "AI for AI's Sake vs. Genuine Value",
+          "blockId": "blk_30c5b5d449"
+        },
+        {
+          "type": "paragraph",
+          "text": "Extending Lesson 1's output-versus-outcome discipline directly: adding an AI-powered feature is itself an output, not an outcome, and the presence of AI capability in a product is not, by itself, evidence of genuine user value delivered. A specific, common failure pattern involves adding AI features primarily to signal technological currency or competitive parity, without a clear, evidenced user problem the AI capability specifically and uniquely solves better than a simpler, deterministic alternative would. The discipline this lesson recommends: before building an AI-powered feature, ask explicitly whether the underlying problem genuinely requires AI's specific capabilities (handling ambiguous, open-ended input; generating novel content; recognizing patterns too complex for rule-based logic) or whether a simpler, more predictable, more easily verified deterministic solution would serve the same user need at lower risk and complexity.",
+          "blockId": "blk_d6bc5e35a2"
+        }
+      ],
+      "blockId": "blk_bb14aa3a9e"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Relying on a small number of manual spot-checks to evaluate AI feature quality, as though it were traditional deterministic software",
+          "body": "As covered in Theory, this provides far weaker assurance for a probabilistic system than for deterministic software, since a handful of good examples doesn't rule out a meaningfully high failure rate elsewhere in the output distribution."
+        },
+        {
+          "title": "Presenting AI-generated output with unwarranted confidence, contributing to user over-trust",
+          "body": "An AI feature presented without any indication of its actual reliability or known limitations invites users to trust it more than its true accuracy warrants, risking real harm when incorrect outputs are acted upon without verification."
+        },
+        {
+          "title": "Adding AI capability primarily for competitive or marketing signaling, without a clear underlying user problem it specifically and uniquely solves",
+          "body": "This is the AI-specific version of Lesson 1's output-versus-outcome trap: an AI feature that exists because AI is currently prominent, rather than because it solves a genuine problem better than the available alternatives, risks investing real effort in something that doesn't move genuine value."
+        },
+        {
+          "title": "Failing to design a clear, low-friction correction mechanism for when an AI output is wrong",
+          "body": "Without an easy way for users to correct or flag an incorrect AI output, errors compound (both in terms of immediate user harm and in terms of lost signal that could otherwise improve the system), and users are pushed toward the binary choice of fully trusting or fully abandoning the feature rather than productively engaging with its actual, imperfect reliability."
+        },
+        {
+          "title": "Treating AI hallucination and bias as purely a technical/model problem outside product responsibility",
+          "body": "Extending Lesson 57's ethical framework directly: a PM shipping an AI feature bears real product responsibility for the human-in-the-loop safeguards, transparency, and appropriate use-case scoping that mitigate these known risks, deferring this responsibility entirely to the model or engineering team, treating it as outside the PM's scope, misses the product judgment (per Lesson 37's context-not-commands principle) that a PM is specifically positioned to contribute.\n\n"
+        }
+      ],
+      "blockId": "blk_c850513bb4"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The Trust Calibration Curve",
+      "diagram": {
+        "blockId": "blk_21c0be1466",
+        "type": "mermaid"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "This lesson's core takeaway tool visualizes the relationship a well-designed AI feature should maintain between a system's actual reliability and the trust users place in it:",
+          "blockId": "blk_3e70f9c47f"
+        },
+        {
+          "type": "paragraph",
+          "text": "Use the Trust Calibration Curve as a standing diagnostic whenever designing or evaluating an AI feature: ask explicitly whether the feature's presentation (confidence signals, framing, correction affordances) actually tracks its real, eval-set-measured reliability across different types of input, rather than presenting uniform confidence regardless of the underlying, often highly variable, actual accuracy for different request types.",
+          "blockId": "blk_c3e710e410"
+        }
+      ],
+      "blockId": "blk_3dc1801595"
+    },
+    {
+      "type": "mermaid",
+      "id": "blk_21c0be1466",
+      "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[\"Low actual reliability<br/>(e.g., novel, ambiguous requests)\"] --> B[\"Low user trust:<br/>heavy verification,<br/>clear low-confidence signaling\"]\r\n    C[\"High actual reliability<br/>(e.g., well-tested, common cases)\"] --> D[\"Higher user trust:<br/>lighter-touch verification,<br/>appropriate confidence\"]\r\n    B -.->|calibration line:<br/>trust should track<br/>actual reliability| D",
+      "normalized": "graph LR\r\n    A[\"Low actual reliability<br/>(e.g., novel, ambiguous requests)\"] --> B[\"Low user trust:<br/>heavy verification,<br/>clear low-confidence signaling\"]\r\n    C[\"High actual reliability<br/>(e.g., well-tested, common cases)\"] --> D[\"Higher user trust:<br/>lighter-touch verification,<br/>appropriate confidence\"]\r\n    B -.->|calibration line:<br/>trust should track<br/>actual reliability| D",
+      "authorTheme": {
+        "background": "#0b0b0c",
+        "primaryColor": "#1f1f23",
+        "primaryTextColor": "#ffffff",
+        "primaryBorderColor": "#8b5cf6",
+        "lineColor": "#d1d5db",
+        "secondaryColor": "#18181b",
+        "tertiaryColor": "#111111",
+        "mainBkg": "#1f1f23",
+        "nodeBorder": "#8b5cf6",
+        "clusterBkg": "#000000",
+        "clusterBorder": "#27272a",
+        "titleColor": "#ffffff",
+        "edgeLabelBackground": "#0b0b0c",
+        "nodeTextColor": "#ffffff",
+        "edgeLabelColor": "#ffffff",
+        "actorBorder": "#8b5cf6",
+        "actorBkg": "#1f1f23",
+        "actorTextColor": "#ffffff",
+        "sequenceNumberColor": "#ffffff",
+        "signalColor": "#8b5cf6",
+        "signalTextColor": "#ffffff",
+        "textColor": "#ffffff",
+        "classText": "#ffffff",
+        "classBorder": "#8b5cf6",
+        "classBkg": "#1f1f23"
+      },
+      "svg": "<svg id=\"mermaid-svg-1795020965519-164\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1789.5\" height=\"324\" viewBox=\"-62.125 -27 1789.5 324\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Low actual reliability(e.g., novel, ambiguous requests) → Low user trust:heavy verification,clear low-confidence signaling → High actual reliability(e.g., well-tested, common cases) → Higher user trust:lighter-touch verification,appropriate confidence\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Low actual reliability(e.g., novel, ambiguous requests) → Low user trust:heavy verification,clear low-confidence signaling → High actual reliability(e.g., well-tested, common cases) → Higher user trust:lighter-touch verification,appropriate confidence</title><style>#mermaid-svg-1795020965519-164{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020965519-164 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020965519-164 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020965519-164 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020965519-164 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020965519-164 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020965519-164 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020965519-164 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020965519-164 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020965519-164 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020965519-164 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020965519-164 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020965519-164 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020965519-164 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020965519-164 p{margin:0;}#mermaid-svg-1795020965519-164 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020965519-164 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020965519-164 .cluster-label span{color:#171A17;}#mermaid-svg-1795020965519-164 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020965519-164 .label text,#mermaid-svg-1795020965519-164 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020965519-164 .node rect,#mermaid-svg-1795020965519-164 .node circle,#mermaid-svg-1795020965519-164 .node ellipse,#mermaid-svg-1795020965519-164 .node polygon,#mermaid-svg-1795020965519-164 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020965519-164 .rough-node .label text,#mermaid-svg-1795020965519-164 .node .label text,#mermaid-svg-1795020965519-164 .image-shape .label,#mermaid-svg-1795020965519-164 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020965519-164 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020965519-164 .rough-node .label,#mermaid-svg-1795020965519-164 .node .label,#mermaid-svg-1795020965519-164 .image-shape .label,#mermaid-svg-1795020965519-164 .icon-shape .label{text-align:center;}#mermaid-svg-1795020965519-164 .node.clickable{cursor:pointer;}#mermaid-svg-1795020965519-164 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020965519-164 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020965519-164 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020965519-164 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020965519-164 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020965519-164 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020965519-164 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020965519-164 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020965519-164 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020965519-164 .cluster text{fill:#171A17;}#mermaid-svg-1795020965519-164 .cluster span{color:#171A17;}#mermaid-svg-1795020965519-164 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020965519-164 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020965519-164 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020965519-164 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020965519-164 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020965519-164 .icon-shape,#mermaid-svg-1795020965519-164 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020965519-164 .icon-shape p,#mermaid-svg-1795020965519-164 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020965519-164 .icon-shape .label rect,#mermaid-svg-1795020965519-164 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020965519-164 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020965519-164 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020965519-164 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020965519-164 [data-look=\"neo\"].node rect,#mermaid-svg-1795020965519-164 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020965519-164 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020965519-164-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020965519-164 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020965519-164 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020965519-164-gradient);stroke-width:1px;}#mermaid-svg-1795020965519-164 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020965519-164 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020965519-164 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020965519-164-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020965519-164 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020965519-164 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020965519-164-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020965519-164 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020965519-164-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020965519-164 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020965519-164_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020965519-164_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020965519-164_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020965519-164_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020965519-164_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020965519-164_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020965519-164_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020965519-164_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020965519-164_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020965519-164_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020965519-164_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020965519-164_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M508.75,232L517.5,232C526.25,232,543.75,232,563.771,232C583.792,232,606.333,232,617.604,232L628.875,232\" id=\"mermaid-svg-1795020965519-164-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NTA4Ljc1LCJ5IjoyMzJ9LHsieCI6NTYxLjI1LCJ5IjoyMzJ9LHsieCI6NjMyLjg3NSwieSI6MjMyfV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020965519-164_flowchart-v2-pointEnd)\"></path><path d=\"M1114.5,62L1133.667,62C1152.833,62,1191.167,62,1228.855,66.813C1266.543,71.625,1303.586,81.25,1322.107,86.063L1340.629,90.876\" id=\"mermaid-svg-1795020965519-164-L_C_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_D_0\" data-points=\"W3sieCI6MTExNC41LCJ5Ijo2Mn0seyJ4IjoxMjI5LjUsInkiOjYyfSx7IngiOjEzNDQuNSwieSI6OTEuODgxNTQzNzUyMzg4MjR9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020965519-164_flowchart-v2-pointEnd)\"></path><path d=\"M1095.375,232L1117.729,232C1140.083,232,1184.792,232,1225.667,227.187C1266.543,222.375,1303.586,212.75,1322.107,207.937L1340.629,203.124\" id=\"mermaid-svg-1795020965519-164-L_B_D_0\" class=\"edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_D_0\" data-points=\"W3sieCI6MTA5NS4zNzUsInkiOjIzMn0seyJ4IjoxMjI5LjUsInkiOjIzMn0seyJ4IjoxMzQ0LjUsInkiOjIwMi4xMTg0NTYyNDc2MTE3Nn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020965519-164_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(1229.5, 232)\"><g class=\"label\" data-id=\"L_B_D_0\" transform=\"translate(-92.5, -41)\"><foreignObject width=\"185\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>calibration line:<br>trust should track<br>actual reliability</p></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020965519-164-flowchart-A-0\" data-look=\"classic\" transform=\"translate(258.375, 232)\"><rect class=\"basic label-container\" style=\"\" x=\"-188.25\" y=\"-46\" width=\"376.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-156.25, -30)\"><rect></rect><foreignObject width=\"312.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Low actual reliability<br>(e.g., novel, ambiguous requests)</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020965519-164-flowchart-B-1\" data-look=\"classic\" transform=\"translate(864.125, 232)\"><rect class=\"basic label-container\" style=\"\" x=\"-175.5\" y=\"-57\" width=\"351\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-143.5, -41)\"><rect></rect><foreignObject width=\"287\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Low user trust:<br>heavy verification,<br>clear low-confidence signaling</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020965519-164-flowchart-C-2\" data-look=\"classic\" transform=\"translate(864.125, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-188.25\" y=\"-46\" width=\"376.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-156.25, -30)\"><rect></rect><foreignObject width=\"312.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>High actual reliability<br>(e.g., well-tested, common cases)</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020965519-164-flowchart-D-3\" data-look=\"classic\" transform=\"translate(1556.625, 147)\"><rect class=\"basic label-container\" style=\"\" x=\"-162.75\" y=\"-57\" width=\"325.5\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-130.75, -41)\"><rect></rect><foreignObject width=\"261.5\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Higher user trust:<br>lighter-touch verification,<br>appropriate confidence</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020965519-164-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020965519-164-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020965519-164-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+      "blockId": "blk_21c0be1466"
+    },
+    {
+      "type": "companyExample",
+      "company": "Duolingo Max",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "**Duolingo Max**, launched March 14, 2023 and confirmed directly on Duolingo's own blog, is a specific, well-documented case of an educational product deploying a large language model (GPT-4, via a close partnership with OpenAI) for two new features: Roleplay, an AI conversation partner for practicing real-world dialogue, and Explain My Answer, which gives learners a GPT-4-generated explanation of why a specific answer was right or wrong. Duolingo's own principal product manager, Edwin Bodge, and lead engineer, Bill Peterson, described in OpenAI's own published case study exactly the trust-calibration problem this lesson addresses: with the earlier GPT-3, Peterson said, \"one incorrect term in the explanation could teach the concept incorrectly or leave the user confused and dissatisfied\", a serious risk for a feature whose entire purpose is teaching correct grammar rules to novice learners. Duolingo has publicly described a specific mitigation approach: human curriculum experts, not the model alone, write the scenario prompts and initial framing for Roleplay conversations, and the company states it continuously reviews AI-generated output for factual accuracy.",
+          "blockId": "blk_29264103d7"
+        },
+        {
+          "type": "paragraph",
+          "text": "The underlying principle connects directly to this lesson's Theory: an educational product deploying AI features has a specific, heightened need for rigorous evaluation and appropriate trust calibration, since users (often language learners with limited ability to independently verify correctness) are particularly vulnerable to over-trusting fluent but potentially incorrect AI-generated content, echoing this lesson's Harm Radius-style concern for vulnerable users, first introduced in Lesson 57.",
+          "blockId": "blk_ee8abe8c48"
+        },
+        {
+          "type": "paragraph",
+          "text": "*(Source: Duolingo's own official blog post announcing the launch, OpenAI's own published case study quoting Duolingo's product and engineering leads directly, and TechCrunch's contemporaneous coverage. This curriculum does not claim certainty about Duolingo's current, exact AI evaluation methodology as the technology and the company's approach continue to evolve.)*",
+          "blockId": "blk_9931eb6735"
+        }
+      ],
+      "blockId": "blk_446a491785"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "At a startup",
+          "body": "AI feature evaluation is often informal, relying on a founding team's direct, hands-on testing rather than a systematic eval set, given limited resources. The risk here is Mistake 1's exposure at meaningful scale: a startup shipping an AI feature based on encouraging but limited manual testing may not discover a significant failure mode until it affects real users at volume."
+        },
+        {
+          "context": "At a mid-size company",
+          "body": "Building genuine eval sets and systematic AI evaluation practices typically becomes worthwhile, since sufficient usage volume and product maturity exist to justify the investment, and the cost of an undetected failure mode grows correspondingly larger as the user base scales."
+        },
+        {
+          "context": "At Big Tech",
+          "body": "AI evaluation is often deeply sophisticated, with dedicated red-teaming (adversarial testing specifically designed to surface failure modes and harmful outputs), extensive eval infrastructure, and formal review processes for AI feature launches that parallel and extend the launch tiering system from Lesson 36. The PM's job shifts toward correctly scoping eval coverage for a specific feature's actual risk profile, and toward advocating for appropriate trust-calibration design even under competitive pressure to ship AI capabilities quickly."
+        }
+      ],
+      "blockId": "blk_2b2f4dcfa3"
+    },
+    {
+      "type": "caseStudy",
+      "title": "The Assistant That Sounded Right",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Consider a simplified, illustrative scenario common at teams shipping their first significant AI-powered feature.",
+          "blockId": "blk_502ae87b24"
+        },
+        {
+          "type": "paragraph",
+          "text": "A team launches an AI-powered customer support assistant, designed to answer common product questions automatically before escalating to a human agent when needed. Pre-launch testing consists of the product team trying roughly twenty representative questions themselves, all of which produce accurate, helpful-sounding answers, generating confidence that the feature is ready for broad release. The team ships the assistant without a formal escalation trigger for low-confidence responses, reasoning that the assistant's answers had consistently \"sounded right\" during testing.",
+          "blockId": "blk_f28025f888"
+        },
+        {
+          "type": "paragraph",
+          "text": "Within weeks of launch, customer support escalations related to the assistant rise sharply, not because the assistant was refusing to help, but because it was confidently generating plausible-sounding but factually incorrect answers to a meaningful share of less-common questions outside the roughly twenty scenarios the team had manually tested, and users, trusting the assistant's fluent, confident tone, frequently acted on the incorrect information before eventually discovering the error and escalating, sometimes after real inconvenience or cost.",
+          "blockId": "blk_a2e3af11e4"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong?**",
+          "blockId": "blk_f3ee487211"
+        },
+        {
+          "type": "paragraph",
+          "text": "Using this lesson's core distinction: the team's pre-launch evaluation (twenty manually-tested, hand-picked questions) provided the weak, anecdotal assurance this lesson's Theory warns against, rather than the systematic, distribution-characterizing assurance a genuine eval set would have provided. Twenty good examples said very little about the assistant's actual failure rate across the full range of real user questions it would eventually encounter, particularly the less-common, harder cases the team's own quick testing was unlikely to have covered. This is also a direct instance of the Trust Calibration failure this lesson describes: the assistant's uniformly confident, fluent tone gave users no signal to distinguish its reliable answers from its unreliable ones, inviting exactly the kind of over-trust this lesson's Theory identifies as a specific AI product risk.",
+          "blockId": "blk_cc76f27232"
+        },
+        {
+          "type": "paragraph",
+          "text": "The corrective response required building a genuine eval set, covering common cases, known difficult edge cases, and a representative sample of actual historical support questions, scored systematically rather than anecdotally, alongside a design change introducing explicit confidence signaling and a low-confidence escalation trigger that routed uncertain responses to human review before they reached the user with unwarranted apparent authority. This combination (systematic evaluation plus trust-calibrated design) directly addresses both halves of this lesson's core framework, and echoes Lesson 57's ethical debt concept: the shortcut of shipping on twenty anecdotal examples deferred real evaluation cost, which then compounded into actual user harm and support burden once the feature reached real-world scale and variety.",
+          "blockId": "blk_9845b1c06b"
+        }
+      ],
+      "blockId": "blk_88256e59f9"
+    },
+    {
+      "type": "framework",
+      "name": "The AI Feature Readiness Checklist",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A second, more tactical tool: use this checklist before launching or significantly changing an AI-powered feature.",
+          "blockId": "blk_f3f57f926c"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Check",
+            "Question"
+          ],
+          "rows": [
+            [
+              "Eval set exists",
+              "Has the feature been tested against a systematic, representative eval set, not just a handful of manually-tried examples?"
+            ],
+            [
+              "Known failure modes identified",
+              "Has the team deliberately tried to find where the system fails (adversarial/edge-case testing), not just confirmed where it succeeds?"
+            ],
+            [
+              "Confidence signaling",
+              "Does the feature communicate appropriately when its output is less certain, rather than presenting uniform confidence regardless of actual reliability?"
+            ],
+            [
+              "Correction mechanism",
+              "Can a user easily correct or flag an incorrect output, rather than being forced into a binary trust-or-abandon choice?"
+            ],
+            [
+              "Human-in-the-loop fallback",
+              "Is there a clear path to human review or escalation for low-confidence or high-stakes cases?"
+            ],
+            [
+              "Harm Radius assessed",
+              "Has the feature been evaluated (per Lesson 57) for who could be harmed by an incorrect output, and how severely?"
+            ]
+          ],
+          "blockId": "blk_3aa28299be"
+        },
+        {
+          "type": "paragraph",
+          "text": "A feature failing several of these checks, as in this lesson's Case Study, carries meaningful risk of exactly the over-trust and compounding harm dynamic this lesson describes, regardless of how impressive its outputs appeared during limited pre-launch testing.",
+          "blockId": "blk_020c082983"
+        }
+      ],
+      "blockId": "blk_998c780403"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "How would you evaluate the quality of an AI-powered feature before launch?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate reaches for systematic eval set construction rather than describing a small number of manual spot-checks as sufficient assurance."
+        },
+        {
+          "question": "How do you decide whether a problem actually needs an AI-based solution, versus a simpler, deterministic one?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate applies genuine output-versus-outcome discipline to AI features specifically, rather than assuming AI is inherently the superior solution regardless of the actual problem's characteristics."
+        },
+        {
+          "question": "How would you design an AI feature to avoid users over-trusting incorrect outputs?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate understands the Trust Calibration concept concretely (confidence signaling, correction mechanisms, honest communication about limitations) rather than describing trust-building only in vague, general terms."
+        }
+      ],
+      "blockId": "blk_2d6eedc606"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "AI-powered features break traditional software's deterministic assumption, producing a distribution of possible outputs rather than a single, fixed, verifiable behavior, a shift that requires systematic evaluation sets (evals) rather than the anecdotal, small-sample testing that suffices for traditional deterministic features, precisely the gap illustrated in this lesson's Case Study of a support assistant whose twenty successful manual tests provided far weaker assurance than the team assumed. Trust Calibration (designing a feature so user confidence in its outputs accurately tracks the system's actual, often variable, reliability) addresses a specific new product design challenge AI introduces: fluent, confident-sounding output can invite over-trust regardless of actual accuracy, while an early bad experience can produce under-trust that discards genuinely valuable capability. Extending Lesson 1's output-versus-outcome discipline, a PM should ask explicitly whether a given problem genuinely requires AI's specific capabilities or whether a simpler, more predictable deterministic solution would serve the same need with less risk, rather than adding AI capability primarily for competitive signaling. Finally, extending Lesson 57's ethical debt framework, hallucination and bias are genuine product responsibilities, not purely technical concerns outside a PM's scope: appropriate human-in-the-loop safeguards, confidence signaling, and correction mechanisms are the specific product-level mitigations a PM is responsible for designing and advocating for.",
+          "blockId": "blk_17d46ef99a"
+        }
+      ],
+      "blockId": "blk_cea912e1bf"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "AI features are often probabilistic rather than deterministic, meaning a handful of manually-tested examples provides far weaker quality assurance than systematic evaluation against a representative eval set.",
+        "Trust Calibration means designing an AI feature so user confidence in its outputs accurately tracks the system's actual, often variable, reliability, avoiding both over-trust and under-trust.",
+        "Adding AI capability is itself an output, not an outcome (extending Lesson 1); a PM should ask explicitly whether a given problem genuinely requires AI's specific capabilities before building an AI-powered solution.",
+        "A low-friction correction mechanism, allowing users to flag or correct incorrect outputs, is essential design for AI features, avoiding a binary trust-or-abandon dynamic.",
+        "Hallucination and bias are genuine product responsibilities, not purely technical concerns: a PM bears responsibility for human-in-the-loop safeguards and appropriate use-case scoping, extending Lesson 57's ethical framework directly.",
+        "The AI Feature Readiness Checklist (eval set, known failure modes, confidence signaling, correction mechanism, human-in-the-loop fallback, Harm Radius assessment) provides a concrete pre-launch discipline for AI-powered features.",
+        "Educational and other high-stakes-accuracy contexts warrant especially rigorous evaluation and trust calibration, since users may have limited ability to independently verify AI-generated content's correctness."
+      ],
+      "blockId": "blk_06453a1c8d"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "**AI breaks determinism:** same input, distribution of outputs. Small manual tests give weak assurance.",
+        "**Eval sets:** systematic, representative test cases, scored rigorously. The AI-era equivalent of a regression suite.",
+        "**Trust Calibration:** user confidence should track actual reliability. Avoid both over-trust and under-trust.",
+        "**AI for AI's sake:** ask whether the problem genuinely needs AI's specific capabilities, or a simpler deterministic solution would do (Lesson 1's output-vs-outcome, applied to AI).",
+        "**Correction mechanisms:** let users flag/correct outputs. Avoid forcing a binary trust-or-abandon choice.",
+        "**Hallucination/bias = product responsibility:** extends Lesson 57's ethical debt; not purely a technical/model concern.",
+        "**AI Feature Readiness Checklist:** eval set, failure modes, confidence signaling, correction mechanism, human fallback, Harm Radius."
+      ],
+      "blockId": "blk_edd973b5c8"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "Probabilistic system",
+          "definition": "A system where the same input can produce different outputs across invocations, described by a distribution rather than a fixed behavior",
+          "relatedConcepts": [
+            "Evaluation set"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Evaluation set (eval set)",
+          "definition": "A curated, representative collection of test inputs used to systematically measure AI feature quality across common and edge cases",
+          "relatedConcepts": [
+            "Probabilistic system"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Trust Calibration",
+          "definition": "Designing a feature so user confidence in its outputs accurately tracks the system's actual reliability",
+          "relatedConcepts": [
+            "Over-trust",
+            "Under-trust"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Over-trust",
+          "definition": "Treating AI outputs as more reliable than they actually are",
+          "relatedConcepts": [
+            "Trust Calibration"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Under-trust",
+          "definition": "Discounting genuinely useful and accurate AI outputs due to skepticism or prior bad experience",
+          "relatedConcepts": [
+            "Trust Calibration"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Human-in-the-loop",
+          "definition": "A design pattern routing low-confidence or high-stakes AI outputs to human review before reaching the end user",
+          "relatedConcepts": [
+            "AI Feature Readiness Checklist"
+          ],
+          "difficulty": 2
+        }
+      ],
+      "blockId": "blk_876ef844c4"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "*Human Compatible* by Stuart Russell",
+          "note": "background on AI system reliability and the broader challenge of designing AI that behaves in accordance with genuine human intent."
+        },
+        {
+          "citation": "*Weapons of Math Destruction* by Cathy O'Neil",
+          "note": "revisited here for its direct relevance to AI bias and disproportionate harm, extending Lesson 57's Harm Radius concept."
+        },
+        {
+          "citation": "Public documentation and practitioner writing on LLM evaluation methodology (eval sets, red-teaming) from major AI labs",
+          "note": "practical background on building systematic evaluation practices for AI features."
+        }
+      ],
+      "blockId": "blk_231b5dd4fb"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_0dl7q7",
+      "cards": [
+        {
+          "id": "fc-les_0dl7q7-1",
+          "front": "Why do AI features require different evaluation approaches than traditional deterministic software?",
+          "back": "AI systems are often probabilistic (the same input can produce different outputs across invocations), so a handful of manually-tested examples provides much weaker quality assurance than for deterministic software, requiring systematic eval sets instead.",
+          "difficulty": 1,
+          "tags": [
+            "probabilistic-systems"
+          ]
+        },
+        {
+          "id": "fc-les_0dl7q7-2",
+          "front": "What is an evaluation set (eval set)?",
+          "back": "A curated, representative collection of test inputs, covering common and known difficult edge cases, run systematically against an AI system with outputs scored against defined quality criteria.",
+          "difficulty": 2,
+          "tags": [
+            "eval-set"
+          ]
+        },
+        {
+          "id": "fc-les_0dl7q7-3",
+          "front": "What is Trust Calibration, and what are its two failure modes?",
+          "back": "Designing a feature so user confidence in its outputs accurately tracks actual reliability; failure modes are over-trust (treating outputs as more reliable than they are) and under-trust (discounting genuinely useful outputs).",
+          "difficulty": 2,
+          "tags": [
+            "trust-calibration"
+          ]
+        },
+        {
+          "id": "fc-les_0dl7q7-4",
+          "front": "How does this lesson extend Lesson 1's output-versus-outcome discipline to AI features specifically?",
+          "back": "Adding AI capability is itself an output, not an outcome. A PM should ask whether a problem genuinely requires AI's specific capabilities, rather than adding AI for competitive signaling without a clear underlying user problem it uniquely solves.",
+          "difficulty": 2,
+          "tags": [
+            "ai-for-ais-sake"
+          ]
+        },
+        {
+          "id": "fc-les_0dl7q7-5",
+          "front": "How does this lesson extend Lesson 57's ethical debt framework to AI features?",
+          "back": "Hallucination and bias are genuine product responsibilities, not purely technical concerns; a PM bears responsibility for human-in-the-loop safeguards, appropriate scoping, and transparency that mitigate these AI-specific harms.",
+          "difficulty": 2,
+          "tags": [
+            "ai-ethical-debt"
+          ]
+        },
+        {
+          "id": "fc-les_0dl7q7-6",
+          "front": "In the Detailed Case Study, why did twenty successful manual tests fail to predict the support assistant's real-world failure rate?",
+          "back": "Twenty hand-picked examples provided weak, anecdotal assurance about a probabilistic system's true output distribution, and didn't cover the less-common, harder edge cases where the assistant actually failed at meaningful rates once deployed broadly.",
+          "difficulty": 2,
+          "tags": [
+            "case-study"
+          ]
+        }
+      ],
+      "blockId": "blk_7472c8e1b3"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "Consider the following novel scenario: Your team is considering adding an AI-powered feature that automatically summarizes long customer feedback threads for internal stakeholders, to save reading time.",
+        "There is no single correct answer to the prompts below. The goal is to practice applying this lesson's frameworks, not to reach one \"right\" answer.",
+        "Using the \"AI for AI's sake\" discipline, what genuine user problem would this feature need to solve to justify AI's specific capabilities, versus a simpler alternative (like basic keyword highlighting)?",
+        "What would a representative eval set look like for this specific feature? What kinds of feedback threads (common and difficult edge cases) would you want to include?",
+        "Using the Trust Calibration Curve, how would you design the summary presentation to help stakeholders appropriately calibrate their trust, rather than assuming the summary is always complete and accurate?",
+        "What correction mechanism would you design, so a stakeholder who notices a summary missed something important can easily flag or fix it?",
+        "Using Lesson 57's Harm Radius, who could be harmed if this summarization feature omitted or misrepresented important feedback, and how severe might that harm be?"
+      ],
+      "blockId": "blk_a8c0bcd7a7"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_0dl7q7",
+      "questions": [
+        {
+          "id": "q-les_0dl7q7-1",
+          "question": "Why do AI features often require evaluation methods beyond standard manual spot-checks?",
+          "options": [
+            "Many AI systems are probabilistic, so a few examples give weak assurance",
+            "Manual testing is formally prohibited for any AI-powered product",
+            "AI features are always completely bug-free by design",
+            "AI features technically require no testing before launch"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The Theory section explains this exact reasoning about probabilistic systems and the weakness of anecdotal spot-checks.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_0dl7q7-2",
+          "question": "What is an evaluation set (eval set)?",
+          "options": [
+            "A list naming every user who has ever tried an AI feature",
+            "A curated, representative set of test inputs scored against quality criteria",
+            "A synonym for an A/B test's control group in a live experiment",
+            "A legal filing required before any AI feature can launch"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The Theory section defines an eval set exactly this way.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_0dl7q7-3",
+          "question": "What is \"over-trust,\" in the context of AI feature design?",
+          "options": [
+            "A user holding no particular opinion about a feature's reliability",
+            "A term that applies only to traditional, deterministic software",
+            "Treating AI outputs as more reliable than they actually are",
+            "A synonym for a healthy, well-calibrated trust relationship"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The Theory section defines over-trust exactly this way, as one of Trust Calibration's two failure modes.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_0dl7q7-4",
+          "question": "What is \"under-trust,\" and why does it matter alongside over-trust?",
+          "options": [
+            "Under-trust is not a real phenomenon with any product implications",
+            "Under-trust is always preferable to over-trust in every context",
+            "Under-trust affects only traditional software, never AI features",
+            "Users discount genuinely useful AI outputs, and real value is lost"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The Theory section explains under-trust as a distinct, genuine problem (lost value from discounting useful outputs) alongside over-trust.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_0dl7q7-5",
+          "question": "How does this lesson extend Lesson 1's output-versus-outcome discipline to AI features?",
+          "options": [
+            "Adding AI capability is itself an output, so a PM should ask if it's truly needed",
+            "AI features, this lesson argues, should never be judged by output/outcome thinking",
+            "It claims AI features are always outcomes, never outputs, by definition",
+            "It states this framework has no connection to AI feature decisions"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The Theory section explicitly extends this distinction to AI feature decisions.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_0dl7q7-6",
+          "question": "In the Detailed Case Study, why did the customer support assistant generate a sharp rise in escalations after launch?",
+          "options": [
+            "The assistant refused outright to answer any user questions",
+            "It confidently produced incorrect answers on less-common questions, and users trusted its tone",
+            "The assistant responded far too slowly for users to stay engaged",
+            "The assistant was disabled entirely soon after its initial launch"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The Case Study explicitly describes this exact failure pattern: confident but incorrect answers on less-common questions, combined with unwarranted user trust.",
+          "objectivesTested": [
+            1,
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_0dl7q7-7",
+          "question": "What specific design gap contributed to the Case Study's Trust Calibration failure?",
+          "options": [
+            "The assistant displayed too many confidence signals, confusing users",
+            "The assistant refused to answer without first securing human review",
+            "Its uniformly confident tone gave no signal distinguishing reliable answers",
+            "The assistant was only ever available to a small subset of users"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The Case Study explicitly identifies uniform confidence presentation, with no reliability signaling, as the specific design gap.",
+          "objectivesTested": [
+            3,
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_0dl7q7-8",
+          "question": "What corrective design change did the team implement in the Detailed Case Study?",
+          "options": [
+            "Removing the assistant entirely, with no feature replacing it",
+            "Raising the assistant's confidence level uniformly across all responses",
+            "Removing human review from the escalation process altogether",
+            "Building an eval set and adding confidence signaling with human escalation"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The Case Study explicitly describes this two-part corrective response: systematic evaluation plus trust-calibrated design with human-in-the-loop escalation.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_0dl7q7-9",
+          "question": "How does this lesson connect the Case Study's original shortcut (twenty anecdotal tests) to Lesson 57's ethical debt concept?",
+          "options": [
+            "There is no meaningful connection between the two concepts at all",
+            "The shortcut deferred evaluation cost, which compounded into real harm",
+            "Ethical debt, the lesson states, applies only to non-AI product features",
+            "The Case Study explicitly denies any relation to ethical debt"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The Case Study explicitly draws this parallel to Lesson 57's ethical debt framework in its concluding analysis.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_0dl7q7-10",
+          "question": "Why does this lesson argue that hallucination and bias are genuine product responsibilities, not purely technical concerns?",
+          "options": [
+            "A PM bears responsibility for the safeguards that mitigate these risks",
+            "PMs are legally required to personally rewrite any flawed AI model",
+            "Engineers are entirely incapable of addressing hallucination or bias",
+            "This is purely a marketing concern, unrelated to product design"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Common Beginner Mistake #5 explains this exact reasoning about product-level responsibility for AI-specific risk mitigation.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_0dl7q7-11",
+          "question": "(Interview Reasoning) A candidate is asked how they'd evaluate an AI feature before launch, and answers: \"I'd try it myself a few times and see if the outputs look good.\" What is the weakness in this answer?",
+          "options": [
+            "There is no weakness; personal spot-checking is always sufficient",
+            "It correctly demonstrates strong, appropriately hands-on involvement",
+            "It describes weak, anecdotal assurance rather than systematic evaluation",
+            "It shows an appropriately cautious approach before any launch"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The Interview Perspective section states that a strong answer reaches for systematic eval set construction, not a small number of manual spot-checks.",
+          "objectivesTested": [
+            2,
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_0dl7q7-12",
+          "question": "Using the AI Feature Readiness Checklist, what does \"correction mechanism\" refer to?",
+          "options": [
+            "A legal document users must sign before using an AI feature",
+            "A technical process solely for retraining the underlying model",
+            "A feature relevant only to non-AI, traditional software products",
+            "A design letting users easily flag or correct an incorrect output"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The Framework Explanation section's checklist defines this exact concept.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_0dl7q7-13",
+          "question": "(Product Thinking) A team wants to add an AI chatbot to answer simple, well-defined questions with a small, fixed set of correct answers (e.g., \"what are your business hours?\"). What should the team consider?",
+          "options": [
+            "Whether a simpler, deterministic FAQ lookup would serve this narrow need better",
+            "Immediately building the AI chatbot, since AI suits any user-facing question",
+            "Avoiding the question entirely, since no solution is ever appropriate",
+            "Building both an AI and non-AI version simultaneously, without analysis"
+          ],
+          "correctAnswer": 0,
+          "explanation": "This directly applies the lesson's core discipline: a well-defined, narrow question with fixed correct answers is a strong candidate for a simpler deterministic solution rather than an AI system, consistent with Lesson 1's output-vs-outcome reasoning extended here.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_0dl7q7-14",
+          "question": "Which of the following best reflects a well-calibrated Trust Calibration design, per this lesson?",
+          "options": [
+            "Presenting every output with identical high confidence regardless of reliability",
+            "Never providing any confidence signaling, to keep the interface simple",
+            "Signaling lower confidence for request types the eval set shows are less reliable",
+            "Defaulting to the lowest possible confidence signal regardless of actual accuracy"
+          ],
+          "correctAnswer": 2,
+          "explanation": "This reflects the Trust Calibration Curve's core principle: confidence signaling should track actual, measured reliability, not be uniform or arbitrary.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_0dl7q7-15",
+          "question": "(Product Thinking, Highest Difficulty) A PM is under pressure to ship an AI-powered feature quickly to match a competitor's recent announcement, with limited time for full eval set construction. What is the most defensible approach?",
+          "options": [
+            "Ship immediately with no evaluation, relying on competitive pressure alone",
+            "Delay launch indefinitely until an exhaustive eval set covers every case",
+            "Ship exactly as planned, but rename the feature to avoid comparison",
+            "Build a reduced eval set on the highest-risk cases and add conservative safeguards"
+          ],
+          "correctAnswer": 3,
+          "explanation": "This reflects a sophisticated, risk-prioritized application of the lesson's frameworks under real time pressure, rather than either skipping evaluation entirely or demanding impossible perfection, focusing limited evaluation effort on the highest-risk cases while compensating with conservative trust-calibration design and honest stakeholder communication is the most defensible middle path.",
+          "objectivesTested": [
+            2,
+            3,
+            5
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_79a1b46f3f"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_92tjmj",
+        "title": "Lesson 57: Ethics in Product Management",
+        "module": "leadership"
+      },
+      "current": {
+        "id": "les_0dl7q7",
+        "title": "Lesson 58: AI in Product Management"
+      },
+      "next": {
+        "id": "les_bynvto",
+        "title": "Lesson 59: International & Localization Considerations",
+        "module": "leadership"
+      },
+      "unlocks": [
+        {
+          "lesson": {
+            "id": "les_viunwn",
+            "title": "Capstone: Building Your Own Product Philosophy",
+            "module": "leadership"
+          },
+          "coreIdea": "Builds on this lesson's evaluation rigor when synthesizing a durable personal product philosophy"
+        }
+      ],
+      "blockId": "blk_1a2f033671"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 58: AI in Product Management Every framework this curriculum has built (funnels in Lesson 43, A/B testing in Lesson 45, the ethical reasoning of Lesson 57) was developed against an implicit assumption: that software behaves deterministically, producing the same output from the same input every time, and that quality can be verified once and trusted to hold. AI-powered features, particularly those built on large language models and other probabilistic systems, break this assumption directly. The same input can produce different outputs on different occasions, quality can degrade in ways that are hard to detect through standard metrics alone, and a feature can be confidently, fluently wrong in ways traditional software rarely is. This lesson addresses what changes, and what doesn't, when a PM builds and manages AI-powered product features. This lesson matters because AI product features have become common enough that a PM who cannot evaluate them rigorously, communicate their limitations honestly, and design appropriate human oversight around them is significantly under-equipped for a large and growing share of real product work. This lesson does not teach you to build AI models (that remains a specialized technical discipline outside a PM's core responsibility, entirely consistent with Lesson 37's \"give context, not commands\" principle), but it does teach you the product judgment specific to working with AI as a component: how to evaluate it, how to set appropriate user expectations, and how to recognize the specific new failure modes this kind of technology introduces. Explain why AI features' probabilistic, non-deterministic behavior requires evaluation methods beyond standard A/B testing alone. Describe an evaluation set (eval set) and explain its role in systematically measuring AI feature quality before and after changes. Apply the Trust Calibration model to design AI features that help users form accurate confidence in the system's outputs, rather than over-trusting or under-trusting them. Distinguish appropriate AI use cases from \"AI for AI's sake,\" extending this curriculum's Lesson 1 output-versus-outcome discipline to AI feature decisions. Extend Lesson 57's ethical debt framework to AI-specific harms, particularly hallucination and bias, and design human-in-the-loop safeguards to mitigate them. This lesson assumes **Lesson 45's** experimentation rigor, since evaluating AI features requires understanding where standard A/B testing remains applicable and where it needs to be supplemented with AI-specific evaluation methods. It also assumes **Lesson 57's** Harm Radius and ethical debt concepts, since AI features introduce specific new categories of potential harm (hallucination, bias) that this lesson treats as direct extensions of that ethical framework. Why AI Breaks the Deterministic Assumption Traditional software, given the same input, reliably produces the same output: a bug, once fixed, stays fixed; a feature, once verified working, generally continues working the same way. Many AI systems, particularly large language models, are fundamentally **probabilistic**: the same prompt can produce meaningfully different outputs across different invocations, and a system's overall quality is better described as a distribution of possible outputs than a single, fixed behavior. This has a direct, practical consequence for product evaluation: testing an AI feature with a handful of manual examples, the way a PM might sanity-check a traditional feature before launch, provides far weaker assurance of genuine quality than the same practice would for deterministic software, since a handful of good outputs doesn't rule out a meaningfully high rate of poor ones elsewhere in the distribution. Evaluation Sets (Evals) The primary tool for addressing this gap is an **evaluation set (eval set)**: a curated, representative collection of test inputs, ideally covering both common cases and known difficult edge cases, run systematically against the AI system with outputs scored against defined quality criteria, sometimes by human reviewers, sometimes by automated scoring, often by a combination of both. An eval set functions similarly to a regression test suite in traditional software, but accounts for AI's probabilistic nature by running enough test cases, and often enough repeated trials per case, to characterize the actual output distribution's quality rather than relying on a small number of anecdotal spot-checks. Building and maintaining a good eval set is one of the most concretely useful things a PM working on AI features can contribute, since it requires exactly the product judgment (what does \"good\" actually look like for this specific use case, and what are the realistic edge cases users will encounter) that a PM, rather than a model-focused engineer alone, is often best positioned to define. Trust Calibration A specific new design challenge AI features introduce: helping users form **calibrated trust**, confidence in the system's outputs that accurately reflects the system's actual reliability, neither more nor less. **Over-trust** occurs when users treat AI outputs as more reliable than they actually are, acting on incorrect information without verification, a specific risk given that AI-generated text is often fluent and confident-sounding regardless of its actual accuracy. **Under-trust** occurs when users, burned by an early bad experience or general skepticism, discount genuinely useful and accurate AI outputs, failing to realize the value the feature could provide. Designing for calibrated trust involves specific product decisions: surfacing confidence signals where genuinely available, making it easy for users to verify or correct an AI output rather than only accept or reject it wholesale, and being honest in product communication about the system's actual failure modes and limitations rather than presenting it as more capable or reliable than it genuinely is. AI for AI's Sake vs. Genuine Value Extending Lesson 1's output-versus-outcome discipline directly: adding an AI-powered feature is itself an output, not an outcome, and the presence of AI capability in a product is not, by itself, evidence of genuine user value delivered. A specific, common failure pattern involves adding AI features primarily to signal technological currency or competitive parity, without a clear, evidenced user problem the AI capability specifically and uniquely solves better than a simpler, deterministic alternative would. The discipline this lesson recommends: before building an AI-powered feature, ask explicitly whether the underlying problem genuinely requires AI's specific capabilities (handling ambiguous, open-ended input; generating novel content; recognizing patterns too complex for rule-based logic) or whether a simpler, more predictable, more easily verified deterministic solution would serve the same user need at lower risk and complexity. Relying on a small number of manual spot-checks to evaluate AI feature quality, as though it were traditional deterministic software As covered in Theory, this provides far weaker assurance for a probabilistic system than for deterministic software, since a handful of good examples doesn't rule out a meaningfully high failure rate elsewhere in the output distribution. Presenting AI-generated output with unwarranted confidence, contributing to user over-trust An AI feature presented without any indication of its actual reliability or known limitations invites users to trust it more than its true accuracy warrants, risking real harm when incorrect outputs are acted upon without verification. Adding AI capability primarily for competitive or marketing signaling, without a clear underlying user problem it specifically and uniquely solves This is the AI-specific version of Lesson 1's output-versus-outcome trap: an AI feature that exists because AI is currently prominent, rather than because it solves a genuine problem better than the available alternatives, risks investing real effort in something that doesn't move genuine value. Failing to design a clear, low-friction correction mechanism for when an AI output is wrong Without an easy way for users to correct or flag an incorrect AI output, errors compound (both in terms of immediate user harm and in terms of lost signal that could otherwise improve the system), and users are pushed toward the binary choice of fully trusting or fully abandoning the feature rather than productively engaging with its actual, imperfect reliability. Treating AI hallucination and bias as purely a technical/model problem outside product responsibility Extending Lesson 57's ethical framework directly: a PM shipping an AI feature bears real product responsibility for the human-in-the-loop safeguards, transparency, and appropriate use-case scoping that mitigate these known risks, deferring this responsibility entirely to the model or engineering team, treating it as outside the PM's scope, misses the product judgment (per Lesson 37's context-not-commands principle) that a PM is specifically positioned to contribute. The Trust Calibration Curve This lesson's core takeaway tool visualizes the relationship a well-designed AI feature should maintain between a system's actual reliability and the trust users place in it: Use the Trust Calibration Curve as a standing diagnostic whenever designing or evaluating an AI feature: ask explicitly whether the feature's presentation (confidence signals, framing, correction affordances) actually tracks its real, eval-set-measured reliability across different types of input, rather than presenting uniform confidence regardless of the underlying, often highly variable, actual accuracy for different request types. Duolingo Max **Duolingo Max**, launched March 14, 2023 and confirmed directly on Duolingo's own blog, is a specific, well-documented case of an educational product deploying a large language model (GPT-4, via a close partnership with OpenAI) for two new features: Roleplay, an AI conversation partner for practicing real-world dialogue, and Explain My Answer, which gives learners a GPT-4-generated explanation of why a specific answer was right or wrong. Duolingo's own principal product manager, Edwin Bodge, and lead engineer, Bill Peterson, described in OpenAI's own published case study exactly the trust-calibration problem this lesson addresses: with the earlier GPT-3, Peterson said, \"one incorrect term in the explanation could teach the concept incorrectly or leave the user confused and dissatisfied\", a serious risk for a feature whose entire purpose is teaching correct grammar rules to novice learners. Duolingo has publicly described a specific mitigation approach: human curriculum experts, not the model alone, write the scenario prompts and initial framing for Roleplay conversations, and the company states it continuously reviews AI-generated output for factual accuracy. The underlying principle connects directly to this lesson's Theory: an educational product deploying AI features has a specific, heightened need for rigorous evaluation and appropriate trust calibration, since users (often language learners with limited ability to independently verify correctness) are particularly vulnerable to over-trusting fluent but potentially incorrect AI-generated content, echoing this lesson's Harm Radius-style concern for vulnerable users, first introduced in Lesson 57. *(Source: Duolingo's own official blog post announcing the launch, OpenAI's own published case study quoting Duolingo's product and engineering leads directly, and TechCrunch's contemporaneous coverage. This curriculum does not claim certainty about Duolingo's current, exact AI evaluation methodology as the technology and the company's approach continue to evolve.)* At a startup AI feature evaluation is often informal, relying on a founding team's direct, hands-on testing rather than a systematic eval set, given limited resources. The risk here is Mistake 1's exposure at meaningful scale: a startup shipping an AI feature based on encouraging but limited manual testing may not discover a significant failure mode until it affects real users at volume. At a mid-size company Building genuine eval sets and systematic AI evaluation practices typically becomes worthwhile, since sufficient usage volume and product maturity exist to justify the investment, and the cost of an undetected failure mode grows correspondingly larger as the user base scales. At Big Tech AI evaluation is often deeply sophisticated, with dedicated red-teaming (adversarial testing specifically designed to surface failure modes and harmful outputs), extensive eval infrastructure, and formal review processes for AI feature launches that parallel and extend the launch tiering system from Lesson 36. The PM's job shifts toward correctly scoping eval coverage for a specific feature's actual risk profile, and toward advocating for appropriate trust-calibration design even under competitive pressure to ship AI capabilities quickly. The Assistant That Sounded Right Consider a simplified, illustrative scenario common at teams shipping their first significant AI-powered feature. A team launches an AI-powered customer support assistant, designed to answer common product questions automatically before escalating to a human agent when needed. Pre-launch testing consists of the product team trying roughly twenty representative questions themselves, all of which produce accurate, helpful-sounding answers, generating confidence that the feature is ready for broad release. The team ships the assistant without a formal escalation trigger for low-confidence responses, reasoning that the assistant's answers had consistently \"sounded right\" during testing. Within weeks of launch, customer support escalations related to the assistant rise sharply, not because the assistant was refusing to help, but because it was confidently generating plausible-sounding but factually incorrect answers to a meaningful share of less-common questions outside the roughly twenty scenarios the team had manually tested, and users, trusting the assistant's fluent, confident tone, frequently acted on the incorrect information before eventually discovering the error and escalating, sometimes after real inconvenience or cost. **What went wrong?** Using this lesson's core distinction: the team's pre-launch evaluation (twenty manually-tested, hand-picked questions) provided the weak, anecdotal assurance this lesson's Theory warns against, rather than the systematic, distribution-characterizing assurance a genuine eval set would have provided. Twenty good examples said very little about the assistant's actual failure rate across the full range of real user questions it would eventually encounter, particularly the less-common, harder cases the team's own quick testing was unlikely to have covered. This is also a direct instance of the Trust Calibration failure this lesson describes: the assistant's uniformly confident, fluent tone gave users no signal to distinguish its reliable answers from its unreliable ones, inviting exactly the kind of over-trust this lesson's Theory identifies as a specific AI product risk. The corrective response required building a genuine eval set, covering common cases, known difficult edge cases, and a representative sample of actual historical support questions, scored systematically rather than anecdotally, alongside a design change introducing explicit confidence signaling and a low-confidence escalation trigger that routed uncertain responses to human review before they reached the user with unwarranted apparent authority. This combination (systematic evaluation plus trust-calibrated design) directly addresses both halves of this lesson's core framework, and echoes Lesson 57's ethical debt concept: the shortcut of shipping on twenty anecdotal examples deferred real evaluation cost, which then compounded into actual user harm and support burden once the feature reached real-world scale and variety. The AI Feature Readiness Checklist A second, more tactical tool: use this checklist before launching or significantly changing an AI-powered feature. A feature failing several of these checks, as in this lesson's Case Study, carries meaningful risk of exactly the over-trust and compounding harm dynamic this lesson describes, regardless of how impressive its outputs appeared during limited pre-launch testing. How would you evaluate the quality of an AI-powered feature before launch? *What the interviewer is actually evaluating:* Whether the candidate reaches for systematic eval set construction rather than describing a small number of manual spot-checks as sufficient assurance. How do you decide whether a problem actually needs an AI-based solution, versus a simpler, deterministic one? *What the interviewer is actually evaluating:* Whether the candidate applies genuine output-versus-outcome discipline to AI features specifically, rather than assuming AI is inherently the superior solution regardless of the actual problem's characteristics. How would you design an AI feature to avoid users over-trusting incorrect outputs? *What the interviewer is actually evaluating:* Whether the candidate understands the Trust Calibration concept concretely (confidence signaling, correction mechanisms, honest communication about limitations) rather than describing trust-building only in vague, general terms. AI-powered features break traditional software's deterministic assumption, producing a distribution of possible outputs rather than a single, fixed, verifiable behavior, a shift that requires systematic evaluation sets (evals) rather than the anecdotal, small-sample testing that suffices for traditional deterministic features, precisely the gap illustrated in this lesson's Case Study of a support assistant whose twenty successful manual tests provided far weaker assurance than the team assumed. Trust Calibration (designing a feature so user confidence in its outputs accurately tracks the system's actual, often variable, reliability) addresses a specific new product design challenge AI introduces: fluent, confident-sounding output can invite over-trust regardless of actual accuracy, while an early bad experience can produce under-trust that discards genuinely valuable capability. Extending Lesson 1's output-versus-outcome discipline, a PM should ask explicitly whether a given problem genuinely requires AI's specific capabilities or whether a simpler, more predictable deterministic solution would serve the same need with less risk, rather than adding AI capability primarily for competitive signaling. Finally, extending Lesson 57's ethical debt framework, hallucination and bias are genuine product responsibilities, not purely technical concerns outside a PM's scope: appropriate human-in-the-loop safeguards, confidence signaling, and correction mechanisms are the specific product-level mitigations a PM is responsible for designing and advocating for. AI features are often probabilistic rather than deterministic, meaning a handful of manually-tested examples provides far weaker quality assurance than systematic evaluation against a representative eval set. Trust Calibration means designing an AI feature so user confidence in its outputs accurately tracks the system's actual, often variable, reliability, avoiding both over-trust and under-trust. Adding AI capability is itself an output, not an outcome (extending Lesson 1); a PM should ask explicitly whether a given problem genuinely requires AI's specific capabilities before building an AI-powered solution. A low-friction correction mechanism, allowing users to flag or correct incorrect outputs, is essential design for AI features, avoiding a binary trust-or-abandon dynamic. Hallucination and bias are genuine product responsibilities, not purely technical concerns: a PM bears responsibility for human-in-the-loop safeguards and appropriate use-case scoping, extending Lesson 57's ethical framework directly. The AI Feature Readiness Checklist (eval set, known failure modes, confidence signaling, correction mechanism, human-in-the-loop fallback, Harm Radius assessment) provides a concrete pre-launch discipline for AI-powered features. Educational and other high-stakes-accuracy contexts warrant especially rigorous evaluation and trust calibration, since users may have limited ability to independently verify AI-generated content's correctness. **AI breaks determinism:** same input, distribution of outputs. Small manual tests give weak assurance. **Eval sets:** systematic, representative test cases, scored rigorously. The AI-era equivalent of a regression suite. **Trust Calibration:** user confidence should track actual reliability. Avoid both over-trust and under-trust. **AI for AI's sake:** ask whether the problem genuinely needs AI's specific capabilities, or a simpler deterministic solution would do (Lesson 1's output-vs-outcome, applied to AI). **Correction mechanisms:** let users flag/correct outputs. Avoid forcing a binary trust-or-abandon choice. **Hallucination/bias = product responsibility:** extends Lesson 57's ethical debt; not purely a technical/model concern. **AI Feature Readiness Checklist:** eval set, failure modes, confidence signaling, correction mechanism, human fallback, Harm Radius. Probabilistic system A system where the same input can produce different outputs across invocations, described by a distribution rather than a fixed behavior Evaluation set (eval set) A curated, representative collection of test inputs used to systematically measure AI feature quality across common and edge cases Trust Calibration Designing a feature so user confidence in its outputs accurately tracks the system's actual reliability Over-trust Treating AI outputs as more reliable than they actually are Under-trust Discounting genuinely useful and accurate AI outputs due to skepticism or prior bad experience Human-in-the-loop A design pattern routing low-confidence or high-stakes AI outputs to human review before reaching the end user *Human Compatible* by Stuart Russell background on AI system reliability and the broader challenge of designing AI that behaves in accordance with genuine human intent. *Weapons of Math Destruction* by Cathy O'Neil revisited here for its direct relevance to AI bias and disproportionate harm, extending Lesson 57's Harm Radius concept. Public documentation and practitioner writing on LLM evaluation methodology (eval sets, red-teaming) from major AI labs practical background on building systematic evaluation practices for AI features. Why do AI features require different evaluation approaches than traditional deterministic software? AI systems are often probabilistic (the same input can produce different outputs across invocations), so a handful of manually-tested examples provides much weaker quality assurance than for deterministic software, requiring systematic eval sets instead. What is an evaluation set (eval set)? A curated, representative collection of test inputs, covering common and known difficult edge cases, run systematically against an AI system with outputs scored against defined quality criteria. What is Trust Calibration, and what are its two failure modes? Designing a feature so user confidence in its outputs accurately tracks actual reliability; failure modes are over-trust (treating outputs as more reliable than they are) and under-trust (discounting genuinely useful outputs). How does this lesson extend Lesson 1's output-versus-outcome discipline to AI features specifically? Adding AI capability is itself an output, not an outcome. A PM should ask whether a problem genuinely requires AI's specific capabilities, rather than adding AI for competitive signaling without a clear underlying user problem it uniquely solves. How does this lesson extend Lesson 57's ethical debt framework to AI features? Hallucination and bias are genuine product responsibilities, not purely technical concerns; a PM bears responsibility for human-in-the-loop safeguards, appropriate scoping, and transparency that mitigate these AI-specific harms. In the Detailed Case Study, why did twenty successful manual tests fail to predict the support assistant's real-world failure rate? Twenty hand-picked examples provided weak, anecdotal assurance about a probabilistic system's true output distribution, and didn't cover the less-common, harder edge cases where the assistant actually failed at meaningful rates once deployed broadly. Consider the following novel scenario: Your team is considering adding an AI-powered feature that automatically summarizes long customer feedback threads for internal stakeholders, to save reading time. There is no single correct answer to the prompts below. The goal is to practice applying this lesson's frameworks, not to reach one \"right\" answer. Using the \"AI for AI's sake\" discipline, what genuine user problem would this feature need to solve to justify AI's specific capabilities, versus a simpler alternative (like basic keyword highlighting)? What would a representative eval set look like for this specific feature? What kinds of feedback threads (common and difficult edge cases) would you want to include? Using the Trust Calibration Curve, how would you design the summary presentation to help stakeholders appropriately calibrate their trust, rather than assuming the summary is always complete and accurate? What correction mechanism would you design, so a stakeholder who notices a summary missed something important can easily flag or fix it? Using Lesson 57's Harm Radius, who could be harmed if this summarization feature omitted or misrepresented important feedback, and how severe might that harm be? Why do AI features often require evaluation methods beyond standard manual spot-checks? The Theory section explains this exact reasoning about probabilistic systems and the weakness of anecdotal spot-checks. What is an evaluation set (eval set)? The Theory section defines an eval set exactly this way. What is \"over-trust,\" in the context of AI feature design? The Theory section defines over-trust exactly this way, as one of Trust Calibration's two failure modes. What is \"under-trust,\" and why does it matter alongside over-trust? The Theory section explains under-trust as a distinct, genuine problem (lost value from discounting useful outputs) alongside over-trust. How does this lesson extend Lesson 1's output-versus-outcome discipline to AI features? The Theory section explicitly extends this distinction to AI feature decisions. In the Detailed Case Study, why did the customer support assistant generate a sharp rise in escalations after launch? The Case Study explicitly describes this exact failure pattern: confident but incorrect answers on less-common questions, combined with unwarranted user trust. What specific design gap contributed to the Case Study's Trust Calibration failure? The Case Study explicitly identifies uniform confidence presentation, with no reliability signaling, as the specific design gap. What corrective design change did the team implement in the Detailed Case Study? The Case Study explicitly describes this two-part corrective response: systematic evaluation plus trust-calibrated design with human-in-the-loop escalation. How does this lesson connect the Case Study's original shortcut (twenty anecdotal tests) to Lesson 57's ethical debt concept? The Case Study explicitly draws this parallel to Lesson 57's ethical debt framework in its concluding analysis. Why does this lesson argue that hallucination and bias are genuine product responsibilities, not purely technical concerns? Common Beginner Mistake #5 explains this exact reasoning about product-level responsibility for AI-specific risk mitigation. (Interview Reasoning) A candidate is asked how they'd evaluate an AI feature before launch, and answers: \"I'd try it myself a few times and see if the outputs look good.\" What is the weakness in this answer? The Interview Perspective section states that a strong answer reaches for systematic eval set construction, not a small number of manual spot-checks. Using the AI Feature Readiness Checklist, what does \"correction mechanism\" refer to? The Framework Explanation section's checklist defines this exact concept. (Product Thinking) A team wants to add an AI chatbot to answer simple, well-defined questions with a small, fixed set of correct answers (e.g., \"what are your business hours?\"). What should the team consider? This directly applies the lesson's core discipline: a well-defined, narrow question with fixed correct answers is a strong candidate for a simpler deterministic solution rather than an AI system, consistent with Lesson 1's output-vs-outcome reasoning extended here. Which of the following best reflects a well-calibrated Trust Calibration design, per this lesson? This reflects the Trust Calibration Curve's core principle: confidence signaling should track actual, measured reliability, not be uniform or arbitrary. (Product Thinking, Highest Difficulty) A PM is under pressure to ship an AI-powered feature quickly to match a competitor's recent announcement, with limited time for full eval set construction. What is the most defensible approach? This reflects a sophisticated, risk-prioritized application of the lesson's frameworks under real time pressure, rather than either skipping evaluation entirely or demanding impossible perfection, focusing limited evaluation effort on the highest-risk cases while compensating with conservative trust-calibration design and honest stakeholder communication is the most defensible middle path.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "Mental Model: The Trust Calibration Curve",
+      "Real Company Example",
+      "Real World Perspective: AI in Product Management at Different Company Stages",
+      "Detailed Case Study: The Assistant That Sounded Right",
+      "Framework Explanation: The AI Feature Readiness Checklist",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "Probabilistic system",
+    "Evaluation set (eval set)",
+    "Trust Calibration",
+    "Over-trust",
+    "Under-trust",
+    "Human-in-the-loop"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

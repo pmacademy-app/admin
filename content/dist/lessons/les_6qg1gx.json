@@ -1,0 +1,1013 @@
+{
+  "schemaVersion": 2,
+  "id": "les_6qg1gx",
+  "contentHash": "364df2913076977a953c7828044484e5f2be90feb69643f2c5650b8fd1147904",
+  "title": "Acceptance Criteria",
+  "slug": "lesson-024",
+  "module": "design",
+  "order": 4,
+  "totalInModule": 10,
+  "difficulty": 3,
+  "estimatedReadingTime": 25,
+  "estimatedCompletionTime": 40,
+  "prerequisites": [
+    "les_4s6aif",
+    "les_anj59m"
+  ],
+  "sourceFile": "content/lessons/lesson-024.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 24: Acceptance Criteria",
+      "blockId": "blk_edaf12fc7b"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 23 ended with the INVEST criteria, and one letter in particular deserves a lesson of its own: **Testable**. A user story can pass every other INVEST check (independent, negotiable, valuable, estimable, small) and still leave open a question that causes real damage during a project: how does anyone actually know when it's done? Without an explicit answer, \"done\" quietly becomes whatever the engineer who built it believes is done, which may or may not match what the PM who wrote the story had in mind, which may or may not match what QA expects to verify, which may or may not match what the actual user experiences.",
+      "blockId": "blk_43f92bc1ef"
+    },
+    {
+      "type": "paragraph",
+      "text": "**Acceptance criteria** are the specific, testable conditions that define when a user story is genuinely complete: a checklist, written before implementation begins, that removes ambiguity about what \"done\" means and gives everyone involved (engineering, QA, design, and the PM) a shared, verifiable standard to build and test against. This lesson treats acceptance criteria not as bureaucratic overhead added on top of a user story, but as the mechanism that actually makes a story testable in more than name, closing the loop that Lesson 23 opened but didn't fully resolve.",
+      "blockId": "blk_3c31d0b964"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "Define acceptance criteria and distinguish them from a user story's \"so that\" clause and from a full PRD's functional requirements.",
+        "Apply the Given/When/Then (Gherkin) format for writing structured, testable acceptance criteria.",
+        "Distinguish acceptance criteria covering the happy path from those covering edge cases and negative scenarios, and explain why both are necessary.",
+        "Identify the \"acceptance criteria written after the fact\" failure pattern and explain why criteria written post-implementation lose their primary value.",
+        "Apply a structured method for writing acceptance criteria that are specific and testable without over-specifying implementation details, extending Lesson 22's Precision Dial."
+      ],
+      "blockId": "blk_83552f7437"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 17 (Problem Statements) and Lesson 23 (User Stories). This lesson assumes you can write a well-formed user story satisfying INVEST. Acceptance criteria are the mechanism that operationalizes the \"Testable\" criterion specifically, turning a story's stated capability into a concrete, verifiable definition of done.",
+      "blockId": "blk_a75de78d9c"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Core Definition and Its Place Relative to Other Artifacts",
+          "blockId": "blk_621863aa13"
+        },
+        {
+          "type": "paragraph",
+          "text": "Acceptance criteria are the specific, testable conditions a user story must satisfy to be considered complete. It's useful to place this artifact precisely relative to its neighbors, since confusion between them is common:",
+          "blockId": "blk_125e16158d"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "A user story's **\"so that\" clause** (Lesson 23) states the underlying value or benefit: it explains *why* the capability matters, but doesn't specify exactly what conditions must hold for the capability to be considered correctly built.",
+            "**Acceptance criteria** specify the exact, verifiable conditions that must be true for the story to be considered done: a concrete checklist derived from, and consistent with, the story's stated benefit.",
+            "A **PRD's functional requirements** (Lesson 22) typically operate at a broader, feature-level scope, while acceptance criteria operate at the level of an individual, already-scoped user story."
+          ],
+          "blockId": "blk_0851107819"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_5b616b99f6",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[PRD Functional Requirements<br/>Lesson 22: Feature-level Scope] --> B[User Story Lesson 23: a Small, Valuable<br/>Capability, with a Stated so Benefit]\r\n    B --> C[Acceptance Criteria This Lesson:<br/>Specific, Testable Conditions Defining<br/>Done for This Specific Story]",
+          "normalized": "graph TD\r\n    A[PRD Functional Requirements<br/>Lesson 22: Feature-level Scope] --> B[User Story Lesson 23: a Small, Valuable<br/>Capability, with a Stated so Benefit]\r\n    B --> C[Acceptance Criteria This Lesson:<br/>Specific, Testable Conditions Defining<br/>Done for This Specific Story]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020942730-61\" xmlns=\"http://www.w3.org/2000/svg\" width=\"593.25\" height=\"553\" viewBox=\"-74.875 -27 593.25 553\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: PRD Functional RequirementsLesson 22: Feature-level Scope → User Story Lesson 23: a Small, ValuableCapability, with a Stated so Benefit → Acceptance Criteria This Lesson:Specific, Testable Conditions DefiningDone for This Specific Story\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: PRD Functional RequirementsLesson 22: Feature-level Scope → User Story Lesson 23: a Small, ValuableCapability, with a Stated so Benefit → Acceptance Criteria This Lesson:Specific, Testable Conditions DefiningDone for This Specific Story</title><style>#mermaid-svg-1795020942730-61{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020942730-61 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020942730-61 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020942730-61 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020942730-61 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020942730-61 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020942730-61 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020942730-61 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020942730-61 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020942730-61 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020942730-61 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020942730-61 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020942730-61 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020942730-61 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020942730-61 p{margin:0;}#mermaid-svg-1795020942730-61 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020942730-61 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020942730-61 .cluster-label span{color:#171A17;}#mermaid-svg-1795020942730-61 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020942730-61 .label text,#mermaid-svg-1795020942730-61 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020942730-61 .node rect,#mermaid-svg-1795020942730-61 .node circle,#mermaid-svg-1795020942730-61 .node ellipse,#mermaid-svg-1795020942730-61 .node polygon,#mermaid-svg-1795020942730-61 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020942730-61 .rough-node .label text,#mermaid-svg-1795020942730-61 .node .label text,#mermaid-svg-1795020942730-61 .image-shape .label,#mermaid-svg-1795020942730-61 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020942730-61 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020942730-61 .rough-node .label,#mermaid-svg-1795020942730-61 .node .label,#mermaid-svg-1795020942730-61 .image-shape .label,#mermaid-svg-1795020942730-61 .icon-shape .label{text-align:center;}#mermaid-svg-1795020942730-61 .node.clickable{cursor:pointer;}#mermaid-svg-1795020942730-61 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020942730-61 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020942730-61 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020942730-61 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020942730-61 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020942730-61 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020942730-61 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020942730-61 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020942730-61 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020942730-61 .cluster text{fill:#171A17;}#mermaid-svg-1795020942730-61 .cluster span{color:#171A17;}#mermaid-svg-1795020942730-61 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020942730-61 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020942730-61 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020942730-61 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020942730-61 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020942730-61 .icon-shape,#mermaid-svg-1795020942730-61 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020942730-61 .icon-shape p,#mermaid-svg-1795020942730-61 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020942730-61 .icon-shape .label rect,#mermaid-svg-1795020942730-61 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020942730-61 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020942730-61 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020942730-61 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020942730-61 [data-look=\"neo\"].node rect,#mermaid-svg-1795020942730-61 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020942730-61 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020942730-61-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942730-61 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020942730-61 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020942730-61-gradient);stroke-width:1px;}#mermaid-svg-1795020942730-61 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942730-61 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020942730-61 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020942730-61-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942730-61 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020942730-61 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020942730-61-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942730-61 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020942730-61-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942730-61 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020942730-61_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942730-61_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942730-61_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942730-61_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020942730-61_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020942730-61_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020942730-61_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020942730-61_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020942730-61_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942730-61_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942730-61_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020942730-61_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M296.625,116L296.625,122.917C296.625,129.833,296.625,143.667,296.625,156.833C296.625,170,296.625,182.5,296.625,188.75L296.625,195\" id=\"mermaid-svg-1795020942730-61-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6Mjk2LjYyNSwieSI6MTE2fSx7IngiOjI5Ni42MjUsInkiOjE1Ny41fSx7IngiOjI5Ni42MjUsInkiOjE5OX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020942730-61_flowchart-v2-pointEnd)\"></path><path d=\"M296.625,307L296.625,313.917C296.625,320.833,296.625,334.667,296.625,347.833C296.625,361,296.625,373.5,296.625,379.75L296.625,386\" id=\"mermaid-svg-1795020942730-61-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6Mjk2LjYyNSwieSI6MzA3fSx7IngiOjI5Ni42MjUsInkiOjM0OC41fSx7IngiOjI5Ni42MjUsInkiOjM5MH1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020942730-61_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020942730-61-flowchart-A-0\" data-look=\"classic\" transform=\"translate(296.625, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-175.5\" y=\"-46\" width=\"351\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-143.5, -30)\"><rect></rect><foreignObject width=\"287\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>PRD Functional Requirements<br>Lesson 22: Feature-level Scope</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020942730-61-flowchart-B-1\" data-look=\"classic\" transform=\"translate(296.625, 253)\"><rect class=\"basic label-container\" style=\"\" x=\"-213.75\" y=\"-46\" width=\"427.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-181.75, -30)\"><rect></rect><foreignObject width=\"363.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>User Story Lesson 23: a Small, Valuable<br>Capability, with a Stated so Benefit</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020942730-61-flowchart-C-3\" data-look=\"classic\" transform=\"translate(296.625, 461)\"><rect class=\"basic label-container\" style=\"\" x=\"-209.5\" y=\"-57\" width=\"419\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-177.5, -41)\"><rect></rect><foreignObject width=\"355\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Acceptance Criteria This Lesson:<br>Specific, Testable Conditions Defining<br>Done for This Specific Story</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020942730-61-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020942730-61-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020942730-61-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_5b616b99f6"
+        },
+        {
+          "type": "paragraph",
+          "text": "Acceptance criteria written well should be traceable back to the story's \"so that\" clause: every criterion should plausibly serve the stated benefit, and any criterion that doesn't connect to that benefit is a candidate for Lesson 22's over-specification warning, now recurring at a more granular level.",
+          "blockId": "blk_6accc836ae"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Given/When/Then (Gherkin) Format",
+          "blockId": "blk_42a5d45e86"
+        },
+        {
+          "type": "paragraph",
+          "text": "A widely used, structured format for writing acceptance criteria is **Given/When/Then** (sometimes called Gherkin syntax, from its origin in behavior-driven development practice):",
+          "blockId": "blk_5cc39f23ad"
+        },
+        {
+          "type": "blockquote",
+          "text": "**Given** [a specific starting context or precondition], **When** [a specific action occurs], **Then** [a specific, observable outcome should result].",
+          "blockId": "blk_d48653169a"
+        },
+        {
+          "type": "paragraph",
+          "text": "For example, for a story \"As a user, I want to reset my password, so that I can regain access to my account if I forget it\":",
+          "blockId": "blk_1f75a95784"
+        },
+        {
+          "type": "blockquote",
+          "text": "Given a user has requested a password reset and received a reset link, When they click the link and submit a new password meeting the minimum complexity requirements, Then their password should be updated and they should be able to log in with the new password.",
+          "blockId": "blk_6ca3be4486"
+        },
+        {
+          "type": "paragraph",
+          "text": "This format is valuable specifically because it forces explicitness about context (the \"Given\"), the specific triggering action (the \"When\"), and a specific, observable result (the \"Then\"), removing the ambiguity that a vaguer statement like \"password reset should work correctly\" would leave wide open to inconsistent interpretation, directly echoing Lesson 22's under-specification warning.",
+          "blockId": "blk_b3c31ef11d"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_65308234df",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[Given: Starting Context or Precondition] --> B[When: Specific Triggering Action]\r\n    B --> C[Then: Specific, Observable Outcome]",
+          "normalized": "graph LR\r\n    A[Given: Starting Context or Precondition] --> B[When: Specific Triggering Action]\r\n    B --> C[Then: Specific, Observable Outcome]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020942853-62\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1815.38\" height=\"115\" viewBox=\"-74.875 -27 1815.38 115\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Given: Starting Context or Precondition → When: Specific Triggering Action → Then: Specific, Observable Outcome\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Given: Starting Context or Precondition → When: Specific Triggering Action → Then: Specific, Observable Outcome</title><style>#mermaid-svg-1795020942853-62{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020942853-62 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020942853-62 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020942853-62 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020942853-62 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020942853-62 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020942853-62 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020942853-62 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020942853-62 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020942853-62 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020942853-62 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020942853-62 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020942853-62 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020942853-62 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020942853-62 p{margin:0;}#mermaid-svg-1795020942853-62 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020942853-62 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020942853-62 .cluster-label span{color:#171A17;}#mermaid-svg-1795020942853-62 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020942853-62 .label text,#mermaid-svg-1795020942853-62 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020942853-62 .node rect,#mermaid-svg-1795020942853-62 .node circle,#mermaid-svg-1795020942853-62 .node ellipse,#mermaid-svg-1795020942853-62 .node polygon,#mermaid-svg-1795020942853-62 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020942853-62 .rough-node .label text,#mermaid-svg-1795020942853-62 .node .label text,#mermaid-svg-1795020942853-62 .image-shape .label,#mermaid-svg-1795020942853-62 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020942853-62 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020942853-62 .rough-node .label,#mermaid-svg-1795020942853-62 .node .label,#mermaid-svg-1795020942853-62 .image-shape .label,#mermaid-svg-1795020942853-62 .icon-shape .label{text-align:center;}#mermaid-svg-1795020942853-62 .node.clickable{cursor:pointer;}#mermaid-svg-1795020942853-62 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020942853-62 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020942853-62 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020942853-62 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020942853-62 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020942853-62 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020942853-62 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020942853-62 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020942853-62 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020942853-62 .cluster text{fill:#171A17;}#mermaid-svg-1795020942853-62 .cluster span{color:#171A17;}#mermaid-svg-1795020942853-62 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020942853-62 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020942853-62 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020942853-62 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020942853-62 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020942853-62 .icon-shape,#mermaid-svg-1795020942853-62 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020942853-62 .icon-shape p,#mermaid-svg-1795020942853-62 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020942853-62 .icon-shape .label rect,#mermaid-svg-1795020942853-62 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020942853-62 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020942853-62 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020942853-62 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020942853-62 [data-look=\"neo\"].node rect,#mermaid-svg-1795020942853-62 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020942853-62 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020942853-62-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942853-62 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020942853-62 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020942853-62-gradient);stroke-width:1px;}#mermaid-svg-1795020942853-62 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942853-62 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020942853-62 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020942853-62-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942853-62 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020942853-62 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020942853-62-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942853-62 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020942853-62-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942853-62 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020942853-62_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942853-62_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942853-62_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942853-62_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020942853-62_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020942853-62_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020942853-62_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020942853-62_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020942853-62_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942853-62_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942853-62_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020942853-62_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M585.25,45L594,45C602.75,45,620.25,45,637.083,45C653.917,45,670.083,45,678.167,45L686.25,45\" id=\"mermaid-svg-1795020942853-62-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NTg1LjI1LCJ5Ijo0NX0seyJ4Ijo2MzcuNzUsInkiOjQ1fSx7IngiOjY5MC4yNSwieSI6NDV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020942853-62_flowchart-v2-pointEnd)\"></path><path d=\"M1178.25,45L1187,45C1195.75,45,1213.25,45,1230.083,45C1246.917,45,1263.083,45,1271.167,45L1279.25,45\" id=\"mermaid-svg-1795020942853-62-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6MTE3OC4yNSwieSI6NDV9LHsieCI6MTIzMC43NSwieSI6NDV9LHsieCI6MTI4My4yNSwieSI6NDV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020942853-62_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020942853-62-flowchart-A-0\" data-look=\"classic\" transform=\"translate(296.625, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-213.75\" y=\"-35\" width=\"427.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-181.75, -19)\"><rect></rect><foreignObject width=\"363.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Given: Starting Context or Precondition</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020942853-62-flowchart-B-1\" data-look=\"classic\" transform=\"translate(934.25, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-184\" y=\"-35\" width=\"368\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-152, -19)\"><rect></rect><foreignObject width=\"304\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>When: Specific Triggering Action</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020942853-62-flowchart-C-3\" data-look=\"classic\" transform=\"translate(1540, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-192.5\" y=\"-35\" width=\"385\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-160.5, -19)\"><rect></rect><foreignObject width=\"321\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Then: Specific, Observable Outcome</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020942853-62-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020942853-62-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020942853-62-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_65308234df"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Happy Path vs. Edge Cases and Negative Scenarios",
+          "blockId": "blk_75705c8612"
+        },
+        {
+          "type": "paragraph",
+          "text": "Directly extending Lesson 15's \"happy path only\" warning to the level of acceptance criteria, a genuinely complete set of criteria must cover more than just the smoothest, most successful scenario. A well-rounded set of acceptance criteria for a given story should include:",
+          "blockId": "blk_a82cd28d9c"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**The happy path**: the primary, most common scenario in which everything goes as intended.",
+            "**Edge cases**: less common but plausible scenarios at the boundaries of expected behavior, such as an unusually long input, a boundary value, a rare but valid combination of conditions.",
+            "**Negative scenarios**: cases where something goes wrong or a precondition isn't met (invalid input, an expired session, insufficient permissions) and what the system should do in response."
+          ],
+          "blockId": "blk_f471ca4f7d"
+        },
+        {
+          "type": "paragraph",
+          "text": "A story whose acceptance criteria only cover the happy path is vulnerable to precisely the same blind spot Lesson 15 warned about for journey maps: real users, in aggregate, will encounter edge cases and error conditions with some regularity, and a story that hasn't specified expected behavior for these scenarios leaves engineering and QA to guess (usually inconsistently) what should happen, discovering the gaps only when a real user hits one in production.",
+          "blockId": "blk_18d819071f"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_83bc9eb10a",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Complete Acceptance Criteria Set] --> B[Happy Path Primary Intended Scenario]\r\n    A --> C[Edge Cases Boundary and<br/>Unusual but Valid Scenarios]\r\n    A --> D[Negative Scenarios Invalid Input, Error<br/>Conditions, Failed Preconditions]",
+          "normalized": "graph TD\r\n    A[Complete Acceptance Criteria Set] --> B[Happy Path Primary Intended Scenario]\r\n    A --> C[Edge Cases Boundary and<br/>Unusual but Valid Scenarios]\r\n    A --> D[Negative Scenarios Invalid Input, Error<br/>Conditions, Failed Preconditions]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020942968-63\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1640.13\" height=\"300\" viewBox=\"-68.5 -27 1640.13 300\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Complete Acceptance Criteria Set → Happy Path Primary Intended Scenario → Edge Cases Boundary andUnusual but Valid Scenarios → Negative Scenarios Invalid Input, ErrorConditions, Failed Preconditions\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Complete Acceptance Criteria Set → Happy Path Primary Intended Scenario → Edge Cases Boundary andUnusual but Valid Scenarios → Negative Scenarios Invalid Input, ErrorConditions, Failed Preconditions</title><style>#mermaid-svg-1795020942968-63{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020942968-63 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020942968-63 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020942968-63 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020942968-63 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020942968-63 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020942968-63 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020942968-63 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020942968-63 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020942968-63 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020942968-63 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020942968-63 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020942968-63 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020942968-63 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020942968-63 p{margin:0;}#mermaid-svg-1795020942968-63 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020942968-63 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020942968-63 .cluster-label span{color:#171A17;}#mermaid-svg-1795020942968-63 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020942968-63 .label text,#mermaid-svg-1795020942968-63 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020942968-63 .node rect,#mermaid-svg-1795020942968-63 .node circle,#mermaid-svg-1795020942968-63 .node ellipse,#mermaid-svg-1795020942968-63 .node polygon,#mermaid-svg-1795020942968-63 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020942968-63 .rough-node .label text,#mermaid-svg-1795020942968-63 .node .label text,#mermaid-svg-1795020942968-63 .image-shape .label,#mermaid-svg-1795020942968-63 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020942968-63 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020942968-63 .rough-node .label,#mermaid-svg-1795020942968-63 .node .label,#mermaid-svg-1795020942968-63 .image-shape .label,#mermaid-svg-1795020942968-63 .icon-shape .label{text-align:center;}#mermaid-svg-1795020942968-63 .node.clickable{cursor:pointer;}#mermaid-svg-1795020942968-63 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020942968-63 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020942968-63 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020942968-63 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020942968-63 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020942968-63 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020942968-63 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020942968-63 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020942968-63 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020942968-63 .cluster text{fill:#171A17;}#mermaid-svg-1795020942968-63 .cluster span{color:#171A17;}#mermaid-svg-1795020942968-63 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020942968-63 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020942968-63 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020942968-63 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020942968-63 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020942968-63 .icon-shape,#mermaid-svg-1795020942968-63 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020942968-63 .icon-shape p,#mermaid-svg-1795020942968-63 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020942968-63 .icon-shape .label rect,#mermaid-svg-1795020942968-63 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020942968-63 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020942968-63 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020942968-63 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020942968-63 [data-look=\"neo\"].node rect,#mermaid-svg-1795020942968-63 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020942968-63 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020942968-63-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942968-63 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020942968-63 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020942968-63-gradient);stroke-width:1px;}#mermaid-svg-1795020942968-63 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942968-63 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020942968-63 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020942968-63-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942968-63 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020942968-63 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020942968-63-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942968-63 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020942968-63-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020942968-63 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020942968-63_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942968-63_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942968-63_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942968-63_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020942968-63_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020942968-63_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020942968-63_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020942968-63_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020942968-63_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942968-63_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020942968-63_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020942968-63_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M560.125,81.371L513.021,88.393C465.917,95.414,371.708,109.457,324.604,125.562C277.5,141.667,277.5,159.833,277.5,168.917L277.5,178\" id=\"mermaid-svg-1795020942968-63-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NTYwLjEyNSwieSI6ODEuMzcxMjMxOTAxMjU4MDF9LHsieCI6Mjc3LjUsInkiOjEyMy41fSx7IngiOjI3Ny41LCJ5IjoxODJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020942968-63_flowchart-v2-pointEnd)\"></path><path d=\"M804.125,82L804.125,88.917C804.125,95.833,804.125,109.667,804.125,122.833C804.125,136,804.125,148.5,804.125,154.75L804.125,161\" id=\"mermaid-svg-1795020942968-63-L_A_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_C_0\" data-points=\"W3sieCI6ODA0LjEyNSwieSI6ODJ9LHsieCI6ODA0LjEyNSwieSI6MTIzLjV9LHsieCI6ODA0LjEyNSwieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020942968-63_flowchart-v2-pointEnd)\"></path><path d=\"M1048.125,80.097L1098.417,87.331C1148.708,94.564,1249.292,109.032,1299.583,122.516C1349.875,136,1349.875,148.5,1349.875,154.75L1349.875,161\" id=\"mermaid-svg-1795020942968-63-L_A_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_D_0\" data-points=\"W3sieCI6MTA0OC4xMjUsInkiOjgwLjA5NjY1NTk3ODAxMTkxfSx7IngiOjEzNDkuODc1LCJ5IjoxMjMuNX0seyJ4IjoxMzQ5Ljg3NSwieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020942968-63_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020942968-63-flowchart-A-0\" data-look=\"classic\" transform=\"translate(804.125, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-184\" y=\"-35\" width=\"368\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-152, -19)\"><rect></rect><foreignObject width=\"304\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Complete Acceptance Criteria Set</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020942968-63-flowchart-B-1\" data-look=\"classic\" transform=\"translate(277.5, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-201\" y=\"-35\" width=\"402\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-169, -19)\"><rect></rect><foreignObject width=\"338\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Happy Path Primary Intended Scenario</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020942968-63-flowchart-C-3\" data-look=\"classic\" transform=\"translate(804.125, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-162.75\" y=\"-46\" width=\"325.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-130.75, -30)\"><rect></rect><foreignObject width=\"261.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Edge Cases Boundary and<br>Unusual but Valid Scenarios</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020942968-63-flowchart-D-5\" data-look=\"classic\" transform=\"translate(1349.875, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-213.75\" y=\"-46\" width=\"427.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-181.75, -30)\"><rect></rect><foreignObject width=\"363.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Negative Scenarios Invalid Input, Error<br>Conditions, Failed Preconditions</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020942968-63-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020942968-63-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020942968-63-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_83bc9eb10a"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The \"Acceptance Criteria Written After the Fact\" Failure Pattern",
+          "blockId": "blk_8f994099e7"
+        },
+        {
+          "type": "paragraph",
+          "text": "A specific, common failure (closely related to Lesson 8's discovery theater and Lesson 21's MVP theater patterns) is writing acceptance criteria only after a story has already been implemented, rather than before implementation begins. This inverts the entire purpose of the artifact: acceptance criteria's primary value is in forcing explicit, shared clarity about what \"done\" means *before* work starts, so that ambiguity is resolved through discussion rather than discovered through divergent interpretation during or after implementation.",
+          "blockId": "blk_000ddeac38"
+        },
+        {
+          "type": "paragraph",
+          "text": "When criteria are written retroactively, they tend to simply describe whatever was actually built, rather than genuinely testing whether the built solution correctly satisfies the story's intended benefit, a practice that provides the appearance of rigor (a checklist exists) without its substance (the checklist was never actually capable of catching a mismatch between intention and implementation, since it was written to match the implementation after the fact). This is functionally identical to Lesson 8's discovery theater concept: a test that could not, even in principle, have produced a disconfirming result is not really testing anything.",
+          "blockId": "blk_2857733efa"
+        }
+      ],
+      "blockId": "blk_d8516f907e"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Writing acceptance criteria that only cover the happy path",
+          "body": "This leaves edge cases and negative scenarios unspecified, echoing Lesson 15's \"happy path only\" warning at the level of individual story verification, and leads to inconsistent, discovered-too-late handling of real, plausible scenarios."
+        },
+        {
+          "title": "Writing vague criteria that don't specify a concrete, observable outcome",
+          "body": "\"Password reset should work\" is not an acceptance criterion in the useful sense this lesson intends: it fails to specify the given context, the triggering action, and the specific expected result with enough precision to be genuinely testable."
+        },
+        {
+          "title": "Over-specifying implementation details within acceptance criteria",
+          "body": "Just as Lesson 22 warned against over-specification in a PRD, acceptance criteria should specify observable behavior and outcomes, not dictate a specific technical implementation approach: the \"Then\" clause should describe what should be true, not how the system should internally achieve it."
+        },
+        {
+          "title": "Writing acceptance criteria after implementation is already complete",
+          "body": "This inverts the artifact's purpose, providing the appearance of a testable definition of done without the substance of having actually forced clarity before work began, echoing Lesson 8's discovery theater concept."
+        },
+        {
+          "title": "Treating acceptance criteria as replacing, rather than complementing, the story's \"so that\" clause",
+          "body": "Acceptance criteria specify the conditions for done, but the underlying benefit stated in \"so that\" remains important context for evaluating whether the criteria themselves are actually well-chosen and complete.\n\n"
+        }
+      ],
+      "blockId": "blk_2652917be0"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The Acceptance Criteria Coverage Map",
+      "diagram": {
+        "blockId": "blk_5594a91b1b",
+        "type": "mermaid"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "This lesson's mental model is the **Acceptance Criteria Coverage Map**, a simple discipline for checking that a story's criteria genuinely cover the happy path, edge cases, and negative scenarios, rather than only the most obvious scenario.",
+          "blockId": "blk_cb59950dc7"
+        },
+        {
+          "type": "paragraph",
+          "text": "Before considering a story's acceptance criteria finished, explicitly check all three boxes: has the happy path been specified, has at least one meaningful edge case been considered, and has at least one negative or error scenario been addressed? A criteria set that only fills the first box has done only a third of the necessary work.",
+          "blockId": "blk_ddeffed242"
+        }
+      ],
+      "blockId": "blk_311c1cd129"
+    },
+    {
+      "type": "mermaid",
+      "id": "blk_5594a91b1b",
+      "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[User Story] --> B{Have Criteria Been Written<br/>for the Primary Happy Path?}\r\n    A --> C{Have Criteria Been Written for<br/>at Least One Plausible Edge Case?}\r\n    A --> D{Have Criteria Been Written for at<br/>Least One Negative/error Scenario?}\r\n    B --> E[Coverage Map Complete: <br/>Genuine Testable Definition of Done]\r\n    C --> E\r\n    D --> E",
+      "normalized": "graph TD\r\n    A[User Story] --> B{Have Criteria Been Written<br/>for the Primary Happy Path?}\r\n    A --> C{Have Criteria Been Written for<br/>at Least One Plausible Edge Case?}\r\n    A --> D{Have Criteria Been Written for at<br/>Least One Negative/error Scenario?}\r\n    B --> E[Coverage Map Complete: <br/>Genuine Testable Definition of Done]\r\n    C --> E\r\n    D --> E",
+      "authorTheme": {
+        "background": "#0b0b0c",
+        "primaryColor": "#1f1f23",
+        "primaryTextColor": "#ffffff",
+        "primaryBorderColor": "#8b5cf6",
+        "lineColor": "#d1d5db",
+        "secondaryColor": "#18181b",
+        "tertiaryColor": "#111111",
+        "mainBkg": "#1f1f23",
+        "nodeBorder": "#8b5cf6",
+        "clusterBkg": "#000000",
+        "clusterBorder": "#27272a",
+        "titleColor": "#ffffff",
+        "edgeLabelBackground": "#0b0b0c",
+        "nodeTextColor": "#ffffff",
+        "edgeLabelColor": "#ffffff",
+        "actorBorder": "#8b5cf6",
+        "actorBkg": "#1f1f23",
+        "actorTextColor": "#ffffff",
+        "sequenceNumberColor": "#ffffff",
+        "signalColor": "#8b5cf6",
+        "signalTextColor": "#ffffff",
+        "textColor": "#ffffff",
+        "classText": "#ffffff",
+        "classBorder": "#8b5cf6",
+        "classBkg": "#1f1f23"
+      },
+      "svg": "<svg id=\"mermaid-svg-1795020943103-64\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1573.13\" height=\"796\" viewBox=\"-42.125 -27 1573.13 796\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: User Story → Have Criteria Been Writtenfor the Primary Happy Path? → Have Criteria Been Written forat Least One Plausible Edge Case? → Have Criteria Been Written for atLeast One Negative/error Scenario? → Coverage Map Complete: Genuine Testable Definition of Done\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: User Story → Have Criteria Been Writtenfor the Primary Happy Path? → Have Criteria Been Written forat Least One Plausible Edge Case? → Have Criteria Been Written for atLeast One Negative/error Scenario? → Coverage Map Complete: Genuine Testable Definition of Done</title><style>#mermaid-svg-1795020943103-64{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020943103-64 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020943103-64 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020943103-64 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020943103-64 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020943103-64 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020943103-64 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020943103-64 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020943103-64 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020943103-64 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020943103-64 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020943103-64 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020943103-64 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020943103-64 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020943103-64 p{margin:0;}#mermaid-svg-1795020943103-64 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020943103-64 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020943103-64 .cluster-label span{color:#171A17;}#mermaid-svg-1795020943103-64 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020943103-64 .label text,#mermaid-svg-1795020943103-64 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020943103-64 .node rect,#mermaid-svg-1795020943103-64 .node circle,#mermaid-svg-1795020943103-64 .node ellipse,#mermaid-svg-1795020943103-64 .node polygon,#mermaid-svg-1795020943103-64 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020943103-64 .rough-node .label text,#mermaid-svg-1795020943103-64 .node .label text,#mermaid-svg-1795020943103-64 .image-shape .label,#mermaid-svg-1795020943103-64 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020943103-64 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020943103-64 .rough-node .label,#mermaid-svg-1795020943103-64 .node .label,#mermaid-svg-1795020943103-64 .image-shape .label,#mermaid-svg-1795020943103-64 .icon-shape .label{text-align:center;}#mermaid-svg-1795020943103-64 .node.clickable{cursor:pointer;}#mermaid-svg-1795020943103-64 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020943103-64 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020943103-64 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020943103-64 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020943103-64 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020943103-64 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020943103-64 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020943103-64 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020943103-64 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020943103-64 .cluster text{fill:#171A17;}#mermaid-svg-1795020943103-64 .cluster span{color:#171A17;}#mermaid-svg-1795020943103-64 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020943103-64 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020943103-64 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020943103-64 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020943103-64 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020943103-64 .icon-shape,#mermaid-svg-1795020943103-64 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020943103-64 .icon-shape p,#mermaid-svg-1795020943103-64 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020943103-64 .icon-shape .label rect,#mermaid-svg-1795020943103-64 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020943103-64 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020943103-64 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020943103-64 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020943103-64 [data-look=\"neo\"].node rect,#mermaid-svg-1795020943103-64 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020943103-64 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020943103-64-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020943103-64 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020943103-64 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020943103-64-gradient);stroke-width:1px;}#mermaid-svg-1795020943103-64 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020943103-64 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020943103-64 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020943103-64-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020943103-64 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020943103-64 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020943103-64-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020943103-64 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020943103-64-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020943103-64 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020943103-64_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020943103-64_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020943103-64_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020943103-64_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020943103-64_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020943103-64_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020943103-64_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020943103-64_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020943103-64_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020943103-64_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020943103-64_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020943103-64_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M645.625,60.602L575.917,71.085C506.208,81.568,366.792,102.534,297.083,124.225C227.375,145.917,227.375,168.333,227.375,179.542L227.375,190.75\" id=\"mermaid-svg-1795020943103-64-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NjQ1LjYyNSwieSI6NjAuNjAyMjUwOTU3ODU0NDF9LHsieCI6MjI3LjM3NSwieSI6MTIzLjV9LHsieCI6MjI3LjM3NSwieSI6MTk0Ljc1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020943103-64_flowchart-v2-pointEnd)\"></path><path d=\"M749.375,82L749.375,88.917C749.375,95.833,749.375,109.667,749.375,123.542C749.375,137.417,749.375,151.333,749.375,158.292L749.375,165.25\" id=\"mermaid-svg-1795020943103-64-L_A_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_C_0\" data-points=\"W3sieCI6NzQ5LjM3NSwieSI6ODJ9LHsieCI6NzQ5LjM3NSwieSI6MTIzLjV9LHsieCI6NzQ5LjM3NSwieSI6MTY5LjI1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020943103-64_flowchart-v2-pointEnd)\"></path><path d=\"M853.125,59.373L930.271,70.061C1007.417,80.749,1161.708,102.124,1238.854,119.062C1316,136,1316,148.5,1316,154.75L1316,161\" id=\"mermaid-svg-1795020943103-64-L_A_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_D_0\" data-points=\"W3sieCI6ODUzLjEyNSwieSI6NTkuMzczNDgzMzQ0MzYzNTZ9LHsieCI6MTMxNiwieSI6MTIzLjV9LHsieCI6MTMxNiwieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020943103-64_flowchart-v2-pointEnd)\"></path><path d=\"M227.375,633.5L227.375,631.167C227.375,628.833,227.375,624.167,269.865,629.607C312.355,635.047,397.335,650.594,439.825,658.368L482.315,666.141\" id=\"mermaid-svg-1795020943103-64-L_B_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_E_0\" data-points=\"W3sieCI6MjI3LjM3NSwieSI6NjMzLjV9LHsieCI6MjI3LjM3NSwieSI6NjE5LjV9LHsieCI6NDg2LjI1LCJ5Ijo2NjYuODYxMjMwODQyOTExOX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020943103-64_flowchart-v2-pointEnd)\"></path><path d=\"M749.375,684.5L749.375,673.667C749.375,662.833,749.375,641.167,749.375,636.583C749.375,632,749.375,644.5,749.375,650.75L749.375,657\" id=\"mermaid-svg-1795020943103-64-L_C_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_E_0\" data-points=\"W3sieCI6NzQ5LjM3NSwieSI6Njg0LjV9LHsieCI6NzQ5LjM3NSwieSI6NjE5LjV9LHsieCI6NzQ5LjM3NSwieSI6NjYxfV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020943103-64_flowchart-v2-pointEnd)\"></path><path d=\"M1316,693L1316,680.75C1316,668.5,1316,644,1266.074,640.165C1216.148,636.329,1116.296,653.158,1066.37,661.573L1016.444,669.988\" id=\"mermaid-svg-1795020943103-64-L_D_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_E_0\" data-points=\"W3sieCI6MTMxNiwieSI6NjkzfSx7IngiOjEzMTYsInkiOjYxOS41fSx7IngiOjEwMTIuNSwieSI6NjcwLjY1MjQzNzY3OTI0MTF9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020943103-64_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_D_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020943103-64-flowchart-A-0\" data-look=\"classic\" transform=\"translate(749.375, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-90.5\" y=\"-35\" width=\"181\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-58.5, -19)\"><rect></rect><foreignObject width=\"117\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>User Story</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020943103-64-flowchart-B-1\" data-look=\"classic\" transform=\"translate(227.375, 371.5)\"><polygon points=\"176.75,0 353.5,-176.75 176.75,-353.5 0,-176.75\" class=\"label-container\" transform=\"translate(-176.25, 176.75)\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-130.75, -30)\"><rect></rect><foreignObject width=\"261.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Have Criteria Been Written<br>for the Primary Happy Path?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020943103-64-flowchart-C-3\" data-look=\"classic\" transform=\"translate(749.375, 371.5)\"><polygon points=\"202.25,0 404.5,-202.25 202.25,-404.5 0,-202.25\" class=\"label-container\" transform=\"translate(-201.75, 202.25)\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-156.25, -30)\"><rect></rect><foreignObject width=\"312.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Have Criteria Been Written for<br>at Least One Plausible Edge Case?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020943103-64-flowchart-D-5\" data-look=\"classic\" transform=\"translate(1316, 371.5)\"><polygon points=\"206.5,0 413,-206.5 206.5,-413 0,-206.5\" class=\"label-container\" transform=\"translate(-206, 206.5)\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-160.5, -30)\"><rect></rect><foreignObject width=\"321\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Have Criteria Been Written for at<br>Least One Negative/error Scenario?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020943103-64-flowchart-E-7\" data-look=\"classic\" transform=\"translate(749.375, 715)\"><rect class=\"basic label-container\" style=\"\" x=\"-196.75\" y=\"-46\" width=\"393.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-164.75, -30)\"><rect></rect><foreignObject width=\"329.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Coverage Map Complete: <br>Genuine Testable Definition of Done</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020943103-64-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020943103-64-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020943103-64-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+      "blockId": "blk_5594a91b1b"
+    },
+    {
+      "type": "companyExample",
+      "company": "Cucumber",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "**Cucumber** and the broader behavior-driven development (BDD) community's widespread adoption of Given/When/Then syntax across the software industry is itself the clearest illustration of this lesson's core technique: the format has become common practice specifically because it forces the explicit precondition/action/outcome structure this lesson emphasizes, adopted by engineering and product teams across a wide range of companies (from small startups to large enterprises) precisely because ambiguous, prose-only acceptance criteria were found, repeatedly and across many different organizational contexts, to produce inconsistent implementation and testing outcomes.",
+          "blockId": "blk_51830e7994"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Given/When/Then syntax emerged from the BDD community as a structured way to write acceptance criteria that removes ambiguity about preconditions, actions, and expected outcomes.",
+            "The format has been widely adopted across the software industry precisely because it forces explicit clarity before implementation begins.",
+            "Widespread adoption across company sizes confirms that ambiguous, prose-only criteria consistently produce inconsistent implementation and testing results."
+          ],
+          "blockId": "blk_22fd802a78"
+        }
+      ],
+      "assumptionFlags": [
+        "this reflects the widely documented, general adoption pattern of Given/When/Then and BDD practices across the software industry rather than a claim about any single company's specific, current internal process, which this curriculum does not claim certainty about."
+      ],
+      "blockId": "blk_15aba0b3ab"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "At a startup",
+          "body": "Acceptance criteria are often written more informally, sometimes as a brief bullet list rather than strict Given/When/Then syntax, given close collaboration and shared context among a small team. The core discipline (specifying concrete, testable outcomes before implementation, covering more than just the happy path) remains valuable even without rigid adherence to formal syntax."
+        },
+        {
+          "context": "At a mid-size company",
+          "body": "Acceptance criteria typically become a more standardized, expected part of every user story, often reviewed collaboratively by QA and engineering alongside the PM before implementation begins, precisely to catch ambiguous or incomplete criteria (missing edge cases, vague outcomes) before they become a source of divergent interpretation during a sprint."
+        },
+        {
+          "context": "At Big Tech",
+          "body": "Acceptance criteria at scale are often directly integrated into automated testing infrastructure, where Given/When/Then criteria can be translated fairly directly into automated test cases (a practice closely associated with behavior-driven development tooling), making rigorous, precise criteria writing not just a communication practice but a direct input into a company's automated quality assurance pipeline."
+        }
+      ],
+      "blockId": "blk_27954980a6"
+    },
+    {
+      "type": "caseStudy",
+      "title": "The Story That Passed QA But Failed Users",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Consider a simplified, illustrative scenario common across e-commerce platforms.",
+          "blockId": "blk_0b48596aac"
+        },
+        {
+          "type": "paragraph",
+          "text": "A team implements a user story: \"As a customer, I want to apply a discount code at checkout, so that I can receive a lower price on my order.\" The team writes a single acceptance criterion covering only the happy path: \"Given a valid discount code, when the customer enters it at checkout, then the order total should be reduced by the correct discount amount.\" QA tests exactly this scenario, confirms it works correctly, and the story is marked complete and shipped.",
+          "blockId": "blk_e9775d5647"
+        },
+        {
+          "type": "paragraph",
+          "text": "Within the first week after launch, customer support receives a wave of complaints: some customers report entering an expired discount code and seeing no error message at all, simply having their order proceed at full price with no indication anything was wrong; others report that entering a code twice (accidentally double-clicking \"apply\") resulted in the discount being applied twice, producing an unexpectedly (and incorrectly) low order total.",
+          "blockId": "blk_7541a1b065"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong?**",
+          "blockId": "blk_ebfa921ff9"
+        },
+        {
+          "type": "paragraph",
+          "text": "Applying this lesson's frameworks:",
+          "blockId": "blk_7ee7ac9bf5"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**The acceptance criteria covered only the happy path**, leaving negative scenarios (an expired or invalid code) and edge cases (double-application of the same code) entirely unspecified, precisely the Coverage Map gap this lesson warns about.",
+            "**QA tested exactly, and only, what the criteria specified.** This is not a QA failure in isolation (QA correctly verified the criteria as written) but a demonstration of why incomplete criteria produce incomplete testing: QA can only verify what has been explicitly specified as a condition of done.",
+            "**The gaps were discovered by real users in production, rather than caught before launch**, generating support burden and a poor customer experience precisely because the acceptance criteria never asked the question \"what should happen when the code is invalid, expired, or applied more than once?\""
+          ],
+          "blockId": "blk_804df96581"
+        },
+        {
+          "type": "paragraph",
+          "text": "A team applying this lesson's Coverage Map discipline from the outset would have written at least two additional criteria before implementation began: a negative scenario (\"Given an expired discount code, when the customer attempts to apply it, then a clear error message should be displayed and the order total should remain unchanged\") and an edge case (\"Given a discount code has already been successfully applied to the current order, when the customer attempts to apply it again, then the system should prevent a second application and display an appropriate message\"), very likely surfacing and resolving both issues before launch, at a small fraction of the cost of the subsequent support burden and customer frustration.",
+          "blockId": "blk_6a4bfdf8e6"
+        },
+        {
+          "type": "paragraph",
+          "text": "This case connects directly back to **Lesson 15's \"happy path only\" journey-mapping warning**: the same underlying blind spot (building and verifying only the smoothest, most successful scenario) recurs here at the level of individual story verification, with the same fundamental corrective: deliberately seek out and specify the messier, less convenient scenarios before they're discovered the hard way.",
+          "blockId": "blk_061446741e"
+        }
+      ],
+      "blockId": "blk_9c9a6cebae"
+    },
+    {
+      "type": "framework",
+      "name": "The Acceptance Criteria Quality Checklist",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A practical checklist for reviewing a draft set of acceptance criteria before implementation begins:",
+          "blockId": "blk_4e2c513a34"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Question",
+            "Purpose"
+          ],
+          "rows": [
+            [
+              "Is each criterion written in a specific, testable format (e.g., Given/When/Then), with a concrete, observable outcome?",
+              "Prevents vague, unverifiable criteria"
+            ],
+            [
+              "Does the set cover the happy path, at least one meaningful edge case, and at least one negative scenario?",
+              "Applies the Coverage Map, preventing the \"happy path only\" blind spot"
+            ],
+            [
+              "Does each criterion specify observable behavior without dictating a specific technical implementation?",
+              "Applies Lesson 22's Precision Dial at the criteria level"
+            ],
+            [
+              "Were these criteria written and reviewed before implementation began, rather than after?",
+              "Prevents the \"written after the fact\" failure pattern"
+            ],
+            [
+              "Does each criterion plausibly serve the story's stated \"so that\" benefit?",
+              "Ensures criteria remain connected to genuine user value, not just technical correctness in isolation"
+            ]
+          ],
+          "blockId": "blk_4c23c3cda3"
+        },
+        {
+          "type": "paragraph",
+          "text": "A set of acceptance criteria that fails several of these checks provides, at best, partial protection against the exact kind of production-discovered gap shown in this lesson's Detailed Case Study.",
+          "blockId": "blk_04c4bd01a0"
+        }
+      ],
+      "blockId": "blk_6ab04315c6"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "How do you write acceptance criteria for a new user story?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate names a structured format (Given/When/Then) and explicitly mentions covering edge cases and negative scenarios, rather than describing a vague, happy-path-only, or purely intuitive process."
+        },
+        {
+          "question": "Tell me about a bug or issue that reached production because acceptance criteria were incomplete.",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Direct experience recognizing a Coverage Map gap after the fact, and whether the candidate can articulate specifically what edge case or negative scenario was missed, echoing this lesson's Detailed Case Study, rather than attributing the issue vaguely to \"a bug\" without deeper diagnosis."
+        },
+        {
+          "question": "When should acceptance criteria be written, relative to implementation?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate understands that criteria must be written and agreed upon before implementation begins to serve their intended purpose, versus treating them as a documentation exercise performed after the fact."
+        }
+      ],
+      "blockId": "blk_96d8329efb"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Acceptance criteria are the specific, testable conditions that define when a user story is complete, sitting between a story's stated \"so that\" benefit and the broader functional requirements of a PRD, and operationalizing specifically the \"Testable\" INVEST criterion from Lesson 23. The Given/When/Then format structures criteria around a specific precondition, a specific triggering action, and a specific, observable outcome, removing the ambiguity that vaguer statements would leave open. A complete set of criteria must cover the happy path, meaningful edge cases, and negative scenarios, not just the smoothest, most successful case, directly extending Lesson 15's \"happy path only\" warning to the level of story verification, and this lesson's Detailed Case Study shows the real cost (production-discovered bugs, customer support burden) of skipping edge case and negative scenario coverage. The \"acceptance criteria written after the fact\" failure pattern (writing criteria only after implementation is complete) inverts the artifact's purpose, providing the appearance of a testable definition of done without the substance of having actually forced clarity before work began, directly echoing Lesson 8's discovery theater concept.",
+          "blockId": "blk_56d4595e87"
+        }
+      ],
+      "blockId": "blk_c3ae1826b8"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "Acceptance criteria are specific, testable conditions defining when a user story is complete, sitting between a story's \"so that\" benefit and a PRD's broader functional requirements.",
+        "The Given/When/Then format structures criteria around a specific precondition, action, and observable outcome, removing ambiguity that vaguer statements would leave open.",
+        "A complete criteria set covers the happy path, meaningful edge cases, and negative scenarios, not just the smoothest, most successful scenario.",
+        "The \"acceptance criteria written after the fact\" failure pattern inverts the artifact's purpose, providing the appearance of rigor without its substance, echoing Lesson 8's discovery theater concept.",
+        "Criteria should specify observable behavior and outcomes without dictating specific technical implementation, extending Lesson 22's Precision Dial to a more granular level.",
+        "QA can only verify what has been explicitly specified: incomplete criteria produce incomplete testing, as shown in this lesson's Detailed Case Study.",
+        "Every criterion should plausibly connect back to the story's stated \"so that\" benefit, keeping technical correctness anchored to genuine user value."
+      ],
+      "blockId": "blk_6dc3f8a6b4"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "**Acceptance criteria** = specific, testable conditions defining \"done\" for a user story.",
+        "**Given/When/Then:** precondition → triggering action → specific, observable outcome.",
+        "**Coverage Map:** happy path + edge cases + negative scenarios, not just the smooth path.",
+        "**Write criteria before implementation, not after**: retroactive criteria provide appearance without substance (discovery theater).",
+        "**Specify behavior, not implementation**: Lesson 22's Precision Dial, applied at the criteria level.",
+        "**QA only verifies what's specified**: incomplete criteria = incomplete testing = production-discovered gaps."
+      ],
+      "blockId": "blk_75348048e4"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "Acceptance Criteria",
+          "definition": "The specific, testable conditions that define when a user story is complete.",
+          "relatedConcepts": [
+            "User Story (Lesson 23)",
+            "INVEST"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "Given/When/Then (Gherkin)",
+          "definition": "A structured format for acceptance criteria: a precondition, a triggering action, and a specific, observable outcome.",
+          "relatedConcepts": [
+            "Behavior-Driven Development"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Happy Path",
+          "definition": "The primary, most common scenario in a user journey or use case where everything goes as intended, with no significant friction, errors, or detours.",
+          "relatedConcepts": [
+            "Edge Cases",
+            "Negative Scenarios"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "Edge Case",
+          "definition": "A less common but plausible scenario at the boundaries of expected behavior.",
+          "relatedConcepts": [
+            "Acceptance Criteria Coverage Map"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Negative Scenario",
+          "definition": "A scenario where something goes wrong or a precondition isn't met, and the expected system response to it.",
+          "relatedConcepts": [
+            "Acceptance Criteria Coverage Map"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "\"Acceptance Criteria Written After the Fact\" (Failure Pattern)",
+          "definition": "Writing criteria only after implementation is complete, inverting the artifact's purpose of forcing clarity before work begins.",
+          "relatedConcepts": [
+            "Discovery Theater (Lesson 8)"
+          ],
+          "difficulty": 2
+        }
+      ],
+      "blockId": "blk_ff62aaf292"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "Dan North's original writing introducing the Given/When/Then format in the context of behavior-driven development, the direct source of this lesson's core technique."
+        },
+        {
+          "citation": "Mike Cohn, *User Stories Applied*",
+          "note": "extends the user story format (Lesson 23) directly into acceptance criteria practice."
+        },
+        {
+          "citation": "Gojko Adzic, *Specification by Example*",
+          "note": "a detailed treatment of writing concrete, testable acceptance criteria collaboratively before implementation, closely related to this lesson's core discipline."
+        }
+      ],
+      "blockId": "blk_c2bf3dacaa"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_6qg1gx",
+      "cards": [
+        {
+          "id": "fc-les_6qg1gx-1",
+          "front": "What are acceptance criteria, and where do they sit relative to a user story and a PRD?",
+          "back": "The specific, testable conditions defining when a user story is complete, more granular than a PRD's functional requirements, and operationalizing a story's \"Testable\" INVEST criterion specifically.",
+          "difficulty": 1,
+          "tags": [
+            "acceptance-criteria-definition"
+          ]
+        },
+        {
+          "id": "fc-les_6qg1gx-2",
+          "front": "What is the Given/When/Then format?",
+          "back": "A structured format for acceptance criteria: Given [a precondition], When [a triggering action], Then [a specific, observable outcome].",
+          "difficulty": 2,
+          "tags": [
+            "given-when-then"
+          ]
+        },
+        {
+          "id": "fc-les_6qg1gx-3",
+          "front": "What three types of scenarios should a complete set of acceptance criteria cover?",
+          "back": "The happy path, meaningful edge cases, and negative scenarios (error conditions or failed preconditions).",
+          "difficulty": 2,
+          "tags": [
+            "coverage-map"
+          ]
+        },
+        {
+          "id": "fc-les_6qg1gx-4",
+          "front": "What is the \"acceptance criteria written after the fact\" failure pattern?",
+          "back": "Writing criteria only after implementation is complete, which inverts the artifact's purpose, providing the appearance of a testable definition of done without the substance of having forced clarity before work began.",
+          "difficulty": 2,
+          "tags": [
+            "after-the-fact-failure"
+          ]
+        },
+        {
+          "id": "fc-les_6qg1gx-5",
+          "front": "Why should acceptance criteria specify observable behavior rather than implementation details?",
+          "back": "This applies Lesson 22's Precision Dial at a more granular level: specifying the what/outcome while leaving the how (technical implementation) to engineering expertise.",
+          "difficulty": 2,
+          "tags": [
+            "precision-in-criteria"
+          ]
+        },
+        {
+          "id": "fc-les_6qg1gx-6",
+          "front": "In the Detailed Case Study, what two specific gaps in the discount-code story's acceptance criteria caused production issues?",
+          "back": "No criterion covered an expired/invalid discount code (a negative scenario), and no criterion covered applying the same code twice (an edge case). Only the happy path (a valid code applied once) was specified.",
+          "difficulty": 3,
+          "tags": [
+            "case-study"
+          ]
+        },
+        {
+          "id": "fc-les_6qg1gx-7",
+          "front": "Why can QA only be as effective as the acceptance criteria it verifies against?",
+          "back": "QA verifies what has been explicitly specified as a condition of done; if criteria are incomplete (e.g., happy-path only), QA will correctly confirm the specified scenario works while missing unspecified gaps entirely.",
+          "difficulty": 2,
+          "tags": [
+            "qa-and-criteria"
+          ]
+        }
+      ],
+      "blockId": "blk_4ad08528f5"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "You are the PM for a food delivery app, writing acceptance criteria for the story: \"As a customer, I want to cancel my order before it's been prepared, so that I'm not charged for food I no longer want.\"",
+        "Work through the following, in writing, before reading further:",
+        "Write one acceptance criterion for the happy path, using the Given/When/Then format.",
+        "Write one acceptance criterion for a negative scenario (e.g., attempting to cancel after preparation has already started).",
+        "Write one acceptance criterion for a plausible edge case (e.g., attempting to cancel at the exact moment the restaurant marks the order as \"preparing\").",
+        "Review your three criteria against the Acceptance Criteria Quality Checklist: are they specific and testable, do they avoid dictating implementation details, and do they each connect back to the story's \"so that\" benefit?",
+        "Identify one additional edge case or negative scenario not covered by your three criteria, and explain why it might matter based on real-world usage patterns.",
+        "There is no single correct answer. The purpose of this exercise is to practice applying the Coverage Map discipline (happy path, edge cases, and negative scenarios) before implementation begins, rather than discovering gaps after real users encounter them."
+      ],
+      "blockId": "blk_dcbb51005f"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_6qg1gx",
+      "questions": [
+        {
+          "id": "q-les_6qg1gx-1",
+          "question": "What are acceptance criteria, according to this lesson?",
+          "options": [
+            "A list of every feature the product could eventually have",
+            "A document describing the company's competitive positioning",
+            "The testable conditions that define when a story is done",
+            "The organisation's overall mission statement and purpose"
+          ],
+          "correctAnswer": 2,
+          "explanation": "They sit below the story's \"so that\" benefit and above nothing else: a concrete checklist for one already-scoped capability, narrower than a PRD's feature-level requirements.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_6qg1gx-2",
+          "question": "What are the three components of the Given/When/Then format?",
+          "options": [
+            "Gather, then Weigh, then Test in sequence",
+            "Goal, Workflow, and Timeline, in that order",
+            "Government, Workplace, and Team roles",
+            "A precondition, an action, an outcome"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Naming the starting state, the trigger, and the observable result is what removes the ambiguity that \"password reset should work correctly\" leaves wide open.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_6qg1gx-3",
+          "question": "Why is it important for a complete set of acceptance criteria to cover more than just the happy path?",
+          "options": [
+            "Real users hit edge and error cases regularly",
+            "Because QA teams refuse to test happy path scenarios at all",
+            "Because happy path scenarios are rarely valuable to test",
+            "Because edge cases are simpler to test than happy paths"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Unspecified scenarios do not go unbuilt; they get built to somebody's guess. The gap surfaces when a real user reaches it in production.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_6qg1gx-4",
+          "question": "What is the \"acceptance criteria written after the fact\" failure pattern?",
+          "options": [
+            "A required step within all agile development processes",
+            "A technique for writing criteria faster than Gherkin allows",
+            "Writing criteria after implementation, inverting their clarifying purpose",
+            "A best practice ensuring criteria match the finished build"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Criteria written to match what exists cannot catch a mismatch between intention and implementation. Like discovery theater, the test could not have failed.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_6qg1gx-5",
+          "question": "Which of the following acceptance criteria best exemplifies over-specification, as warned against in this lesson?",
+          "options": [
+            "\"Given an expired code, when applied, then show a clear error.\"",
+            "\"Given a valid code, when entered at checkout, then reduce the total.\"",
+            "\"Given a code already applied, when reapplied, then block it.\"",
+            "\"Given a valid code, when entered, then cache it and store it in this exact column.\""
+          ],
+          "correctAnswer": 3,
+          "explanation": "The other three describe what a person would observe. D names a caching approach and a column, which are engineering's decisions to make and live with.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_6qg1gx-6",
+          "question": "In the Detailed Case Study, why did QA fail to catch the expired-code and double-application issues before launch?",
+          "options": [
+            "QA tested exactly what the criteria specified",
+            "QA was negligent and did not test the feature at all",
+            "Engineering refused to let QA test the feature here",
+            "QA lacked the skill to test discount code functionality"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The verification was faithful to a specification that had a hole in it. QA can confirm what was written down and cannot confirm what nobody thought to write.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_6qg1gx-7",
+          "question": "What two specific scenarios were missing from the original discount-code story's acceptance criteria in the Detailed Case Study?",
+          "options": [
+            "A negative scenario (expired code) and an edge case (reapplied code)",
+            "A shipping-cost scenario and a tax-calculation scenario",
+            "A multi-currency scenario and an international shipping scenario here",
+            "A successful-application scenario and a support-contact scenario"
+          ],
+          "correctAnswer": 0,
+          "explanation": "One of each missing category, which is what made the Coverage Map's third box the one that would have caught both.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_6qg1gx-8",
+          "question": "According to the Acceptance Criteria Quality Checklist, when should acceptance criteria be written and reviewed?",
+          "options": [
+            "After the story has shipped fully to production users",
+            "Before implementation, resolving ambiguity by discussion",
+            "Once a customer complaint has actually been received",
+            "At no particular point; timing makes no real difference"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The whole value is in surfacing disagreement while it is still cheap. Written afterwards, the same words describe the build instead of testing it.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_6qg1gx-9",
+          "question": "(Scenario) A team writes an acceptance criterion: \"Given a user is on the checkout page, when they click submit, then the order should process correctly.\" According to this lesson, what is the primary issue with this criterion?",
+          "options": [
+            "It is over-specified with needless technical implementation detail",
+            "It covers far too many distinct edge cases within one criterion",
+            "It is vague; \"process correctly\" names no observable outcome",
+            "It follows Given/When/Then correctly and needs no revision"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The format is right and the third clause is empty. \"Correctly\" could mean a confirmation screen, a receipt email, a stock decrement, or all three, and nobody has said which.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_6qg1gx-10",
+          "question": "(Product Thinking) A team's acceptance criteria correctly cover the happy path and negative scenarios but include no edge cases at all. Using the Coverage Map, what should the team do next?",
+          "options": [
+            "Remove the negative criteria, since just two categories fit",
+            "Add at least one meaningful edge case to complete the map",
+            "Treat it as complete; two categories suffice",
+            "Discard the whole set of criteria and begin again from scratch"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Two boxes of three is real progress and an incomplete set. Boundary values and unusual-but-valid combinations are where the remaining surprises live.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_6qg1gx-11",
+          "question": "(Interview Reasoning) A candidate describes writing acceptance criteria immediately after a feature ships, to \"document what was built\" for future reference. What might this signal, based on this lesson's Interview Perspective section?",
+          "options": [
+            "The written-after-the-fact pattern; documentation without clarifying value",
+            "An exemplary, best-practice approach to writing acceptance criteria",
+            "Deep QA experience that should count as a core candidate strength",
+            "Nothing of note, since the timing makes no difference to their value at all"
+          ],
+          "correctAnswer": 0,
+          "explanation": "As a record it has some use. As acceptance criteria it arrived too late to do the one job the artifact exists for.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_6qg1gx-12",
+          "question": "(Product Thinking, Higher Difficulty) A team is deciding whether an acceptance criterion should specify \"the system should cache the user's session token in local storage\" or \"the user should remain logged in across page refreshes within the same browser session.\" Which version aligns with this lesson's guidance, and why?",
+          "options": [
+            "The caching version, since technical specificity is invariably better",
+            "The stays-logged-in version; it names behaviour, not mechanism",
+            "Both are equally appropriate and interchangeable",
+            "Neither; criteria should avoid mentioning session behaviour"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The observable outcome is testable and leaves engineering free to pick a mechanism. Naming local storage forecloses that and may well be the wrong choice.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_6qg1gx-13",
+          "question": "(Interview Reasoning, Higher Difficulty) An interviewer describes a bug that reached production because a discount code could be applied twice, despite the team having written seemingly thorough acceptance criteria. A weak diagnostic response would most likely conclude which of the following?",
+          "options": [
+            "Acceptance criteria are unreliable and should be abandoned entirely",
+            "The bug was unavoidable however the criteria had been written",
+            "QA must have failed to test the feature at all, whatever the criteria said",
+            "The criteria likely lacked this edge case; check the Coverage Map for gaps"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Reaching for a QA failure before checking whether the scenario was ever specified skips the likelier cause. The case study shows a faithful QA pass against an incomplete list.",
+          "objectivesTested": [
+            3,
+            4
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_6qg1gx-14",
+          "question": "(Product Thinking, Higher Difficulty) A team's acceptance criteria are written using strict Given/When/Then format, cover happy path, edge cases, and negative scenarios, and were finalized before implementation began, but none of the criteria reference the story's stated \"so that\" benefit at all. What potential issue does this raise, according to this lesson?",
+          "options": [
+            "No issue; Given/When/Then alone guarantees a complete correct set",
+            "Well-formed criteria can still miss whether they serve the story's actual value",
+            "The \"so that\" clause should be removed once criteria are written",
+            "The story itself was poorly written, whatever the criteria's quality"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Format and coverage are necessary and not sufficient. A set can be flawlessly structured and still verify technical correctness that has drifted from the benefit it was meant to deliver.",
+          "objectivesTested": [
+            1,
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_6qg1gx-15",
+          "question": "(Highest Difficulty) A team writes complete, well-formatted acceptance criteria before implementation, covering happy path, edge cases, and negative scenarios, all correctly avoiding implementation-detail over-specification. During implementation, engineering discovers a technical constraint that makes one of the specified negative-scenario outcomes (a specific error message) infeasible to implement exactly as written. What is the most appropriate next step, connecting this lesson to Lesson 22's collaborative-review discipline?",
+          "options": [
+            "Abandon the story, since any deviation from the criteria is unacceptable",
+            "Ignore the criteria and mark the story complete regardless",
+            "Implement whatever is feasible silently, since the criteria were final",
+            "Raise it with the PM and revise the wording, preserving the intent"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Criteria are a living artifact for the same reason a PRD is. The constraint is new information, and the right response is to change the wording together while holding the intent fixed.",
+          "objectivesTested": [
+            2,
+            4
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_259e2cb5d6"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_anj59m",
+        "title": "Lesson 23: User Stories",
+        "module": "design"
+      },
+      "current": {
+        "id": "les_6qg1gx",
+        "title": "Lesson 24: Acceptance Criteria"
+      },
+      "next": {
+        "id": "les_ejgikb",
+        "title": "Lesson 25: Wireframing",
+        "module": "design"
+      },
+      "unlocks": [
+        {
+          "lesson": {
+            "id": "les_vlut0b",
+            "title": "Sprint Planning & Backlog Grooming",
+            "module": "execution"
+          },
+          "coreIdea": "Uses well-defined acceptance criteria as a prerequisite for confidently estimating and committing to stories within a sprint"
+        }
+      ],
+      "blockId": "blk_a78da69467"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 24: Acceptance Criteria Lesson 23 ended with the INVEST criteria, and one letter in particular deserves a lesson of its own: **Testable**. A user story can pass every other INVEST check (independent, negotiable, valuable, estimable, small) and still leave open a question that causes real damage during a project: how does anyone actually know when it's done? Without an explicit answer, \"done\" quietly becomes whatever the engineer who built it believes is done, which may or may not match what the PM who wrote the story had in mind, which may or may not match what QA expects to verify, which may or may not match what the actual user experiences. **Acceptance criteria** are the specific, testable conditions that define when a user story is genuinely complete: a checklist, written before implementation begins, that removes ambiguity about what \"done\" means and gives everyone involved (engineering, QA, design, and the PM) a shared, verifiable standard to build and test against. This lesson treats acceptance criteria not as bureaucratic overhead added on top of a user story, but as the mechanism that actually makes a story testable in more than name, closing the loop that Lesson 23 opened but didn't fully resolve. Define acceptance criteria and distinguish them from a user story's \"so that\" clause and from a full PRD's functional requirements. Apply the Given/When/Then (Gherkin) format for writing structured, testable acceptance criteria. Distinguish acceptance criteria covering the happy path from those covering edge cases and negative scenarios, and explain why both are necessary. Identify the \"acceptance criteria written after the fact\" failure pattern and explain why criteria written post-implementation lose their primary value. Apply a structured method for writing acceptance criteria that are specific and testable without over-specifying implementation details, extending Lesson 22's Precision Dial. Lesson 17 (Problem Statements) and Lesson 23 (User Stories). This lesson assumes you can write a well-formed user story satisfying INVEST. Acceptance criteria are the mechanism that operationalizes the \"Testable\" criterion specifically, turning a story's stated capability into a concrete, verifiable definition of done. The Core Definition and Its Place Relative to Other Artifacts Acceptance criteria are the specific, testable conditions a user story must satisfy to be considered complete. It's useful to place this artifact precisely relative to its neighbors, since confusion between them is common: A user story's **\"so that\" clause** (Lesson 23) states the underlying value or benefit: it explains *why* the capability matters, but doesn't specify exactly what conditions must hold for the capability to be considered correctly built. **Acceptance criteria** specify the exact, verifiable conditions that must be true for the story to be considered done: a concrete checklist derived from, and consistent with, the story's stated benefit. A **PRD's functional requirements** (Lesson 22) typically operate at a broader, feature-level scope, while acceptance criteria operate at the level of an individual, already-scoped user story. Acceptance criteria written well should be traceable back to the story's \"so that\" clause: every criterion should plausibly serve the stated benefit, and any criterion that doesn't connect to that benefit is a candidate for Lesson 22's over-specification warning, now recurring at a more granular level. The Given/When/Then (Gherkin) Format A widely used, structured format for writing acceptance criteria is **Given/When/Then** (sometimes called Gherkin syntax, from its origin in behavior-driven development practice): **Given** [a specific starting context or precondition], **When** [a specific action occurs], **Then** [a specific, observable outcome should result]. For example, for a story \"As a user, I want to reset my password, so that I can regain access to my account if I forget it\": Given a user has requested a password reset and received a reset link, When they click the link and submit a new password meeting the minimum complexity requirements, Then their password should be updated and they should be able to log in with the new password. This format is valuable specifically because it forces explicitness about context (the \"Given\"), the specific triggering action (the \"When\"), and a specific, observable result (the \"Then\"), removing the ambiguity that a vaguer statement like \"password reset should work correctly\" would leave wide open to inconsistent interpretation, directly echoing Lesson 22's under-specification warning. Happy Path vs. Edge Cases and Negative Scenarios Directly extending Lesson 15's \"happy path only\" warning to the level of acceptance criteria, a genuinely complete set of criteria must cover more than just the smoothest, most successful scenario. A well-rounded set of acceptance criteria for a given story should include: **The happy path**: the primary, most common scenario in which everything goes as intended. **Edge cases**: less common but plausible scenarios at the boundaries of expected behavior, such as an unusually long input, a boundary value, a rare but valid combination of conditions. **Negative scenarios**: cases where something goes wrong or a precondition isn't met (invalid input, an expired session, insufficient permissions) and what the system should do in response. A story whose acceptance criteria only cover the happy path is vulnerable to precisely the same blind spot Lesson 15 warned about for journey maps: real users, in aggregate, will encounter edge cases and error conditions with some regularity, and a story that hasn't specified expected behavior for these scenarios leaves engineering and QA to guess (usually inconsistently) what should happen, discovering the gaps only when a real user hits one in production. The \"Acceptance Criteria Written After the Fact\" Failure Pattern A specific, common failure (closely related to Lesson 8's discovery theater and Lesson 21's MVP theater patterns) is writing acceptance criteria only after a story has already been implemented, rather than before implementation begins. This inverts the entire purpose of the artifact: acceptance criteria's primary value is in forcing explicit, shared clarity about what \"done\" means *before* work starts, so that ambiguity is resolved through discussion rather than discovered through divergent interpretation during or after implementation. When criteria are written retroactively, they tend to simply describe whatever was actually built, rather than genuinely testing whether the built solution correctly satisfies the story's intended benefit, a practice that provides the appearance of rigor (a checklist exists) without its substance (the checklist was never actually capable of catching a mismatch between intention and implementation, since it was written to match the implementation after the fact). This is functionally identical to Lesson 8's discovery theater concept: a test that could not, even in principle, have produced a disconfirming result is not really testing anything. Writing acceptance criteria that only cover the happy path This leaves edge cases and negative scenarios unspecified, echoing Lesson 15's \"happy path only\" warning at the level of individual story verification, and leads to inconsistent, discovered-too-late handling of real, plausible scenarios. Writing vague criteria that don't specify a concrete, observable outcome \"Password reset should work\" is not an acceptance criterion in the useful sense this lesson intends: it fails to specify the given context, the triggering action, and the specific expected result with enough precision to be genuinely testable. Over-specifying implementation details within acceptance criteria Just as Lesson 22 warned against over-specification in a PRD, acceptance criteria should specify observable behavior and outcomes, not dictate a specific technical implementation approach: the \"Then\" clause should describe what should be true, not how the system should internally achieve it. Writing acceptance criteria after implementation is already complete This inverts the artifact's purpose, providing the appearance of a testable definition of done without the substance of having actually forced clarity before work began, echoing Lesson 8's discovery theater concept. Treating acceptance criteria as replacing, rather than complementing, the story's \"so that\" clause Acceptance criteria specify the conditions for done, but the underlying benefit stated in \"so that\" remains important context for evaluating whether the criteria themselves are actually well-chosen and complete. The Acceptance Criteria Coverage Map This lesson's mental model is the **Acceptance Criteria Coverage Map**, a simple discipline for checking that a story's criteria genuinely cover the happy path, edge cases, and negative scenarios, rather than only the most obvious scenario. Before considering a story's acceptance criteria finished, explicitly check all three boxes: has the happy path been specified, has at least one meaningful edge case been considered, and has at least one negative or error scenario been addressed? A criteria set that only fills the first box has done only a third of the necessary work. Cucumber **Cucumber** and the broader behavior-driven development (BDD) community's widespread adoption of Given/When/Then syntax across the software industry is itself the clearest illustration of this lesson's core technique: the format has become common practice specifically because it forces the explicit precondition/action/outcome structure this lesson emphasizes, adopted by engineering and product teams across a wide range of companies (from small startups to large enterprises) precisely because ambiguous, prose-only acceptance criteria were found, repeatedly and across many different organizational contexts, to produce inconsistent implementation and testing outcomes. Given/When/Then syntax emerged from the BDD community as a structured way to write acceptance criteria that removes ambiguity about preconditions, actions, and expected outcomes. The format has been widely adopted across the software industry precisely because it forces explicit clarity before implementation begins. Widespread adoption across company sizes confirms that ambiguous, prose-only criteria consistently produce inconsistent implementation and testing results. At a startup Acceptance criteria are often written more informally, sometimes as a brief bullet list rather than strict Given/When/Then syntax, given close collaboration and shared context among a small team. The core discipline (specifying concrete, testable outcomes before implementation, covering more than just the happy path) remains valuable even without rigid adherence to formal syntax. At a mid-size company Acceptance criteria typically become a more standardized, expected part of every user story, often reviewed collaboratively by QA and engineering alongside the PM before implementation begins, precisely to catch ambiguous or incomplete criteria (missing edge cases, vague outcomes) before they become a source of divergent interpretation during a sprint. At Big Tech Acceptance criteria at scale are often directly integrated into automated testing infrastructure, where Given/When/Then criteria can be translated fairly directly into automated test cases (a practice closely associated with behavior-driven development tooling), making rigorous, precise criteria writing not just a communication practice but a direct input into a company's automated quality assurance pipeline. The Story That Passed QA But Failed Users Consider a simplified, illustrative scenario common across e-commerce platforms. A team implements a user story: \"As a customer, I want to apply a discount code at checkout, so that I can receive a lower price on my order.\" The team writes a single acceptance criterion covering only the happy path: \"Given a valid discount code, when the customer enters it at checkout, then the order total should be reduced by the correct discount amount.\" QA tests exactly this scenario, confirms it works correctly, and the story is marked complete and shipped. Within the first week after launch, customer support receives a wave of complaints: some customers report entering an expired discount code and seeing no error message at all, simply having their order proceed at full price with no indication anything was wrong; others report that entering a code twice (accidentally double-clicking \"apply\") resulted in the discount being applied twice, producing an unexpectedly (and incorrectly) low order total. **What went wrong?** Applying this lesson's frameworks: **The acceptance criteria covered only the happy path**, leaving negative scenarios (an expired or invalid code) and edge cases (double-application of the same code) entirely unspecified, precisely the Coverage Map gap this lesson warns about. **QA tested exactly, and only, what the criteria specified.** This is not a QA failure in isolation (QA correctly verified the criteria as written) but a demonstration of why incomplete criteria produce incomplete testing: QA can only verify what has been explicitly specified as a condition of done. **The gaps were discovered by real users in production, rather than caught before launch**, generating support burden and a poor customer experience precisely because the acceptance criteria never asked the question \"what should happen when the code is invalid, expired, or applied more than once?\" A team applying this lesson's Coverage Map discipline from the outset would have written at least two additional criteria before implementation began: a negative scenario (\"Given an expired discount code, when the customer attempts to apply it, then a clear error message should be displayed and the order total should remain unchanged\") and an edge case (\"Given a discount code has already been successfully applied to the current order, when the customer attempts to apply it again, then the system should prevent a second application and display an appropriate message\"), very likely surfacing and resolving both issues before launch, at a small fraction of the cost of the subsequent support burden and customer frustration. This case connects directly back to **Lesson 15's \"happy path only\" journey-mapping warning**: the same underlying blind spot (building and verifying only the smoothest, most successful scenario) recurs here at the level of individual story verification, with the same fundamental corrective: deliberately seek out and specify the messier, less convenient scenarios before they're discovered the hard way. The Acceptance Criteria Quality Checklist A practical checklist for reviewing a draft set of acceptance criteria before implementation begins: A set of acceptance criteria that fails several of these checks provides, at best, partial protection against the exact kind of production-discovered gap shown in this lesson's Detailed Case Study. How do you write acceptance criteria for a new user story? *What the interviewer is actually evaluating:* Whether the candidate names a structured format (Given/When/Then) and explicitly mentions covering edge cases and negative scenarios, rather than describing a vague, happy-path-only, or purely intuitive process. Tell me about a bug or issue that reached production because acceptance criteria were incomplete. *What the interviewer is actually evaluating:* Direct experience recognizing a Coverage Map gap after the fact, and whether the candidate can articulate specifically what edge case or negative scenario was missed, echoing this lesson's Detailed Case Study, rather than attributing the issue vaguely to \"a bug\" without deeper diagnosis. When should acceptance criteria be written, relative to implementation? *What the interviewer is actually evaluating:* Whether the candidate understands that criteria must be written and agreed upon before implementation begins to serve their intended purpose, versus treating them as a documentation exercise performed after the fact. Acceptance criteria are the specific, testable conditions that define when a user story is complete, sitting between a story's stated \"so that\" benefit and the broader functional requirements of a PRD, and operationalizing specifically the \"Testable\" INVEST criterion from Lesson 23. The Given/When/Then format structures criteria around a specific precondition, a specific triggering action, and a specific, observable outcome, removing the ambiguity that vaguer statements would leave open. A complete set of criteria must cover the happy path, meaningful edge cases, and negative scenarios, not just the smoothest, most successful case, directly extending Lesson 15's \"happy path only\" warning to the level of story verification, and this lesson's Detailed Case Study shows the real cost (production-discovered bugs, customer support burden) of skipping edge case and negative scenario coverage. The \"acceptance criteria written after the fact\" failure pattern (writing criteria only after implementation is complete) inverts the artifact's purpose, providing the appearance of a testable definition of done without the substance of having actually forced clarity before work began, directly echoing Lesson 8's discovery theater concept. Acceptance criteria are specific, testable conditions defining when a user story is complete, sitting between a story's \"so that\" benefit and a PRD's broader functional requirements. The Given/When/Then format structures criteria around a specific precondition, action, and observable outcome, removing ambiguity that vaguer statements would leave open. A complete criteria set covers the happy path, meaningful edge cases, and negative scenarios, not just the smoothest, most successful scenario. The \"acceptance criteria written after the fact\" failure pattern inverts the artifact's purpose, providing the appearance of rigor without its substance, echoing Lesson 8's discovery theater concept. Criteria should specify observable behavior and outcomes without dictating specific technical implementation, extending Lesson 22's Precision Dial to a more granular level. QA can only verify what has been explicitly specified: incomplete criteria produce incomplete testing, as shown in this lesson's Detailed Case Study. Every criterion should plausibly connect back to the story's stated \"so that\" benefit, keeping technical correctness anchored to genuine user value. **Acceptance criteria** = specific, testable conditions defining \"done\" for a user story. **Given/When/Then:** precondition → triggering action → specific, observable outcome. **Coverage Map:** happy path + edge cases + negative scenarios, not just the smooth path. **Write criteria before implementation, not after**: retroactive criteria provide appearance without substance (discovery theater). **Specify behavior, not implementation**: Lesson 22's Precision Dial, applied at the criteria level. **QA only verifies what's specified**: incomplete criteria = incomplete testing = production-discovered gaps. Acceptance Criteria The specific, testable conditions that define when a user story is complete. Given/When/Then (Gherkin) A structured format for acceptance criteria: a precondition, a triggering action, and a specific, observable outcome. Happy Path The primary, most common scenario in a user journey or use case where everything goes as intended, with no significant friction, errors, or detours. Edge Case A less common but plausible scenario at the boundaries of expected behavior. Negative Scenario A scenario where something goes wrong or a precondition isn't met, and the expected system response to it. \"Acceptance Criteria Written After the Fact\" (Failure Pattern) Writing criteria only after implementation is complete, inverting the artifact's purpose of forcing clarity before work begins. Dan North's original writing introducing the Given/When/Then format in the context of behavior-driven development, the direct source of this lesson's core technique. Mike Cohn, *User Stories Applied* extends the user story format (Lesson 23) directly into acceptance criteria practice. Gojko Adzic, *Specification by Example* a detailed treatment of writing concrete, testable acceptance criteria collaboratively before implementation, closely related to this lesson's core discipline. What are acceptance criteria, and where do they sit relative to a user story and a PRD? The specific, testable conditions defining when a user story is complete, more granular than a PRD's functional requirements, and operationalizing a story's \"Testable\" INVEST criterion specifically. What is the Given/When/Then format? A structured format for acceptance criteria: Given [a precondition], When [a triggering action], Then [a specific, observable outcome]. What three types of scenarios should a complete set of acceptance criteria cover? The happy path, meaningful edge cases, and negative scenarios (error conditions or failed preconditions). What is the \"acceptance criteria written after the fact\" failure pattern? Writing criteria only after implementation is complete, which inverts the artifact's purpose, providing the appearance of a testable definition of done without the substance of having forced clarity before work began. Why should acceptance criteria specify observable behavior rather than implementation details? This applies Lesson 22's Precision Dial at a more granular level: specifying the what/outcome while leaving the how (technical implementation) to engineering expertise. In the Detailed Case Study, what two specific gaps in the discount-code story's acceptance criteria caused production issues? No criterion covered an expired/invalid discount code (a negative scenario), and no criterion covered applying the same code twice (an edge case). Only the happy path (a valid code applied once) was specified. Why can QA only be as effective as the acceptance criteria it verifies against? QA verifies what has been explicitly specified as a condition of done; if criteria are incomplete (e.g., happy-path only), QA will correctly confirm the specified scenario works while missing unspecified gaps entirely. You are the PM for a food delivery app, writing acceptance criteria for the story: \"As a customer, I want to cancel my order before it's been prepared, so that I'm not charged for food I no longer want.\" Work through the following, in writing, before reading further: Write one acceptance criterion for the happy path, using the Given/When/Then format. Write one acceptance criterion for a negative scenario (e.g., attempting to cancel after preparation has already started). Write one acceptance criterion for a plausible edge case (e.g., attempting to cancel at the exact moment the restaurant marks the order as \"preparing\"). Review your three criteria against the Acceptance Criteria Quality Checklist: are they specific and testable, do they avoid dictating implementation details, and do they each connect back to the story's \"so that\" benefit? Identify one additional edge case or negative scenario not covered by your three criteria, and explain why it might matter based on real-world usage patterns. There is no single correct answer. The purpose of this exercise is to practice applying the Coverage Map discipline (happy path, edge cases, and negative scenarios) before implementation begins, rather than discovering gaps after real users encounter them. What are acceptance criteria, according to this lesson? They sit below the story's \"so that\" benefit and above nothing else: a concrete checklist for one already-scoped capability, narrower than a PRD's feature-level requirements. What are the three components of the Given/When/Then format? Naming the starting state, the trigger, and the observable result is what removes the ambiguity that \"password reset should work correctly\" leaves wide open. Why is it important for a complete set of acceptance criteria to cover more than just the happy path? Unspecified scenarios do not go unbuilt; they get built to somebody's guess. The gap surfaces when a real user reaches it in production. What is the \"acceptance criteria written after the fact\" failure pattern? Criteria written to match what exists cannot catch a mismatch between intention and implementation. Like discovery theater, the test could not have failed. Which of the following acceptance criteria best exemplifies over-specification, as warned against in this lesson? The other three describe what a person would observe. D names a caching approach and a column, which are engineering's decisions to make and live with. In the Detailed Case Study, why did QA fail to catch the expired-code and double-application issues before launch? The verification was faithful to a specification that had a hole in it. QA can confirm what was written down and cannot confirm what nobody thought to write. What two specific scenarios were missing from the original discount-code story's acceptance criteria in the Detailed Case Study? One of each missing category, which is what made the Coverage Map's third box the one that would have caught both. According to the Acceptance Criteria Quality Checklist, when should acceptance criteria be written and reviewed? The whole value is in surfacing disagreement while it is still cheap. Written afterwards, the same words describe the build instead of testing it. (Scenario) A team writes an acceptance criterion: \"Given a user is on the checkout page, when they click submit, then the order should process correctly.\" According to this lesson, what is the primary issue with this criterion? The format is right and the third clause is empty. \"Correctly\" could mean a confirmation screen, a receipt email, a stock decrement, or all three, and nobody has said which. (Product Thinking) A team's acceptance criteria correctly cover the happy path and negative scenarios but include no edge cases at all. Using the Coverage Map, what should the team do next? Two boxes of three is real progress and an incomplete set. Boundary values and unusual-but-valid combinations are where the remaining surprises live. (Interview Reasoning) A candidate describes writing acceptance criteria immediately after a feature ships, to \"document what was built\" for future reference. What might this signal, based on this lesson's Interview Perspective section? As a record it has some use. As acceptance criteria it arrived too late to do the one job the artifact exists for. (Product Thinking, Higher Difficulty) A team is deciding whether an acceptance criterion should specify \"the system should cache the user's session token in local storage\" or \"the user should remain logged in across page refreshes within the same browser session.\" Which version aligns with this lesson's guidance, and why? The observable outcome is testable and leaves engineering free to pick a mechanism. Naming local storage forecloses that and may well be the wrong choice. (Interview Reasoning, Higher Difficulty) An interviewer describes a bug that reached production because a discount code could be applied twice, despite the team having written seemingly thorough acceptance criteria. A weak diagnostic response would most likely conclude which of the following? Reaching for a QA failure before checking whether the scenario was ever specified skips the likelier cause. The case study shows a faithful QA pass against an incomplete list. (Product Thinking, Higher Difficulty) A team's acceptance criteria are written using strict Given/When/Then format, cover happy path, edge cases, and negative scenarios, and were finalized before implementation began, but none of the criteria reference the story's stated \"so that\" benefit at all. What potential issue does this raise, according to this lesson? Format and coverage are necessary and not sufficient. A set can be flawlessly structured and still verify technical correctness that has drifted from the benefit it was meant to deliver. (Highest Difficulty) A team writes complete, well-formatted acceptance criteria before implementation, covering happy path, edge cases, and negative scenarios, all correctly avoiding implementation-detail over-specification. During implementation, engineering discovers a technical constraint that makes one of the specified negative-scenario outcomes (a specific error message) infeasible to implement exactly as written. What is the most appropriate next step, connecting this lesson to Lesson 22's collaborative-review discipline? Criteria are a living artifact for the same reason a PRD is. The constraint is new information, and the right response is to change the wording together while holding the intent fixed.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "Mental Model: The Acceptance Criteria Coverage Map",
+      "Real Company Example",
+      "Real World Perspective: Acceptance Criteria at Different Company Stages",
+      "Detailed Case Study: The Story That Passed QA But Failed Users",
+      "Framework Explanation: The Acceptance Criteria Quality Checklist",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "Acceptance Criteria",
+    "Given/When/Then (Gherkin)",
+    "Happy Path",
+    "Edge Case",
+    "Negative Scenario",
+    "\"Acceptance Criteria Written After the Fact\" (Failure Pattern)"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

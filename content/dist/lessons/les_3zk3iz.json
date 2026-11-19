@@ -1,0 +1,860 @@
+{
+  "schemaVersion": 2,
+  "id": "les_3zk3iz",
+  "contentHash": "08465f93a96f258183c6e5ded0958d563eb3df49d8ae17e1de435927e9c76af5",
+  "title": "Technical Debt at Scale: Platform Migrations and Deprecations",
+  "slug": "lesson-068",
+  "module": "technical",
+  "order": 8,
+  "totalInModule": 10,
+  "difficulty": 6,
+  "estimatedReadingTime": 40,
+  "estimatedCompletionTime": 55,
+  "prerequisites": [
+    "les_2h4woh"
+  ],
+  "sourceFile": "content/lessons/lesson-068.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 68: Technical Debt at Scale: Platform Migrations and Deprecations",
+      "blockId": "blk_8291bababf"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 67 closed with a company that, having redesigned its trust and safety enforcement pipeline, faced a significant technical rework, precisely the kind of large-scale migration this lesson now addresses directly. Module 4 introduced the Technical Debt Quadrant as a way of categorizing debt at the level of an individual team's codebase. This lesson scales that concern up by an order of magnitude: what happens when the thing that needs to change is not a single team's internal implementation, but a Layer 2 Developer Surface, per the Leverage Stack from Lesson 61, that dozens or hundreds of external parties depend on, per the Promise Tiers model from Lesson 62.",
+      "blockId": "blk_c58718bce3"
+    },
+    {
+      "type": "paragraph",
+      "text": "At platform scale, technical debt is not merely an engineering inconvenience to be paid down at a team's own convenience: it can become a binding constraint on the platform's ability to evolve at all, because every dependent integration built by an external party is, in effect, a small claim on the platform's future flexibility. A platform that accumulates enough of these claims, without a disciplined process for eventually retiring old commitments, can find itself unable to make even clearly beneficial changes, trapped by the sheer volume and diversity of things depending on the old behavior.",
+      "blockId": "blk_aa639b8088"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson introduces the Sunset Runway, this lesson's core mental model, to give you a structured way to plan and execute large-scale migrations and deprecations without either freezing a platform in place indefinitely or breaking trust with the ecosystem depending on it, directly extending the discipline this curriculum began building in Lesson 62's Promise Tiers.",
+      "blockId": "blk_12ff7b8618"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "Explain why platform-scale technical debt differs from team-level technical debt in kind, not just degree.",
+        "Apply the Sunset Runway model to plan a large-scale migration or deprecation with an appropriate timeline.",
+        "Identify the risks of an incomplete dependency inventory before a migration begins.",
+        "Describe the purpose of a dual-run period in a platform migration.",
+        "Evaluate a proposed migration plan for whether its timeline and communication match the scale of ecosystem dependency involved."
+      ],
+      "blockId": "blk_2e293f20a8"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson assumes the Promise Tiers model, semantic versioning, and deprecation policy concepts from Lesson 62, and a general familiarity with the Technical Debt Quadrant introduced in Module 4 (Lessons 31–40), since this lesson extends that team-level framework to the platform scale, where dependents are external parties rather than internal colleagues.",
+      "blockId": "blk_ac4170cd44"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Why Platform-Scale Technical Debt Differs in Kind",
+          "blockId": "blk_477ea198e5"
+        },
+        {
+          "type": "paragraph",
+          "text": "Team-level technical debt, as covered in Module 4's Technical Debt Quadrant, is primarily a matter of internal trade-offs: a team accepts some debt to move faster, and pays it down later, largely on its own schedule, since the people affected by the debt and the people who incurred it are often the same people, or at least the same organization. Platform-scale technical debt is structurally different, because the parties depending on the old behavior are frequently external, numerous, and invisible to the platform team in aggregate. A single internal team's debt is a private matter; a platform's accumulated commitments are, in effect, public promises made to an entire ecosystem, and unwinding them requires coordinating changes across parties the platform team does not control and may not even be able to fully enumerate.",
+          "blockId": "blk_e90f58469d"
+        },
+        {
+          "type": "paragraph",
+          "text": "This is precisely why Lesson 62 introduced the Promise Tiers model and formal deprecation policy: without those mechanisms, a platform has no legitimate way to ever retire an old commitment, and technical debt at this scale becomes a one-way ratchet, accumulating indefinitely because removing anything risks breaking someone, somewhere, who was never accounted for.",
+          "blockId": "blk_f00e72c65a"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Sunset Runway",
+          "blockId": "blk_e72aab5a4d"
+        },
+        {
+          "type": "paragraph",
+          "text": "This lesson introduces the **Sunset Runway**, a four-phase model for retiring a platform capability that external parties depend on:",
+          "blockId": "blk_d8173c666d"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_1cc80d8c3b",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[\"Phase 1: Dependency Inventory<br/>(who actually depends on this, and how)\"] --> B[\"Phase 2: Announcement & Dual-Run<br/>(new path available, old path still works)\"]\r\n    B --> C[\"Phase 3: Active Migration Support<br/>(direct outreach, migration tooling, deadline reminders)\"]\r\n    C --> D[\"Phase 4: Decommission<br/>(old path removed, per Promise Tier notice period)\"]",
+          "normalized": "graph LR\r\n    A[\"Phase 1: Dependency Inventory<br/>(who actually depends on this, and how)\"] --> B[\"Phase 2: Announcement & Dual-Run<br/>(new path available, old path still works)\"]\r\n    B --> C[\"Phase 3: Active Migration Support<br/>(direct outreach, migration tooling, deadline reminders)\"]\r\n    C --> D[\"Phase 4: Decommission<br/>(old path removed, per Promise Tier notice period)\"]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020969178-181\" xmlns=\"http://www.w3.org/2000/svg\" width=\"3011.88\" height=\"143\" viewBox=\"-74.875 -27 3011.88 143\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Phase 1: Dependency Inventory(who actually depends on this, and how) → Phase 2: Announcement &amp; Dual-Run(new path available, old path still works) → Phase 3: Active Migration Support(direct outreach, migration tooling, deadline reminders) → Phase 4: Decommission(old path removed, per Promise Tier notice period)\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Phase 1: Dependency Inventory(who actually depends on this, and how) → Phase 2: Announcement &amp; Dual-Run(new path available, old path still works) → Phase 3: Active Migration Support(direct outreach, migration tooling, deadline reminders) → Phase 4: Decommission(old path removed, per Promise Tier notice period)</title><style>#mermaid-svg-1795020969178-181{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020969178-181 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020969178-181 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020969178-181 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020969178-181 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020969178-181 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020969178-181 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020969178-181 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020969178-181 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020969178-181 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020969178-181 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020969178-181 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020969178-181 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020969178-181 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020969178-181 p{margin:0;}#mermaid-svg-1795020969178-181 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020969178-181 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020969178-181 .cluster-label span{color:#171A17;}#mermaid-svg-1795020969178-181 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020969178-181 .label text,#mermaid-svg-1795020969178-181 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020969178-181 .node rect,#mermaid-svg-1795020969178-181 .node circle,#mermaid-svg-1795020969178-181 .node ellipse,#mermaid-svg-1795020969178-181 .node polygon,#mermaid-svg-1795020969178-181 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020969178-181 .rough-node .label text,#mermaid-svg-1795020969178-181 .node .label text,#mermaid-svg-1795020969178-181 .image-shape .label,#mermaid-svg-1795020969178-181 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020969178-181 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020969178-181 .rough-node .label,#mermaid-svg-1795020969178-181 .node .label,#mermaid-svg-1795020969178-181 .image-shape .label,#mermaid-svg-1795020969178-181 .icon-shape .label{text-align:center;}#mermaid-svg-1795020969178-181 .node.clickable{cursor:pointer;}#mermaid-svg-1795020969178-181 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020969178-181 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020969178-181 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020969178-181 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020969178-181 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020969178-181 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020969178-181 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020969178-181 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020969178-181 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020969178-181 .cluster text{fill:#171A17;}#mermaid-svg-1795020969178-181 .cluster span{color:#171A17;}#mermaid-svg-1795020969178-181 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020969178-181 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020969178-181 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020969178-181 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020969178-181 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020969178-181 .icon-shape,#mermaid-svg-1795020969178-181 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020969178-181 .icon-shape p,#mermaid-svg-1795020969178-181 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020969178-181 .icon-shape .label rect,#mermaid-svg-1795020969178-181 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020969178-181 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020969178-181 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020969178-181 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020969178-181 [data-look=\"neo\"].node rect,#mermaid-svg-1795020969178-181 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020969178-181 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020969178-181-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020969178-181 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020969178-181 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020969178-181-gradient);stroke-width:1px;}#mermaid-svg-1795020969178-181 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020969178-181 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020969178-181 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020969178-181-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020969178-181 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020969178-181 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020969178-181-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020969178-181 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020969178-181-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020969178-181 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020969178-181_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020969178-181_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020969178-181_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020969178-181_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020969178-181_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020969178-181_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020969178-181_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020969178-181_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020969178-181_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020969178-181_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020969178-181_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020969178-181_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M585.25,62L594,62C602.75,62,620.25,62,637.083,62C653.917,62,670.083,62,678.167,62L686.25,62\" id=\"mermaid-svg-1795020969178-181-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NTg1LjI1LCJ5Ijo2Mn0seyJ4Ijo2MzcuNzUsInkiOjYyfSx7IngiOjY5MC4yNSwieSI6NjJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020969178-181_flowchart-v2-pointEnd)\"></path><path d=\"M1305.75,62L1314.5,62C1323.25,62,1340.75,62,1357.583,62C1374.417,62,1390.583,62,1398.667,62L1406.75,62\" id=\"mermaid-svg-1795020969178-181-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6MTMwNS43NSwieSI6NjJ9LHsieCI6MTM1OC4yNSwieSI6NjJ9LHsieCI6MTQxMC43NSwieSI6NjJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020969178-181_flowchart-v2-pointEnd)\"></path><path d=\"M2204.75,62L2213.5,62C2222.25,62,2239.75,62,2256.583,62C2273.417,62,2289.583,62,2297.667,62L2305.75,62\" id=\"mermaid-svg-1795020969178-181-L_C_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_D_0\" data-points=\"W3sieCI6MjIwNC43NSwieSI6NjJ9LHsieCI6MjI1Ny4yNSwieSI6NjJ9LHsieCI6MjMwOS43NSwieSI6NjJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020969178-181_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020969178-181-flowchart-A-0\" data-look=\"classic\" transform=\"translate(296.625, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-213.75\" y=\"-46\" width=\"427.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-181.75, -30)\"><rect></rect><foreignObject width=\"363.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Phase 1: Dependency Inventory<br>(who actually depends on this, and how)</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020969178-181-flowchart-B-1\" data-look=\"classic\" transform=\"translate(998, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-226.5\" y=\"-46\" width=\"453\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-194.5, -30)\"><rect></rect><foreignObject width=\"389\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Phase 2: Announcement &amp; Dual-Run<br>(new path available, old path still works)</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020969178-181-flowchart-C-3\" data-look=\"classic\" transform=\"translate(1807.75, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-286\" y=\"-46\" width=\"572\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-254, -30)\"><rect></rect><foreignObject width=\"508\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Phase 3: Active Migration Support<br>(direct outreach, migration tooling, deadline reminders)</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020969178-181-flowchart-D-5\" data-look=\"classic\" transform=\"translate(2668.5, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-260.5\" y=\"-46\" width=\"521\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-228.5, -30)\"><rect></rect><foreignObject width=\"457\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Phase 4: Decommission<br>(old path removed, per Promise Tier notice period)</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020969178-181-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020969178-181-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020969178-181-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_1cc80d8c3b"
+        },
+        {
+          "type": "paragraph",
+          "text": "**Phase 1, Dependency Inventory**, requires building the most complete possible picture of who actually depends on the capability being retired, and how: a step that is frequently skipped or under-resourced, with damaging consequences illustrated in the Case Study below. **Phase 2, Announcement and Dual-Run**, begins the deprecation clock (per the Promise Tier the capability belongs to) while keeping both the old and new paths simultaneously functional, giving dependents time to migrate without a hard cutover forcing everyone to move at once. **Phase 3, Active Migration Support**, is where the platform team takes on real responsibility for helping dependents actually complete their migration (providing tooling, direct outreach to known high-impact dependents, and clear deadline communication) rather than simply announcing the change and waiting passively. **Phase 4, Decommission**, removes the old path only after the notice period has elapsed and, ideally, after monitoring shows migration completion has reached an acceptable threshold, rather than by calendar date alone regardless of actual migration progress.",
+          "blockId": "blk_caa324e31b"
+        },
+        {
+          "type": "paragraph",
+          "text": "The Sunset Runway's core discipline is recognizing that the length of an appropriate runway is not a fixed constant: it should scale with the number, diversity, and criticality of dependents uncovered in Phase 1, meaning the very first phase directly determines whether every subsequent phase is even planned realistically.",
+          "blockId": "blk_ccfb9203af"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Danger of an Incomplete Dependency Inventory",
+          "blockId": "blk_bbde27c205"
+        },
+        {
+          "type": "paragraph",
+          "text": "A dependency inventory built only from what the platform team can easily observe (registered API keys, documented integrations) will systematically miss dependents using undocumented workarounds, third-party tools built on top of official integrations, or long-tail, low-volume-but-critical usage that doesn't show up prominently in aggregate metrics. An incomplete inventory doesn't just risk missing a few edge cases: it risks systematically under-estimating the true scope of a migration, leading to a runway that looks generous on paper but is, in practice, far too short for the dependents the platform team never accounted for in the first place.",
+          "blockId": "blk_6ee8969d63"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Why a Dual-Run Period Matters",
+          "blockId": "blk_6c72c25bfc"
+        },
+        {
+          "type": "paragraph",
+          "text": "A **dual-run period** (during which both the old and new capability remain simultaneously functional) exists specifically to decouple the platform's readiness to retire something from each individual dependent's readiness to migrate away from it. Without a dual-run period, a migration becomes a synchronized, all-or-nothing cutover, forcing every dependent, regardless of their own internal priorities, resourcing, or release cycles, to migrate on the platform's timeline rather than a timeline that accounts for their own constraints: a mismatch that is especially costly for the platform's most resource-constrained and often most loyal long-tail dependents.",
+          "blockId": "blk_8a4d2c086a"
+        }
+      ],
+      "blockId": "blk_2d9af80c04"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Skipping or under-resourcing the dependency inventory phase",
+          "body": "Assuming that documented, registered integrations represent the full universe of dependents nearly always understates the true scope of who will be affected by a migration."
+        },
+        {
+          "title": "Setting a migration deadline based on calendar convenience rather than dependent migration progress",
+          "body": "Decommissioning on a fixed date regardless of actual migration completion rates converts a planned, orderly transition into a forced, disruptive cutover for anyone who hasn't finished migrating."
+        },
+        {
+          "title": "Treating announcement as equivalent to active migration support",
+          "body": "Simply publishing a deprecation notice and expecting dependents to act on their own initiative, without direct outreach or migration tooling, tends to leave a long tail of dependents who never see or act on the announcement until the deadline arrives."
+        },
+        {
+          "title": "Underestimating the runway needed for the most resource-constrained dependents",
+          "body": "A migration timeline appropriate for large, well-resourced partners may be far too aggressive for smaller developers or long-tail integrations with less engineering capacity to respond quickly."
+        },
+        {
+          "title": "Failing to monitor migration progress during the dual-run period",
+          "body": "Without tracking how many dependents have actually migrated as the deadline approaches, a platform team has no way to know whether a planned Phase 4 decommission is actually safe to execute on schedule.\n\n"
+        }
+      ],
+      "blockId": "blk_995057703b"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The Sunset Runway",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "The Sunset Runway introduced above is this lesson's core takeaway tool. Before beginning any large-scale platform migration or deprecation, ask:",
+          "blockId": "blk_ab7ce0079e"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**Has Phase 1's dependency inventory gone beyond easily observable, registered integrations** to actively search for undocumented or long-tail usage?",
+            "**Does the announced runway length in Phase 2 scale appropriately with the diversity and criticality of dependents uncovered**, per the capability's Promise Tier from Lesson 62, rather than being set by internal convenience?",
+            "**Is Phase 3 genuinely active** (direct outreach and migration tooling) rather than a passive announcement followed by silence until the deadline?",
+            "**Is Phase 4's decommission gated on actual migration progress**, not solely on the calendar date originally announced?"
+          ],
+          "blockId": "blk_ef27fabefb"
+        },
+        {
+          "type": "paragraph",
+          "text": "A migration plan that can answer all four questions affirmatively is far less likely to produce the kind of disruptive, trust-damaging cutover this lesson's Case Study describes.",
+          "blockId": "blk_4ca7302862"
+        }
+      ],
+      "blockId": "blk_82ba86a9ac"
+    },
+    {
+      "type": "companyExample",
+      "company": "Google Reader's 2013 shutdown",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "**Google Reader's 2013 shutdown** is a specific, heavily documented instance of this lesson's core risk, not just a general pattern. Google announced the discontinuation on March 13, 2013, with a shutdown date of July 1, 2013 (roughly three and a half months of runway) for a product that had, in the intervening years, become genuinely load-bearing infrastructure for a large ecosystem of independent RSS readers, blogs, and news-discovery tools built on top of it. Contemporaneous coverage from CNN and the Los Angeles Times documented a large public backlash, including a widely circulated Change.org petition against the shutdown, and Forbes coverage at the time characterized the reaction as extending well beyond ordinary users to the community of publishers and developers who had built distribution strategies around Reader's continued existence. Google did offer a Takeout-based export path for users' subscription data, but the underlying dependent ecosystem (sites and tools built assuming Reader's API would keep functioning) had no equivalent migration runway.",
+          "blockId": "blk_c221192f6c"
+        },
+        {
+          "type": "paragraph",
+          "text": "This is a useful illustration precisely because the decision to deprecate wasn't unreasonable on its own technical or strategic merits (Google cited declining usage), but the *execution* (runway length relative to how deeply embedded the product had become in a wider ecosystem) is what produced the lasting reputational cost, echoing this lesson's Promise Tiers concept: a widely depended-upon product accrues an implicit promise about migration support that scales with how deeply integrated it has become, independent of whether the underlying deprecation decision itself was sound.",
+          "blockId": "blk_443bd0615c"
+        },
+        {
+          "type": "paragraph",
+          "text": "*(Source: contemporaneous March 2013 reporting from CNN, the Los Angeles Times, and Forbes on the announcement and public reaction.)*",
+          "blockId": "blk_6bf488e7d1"
+        }
+      ],
+      "blockId": "blk_e527342aea"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "Startup",
+          "body": "Early-stage platforms typically have few enough external dependents that migrations can be coordinated through direct, informal communication with each one individually, making a formal Sunset Runway process feel like unnecessary overhead: a reasonable trade-off at small scale, but one that does not automatically transfer into good practice once the dependent base grows."
+        },
+        {
+          "context": "Mid-size company",
+          "body": "This is typically where the first genuinely painful migration occurs, often because a growing developer base was never comprehensively inventoried, and a deprecation planned assuming a small, known dependent set turns out to affect a much larger and more diverse population than anticipated."
+        },
+        {
+          "context": "Big Tech",
+          "body": "Mature platforms typically maintain formal migration and deprecation governance processes, including mandatory dependency-impact assessments before any deprecation announcement and dedicated migration-support engineering resources, precisely because the reputational and ecosystem-trust cost of a poorly-run migration at that scale can be severe and highly visible."
+        }
+      ],
+      "blockId": "blk_2b0ad3df8b"
+    },
+    {
+      "type": "caseStudy",
+      "title": "The Underestimated Cutover",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A logistics software platform decided to deprecate an older, less efficient version of its core shipment-tracking API in favor of a significantly improved new version. The platform team, working from its registry of officially registered API keys, identified roughly 200 known integrations and announced a 90-day deprecation notice, judged by the team to be generous relative to the Promise Tier the API belonged to and consistent with the deprecation policy discipline from Lesson 62.",
+          "blockId": "blk_71fd86d9aa"
+        },
+        {
+          "type": "paragraph",
+          "text": "What the registered-API-key inventory missed was a substantial population of smaller logistics companies who had, years earlier, built integrations through a popular third-party logistics-software vendor that itself used the platform's API on behalf of hundreds of its own downstream customers, all operating under a small number of shared API keys the platform team's inventory had significantly under-counted in terms of actual downstream dependency. When the 90-day deadline arrived and the old API version was decommissioned on schedule, the platform team discovered (abruptly, through a surge of support tickets) that several hundred small businesses relying on that third-party vendor's integration had never received any direct migration communication, since all official announcements had gone only to the vendor's shared account contact, and the vendor itself had not adequately propagated the migration requirement to its own downstream customers in time.",
+          "blockId": "blk_935c40f0bb"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong?** Using the Sunset Runway, the failure is precise: Phase 1's dependency inventory relied solely on registered API keys, systematically undercounting the true scope of downstream dependents hidden behind a third-party vendor's shared integration, and Phase 4's decommission proceeded strictly on the calendar date rather than being gated on evidence of actual migration completion across this hidden long tail. The 90-day runway may well have been generous for the visible, directly-registered dependents, but it was never actually communicated to, or usable by, the much larger hidden population depending on the same underlying capability through an intermediary.",
+          "blockId": "blk_b997e70867"
+        },
+        {
+          "type": "paragraph",
+          "text": "The company's recovery involved extending emergency dual-run access for the affected long tail while working directly with the third-party vendor to complete a coordinated migration, and instituting a new dependency inventory practice for future migrations that explicitly probes for shared-key or intermediary-based usage patterns, not just directly registered integrations: a discipline this curriculum will connect to internal platform and developer experience considerations in Lesson 69.",
+          "blockId": "blk_fff0922b50"
+        }
+      ],
+      "blockId": "blk_d9055150df"
+    },
+    {
+      "type": "framework",
+      "name": "The Migration Readiness Checklist",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Before beginning Phase 2 (Announcement and Dual-Run) of any platform migration, a PM can use the following checklist to confirm Phase 1 was genuinely thorough:",
+          "blockId": "blk_332c6e70f4"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Checklist Item",
+            "Question to Ask",
+            "Risk if Skipped"
+          ],
+          "rows": [
+            [
+              "Beyond Registered Integrations",
+              "Has the inventory actively searched for undocumented, shared-key, or intermediary-based usage?",
+              "Hidden long-tail dependents are missed entirely, as in the Case Study"
+            ],
+            [
+              "Criticality Assessment",
+              "Is it known which dependents would suffer severe versus minor impact from this migration?",
+              "Runway length is set without regard to actual dependent risk"
+            ],
+            [
+              "Direct Outreach Plan",
+              "Is there a plan to directly contact known high-impact dependents, not just publish a general announcement?",
+              "Affected parties may never see a passive announcement"
+            ],
+            [
+              "Migration Tooling",
+              "Are there concrete tools or guides to reduce the actual effort of migrating?",
+              "Migration friction discourages timely action, increasing last-minute risk"
+            ],
+            [
+              "Progress-Gated Decommission",
+              "Is Phase 4 gated on measured migration completion, not solely a calendar date?",
+              "A cutover proceeds even if a significant fraction of dependents haven't migrated"
+            ]
+          ],
+          "blockId": "blk_57af890571"
+        },
+        {
+          "type": "paragraph",
+          "text": "A \"no\" on Beyond Registered Integrations should be treated as a serious planning gap: as the Case Study shows, the most damaging migration failures often come from dependents the platform team never knew existed.",
+          "blockId": "blk_1b5dd6a130"
+        }
+      ],
+      "blockId": "blk_27ea488c75"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "How would you plan a deprecation of a widely-used internal or external API?",
+          "whatItEvaluates": "The interviewer is evaluating whether you propose a dependency-inventory-first approach and a runway that scales with the diversity of dependents uncovered, rather than jumping straight to an announcement and deadline."
+        },
+        {
+          "question": "What's the risk of relying only on registered integrations to understand who depends on a platform capability?",
+          "whatItEvaluates": "The interviewer is testing whether you recognize the hidden long-tail dependency risk illustrated in this lesson's Case Study, where intermediary or shared-key usage can significantly undercount true dependency."
+        },
+        {
+          "question": "Tell me about a migration or deprecation that didn't go as planned.",
+          "whatItEvaluates": "The interviewer is listening for recognition of a specific, locatable failure point in the Sunset Runway (an incomplete inventory, a passive rather than active migration support phase, or a decommission gated on calendar date rather than actual progress) rather than a vague description of \"things going wrong.\""
+        }
+      ],
+      "blockId": "blk_7dacd87552"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Platform-scale technical debt differs in kind from team-level technical debt, because the parties depending on old behavior are frequently external, numerous, and difficult to fully enumerate, converting the Technical Debt Quadrant's internal trade-off framing from Module 4 into a genuine ecosystem-trust obligation, governed by the Promise Tiers and deprecation policy discipline from Lesson 62. The Sunset Runway (Dependency Inventory, Announcement and Dual-Run, Active Migration Support, and Decommission) provides a structured process for retiring a platform capability without either freezing the platform indefinitely or breaking trust with the ecosystem depending on it, and the runway's appropriate length should scale with the diversity and criticality of dependents actually uncovered, not be set by internal convenience. The most damaging migration failures typically originate in an incomplete dependency inventory that systematically undercounts hidden, intermediary-based, or shared-key usage, compounded by a decommission phase gated on calendar date rather than measured migration progress: a combination that can convert what looked like a generous, well-planned runway into an abrupt, trust-damaging cutover for exactly the dependents the platform team never accounted for.",
+          "blockId": "blk_481a51dbab"
+        }
+      ],
+      "blockId": "blk_a91c7610a7"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "Platform-scale technical debt differs in kind from team-level debt, since dependents are frequently external, numerous, and hard to fully enumerate.",
+        "The Sunset Runway (Dependency Inventory, Announcement and Dual-Run, Active Migration Support, Decommission) structures a large-scale migration or deprecation.",
+        "Dependency inventories relying only on registered, documented integrations frequently undercount true dependency, especially through intermediaries or shared keys.",
+        "A dual-run period decouples the platform's readiness to retire something from each dependent's individual readiness to migrate.",
+        "Active migration support (direct outreach, tooling) is necessary; passive announcement alone tends to leave a long tail of dependents unaware or unprepared.",
+        "Decommissioning should be gated on measured migration progress, not solely on a calendar deadline set at the start of the process.",
+        "Runway length should scale with the diversity and criticality of dependents uncovered during Phase 1, not be fixed by internal convenience."
+      ],
+      "blockId": "blk_4f128a0c46"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "Platform debt ≠ team debt. Dependents are external, numerous, and often invisible without deliberate effort to find them.",
+        "Sunset Runway: Dependency Inventory → Announcement & Dual-Run → Active Migration Support → Decommission.",
+        "Registered integrations undercount true dependency: watch for shared keys and intermediaries.",
+        "Dual-run periods exist so dependents migrate on their own timeline, not a forced synchronized cutover.",
+        "Gate decommission on actual migration progress, not just the calendar date."
+      ],
+      "blockId": "blk_6122224eb3"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "Sunset Runway",
+          "definition": "Four-phase model for retiring a platform capability: Dependency Inventory, Announcement & Dual-Run, Active Migration Support, Decommission",
+          "relatedConcepts": [
+            "Promise Tiers (Lesson 62)"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Dependency Inventory",
+          "definition": "The process of identifying who actually depends on a capability being retired, and how",
+          "relatedConcepts": [
+            "Sunset Runway",
+            "Migration Readiness Checklist"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Dual-Run Period",
+          "definition": "A period during which both an old and new capability remain simultaneously functional to support migration",
+          "relatedConcepts": [
+            "Sunset Runway"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Long-Tail Dependency",
+          "definition": "Low-volume but potentially critical usage that doesn't show up prominently in aggregate or registered metrics",
+          "relatedConcepts": [
+            "Dependency Inventory"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Migration Readiness Checklist",
+          "definition": "A five-item checklist confirming a dependency inventory and migration plan are genuinely thorough before announcement",
+          "relatedConcepts": [
+            "Sunset Runway"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Technical Debt Quadrant",
+          "definition": "Martin Fowler's framework classifying team-level technical debt trade-offs along deliberate/inadvertent and reckless/prudent axes.",
+          "relatedConcepts": [
+            "Sunset Runway (platform-scale extension)"
+          ],
+          "difficulty": 2
+        }
+      ],
+      "blockId": "blk_ee96193172"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "Mehdi Medjaoui, Erik Wilde, Ronnie Mitra, and Mike Amundsen, *Continuous API Management*"
+        },
+        {
+          "citation": "Nicole Forsgren, Jez Humble, and Gene Kim, *Accelerate*"
+        },
+        {
+          "citation": "Michael T. Nygard, *Release It!*"
+        }
+      ],
+      "blockId": "blk_6f6aa28496"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_3zk3iz",
+      "cards": [
+        {
+          "id": "fc-les_3zk3iz-1",
+          "front": "Why does platform-scale technical debt differ in kind from team-level technical debt?",
+          "back": "Dependents are frequently external, numerous, and hard to fully enumerate, turning an internal trade-off into an ecosystem-wide trust obligation.",
+          "difficulty": 2,
+          "tags": [
+            "technical-debt",
+            "core-concept"
+          ]
+        },
+        {
+          "id": "fc-les_3zk3iz-2",
+          "front": "Name the four phases of the Sunset Runway in order.",
+          "back": "Dependency Inventory, Announcement & Dual-Run, Active Migration Support, Decommission.",
+          "difficulty": 2,
+          "tags": [
+            "sunset-runway"
+          ]
+        },
+        {
+          "id": "fc-les_3zk3iz-3",
+          "front": "Why do registered-integration inventories often undercount true dependency?",
+          "back": "They miss undocumented workarounds, third-party intermediaries, and shared-key usage patterns that don't show up as distinct, directly registered integrations.",
+          "difficulty": 2,
+          "tags": [
+            "dependency-inventory"
+          ]
+        },
+        {
+          "id": "fc-les_3zk3iz-4",
+          "front": "What is the purpose of a dual-run period?",
+          "back": "To decouple the platform's readiness to retire something from each dependent's individual readiness to migrate, avoiding a forced synchronized cutover.",
+          "difficulty": 2,
+          "tags": [
+            "dual-run"
+          ]
+        },
+        {
+          "id": "fc-les_3zk3iz-5",
+          "front": "What went wrong in the Underestimated Cutover case study?",
+          "back": "The dependency inventory relied only on registered API keys, missing hundreds of downstream customers behind a third-party vendor's shared integration, and decommission proceeded on calendar date regardless of their migration status.",
+          "difficulty": 2,
+          "tags": [
+            "case-study",
+            "sunset-runway"
+          ]
+        },
+        {
+          "id": "fc-les_3zk3iz-6",
+          "front": "Why should Phase 4 (Decommission) be gated on migration progress rather than calendar date alone?",
+          "back": "A fixed date regardless of actual completion converts a planned transition into a forced, disruptive cutover for anyone who hasn't finished migrating.",
+          "difficulty": 2,
+          "tags": [
+            "decommission"
+          ]
+        },
+        {
+          "id": "fc-les_3zk3iz-7",
+          "front": "Why is Phase 3 (Active Migration Support) necessary beyond simply announcing a deprecation?",
+          "back": "Passive announcement alone tends to leave a long tail of dependents unaware or unprepared until the deadline arrives.",
+          "difficulty": 2,
+          "tags": [
+            "active-migration-support"
+          ]
+        }
+      ],
+      "blockId": "blk_a79f4708ed"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "You are the PM for a payments platform planning to deprecate an older transaction API in favor of a new, more secure version. Your team's registered integration list shows 150 direct API keys, but you've just learned that at least one major accounting software vendor uses your API on behalf of an unknown number of its own small-business customers through a single shared integration key.",
+        "There is no single correct answer to the prompts below: the goal is to practice applying the Sunset Runway and the Migration Readiness Checklist to a scenario with a known hidden-dependency risk.",
+        "Using the Sunset Runway's Phase 1, what specific steps would you take to estimate the true scope of dependency behind the accounting vendor's shared key?",
+        "How might the runway length you'd propose differ once this hidden dependency is accounted for, compared to a plan based only on the 150 registered keys?",
+        "What would an effective direct-outreach plan look like for reaching the accounting vendor's downstream customers, given you may not have direct contact information for them?",
+        "What criteria would you use to decide whether Phase 4 decommission is actually safe to proceed with, once the announced deadline arrives?",
+        "How would you balance the cost of extending the runway for this hidden dependency against the cost of delaying a security-motivated migration?"
+      ],
+      "blockId": "blk_e9c3d1c48e"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_3zk3iz",
+      "questions": [
+        {
+          "id": "q-les_3zk3iz-1",
+          "question": "Why does platform-scale technical debt differ in kind from team-level technical debt, per this lesson?",
+          "options": [
+            "Team-level debt never involves any external parties",
+            "Platform dependents are external, numerous, hard to track",
+            "Platform-scale debt is always smaller in absolute size",
+            "The two debt categories are basically interchangeable"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The lesson's central distinction is that platform-scale debt involves external dependents who are harder to identify and coordinate with than internal colleagues.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_3zk3iz-2",
+          "question": "What is the correct order of the Sunset Runway's phases?",
+          "options": [
+            "Active support, decommission, inventory, announcement",
+            "Decommission, announcement, inventory, active support",
+            "Inventory, announcement, active support, decommission",
+            "Announcement, active support, decommission, inventory"
+          ],
+          "correctAnswer": 2,
+          "explanation": "This is the sequential order introduced in the Theory section, from initial discovery through final removal.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_3zk3iz-3",
+          "question": "Why is Phase 1 (Dependency Inventory) described as determining whether subsequent phases are planned realistically?",
+          "options": [
+            "Its completeness shapes whether the whole plan fits reality",
+            "Later phases can generally compensate for an incomplete Phase 1",
+            "Phase 1 is mostly a formality with little real bearing",
+            "Phase 1 rarely changes what a reasonable runway looks like"
+          ],
+          "correctAnswer": 0,
+          "explanation": "An incomplete inventory leads to a runway and communication plan that look adequate on paper but don't actually cover the true dependent population.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_3zk3iz-4",
+          "question": "What is a common cause of an incomplete dependency inventory?",
+          "options": [
+            "Spending too much time researching dependents upfront",
+            "Including far more dependents than actually exist",
+            "Assuming inventories are complete once registration exists",
+            "Relying only on registered keys, missing hidden usage"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The lesson specifically identifies reliance on registered integrations alone as the common source of undercounting true dependency.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_3zk3iz-5",
+          "question": "What is the purpose of a dual-run period?",
+          "options": [
+            "Decouples platform readiness from each dependent's own pace",
+            "Forces every dependent to migrate on one fixed schedule",
+            "Maintains both versions permanently with no retirement",
+            "Avoids ever publicly announcing a deprecation at all"
+          ],
+          "correctAnswer": 0,
+          "explanation": "A dual-run period allows dependents to migrate according to their own constraints and timelines, rather than all at once.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_3zk3iz-6",
+          "question": "In the Case Study, what specifically caused the migration to fail for a significant population of affected businesses?",
+          "options": [
+            "Inventory missed customers hidden behind a shared key",
+            "The company never published any deprecation notice",
+            "The new API version performed noticeably worse",
+            "The 90-day runway was too short for registered dependents"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The failure specifically stemmed from an incomplete Phase 1 inventory that missed a substantial hidden dependent population.",
+          "objectivesTested": [
+            3,
+            5
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_3zk3iz-7",
+          "question": "According to the Migration Readiness Checklist, what does a \"no\" on Beyond Registered Integrations indicate?",
+          "options": [
+            "Registered integrations are the only dependents worth tracking",
+            "Confirmation that the migration is otherwise ready to go",
+            "A serious gap; the worst failures come from unknown dependents",
+            "A minor, low-priority item rarely affecting outcomes"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The lesson explicitly treats this as a serious risk given the Case Study's illustration of hidden dependency consequences.",
+          "objectivesTested": [
+            3,
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_3zk3iz-8",
+          "question": "Why should Phase 4 (Decommission) ideally be gated on measured migration progress rather than solely a calendar date?",
+          "options": [
+            "Calendar-based decommissioning is generally the safer choice",
+            "A fixed date can force a cutover on unfinished dependents",
+            "Migration progress is essentially impossible to measure",
+            "Calendar dates are inherently unreliable measures of time"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Proceeding by calendar date alone, without checking actual migration completion, risks harming dependents who are still in progress.",
+          "objectivesTested": [
+            4,
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_3zk3iz-9",
+          "question": "Why do mid-size companies typically experience their first genuinely painful migration, per the Real World Perspective section?",
+          "options": [
+            "Migrations are essentially painless once mid-size scale hits",
+            "Mid-size companies face legal migration mandates more often",
+            "Mid-size companies rarely accumulate external dependents",
+            "A growing base was never inventoried, so scope surprises hit"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The Real World Perspective section specifically attributes this to inventory gaps that emerge as the developer base grows past what founding-era informal communication can cover.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_3zk3iz-10",
+          "question": "What do mature, Big Tech-scale platforms typically require before any deprecation announcement, per the Real World Perspective section?",
+          "options": [
+            "A mandatory impact assessment and dedicated support staff",
+            "Sign-off from one engineering team, no cross-functional review",
+            "Immediate decommissioning with no dual-run period at all",
+            "No formal process; deprecations handled case by case"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The Real World Perspective section describes formal impact assessments and dedicated migration support as characteristic of mature platform governance.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_3zk3iz-11",
+          "question": "Why is Phase 3 (Active Migration Support) distinct from simply publishing a deprecation announcement?",
+          "options": [
+            "It replaces the need for a dependency inventory entirely",
+            "It requires direct outreach and real tooling, not silence",
+            "It applies only to migrations with fewer than ten users",
+            "It adds essentially no effort beyond what Phase 2 needs"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The lesson distinguishes passive announcement from the active, resourced support described in Phase 3.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_3zk3iz-12",
+          "question": "(Scenario) A platform team has identified 150 registered API integrations for an upcoming deprecation, but has not investigated whether any of them are used by intermediaries on behalf of further downstream customers. What is the most significant risk here?",
+          "options": [
+            "This risk is described as relevant only below 100 keys",
+            "Intermediary usage is generally counted automatically",
+            "There is little risk; 150 is already a comprehensive count",
+            "The true dependent population could be far larger, hidden"
+          ],
+          "correctAnswer": 3,
+          "explanation": "This mirrors the Case Study's core failure mode: registered counts can significantly understate true dependency when intermediaries are involved.",
+          "objectivesTested": [
+            3,
+            5
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_3zk3iz-13",
+          "question": "(Product Thinking) A migration's announced runway was generous relative to its Promise Tier classification from Lesson 62, yet still caused significant disruption. What is the most likely explanation, using this lesson's frameworks?",
+          "options": [
+            "Runway length has little actual bearing on a migration",
+            "A runway from an incomplete inventory misses the unaware",
+            "The migration would go smoother with no runway announced",
+            "The Promise Tiers model is incompatible with migration"
+          ],
+          "correctAnswer": 1,
+          "explanation": "A nominally generous runway is only meaningful for dependents who are actually aware of it; an incomplete inventory undermines even a well-intentioned timeline.",
+          "objectivesTested": [
+            3,
+            4,
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_3zk3iz-14",
+          "question": "(Interview Reasoning) A candidate asked how they'd plan an API deprecation immediately describes an announcement timeline and communication plan, without mentioning how they'd identify affected dependents. What does this signal, per the Interview Perspective section?",
+          "options": [
+            "Candidate should be hired for senior role without discussion",
+            "Little of concern; timeline is the only real consideration",
+            "A strong, complete understanding of migration planning",
+            "A gap in prioritizing dependency inventory as the first step"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The Interview Perspective section specifically flags dependency-inventory-first thinking as the desired response, which this candidate's answer skips.",
+          "objectivesTested": [
+            2,
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_3zk3iz-15",
+          "question": "(Product Thinking, Highest Difficulty) A platform team must deprecate an older API version, and has just learned that a major third-party vendor uses a shared integration key on behalf of an unknown number of its own downstream customers. Using only the frameworks in this lesson, what is the most defensible approach?",
+          "options": [
+            "Permanently maintain the old API to avoid any disruption",
+            "Immediately decommission now to skip tracking the vendor",
+            "Investigate scope, extend runway, gate on real progress",
+            "Proceed with the original plan since the vendor owns this"
+          ],
+          "correctAnswer": 2,
+          "explanation": "This mirrors the Reflection Exercise and Case Study: the correct response actively investigates the hidden dependency, adjusts the plan accordingly, and gates the final step on real progress rather than either rigid adherence to the original plan or indefinite avoidance of the migration.",
+          "objectivesTested": [
+            3,
+            4,
+            5
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_ea01715f19"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_md1mad",
+        "title": "Lesson 67, Platform Governance: Trust, Safety, and Abuse Prevention",
+        "module": "technical"
+      },
+      "current": {
+        "id": "les_3zk3iz",
+        "title": "Lesson 68, Technical Debt at Scale: Platform Migrations and Deprecations"
+      },
+      "next": {
+        "id": "les_ymfbn4",
+        "title": "Lesson 69: Internal Platforms and Developer Experience (DevEx) as a Product",
+        "module": "technical"
+      },
+      "unlocks": [
+        {
+          "lesson": {
+            "id": "les_7ndnsg",
+            "title": "Build",
+            "module": "strategy"
+          },
+          "coreIdea": "Uses the Sunset Runway as a consideration when evaluating the long-term maintenance cost of a build decision"
+        }
+      ],
+      "blockId": "blk_a8ef533af8"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 68: Technical Debt at Scale: Platform Migrations and Deprecations Lesson 67 closed with a company that, having redesigned its trust and safety enforcement pipeline, faced a significant technical rework, precisely the kind of large-scale migration this lesson now addresses directly. Module 4 introduced the Technical Debt Quadrant as a way of categorizing debt at the level of an individual team's codebase. This lesson scales that concern up by an order of magnitude: what happens when the thing that needs to change is not a single team's internal implementation, but a Layer 2 Developer Surface, per the Leverage Stack from Lesson 61, that dozens or hundreds of external parties depend on, per the Promise Tiers model from Lesson 62. At platform scale, technical debt is not merely an engineering inconvenience to be paid down at a team's own convenience: it can become a binding constraint on the platform's ability to evolve at all, because every dependent integration built by an external party is, in effect, a small claim on the platform's future flexibility. A platform that accumulates enough of these claims, without a disciplined process for eventually retiring old commitments, can find itself unable to make even clearly beneficial changes, trapped by the sheer volume and diversity of things depending on the old behavior. This lesson introduces the Sunset Runway, this lesson's core mental model, to give you a structured way to plan and execute large-scale migrations and deprecations without either freezing a platform in place indefinitely or breaking trust with the ecosystem depending on it, directly extending the discipline this curriculum began building in Lesson 62's Promise Tiers. Explain why platform-scale technical debt differs from team-level technical debt in kind, not just degree. Apply the Sunset Runway model to plan a large-scale migration or deprecation with an appropriate timeline. Identify the risks of an incomplete dependency inventory before a migration begins. Describe the purpose of a dual-run period in a platform migration. Evaluate a proposed migration plan for whether its timeline and communication match the scale of ecosystem dependency involved. This lesson assumes the Promise Tiers model, semantic versioning, and deprecation policy concepts from Lesson 62, and a general familiarity with the Technical Debt Quadrant introduced in Module 4 (Lessons 31–40), since this lesson extends that team-level framework to the platform scale, where dependents are external parties rather than internal colleagues. Why Platform-Scale Technical Debt Differs in Kind Team-level technical debt, as covered in Module 4's Technical Debt Quadrant, is primarily a matter of internal trade-offs: a team accepts some debt to move faster, and pays it down later, largely on its own schedule, since the people affected by the debt and the people who incurred it are often the same people, or at least the same organization. Platform-scale technical debt is structurally different, because the parties depending on the old behavior are frequently external, numerous, and invisible to the platform team in aggregate. A single internal team's debt is a private matter; a platform's accumulated commitments are, in effect, public promises made to an entire ecosystem, and unwinding them requires coordinating changes across parties the platform team does not control and may not even be able to fully enumerate. This is precisely why Lesson 62 introduced the Promise Tiers model and formal deprecation policy: without those mechanisms, a platform has no legitimate way to ever retire an old commitment, and technical debt at this scale becomes a one-way ratchet, accumulating indefinitely because removing anything risks breaking someone, somewhere, who was never accounted for. The Sunset Runway This lesson introduces the **Sunset Runway**, a four-phase model for retiring a platform capability that external parties depend on: **Phase 1, Dependency Inventory**, requires building the most complete possible picture of who actually depends on the capability being retired, and how: a step that is frequently skipped or under-resourced, with damaging consequences illustrated in the Case Study below. **Phase 2, Announcement and Dual-Run**, begins the deprecation clock (per the Promise Tier the capability belongs to) while keeping both the old and new paths simultaneously functional, giving dependents time to migrate without a hard cutover forcing everyone to move at once. **Phase 3, Active Migration Support**, is where the platform team takes on real responsibility for helping dependents actually complete their migration (providing tooling, direct outreach to known high-impact dependents, and clear deadline communication) rather than simply announcing the change and waiting passively. **Phase 4, Decommission**, removes the old path only after the notice period has elapsed and, ideally, after monitoring shows migration completion has reached an acceptable threshold, rather than by calendar date alone regardless of actual migration progress. The Sunset Runway's core discipline is recognizing that the length of an appropriate runway is not a fixed constant: it should scale with the number, diversity, and criticality of dependents uncovered in Phase 1, meaning the very first phase directly determines whether every subsequent phase is even planned realistically. The Danger of an Incomplete Dependency Inventory A dependency inventory built only from what the platform team can easily observe (registered API keys, documented integrations) will systematically miss dependents using undocumented workarounds, third-party tools built on top of official integrations, or long-tail, low-volume-but-critical usage that doesn't show up prominently in aggregate metrics. An incomplete inventory doesn't just risk missing a few edge cases: it risks systematically under-estimating the true scope of a migration, leading to a runway that looks generous on paper but is, in practice, far too short for the dependents the platform team never accounted for in the first place. Why a Dual-Run Period Matters A **dual-run period** (during which both the old and new capability remain simultaneously functional) exists specifically to decouple the platform's readiness to retire something from each individual dependent's readiness to migrate away from it. Without a dual-run period, a migration becomes a synchronized, all-or-nothing cutover, forcing every dependent, regardless of their own internal priorities, resourcing, or release cycles, to migrate on the platform's timeline rather than a timeline that accounts for their own constraints: a mismatch that is especially costly for the platform's most resource-constrained and often most loyal long-tail dependents. Skipping or under-resourcing the dependency inventory phase Assuming that documented, registered integrations represent the full universe of dependents nearly always understates the true scope of who will be affected by a migration. Setting a migration deadline based on calendar convenience rather than dependent migration progress Decommissioning on a fixed date regardless of actual migration completion rates converts a planned, orderly transition into a forced, disruptive cutover for anyone who hasn't finished migrating. Treating announcement as equivalent to active migration support Simply publishing a deprecation notice and expecting dependents to act on their own initiative, without direct outreach or migration tooling, tends to leave a long tail of dependents who never see or act on the announcement until the deadline arrives. Underestimating the runway needed for the most resource-constrained dependents A migration timeline appropriate for large, well-resourced partners may be far too aggressive for smaller developers or long-tail integrations with less engineering capacity to respond quickly. Failing to monitor migration progress during the dual-run period Without tracking how many dependents have actually migrated as the deadline approaches, a platform team has no way to know whether a planned Phase 4 decommission is actually safe to execute on schedule. The Sunset Runway The Sunset Runway introduced above is this lesson's core takeaway tool. Before beginning any large-scale platform migration or deprecation, ask: **Has Phase 1's dependency inventory gone beyond easily observable, registered integrations** to actively search for undocumented or long-tail usage? **Does the announced runway length in Phase 2 scale appropriately with the diversity and criticality of dependents uncovered**, per the capability's Promise Tier from Lesson 62, rather than being set by internal convenience? **Is Phase 3 genuinely active** (direct outreach and migration tooling) rather than a passive announcement followed by silence until the deadline? **Is Phase 4's decommission gated on actual migration progress**, not solely on the calendar date originally announced? A migration plan that can answer all four questions affirmatively is far less likely to produce the kind of disruptive, trust-damaging cutover this lesson's Case Study describes. Google Reader's 2013 shutdown **Google Reader's 2013 shutdown** is a specific, heavily documented instance of this lesson's core risk, not just a general pattern. Google announced the discontinuation on March 13, 2013, with a shutdown date of July 1, 2013 (roughly three and a half months of runway) for a product that had, in the intervening years, become genuinely load-bearing infrastructure for a large ecosystem of independent RSS readers, blogs, and news-discovery tools built on top of it. Contemporaneous coverage from CNN and the Los Angeles Times documented a large public backlash, including a widely circulated Change.org petition against the shutdown, and Forbes coverage at the time characterized the reaction as extending well beyond ordinary users to the community of publishers and developers who had built distribution strategies around Reader's continued existence. Google did offer a Takeout-based export path for users' subscription data, but the underlying dependent ecosystem (sites and tools built assuming Reader's API would keep functioning) had no equivalent migration runway. This is a useful illustration precisely because the decision to deprecate wasn't unreasonable on its own technical or strategic merits (Google cited declining usage), but the *execution* (runway length relative to how deeply embedded the product had become in a wider ecosystem) is what produced the lasting reputational cost, echoing this lesson's Promise Tiers concept: a widely depended-upon product accrues an implicit promise about migration support that scales with how deeply integrated it has become, independent of whether the underlying deprecation decision itself was sound. *(Source: contemporaneous March 2013 reporting from CNN, the Los Angeles Times, and Forbes on the announcement and public reaction.)* Startup Early-stage platforms typically have few enough external dependents that migrations can be coordinated through direct, informal communication with each one individually, making a formal Sunset Runway process feel like unnecessary overhead: a reasonable trade-off at small scale, but one that does not automatically transfer into good practice once the dependent base grows. Mid-size company This is typically where the first genuinely painful migration occurs, often because a growing developer base was never comprehensively inventoried, and a deprecation planned assuming a small, known dependent set turns out to affect a much larger and more diverse population than anticipated. Big Tech Mature platforms typically maintain formal migration and deprecation governance processes, including mandatory dependency-impact assessments before any deprecation announcement and dedicated migration-support engineering resources, precisely because the reputational and ecosystem-trust cost of a poorly-run migration at that scale can be severe and highly visible. The Underestimated Cutover A logistics software platform decided to deprecate an older, less efficient version of its core shipment-tracking API in favor of a significantly improved new version. The platform team, working from its registry of officially registered API keys, identified roughly 200 known integrations and announced a 90-day deprecation notice, judged by the team to be generous relative to the Promise Tier the API belonged to and consistent with the deprecation policy discipline from Lesson 62. What the registered-API-key inventory missed was a substantial population of smaller logistics companies who had, years earlier, built integrations through a popular third-party logistics-software vendor that itself used the platform's API on behalf of hundreds of its own downstream customers, all operating under a small number of shared API keys the platform team's inventory had significantly under-counted in terms of actual downstream dependency. When the 90-day deadline arrived and the old API version was decommissioned on schedule, the platform team discovered (abruptly, through a surge of support tickets) that several hundred small businesses relying on that third-party vendor's integration had never received any direct migration communication, since all official announcements had gone only to the vendor's shared account contact, and the vendor itself had not adequately propagated the migration requirement to its own downstream customers in time. **What went wrong?** Using the Sunset Runway, the failure is precise: Phase 1's dependency inventory relied solely on registered API keys, systematically undercounting the true scope of downstream dependents hidden behind a third-party vendor's shared integration, and Phase 4's decommission proceeded strictly on the calendar date rather than being gated on evidence of actual migration completion across this hidden long tail. The 90-day runway may well have been generous for the visible, directly-registered dependents, but it was never actually communicated to, or usable by, the much larger hidden population depending on the same underlying capability through an intermediary. The company's recovery involved extending emergency dual-run access for the affected long tail while working directly with the third-party vendor to complete a coordinated migration, and instituting a new dependency inventory practice for future migrations that explicitly probes for shared-key or intermediary-based usage patterns, not just directly registered integrations: a discipline this curriculum will connect to internal platform and developer experience considerations in Lesson 69. The Migration Readiness Checklist Before beginning Phase 2 (Announcement and Dual-Run) of any platform migration, a PM can use the following checklist to confirm Phase 1 was genuinely thorough: A \"no\" on Beyond Registered Integrations should be treated as a serious planning gap: as the Case Study shows, the most damaging migration failures often come from dependents the platform team never knew existed. How would you plan a deprecation of a widely-used internal or external API? The interviewer is evaluating whether you propose a dependency-inventory-first approach and a runway that scales with the diversity of dependents uncovered, rather than jumping straight to an announcement and deadline. What's the risk of relying only on registered integrations to understand who depends on a platform capability? The interviewer is testing whether you recognize the hidden long-tail dependency risk illustrated in this lesson's Case Study, where intermediary or shared-key usage can significantly undercount true dependency. Tell me about a migration or deprecation that didn't go as planned. The interviewer is listening for recognition of a specific, locatable failure point in the Sunset Runway (an incomplete inventory, a passive rather than active migration support phase, or a decommission gated on calendar date rather than actual progress) rather than a vague description of \"things going wrong.\" Platform-scale technical debt differs in kind from team-level technical debt, because the parties depending on old behavior are frequently external, numerous, and difficult to fully enumerate, converting the Technical Debt Quadrant's internal trade-off framing from Module 4 into a genuine ecosystem-trust obligation, governed by the Promise Tiers and deprecation policy discipline from Lesson 62. The Sunset Runway (Dependency Inventory, Announcement and Dual-Run, Active Migration Support, and Decommission) provides a structured process for retiring a platform capability without either freezing the platform indefinitely or breaking trust with the ecosystem depending on it, and the runway's appropriate length should scale with the diversity and criticality of dependents actually uncovered, not be set by internal convenience. The most damaging migration failures typically originate in an incomplete dependency inventory that systematically undercounts hidden, intermediary-based, or shared-key usage, compounded by a decommission phase gated on calendar date rather than measured migration progress: a combination that can convert what looked like a generous, well-planned runway into an abrupt, trust-damaging cutover for exactly the dependents the platform team never accounted for. Platform-scale technical debt differs in kind from team-level debt, since dependents are frequently external, numerous, and hard to fully enumerate. The Sunset Runway (Dependency Inventory, Announcement and Dual-Run, Active Migration Support, Decommission) structures a large-scale migration or deprecation. Dependency inventories relying only on registered, documented integrations frequently undercount true dependency, especially through intermediaries or shared keys. A dual-run period decouples the platform's readiness to retire something from each dependent's individual readiness to migrate. Active migration support (direct outreach, tooling) is necessary; passive announcement alone tends to leave a long tail of dependents unaware or unprepared. Decommissioning should be gated on measured migration progress, not solely on a calendar deadline set at the start of the process. Runway length should scale with the diversity and criticality of dependents uncovered during Phase 1, not be fixed by internal convenience. Platform debt ≠ team debt. Dependents are external, numerous, and often invisible without deliberate effort to find them. Sunset Runway: Dependency Inventory → Announcement & Dual-Run → Active Migration Support → Decommission. Registered integrations undercount true dependency: watch for shared keys and intermediaries. Dual-run periods exist so dependents migrate on their own timeline, not a forced synchronized cutover. Gate decommission on actual migration progress, not just the calendar date. Sunset Runway Four-phase model for retiring a platform capability: Dependency Inventory, Announcement & Dual-Run, Active Migration Support, Decommission Dependency Inventory The process of identifying who actually depends on a capability being retired, and how Dual-Run Period A period during which both an old and new capability remain simultaneously functional to support migration Long-Tail Dependency Low-volume but potentially critical usage that doesn't show up prominently in aggregate or registered metrics Migration Readiness Checklist A five-item checklist confirming a dependency inventory and migration plan are genuinely thorough before announcement Technical Debt Quadrant Martin Fowler's framework classifying team-level technical debt trade-offs along deliberate/inadvertent and reckless/prudent axes. Mehdi Medjaoui, Erik Wilde, Ronnie Mitra, and Mike Amundsen, *Continuous API Management* Nicole Forsgren, Jez Humble, and Gene Kim, *Accelerate* Michael T. Nygard, *Release It!* Why does platform-scale technical debt differ in kind from team-level technical debt? Dependents are frequently external, numerous, and hard to fully enumerate, turning an internal trade-off into an ecosystem-wide trust obligation. Name the four phases of the Sunset Runway in order. Dependency Inventory, Announcement & Dual-Run, Active Migration Support, Decommission. Why do registered-integration inventories often undercount true dependency? They miss undocumented workarounds, third-party intermediaries, and shared-key usage patterns that don't show up as distinct, directly registered integrations. What is the purpose of a dual-run period? To decouple the platform's readiness to retire something from each dependent's individual readiness to migrate, avoiding a forced synchronized cutover. What went wrong in the Underestimated Cutover case study? The dependency inventory relied only on registered API keys, missing hundreds of downstream customers behind a third-party vendor's shared integration, and decommission proceeded on calendar date regardless of their migration status. Why should Phase 4 (Decommission) be gated on migration progress rather than calendar date alone? A fixed date regardless of actual completion converts a planned transition into a forced, disruptive cutover for anyone who hasn't finished migrating. Why is Phase 3 (Active Migration Support) necessary beyond simply announcing a deprecation? Passive announcement alone tends to leave a long tail of dependents unaware or unprepared until the deadline arrives. You are the PM for a payments platform planning to deprecate an older transaction API in favor of a new, more secure version. Your team's registered integration list shows 150 direct API keys, but you've just learned that at least one major accounting software vendor uses your API on behalf of an unknown number of its own small-business customers through a single shared integration key. There is no single correct answer to the prompts below: the goal is to practice applying the Sunset Runway and the Migration Readiness Checklist to a scenario with a known hidden-dependency risk. Using the Sunset Runway's Phase 1, what specific steps would you take to estimate the true scope of dependency behind the accounting vendor's shared key? How might the runway length you'd propose differ once this hidden dependency is accounted for, compared to a plan based only on the 150 registered keys? What would an effective direct-outreach plan look like for reaching the accounting vendor's downstream customers, given you may not have direct contact information for them? What criteria would you use to decide whether Phase 4 decommission is actually safe to proceed with, once the announced deadline arrives? How would you balance the cost of extending the runway for this hidden dependency against the cost of delaying a security-motivated migration? Why does platform-scale technical debt differ in kind from team-level technical debt, per this lesson? The lesson's central distinction is that platform-scale debt involves external dependents who are harder to identify and coordinate with than internal colleagues. What is the correct order of the Sunset Runway's phases? This is the sequential order introduced in the Theory section, from initial discovery through final removal. Why is Phase 1 (Dependency Inventory) described as determining whether subsequent phases are planned realistically? An incomplete inventory leads to a runway and communication plan that look adequate on paper but don't actually cover the true dependent population. What is a common cause of an incomplete dependency inventory? The lesson specifically identifies reliance on registered integrations alone as the common source of undercounting true dependency. What is the purpose of a dual-run period? A dual-run period allows dependents to migrate according to their own constraints and timelines, rather than all at once. In the Case Study, what specifically caused the migration to fail for a significant population of affected businesses? The failure specifically stemmed from an incomplete Phase 1 inventory that missed a substantial hidden dependent population. According to the Migration Readiness Checklist, what does a \"no\" on Beyond Registered Integrations indicate? The lesson explicitly treats this as a serious risk given the Case Study's illustration of hidden dependency consequences. Why should Phase 4 (Decommission) ideally be gated on measured migration progress rather than solely a calendar date? Proceeding by calendar date alone, without checking actual migration completion, risks harming dependents who are still in progress. Why do mid-size companies typically experience their first genuinely painful migration, per the Real World Perspective section? The Real World Perspective section specifically attributes this to inventory gaps that emerge as the developer base grows past what founding-era informal communication can cover. What do mature, Big Tech-scale platforms typically require before any deprecation announcement, per the Real World Perspective section? The Real World Perspective section describes formal impact assessments and dedicated migration support as characteristic of mature platform governance. Why is Phase 3 (Active Migration Support) distinct from simply publishing a deprecation announcement? The lesson distinguishes passive announcement from the active, resourced support described in Phase 3. (Scenario) A platform team has identified 150 registered API integrations for an upcoming deprecation, but has not investigated whether any of them are used by intermediaries on behalf of further downstream customers. What is the most significant risk here? This mirrors the Case Study's core failure mode: registered counts can significantly understate true dependency when intermediaries are involved. (Product Thinking) A migration's announced runway was generous relative to its Promise Tier classification from Lesson 62, yet still caused significant disruption. What is the most likely explanation, using this lesson's frameworks? A nominally generous runway is only meaningful for dependents who are actually aware of it; an incomplete inventory undermines even a well-intentioned timeline. (Interview Reasoning) A candidate asked how they'd plan an API deprecation immediately describes an announcement timeline and communication plan, without mentioning how they'd identify affected dependents. What does this signal, per the Interview Perspective section? The Interview Perspective section specifically flags dependency-inventory-first thinking as the desired response, which this candidate's answer skips. (Product Thinking, Highest Difficulty) A platform team must deprecate an older API version, and has just learned that a major third-party vendor uses a shared integration key on behalf of an unknown number of its own downstream customers. Using only the frameworks in this lesson, what is the most defensible approach? This mirrors the Reflection Exercise and Case Study: the correct response actively investigates the hidden dependency, adjusts the plan accordingly, and gates the final step on real progress rather than either rigid adherence to the original plan or indefinite avoidance of the migration.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "Mental Model: The Sunset Runway",
+      "Real Company Example",
+      "Real World Perspective: Technical Debt at Scale: Platform Migrations and Deprecations at Different Company Stages",
+      "Detailed Case Study: The Underestimated Cutover",
+      "Framework Explanation: The Migration Readiness Checklist",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "Sunset Runway",
+    "Dependency Inventory",
+    "Dual-Run Period",
+    "Long-Tail Dependency",
+    "Migration Readiness Checklist",
+    "Technical Debt Quadrant"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

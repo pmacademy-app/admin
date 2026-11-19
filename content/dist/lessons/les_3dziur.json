@@ -1,0 +1,963 @@
+{
+  "schemaVersion": 2,
+  "id": "les_3dziur",
+  "contentHash": "dd5143ab7f842476dc3831f03ba3923c375d9525e0a1eeb53293fc72c5c5faa4",
+  "title": "Customer Interviews",
+  "slug": "lesson-012",
+  "module": "discovery",
+  "order": 2,
+  "totalInModule": 10,
+  "difficulty": 4,
+  "estimatedReadingTime": 30,
+  "estimatedCompletionTime": 45,
+  "prerequisites": [
+    "les_8trb62",
+    "les_4kpbq6"
+  ],
+  "seoTitle": "Customer Interviews: How to Ask Non-Leading Questions",
+  "seoDescription": "Master the art of customer interviews. Learn to investigate past behaviors, uncover switch forces, and avoid misleading hypothetical answers.",
+  "inShort": "Customer interviews are structured conversations focused on understanding genuine user behavior and past experiences rather than opinions or hypothetical promises. By examining concrete actions, emotional triggers, and historical purchasing moments through switch interview techniques, product managers uncover authentic motivations while avoiding the false positives that leading questions and future-oriented speculation inevitably produce.",
+  "sourceFile": "content/lessons/lesson-012.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 12: Customer Interviews",
+      "blockId": "blk_ccb2de2d5a"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 11 established the theory: qualitative research answers why/how questions, revealed preference beats stated preference, and several specific biases (confirmation bias, leading questions, social desirability bias, the \"would you use this\" trap) distort findings if not deliberately controlled for. This lesson is where that theory becomes a skill you can actually execute in a room, or on a call, with a real person, in real time, under the real pressure of wanting to hear a particular answer.",
+      "blockId": "blk_de7dba72b5"
+    },
+    {
+      "type": "paragraph",
+      "text": "**A customer interview** is a structured, one-on-one conversation designed to surface a person's actual past behavior, context, and reasoning, not their opinions about hypothetical futures, and not a pitch dressed up as a conversation. The central discipline of a good interview is almost the opposite of what feels natural in a normal conversation: instead of asking what someone thinks, wants, or would do, a skilled interviewer asks about what someone has actually done, in as much concrete, specific detail as possible, because specific past behavior is a form of revealed preference (Lesson 11) that is far more reliable than a hypothetical opinion.",
+      "blockId": "blk_811ad221ea"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson matters because customer interviews are simultaneously the most commonly used and the most commonly misused research method in product work. Nearly every PM conducts interviews at some point; comparatively few conduct them in a way that reliably produces trustworthy evidence rather than a comfortable, leading, self-fulfilling conversation. The gap between a good interview and a bad one is not raw talent: it is a specific, learnable set of techniques, which this lesson covers directly.",
+      "blockId": "blk_ba4ad4a63f"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "Distinguish a \"past-behavior\" interview question from a hypothetical or opinion-based question, and explain why the former produces more reliable evidence.",
+        "Apply the \"switch interview\" structure to uncover the specific moment and forces that led someone to adopt, or seriously consider adopting, a new solution.",
+        "Identify and avoid the most common interviewer mistakes: leading questions, pitching instead of listening, accepting vague answers, and interviewing only easy-to-reach participants.",
+        "Distinguish a customer interview conducted for discovery purposes from one conducted for usability testing, and explain why conflating the two produces weaker results for both.",
+        "Apply the \"Five Whys\" and silence techniques to move a conversation from a surface-level answer to a genuinely underlying one."
+      ],
+      "blockId": "blk_6fab2697e5"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 6 (Jobs To Be Done) and Lesson 11 (User Research). This lesson assumes fluency with the laddering technique from Lesson 6 (which customer interviews are the primary vehicle for conducting) and with the stated-versus-revealed-preference distinction and bias list from Lesson 11, which this lesson translates into concrete interviewing technique.",
+      "blockId": "blk_8773155efb"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Past-Behavior Questions vs. Hypothetical and Opinion Questions",
+          "blockId": "blk_0a75b730cf"
+        },
+        {
+          "type": "paragraph",
+          "text": "The single most important technical skill in customer interviewing is the discipline of asking about **specific past behavior** rather than **hypothetical future behavior** or **general opinion**. Consider three ways of asking about the same underlying topic:",
+          "blockId": "blk_185e6d34d2"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**Hypothetical (weak)**: \"Would you use a feature that let you set spending limits per category?\"",
+            "**Opinion (weak)**: \"What do you think about budgeting apps in general?\"",
+            "**Past behavior (strong)**: \"Tell me about the last time you tried to stick to a budget. Walk me through exactly what happened.\""
+          ],
+          "blockId": "blk_4cc2be865a"
+        },
+        {
+          "type": "paragraph",
+          "text": "The past-behavior question is dramatically more reliable, for reasons directly tied to Lesson 11's stated-versus-revealed-preference distinction: a hypothetical question asks someone to predict their own future behavior, which people are demonstrably bad at, and costs nothing to answer generously; an opinion question invites abstract, socially acceptable answers disconnected from lived experience; a past-behavior question asks for a specific, real memory, which is far harder to answer with a comfortable, generic platitude, and which tends to surface concrete detail (including friction, workarounds, and abandoned attempts) that a hypothetical question would never reveal.",
+          "blockId": "blk_5f04b8094f"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_0f7ff613ec",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Interview Question Type] --> B[Hypothetical Would You Use X?]\r\n    A --> C[Opinion What Do You Think About X?]\r\n    A --> D[Past Behavior Tell Me<br/>About the Last Time You Did X]\r\n    B --> E[Weak: Costs Nothing to Answer Generously]\r\n    C --> F[Weak: Invites Abstract,<br/>Socially Acceptable Answers]\r\n    D --> G[Strong: Specific, Real Memory, Harder to<br/>Fake, Surfaces Concrete Detail and<br/>Friction]",
+          "normalized": "graph TD\r\n    A[Interview Question Type] --> B[Hypothetical Would You Use X?]\r\n    A --> C[Opinion What Do You Think About X?]\r\n    A --> D[Past Behavior Tell Me<br/>About the Last Time You Did X]\r\n    B --> E[Weak: Costs Nothing to Answer Generously]\r\n    C --> F[Weak: Invites Abstract,<br/>Socially Acceptable Answers]\r\n    D --> G[Strong: Specific, Real Memory, Harder to<br/>Fake, Surfaces Concrete Detail and<br/>Friction]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020933967-27\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1710.25\" height=\"519\" viewBox=\"-77 -27 1710.25 519\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Interview Question Type → Hypothetical Would You Use X? → Opinion What Do You Think About X? → Past Behavior Tell MeAbout the Last Time You Did X → Weak: Costs Nothing to Answer Generously...\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Interview Question Type → Hypothetical Would You Use X? → Opinion What Do You Think About X? → Past Behavior Tell MeAbout the Last Time You Did X → Weak: Costs Nothing to Answer Generously...</title><style>#mermaid-svg-1795020933967-27{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020933967-27 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020933967-27 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020933967-27 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020933967-27 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020933967-27 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020933967-27 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020933967-27 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020933967-27 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020933967-27 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020933967-27 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020933967-27 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020933967-27 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020933967-27 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020933967-27 p{margin:0;}#mermaid-svg-1795020933967-27 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020933967-27 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020933967-27 .cluster-label span{color:#171A17;}#mermaid-svg-1795020933967-27 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020933967-27 .label text,#mermaid-svg-1795020933967-27 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020933967-27 .node rect,#mermaid-svg-1795020933967-27 .node circle,#mermaid-svg-1795020933967-27 .node ellipse,#mermaid-svg-1795020933967-27 .node polygon,#mermaid-svg-1795020933967-27 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020933967-27 .rough-node .label text,#mermaid-svg-1795020933967-27 .node .label text,#mermaid-svg-1795020933967-27 .image-shape .label,#mermaid-svg-1795020933967-27 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020933967-27 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020933967-27 .rough-node .label,#mermaid-svg-1795020933967-27 .node .label,#mermaid-svg-1795020933967-27 .image-shape .label,#mermaid-svg-1795020933967-27 .icon-shape .label{text-align:center;}#mermaid-svg-1795020933967-27 .node.clickable{cursor:pointer;}#mermaid-svg-1795020933967-27 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020933967-27 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020933967-27 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020933967-27 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020933967-27 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020933967-27 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020933967-27 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020933967-27 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020933967-27 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020933967-27 .cluster text{fill:#171A17;}#mermaid-svg-1795020933967-27 .cluster span{color:#171A17;}#mermaid-svg-1795020933967-27 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020933967-27 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020933967-27 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020933967-27 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020933967-27 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020933967-27 .icon-shape,#mermaid-svg-1795020933967-27 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020933967-27 .icon-shape p,#mermaid-svg-1795020933967-27 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020933967-27 .icon-shape .label rect,#mermaid-svg-1795020933967-27 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020933967-27 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020933967-27 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020933967-27 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020933967-27 [data-look=\"neo\"].node rect,#mermaid-svg-1795020933967-27 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020933967-27 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020933967-27-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020933967-27 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020933967-27 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020933967-27-gradient);stroke-width:1px;}#mermaid-svg-1795020933967-27 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020933967-27 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020933967-27 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020933967-27-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020933967-27 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020933967-27 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020933967-27-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020933967-27 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020933967-27-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020933967-27 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020933967-27_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020933967-27_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020933967-27_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020933967-27_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020933967-27_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020933967-27_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020933967-27_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020933967-27_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020933967-27_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020933967-27_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020933967-27_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020933967-27_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M668.5,71.534L607.583,80.195C546.667,88.856,424.833,106.178,363.917,123.922C303,141.667,303,159.833,303,168.917L303,178\" id=\"mermaid-svg-1795020933967-27-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NjY4LjUsInkiOjcxLjUzMzk1OTcwMTE1NDYzfSx7IngiOjMwMywieSI6MTIzLjV9LHsieCI6MzAzLCJ5IjoxODJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020933967-27_flowchart-v2-pointEnd)\"></path><path d=\"M855.125,82L855.125,88.917C855.125,95.833,855.125,109.667,855.125,125.667C855.125,141.667,855.125,159.833,855.125,168.917L855.125,178\" id=\"mermaid-svg-1795020933967-27-L_A_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_C_0\" data-points=\"W3sieCI6ODU1LjEyNSwieSI6ODJ9LHsieCI6ODU1LjEyNSwieSI6MTIzLjV9LHsieCI6ODU1LjEyNSwieSI6MTgyfV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020933967-27_flowchart-v2-pointEnd)\"></path><path d=\"M1041.75,71.534L1102.667,80.195C1163.583,88.856,1285.417,106.178,1346.333,121.089C1407.25,136,1407.25,148.5,1407.25,154.75L1407.25,161\" id=\"mermaid-svg-1795020933967-27-L_A_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_D_0\" data-points=\"W3sieCI6MTA0MS43NSwieSI6NzEuNTMzOTU5NzAxMTU0NjN9LHsieCI6MTQwNy4yNSwieSI6MTIzLjV9LHsieCI6MTQwNy4yNSwieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020933967-27_flowchart-v2-pointEnd)\"></path><path d=\"M303,256L303,265.75C303,275.5,303,295,303,316.667C303,338.333,303,362.167,303,374.083L303,386\" id=\"mermaid-svg-1795020933967-27-L_B_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_E_0\" data-points=\"W3sieCI6MzAzLCJ5IjoyNTZ9LHsieCI6MzAzLCJ5IjozMTQuNX0seyJ4IjozMDMsInkiOjM5MH1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020933967-27_flowchart-v2-pointEnd)\"></path><path d=\"M855.125,256L855.125,265.75C855.125,275.5,855.125,295,855.125,313.833C855.125,332.667,855.125,350.833,855.125,359.917L855.125,369\" id=\"mermaid-svg-1795020933967-27-L_C_F_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_F_0\" data-points=\"W3sieCI6ODU1LjEyNSwieSI6MjU2fSx7IngiOjg1NS4xMjUsInkiOjMxNC41fSx7IngiOjg1NS4xMjUsInkiOjM3M31d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020933967-27_flowchart-v2-pointEnd)\"></path><path d=\"M1407.25,273L1407.25,279.917C1407.25,286.833,1407.25,300.667,1407.25,313.833C1407.25,327,1407.25,339.5,1407.25,345.75L1407.25,352\" id=\"mermaid-svg-1795020933967-27-L_D_G_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_G_0\" data-points=\"W3sieCI6MTQwNy4yNSwieSI6MjczfSx7IngiOjE0MDcuMjUsInkiOjMxNC41fSx7IngiOjE0MDcuMjUsInkiOjM1Nn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020933967-27_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_F_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_D_G_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020933967-27-flowchart-A-0\" data-look=\"classic\" transform=\"translate(855.125, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-145.75\" y=\"-35\" width=\"291.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-113.75, -19)\"><rect></rect><foreignObject width=\"227.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Interview Question Type</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020933967-27-flowchart-B-1\" data-look=\"classic\" transform=\"translate(303, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-171.25\" y=\"-35\" width=\"342.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-139.25, -19)\"><rect></rect><foreignObject width=\"278.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Hypothetical Would You Use X?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020933967-27-flowchart-C-3\" data-look=\"classic\" transform=\"translate(855.125, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-192.5\" y=\"-35\" width=\"385\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-160.5, -19)\"><rect></rect><foreignObject width=\"321\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Opinion What Do You Think About X?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020933967-27-flowchart-D-5\" data-look=\"classic\" transform=\"translate(1407.25, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-171.25\" y=\"-46\" width=\"342.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-139.25, -30)\"><rect></rect><foreignObject width=\"278.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Past Behavior Tell Me<br>About the Last Time You Did X</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020933967-27-flowchart-E-7\" data-look=\"classic\" transform=\"translate(303, 427)\"><rect class=\"basic label-container\" style=\"\" x=\"-218\" y=\"-35\" width=\"436\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-186, -19)\"><rect></rect><foreignObject width=\"372\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Weak: Costs Nothing to Answer Generously</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020933967-27-flowchart-F-9\" data-look=\"classic\" transform=\"translate(855.125, 427)\"><rect class=\"basic label-container\" style=\"\" x=\"-162.75\" y=\"-46\" width=\"325.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-130.75, -30)\"><rect></rect><foreignObject width=\"261.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Weak: Invites Abstract,<br>Socially Acceptable Answers</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020933967-27-flowchart-G-11\" data-look=\"classic\" transform=\"translate(1407.25, 427)\"><rect class=\"basic label-container\" style=\"\" x=\"-218\" y=\"-57\" width=\"436\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-186, -41)\"><rect></rect><foreignObject width=\"372\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Strong: Specific, Real Memory, Harder to<br>Fake, Surfaces Concrete Detail and<br>Friction</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020933967-27-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020933967-27-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020933967-27-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_0f7ff613ec"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Switch Interview Structure",
+          "blockId": "blk_86dc202722"
+        },
+        {
+          "type": "paragraph",
+          "text": "A particularly powerful, structured application of past-behavior questioning is the **switch interview** (closely associated with Bob Moesta's applied Jobs to Be Done work, previewed in Lesson 6's Forces of Progress model), which focuses specifically on the moment someone adopted, or seriously considered adopting, a new solution. The structure moves through a specific sequence:",
+          "blockId": "blk_d9a2f165d6"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**First thought**: \"When did you first start thinking you might need something like this?\" This establishes the earliest moment of dissatisfaction (the Push force from Lesson 6).",
+            "**Passive looking**: \"What did you do next? Did you look into any options at that point, even casually?\"",
+            "**Active looking**: \"What made you go from casually considering this to actually seriously looking for a solution?\" This often reveals a specific triggering event, not a gradual, generic realization.",
+            "**Deciding**: \"Walk me through how you actually chose [this solution] over the alternatives you were considering.\" This surfaces the Pull force and the specific comparison being made.",
+            "**Anxiety and habit at the moment of commitment**: \"What almost stopped you from going through with it?\" This directly surfaces the Anxiety and Habit forces from Lesson 6's Forces of Progress model."
+          ],
+          "blockId": "blk_6a67abdcbc"
+        },
+        {
+          "type": "paragraph",
+          "text": "This structure is powerful precisely because it anchors the entire conversation in a real, specific, already-completed event, rather than a general opinion or a hypothetical scenario: every question asks about something that actually happened, in a particular order, which the respondent can recall concretely rather than construct on the spot.",
+          "blockId": "blk_f9ed2236fa"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Common Interviewer Mistakes",
+          "blockId": "blk_cf820668ce"
+        },
+        {
+          "type": "paragraph",
+          "text": "**Leading questions** (introduced in Lesson 11) remain the most pervasive interviewing mistake, but several additional, interview-specific mistakes deserve direct attention:",
+          "blockId": "blk_fb32383d5c"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**Pitching instead of listening.** An interviewer excited about their own product idea often unconsciously turns an interview into a sales pitch: describing the proposed solution and gauging reaction, rather than first fully understanding the respondent's existing behavior and pain independent of any proposed solution. Once a solution has been described, the respondent's subsequent answers are contaminated by anchoring toward that specific solution, making it much harder to learn what they would have said, or wanted, absent that framing.",
+            "**Accepting vague answers.** A respondent saying \"it was frustrating\" or \"I just wanted it to be easier\" is common, and an inexperienced interviewer often moves on, treating this as sufficient detail. A skilled interviewer follows up specifically: \"What does 'frustrating' mean, concretely? What happened, step by step, that felt frustrating?\" Vague language is a signal to dig deeper, not a finished answer.",
+            "**Interviewing only easy-to-reach participants.** Directly echoing Lesson 11's representativeness concern, interviews conducted only with the most available, most enthusiastic, or most vocal customers systematically miss the perspectives (often including churned users, skeptical prospects, or quietly dissatisfied customers) that would most challenge the team's existing assumptions.",
+            "**Filling silence too quickly.** When a respondent pauses after a question, an uncomfortable-feeling silence often tempts the interviewer to jump in with a clarifying suggestion or a multiple-choice-style prompt. This frequently short-circuits the respondent's own, more genuine train of thought. Deliberately tolerating a few seconds of silence often produces a more considered, more useful answer than immediately rescuing the respondent from having to think."
+          ],
+          "blockId": "blk_f7f62ebb7d"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Discovery Interviews vs. Usability Interviews",
+          "blockId": "blk_bba2f84def"
+        },
+        {
+          "type": "paragraph",
+          "text": "A conceptually important distinction, often blurred in practice: a **discovery interview** aims to understand a person's existing behavior, context, and needs, usually before a specific solution exists, or independent of one, while a **usability interview** (more precisely, a usability test conducted with an interview component) aims to observe how a person interacts with a specific, already-built prototype or product, to identify points of confusion or friction.",
+          "blockId": "blk_26e460fb56"
+        },
+        {
+          "type": "paragraph",
+          "text": "Conflating these two produces a specific, recognizable failure: a session framed as \"discovery\" that spends most of its time reacting to a shown prototype has, without anyone quite deciding to make this trade, actually become a usability session, collecting reactions to a specific proposed solution rather than the more foundational, solution-independent understanding discovery is meant to produce. Neither type of session is superior; they simply answer different questions, and a PM should be deliberate about which one they are running in a given conversation, rather than drifting between the two without noticing.",
+          "blockId": "blk_ee0cf5b303"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Digging Deeper: The Five Whys and the Power of Silence",
+          "blockId": "blk_52b074139e"
+        },
+        {
+          "type": "paragraph",
+          "text": "Two specific, complementary techniques help move a conversation from a surface-level answer to a genuinely underlying one, directly extending Lesson 6's laddering technique into live interview practice:",
+          "blockId": "blk_93ec86caae"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**The Five Whys**: repeatedly asking \"why\" (or a softer equivalent, like \"what made that important to you?\") in response to a stated reason, until reaching an explanation that feels genuinely foundational rather than another intermediate justification. As in Lesson 6, this has a natural stopping point: the most specific, stable explanation, not the most abstract one imaginable.",
+            "**Tolerating silence**: as described above, resisting the urge to fill a pause immediately after asking a question, giving the respondent genuine space to think past their first, most readily available answer."
+          ],
+          "blockId": "blk_962cea0c31"
+        },
+        {
+          "type": "paragraph",
+          "text": "Used together, these techniques counteract a natural tendency in conversation: both interviewer and respondent are inclined to treat the first plausible-sounding answer as sufficient and move on. That, left unchecked, produces exactly the kind of surface-level, insufficiently specific finding this lesson (and Lesson 11) warns against.",
+          "blockId": "blk_a669a3ae78"
+        }
+      ],
+      "blockId": "blk_5931bdea4f"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Asking \"would you use this?\" partway through an interview, then treating the answer as reliable evidence",
+          "body": "As covered in Lesson 11, this remains one of the single most reliable ways to generate falsely confident, stated-preference-only validation. An interview format doesn't inoculate against this trap; it requires the same discipline of avoiding hypothetical framing."
+        },
+        {
+          "title": "Describing the proposed solution before fully understanding the respondent's existing behavior",
+          "body": "Once a solution is on the table, every subsequent answer is anchored to it, making it far harder to learn what the respondent's actual, solution-independent experience and need really are."
+        },
+        {
+          "title": "Treating a vague answer as a complete answer",
+          "body": "\"It's frustrating\" or \"I wish it were easier\" are starting points, not findings: a skilled interviewer follows up for concrete, specific detail rather than recording the vague version as the finding itself."
+        },
+        {
+          "title": "Recruiting only friendly, easy-to-reach participants",
+          "body": "This produces exactly the unrepresentative sample problem from Lesson 11: a systematic bias toward the perspectives of people already inclined to be positive and engaged, at the expense of skeptics, churned users, or people who never adopted the product at all."
+        },
+        {
+          "title": "Rushing past silence",
+          "body": "Jumping in to rescue a respondent from a pause, or offering a multiple-choice-style prompt (\"was it more about cost, or more about time?\") before they've had a chance to answer in their own words, often produces a shallower, more interviewer-shaped answer than genuine patience would have.\n\n"
+        }
+      ],
+      "blockId": "blk_d51c582881"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The Interview Depth Staircase",
+      "diagram": {
+        "blockId": "blk_ec80fe5ff5",
+        "type": "mermaid"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "This lesson's mental model is the **Interview Depth Staircase**: a way of visualizing how a single topic should be progressively deepened across a conversation, rather than left at its first, surface-level answer.",
+          "blockId": "blk_7ca7067c9c"
+        },
+        {
+          "type": "paragraph",
+          "text": "Use this staircase as a discipline for noticing when a conversation has stalled on a lower step: if you find yourself recording \"it was frustrating\" as if it were a complete insight, you have stopped on Step 1, and the techniques covered in this lesson (concrete follow-up questions, the Five Whys, and tolerating silence) are specifically what climb the remaining steps.",
+          "blockId": "blk_5ff0638c09"
+        }
+      ],
+      "blockId": "blk_ec06f1f803"
+    },
+    {
+      "type": "mermaid",
+      "id": "blk_ec80fe5ff5",
+      "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph BT\r\n    A[Step 1: Surface Answer<br/>E.g. It Was Frustrating] --> B[Step 2: Concrete Detail What<br/>Specifically Happened? Walk Me Through<br/>It]\r\n    B --> C[Step 3: the Why What Made<br/>Particular Part Frustrating to You?]\r\n    C --> D[Step 4: Underlying Job What Were You<br/>Trying to Accomplish at Moment?]\r\n    D --> E[Step 5: Forces of Progress What Almost<br/>Stopped You, or What Finally Pushed You<br/>to Act?]",
+      "normalized": "graph BT\r\n    A[Step 1: Surface Answer<br/>E.g. It Was Frustrating] --> B[Step 2: Concrete Detail What<br/>Specifically Happened? Walk Me Through<br/>It]\r\n    B --> C[Step 3: the Why What Made<br/>Particular Part Frustrating to You?]\r\n    C --> D[Step 4: Underlying Job What Were You<br/>Trying to Accomplish at Moment?]\r\n    D --> E[Step 5: Forces of Progress What Almost<br/>Stopped You, or What Finally Pushed You<br/>to Act?]",
+      "authorTheme": {
+        "background": "#0b0b0c",
+        "primaryColor": "#1f1f23",
+        "primaryTextColor": "#ffffff",
+        "primaryBorderColor": "#8b5cf6",
+        "lineColor": "#d1d5db",
+        "secondaryColor": "#18181b",
+        "tertiaryColor": "#111111",
+        "mainBkg": "#1f1f23",
+        "nodeBorder": "#8b5cf6",
+        "clusterBkg": "#000000",
+        "clusterBorder": "#27272a",
+        "titleColor": "#ffffff",
+        "edgeLabelBackground": "#0b0b0c",
+        "nodeTextColor": "#ffffff",
+        "edgeLabelColor": "#ffffff",
+        "actorBorder": "#8b5cf6",
+        "actorBkg": "#1f1f23",
+        "actorTextColor": "#ffffff",
+        "sequenceNumberColor": "#ffffff",
+        "signalColor": "#8b5cf6",
+        "signalTextColor": "#ffffff",
+        "textColor": "#ffffff",
+        "classText": "#ffffff",
+        "classBorder": "#8b5cf6",
+        "classBkg": "#1f1f23"
+      },
+      "svg": "<svg id=\"mermaid-svg-1795020934176-28\" xmlns=\"http://www.w3.org/2000/svg\" width=\"593.25\" height=\"975\" viewBox=\"-74.875 -27 593.25 975\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Step 1: Surface AnswerE.g. It Was Frustrating → Step 2: Concrete Detail WhatSpecifically Happened? Walk Me ThroughIt → Step 3: the Why What MadeParticular Part Frustrating to You? → Step 4: Underlying Job What Were YouTrying to Accomplish at Moment? → Step 5: Forces of Progress What AlmostStopped You, or What Finally Pushed Youto Act?\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Step 1: Surface AnswerE.g. It Was Frustrating → Step 2: Concrete Detail WhatSpecifically Happened? Walk Me ThroughIt → Step 3: the Why What MadeParticular Part Frustrating to You? → Step 4: Underlying Job What Were YouTrying to Accomplish at Moment? → Step 5: Forces of Progress What AlmostStopped You, or What Finally Pushed Youto Act?</title><style>#mermaid-svg-1795020934176-28{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020934176-28 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020934176-28 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020934176-28 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020934176-28 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020934176-28 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020934176-28 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020934176-28 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020934176-28 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020934176-28 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020934176-28 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020934176-28 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020934176-28 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020934176-28 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020934176-28 p{margin:0;}#mermaid-svg-1795020934176-28 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020934176-28 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020934176-28 .cluster-label span{color:#171A17;}#mermaid-svg-1795020934176-28 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020934176-28 .label text,#mermaid-svg-1795020934176-28 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020934176-28 .node rect,#mermaid-svg-1795020934176-28 .node circle,#mermaid-svg-1795020934176-28 .node ellipse,#mermaid-svg-1795020934176-28 .node polygon,#mermaid-svg-1795020934176-28 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020934176-28 .rough-node .label text,#mermaid-svg-1795020934176-28 .node .label text,#mermaid-svg-1795020934176-28 .image-shape .label,#mermaid-svg-1795020934176-28 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020934176-28 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020934176-28 .rough-node .label,#mermaid-svg-1795020934176-28 .node .label,#mermaid-svg-1795020934176-28 .image-shape .label,#mermaid-svg-1795020934176-28 .icon-shape .label{text-align:center;}#mermaid-svg-1795020934176-28 .node.clickable{cursor:pointer;}#mermaid-svg-1795020934176-28 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020934176-28 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020934176-28 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020934176-28 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020934176-28 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020934176-28 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020934176-28 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020934176-28 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020934176-28 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020934176-28 .cluster text{fill:#171A17;}#mermaid-svg-1795020934176-28 .cluster span{color:#171A17;}#mermaid-svg-1795020934176-28 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020934176-28 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020934176-28 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020934176-28 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020934176-28 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020934176-28 .icon-shape,#mermaid-svg-1795020934176-28 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020934176-28 .icon-shape p,#mermaid-svg-1795020934176-28 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020934176-28 .icon-shape .label rect,#mermaid-svg-1795020934176-28 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020934176-28 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020934176-28 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020934176-28 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020934176-28 [data-look=\"neo\"].node rect,#mermaid-svg-1795020934176-28 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020934176-28 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020934176-28-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020934176-28 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020934176-28 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020934176-28-gradient);stroke-width:1px;}#mermaid-svg-1795020934176-28 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020934176-28 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020934176-28 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020934176-28-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020934176-28 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020934176-28 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020934176-28-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020934176-28 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020934176-28-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020934176-28 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020934176-28_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020934176-28_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020934176-28_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020934176-28_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020934176-28_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020934176-28_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020934176-28_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020934176-28_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020934176-28_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020934176-28_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020934176-28_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020934176-28_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M296.625,840L296.625,833.083C296.625,826.167,296.625,812.333,296.625,799.167C296.625,786,296.625,773.5,296.625,767.25L296.625,761\" id=\"mermaid-svg-1795020934176-28-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6Mjk2LjYyNSwieSI6ODQwfSx7IngiOjI5Ni42MjUsInkiOjc5OC41fSx7IngiOjI5Ni42MjUsInkiOjc1N31d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020934176-28_flowchart-v2-pointEnd)\"></path><path d=\"M296.625,615L296.625,608.083C296.625,601.167,296.625,587.333,296.625,574.167C296.625,561,296.625,548.5,296.625,542.25L296.625,536\" id=\"mermaid-svg-1795020934176-28-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6Mjk2LjYyNSwieSI6NjE1fSx7IngiOjI5Ni42MjUsInkiOjU3My41fSx7IngiOjI5Ni42MjUsInkiOjUzMn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020934176-28_flowchart-v2-pointEnd)\"></path><path d=\"M296.625,424L296.625,417.083C296.625,410.167,296.625,396.333,296.625,383.167C296.625,370,296.625,357.5,296.625,351.25L296.625,345\" id=\"mermaid-svg-1795020934176-28-L_C_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_D_0\" data-points=\"W3sieCI6Mjk2LjYyNSwieSI6NDI0fSx7IngiOjI5Ni42MjUsInkiOjM4Mi41fSx7IngiOjI5Ni42MjUsInkiOjM0MX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020934176-28_flowchart-v2-pointEnd)\"></path><path d=\"M296.625,233L296.625,226.083C296.625,219.167,296.625,205.333,296.625,192.167C296.625,179,296.625,166.5,296.625,160.25L296.625,154\" id=\"mermaid-svg-1795020934176-28-L_D_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_E_0\" data-points=\"W3sieCI6Mjk2LjYyNSwieSI6MjMzfSx7IngiOjI5Ni42MjUsInkiOjE5MS41fSx7IngiOjI5Ni42MjUsInkiOjE1MH1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020934176-28_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_D_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020934176-28-flowchart-A-0\" data-look=\"classic\" transform=\"translate(296.625, 894)\"><rect class=\"basic label-container\" style=\"\" x=\"-145.75\" y=\"-46\" width=\"291.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-113.75, -30)\"><rect></rect><foreignObject width=\"227.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Step 1: Surface Answer<br>E.g. It Was Frustrating</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020934176-28-flowchart-B-1\" data-look=\"classic\" transform=\"translate(296.625, 686)\"><rect class=\"basic label-container\" style=\"\" x=\"-209.5\" y=\"-57\" width=\"419\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-177.5, -41)\"><rect></rect><foreignObject width=\"355\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Step 2: Concrete Detail What<br>Specifically Happened? Walk Me Through<br>It</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020934176-28-flowchart-C-3\" data-look=\"classic\" transform=\"translate(296.625, 478)\"><rect class=\"basic label-container\" style=\"\" x=\"-196.75\" y=\"-46\" width=\"393.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-164.75, -30)\"><rect></rect><foreignObject width=\"329.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Step 3: the Why What Made<br>Particular Part Frustrating to You?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020934176-28-flowchart-D-5\" data-look=\"classic\" transform=\"translate(296.625, 287)\"><rect class=\"basic label-container\" style=\"\" x=\"-201\" y=\"-46\" width=\"402\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-169, -30)\"><rect></rect><foreignObject width=\"338\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Step 4: Underlying Job What Were You<br>Trying to Accomplish at Moment?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020934176-28-flowchart-E-7\" data-look=\"classic\" transform=\"translate(296.625, 79)\"><rect class=\"basic label-container\" style=\"\" x=\"-213.75\" y=\"-57\" width=\"427.5\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-181.75, -41)\"><rect></rect><foreignObject width=\"363.5\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Step 5: Forces of Progress What Almost<br>Stopped You, or What Finally Pushed You<br>to Act?</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020934176-28-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020934176-28-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020934176-28-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+      "blockId": "blk_ec80fe5ff5"
+    },
+    {
+      "type": "companyExample",
+      "company": "Intuit",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "**Intuit** (maker of QuickBooks and TurboTax) runs a company-wide practice called \"Follow Me Home,\" started by co-founder Scott Cook in the company's early days: an employee would wait at a retail store until a customer bought an Intuit product, then ask permission to go watch them actually use it in their own home or office. The practice has been continuously in use since. Intuit's own product blog and design-award case studies describe employees across the company, not just researchers, still conducting Follow Me Home sessions as a standard part of \"Design for Delight,\" the company's internal innovation methodology.",
+          "blockId": "blk_6c5ea9eafb"
+        },
+        {
+          "type": "paragraph",
+          "text": "The reason Follow Me Home is a sharper example than a standard interview is precisely the distinction this lesson draws between recalled behavior and observed behavior: Cook's stated reasoning for the practice was that customers are often unwilling or unable to accurately recall the specific friction they hit while using software, so watching them in their actual working environment (with its real interruptions, real workarounds, and real second monitor full of a different task entirely) surfaces problems a conference-room interview alone would miss. It pairs direct observation with interview questions in real time, rather than treating either alone as sufficient.",
+          "blockId": "blk_a0554a85e5"
+        },
+        {
+          "type": "paragraph",
+          "text": "*(Source: Intuit's own product blog and multiple independently reported accounts of the program's 1989 origin and continued company-wide use are consistent on these specifics. This curriculum does not claim certainty about the exact current scale or frequency of the program.)*",
+          "blockId": "blk_b940bc71a7"
+        }
+      ],
+      "blockId": "blk_64032ea44d"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "At a startup",
+          "body": "Customer interviews are often the primary, sometimes only, research method available, given limited resources, and founders frequently conduct these interviews personally in the earliest stages. The central risk at this stage is the \"pitching instead of listening\" mistake: a founder deeply attached to their own idea can find it especially difficult to resist describing the solution early and anchoring the conversation toward validating it, rather than first understanding the respondent's independent experience."
+        },
+        {
+          "context": "At a mid-size company",
+          "body": "Interviews are often conducted by dedicated researchers or research-trained PMs, using more standardized interview guides and recruitment processes designed specifically to counteract the representativeness problem, deliberately including skeptics, churned users, and less-engaged customers rather than relying on convenient, self-selected volunteers."
+        },
+        {
+          "context": "At Big Tech",
+          "body": "Interviews at this scale are often used specifically to generate and refine hypotheses that will subsequently be tested quantitatively at scale (directly echoing Lesson 11's complementary-methods framework), and are frequently combined with more extensive documentation, coding, and synthesis practices (formal thematic analysis across dozens or hundreds of interview transcripts) to extract patterns systematically rather than relying on an individual interviewer's impressionistic recollection of a handful of conversations."
+        }
+      ],
+      "blockId": "blk_0cb97e1f49"
+    },
+    {
+      "type": "caseStudy",
+      "title": "The Interview That Became a Pitch",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Consider a simplified, illustrative scenario common across early-stage productivity software.",
+          "blockId": "blk_75a09dc166"
+        },
+        {
+          "type": "paragraph",
+          "text": "A team building a project management tool for small creative agencies conducts a round of ten customer interviews to validate their product concept. In each interview, following an initial round of warm-up questions, the interviewer shows a working prototype and walks the respondent through its key features, asking after each one, \"Does this seem useful to you?\" and \"Would this solve your project-tracking problems?\" All ten respondents respond positively, several enthusiastically. The team proceeds confidently into a significant engineering investment.",
+          "blockId": "blk_00816a7d43"
+        },
+        {
+          "type": "paragraph",
+          "text": "Six months after launch, adoption among the target segment is markedly lower than the interview round's enthusiasm predicted. A second round of interviews, conducted with a different, more disciplined structure (past-behavior questions asked before any prototype was shown, with the prototype withheld until the final few minutes of each conversation) reveals a different picture: most respondents' actual current project-tracking behavior was a lightweight combination of a shared spreadsheet and informal team chat messages, and several specifically mentioned that they had tried more full-featured project management tools in the past and abandoned them within weeks because the overhead of maintaining detailed task structures didn't match their agency's fast-moving, informal working style.",
+          "blockId": "blk_3ff49945b1"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong?**",
+          "blockId": "blk_ff04271a4b"
+        },
+        {
+          "type": "paragraph",
+          "text": "Applying this lesson's frameworks:",
+          "blockId": "blk_a782d4c0e5"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**The original interviews pitched the solution early**, anchoring every subsequent answer to a reaction about the shown prototype rather than an independent account of the respondents' actual existing behavior and pain.",
+            "**\"Does this seem useful?\" and \"Would this solve your problem?\" are hypothetical, stated-preference questions**, precisely the kind Lesson 11 and this lesson both warn produce falsely confident, low-cost-to-answer-generously validation.",
+            "**No past-behavior questions were asked about respondents' actual current tracking methods and any prior tool-adoption attempts**, meaning the team never surfaced the specific, highly relevant fact (a documented history of trying and abandoning similar tools) that would have directly challenged their confidence before a costly engineering investment was made."
+          ],
+          "blockId": "blk_1cc9c6a00a"
+        },
+        {
+          "type": "paragraph",
+          "text": "A team applying this lesson's discipline from the outset would have started every interview with past-behavior questions about current project-tracking methods and any prior tool adoption or abandonment, withheld any prototype until well into or after that discussion, and specifically probed prior abandoned-tool experiences using the switch-interview structure, likely surfacing the agency-specific mismatch (heavyweight tool overhead versus a fast-moving, informal working style) well before committing significant engineering resources to build it.",
+          "blockId": "blk_0f874a613b"
+        },
+        {
+          "type": "paragraph",
+          "text": "This case connects directly back to **Lesson 8's discovery theater** concept: the original interview round had the visible form of validation (ten interviews were conducted) but was structured in a way that made a negative, disconfirming result nearly impossible to surface, precisely because the questions asked were hypothetical and solution-anchored rather than past-behavior-based.",
+          "blockId": "blk_dfe303c09d"
+        }
+      ],
+      "blockId": "blk_958612a52f"
+    },
+    {
+      "type": "framework",
+      "name": "The Interview Guide Structure",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A practical, reusable structure for sequencing a discovery interview, synthesizing this lesson's techniques into a repeatable order:",
+          "blockId": "blk_ceba6a6205"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Segment",
+            "Purpose",
+            "Example Question Style"
+          ],
+          "rows": [
+            [
+              "**Warm-up**",
+              "Build rapport, establish context, low-stakes",
+              "\"Tell me a bit about your role and how your day typically goes.\""
+            ],
+            [
+              "**Past-behavior deep dive**",
+              "Surface actual existing behavior and pain, with no solution mentioned yet",
+              "\"Tell me about the last time you [did the relevant task]. Walk me through it step by step.\""
+            ],
+            [
+              "**Switch interview (if applicable)**",
+              "Uncover the specific moment and forces behind adopting, or considering, a prior solution",
+              "\"What made you first start looking for something like this? What almost stopped you from switching?\""
+            ],
+            [
+              "**Digging deeper**",
+              "Move past vague, surface-level answers",
+              "\"What specifically made that frustrating?\" / \"Why did that matter to you?\" (Five Whys)"
+            ],
+            [
+              "**Solution reaction (only if needed, and only near the end)**",
+              "Gauge reaction to a specific concept, clearly separated from the discovery portion",
+              "\"Here's something we're considering. What's your honest reaction?\""
+            ]
+          ],
+          "blockId": "blk_f0c90a1ff2"
+        },
+        {
+          "type": "paragraph",
+          "text": "The critical discipline this structure enforces: **the solution reaction segment comes last, is clearly separated from the discovery portion, and is treated as a distinct type of evidence** (weaker, stated-preference-adjacent evidence, per the Evidence Trustworthiness Ladder) rather than blended together with the earlier, more reliable past-behavior findings as if they were the same kind of data.",
+          "blockId": "blk_1c044e28f4"
+        }
+      ],
+      "blockId": "blk_135223758f"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "Walk me through how you'd structure a customer interview to validate a new idea.",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate defaults to past-behavior questions and defers solution description until late in the conversation, versus immediately describing the idea and asking for reactions. A strong answer explicitly separates a discovery segment (past behavior, no solution mentioned) from a solution-reaction segment, and explains why that ordering matters."
+        },
+        {
+          "question": "Tell me about an interview where you learned something you didn't expect.",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate's interviewing practice actually has the capacity to surface disconfirming, non-obvious findings (echoing Lesson 11's related question) or whether every described interview conveniently confirms a pre-existing hypothesis, suggesting a pitching-not-listening pattern."
+        },
+        {
+          "question": "A respondent gives you a vague answer like 'it was just annoying.' What do you do?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Fluency with the Interview Depth Staircase, whether the candidate has a concrete follow-up technique (asking for specific detail, using the Five Whys, tolerating silence) rather than accepting the vague answer and moving to the next question."
+        }
+      ],
+      "blockId": "blk_e613f28a88"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A customer interview is a structured conversation designed to surface specific past behavior rather than hypothetical opinion, because concrete, specific memories are a far more reliable form of evidence than predictions about future behavior or abstract opinion, directly extending Lesson 11's stated-versus-revealed-preference distinction into live interviewing practice. The switch interview structure (first thought, passive looking, active looking, deciding, anxiety/habit at commitment) is a powerful technique for anchoring an entire conversation in a real, already-completed adoption decision, directly surfacing the Forces of Progress from Lesson 6. Common mistakes include pitching a solution before understanding existing behavior, accepting vague answers without digging deeper, recruiting only easy-to-reach participants, and rushing past silence rather than tolerating it. Discovery interviews (understanding existing behavior and needs) and usability interviews (observing reaction to a specific built solution) answer different questions and should not be blended without deliberate awareness, and a well-structured interview guide keeps any solution-reaction segment clearly separated from, and evidentially weaker than, the earlier past-behavior findings.",
+          "blockId": "blk_a3cf9708e5"
+        }
+      ],
+      "blockId": "blk_996200405c"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "Past-behavior questions (\"tell me about the last time you...\") produce far more reliable evidence than hypothetical (\"would you use this?\") or opinion-based questions.",
+        "The switch interview structure (first thought, passive looking, active looking, deciding, anxiety/habit) anchors a conversation in a real, completed adoption decision and directly surfaces the Forces of Progress from Lesson 6.",
+        "Common interviewer mistakes: pitching instead of listening, accepting vague answers, recruiting only easy-to-reach participants, and rushing past silence.",
+        "Discovery interviews and usability interviews answer different questions; conflating them (e.g., showing a prototype too early in a discovery interview) weakens both.",
+        "The Five Whys and tolerating silence are complementary techniques for climbing the Interview Depth Staircase past a first, surface-level answer.",
+        "A well-structured interview guide clearly separates a past-behavior discovery segment from any solution-reaction segment, treating the latter as weaker, stated-preference-adjacent evidence.",
+        "Describing a proposed solution before understanding existing behavior anchors all subsequent answers to that solution, contaminating the discovery process."
+      ],
+      "blockId": "blk_6196ec6eb4"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "**Ask about past behavior, not hypotheticals or opinions:** \"Tell me about the last time...\" beats \"Would you use this?\"",
+        "**Switch interview structure:** first thought → passive looking → active looking → deciding → anxiety/habit at commitment.",
+        "**Don't pitch before you understand**: describing a solution early anchors every later answer to it.",
+        "**Vague answers aren't findings**: dig deeper with the Five Whys and concrete follow-ups.",
+        "**Recruit beyond the easy-to-reach**: include skeptics, churned users, and the quietly dissatisfied.",
+        "**Tolerate silence**: don't rescue a pause with a suggestion; let the respondent think past their first answer.",
+        "**Discovery ≠ usability testing**: keep solution-reaction segments separate and evidentially weaker than past-behavior findings."
+      ],
+      "blockId": "blk_335308a742"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "Customer Interview",
+          "definition": "A structured, one-on-one conversation designed to surface a person's actual past behavior, context, and reasoning.",
+          "relatedConcepts": [
+            "User Research (Lesson 11)",
+            "Switch Interview"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Switch Interview",
+          "definition": "A structured interview technique focused on the specific moment and forces behind a past adoption decision.",
+          "relatedConcepts": [
+            "Forces of Progress (Lesson 6)"
+          ],
+          "difficulty": 3
+        },
+        {
+          "term": "Discovery Interview",
+          "definition": "An interview aimed at understanding a person's existing behavior and needs, typically before or independent of a specific solution.",
+          "relatedConcepts": [
+            "Usability Interview"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Usability Interview",
+          "definition": "An interview/observation session aimed at understanding how a person interacts with a specific, already-built prototype or product.",
+          "relatedConcepts": [
+            "Discovery Interview"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Interview Depth Staircase",
+          "definition": "A model for progressively deepening a single interview topic from a surface answer to an underlying job or motivating force.",
+          "relatedConcepts": [
+            "Five Whys (Lesson 6)"
+          ],
+          "difficulty": 3
+        }
+      ],
+      "blockId": "blk_2eaa7d134f"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "Steve Portigal, *Interviewing Users: How to Uncover Compelling Insights*",
+          "note": "a widely used, detailed treatment of interview technique, including handling silence and digging past vague answers."
+        },
+        {
+          "citation": "Bob Moesta and Chris Spiek's public writing on the switch interview methodology, extending the Forces of Progress model introduced in Lesson 6 into a concrete interview structure."
+        },
+        {
+          "citation": "Rob Fitzpatrick, *The Mom Test*",
+          "note": "a widely referenced, practically oriented treatment specifically focused on avoiding the \"pitching instead of listening\" mistake and asking questions that produce honest, rather than polite, answers."
+        }
+      ],
+      "blockId": "blk_5498bd4728"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_3dziur",
+      "cards": [
+        {
+          "id": "fc-les_3dziur-1",
+          "front": "Why are past-behavior questions more reliable than hypothetical questions in customer interviews?",
+          "back": "Hypothetical questions ask people to predict their own future behavior (which they're demonstrably bad at) and cost nothing to answer generously; past-behavior questions ask for a specific, real memory that's harder to answer with a comfortable, generic response.",
+          "difficulty": 2,
+          "tags": [
+            "past-behavior",
+            "interview-technique"
+          ]
+        },
+        {
+          "id": "fc-les_3dziur-2",
+          "front": "Name the five steps of the switch interview structure.",
+          "back": "First thought, passive looking, active looking, deciding, and anxiety/habit at the moment of commitment.",
+          "difficulty": 3,
+          "tags": [
+            "switch-interview"
+          ]
+        },
+        {
+          "id": "fc-les_3dziur-3",
+          "front": "Why is \"pitching instead of listening\" a mistake in a discovery interview?",
+          "back": "Once a solution is described, all subsequent answers are anchored to it, making it much harder to learn the respondent's independent, solution-free experience and need.",
+          "difficulty": 2,
+          "tags": [
+            "pitching-mistake"
+          ]
+        },
+        {
+          "id": "fc-les_3dziur-4",
+          "front": "What should an interviewer do when a respondent gives a vague answer like \"it was frustrating\"?",
+          "back": "Follow up for concrete, specific detail (using the Five Whys or direct clarifying questions) rather than recording the vague answer as a finished finding.",
+          "difficulty": 2,
+          "tags": [
+            "vague-answers"
+          ]
+        },
+        {
+          "id": "fc-les_3dziur-5",
+          "front": "What is the difference between a discovery interview and a usability interview?",
+          "back": "A discovery interview understands existing behavior and needs, typically independent of a specific solution; a usability interview observes reactions to and interaction with an already-built prototype or product.",
+          "difficulty": 2,
+          "tags": [
+            "discovery-vs-usability"
+          ]
+        },
+        {
+          "id": "fc-les_3dziur-6",
+          "front": "Why should an interviewer tolerate silence after asking a question?",
+          "back": "Filling silence too quickly (with a suggestion or prompt) often short-circuits the respondent's own, more genuine train of thought, producing a shallower, more interviewer-shaped answer.",
+          "difficulty": 2,
+          "tags": [
+            "silence-technique"
+          ]
+        },
+        {
+          "id": "fc-les_3dziur-7",
+          "front": "In the Detailed Case Study, what specific structural change in the second interview round revealed the agency's actual tool-adoption history?",
+          "back": "Past-behavior questions were asked before any prototype was shown, and the prototype was withheld until the final few minutes, surfacing prior tool abandonment that the original, solution-first interviews had missed.",
+          "difficulty": 3,
+          "tags": [
+            "case-study"
+          ]
+        }
+      ],
+      "blockId": "blk_0423e8f12c"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "You are preparing to interview small business owners about how they currently handle employee scheduling, ahead of building a new scheduling tool.",
+        "Work through the following, in writing, before reading further:",
+        "Write three past-behavior questions you would ask early in the interview, before mentioning any proposed solution.",
+        "Write a switch-interview-style question sequence (first thought through anxiety/habit) you would use if a respondent mentions they previously tried and abandoned a different scheduling tool.",
+        "A respondent answers, \"Scheduling is just always a headache.\" Write two specific follow-up questions using the Five Whys or concrete-detail technique to dig past this vague answer.",
+        "Identify one type of participant you might be tempted to skip recruiting (for example, someone who currently uses only a paper schedule, or someone who tried and quickly abandoned a competitor's app) and explain why including them matters, referencing Lesson 11's representativeness concern.",
+        "Describe exactly when and how you would introduce your own proposed solution concept in this interview, and how you would keep that segment evidentially separate from the earlier past-behavior findings.",
+        "There is no single correct answer. The purpose of this exercise is to practice structuring a full interview guide using this lesson's techniques, for a scenario without a pre-worked example to lean on."
+      ],
+      "blockId": "blk_c41732f30f"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_3dziur",
+      "questions": [
+        {
+          "id": "q-les_3dziur-1",
+          "question": "Which of the following interview questions best exemplifies the \"past-behavior\" question type described in this lesson?",
+          "options": [
+            "\"Would you use a feature that automates employee scheduling?\"",
+            "\"Tell me about the last time you built a weekly team schedule. Walk me through it.\"",
+            "\"Do you think scheduling is a common problem for small firms?\"",
+            "\"What do you generally think about scheduling software today?\""
+          ],
+          "correctAnswer": 1,
+          "explanation": "B asks for one real, completed event. The others ask for a prediction, a generalisation about other people, and an abstract opinion, none of which the respondent has to have actually lived.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_3dziur-2",
+          "question": "Why are past-behavior questions considered more reliable than hypothetical questions, according to this lesson?",
+          "options": [
+            "A specific memory is harder to answer generically",
+            "Hypothetical questions are answered dishonestly as a rule",
+            "Past-behavior questions are always quicker to ask aloud",
+            "Hypothetical questions belong in written surveys, not interviews"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Recalling what actually happened surfaces friction, workarounds, and abandoned attempts. A prediction about the future costs nothing to answer generously, which is why it so often is.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_3dziur-3",
+          "question": "What is the purpose of the \"passive looking\" step in a switch interview?",
+          "options": [
+            "To show the respondent a working prototype and gauge their reaction",
+            "To ask whether they would recommend the eventual solution to a colleague",
+            "To ask the respondent to rate their satisfaction numerically",
+            "To learn what they did after first dissatisfaction, before searching"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Passive looking sits between the first flicker of dissatisfaction and the decision to go looking properly. What happens in that gap often explains what eventually triggered the real search.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_3dziur-4",
+          "question": "Which of the following is the clearest example of the \"pitching instead of listening\" mistake?",
+          "options": [
+            "Asking about the current workflow before mentioning any feature",
+            "Describing prototype features early and asking after each whether it seems useful",
+            "Tolerating a long pause after asking an open-ended question",
+            "Following up with detail when a respondent gives a vague answer"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Once the solution is on the table, every later answer is anchored to it, and there is no way to recover what the respondent would have said without that framing.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_3dziur-5",
+          "question": "According to this lesson, what should an interviewer do when a respondent answers, \"It was just annoying\"?",
+          "options": [
+            "Log it as a complete finding and move to the next topic",
+            "Assume the respondent holds no real view and skip the topic",
+            "Follow up concretely to learn what specifically happened",
+            "Rephrase it as a multiple-choice prompt to ease answering"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Vague language marks the place where the useful detail is, not the end of the answer. \"Annoying\" becomes actionable only once you know which step, in what order, produced it.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_3dziur-6",
+          "question": "What is the key difference between a discovery interview and a usability interview, as described in this lesson?",
+          "options": [
+            "Discovery studies behaviour; usability observes a built product",
+            "Discovery interviews always run longer than usability interviews do",
+            "Usability interviews must be conducted in person rather than remotely",
+            "The two labels describe the same activity under different names today"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Neither is superior; they answer different questions. The failure is drifting from one into the other mid-session without noticing which one you are now running.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_3dziur-7",
+          "question": "In the Detailed Case Study, what was the key structural flaw in the original round of ten interviews?",
+          "options": [
+            "Too few interviews were conducted to support any real conclusion",
+            "The respondents recruited were not actual customers of the product",
+            "The interviews were run in a language respondents were unsure of",
+            "The prototype was shown first, which anchored the later questions"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Ten is a workable number for discovery. What undid the round was leading with the artefact and then asking whether it seemed useful, which is a reaction, not a behaviour.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_3dziur-8",
+          "question": "What specific, highly relevant fact did the original (flawed) interview round fail to surface, which the second, more disciplined round did surface?",
+          "options": [
+            "They had abandoned fuller tools that clashed with their informal style",
+            "They preferred a different colour scheme for the product interface",
+            "They were unwilling to pay for any project management tool at all",
+            "They intended to keep using a competitor's product exclusively going forward"
+          ],
+          "correctAnswer": 0,
+          "explanation": "A prior adoption that failed is exactly the kind of detail a past-behaviour question reaches and a \"does this seem useful?\" question never will, because nobody volunteers it unprompted.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_3dziur-9",
+          "question": "(Scenario) An interviewer asks a respondent a question and the respondent pauses for several seconds before answering. According to this lesson, what is the most appropriate interviewer response?",
+          "options": [
+            "Move on at once, since the pause shows they have nothing to say",
+            "Tolerate the silence, giving them space to think past the first answer",
+            "Offer a multiple-choice prompt so they can answer more quickly",
+            "Repeat the question louder, assuming they did not hear it"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The pause is usually the respondent thinking, and the discomfort is the interviewer's. Rescuing them replaces their considered answer with one of your suggestions.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_3dziur-10",
+          "question": "(Product Thinking) A team wants to run a session to observe how users interact with a nearly finished prototype and identify points of confusion. According to this lesson, what kind of session is this, and what should the team be careful about?",
+          "options": [
+            "A discovery interview, so the prototype should not be shown at all",
+            "A usability interview, distinct from discovery questioning",
+            "Not a legitimate research method under this lesson's framework",
+            "A session type that needs no particular interview structure at all"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Watching someone use a built thing is a usability session and a perfectly good one. The care required is not calling it discovery afterwards, or reading its findings as solution-independent.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_3dziur-11",
+          "question": "(Interview Reasoning) A candidate describes every past customer interview they've conducted as ultimately confirming their team's original product idea, with no example of a surprising or disconfirming finding. What might this signal, based on this lesson's Interview Perspective section?",
+          "options": [
+            "Exceptionally accurate instincts that warrant no further scrutiny at all",
+            "No cause for note, since consistent confirmation is the usual outcome",
+            "A pitching-not-listening pattern suppressing disconfirmation",
+            "That interviews cannot in principle produce disconfirming findings"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Interviews that begin with the solution tend to return agreement with the solution. An unbroken confirmation record usually describes the method rather than the quality of the ideas.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_3dziur-12",
+          "question": "(Product Thinking, Higher Difficulty) A respondent in a switch interview describes actively searching for a new tool but ultimately says, \"I almost didn't switch because I was worried about losing all my existing data.\" Which Force of Progress (Lesson 6) does this statement most directly surface?",
+          "options": [
+            "Push: dissatisfaction with the current way of working",
+            "Pull: the attraction of the new solution on offer",
+            "Anxiety: worry about a specific consequence of switching",
+            "Habit: comfort with the existing, familiar approach"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The worry attaches to the act of switching rather than to the old tool or the new one. That is what separates Anxiety from Habit, which is inertia without a specific fear.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_3dziur-13",
+          "question": "(Interview Reasoning, Higher Difficulty) An interviewer is asked to critique a colleague's interview guide, which begins with a five-minute demo of the proposed solution before any questions about the respondent's current behavior. What is the strongest critique, based on this lesson?",
+          "options": [
+            "It anchors later answers; move past-behavior questions first",
+            "It is well structured, since an early demo builds respondent enthusiasm",
+            "It should be improved by adding further demo time up front",
+            "It has no meaningful flaw, since demos suit any point in a session"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Solution reaction belongs at the end, clearly fenced off, and weighted as the weaker stated-preference evidence it is. Put first, it contaminates everything that follows.",
+          "objectivesTested": [
+            3,
+            4
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_3dziur-14",
+          "question": "(Product Thinking, Higher Difficulty) A team has completed several interviews and is unsure whether a recurring vague theme (\"it's just complicated\") represents a genuine, specific finding or an unexplored surface-level answer. Using the Interview Depth Staircase, what should the team conclude?",
+          "options": [
+            "An actionable finding as stated, requiring no further investigation",
+            "A theme to discard outright, since vague findings are never useful",
+            "Grounds to build a complexity fix straight away without clarifying it further",
+            "A Step 1 surface answer needing concrete follow-up before it is actionable"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Recurrence makes the theme worth pursuing, not worth acting on as written. \"Complicated\" could mean too many steps, unfamiliar vocabulary, or an unclear mental model, and each implies a different fix.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_3dziur-15",
+          "question": "(Highest Difficulty) A team conducts twenty interviews, all recruited through an in-app pop-up shown only to daily active users, and all following a past-behavior-first structure with solution reaction deferred to the end. According to this lesson and Lesson 11 combined, what specific limitation remains, despite the strong interview structure?",
+          "options": [
+            "No limitation remains, since the interview structure was well designed",
+            "Twenty interviews is too small a sample for any purpose whatsoever",
+            "The sample still excludes non-users and churned, less-engaged customers",
+            "The sessions should have been run as usability tests rather than interviews"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Technique and recruitment are independent failure points. A flawless guide administered to a self-selected slice of the most engaged users still cannot speak for the people who left.",
+          "objectivesTested": [
+            3,
+            4
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_88fa8e0f7e"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_4kpbq6",
+        "title": "Lesson 11: User Research",
+        "module": "discovery"
+      },
+      "current": {
+        "id": "les_3dziur",
+        "title": "Lesson 12: Customer Interviews"
+      },
+      "next": {
+        "id": "les_q9i0or",
+        "title": "Lesson 13: Surveys",
+        "module": "discovery"
+      },
+      "unlocks": [
+        {
+          "lesson": {
+            "id": "les_89s8go",
+            "title": "Personas",
+            "module": "discovery"
+          },
+          "coreIdea": "Uses synthesized interview findings, rather than assumption, as the required input for building accurate personas"
+        }
+      ],
+      "blockId": "blk_1ca36ac0f6"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 12: Customer Interviews Lesson 11 established the theory: qualitative research answers why/how questions, revealed preference beats stated preference, and several specific biases (confirmation bias, leading questions, social desirability bias, the \"would you use this\" trap) distort findings if not deliberately controlled for. This lesson is where that theory becomes a skill you can actually execute in a room, or on a call, with a real person, in real time, under the real pressure of wanting to hear a particular answer. **A customer interview** is a structured, one-on-one conversation designed to surface a person's actual past behavior, context, and reasoning, not their opinions about hypothetical futures, and not a pitch dressed up as a conversation. The central discipline of a good interview is almost the opposite of what feels natural in a normal conversation: instead of asking what someone thinks, wants, or would do, a skilled interviewer asks about what someone has actually done, in as much concrete, specific detail as possible, because specific past behavior is a form of revealed preference (Lesson 11) that is far more reliable than a hypothetical opinion. This lesson matters because customer interviews are simultaneously the most commonly used and the most commonly misused research method in product work. Nearly every PM conducts interviews at some point; comparatively few conduct them in a way that reliably produces trustworthy evidence rather than a comfortable, leading, self-fulfilling conversation. The gap between a good interview and a bad one is not raw talent: it is a specific, learnable set of techniques, which this lesson covers directly. Distinguish a \"past-behavior\" interview question from a hypothetical or opinion-based question, and explain why the former produces more reliable evidence. Apply the \"switch interview\" structure to uncover the specific moment and forces that led someone to adopt, or seriously consider adopting, a new solution. Identify and avoid the most common interviewer mistakes: leading questions, pitching instead of listening, accepting vague answers, and interviewing only easy-to-reach participants. Distinguish a customer interview conducted for discovery purposes from one conducted for usability testing, and explain why conflating the two produces weaker results for both. Apply the \"Five Whys\" and silence techniques to move a conversation from a surface-level answer to a genuinely underlying one. Lesson 6 (Jobs To Be Done) and Lesson 11 (User Research). This lesson assumes fluency with the laddering technique from Lesson 6 (which customer interviews are the primary vehicle for conducting) and with the stated-versus-revealed-preference distinction and bias list from Lesson 11, which this lesson translates into concrete interviewing technique. Past-Behavior Questions vs. Hypothetical and Opinion Questions The single most important technical skill in customer interviewing is the discipline of asking about **specific past behavior** rather than **hypothetical future behavior** or **general opinion**. Consider three ways of asking about the same underlying topic: **Hypothetical (weak)**: \"Would you use a feature that let you set spending limits per category?\" **Opinion (weak)**: \"What do you think about budgeting apps in general?\" **Past behavior (strong)**: \"Tell me about the last time you tried to stick to a budget. Walk me through exactly what happened.\" The past-behavior question is dramatically more reliable, for reasons directly tied to Lesson 11's stated-versus-revealed-preference distinction: a hypothetical question asks someone to predict their own future behavior, which people are demonstrably bad at, and costs nothing to answer generously; an opinion question invites abstract, socially acceptable answers disconnected from lived experience; a past-behavior question asks for a specific, real memory, which is far harder to answer with a comfortable, generic platitude, and which tends to surface concrete detail (including friction, workarounds, and abandoned attempts) that a hypothetical question would never reveal. The Switch Interview Structure A particularly powerful, structured application of past-behavior questioning is the **switch interview** (closely associated with Bob Moesta's applied Jobs to Be Done work, previewed in Lesson 6's Forces of Progress model), which focuses specifically on the moment someone adopted, or seriously considered adopting, a new solution. The structure moves through a specific sequence: **First thought**: \"When did you first start thinking you might need something like this?\" This establishes the earliest moment of dissatisfaction (the Push force from Lesson 6). **Passive looking**: \"What did you do next? Did you look into any options at that point, even casually?\" **Active looking**: \"What made you go from casually considering this to actually seriously looking for a solution?\" This often reveals a specific triggering event, not a gradual, generic realization. **Deciding**: \"Walk me through how you actually chose [this solution] over the alternatives you were considering.\" This surfaces the Pull force and the specific comparison being made. **Anxiety and habit at the moment of commitment**: \"What almost stopped you from going through with it?\" This directly surfaces the Anxiety and Habit forces from Lesson 6's Forces of Progress model. This structure is powerful precisely because it anchors the entire conversation in a real, specific, already-completed event, rather than a general opinion or a hypothetical scenario: every question asks about something that actually happened, in a particular order, which the respondent can recall concretely rather than construct on the spot. Common Interviewer Mistakes **Leading questions** (introduced in Lesson 11) remain the most pervasive interviewing mistake, but several additional, interview-specific mistakes deserve direct attention: **Pitching instead of listening.** An interviewer excited about their own product idea often unconsciously turns an interview into a sales pitch: describing the proposed solution and gauging reaction, rather than first fully understanding the respondent's existing behavior and pain independent of any proposed solution. Once a solution has been described, the respondent's subsequent answers are contaminated by anchoring toward that specific solution, making it much harder to learn what they would have said, or wanted, absent that framing. **Accepting vague answers.** A respondent saying \"it was frustrating\" or \"I just wanted it to be easier\" is common, and an inexperienced interviewer often moves on, treating this as sufficient detail. A skilled interviewer follows up specifically: \"What does 'frustrating' mean, concretely? What happened, step by step, that felt frustrating?\" Vague language is a signal to dig deeper, not a finished answer. **Interviewing only easy-to-reach participants.** Directly echoing Lesson 11's representativeness concern, interviews conducted only with the most available, most enthusiastic, or most vocal customers systematically miss the perspectives (often including churned users, skeptical prospects, or quietly dissatisfied customers) that would most challenge the team's existing assumptions. **Filling silence too quickly.** When a respondent pauses after a question, an uncomfortable-feeling silence often tempts the interviewer to jump in with a clarifying suggestion or a multiple-choice-style prompt. This frequently short-circuits the respondent's own, more genuine train of thought. Deliberately tolerating a few seconds of silence often produces a more considered, more useful answer than immediately rescuing the respondent from having to think. Discovery Interviews vs. Usability Interviews A conceptually important distinction, often blurred in practice: a **discovery interview** aims to understand a person's existing behavior, context, and needs, usually before a specific solution exists, or independent of one, while a **usability interview** (more precisely, a usability test conducted with an interview component) aims to observe how a person interacts with a specific, already-built prototype or product, to identify points of confusion or friction. Conflating these two produces a specific, recognizable failure: a session framed as \"discovery\" that spends most of its time reacting to a shown prototype has, without anyone quite deciding to make this trade, actually become a usability session, collecting reactions to a specific proposed solution rather than the more foundational, solution-independent understanding discovery is meant to produce. Neither type of session is superior; they simply answer different questions, and a PM should be deliberate about which one they are running in a given conversation, rather than drifting between the two without noticing. Digging Deeper: The Five Whys and the Power of Silence Two specific, complementary techniques help move a conversation from a surface-level answer to a genuinely underlying one, directly extending Lesson 6's laddering technique into live interview practice: **The Five Whys**: repeatedly asking \"why\" (or a softer equivalent, like \"what made that important to you?\") in response to a stated reason, until reaching an explanation that feels genuinely foundational rather than another intermediate justification. As in Lesson 6, this has a natural stopping point: the most specific, stable explanation, not the most abstract one imaginable. **Tolerating silence**: as described above, resisting the urge to fill a pause immediately after asking a question, giving the respondent genuine space to think past their first, most readily available answer. Used together, these techniques counteract a natural tendency in conversation: both interviewer and respondent are inclined to treat the first plausible-sounding answer as sufficient and move on. That, left unchecked, produces exactly the kind of surface-level, insufficiently specific finding this lesson (and Lesson 11) warns against. Asking \"would you use this?\" partway through an interview, then treating the answer as reliable evidence As covered in Lesson 11, this remains one of the single most reliable ways to generate falsely confident, stated-preference-only validation. An interview format doesn't inoculate against this trap; it requires the same discipline of avoiding hypothetical framing. Describing the proposed solution before fully understanding the respondent's existing behavior Once a solution is on the table, every subsequent answer is anchored to it, making it far harder to learn what the respondent's actual, solution-independent experience and need really are. Treating a vague answer as a complete answer \"It's frustrating\" or \"I wish it were easier\" are starting points, not findings: a skilled interviewer follows up for concrete, specific detail rather than recording the vague version as the finding itself. Recruiting only friendly, easy-to-reach participants This produces exactly the unrepresentative sample problem from Lesson 11: a systematic bias toward the perspectives of people already inclined to be positive and engaged, at the expense of skeptics, churned users, or people who never adopted the product at all. Rushing past silence Jumping in to rescue a respondent from a pause, or offering a multiple-choice-style prompt (\"was it more about cost, or more about time?\") before they've had a chance to answer in their own words, often produces a shallower, more interviewer-shaped answer than genuine patience would have. The Interview Depth Staircase This lesson's mental model is the **Interview Depth Staircase**: a way of visualizing how a single topic should be progressively deepened across a conversation, rather than left at its first, surface-level answer. Use this staircase as a discipline for noticing when a conversation has stalled on a lower step: if you find yourself recording \"it was frustrating\" as if it were a complete insight, you have stopped on Step 1, and the techniques covered in this lesson (concrete follow-up questions, the Five Whys, and tolerating silence) are specifically what climb the remaining steps. Intuit **Intuit** (maker of QuickBooks and TurboTax) runs a company-wide practice called \"Follow Me Home,\" started by co-founder Scott Cook in the company's early days: an employee would wait at a retail store until a customer bought an Intuit product, then ask permission to go watch them actually use it in their own home or office. The practice has been continuously in use since. Intuit's own product blog and design-award case studies describe employees across the company, not just researchers, still conducting Follow Me Home sessions as a standard part of \"Design for Delight,\" the company's internal innovation methodology. The reason Follow Me Home is a sharper example than a standard interview is precisely the distinction this lesson draws between recalled behavior and observed behavior: Cook's stated reasoning for the practice was that customers are often unwilling or unable to accurately recall the specific friction they hit while using software, so watching them in their actual working environment (with its real interruptions, real workarounds, and real second monitor full of a different task entirely) surfaces problems a conference-room interview alone would miss. It pairs direct observation with interview questions in real time, rather than treating either alone as sufficient. *(Source: Intuit's own product blog and multiple independently reported accounts of the program's 1989 origin and continued company-wide use are consistent on these specifics. This curriculum does not claim certainty about the exact current scale or frequency of the program.)* At a startup Customer interviews are often the primary, sometimes only, research method available, given limited resources, and founders frequently conduct these interviews personally in the earliest stages. The central risk at this stage is the \"pitching instead of listening\" mistake: a founder deeply attached to their own idea can find it especially difficult to resist describing the solution early and anchoring the conversation toward validating it, rather than first understanding the respondent's independent experience. At a mid-size company Interviews are often conducted by dedicated researchers or research-trained PMs, using more standardized interview guides and recruitment processes designed specifically to counteract the representativeness problem, deliberately including skeptics, churned users, and less-engaged customers rather than relying on convenient, self-selected volunteers. At Big Tech Interviews at this scale are often used specifically to generate and refine hypotheses that will subsequently be tested quantitatively at scale (directly echoing Lesson 11's complementary-methods framework), and are frequently combined with more extensive documentation, coding, and synthesis practices (formal thematic analysis across dozens or hundreds of interview transcripts) to extract patterns systematically rather than relying on an individual interviewer's impressionistic recollection of a handful of conversations. The Interview That Became a Pitch Consider a simplified, illustrative scenario common across early-stage productivity software. A team building a project management tool for small creative agencies conducts a round of ten customer interviews to validate their product concept. In each interview, following an initial round of warm-up questions, the interviewer shows a working prototype and walks the respondent through its key features, asking after each one, \"Does this seem useful to you?\" and \"Would this solve your project-tracking problems?\" All ten respondents respond positively, several enthusiastically. The team proceeds confidently into a significant engineering investment. Six months after launch, adoption among the target segment is markedly lower than the interview round's enthusiasm predicted. A second round of interviews, conducted with a different, more disciplined structure (past-behavior questions asked before any prototype was shown, with the prototype withheld until the final few minutes of each conversation) reveals a different picture: most respondents' actual current project-tracking behavior was a lightweight combination of a shared spreadsheet and informal team chat messages, and several specifically mentioned that they had tried more full-featured project management tools in the past and abandoned them within weeks because the overhead of maintaining detailed task structures didn't match their agency's fast-moving, informal working style. **What went wrong?** Applying this lesson's frameworks: **The original interviews pitched the solution early**, anchoring every subsequent answer to a reaction about the shown prototype rather than an independent account of the respondents' actual existing behavior and pain. **\"Does this seem useful?\" and \"Would this solve your problem?\" are hypothetical, stated-preference questions**, precisely the kind Lesson 11 and this lesson both warn produce falsely confident, low-cost-to-answer-generously validation. **No past-behavior questions were asked about respondents' actual current tracking methods and any prior tool-adoption attempts**, meaning the team never surfaced the specific, highly relevant fact (a documented history of trying and abandoning similar tools) that would have directly challenged their confidence before a costly engineering investment was made. A team applying this lesson's discipline from the outset would have started every interview with past-behavior questions about current project-tracking methods and any prior tool adoption or abandonment, withheld any prototype until well into or after that discussion, and specifically probed prior abandoned-tool experiences using the switch-interview structure, likely surfacing the agency-specific mismatch (heavyweight tool overhead versus a fast-moving, informal working style) well before committing significant engineering resources to build it. This case connects directly back to **Lesson 8's discovery theater** concept: the original interview round had the visible form of validation (ten interviews were conducted) but was structured in a way that made a negative, disconfirming result nearly impossible to surface, precisely because the questions asked were hypothetical and solution-anchored rather than past-behavior-based. The Interview Guide Structure A practical, reusable structure for sequencing a discovery interview, synthesizing this lesson's techniques into a repeatable order: The critical discipline this structure enforces: **the solution reaction segment comes last, is clearly separated from the discovery portion, and is treated as a distinct type of evidence** (weaker, stated-preference-adjacent evidence, per the Evidence Trustworthiness Ladder) rather than blended together with the earlier, more reliable past-behavior findings as if they were the same kind of data. Walk me through how you'd structure a customer interview to validate a new idea. *What the interviewer is actually evaluating:* Whether the candidate defaults to past-behavior questions and defers solution description until late in the conversation, versus immediately describing the idea and asking for reactions. A strong answer explicitly separates a discovery segment (past behavior, no solution mentioned) from a solution-reaction segment, and explains why that ordering matters. Tell me about an interview where you learned something you didn't expect. *What the interviewer is actually evaluating:* Whether the candidate's interviewing practice actually has the capacity to surface disconfirming, non-obvious findings (echoing Lesson 11's related question) or whether every described interview conveniently confirms a pre-existing hypothesis, suggesting a pitching-not-listening pattern. A respondent gives you a vague answer like 'it was just annoying.' What do you do? *What the interviewer is actually evaluating:* Fluency with the Interview Depth Staircase, whether the candidate has a concrete follow-up technique (asking for specific detail, using the Five Whys, tolerating silence) rather than accepting the vague answer and moving to the next question. A customer interview is a structured conversation designed to surface specific past behavior rather than hypothetical opinion, because concrete, specific memories are a far more reliable form of evidence than predictions about future behavior or abstract opinion, directly extending Lesson 11's stated-versus-revealed-preference distinction into live interviewing practice. The switch interview structure (first thought, passive looking, active looking, deciding, anxiety/habit at commitment) is a powerful technique for anchoring an entire conversation in a real, already-completed adoption decision, directly surfacing the Forces of Progress from Lesson 6. Common mistakes include pitching a solution before understanding existing behavior, accepting vague answers without digging deeper, recruiting only easy-to-reach participants, and rushing past silence rather than tolerating it. Discovery interviews (understanding existing behavior and needs) and usability interviews (observing reaction to a specific built solution) answer different questions and should not be blended without deliberate awareness, and a well-structured interview guide keeps any solution-reaction segment clearly separated from, and evidentially weaker than, the earlier past-behavior findings. Past-behavior questions (\"tell me about the last time you...\") produce far more reliable evidence than hypothetical (\"would you use this?\") or opinion-based questions. The switch interview structure (first thought, passive looking, active looking, deciding, anxiety/habit) anchors a conversation in a real, completed adoption decision and directly surfaces the Forces of Progress from Lesson 6. Common interviewer mistakes: pitching instead of listening, accepting vague answers, recruiting only easy-to-reach participants, and rushing past silence. Discovery interviews and usability interviews answer different questions; conflating them (e.g., showing a prototype too early in a discovery interview) weakens both. The Five Whys and tolerating silence are complementary techniques for climbing the Interview Depth Staircase past a first, surface-level answer. A well-structured interview guide clearly separates a past-behavior discovery segment from any solution-reaction segment, treating the latter as weaker, stated-preference-adjacent evidence. Describing a proposed solution before understanding existing behavior anchors all subsequent answers to that solution, contaminating the discovery process. **Ask about past behavior, not hypotheticals or opinions:** \"Tell me about the last time...\" beats \"Would you use this?\" **Switch interview structure:** first thought → passive looking → active looking → deciding → anxiety/habit at commitment. **Don't pitch before you understand**: describing a solution early anchors every later answer to it. **Vague answers aren't findings**: dig deeper with the Five Whys and concrete follow-ups. **Recruit beyond the easy-to-reach**: include skeptics, churned users, and the quietly dissatisfied. **Tolerate silence**: don't rescue a pause with a suggestion; let the respondent think past their first answer. **Discovery ≠ usability testing**: keep solution-reaction segments separate and evidentially weaker than past-behavior findings. Customer Interview A structured, one-on-one conversation designed to surface a person's actual past behavior, context, and reasoning. Switch Interview A structured interview technique focused on the specific moment and forces behind a past adoption decision. Discovery Interview An interview aimed at understanding a person's existing behavior and needs, typically before or independent of a specific solution. Usability Interview An interview/observation session aimed at understanding how a person interacts with a specific, already-built prototype or product. Interview Depth Staircase A model for progressively deepening a single interview topic from a surface answer to an underlying job or motivating force. Steve Portigal, *Interviewing Users: How to Uncover Compelling Insights* a widely used, detailed treatment of interview technique, including handling silence and digging past vague answers. Bob Moesta and Chris Spiek's public writing on the switch interview methodology, extending the Forces of Progress model introduced in Lesson 6 into a concrete interview structure. Rob Fitzpatrick, *The Mom Test* a widely referenced, practically oriented treatment specifically focused on avoiding the \"pitching instead of listening\" mistake and asking questions that produce honest, rather than polite, answers. Why are past-behavior questions more reliable than hypothetical questions in customer interviews? Hypothetical questions ask people to predict their own future behavior (which they're demonstrably bad at) and cost nothing to answer generously; past-behavior questions ask for a specific, real memory that's harder to answer with a comfortable, generic response. Name the five steps of the switch interview structure. First thought, passive looking, active looking, deciding, and anxiety/habit at the moment of commitment. Why is \"pitching instead of listening\" a mistake in a discovery interview? Once a solution is described, all subsequent answers are anchored to it, making it much harder to learn the respondent's independent, solution-free experience and need. What should an interviewer do when a respondent gives a vague answer like \"it was frustrating\"? Follow up for concrete, specific detail (using the Five Whys or direct clarifying questions) rather than recording the vague answer as a finished finding. What is the difference between a discovery interview and a usability interview? A discovery interview understands existing behavior and needs, typically independent of a specific solution; a usability interview observes reactions to and interaction with an already-built prototype or product. Why should an interviewer tolerate silence after asking a question? Filling silence too quickly (with a suggestion or prompt) often short-circuits the respondent's own, more genuine train of thought, producing a shallower, more interviewer-shaped answer. In the Detailed Case Study, what specific structural change in the second interview round revealed the agency's actual tool-adoption history? Past-behavior questions were asked before any prototype was shown, and the prototype was withheld until the final few minutes, surfacing prior tool abandonment that the original, solution-first interviews had missed. You are preparing to interview small business owners about how they currently handle employee scheduling, ahead of building a new scheduling tool. Work through the following, in writing, before reading further: Write three past-behavior questions you would ask early in the interview, before mentioning any proposed solution. Write a switch-interview-style question sequence (first thought through anxiety/habit) you would use if a respondent mentions they previously tried and abandoned a different scheduling tool. A respondent answers, \"Scheduling is just always a headache.\" Write two specific follow-up questions using the Five Whys or concrete-detail technique to dig past this vague answer. Identify one type of participant you might be tempted to skip recruiting (for example, someone who currently uses only a paper schedule, or someone who tried and quickly abandoned a competitor's app) and explain why including them matters, referencing Lesson 11's representativeness concern. Describe exactly when and how you would introduce your own proposed solution concept in this interview, and how you would keep that segment evidentially separate from the earlier past-behavior findings. There is no single correct answer. The purpose of this exercise is to practice structuring a full interview guide using this lesson's techniques, for a scenario without a pre-worked example to lean on. Which of the following interview questions best exemplifies the \"past-behavior\" question type described in this lesson? B asks for one real, completed event. The others ask for a prediction, a generalisation about other people, and an abstract opinion, none of which the respondent has to have actually lived. Why are past-behavior questions considered more reliable than hypothetical questions, according to this lesson? Recalling what actually happened surfaces friction, workarounds, and abandoned attempts. A prediction about the future costs nothing to answer generously, which is why it so often is. What is the purpose of the \"passive looking\" step in a switch interview? Passive looking sits between the first flicker of dissatisfaction and the decision to go looking properly. What happens in that gap often explains what eventually triggered the real search. Which of the following is the clearest example of the \"pitching instead of listening\" mistake? Once the solution is on the table, every later answer is anchored to it, and there is no way to recover what the respondent would have said without that framing. According to this lesson, what should an interviewer do when a respondent answers, \"It was just annoying\"? Vague language marks the place where the useful detail is, not the end of the answer. \"Annoying\" becomes actionable only once you know which step, in what order, produced it. What is the key difference between a discovery interview and a usability interview, as described in this lesson? Neither is superior; they answer different questions. The failure is drifting from one into the other mid-session without noticing which one you are now running. In the Detailed Case Study, what was the key structural flaw in the original round of ten interviews? Ten is a workable number for discovery. What undid the round was leading with the artefact and then asking whether it seemed useful, which is a reaction, not a behaviour. What specific, highly relevant fact did the original (flawed) interview round fail to surface, which the second, more disciplined round did surface? A prior adoption that failed is exactly the kind of detail a past-behaviour question reaches and a \"does this seem useful?\" question never will, because nobody volunteers it unprompted. (Scenario) An interviewer asks a respondent a question and the respondent pauses for several seconds before answering. According to this lesson, what is the most appropriate interviewer response? The pause is usually the respondent thinking, and the discomfort is the interviewer's. Rescuing them replaces their considered answer with one of your suggestions. (Product Thinking) A team wants to run a session to observe how users interact with a nearly finished prototype and identify points of confusion. According to this lesson, what kind of session is this, and what should the team be careful about? Watching someone use a built thing is a usability session and a perfectly good one. The care required is not calling it discovery afterwards, or reading its findings as solution-independent. (Interview Reasoning) A candidate describes every past customer interview they've conducted as ultimately confirming their team's original product idea, with no example of a surprising or disconfirming finding. What might this signal, based on this lesson's Interview Perspective section? Interviews that begin with the solution tend to return agreement with the solution. An unbroken confirmation record usually describes the method rather than the quality of the ideas. (Product Thinking, Higher Difficulty) A respondent in a switch interview describes actively searching for a new tool but ultimately says, \"I almost didn't switch because I was worried about losing all my existing data.\" Which Force of Progress (Lesson 6) does this statement most directly surface? The worry attaches to the act of switching rather than to the old tool or the new one. That is what separates Anxiety from Habit, which is inertia without a specific fear. (Interview Reasoning, Higher Difficulty) An interviewer is asked to critique a colleague's interview guide, which begins with a five-minute demo of the proposed solution before any questions about the respondent's current behavior. What is the strongest critique, based on this lesson? Solution reaction belongs at the end, clearly fenced off, and weighted as the weaker stated-preference evidence it is. Put first, it contaminates everything that follows. (Product Thinking, Higher Difficulty) A team has completed several interviews and is unsure whether a recurring vague theme (\"it's just complicated\") represents a genuine, specific finding or an unexplored surface-level answer. Using the Interview Depth Staircase, what should the team conclude? Recurrence makes the theme worth pursuing, not worth acting on as written. \"Complicated\" could mean too many steps, unfamiliar vocabulary, or an unclear mental model, and each implies a different fix. (Highest Difficulty) A team conducts twenty interviews, all recruited through an in-app pop-up shown only to daily active users, and all following a past-behavior-first structure with solution reaction deferred to the end. According to this lesson and Lesson 11 combined, what specific limitation remains, despite the strong interview structure? Technique and recruitment are independent failure points. A flawless guide administered to a self-selected slice of the most engaged users still cannot speak for the people who left.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "Mental Model: The Interview Depth Staircase",
+      "Real Company Example",
+      "Real World Perspective: Customer Interviews at Different Company Stages",
+      "Detailed Case Study: The Interview That Became a Pitch",
+      "Framework Explanation: The Interview Guide Structure",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "Customer Interview",
+    "Switch Interview",
+    "Discovery Interview",
+    "Usability Interview",
+    "Interview Depth Staircase"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

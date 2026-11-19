@@ -1,0 +1,947 @@
+{
+  "schemaVersion": 2,
+  "id": "les_apad14",
+  "contentHash": "2d221d65c95f350bc32e9824aa518f8115f790883f489d678cd1e5879e916557",
+  "title": "Product Requirements Document (PRD)",
+  "slug": "lesson-022",
+  "module": "design",
+  "order": 2,
+  "totalInModule": 10,
+  "difficulty": 4,
+  "estimatedReadingTime": 25,
+  "estimatedCompletionTime": 40,
+  "prerequisites": [
+    "les_4s6aif",
+    "les_bhb1lc"
+  ],
+  "sourceFile": "content/lessons/lesson-022.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 22: Product Requirements Document (PRD)",
+      "blockId": "blk_e126fad2f0"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 21 ended with a genuinely, rigorously scoped MVP: small, complete, aimed squarely at the riskiest remaining assumption. But \"scoped in a PM's head\" and \"specified clearly enough that a cross-functional team can build it correctly, without the PM in the room for every decision\" are very different things. This lesson covers the artifact that bridges that gap: a **Product Requirements Document (PRD)**, a written specification that communicates what needs to be built, why, and for whom, precisely enough that engineering, design, and QA can work from a shared, unambiguous understanding rather than from fragments of hallway conversation and half-remembered Slack threads.",
+      "blockId": "blk_838578db5a"
+    },
+    {
+      "type": "paragraph",
+      "text": "A PRD's job is not to make a PM look thorough, and it is not a ritualistic document produced because \"that's the process.\" It exists to solve a specific, recurring failure: without a shared written specification, different team members build from different mental models of what \"the feature\" actually is, discovering the gaps between those mental models only during implementation, code review, or (worse) after launch. This lesson treats the PRD as a communication tool first and a documentation artifact second, and covers what separates a PRD that actually prevents this failure from one that merely looks thorough while leaving the same ambiguities unresolved.",
+      "blockId": "blk_8796317f27"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "Define a PRD and identify its core sections, distinguishing required content from optional or team-specific additions.",
+        "Apply the \"problem before solution\" ordering discipline within a PRD, directly extending Lesson 17's problem statement practice.",
+        "Distinguish appropriate specification precision from over-specification, and explain the risks of each extreme.",
+        "Identify the \"PRD as one-way document\" failure pattern and explain why a PRD should function as a living, collaboratively refined artifact rather than a final, unquestionable decree.",
+        "Apply a structured method for scoping what belongs inside a PRD versus what belongs in adjacent artifacts (user stories, acceptance criteria, design specs)."
+      ],
+      "blockId": "blk_bec50a9dd0"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 17 (Problem Statements) and Lesson 21 (MVP). This lesson assumes you can write a solution-free problem statement and can rigorously scope an MVP around a riskiest assumption. A PRD is the document that formally combines both: it restates the validated problem, then specifies the scoped MVP solution precisely enough for a cross-functional team to build it.",
+      "blockId": "blk_bcd65239cd"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Core Definition and Structure",
+          "blockId": "blk_e4fb05a576"
+        },
+        {
+          "type": "paragraph",
+          "text": "A PRD is a written specification communicating what is being built, for whom, why, and to what specification, structured to give engineering, design, and QA a shared, unambiguous reference point throughout a project. While specific templates vary by organization, a PRD typically includes:",
+          "blockId": "blk_80c4b9eb7d"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**Problem statement** (Lesson 17): the validated problem being addressed, stated without a solution.",
+            "**Goals and success metrics**: what outcome this solution is meant to produce, and how success will be measured, directly connecting to the desired outcome at the root of the Opportunity Solution Tree (Lesson 19).",
+            "**Scope** (in and out): what the MVP (Lesson 21) does and, just as importantly, does not include, given the riskiest-assumption scoping discipline from the previous lesson.",
+            "**User flows or scenarios**: how a user actually moves through the solution, often connecting to persona and journey map work (Lessons 14–15).",
+            "**Functional requirements**: specific behaviors the solution must exhibit.",
+            "**Non-functional requirements**: performance, security, accessibility, and other cross-cutting constraints.",
+            "**Open questions and risks**: explicitly unresolved issues, rather than papering over uncertainty with false specificity."
+          ],
+          "blockId": "blk_e12daaeb51"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_7383a4ff53",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[PRD] --> B[Problem Statement<br/>Lesson 17, Solution-free]\r\n    A --> C[Goals & Success Metrics]\r\n    A --> D[Scope: in and Out Per<br/>MVP Discipline, Lesson 21]\r\n    A --> E[User Flows / Scenarios]\r\n    A --> F[Functional Requirements]\r\n    A --> G[Non-Functional Requirements]\r\n    A --> H[Open Questions & Risks]",
+          "normalized": "graph TD\r\n    A[PRD] --> B[Problem Statement<br/>Lesson 17, Solution-free]\r\n    A --> C[Goals & Success Metrics]\r\n    A --> D[Scope: in and Out Per<br/>MVP Discipline, Lesson 21]\r\n    A --> E[User Flows / Scenarios]\r\n    A --> F[Functional Requirements]\r\n    A --> G[Non-Functional Requirements]\r\n    A --> H[Open Questions & Risks]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020941326-55\" xmlns=\"http://www.w3.org/2000/svg\" width=\"2966.75\" height=\"300\" viewBox=\"-43 -27 2966.75 300\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: PRD → Problem StatementLesson 17, Solution-free → Goals &amp; Success Metrics → Scope: in and Out PerMVP Discipline, Lesson 21 → User Flows / Scenarios...\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: PRD → Problem StatementLesson 17, Solution-free → Goals &amp; Success Metrics → Scope: in and Out PerMVP Discipline, Lesson 21 → User Flows / Scenarios...</title><style>#mermaid-svg-1795020941326-55{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020941326-55 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020941326-55 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020941326-55 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020941326-55 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020941326-55 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020941326-55 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020941326-55 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020941326-55 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020941326-55 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020941326-55 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020941326-55 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020941326-55 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020941326-55 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020941326-55 p{margin:0;}#mermaid-svg-1795020941326-55 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020941326-55 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020941326-55 .cluster-label span{color:#171A17;}#mermaid-svg-1795020941326-55 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020941326-55 .label text,#mermaid-svg-1795020941326-55 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020941326-55 .node rect,#mermaid-svg-1795020941326-55 .node circle,#mermaid-svg-1795020941326-55 .node ellipse,#mermaid-svg-1795020941326-55 .node polygon,#mermaid-svg-1795020941326-55 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020941326-55 .rough-node .label text,#mermaid-svg-1795020941326-55 .node .label text,#mermaid-svg-1795020941326-55 .image-shape .label,#mermaid-svg-1795020941326-55 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020941326-55 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020941326-55 .rough-node .label,#mermaid-svg-1795020941326-55 .node .label,#mermaid-svg-1795020941326-55 .image-shape .label,#mermaid-svg-1795020941326-55 .icon-shape .label{text-align:center;}#mermaid-svg-1795020941326-55 .node.clickable{cursor:pointer;}#mermaid-svg-1795020941326-55 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020941326-55 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020941326-55 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020941326-55 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020941326-55 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020941326-55 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020941326-55 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020941326-55 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020941326-55 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020941326-55 .cluster text{fill:#171A17;}#mermaid-svg-1795020941326-55 .cluster span{color:#171A17;}#mermaid-svg-1795020941326-55 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020941326-55 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020941326-55 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020941326-55 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020941326-55 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020941326-55 .icon-shape,#mermaid-svg-1795020941326-55 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020941326-55 .icon-shape p,#mermaid-svg-1795020941326-55 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020941326-55 .icon-shape .label rect,#mermaid-svg-1795020941326-55 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020941326-55 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020941326-55 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020941326-55 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020941326-55 [data-look=\"neo\"].node rect,#mermaid-svg-1795020941326-55 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020941326-55 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020941326-55-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020941326-55 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020941326-55 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020941326-55-gradient);stroke-width:1px;}#mermaid-svg-1795020941326-55 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020941326-55 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020941326-55 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020941326-55-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020941326-55 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020941326-55 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020941326-55-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020941326-55 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020941326-55-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020941326-55 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020941326-55_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020941326-55_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020941326-55_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020941326-55_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020941326-55_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020941326-55_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020941326-55_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020941326-55_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020941326-55_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020941326-55_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020941326-55_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020941326-55_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M1419.25,48.802L1216.208,61.251C1013.167,73.701,607.083,98.601,404.042,117.3C201,136,201,148.5,201,154.75L201,161\" id=\"mermaid-svg-1795020941326-55-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6MTQxOS4yNSwieSI6NDguODAxNjAxMjQ5NzU1OTA1fSx7IngiOjIwMSwieSI6MTIzLjV9LHsieCI6MjAxLCJ5IjoxNjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941326-55_flowchart-v2-pointEnd)\"></path><path d=\"M1419.25,50.688L1286.979,62.824C1154.708,74.959,890.167,99.229,757.896,120.448C625.625,141.667,625.625,159.833,625.625,168.917L625.625,178\" id=\"mermaid-svg-1795020941326-55-L_A_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_C_0\" data-points=\"W3sieCI6MTQxOS4yNSwieSI6NTAuNjg4MjM5NTkwOTQyMjk1fSx7IngiOjYyNS42MjUsInkiOjEyMy41fSx7IngiOjYyNS42MjUsInkiOjE4Mn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941326-55_flowchart-v2-pointEnd)\"></path><path d=\"M1419.25,56.462L1358.813,67.635C1298.375,78.808,1177.5,101.154,1117.063,118.577C1056.625,136,1056.625,148.5,1056.625,154.75L1056.625,161\" id=\"mermaid-svg-1795020941326-55-L_A_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_D_0\" data-points=\"W3sieCI6MTQxOS4yNSwieSI6NTYuNDYxODc4MTI3NzU5Nzl9LHsieCI6MTA1Ni42MjUsInkiOjEyMy41fSx7IngiOjEwNTYuNjI1LCJ5IjoxNjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941326-55_flowchart-v2-pointEnd)\"></path><path d=\"M1481.25,82L1481.25,88.917C1481.25,95.833,1481.25,109.667,1481.25,125.667C1481.25,141.667,1481.25,159.833,1481.25,168.917L1481.25,178\" id=\"mermaid-svg-1795020941326-55-L_A_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_E_0\" data-points=\"W3sieCI6MTQ4MS4yNSwieSI6ODJ9LHsieCI6MTQ4MS4yNSwieSI6MTIzLjV9LHsieCI6MTQ4MS4yNSwieSI6MTgyfV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941326-55_flowchart-v2-pointEnd)\"></path><path d=\"M1543.25,56.817L1601.563,67.931C1659.875,79.044,1776.5,101.272,1834.813,121.469C1893.125,141.667,1893.125,159.833,1893.125,168.917L1893.125,178\" id=\"mermaid-svg-1795020941326-55-L_A_F_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_F_0\" data-points=\"W3sieCI6MTU0My4yNSwieSI6NTYuODE2NjkxOTU3NTExMzh9LHsieCI6MTg5My4xMjUsInkiOjEyMy41fSx7IngiOjE4OTMuMTI1LCJ5IjoxODJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941326-55_flowchart-v2-pointEnd)\"></path><path d=\"M1543.25,50.688L1675.521,62.824C1807.792,74.959,2072.333,99.229,2204.604,120.448C2336.875,141.667,2336.875,159.833,2336.875,168.917L2336.875,178\" id=\"mermaid-svg-1795020941326-55-L_A_G_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_G_0\" data-points=\"W3sieCI6MTU0My4yNSwieSI6NTAuNjg4MjM5NTkwOTQyMjk1fSx7IngiOjIzMzYuODc1LCJ5IjoxMjMuNX0seyJ4IjoyMzM2Ljg3NSwieSI6MTgyfV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941326-55_flowchart-v2-pointEnd)\"></path><path d=\"M1543.25,48.764L1748.417,61.22C1953.583,73.676,2363.917,98.588,2569.083,120.127C2774.25,141.667,2774.25,159.833,2774.25,168.917L2774.25,178\" id=\"mermaid-svg-1795020941326-55-L_A_H_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_H_0\" data-points=\"W3sieCI6MTU0My4yNSwieSI6NDguNzY0MTE0NDYyNDkwMzN9LHsieCI6Mjc3NC4yNSwieSI6MTIzLjV9LHsieCI6Mjc3NC4yNSwieSI6MTgyfV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941326-55_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_F_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_G_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_H_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020941326-55-flowchart-A-0\" data-look=\"classic\" transform=\"translate(1481.25, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-62\" y=\"-35\" width=\"124\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-30, -19)\"><rect></rect><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>PRD</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020941326-55-flowchart-B-1\" data-look=\"classic\" transform=\"translate(201, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-150\" y=\"-46\" width=\"300\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-118, -30)\"><rect></rect><foreignObject width=\"236\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Problem Statement<br>Lesson 17, Solution-free</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020941326-55-flowchart-C-3\" data-look=\"classic\" transform=\"translate(625.625, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-145.75\" y=\"-35\" width=\"291.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-113.75, -19)\"><rect></rect><foreignObject width=\"227.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Goals &amp; Success Metrics</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020941326-55-flowchart-D-5\" data-look=\"classic\" transform=\"translate(1056.625, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-154.25\" y=\"-46\" width=\"308.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-122.25, -30)\"><rect></rect><foreignObject width=\"244.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Scope: in and Out Per<br>MVP Discipline, Lesson 21</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020941326-55-flowchart-E-7\" data-look=\"classic\" transform=\"translate(1481.25, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-141.5\" y=\"-35\" width=\"283\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-109.5, -19)\"><rect></rect><foreignObject width=\"219\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>User Flows / Scenarios</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020941326-55-flowchart-F-9\" data-look=\"classic\" transform=\"translate(1893.125, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-145.75\" y=\"-35\" width=\"291.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-113.75, -19)\"><rect></rect><foreignObject width=\"227.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Functional Requirements</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020941326-55-flowchart-G-11\" data-look=\"classic\" transform=\"translate(2336.875, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-162.75\" y=\"-35\" width=\"325.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-130.75, -19)\"><rect></rect><foreignObject width=\"261.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Non-Functional Requirements</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020941326-55-flowchart-H-13\" data-look=\"classic\" transform=\"translate(2774.25, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-141.5\" y=\"-35\" width=\"283\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-109.5, -19)\"><rect></rect><foreignObject width=\"219\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Open Questions &amp; Risks</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020941326-55-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020941326-55-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020941326-55-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_7383a4ff53"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Problem Before Solution: Ordering Discipline Within a PRD",
+          "blockId": "blk_a9cf1bbc60"
+        },
+        {
+          "type": "paragraph",
+          "text": "A specific, important discipline (directly extending Lesson 17's solution-free problem statement practice) is the ordering of a PRD's content: the problem statement and goals must be established and agreed upon *before* functional requirements are specified, not written concurrently with, or after, the solution details. This ordering matters for the same reason Lesson 17 emphasized excluding solutions from problem statements in the first place: a PRD that opens directly with a list of functional requirements, without first anchoring the reader in the validated problem, invites reviewers to evaluate the requirements against their own private, unstated assumptions about the problem, rather than against a shared, explicit understanding, precisely the anchoring risk Lesson 12 warned about at the interview level and Lesson 17 warned about at the problem-framing level, now recurring at the level of an entire specification document's structure.",
+          "blockId": "blk_71f5ec8178"
+        },
+        {
+          "type": "paragraph",
+          "text": "A PRD that begins with a clearly stated, evidence-cited problem (directly reusing Lesson 17's template) gives every subsequent requirement a test: does this requirement plausibly serve the stated problem, or has scope drifted toward something else? This is the same discipline as the Value Proposition Filter (Lesson 7) and Vision Filter (Lesson 9), now applied at the level of an individual document's internal consistency.",
+          "blockId": "blk_6079dd3c5f"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Appropriate Precision vs. Over-Specification",
+          "blockId": "blk_a999881722"
+        },
+        {
+          "type": "paragraph",
+          "text": "A genuinely difficult judgment call in PRD writing is choosing the right level of precision: specific enough that engineering and design can build confidently without constant clarification, but not so exhaustively detailed that the document becomes a rigid, premature commitment to implementation choices that are better made by the specialists actually doing that work.",
+          "blockId": "blk_a73fa23541"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**Under-specification** leaves genuine ambiguity that different team members will resolve differently, discovering the mismatch only during implementation or QA: for example, a requirement stating \"the system should handle errors gracefully\" without specifying what \"gracefully\" means in any testable sense.",
+            "**Over-specification** dictates implementation details that are properly the domain of engineering or design expertise: for example, a PRD specifying the exact database schema or the precise pixel spacing of a UI element, decisions better made by the engineers and designers with the relevant technical and craft expertise, and decisions that, if specified prematurely by a PM without that expertise, risk being both wrong and unnecessarily constraining."
+          ],
+          "blockId": "blk_120bdd4c49"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_5bd773d555",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[Specification Precision] --> B[Under-Specified Vague, Ambiguous;<br/>Invites Inconsistent Interpretation]\r\n    A --> C[Appropriately Specified Clear on<br/>Behavior and Outcome; Leaves<br/>Implementation Choices to Relevant<br/>Experts]\r\n    A --> D[Over-Specified Dictates Implementation<br/>Details Outside the PM Expertise or Role]",
+          "normalized": "graph LR\r\n    A[Specification Precision] --> B[Under-Specified Vague, Ambiguous;<br/>Invites Inconsistent Interpretation]\r\n    A --> C[Appropriately Specified Clear on<br/>Behavior and Outcome; Leaves<br/>Implementation Choices to Relevant<br/>Experts]\r\n    A --> D[Over-Specified Dictates Implementation<br/>Details Outside the PM Expertise or Role]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020941543-56\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1048.13\" height=\"517\" viewBox=\"-40.875 -27 1048.13 517\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Specification Precision → Under-Specified Vague, Ambiguous;Invites Inconsistent Interpretation → Appropriately Specified Clear onBehavior and Outcome; LeavesImplementation Choices to RelevantExperts → Over-Specified Dictates ImplementationDetails Outside the PM Expertise or Role\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Specification Precision → Under-Specified Vague, Ambiguous;Invites Inconsistent Interpretation → Appropriately Specified Clear onBehavior and Outcome; LeavesImplementation Choices to RelevantExperts → Over-Specified Dictates ImplementationDetails Outside the PM Expertise or Role</title><style>#mermaid-svg-1795020941543-56{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020941543-56 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020941543-56 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020941543-56 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020941543-56 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020941543-56 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020941543-56 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020941543-56 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020941543-56 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020941543-56 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020941543-56 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020941543-56 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020941543-56 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020941543-56 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020941543-56 p{margin:0;}#mermaid-svg-1795020941543-56 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020941543-56 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020941543-56 .cluster-label span{color:#171A17;}#mermaid-svg-1795020941543-56 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020941543-56 .label text,#mermaid-svg-1795020941543-56 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020941543-56 .node rect,#mermaid-svg-1795020941543-56 .node circle,#mermaid-svg-1795020941543-56 .node ellipse,#mermaid-svg-1795020941543-56 .node polygon,#mermaid-svg-1795020941543-56 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020941543-56 .rough-node .label text,#mermaid-svg-1795020941543-56 .node .label text,#mermaid-svg-1795020941543-56 .image-shape .label,#mermaid-svg-1795020941543-56 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020941543-56 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020941543-56 .rough-node .label,#mermaid-svg-1795020941543-56 .node .label,#mermaid-svg-1795020941543-56 .image-shape .label,#mermaid-svg-1795020941543-56 .icon-shape .label{text-align:center;}#mermaid-svg-1795020941543-56 .node.clickable{cursor:pointer;}#mermaid-svg-1795020941543-56 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020941543-56 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020941543-56 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020941543-56 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020941543-56 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020941543-56 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020941543-56 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020941543-56 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020941543-56 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020941543-56 .cluster text{fill:#171A17;}#mermaid-svg-1795020941543-56 .cluster span{color:#171A17;}#mermaid-svg-1795020941543-56 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020941543-56 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020941543-56 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020941543-56 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020941543-56 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020941543-56 .icon-shape,#mermaid-svg-1795020941543-56 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020941543-56 .icon-shape p,#mermaid-svg-1795020941543-56 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020941543-56 .icon-shape .label rect,#mermaid-svg-1795020941543-56 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020941543-56 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020941543-56 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020941543-56 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020941543-56 [data-look=\"neo\"].node rect,#mermaid-svg-1795020941543-56 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020941543-56 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020941543-56-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020941543-56 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020941543-56 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020941543-56-gradient);stroke-width:1px;}#mermaid-svg-1795020941543-56 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020941543-56 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020941543-56 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020941543-56-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020941543-56 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020941543-56 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020941543-56-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020941543-56 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020941543-56-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020941543-56 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020941543-56_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020941543-56_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020941543-56_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020941543-56_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020941543-56_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020941543-56_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020941543-56_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020941543-56_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020941543-56_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020941543-56_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020941543-56_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020941543-56_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M241.939,212L273.907,187C305.876,162,369.813,112,415.177,87C460.542,62,487.333,62,500.729,62L514.125,62\" id=\"mermaid-svg-1795020941543-56-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6MjQxLjkzODUwMjY3Mzc5NjgsInkiOjIxMn0seyJ4Ijo0MzMuNzUsInkiOjYyfSx7IngiOjUxOC4xMjUsInkiOjYyfV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941543-56_flowchart-v2-pointEnd)\"></path><path d=\"M381.25,249L390,249C398.75,249,416.25,249,439.458,249C462.667,249,491.583,249,506.042,249L520.5,249\" id=\"mermaid-svg-1795020941543-56-L_A_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_C_0\" data-points=\"W3sieCI6MzgxLjI1LCJ5IjoyNDl9LHsieCI6NDMzLjc1LCJ5IjoyNDl9LHsieCI6NTI0LjUsInkiOjI0OX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941543-56_flowchart-v2-pointEnd)\"></path><path d=\"M241.939,286L273.907,311C305.876,336,369.813,386,409.865,411C449.917,436,466.083,436,474.167,436L482.25,436\" id=\"mermaid-svg-1795020941543-56-L_A_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_D_0\" data-points=\"W3sieCI6MjQxLjkzODUwMjY3Mzc5NjgsInkiOjI4Nn0seyJ4Ijo0MzMuNzUsInkiOjQzNn0seyJ4Ijo0ODYuMjUsInkiOjQzNn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941543-56_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020941543-56-flowchart-A-0\" data-look=\"classic\" transform=\"translate(194.625, 249)\"><rect class=\"basic label-container\" style=\"\" x=\"-145.75\" y=\"-35\" width=\"291.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-113.75, -19)\"><rect></rect><foreignObject width=\"227.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Specification Precision</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020941543-56-flowchart-B-1\" data-look=\"classic\" transform=\"translate(781.25, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-196.75\" y=\"-46\" width=\"393.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-164.75, -30)\"><rect></rect><foreignObject width=\"329.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Under-Specified Vague, Ambiguous;<br>Invites Inconsistent Interpretation</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020941543-56-flowchart-C-3\" data-look=\"classic\" transform=\"translate(781.25, 249)\"><rect class=\"basic label-container\" style=\"\" x=\"-192.5\" y=\"-68\" width=\"385\" height=\"136\"></rect><g class=\"label\" style=\"\" transform=\"translate(-160.5, -52)\"><rect></rect><foreignObject width=\"321\" height=\"104\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Appropriately Specified Clear on<br>Behavior and Outcome; Leaves<br>Implementation Choices to Relevant<br>Experts</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020941543-56-flowchart-D-5\" data-look=\"classic\" transform=\"translate(781.25, 436)\"><rect class=\"basic label-container\" style=\"\" x=\"-218\" y=\"-46\" width=\"436\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-186, -30)\"><rect></rect><foreignObject width=\"372\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Over-Specified Dictates Implementation<br>Details Outside the PM Expertise or Role</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020941543-56-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020941543-56-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020941543-56-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_5bd773d555"
+        },
+        {
+          "type": "paragraph",
+          "text": "The practical discipline for finding this middle ground: specify the **what and why** (the required behavior, the reason it matters, the success criteria) with real precision, while deliberately leaving the **how** (the specific technical implementation, the exact visual execution) to the engineers and designers whose expertise that decision belongs to, consulting them, and inviting their judgment, rather than pre-deciding it unilaterally in the document.",
+          "blockId": "blk_c79827ed4c"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The \"PRD as One-Way Document\" Failure Pattern",
+          "blockId": "blk_cead937df1"
+        },
+        {
+          "type": "paragraph",
+          "text": "A specific, common organizational failure treats a PRD as a final, unquestionable decree, written by a PM, handed to engineering and design as a finished, non-negotiable specification, with any subsequent questions treated as deviations from an already-settled plan rather than legitimate, expected refinements. This directly echoes Lesson 20's discovery-delivery handoff warning, now applied specifically to the PRD document itself: treating a PRD as something \"delivered\" rather than something collaboratively developed risks losing exactly the kind of implementation-stage insight (technical constraints discovered mid-build, design considerations that only become apparent once real interface work begins) that a genuinely open, living document would incorporate.",
+          "blockId": "blk_98398a55e1"
+        },
+        {
+          "type": "paragraph",
+          "text": "A healthier practice treats a PRD as a starting point for structured collaboration: engineering and design review it early, before commitments are finalized, explicitly raising questions, proposing alternative approaches to functional requirements, and flagging any premature over-specification the PM may have unintentionally included. The document itself should be updated as this collaboration surfaces new information, rather than treated as immutable once initially written, directly paralleling Lesson 17's guidance that a finalized problem statement should function as an ongoing reference point checked against reality, not a one-time artifact.",
+          "blockId": "blk_6b25f9c93f"
+        }
+      ],
+      "blockId": "blk_2e2f394256"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Opening a PRD with functional requirements before establishing the problem statement and goals",
+          "body": "This invites readers to evaluate requirements against their own private assumptions about the problem, rather than a shared, explicit understanding, echoing the anchoring risks covered in earlier lessons."
+        },
+        {
+          "title": "Under-specifying requirements, leaving genuine ambiguity that different team members resolve inconsistently",
+          "body": "Vague language (\"handle errors gracefully,\" \"make it fast\") invites exactly the kind of divergent interpretation a PRD exists to prevent."
+        },
+        {
+          "title": "Over-specifying implementation details that belong to engineering or design expertise",
+          "body": "Dictating a specific database schema or exact pixel measurements, without inviting the relevant experts' judgment, both risks being technically wrong and unnecessarily constrains solutions that specialists might implement better."
+        },
+        {
+          "title": "Treating a PRD as a final, unquestionable decree rather than a living, collaboratively refined document",
+          "body": "This risks losing valuable implementation-stage insight and echoes Lesson 20's discovery-delivery handoff failure at the level of an individual specification document."
+        },
+        {
+          "title": "Including content that belongs in a different, more granular artifact (user stories, acceptance criteria) rather than the PRD itself",
+          "body": "A PRD that attempts to specify every individual implementable unit of work in exhaustive detail duplicates, and often conflicts with, the more granular work covered in Lessons 23 and 24.\n\n"
+        }
+      ],
+      "blockId": "blk_ac2a1f2f5f"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The PRD Precision Dial",
+      "diagram": {
+        "blockId": "blk_e8ae2bb683",
+        "type": "mermaid"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "This lesson's mental model is the **PRD Precision Dial**, a way of visualizing the trade-off between under- and over-specification, and consciously choosing where a given requirement should sit.",
+          "blockId": "blk_d16a03bf3e"
+        },
+        {
+          "type": "paragraph",
+          "text": "Use this dial explicitly when drafting or reviewing a requirement: is this specific enough that a reasonable engineer or designer, reading it independently, would build essentially the same thing another reasonable engineer or designer would build from the same text? If two people could reasonably interpret it very differently, it's under-specified. If it dictates a technical or visual implementation choice the PM isn't positioned to make well, it's over-specified.",
+          "blockId": "blk_321182f69d"
+        }
+      ],
+      "blockId": "blk_3611a71911"
+    },
+    {
+      "type": "mermaid",
+      "id": "blk_e8ae2bb683",
+      "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[Under-Specified Vague<br/>Behavior, Ambiguous Outcome] --> B[Appropriately Specified Clear Behavior<br/>and Success Criteria; Implementation<br/>Choices Left to Relevant Experts]\r\n    B --> C[Over-Specified Dictates Implementation<br/>Details Outside PM Expertise or Role]",
+      "normalized": "graph LR\r\n    A[Under-Specified Vague<br/>Behavior, Ambiguous Outcome] --> B[Appropriately Specified Clear Behavior<br/>and Success Criteria; Implementation<br/>Choices Left to Relevant Experts]\r\n    B --> C[Over-Specified Dictates Implementation<br/>Details Outside PM Expertise or Role]",
+      "authorTheme": {
+        "background": "#0b0b0c",
+        "primaryColor": "#1f1f23",
+        "primaryTextColor": "#ffffff",
+        "primaryBorderColor": "#8b5cf6",
+        "lineColor": "#d1d5db",
+        "secondaryColor": "#18181b",
+        "tertiaryColor": "#111111",
+        "mainBkg": "#1f1f23",
+        "nodeBorder": "#8b5cf6",
+        "clusterBkg": "#000000",
+        "clusterBorder": "#27272a",
+        "titleColor": "#ffffff",
+        "edgeLabelBackground": "#0b0b0c",
+        "nodeTextColor": "#ffffff",
+        "edgeLabelColor": "#ffffff",
+        "actorBorder": "#8b5cf6",
+        "actorBkg": "#1f1f23",
+        "actorTextColor": "#ffffff",
+        "sequenceNumberColor": "#ffffff",
+        "signalColor": "#8b5cf6",
+        "signalTextColor": "#ffffff",
+        "textColor": "#ffffff",
+        "classText": "#ffffff",
+        "classBorder": "#8b5cf6",
+        "classBkg": "#1f1f23"
+      },
+      "svg": "<svg id=\"mermaid-svg-1795020941684-57\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1755.88\" height=\"171\" viewBox=\"-49.375 -27 1755.88 171\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Under-Specified VagueBehavior, Ambiguous Outcome → Appropriately Specified Clear Behaviorand Success Criteria; ImplementationChoices Left to Relevant Experts → Over-Specified Dictates ImplementationDetails Outside PM Expertise or Role\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Under-Specified VagueBehavior, Ambiguous Outcome → Appropriately Specified Clear Behaviorand Success Criteria; ImplementationChoices Left to Relevant Experts → Over-Specified Dictates ImplementationDetails Outside PM Expertise or Role</title><style>#mermaid-svg-1795020941684-57{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020941684-57 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020941684-57 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020941684-57 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020941684-57 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020941684-57 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020941684-57 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020941684-57 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020941684-57 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020941684-57 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020941684-57 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020941684-57 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020941684-57 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020941684-57 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020941684-57 p{margin:0;}#mermaid-svg-1795020941684-57 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020941684-57 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020941684-57 .cluster-label span{color:#171A17;}#mermaid-svg-1795020941684-57 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020941684-57 .label text,#mermaid-svg-1795020941684-57 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020941684-57 .node rect,#mermaid-svg-1795020941684-57 .node circle,#mermaid-svg-1795020941684-57 .node ellipse,#mermaid-svg-1795020941684-57 .node polygon,#mermaid-svg-1795020941684-57 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020941684-57 .rough-node .label text,#mermaid-svg-1795020941684-57 .node .label text,#mermaid-svg-1795020941684-57 .image-shape .label,#mermaid-svg-1795020941684-57 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020941684-57 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020941684-57 .rough-node .label,#mermaid-svg-1795020941684-57 .node .label,#mermaid-svg-1795020941684-57 .image-shape .label,#mermaid-svg-1795020941684-57 .icon-shape .label{text-align:center;}#mermaid-svg-1795020941684-57 .node.clickable{cursor:pointer;}#mermaid-svg-1795020941684-57 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020941684-57 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020941684-57 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020941684-57 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020941684-57 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020941684-57 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020941684-57 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020941684-57 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020941684-57 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020941684-57 .cluster text{fill:#171A17;}#mermaid-svg-1795020941684-57 .cluster span{color:#171A17;}#mermaid-svg-1795020941684-57 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020941684-57 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020941684-57 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020941684-57 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020941684-57 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020941684-57 .icon-shape,#mermaid-svg-1795020941684-57 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020941684-57 .icon-shape p,#mermaid-svg-1795020941684-57 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020941684-57 .icon-shape .label rect,#mermaid-svg-1795020941684-57 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020941684-57 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020941684-57 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020941684-57 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020941684-57 [data-look=\"neo\"].node rect,#mermaid-svg-1795020941684-57 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020941684-57 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020941684-57-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020941684-57 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020941684-57 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020941684-57-gradient);stroke-width:1px;}#mermaid-svg-1795020941684-57 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020941684-57 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020941684-57 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020941684-57-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020941684-57 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020941684-57 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020941684-57-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020941684-57 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020941684-57-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020941684-57 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020941684-57_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020941684-57_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020941684-57_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020941684-57_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020941684-57_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020941684-57_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020941684-57_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020941684-57_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020941684-57_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020941684-57_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020941684-57_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020941684-57_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M432.25,79L441,79C449.75,79,467.25,79,484.083,79C500.917,79,517.083,79,525.167,79L533.25,79\" id=\"mermaid-svg-1795020941684-57-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NDMyLjI1LCJ5Ijo3OX0seyJ4Ijo0ODQuNzUsInkiOjc5fSx7IngiOjUzNy4yNSwieSI6Nzl9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941684-57_flowchart-v2-pointEnd)\"></path><path d=\"M1101.75,79L1110.5,79C1119.25,79,1136.75,79,1153.583,79C1170.417,79,1186.583,79,1194.667,79L1202.75,79\" id=\"mermaid-svg-1795020941684-57-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6MTEwMS43NSwieSI6Nzl9LHsieCI6MTE1NC4yNSwieSI6Nzl9LHsieCI6MTIwNi43NSwieSI6Nzl9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020941684-57_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020941684-57-flowchart-A-0\" data-look=\"classic\" transform=\"translate(220.125, 79)\"><rect class=\"basic label-container\" style=\"\" x=\"-162.75\" y=\"-46\" width=\"325.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-130.75, -30)\"><rect></rect><foreignObject width=\"261.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Under-Specified Vague<br>Behavior, Ambiguous Outcome</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020941684-57-flowchart-B-1\" data-look=\"classic\" transform=\"translate(819.5, 79)\"><rect class=\"basic label-container\" style=\"\" x=\"-209.5\" y=\"-57\" width=\"419\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-177.5, -41)\"><rect></rect><foreignObject width=\"355\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Appropriately Specified Clear Behavior<br>and Success Criteria; Implementation<br>Choices Left to Relevant Experts</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020941684-57-flowchart-C-3\" data-look=\"classic\" transform=\"translate(1489, 79)\"><rect class=\"basic label-container\" style=\"\" x=\"-209.5\" y=\"-46\" width=\"419\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-177.5, -30)\"><rect></rect><foreignObject width=\"355\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Over-Specified Dictates Implementation<br>Details Outside PM Expertise or Role</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020941684-57-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020941684-57-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020941684-57-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+      "blockId": "blk_e8ae2bb683"
+    },
+    {
+      "type": "companyExample",
+      "company": "Google",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "**Google**'s widely referenced internal \"design docs\" and product specification practices, particularly for engineering-heavy initiatives, are a commonly cited illustration of collaborative, living specification documents rather than one-way decrees. Public accounts and externally shared examples of Google's internal documentation culture have described a practice of circulating draft specifications broadly for comment before finalizing them, explicitly inviting engineering and design pushback on both the stated problem and the proposed approach, and treating a written specification as a structured starting point for cross-functional refinement rather than a finished, unquestionable plan, directly reflecting this lesson's corrective to the \"PRD as one-way document\" failure pattern.",
+          "blockId": "blk_c4c6b9d309"
+        }
+      ],
+      "assumptionFlags": [
+        "this reflects widely reported, publicly shared descriptions of general documentation practices at Google rather than a claim about the company's current, complete, or universal internal PRD process, which this curriculum does not claim certainty about."
+      ],
+      "blockId": "blk_8b99bb8e57"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "At a startup",
+          "body": "PRDs are often lightweight and informal, sometimes replaced by a brief written brief or even a well-structured verbal alignment session, given small team size and close daily collaboration that reduces the risk of the divergent-mental-model problem a formal PRD exists to prevent. As teams grow beyond a size where informal alignment reliably works, the discipline of writing things down explicitly becomes increasingly valuable."
+        },
+        {
+          "context": "At a mid-size company",
+          "body": "PRDs typically become a more standard, expected artifact for any initiative involving more than a small handful of people, and organizations at this stage often develop templates codifying the sections this lesson describes. The main ongoing risk is the \"PRD as one-way document\" failure pattern, as team size grows enough that informal, continuous conversation with the PM becomes less automatic than it was at a smaller scale."
+        },
+        {
+          "context": "At Big Tech",
+          "body": "PRDs and equivalent specification documents at scale often go through formal, multi-stage review processes involving multiple cross-functional stakeholders and sometimes explicit sign-off requirements, and a significant part of senior product leadership's role involves ensuring these formal review processes remain genuinely collaborative (inviting real pushback and iteration) rather than becoming a bureaucratic, one-way approval ritual that technically satisfies a process requirement without functioning as genuine cross-functional alignment."
+        }
+      ],
+      "blockId": "blk_17c0208573"
+    },
+    {
+      "type": "caseStudy",
+      "title": "The PRD That Specified the Wrong Things",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Consider a simplified, illustrative scenario common across B2B software teams.",
+          "blockId": "blk_d7b302ea6f"
+        },
+        {
+          "type": "paragraph",
+          "text": "A PM writes a PRD for a new notification system, based on a well-validated opportunity and a correctly scoped MVP (Lesson 21). The document opens directly with a detailed list of functional requirements, including a highly specific database table structure for storing notification preferences, and an exact specification of button placement and color within the settings interface, without ever explicitly restating the underlying problem statement or success metrics the notification system was meant to address.",
+          "blockId": "blk_e822cd54c7"
+        },
+        {
+          "type": "paragraph",
+          "text": "Engineering, working from the PRD, builds exactly what was specified: the given database structure and the given interface layout. During implementation, an engineer notices that the specified database structure would make a common, expected future feature (notification digests, batching multiple notifications together) significantly harder to build later, and would have proposed a different structure. But, treating the PRD as a finalized, non-negotiable specification (rather than raising the concern, given the document's one-way framing), the engineer builds as specified rather than raising the issue.",
+          "blockId": "blk_f62a91b571"
+        },
+        {
+          "type": "paragraph",
+          "text": "Separately, the design team, upon finally reviewing the PRD's specified button placement and color, disagrees with the choice on established design-system grounds, but similarly treats the specification as already decided rather than open for discussion, given how the document was originally framed and circulated.",
+          "blockId": "blk_5e9c3ae6f4"
+        },
+        {
+          "type": "paragraph",
+          "text": "Three months after launch, both concerns prove valid: a subsequent notification-digest feature does require a costly database migration exactly because of the original schema choice, and user testing reveals the specified button color has poor contrast for a portion of users, an accessibility issue the design team could have easily caught and flagged, had they felt the document invited that kind of pushback.",
+          "blockId": "blk_402ce78bc0"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong?**",
+          "blockId": "blk_70ad6c900b"
+        },
+        {
+          "type": "paragraph",
+          "text": "Applying this lesson's frameworks:",
+          "blockId": "blk_ef8d4e10a5"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**The PRD opened with functional requirements rather than the problem statement and goals**, denying reviewers the shared context needed to evaluate whether the specific requirements (including the ones that later proved problematic) actually served the underlying need well.",
+            "**The document was significantly over-specified in areas outside the PM's expertise**: the database schema and exact interface styling are properly engineering and design decisions, and specifying them unilaterally both risked being technically or aesthetically suboptimal and pre-empted the relevant experts' better judgment.",
+            "**The PRD functioned as a one-way document rather than a living, collaboratively refined one.** Both the engineer and the designer had legitimate, valuable concerns, but the document's framing (and likely the surrounding team culture) discouraged raising them as an expected, welcomed part of the process."
+          ],
+          "blockId": "blk_cea70e8ffb"
+        },
+        {
+          "type": "paragraph",
+          "text": "A team applying this lesson's discipline would have opened the PRD with the problem statement and goals, specified the required notification behavior and success criteria (the what and why) while explicitly inviting engineering to propose the database structure and design to propose the specific interface treatment (the how), and circulated the document for genuine review and pushback before finalizing, very likely catching both the schema limitation and the contrast issue well before either became a costly, post-launch problem.",
+          "blockId": "blk_2e15194b22"
+        },
+        {
+          "type": "paragraph",
+          "text": "This case connects directly back to **Lesson 20's discovery-delivery handoff pattern** and **Lesson 17's problem-before-solution discipline**: in both cases, the underlying failure is the same: treating a specification or research artifact as a finished, one-way deliverable rather than a living tool for ongoing, genuine collaboration.",
+          "blockId": "blk_789d8fed0d"
+        }
+      ],
+      "blockId": "blk_300cb3d4a2"
+    },
+    {
+      "type": "framework",
+      "name": "The PRD Review Checklist",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A practical checklist for reviewing a draft PRD before circulating it as a final specification:",
+          "blockId": "blk_3bbd62d7bc"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Question",
+            "Purpose"
+          ],
+          "rows": [
+            [
+              "Does the document open with the problem statement (Lesson 17) and goals, before any functional requirements?",
+              "Prevents readers from evaluating requirements against private, unstated assumptions"
+            ],
+            [
+              "Is each functional requirement specific enough to prevent divergent interpretation, without dictating implementation details outside the PM's expertise?",
+              "Balances the Precision Dial correctly"
+            ],
+            [
+              "Are open questions and risks explicitly listed, rather than papered over with false specificity?",
+              "Prevents the document from projecting more certainty than actually exists"
+            ],
+            [
+              "Has the document been circulated for genuine review, with real opportunity for engineering and design pushback, before being treated as final?",
+              "Prevents the \"one-way document\" failure pattern"
+            ],
+            [
+              "Does the document avoid duplicating content that belongs in more granular artifacts (user stories, acceptance criteria)?",
+              "Keeps the PRD focused on its appropriate level of specification"
+            ]
+          ],
+          "blockId": "blk_079348e076"
+        },
+        {
+          "type": "paragraph",
+          "text": "A PRD that fails several of these checks risks the exact kind of costly, post-launch discovery shown in this lesson's Detailed Case Study: issues that could have been caught and resolved during specification and review, at a small fraction of the cost of catching them after implementation or launch.",
+          "blockId": "blk_dc447e2f63"
+        }
+      ],
+      "blockId": "blk_0dc3a7386a"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "Walk me through how you'd write a PRD for a new feature.",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate describes opening with the problem and goals before specifying requirements, and whether they mention circulating the document for genuine cross-functional review, versus describing a document written and delivered unilaterally."
+        },
+        {
+          "question": "Tell me about a time a PRD was ambiguous or led to miscommunication. What happened?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Direct experience with under-specification (or, less commonly, over-specification) and whether the candidate can articulate the specific gap and how it was ultimately resolved, rather than attributing the miscommunication vaguely to \"poor communication\" without deeper diagnosis."
+        },
+        {
+          "question": "How do you decide how much implementation detail to include in a PRD versus leaving to engineering or design?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Fluency with the Precision Dial: whether the candidate can articulate a principled distinction between specifying the what/why (appropriately the PM's domain) and the how (appropriately engineering/design's domain), rather than defaulting to either extreme without a clear rationale."
+        }
+      ],
+      "blockId": "blk_fd8cf260f1"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A PRD is a written specification giving engineering, design, and QA a shared, unambiguous reference point for what is being built, why, and to what specification. Its core sections typically include a problem statement, goals and success metrics, in/out scope, user flows, functional and non-functional requirements, and open questions. The problem statement and goals must be established before functional requirements are specified, directly extending Lesson 17's solution-free discipline, since a document opening with requirements invites readers to evaluate them against private, unstated assumptions about the problem. Appropriate specification precision sits between under-specification (vague requirements inviting inconsistent interpretation) and over-specification (dictating implementation details outside the PM's expertise), and the practical discipline is specifying the what and why with real precision while leaving the how to the relevant engineering and design experts. The \"PRD as one-way document\" failure pattern (treating a specification as a final, unquestionable decree rather than a living, collaboratively refined artifact) risks losing valuable implementation-stage insight, as shown in this lesson's Detailed Case Study, and the corrective is genuine, early cross-functional review with real opportunity for pushback before the document is treated as final.",
+          "blockId": "blk_81a8b24974"
+        }
+      ],
+      "blockId": "blk_cecb06b595"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "A PRD's core sections typically include a problem statement, goals/success metrics, in/out scope, user flows, functional and non-functional requirements, and open questions.",
+        "Problem statement and goals must come before functional requirements, so readers evaluate requirements against a shared, explicit understanding rather than private assumptions.",
+        "Appropriate specification precision specifies the what and why clearly while leaving the how (technical and visual implementation) to engineering and design expertise.",
+        "Under-specification invites inconsistent interpretation; over-specification pre-empts expert judgment and risks being technically or aesthetically wrong.",
+        "\"PRD as one-way document\" (treating a specification as a final decree rather than a living, collaboratively refined artifact) risks losing valuable implementation-stage insight from engineering and design.",
+        "A healthy PRD process circulates the document early for genuine cross-functional review and welcomes pushback, rather than treating questions as deviations from an already-settled plan.",
+        "A PRD should avoid duplicating content that belongs in more granular artifacts like user stories and acceptance criteria."
+      ],
+      "blockId": "blk_8cdce98e8f"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "**Core PRD sections:** problem statement, goals/metrics, scope (in/out), user flows, functional requirements, non-functional requirements, open questions.",
+        "**Problem before solution**: always, within the PRD's own structure, not just at the project level.",
+        "**Precision Dial:** specify the what/why clearly; leave the how to engineering/design expertise.",
+        "**Avoid \"PRD as one-way document\"**: circulate early, invite real pushback, treat it as living.",
+        "**Don't duplicate** user stories/acceptance criteria content inside the PRD itself.",
+        "**PRD Review Checklist:** problem-first ordering? appropriate precision? open questions listed? genuinely reviewed, not just delivered?"
+      ],
+      "blockId": "blk_198701ffb8"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "Product Requirements Document (PRD)",
+          "definition": "A written specification communicating what is being built, why, and to what specification, for a cross-functional team.",
+          "relatedConcepts": [
+            "Problem Statement (Lesson 17)",
+            "MVP (Lesson 21)"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "PRD Precision Dial",
+          "definition": "A model for choosing appropriate specification precision, between under-specification and over-specification.",
+          "relatedConcepts": [
+            "Functional Requirements"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Under-Specification",
+          "definition": "Leaving genuine ambiguity in a requirement, inviting inconsistent interpretation across team members.",
+          "relatedConcepts": [
+            "PRD Precision Dial"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Over-Specification",
+          "definition": "Dictating implementation details outside the PM's expertise, pre-empting engineering or design judgment.",
+          "relatedConcepts": [
+            "PRD Precision Dial"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "\"PRD as One-Way Document\" (Failure Pattern)",
+          "definition": "Treating a PRD as a final, unquestionable decree rather than a living, collaboratively refined artifact.",
+          "relatedConcepts": [
+            "Discovery-Delivery Handoff (Lesson 20)"
+          ],
+          "difficulty": 3
+        }
+      ],
+      "blockId": "blk_8375058446"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "Marty Cagan's public writing on the distinction between \"PRDs\" as traditionally practiced and lighter-weight, collaborative specification approaches used by empowered product teams."
+        },
+        {
+          "citation": "Google's publicly shared design doc culture and templates, widely referenced as an example of collaborative, review-driven specification practice."
+        },
+        {
+          "citation": "Julie Zhuo, *The Making of a Manager*",
+          "note": "touches on cross-functional collaboration norms relevant to keeping specification documents genuinely open to design and engineering input."
+        }
+      ],
+      "blockId": "blk_fb3047a850"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_apad14",
+      "cards": [
+        {
+          "id": "fc-les_apad14-1",
+          "front": "What are the core sections typically included in a PRD?",
+          "back": "Problem statement, goals and success metrics, in/out scope, user flows, functional requirements, non-functional requirements, and open questions/risks.",
+          "difficulty": 2,
+          "tags": [
+            "prd-structure"
+          ]
+        },
+        {
+          "id": "fc-les_apad14-2",
+          "front": "Why must the problem statement come before functional requirements within a PRD?",
+          "back": "Opening with requirements invites readers to evaluate them against their own private, unstated assumptions about the problem, rather than a shared, explicit understanding.",
+          "difficulty": 2,
+          "tags": [
+            "problem-before-solution"
+          ]
+        },
+        {
+          "id": "fc-les_apad14-3",
+          "front": "What is the PRD Precision Dial?",
+          "back": "A model for choosing appropriate specification precision: specifying the what/why clearly while leaving the how (implementation details) to engineering and design expertise, avoiding both under- and over-specification.",
+          "difficulty": 2,
+          "tags": [
+            "precision-dial"
+          ]
+        },
+        {
+          "id": "fc-les_apad14-4",
+          "front": "What is the risk of over-specification in a PRD?",
+          "back": "It dictates implementation details outside the PM's expertise, risking being technically or aesthetically wrong and pre-empting the relevant experts' better judgment.",
+          "difficulty": 2,
+          "tags": [
+            "over-specification"
+          ]
+        },
+        {
+          "id": "fc-les_apad14-5",
+          "front": "What is the \"PRD as one-way document\" failure pattern?",
+          "back": "Treating a PRD as a final, unquestionable decree handed to engineering and design, rather than a living, collaboratively refined artifact inviting genuine review and pushback.",
+          "difficulty": 2,
+          "tags": [
+            "prd-one-way-document"
+          ]
+        },
+        {
+          "id": "fc-les_apad14-6",
+          "front": "In the Detailed Case Study, what two specific problems resulted from over-specification and one-way document treatment?",
+          "back": "A costly database migration later required due to a prematurely specified schema, and a user-facing accessibility contrast issue from a prematurely specified button color, both of which engineering and design had concerns about but didn't feel invited to raise.",
+          "difficulty": 3,
+          "tags": [
+            "case-study"
+          ]
+        },
+        {
+          "id": "fc-les_apad14-7",
+          "front": "What should a PM do to avoid the \"PRD as one-way document\" failure pattern?",
+          "back": "Circulate the document early for genuine cross-functional review, explicitly inviting engineering and design pushback, and treat the document as living and updatable rather than final once initially written.",
+          "difficulty": 2,
+          "tags": [
+            "collaborative-prd"
+          ]
+        }
+      ],
+      "blockId": "blk_07ef126561"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "You are the PM for a ride-sharing app, drafting a PRD for a new in-app tipping feature, following a correctly scoped MVP (Lesson 21) testing whether users will adopt an in-app tip option at all.",
+        "Work through the following, in writing, before reading further:",
+        "Draft a one-paragraph problem statement (per Lesson 17's template) to open this PRD, and briefly note the goals/success metric it should be evaluated against.",
+        "Write one functional requirement for this feature at an \"appropriately specified\" level (per the Precision Dial), and then rewrite it once as under-specified and once as over-specified, explaining what's wrong with each version.",
+        "Identify one implementation decision (e.g., a specific payment-processing integration detail, or an exact visual treatment) that you would deliberately leave open for engineering or design to decide, rather than specifying yourself.",
+        "Describe how you would circulate this draft PRD for review, and what specific invitation or framing you would use to encourage genuine pushback rather than passive acceptance.",
+        "List two \"open questions\" you would explicitly include in the document, rather than resolving them with false confidence.",
+        "There is no single correct answer. The purpose of this exercise is to practice applying the Precision Dial and the problem-before-solution ordering discipline to a concrete specification, rather than defaulting to either vague generality or premature over-specification."
+      ],
+      "blockId": "blk_7f31bf7016"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_apad14",
+      "questions": [
+        {
+          "id": "q-les_apad14-1",
+          "question": "Which of the following best describes the core purpose of a PRD, according to this lesson?",
+          "options": [
+            "To make a PM appear thorough to the senior leadership team above",
+            "To remove the need for further cross-functional communication",
+            "To specify every implementation detail exhaustively",
+            "To give engineering, design, and QA one shared reference point"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The failure a PRD exists to prevent is three functions building from three private mental models of the same feature. It supports further conversation rather than replacing it.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_apad14-2",
+          "question": "Why must a PRD's problem statement and goals be established before functional requirements are specified?",
+          "options": [
+            "Because problem statements must run longer than requirements",
+            "Because functional requirements always matter less than goals do",
+            "Because requirements first invites readers' private assumptions",
+            "Because engineering refuses to read documents ordered any other way"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Without a stated problem at the top, each reviewer silently supplies their own and judges the requirements against that. The anchoring risk from Lessons 12 and 17 recurs at document scale.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_apad14-3",
+          "question": "Which of the following is the clearest example of over-specification in a PRD, according to this lesson?",
+          "options": [
+            "\"The database should use this exact schema, with these column names and types.\"",
+            "\"The system must send a notification within five seconds of the trigger.\"",
+            "\"The feature must be usable by people relying on screen readers.\"",
+            "\"Users should be able to dismiss the notification they receive.\""
+          ],
+          "correctAnswer": 0,
+          "explanation": "The other three specify required behaviour and leave the method open. A schema is a technical decision belonging to the people who will live with its consequences.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_apad14-4",
+          "question": "What is the risk of under-specification in a PRD?",
+          "options": [
+            "It removes the need for any further collaboration on the build",
+            "It leaves ambiguity that team members resolve inconsistently, surfacing late in QA",
+            "It pre-empts the engineering or design expertise on the team",
+            "It always makes the resulting document considerably too long"
+          ],
+          "correctAnswer": 1,
+          "explanation": "\"Handle errors gracefully\" means something different to each reader, and the divergence stays invisible until someone tests it against a definition nobody agreed on.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_apad14-5",
+          "question": "What is the \"PRD as one-way document\" failure pattern?",
+          "options": [
+            "A document written collaboratively by several stakeholders from the start",
+            "A document containing rather too many unresolved open questions",
+            "Treating a PRD as a decree rather than a living artifact",
+            "A document that is simply too short to be genuinely useful"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Questions then read as deviations from a settled plan rather than the expected refinements they are, and the implementation-stage insight never reaches the document.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_apad14-6",
+          "question": "In the Detailed Case Study, what specific consequence resulted from over-specifying the database schema?",
+          "options": [
+            "The engineering team declined to build the specified schema at all",
+            "The system launched considerably ahead of its original schedule",
+            "No meaningful consequence followed from that specific decision",
+            "A later notification-digest feature needed a costly migration"
+          ],
+          "correctAnswer": 3,
+          "explanation": "An engineer had misgivings at review time and did not feel invited to raise them. The cost arrived months later, as a migration nobody had budgeted for.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_apad14-7",
+          "question": "Why did the engineer and designer in the Detailed Case Study not raise their concerns about the specified requirements before implementation?",
+          "options": [
+            "They read the PRD as already finalised rather than open for review",
+            "They held no concerns about any of the specifications",
+            "They were never told a PRD existed for this project",
+            "They agreed completely with every specified detail in the document"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Both had real reservations. How the document was framed and circulated told them the decisions were closed, so neither treated review as an invitation.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_apad14-8",
+          "question": "According to the PRD Review Checklist, what should happen with open questions and risks in a PRD?",
+          "options": [
+            "List them explicitly rather than papering over them",
+            "Omit them so the document projects confidence and certainty",
+            "Resolve them unilaterally before sharing with anybody else",
+            "Treat them as an unnecessary component of any PRD document"
+          ],
+          "correctAnswer": 0,
+          "explanation": "A document that hides its uncertainty projects more confidence than the team has earned, and the unresolved question surfaces later at a higher price.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_apad14-9",
+          "question": "(Scenario) A PM drafts a PRD specifying that \"the checkout process must feel fast and modern.\" According to the Precision Dial, what is the issue with this requirement, and how should it be improved?",
+          "options": [
+            "It is appropriately specified as written and needs no revision",
+            "Under-specified; replace with a testable target",
+            "Over-specified and should be removed from the document entirely",
+            "It should name the exact CSS styling to remove all ambiguity"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Nobody can build or test \"modern.\" A load-time threshold is checkable, and the visual execution that delivers it still belongs to design.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_apad14-10",
+          "question": "(Product Thinking) A PM circulates a draft PRD and explicitly writes, \"I'd like genuine pushback on the approach in section 3. Please propose alternatives if you see a better way to meet this goal.\" What discipline does this practice reflect?",
+          "options": [
+            "Under-specification, since the requirements are not yet finalised",
+            "Over-specification, since the PM dictates the feedback",
+            "A deliberate move against the one-way document failure pattern",
+            "The one-way document failure pattern, in its clearest possible form"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Naming where pushback is wanted converts a nominal review into a real one, which is exactly what the engineer in the case study needed and did not get.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_apad14-11",
+          "question": "(Interview Reasoning) A candidate describes writing a PRD that specifies the exact pixel spacing and color hex codes for every UI element, without input from the design team. What might this signal, based on this lesson's Interview Perspective section?",
+          "options": [
+            "A thorough and widely admired PRD writing practice",
+            "Strong visual design skill, which counts as a core PM competency",
+            "Over-specification, dictating choices that belong to design",
+            "Nothing of note, since specifying visual detail is always a PM call"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Deciding it unilaterally risks being both wrong and constraining. The PM can specify what the interface must accomplish and leave the execution to the people trained in it.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_apad14-12",
+          "question": "(Product Thinking, Higher Difficulty) A PRD includes a section attempting to break down every individual user story and specific acceptance criterion in exhaustive detail, duplicating content that the team also maintains separately in a project management tool. According to this lesson, what is the issue with this practice?",
+          "options": [
+            "Ideal practice, since more detail in one document is always better",
+            "User stories ought not exist separately from the PRD document",
+            "No meaningful downside, provided the PRD is kept fully up to date",
+            "It duplicates artifacts better maintained separately"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Two copies of the same acceptance criteria drift apart, and then the team has two sources of truth and no way to tell which one is current.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_apad14-13",
+          "question": "(Interview Reasoning, Higher Difficulty) An interviewer describes a scenario where an engineer, during implementation, discovers a significant technical constraint that would require deviating from a PRD's specified approach, but proceeds with the flawed original specification anyway rather than raising the concern. What is the strongest diagnostic question for a candidate to ask about the team's process, based on this lesson?",
+          "options": [
+            "\"Was the PRD approved by a senior enough stakeholder beforehand?\"",
+            "\"Was the PRD in a format the engineering team could actually access?\"",
+            "\"Did the PRD contain enough diagrams to be visually engaging?\"",
+            "\"Was the PRD framed as a living document that welcomed this pushback?\""
+          ],
+          "correctAnswer": 3,
+          "explanation": "The engineer knew and said nothing, which points at the document's framing rather than its accessibility, its diagrams, or its approval chain.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_apad14-14",
+          "question": "(Product Thinking, Higher Difficulty) A team's PRD process requires formal, multi-stakeholder sign-off before any implementation can begin, and stakeholders routinely approve documents without substantive comment, viewing the sign-off as a procedural formality. According to this lesson, does this satisfy the goal of collaborative, living specification?",
+          "options": [
+            "No, a formality without engagement still works as a one-way document",
+            "Yes, since a formal sign-off step suffices whatever its substance",
+            "Yes, provided the PRD contains every section this lesson lists",
+            "This scenario falls outside the scope of the lesson's framework entirely"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The signatures record that people saw the document, not that anyone examined it. Structurally this is the same outcome as handing over a decree, with more paperwork.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_apad14-15",
+          "question": "(Highest Difficulty) A team writes a PRD that correctly opens with a problem statement and goals, specifies functional requirements at an appropriate level of precision, explicitly lists open questions, and circulates the document for genuine review, but the underlying problem statement itself, inherited from an earlier stage, is later discovered to be based on an un-laddered, surface-level pain point (per Lesson 16) rather than its actual root cause. What does this scenario illustrate?",
+          "options": [
+            "PRD discipline alone suffices, whatever the problem statement beneath",
+            "A well-built PRD can still mislead if the problem beneath it was never laddered and validated",
+            "Problem statements become unnecessary once requirements are precise",
+            "This scenario cannot occur if a PRD follows the structure described"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Every discipline in this lesson operated correctly, on top of a foundation from Lesson 16 that had not. Excellence at one layer of the chain does not repair a gap in another.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_c3f0bc3f10"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_bhb1lc",
+        "title": "Lesson 21: Minimum Viable Product (MVP)",
+        "module": "design"
+      },
+      "current": {
+        "id": "les_apad14",
+        "title": "Lesson 22: Product Requirements Document (PRD)"
+      },
+      "next": {
+        "id": "les_anj59m",
+        "title": "Lesson 23: User Stories",
+        "module": "design"
+      },
+      "unlocks": [
+        {
+          "lesson": {
+            "id": "les_6qg1gx",
+            "title": "Acceptance Criteria",
+            "module": "design"
+          },
+          "coreIdea": "Formalizes testable conditions for each user story, extending a PRD's requirements to a more granular, verifiable level"
+        }
+      ],
+      "blockId": "blk_0d5cb9604e"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 22: Product Requirements Document (PRD) Lesson 21 ended with a genuinely, rigorously scoped MVP: small, complete, aimed squarely at the riskiest remaining assumption. But \"scoped in a PM's head\" and \"specified clearly enough that a cross-functional team can build it correctly, without the PM in the room for every decision\" are very different things. This lesson covers the artifact that bridges that gap: a **Product Requirements Document (PRD)**, a written specification that communicates what needs to be built, why, and for whom, precisely enough that engineering, design, and QA can work from a shared, unambiguous understanding rather than from fragments of hallway conversation and half-remembered Slack threads. A PRD's job is not to make a PM look thorough, and it is not a ritualistic document produced because \"that's the process.\" It exists to solve a specific, recurring failure: without a shared written specification, different team members build from different mental models of what \"the feature\" actually is, discovering the gaps between those mental models only during implementation, code review, or (worse) after launch. This lesson treats the PRD as a communication tool first and a documentation artifact second, and covers what separates a PRD that actually prevents this failure from one that merely looks thorough while leaving the same ambiguities unresolved. Define a PRD and identify its core sections, distinguishing required content from optional or team-specific additions. Apply the \"problem before solution\" ordering discipline within a PRD, directly extending Lesson 17's problem statement practice. Distinguish appropriate specification precision from over-specification, and explain the risks of each extreme. Identify the \"PRD as one-way document\" failure pattern and explain why a PRD should function as a living, collaboratively refined artifact rather than a final, unquestionable decree. Apply a structured method for scoping what belongs inside a PRD versus what belongs in adjacent artifacts (user stories, acceptance criteria, design specs). Lesson 17 (Problem Statements) and Lesson 21 (MVP). This lesson assumes you can write a solution-free problem statement and can rigorously scope an MVP around a riskiest assumption. A PRD is the document that formally combines both: it restates the validated problem, then specifies the scoped MVP solution precisely enough for a cross-functional team to build it. The Core Definition and Structure A PRD is a written specification communicating what is being built, for whom, why, and to what specification, structured to give engineering, design, and QA a shared, unambiguous reference point throughout a project. While specific templates vary by organization, a PRD typically includes: **Problem statement** (Lesson 17): the validated problem being addressed, stated without a solution. **Goals and success metrics**: what outcome this solution is meant to produce, and how success will be measured, directly connecting to the desired outcome at the root of the Opportunity Solution Tree (Lesson 19). **Scope** (in and out): what the MVP (Lesson 21) does and, just as importantly, does not include, given the riskiest-assumption scoping discipline from the previous lesson. **User flows or scenarios**: how a user actually moves through the solution, often connecting to persona and journey map work (Lessons 14–15). **Functional requirements**: specific behaviors the solution must exhibit. **Non-functional requirements**: performance, security, accessibility, and other cross-cutting constraints. **Open questions and risks**: explicitly unresolved issues, rather than papering over uncertainty with false specificity. Problem Before Solution: Ordering Discipline Within a PRD A specific, important discipline (directly extending Lesson 17's solution-free problem statement practice) is the ordering of a PRD's content: the problem statement and goals must be established and agreed upon *before* functional requirements are specified, not written concurrently with, or after, the solution details. This ordering matters for the same reason Lesson 17 emphasized excluding solutions from problem statements in the first place: a PRD that opens directly with a list of functional requirements, without first anchoring the reader in the validated problem, invites reviewers to evaluate the requirements against their own private, unstated assumptions about the problem, rather than against a shared, explicit understanding, precisely the anchoring risk Lesson 12 warned about at the interview level and Lesson 17 warned about at the problem-framing level, now recurring at the level of an entire specification document's structure. A PRD that begins with a clearly stated, evidence-cited problem (directly reusing Lesson 17's template) gives every subsequent requirement a test: does this requirement plausibly serve the stated problem, or has scope drifted toward something else? This is the same discipline as the Value Proposition Filter (Lesson 7) and Vision Filter (Lesson 9), now applied at the level of an individual document's internal consistency. Appropriate Precision vs. Over-Specification A genuinely difficult judgment call in PRD writing is choosing the right level of precision: specific enough that engineering and design can build confidently without constant clarification, but not so exhaustively detailed that the document becomes a rigid, premature commitment to implementation choices that are better made by the specialists actually doing that work. **Under-specification** leaves genuine ambiguity that different team members will resolve differently, discovering the mismatch only during implementation or QA: for example, a requirement stating \"the system should handle errors gracefully\" without specifying what \"gracefully\" means in any testable sense. **Over-specification** dictates implementation details that are properly the domain of engineering or design expertise: for example, a PRD specifying the exact database schema or the precise pixel spacing of a UI element, decisions better made by the engineers and designers with the relevant technical and craft expertise, and decisions that, if specified prematurely by a PM without that expertise, risk being both wrong and unnecessarily constraining. The practical discipline for finding this middle ground: specify the **what and why** (the required behavior, the reason it matters, the success criteria) with real precision, while deliberately leaving the **how** (the specific technical implementation, the exact visual execution) to the engineers and designers whose expertise that decision belongs to, consulting them, and inviting their judgment, rather than pre-deciding it unilaterally in the document. The \"PRD as One-Way Document\" Failure Pattern A specific, common organizational failure treats a PRD as a final, unquestionable decree, written by a PM, handed to engineering and design as a finished, non-negotiable specification, with any subsequent questions treated as deviations from an already-settled plan rather than legitimate, expected refinements. This directly echoes Lesson 20's discovery-delivery handoff warning, now applied specifically to the PRD document itself: treating a PRD as something \"delivered\" rather than something collaboratively developed risks losing exactly the kind of implementation-stage insight (technical constraints discovered mid-build, design considerations that only become apparent once real interface work begins) that a genuinely open, living document would incorporate. A healthier practice treats a PRD as a starting point for structured collaboration: engineering and design review it early, before commitments are finalized, explicitly raising questions, proposing alternative approaches to functional requirements, and flagging any premature over-specification the PM may have unintentionally included. The document itself should be updated as this collaboration surfaces new information, rather than treated as immutable once initially written, directly paralleling Lesson 17's guidance that a finalized problem statement should function as an ongoing reference point checked against reality, not a one-time artifact. Opening a PRD with functional requirements before establishing the problem statement and goals This invites readers to evaluate requirements against their own private assumptions about the problem, rather than a shared, explicit understanding, echoing the anchoring risks covered in earlier lessons. Under-specifying requirements, leaving genuine ambiguity that different team members resolve inconsistently Vague language (\"handle errors gracefully,\" \"make it fast\") invites exactly the kind of divergent interpretation a PRD exists to prevent. Over-specifying implementation details that belong to engineering or design expertise Dictating a specific database schema or exact pixel measurements, without inviting the relevant experts' judgment, both risks being technically wrong and unnecessarily constrains solutions that specialists might implement better. Treating a PRD as a final, unquestionable decree rather than a living, collaboratively refined document This risks losing valuable implementation-stage insight and echoes Lesson 20's discovery-delivery handoff failure at the level of an individual specification document. Including content that belongs in a different, more granular artifact (user stories, acceptance criteria) rather than the PRD itself A PRD that attempts to specify every individual implementable unit of work in exhaustive detail duplicates, and often conflicts with, the more granular work covered in Lessons 23 and 24. The PRD Precision Dial This lesson's mental model is the **PRD Precision Dial**, a way of visualizing the trade-off between under- and over-specification, and consciously choosing where a given requirement should sit. Use this dial explicitly when drafting or reviewing a requirement: is this specific enough that a reasonable engineer or designer, reading it independently, would build essentially the same thing another reasonable engineer or designer would build from the same text? If two people could reasonably interpret it very differently, it's under-specified. If it dictates a technical or visual implementation choice the PM isn't positioned to make well, it's over-specified. Google **Google**'s widely referenced internal \"design docs\" and product specification practices, particularly for engineering-heavy initiatives, are a commonly cited illustration of collaborative, living specification documents rather than one-way decrees. Public accounts and externally shared examples of Google's internal documentation culture have described a practice of circulating draft specifications broadly for comment before finalizing them, explicitly inviting engineering and design pushback on both the stated problem and the proposed approach, and treating a written specification as a structured starting point for cross-functional refinement rather than a finished, unquestionable plan, directly reflecting this lesson's corrective to the \"PRD as one-way document\" failure pattern. At a startup PRDs are often lightweight and informal, sometimes replaced by a brief written brief or even a well-structured verbal alignment session, given small team size and close daily collaboration that reduces the risk of the divergent-mental-model problem a formal PRD exists to prevent. As teams grow beyond a size where informal alignment reliably works, the discipline of writing things down explicitly becomes increasingly valuable. At a mid-size company PRDs typically become a more standard, expected artifact for any initiative involving more than a small handful of people, and organizations at this stage often develop templates codifying the sections this lesson describes. The main ongoing risk is the \"PRD as one-way document\" failure pattern, as team size grows enough that informal, continuous conversation with the PM becomes less automatic than it was at a smaller scale. At Big Tech PRDs and equivalent specification documents at scale often go through formal, multi-stage review processes involving multiple cross-functional stakeholders and sometimes explicit sign-off requirements, and a significant part of senior product leadership's role involves ensuring these formal review processes remain genuinely collaborative (inviting real pushback and iteration) rather than becoming a bureaucratic, one-way approval ritual that technically satisfies a process requirement without functioning as genuine cross-functional alignment. The PRD That Specified the Wrong Things Consider a simplified, illustrative scenario common across B2B software teams. A PM writes a PRD for a new notification system, based on a well-validated opportunity and a correctly scoped MVP (Lesson 21). The document opens directly with a detailed list of functional requirements, including a highly specific database table structure for storing notification preferences, and an exact specification of button placement and color within the settings interface, without ever explicitly restating the underlying problem statement or success metrics the notification system was meant to address. Engineering, working from the PRD, builds exactly what was specified: the given database structure and the given interface layout. During implementation, an engineer notices that the specified database structure would make a common, expected future feature (notification digests, batching multiple notifications together) significantly harder to build later, and would have proposed a different structure. But, treating the PRD as a finalized, non-negotiable specification (rather than raising the concern, given the document's one-way framing), the engineer builds as specified rather than raising the issue. Separately, the design team, upon finally reviewing the PRD's specified button placement and color, disagrees with the choice on established design-system grounds, but similarly treats the specification as already decided rather than open for discussion, given how the document was originally framed and circulated. Three months after launch, both concerns prove valid: a subsequent notification-digest feature does require a costly database migration exactly because of the original schema choice, and user testing reveals the specified button color has poor contrast for a portion of users, an accessibility issue the design team could have easily caught and flagged, had they felt the document invited that kind of pushback. **What went wrong?** Applying this lesson's frameworks: **The PRD opened with functional requirements rather than the problem statement and goals**, denying reviewers the shared context needed to evaluate whether the specific requirements (including the ones that later proved problematic) actually served the underlying need well. **The document was significantly over-specified in areas outside the PM's expertise**: the database schema and exact interface styling are properly engineering and design decisions, and specifying them unilaterally both risked being technically or aesthetically suboptimal and pre-empted the relevant experts' better judgment. **The PRD functioned as a one-way document rather than a living, collaboratively refined one.** Both the engineer and the designer had legitimate, valuable concerns, but the document's framing (and likely the surrounding team culture) discouraged raising them as an expected, welcomed part of the process. A team applying this lesson's discipline would have opened the PRD with the problem statement and goals, specified the required notification behavior and success criteria (the what and why) while explicitly inviting engineering to propose the database structure and design to propose the specific interface treatment (the how), and circulated the document for genuine review and pushback before finalizing, very likely catching both the schema limitation and the contrast issue well before either became a costly, post-launch problem. This case connects directly back to **Lesson 20's discovery-delivery handoff pattern** and **Lesson 17's problem-before-solution discipline**: in both cases, the underlying failure is the same: treating a specification or research artifact as a finished, one-way deliverable rather than a living tool for ongoing, genuine collaboration. The PRD Review Checklist A practical checklist for reviewing a draft PRD before circulating it as a final specification: A PRD that fails several of these checks risks the exact kind of costly, post-launch discovery shown in this lesson's Detailed Case Study: issues that could have been caught and resolved during specification and review, at a small fraction of the cost of catching them after implementation or launch. Walk me through how you'd write a PRD for a new feature. *What the interviewer is actually evaluating:* Whether the candidate describes opening with the problem and goals before specifying requirements, and whether they mention circulating the document for genuine cross-functional review, versus describing a document written and delivered unilaterally. Tell me about a time a PRD was ambiguous or led to miscommunication. What happened? *What the interviewer is actually evaluating:* Direct experience with under-specification (or, less commonly, over-specification) and whether the candidate can articulate the specific gap and how it was ultimately resolved, rather than attributing the miscommunication vaguely to \"poor communication\" without deeper diagnosis. How do you decide how much implementation detail to include in a PRD versus leaving to engineering or design? *What the interviewer is actually evaluating:* Fluency with the Precision Dial: whether the candidate can articulate a principled distinction between specifying the what/why (appropriately the PM's domain) and the how (appropriately engineering/design's domain), rather than defaulting to either extreme without a clear rationale. A PRD is a written specification giving engineering, design, and QA a shared, unambiguous reference point for what is being built, why, and to what specification. Its core sections typically include a problem statement, goals and success metrics, in/out scope, user flows, functional and non-functional requirements, and open questions. The problem statement and goals must be established before functional requirements are specified, directly extending Lesson 17's solution-free discipline, since a document opening with requirements invites readers to evaluate them against private, unstated assumptions about the problem. Appropriate specification precision sits between under-specification (vague requirements inviting inconsistent interpretation) and over-specification (dictating implementation details outside the PM's expertise), and the practical discipline is specifying the what and why with real precision while leaving the how to the relevant engineering and design experts. The \"PRD as one-way document\" failure pattern (treating a specification as a final, unquestionable decree rather than a living, collaboratively refined artifact) risks losing valuable implementation-stage insight, as shown in this lesson's Detailed Case Study, and the corrective is genuine, early cross-functional review with real opportunity for pushback before the document is treated as final. A PRD's core sections typically include a problem statement, goals/success metrics, in/out scope, user flows, functional and non-functional requirements, and open questions. Problem statement and goals must come before functional requirements, so readers evaluate requirements against a shared, explicit understanding rather than private assumptions. Appropriate specification precision specifies the what and why clearly while leaving the how (technical and visual implementation) to engineering and design expertise. Under-specification invites inconsistent interpretation; over-specification pre-empts expert judgment and risks being technically or aesthetically wrong. \"PRD as one-way document\" (treating a specification as a final decree rather than a living, collaboratively refined artifact) risks losing valuable implementation-stage insight from engineering and design. A healthy PRD process circulates the document early for genuine cross-functional review and welcomes pushback, rather than treating questions as deviations from an already-settled plan. A PRD should avoid duplicating content that belongs in more granular artifacts like user stories and acceptance criteria. **Core PRD sections:** problem statement, goals/metrics, scope (in/out), user flows, functional requirements, non-functional requirements, open questions. **Problem before solution**: always, within the PRD's own structure, not just at the project level. **Precision Dial:** specify the what/why clearly; leave the how to engineering/design expertise. **Avoid \"PRD as one-way document\"**: circulate early, invite real pushback, treat it as living. **Don't duplicate** user stories/acceptance criteria content inside the PRD itself. **PRD Review Checklist:** problem-first ordering? appropriate precision? open questions listed? genuinely reviewed, not just delivered? Product Requirements Document (PRD) A written specification communicating what is being built, why, and to what specification, for a cross-functional team. PRD Precision Dial A model for choosing appropriate specification precision, between under-specification and over-specification. Under-Specification Leaving genuine ambiguity in a requirement, inviting inconsistent interpretation across team members. Over-Specification Dictating implementation details outside the PM's expertise, pre-empting engineering or design judgment. \"PRD as One-Way Document\" (Failure Pattern) Treating a PRD as a final, unquestionable decree rather than a living, collaboratively refined artifact. Marty Cagan's public writing on the distinction between \"PRDs\" as traditionally practiced and lighter-weight, collaborative specification approaches used by empowered product teams. Google's publicly shared design doc culture and templates, widely referenced as an example of collaborative, review-driven specification practice. Julie Zhuo, *The Making of a Manager* touches on cross-functional collaboration norms relevant to keeping specification documents genuinely open to design and engineering input. What are the core sections typically included in a PRD? Problem statement, goals and success metrics, in/out scope, user flows, functional requirements, non-functional requirements, and open questions/risks. Why must the problem statement come before functional requirements within a PRD? Opening with requirements invites readers to evaluate them against their own private, unstated assumptions about the problem, rather than a shared, explicit understanding. What is the PRD Precision Dial? A model for choosing appropriate specification precision: specifying the what/why clearly while leaving the how (implementation details) to engineering and design expertise, avoiding both under- and over-specification. What is the risk of over-specification in a PRD? It dictates implementation details outside the PM's expertise, risking being technically or aesthetically wrong and pre-empting the relevant experts' better judgment. What is the \"PRD as one-way document\" failure pattern? Treating a PRD as a final, unquestionable decree handed to engineering and design, rather than a living, collaboratively refined artifact inviting genuine review and pushback. In the Detailed Case Study, what two specific problems resulted from over-specification and one-way document treatment? A costly database migration later required due to a prematurely specified schema, and a user-facing accessibility contrast issue from a prematurely specified button color, both of which engineering and design had concerns about but didn't feel invited to raise. What should a PM do to avoid the \"PRD as one-way document\" failure pattern? Circulate the document early for genuine cross-functional review, explicitly inviting engineering and design pushback, and treat the document as living and updatable rather than final once initially written. You are the PM for a ride-sharing app, drafting a PRD for a new in-app tipping feature, following a correctly scoped MVP (Lesson 21) testing whether users will adopt an in-app tip option at all. Work through the following, in writing, before reading further: Draft a one-paragraph problem statement (per Lesson 17's template) to open this PRD, and briefly note the goals/success metric it should be evaluated against. Write one functional requirement for this feature at an \"appropriately specified\" level (per the Precision Dial), and then rewrite it once as under-specified and once as over-specified, explaining what's wrong with each version. Identify one implementation decision (e.g., a specific payment-processing integration detail, or an exact visual treatment) that you would deliberately leave open for engineering or design to decide, rather than specifying yourself. Describe how you would circulate this draft PRD for review, and what specific invitation or framing you would use to encourage genuine pushback rather than passive acceptance. List two \"open questions\" you would explicitly include in the document, rather than resolving them with false confidence. There is no single correct answer. The purpose of this exercise is to practice applying the Precision Dial and the problem-before-solution ordering discipline to a concrete specification, rather than defaulting to either vague generality or premature over-specification. Which of the following best describes the core purpose of a PRD, according to this lesson? The failure a PRD exists to prevent is three functions building from three private mental models of the same feature. It supports further conversation rather than replacing it. Why must a PRD's problem statement and goals be established before functional requirements are specified? Without a stated problem at the top, each reviewer silently supplies their own and judges the requirements against that. The anchoring risk from Lessons 12 and 17 recurs at document scale. Which of the following is the clearest example of over-specification in a PRD, according to this lesson? The other three specify required behaviour and leave the method open. A schema is a technical decision belonging to the people who will live with its consequences. What is the risk of under-specification in a PRD? \"Handle errors gracefully\" means something different to each reader, and the divergence stays invisible until someone tests it against a definition nobody agreed on. What is the \"PRD as one-way document\" failure pattern? Questions then read as deviations from a settled plan rather than the expected refinements they are, and the implementation-stage insight never reaches the document. In the Detailed Case Study, what specific consequence resulted from over-specifying the database schema? An engineer had misgivings at review time and did not feel invited to raise them. The cost arrived months later, as a migration nobody had budgeted for. Why did the engineer and designer in the Detailed Case Study not raise their concerns about the specified requirements before implementation? Both had real reservations. How the document was framed and circulated told them the decisions were closed, so neither treated review as an invitation. According to the PRD Review Checklist, what should happen with open questions and risks in a PRD? A document that hides its uncertainty projects more confidence than the team has earned, and the unresolved question surfaces later at a higher price. (Scenario) A PM drafts a PRD specifying that \"the checkout process must feel fast and modern.\" According to the Precision Dial, what is the issue with this requirement, and how should it be improved? Nobody can build or test \"modern.\" A load-time threshold is checkable, and the visual execution that delivers it still belongs to design. (Product Thinking) A PM circulates a draft PRD and explicitly writes, \"I'd like genuine pushback on the approach in section 3. Please propose alternatives if you see a better way to meet this goal.\" What discipline does this practice reflect? Naming where pushback is wanted converts a nominal review into a real one, which is exactly what the engineer in the case study needed and did not get. (Interview Reasoning) A candidate describes writing a PRD that specifies the exact pixel spacing and color hex codes for every UI element, without input from the design team. What might this signal, based on this lesson's Interview Perspective section? Deciding it unilaterally risks being both wrong and constraining. The PM can specify what the interface must accomplish and leave the execution to the people trained in it. (Product Thinking, Higher Difficulty) A PRD includes a section attempting to break down every individual user story and specific acceptance criterion in exhaustive detail, duplicating content that the team also maintains separately in a project management tool. According to this lesson, what is the issue with this practice? Two copies of the same acceptance criteria drift apart, and then the team has two sources of truth and no way to tell which one is current. (Interview Reasoning, Higher Difficulty) An interviewer describes a scenario where an engineer, during implementation, discovers a significant technical constraint that would require deviating from a PRD's specified approach, but proceeds with the flawed original specification anyway rather than raising the concern. What is the strongest diagnostic question for a candidate to ask about the team's process, based on this lesson? The engineer knew and said nothing, which points at the document's framing rather than its accessibility, its diagrams, or its approval chain. (Product Thinking, Higher Difficulty) A team's PRD process requires formal, multi-stakeholder sign-off before any implementation can begin, and stakeholders routinely approve documents without substantive comment, viewing the sign-off as a procedural formality. According to this lesson, does this satisfy the goal of collaborative, living specification? The signatures record that people saw the document, not that anyone examined it. Structurally this is the same outcome as handing over a decree, with more paperwork. (Highest Difficulty) A team writes a PRD that correctly opens with a problem statement and goals, specifies functional requirements at an appropriate level of precision, explicitly lists open questions, and circulates the document for genuine review, but the underlying problem statement itself, inherited from an earlier stage, is later discovered to be based on an un-laddered, surface-level pain point (per Lesson 16) rather than its actual root cause. What does this scenario illustrate? Every discipline in this lesson operated correctly, on top of a foundation from Lesson 16 that had not. Excellence at one layer of the chain does not repair a gap in another.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "Mental Model: The PRD Precision Dial",
+      "Real Company Example",
+      "Real World Perspective: Product Requirements Document (PRD) at Different Company Stages",
+      "Detailed Case Study: The PRD That Specified the Wrong Things",
+      "Framework Explanation: The PRD Review Checklist",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "Product Requirements Document (PRD)",
+    "PRD Precision Dial",
+    "Under-Specification",
+    "Over-Specification",
+    "\"PRD as One-Way Document\" (Failure Pattern)"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

@@ -1,0 +1,1045 @@
+{
+  "schemaVersion": 2,
+  "id": "les_8psivf",
+  "contentHash": "85535d2a33edb3a02f333e261a532f3b302d0fddd21287dee4ef4f9e5657b756",
+  "title": "Product Discovery",
+  "slug": "lesson-008",
+  "module": "foundations",
+  "order": 8,
+  "totalInModule": 10,
+  "difficulty": 4,
+  "estimatedReadingTime": 30,
+  "estimatedCompletionTime": 45,
+  "prerequisites": [
+    "les_zoyq8a",
+    "les_8trb62",
+    "les_5rbthl"
+  ],
+  "seoTitle": "Product Discovery: Validate Value, Usability & Viability",
+  "seoDescription": "Master continuous product discovery to reduce risk before building. Learn how discovery and delivery run in parallel to validate assumptions rapidly.",
+  "inShort": "Product discovery is the continuous process of identifying and validating what to build before committing engineering resources to development. Working in parallel with delivery, discovery systematically mitigates four primary risks: value risk (will customers buy?), usability risk (can users figure it out?), feasibility risk (can engineers build it?), and business viability risk (does it work for the business?).",
+  "sourceFile": "content/lessons/lesson-008.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 8: Product Discovery",
+      "blockId": "blk_8d91e8d30c"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 7 ended with a pointed diagnostic: if you can't fill in a value proposition's \"unlike [alternative]\" blank with something specific and defensible, that gap isn't a wording problem. It's evidence that discovery work hasn't happened yet. This lesson is that missing work made explicit.",
+      "blockId": "blk_9bf72ffd77"
+    },
+    {
+      "type": "paragraph",
+      "text": "**Product discovery** is the set of activities a team uses to determine whether a proposed solution is worth building, *before* committing significant engineering investment to building it. It sits in deliberate contrast to what many teams do by default: skip straight from an idea (often a stakeholder's proposed solution, per Lesson 6) to delivery (designing, building, and shipping) and only discover afterward, via low adoption or a disappointing metric, that the underlying assumption was wrong. Discovery exists to catch that failure earlier and cheaper, when the cost of being wrong is a few days of research rather than a quarter of engineering time.",
+      "blockId": "blk_fc0f2445fc"
+    },
+    {
+      "type": "paragraph",
+      "text": "This matters urgently because the two most expensive kinds of product failure are not failures of execution (a bug, a missed deadline, a rough UI) but failures of **validity**: building something nobody actually wants (a desirability failure) or building something that technically works but that the business cannot sustain (a viability failure). Both are, in principle, detectable before a single line of production code is written, if a team is willing to structure its work around testing assumptions rather than assuming validity by default. Discovery is the discipline of doing that testing deliberately, rather than by accident, and rather than not at all.",
+      "blockId": "blk_3ff1d1f9cc"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "Define product discovery and distinguish it from product delivery.",
+        "Identify the four categories of risk a discovery process is designed to reduce: value, usability, feasibility, and viability risk.",
+        "Explain why discovery and delivery should run continuously and in parallel, rather than as sequential phases.",
+        "Apply a basic assumption-mapping technique to identify which assumption in a proposed solution is riskiest and most in need of testing first.",
+        "Distinguish a genuine discovery test from \"discovery theater\": activity that resembles validation but does not actually reduce risk."
+      ],
+      "blockId": "blk_1c01c78473"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 1 (What is Product Management?), Lesson 6 (Jobs To Be Done), and Lesson 7 (Value Proposition). This lesson assumes familiarity with the Accountability Triangle (desirability, feasibility, viability) from Lesson 1, and treats discovery as the active process of testing each leg of that triangle before committing to delivery, extending the \"how do we know\" question from Lesson 1 into a repeatable practice.",
+      "blockId": "blk_697e3082fe"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Core Definition",
+          "blockId": "blk_b9fde0be04"
+        },
+        {
+          "type": "paragraph",
+          "text": "Product discovery is the process of testing assumptions and reducing risk in a proposed solution *before* it is built at full scale. It is distinct from **product delivery**: the process of actually designing, building, testing for quality, and shipping a solution once it has been validated. Discovery asks \"should we build this, and if so, roughly what should it look like?\" Delivery asks \"how do we build this well, on time, and to a high quality bar?\"",
+          "blockId": "blk_7979303373"
+        },
+        {
+          "type": "paragraph",
+          "text": "A useful shorthand, widely used in modern product practice (closely associated with Marty Cagan's writing at the Silicon Valley Product Group): discovery is optimized for **speed and learning**, often producing artifacts that are never meant to be shippable, rough prototypes, landing pages, concierge-style manual processes standing in for automation, or simple prompts to a small group of real users. Delivery is optimized for **quality and scale**, producing the actual production-grade product that will serve the full user base reliably.",
+          "blockId": "blk_6e60b2513b"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Four Risks Discovery Tests",
+          "blockId": "blk_4b22d2a802"
+        },
+        {
+          "type": "paragraph",
+          "text": "Discovery exists to reduce four categories of risk, extending the Accountability Triangle from Lesson 1 into a slightly more granular, delivery-adjacent framework:",
+          "blockId": "blk_c99775b86e"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**Value risk**: will people actually want this, and choose to use or pay for it? (Directly tied to the job and value proposition validated in Lessons 6 and 7.)",
+            "**Usability risk**: can people actually figure out how to use it, even if they want the underlying value?",
+            "**Feasibility risk**: can the team actually build it, within realistic technical, legal, or resource constraints?",
+            "**Viability risk**: does the solution work for the business (economically, legally, and strategically) even if users love it and engineering can build it?"
+          ],
+          "blockId": "blk_cf6878bb60"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_719a97eabe",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Proposed Solution] --> B[Value Risk Will People Want?]\r\n    A --> C[Usability Risk Can Build?]\r\n    A --> D[Feasibility Risk Can Build?]\r\n    A --> E[Viability Risk Works for Business?]\r\n    B --> F[Discovery Tests Each Risk<br/>Before Full Delivery Investment]\r\n    C --> F\r\n    D --> F\r\n    E --> F",
+          "normalized": "graph TD\r\n    A[Proposed Solution] --> B[Value Risk Will People Want?]\r\n    A --> C[Usability Risk Can Build?]\r\n    A --> D[Feasibility Risk Can Build?]\r\n    A --> E[Viability Risk Works for Business?]\r\n    B --> F[Discovery Tests Each Risk<br/>Before Full Delivery Investment]\r\n    C --> F\r\n    D --> F\r\n    E --> F",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020930976-16\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1911.75\" height=\"457\" viewBox=\"-51.5 -27 1911.75 457\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Proposed Solution → Value Risk Will People Want? → Usability Risk Can Build? → Feasibility Risk Can Build? → Viability Risk Works for Business?...\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Proposed Solution → Value Risk Will People Want? → Usability Risk Can Build? → Feasibility Risk Can Build? → Viability Risk Works for Business?...</title><style>#mermaid-svg-1795020930976-16{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020930976-16 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020930976-16 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020930976-16 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020930976-16 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020930976-16 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020930976-16 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020930976-16 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020930976-16 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020930976-16 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020930976-16 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020930976-16 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020930976-16 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020930976-16 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020930976-16 p{margin:0;}#mermaid-svg-1795020930976-16 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020930976-16 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020930976-16 .cluster-label span{color:#171A17;}#mermaid-svg-1795020930976-16 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020930976-16 .label text,#mermaid-svg-1795020930976-16 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020930976-16 .node rect,#mermaid-svg-1795020930976-16 .node circle,#mermaid-svg-1795020930976-16 .node ellipse,#mermaid-svg-1795020930976-16 .node polygon,#mermaid-svg-1795020930976-16 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020930976-16 .rough-node .label text,#mermaid-svg-1795020930976-16 .node .label text,#mermaid-svg-1795020930976-16 .image-shape .label,#mermaid-svg-1795020930976-16 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020930976-16 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020930976-16 .rough-node .label,#mermaid-svg-1795020930976-16 .node .label,#mermaid-svg-1795020930976-16 .image-shape .label,#mermaid-svg-1795020930976-16 .icon-shape .label{text-align:center;}#mermaid-svg-1795020930976-16 .node.clickable{cursor:pointer;}#mermaid-svg-1795020930976-16 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020930976-16 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020930976-16 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020930976-16 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020930976-16 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020930976-16 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020930976-16 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020930976-16 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020930976-16 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020930976-16 .cluster text{fill:#171A17;}#mermaid-svg-1795020930976-16 .cluster span{color:#171A17;}#mermaid-svg-1795020930976-16 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020930976-16 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020930976-16 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020930976-16 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020930976-16 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020930976-16 .icon-shape,#mermaid-svg-1795020930976-16 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020930976-16 .icon-shape p,#mermaid-svg-1795020930976-16 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020930976-16 .icon-shape .label rect,#mermaid-svg-1795020930976-16 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020930976-16 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020930976-16 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020930976-16 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020930976-16 [data-look=\"neo\"].node rect,#mermaid-svg-1795020930976-16 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020930976-16 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020930976-16-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020930976-16 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020930976-16 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020930976-16-gradient);stroke-width:1px;}#mermaid-svg-1795020930976-16 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020930976-16 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020930976-16 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020930976-16-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020930976-16 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020930976-16 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020930976-16-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020930976-16 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020930976-16-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020930976-16 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020930976-16_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020930976-16_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020930976-16_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020930976-16_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020930976-16_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020930976-16_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020930976-16_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020930976-16_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020930976-16_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020930976-16_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020930976-16_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020930976-16_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M769.25,61.853L678.792,72.127C588.333,82.402,407.417,102.951,316.958,119.475C226.5,136,226.5,148.5,226.5,154.75L226.5,161\" id=\"mermaid-svg-1795020930976-16-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6NzY5LjI1LCJ5Ijo2MS44NTI4NjY3MDI4Mzk1OH0seyJ4IjoyMjYuNSwieSI6MTIzLjV9LHsieCI6MjI2LjUsInkiOjE2NX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020930976-16_flowchart-v2-pointEnd)\"></path><path d=\"M810.042,82L789.931,88.917C769.82,95.833,729.597,109.667,709.486,122.833C689.375,136,689.375,148.5,689.375,154.75L689.375,161\" id=\"mermaid-svg-1795020930976-16-L_A_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_C_0\" data-points=\"W3sieCI6ODEwLjA0MjE5NzQ1MjIyOTMsInkiOjgyfSx7IngiOjY4OS4zNzUsInkiOjEyMy41fSx7IngiOjY4OS4zNzUsInkiOjE2NX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020930976-16_flowchart-v2-pointEnd)\"></path><path d=\"M1025.208,82L1045.319,88.917C1065.43,95.833,1105.653,109.667,1125.764,122.833C1145.875,136,1145.875,148.5,1145.875,154.75L1145.875,161\" id=\"mermaid-svg-1795020930976-16-L_A_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_D_0\" data-points=\"W3sieCI6MTAyNS4yMDc4MDI1NDc3NzA2LCJ5Ijo4Mn0seyJ4IjoxMTQ1Ljg3NSwieSI6MTIzLjV9LHsieCI6MTE0NS44NzUsInkiOjE2NX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020930976-16_flowchart-v2-pointEnd)\"></path><path d=\"M1066,60.695L1164.958,71.162C1263.917,81.63,1461.833,102.565,1560.792,119.282C1659.75,136,1659.75,148.5,1659.75,154.75L1659.75,161\" id=\"mermaid-svg-1795020930976-16-L_A_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_E_0\" data-points=\"W3sieCI6MTA2NiwieSI6NjAuNjk0NzExMTMzNTY5MTR9LHsieCI6MTY1OS43NSwieSI6MTIzLjV9LHsieCI6MTY1OS43NSwieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020930976-16_flowchart-v2-pointEnd)\"></path><path d=\"M226.5,239L226.5,245.917C226.5,252.833,226.5,266.667,301.423,283.936C376.346,301.206,526.192,321.912,601.115,332.264L676.038,342.617\" id=\"mermaid-svg-1795020930976-16-L_B_F_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_F_0\" data-points=\"W3sieCI6MjI2LjUsInkiOjIzOX0seyJ4IjoyMjYuNSwieSI6MjgwLjV9LHsieCI6NjgwLCJ5IjozNDMuMTY0ODU4MDIxMzQyfV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020930976-16_flowchart-v2-pointEnd)\"></path><path d=\"M689.375,239L689.375,245.917C689.375,252.833,689.375,266.667,705.291,280.243C721.207,293.819,753.04,307.137,768.956,313.797L784.872,320.456\" id=\"mermaid-svg-1795020930976-16-L_C_F_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_F_0\" data-points=\"W3sieCI6Njg5LjM3NSwieSI6MjM5fSx7IngiOjY4OS4zNzUsInkiOjI4MC41fSx7IngiOjc4OC41NjIxNzI3NzQ4NjkyLCJ5IjozMjJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020930976-16_flowchart-v2-pointEnd)\"></path><path d=\"M1145.875,239L1145.875,245.917C1145.875,252.833,1145.875,266.667,1129.959,280.243C1114.043,293.819,1082.21,307.137,1066.294,313.797L1050.378,320.456\" id=\"mermaid-svg-1795020930976-16-L_D_F_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_F_0\" data-points=\"W3sieCI6MTE0NS44NzUsInkiOjIzOX0seyJ4IjoxMTQ1Ljg3NSwieSI6MjgwLjV9LHsieCI6MTA0Ni42ODc4MjcyMjUxMzA4LCJ5IjozMjJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020930976-16_flowchart-v2-pointEnd)\"></path><path d=\"M1659.75,239L1659.75,245.917C1659.75,252.833,1659.75,266.667,1576.328,284.318C1492.906,301.97,1326.062,323.441,1242.639,334.176L1159.217,344.911\" id=\"mermaid-svg-1795020930976-16-L_E_F_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_E_F_0\" data-points=\"W3sieCI6MTY1OS43NSwieSI6MjM5fSx7IngiOjE2NTkuNzUsInkiOjI4MC41fSx7IngiOjExNTUuMjUsInkiOjM0NS40MjEzNDA3NDQ0ODM3Nn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020930976-16_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_F_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_F_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_D_F_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_E_F_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020930976-16-flowchart-A-0\" data-look=\"classic\" transform=\"translate(917.625, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-120.25\" y=\"-35\" width=\"240.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-88.25, -19)\"><rect></rect><foreignObject width=\"176.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Proposed Solution</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020930976-16-flowchart-B-1\" data-look=\"classic\" transform=\"translate(226.5, 202)\"><rect class=\"basic label-container\" style=\"\" x=\"-167\" y=\"-35\" width=\"334\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-135, -19)\"><rect></rect><foreignObject width=\"270\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Value Risk Will People Want?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020930976-16-flowchart-C-3\" data-look=\"classic\" transform=\"translate(689.375, 202)\"><rect class=\"basic label-container\" style=\"\" x=\"-154.25\" y=\"-35\" width=\"308.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-122.25, -19)\"><rect></rect><foreignObject width=\"244.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Usability Risk Can Build?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020930976-16-flowchart-D-5\" data-look=\"classic\" transform=\"translate(1145.875, 202)\"><rect class=\"basic label-container\" style=\"\" x=\"-162.75\" y=\"-35\" width=\"325.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-130.75, -19)\"><rect></rect><foreignObject width=\"261.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Feasibility Risk Can Build?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020930976-16-flowchart-E-7\" data-look=\"classic\" transform=\"translate(1659.75, 202)\"><rect class=\"basic label-container\" style=\"\" x=\"-192.5\" y=\"-35\" width=\"385\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-160.5, -19)\"><rect></rect><foreignObject width=\"321\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Viability Risk Works for Business?</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020930976-16-flowchart-F-9\" data-look=\"classic\" transform=\"translate(917.625, 376)\"><rect class=\"basic label-container\" style=\"\" x=\"-179.75\" y=\"-46\" width=\"359.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-147.75, -30)\"><rect></rect><foreignObject width=\"295.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Discovery Tests Each Risk<br>Before Full Delivery Investment</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020930976-16-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020930976-16-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020930976-16-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_719a97eabe"
+        },
+        {
+          "type": "paragraph",
+          "text": "Each risk category calls for a different kind of test, and a common discovery mistake is testing only one risk (usually value risk, via a prototype demo) while quietly assuming the other three away. A beautifully validated, highly desirable idea that turns out to be legally non-viable, or technically infeasible at the required scale, has still failed. Discovery that stops after confirming value risk has only done a quarter of the job.",
+          "blockId": "blk_18e9857522"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Discovery and Delivery Run Continuously, Not Sequentially",
+          "blockId": "blk_e0af14ad85"
+        },
+        {
+          "type": "paragraph",
+          "text": "A common misunderstanding treats discovery as a distinct, front-loaded \"phase\" that happens before delivery begins: research this quarter, build next quarter. Modern product practice generally rejects this framing in favor of **continuous discovery**: a standing, ongoing habit of testing assumptions in parallel with delivery, rather than a one-time gate a project passes through once.",
+          "blockId": "blk_b8ec05cee8"
+        },
+        {
+          "type": "paragraph",
+          "text": "This matters for a specific practical reason: a team that treats discovery as a phase that ends once delivery begins loses its ability to catch new risks that emerge *during* building, a technical constraint discovered mid-implementation, a competitor's launch that changes the viability picture, or user feedback on an early build that reveals a usability problem no prototype surfaced. Continuous discovery treats validation as a standing capability the team maintains throughout a product's life, not a box checked once at the start of a project.",
+          "blockId": "blk_42901a3a1e"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Assumption Mapping: Finding the Riskiest Assumption First",
+          "blockId": "blk_fc0dc2c3f2"
+        },
+        {
+          "type": "paragraph",
+          "text": "Any proposed solution rests on a stack of assumptions, and not all assumptions carry equal risk. **Assumption mapping** is the practice of explicitly listing the assumptions a solution depends on, and identifying which one is both least certain and most consequential if wrong: the assumption whose failure would most completely invalidate the whole idea.",
+          "blockId": "blk_392e9b4994"
+        },
+        {
+          "type": "paragraph",
+          "text": "A simple two-axis technique plots each assumption by:",
+          "blockId": "blk_b06b0b2797"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**How confident are we this assumption is true?** (low to high)",
+            "**How much does the whole solution depend on this assumption being true?** (low to high)"
+          ],
+          "blockId": "blk_e8f73ad823"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_970d951257",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[List All Assumptions] --> B{Plot by Confidence and Importance}\r\n    B --> C[Low Confidence, High<br/>Importance = Test First]\r\n    B --> D[High Confidence, High<br/>Importance = Monitor, Don't Ignore]\r\n    B --> E[Low Confidence, Low<br/>Importance = Low Priority to Test]\r\n    B --> F[High Confidence, Low<br/>Importance = Rarely Worth Testing]",
+          "normalized": "graph TD\r\n    A[List All Assumptions] --> B{Plot by Confidence and Importance}\r\n    B --> C[Low Confidence, High<br/>Importance = Test First]\r\n    B --> D[High Confidence, High<br/>Importance = Monitor, Don't Ignore]\r\n    B --> E[Low Confidence, Low<br/>Importance = Low Priority to Test]\r\n    B --> F[High Confidence, Low<br/>Importance = Rarely Worth Testing]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020931184-17\" xmlns=\"http://www.w3.org/2000/svg\" width=\"2018\" height=\"765.5\" viewBox=\"-40.875 -27 2018 765.5\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: List All Assumptions → Plot by Confidence and Importance → Low Confidence, HighImportance = Test First → High Confidence, HighImportance = Monitor, Don't Ignore → Low Confidence, LowImportance = Low Priority to Test...\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: List All Assumptions → Plot by Confidence and Importance → Low Confidence, HighImportance = Test First → High Confidence, HighImportance = Monitor, Don't Ignore → Low Confidence, LowImportance = Low Priority to Test...</title><style>#mermaid-svg-1795020931184-17{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020931184-17 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020931184-17 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020931184-17 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020931184-17 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020931184-17 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020931184-17 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020931184-17 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020931184-17 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020931184-17 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020931184-17 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020931184-17 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020931184-17 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020931184-17 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020931184-17 p{margin:0;}#mermaid-svg-1795020931184-17 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020931184-17 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020931184-17 .cluster-label span{color:#171A17;}#mermaid-svg-1795020931184-17 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020931184-17 .label text,#mermaid-svg-1795020931184-17 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020931184-17 .node rect,#mermaid-svg-1795020931184-17 .node circle,#mermaid-svg-1795020931184-17 .node ellipse,#mermaid-svg-1795020931184-17 .node polygon,#mermaid-svg-1795020931184-17 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020931184-17 .rough-node .label text,#mermaid-svg-1795020931184-17 .node .label text,#mermaid-svg-1795020931184-17 .image-shape .label,#mermaid-svg-1795020931184-17 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020931184-17 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020931184-17 .rough-node .label,#mermaid-svg-1795020931184-17 .node .label,#mermaid-svg-1795020931184-17 .image-shape .label,#mermaid-svg-1795020931184-17 .icon-shape .label{text-align:center;}#mermaid-svg-1795020931184-17 .node.clickable{cursor:pointer;}#mermaid-svg-1795020931184-17 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020931184-17 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020931184-17 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020931184-17 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020931184-17 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020931184-17 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020931184-17 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020931184-17 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020931184-17 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020931184-17 .cluster text{fill:#171A17;}#mermaid-svg-1795020931184-17 .cluster span{color:#171A17;}#mermaid-svg-1795020931184-17 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020931184-17 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020931184-17 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020931184-17 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020931184-17 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020931184-17 .icon-shape,#mermaid-svg-1795020931184-17 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020931184-17 .icon-shape p,#mermaid-svg-1795020931184-17 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020931184-17 .icon-shape .label rect,#mermaid-svg-1795020931184-17 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020931184-17 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020931184-17 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020931184-17 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020931184-17 [data-look=\"neo\"].node rect,#mermaid-svg-1795020931184-17 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020931184-17 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020931184-17-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020931184-17 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020931184-17 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020931184-17-gradient);stroke-width:1px;}#mermaid-svg-1795020931184-17 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020931184-17 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020931184-17 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020931184-17-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020931184-17 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020931184-17 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020931184-17-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020931184-17 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020931184-17-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020931184-17 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020931184-17_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020931184-17_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020931184-17_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020931184-17_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020931184-17_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020931184-17_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020931184-17_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020931184-17_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020931184-17_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020931184-17_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020931184-17_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020931184-17_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M959.063,82L959.063,88.917C959.063,95.833,959.063,109.667,959.063,122.833C959.063,136,959.063,148.5,959.063,154.75L959.063,161\" id=\"mermaid-svg-1795020931184-17-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6OTU5LjA2MjUsInkiOjgyfSx7IngiOjk1OS4wNjI1LCJ5IjoxMjMuNX0seyJ4Ijo5NTkuMDYyNSwieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020931184-17_flowchart-v2-pointEnd)\"></path><path d=\"M719.119,429.306L631.703,455.922C544.287,482.537,369.456,535.769,282.041,568.634C194.625,601.5,194.625,614,194.625,620.25L194.625,626.5\" id=\"mermaid-svg-1795020931184-17-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6NzE5LjExODcyMDYyMDQ5NTIsInkiOjQyOS4zMDYyMjA2MjA0OTUxNH0seyJ4IjoxOTQuNjI1LCJ5Ijo1ODl9LHsieCI6MTk0LjYyNSwieSI6NjMwLjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020931184-17_flowchart-v2-pointEnd)\"></path><path d=\"M789.24,499.428L771.534,514.357C753.827,529.285,718.413,559.143,700.707,580.321C683,601.5,683,614,683,620.25L683,626.5\" id=\"mermaid-svg-1795020931184-17-L_B_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_D_0\" data-points=\"W3sieCI6Nzg5LjI0MDQ4Nzk2MjE2NjgsInkiOjQ5OS40Mjc5ODc5NjIxNjY4fSx7IngiOjY4MywieSI6NTg5fSx7IngiOjY4MywieSI6NjMwLjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020931184-17_flowchart-v2-pointEnd)\"></path><path d=\"M1128.885,499.428L1146.591,514.357C1164.298,529.285,1199.712,559.143,1217.418,580.321C1235.125,601.5,1235.125,614,1235.125,620.25L1235.125,626.5\" id=\"mermaid-svg-1795020931184-17-L_B_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_E_0\" data-points=\"W3sieCI6MTEyOC44ODQ1MTIwMzc4MzMyLCJ5Ijo0OTkuNDI3OTg3OTYyMTY2OH0seyJ4IjoxMjM1LjEyNSwieSI6NTg5fSx7IngiOjEyMzUuMTI1LCJ5Ijo2MzAuNX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020931184-17_flowchart-v2-pointEnd)\"></path><path d=\"M1202.981,425.331L1299.297,452.61C1395.612,479.888,1588.244,534.444,1684.559,567.972C1780.875,601.5,1780.875,614,1780.875,620.25L1780.875,626.5\" id=\"mermaid-svg-1795020931184-17-L_B_F_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_F_0\" data-points=\"W3sieCI6MTIwMi45ODEwMDg4NjAzMDk0LCJ5Ijo0MjUuMzMxNDkxMTM5NjkwNn0seyJ4IjoxNzgwLjg3NSwieSI6NTg5fSx7IngiOjE3ODAuODc1LCJ5Ijo2MzAuNX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020931184-17_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_F_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020931184-17-flowchart-A-0\" data-look=\"classic\" transform=\"translate(959.0625, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-133\" y=\"-35\" width=\"266\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-101, -19)\"><rect></rect><foreignObject width=\"202\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>List All Assumptions</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020931184-17-flowchart-B-1\" data-look=\"classic\" transform=\"translate(959.0625, 356.25)\"><polygon points=\"191.25,0 382.5,-191.25 191.25,-382.5 0,-191.25\" class=\"label-container\" transform=\"translate(-190.75, 191.25)\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-156.25, -19)\"><rect></rect><foreignObject width=\"312.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Plot by Confidence and Importance</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020931184-17-flowchart-C-3\" data-look=\"classic\" transform=\"translate(194.625, 684.5)\"><rect class=\"basic label-container\" style=\"\" x=\"-145.75\" y=\"-46\" width=\"291.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-113.75, -30)\"><rect></rect><foreignObject width=\"227.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Low Confidence, High<br>Importance = Test First</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020931184-17-flowchart-D-5\" data-look=\"classic\" transform=\"translate(683, 684.5)\"><rect class=\"basic label-container\" style=\"\" x=\"-192.5\" y=\"-46\" width=\"385\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-160.5, -30)\"><rect></rect><foreignObject width=\"321\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>High Confidence, High<br>Importance = Monitor, Don't Ignore</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020931184-17-flowchart-E-7\" data-look=\"classic\" transform=\"translate(1235.125, 684.5)\"><rect class=\"basic label-container\" style=\"\" x=\"-188.25\" y=\"-46\" width=\"376.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-156.25, -30)\"><rect></rect><foreignObject width=\"312.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Low Confidence, Low<br>Importance = Low Priority to Test</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020931184-17-flowchart-F-9\" data-look=\"classic\" transform=\"translate(1780.875, 684.5)\"><rect class=\"basic label-container\" style=\"\" x=\"-188.25\" y=\"-46\" width=\"376.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-156.25, -30)\"><rect></rect><foreignObject width=\"312.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>High Confidence, Low<br>Importance = Rarely Worth Testing</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020931184-17-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020931184-17-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020931184-17-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_970d951257"
+        },
+        {
+          "type": "paragraph",
+          "text": "The assumption sitting in the \"low confidence, high importance\" position is the one to test first, regardless of which of the four risk categories it belongs to. A team that instead defaults to testing whichever assumption is easiest or most comfortable to test (frequently a usability question, since usability testing is procedurally familiar) can spend real discovery effort while leaving the actual riskiest assumption (often a value or viability question) completely unexamined.",
+          "blockId": "blk_61a6c293fe"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Discovery Theater: Activity That Looks Like Validation But Isn't",
+          "blockId": "blk_b6987d7778"
+        },
+        {
+          "type": "paragraph",
+          "text": "A specific and common failure mode deserves its own name: **discovery theater**, activities that have the visible form of discovery (interviews were conducted, a prototype was shown, a survey was sent) but that do not actually reduce risk, because they were structured in a way that could not have produced disconfirming evidence even if the underlying assumption were false.",
+          "blockId": "blk_f8c86044e6"
+        },
+        {
+          "type": "paragraph",
+          "text": "Common patterns of discovery theater include:",
+          "blockId": "blk_3529425bd9"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "Showing a polished prototype and asking \"would you use this?\", a question people tend to answer generously regardless of their actual future behavior, because there is no real cost to saying yes in the moment.",
+            "Surveying existing enthusiastic users about a new feature idea, rather than a broader or more skeptical population, producing artificially positive signal.",
+            "Running a study but only after the team has already effectively committed (engineering has started, a launch date is set), such that negative findings would be organizationally very difficult to act on even if they appeared.",
+            "Interpreting polite, encouraging feedback in a demo as validation, without ever observing what people actually do when given a real opportunity to adopt or reject the solution with real stakes (time, money, switching cost)."
+          ],
+          "blockId": "blk_af6a1ea9e7"
+        },
+        {
+          "type": "paragraph",
+          "text": "The corrective principle: a genuine discovery test must be designed so that a plausible negative outcome (people don't want it, can't use it, or won't pay for it) is actually possible to observe and would actually change the team's decision. If a test cannot, even in principle, produce a result that changes the plan, it is discovery theater, not discovery.",
+          "blockId": "blk_5ce7a7ed21"
+        }
+      ],
+      "blockId": "blk_f756a8d0aa"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Skipping discovery for \"obviously good\" ideas",
+          "body": "An idea that feels self-evidently good to the team (often because it addresses a real pain the team itself has experienced, or because a senior stakeholder is confident in it) is exactly the kind of idea most likely to skip discovery, and exactly the kind of idea where an untested assumption can hide in plain sight because no one felt the need to question it."
+        },
+        {
+          "title": "Treating a single successful prototype demo as complete validation",
+          "body": "As covered above, a demo that produces polite enthusiasm has usually only tested a shallow version of value risk (and often not even that, robustly), while usability, feasibility, and viability risk remain completely unexamined."
+        },
+        {
+          "title": "Running discovery only at the very start of a project, then treating it as \"done.",
+          "body": "This misses the continuous nature of discovery described above: new risks emerge throughout delivery, and a one-time discovery phase leaves a team blind to them."
+        },
+        {
+          "title": "Testing the easiest assumption instead of the riskiest one",
+          "body": "A team eager to show discovery progress may gravitate toward whichever assumption is simplest to test procedurally, rather than the assumption identified by assumption mapping as carrying the most combined uncertainty and consequence."
+        },
+        {
+          "title": "Confusing discovery activity with discovery outcomes",
+          "body": "\"We did five user interviews\" describes an activity, not a finding. Discovery should be evaluated by what was actually learned and what decision it changed, not by the volume of research activity conducted. A team can conduct extensive research and still learn nothing decision-relevant if the research was poorly targeted.\n\n"
+        }
+      ],
+      "blockId": "blk_589d12fab9"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The Assumption Map",
+      "diagram": {
+        "blockId": "blk_b001862ccd",
+        "type": "mermaid"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "This lesson's mental model is the **Assumption Map** introduced above, used as a standing discipline before committing meaningful resources to any new initiative.",
+          "blockId": "blk_923efd2b36"
+        },
+        {
+          "type": "paragraph",
+          "text": "Use this as a repeatable checklist before any significant delivery commitment: name the assumptions, categorize them, find the riskiest one, and design a test that could actually fail. A team that has done this, even briefly and informally, has done meaningfully more real discovery than a team that ran a longer but less targeted research process without ever identifying which assumption mattered most.",
+          "blockId": "blk_87a0d2e08f"
+        }
+      ],
+      "blockId": "blk_034d86b05c"
+    },
+    {
+      "type": "mermaid",
+      "id": "blk_b001862ccd",
+      "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[New Idea or Feature] --> B[List Every Assumption It Depends On]\r\n    B --> C[Categorize Each by Value /<br/>Usability / Feasibility / Viability]\r\n    C --> D[Plot by Confidence X Importance]\r\n    D --> E[Identify the<br/>Riskiest Untested Assumption]\r\n    E --> F[Design a Genuine<br/>Test Could Disconfirm It]\r\n    F --> G[Only Proceed to Delivery Once the<br/>Riskiest Assumptions Are Addressed]",
+      "normalized": "graph LR\r\n    A[New Idea or Feature] --> B[List Every Assumption It Depends On]\r\n    B --> C[Categorize Each by Value /<br/>Usability / Feasibility / Viability]\r\n    C --> D[Plot by Confidence X Importance]\r\n    D --> E[Identify the<br/>Riskiest Untested Assumption]\r\n    E --> F[Design a Genuine<br/>Test Could Disconfirm It]\r\n    F --> G[Only Proceed to Delivery Once the<br/>Riskiest Assumptions Are Addressed]",
+      "authorTheme": {
+        "background": "#0b0b0c",
+        "primaryColor": "#1f1f23",
+        "primaryTextColor": "#ffffff",
+        "primaryBorderColor": "#8b5cf6",
+        "lineColor": "#d1d5db",
+        "secondaryColor": "#18181b",
+        "tertiaryColor": "#111111",
+        "mainBkg": "#1f1f23",
+        "nodeBorder": "#8b5cf6",
+        "clusterBkg": "#000000",
+        "clusterBorder": "#27272a",
+        "titleColor": "#ffffff",
+        "edgeLabelBackground": "#0b0b0c",
+        "nodeTextColor": "#ffffff",
+        "edgeLabelColor": "#ffffff",
+        "actorBorder": "#8b5cf6",
+        "actorBkg": "#1f1f23",
+        "actorTextColor": "#ffffff",
+        "sequenceNumberColor": "#ffffff",
+        "signalColor": "#8b5cf6",
+        "signalTextColor": "#ffffff",
+        "textColor": "#ffffff",
+        "classText": "#ffffff",
+        "classBorder": "#8b5cf6",
+        "classBkg": "#1f1f23"
+      },
+      "svg": "<svg id=\"mermaid-svg-1795020931362-18\" xmlns=\"http://www.w3.org/2000/svg\" width=\"3806.25\" height=\"143\" viewBox=\"-38 -27 3806.25 143\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: New Idea or Feature → List Every Assumption It Depends On → Categorize Each by Value /Usability / Feasibility / Viability → Plot by Confidence X Importance → Identify theRiskiest Untested Assumption...\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: New Idea or Feature → List Every Assumption It Depends On → Categorize Each by Value /Usability / Feasibility / Viability → Plot by Confidence X Importance → Identify theRiskiest Untested Assumption...</title><style>#mermaid-svg-1795020931362-18{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020931362-18 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020931362-18 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020931362-18 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020931362-18 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020931362-18 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020931362-18 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020931362-18 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020931362-18 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020931362-18 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020931362-18 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020931362-18 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020931362-18 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020931362-18 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020931362-18 p{margin:0;}#mermaid-svg-1795020931362-18 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020931362-18 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020931362-18 .cluster-label span{color:#171A17;}#mermaid-svg-1795020931362-18 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020931362-18 .label text,#mermaid-svg-1795020931362-18 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020931362-18 .node rect,#mermaid-svg-1795020931362-18 .node circle,#mermaid-svg-1795020931362-18 .node ellipse,#mermaid-svg-1795020931362-18 .node polygon,#mermaid-svg-1795020931362-18 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020931362-18 .rough-node .label text,#mermaid-svg-1795020931362-18 .node .label text,#mermaid-svg-1795020931362-18 .image-shape .label,#mermaid-svg-1795020931362-18 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020931362-18 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020931362-18 .rough-node .label,#mermaid-svg-1795020931362-18 .node .label,#mermaid-svg-1795020931362-18 .image-shape .label,#mermaid-svg-1795020931362-18 .icon-shape .label{text-align:center;}#mermaid-svg-1795020931362-18 .node.clickable{cursor:pointer;}#mermaid-svg-1795020931362-18 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020931362-18 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020931362-18 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020931362-18 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020931362-18 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020931362-18 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020931362-18 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020931362-18 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020931362-18 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020931362-18 .cluster text{fill:#171A17;}#mermaid-svg-1795020931362-18 .cluster span{color:#171A17;}#mermaid-svg-1795020931362-18 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020931362-18 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020931362-18 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020931362-18 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020931362-18 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020931362-18 .icon-shape,#mermaid-svg-1795020931362-18 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020931362-18 .icon-shape p,#mermaid-svg-1795020931362-18 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020931362-18 .icon-shape .label rect,#mermaid-svg-1795020931362-18 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020931362-18 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020931362-18 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020931362-18 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020931362-18 [data-look=\"neo\"].node rect,#mermaid-svg-1795020931362-18 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020931362-18 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020931362-18-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020931362-18 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020931362-18 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020931362-18-gradient);stroke-width:1px;}#mermaid-svg-1795020931362-18 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020931362-18 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020931362-18 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020931362-18-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020931362-18 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020931362-18 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020931362-18-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020931362-18 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020931362-18-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020931362-18 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020931362-18_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020931362-18_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020931362-18_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020931362-18_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020931362-18_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020931362-18_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020931362-18_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020931362-18_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020931362-18_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020931362-18_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020931362-18_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020931362-18_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M330.25,62L339,62C347.75,62,365.25,62,382.083,62C398.917,62,415.083,62,423.167,62L431.25,62\" id=\"mermaid-svg-1795020931362-18-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6MzMwLjI1LCJ5Ijo2Mn0seyJ4IjozODIuNzUsInkiOjYyfSx7IngiOjQzNS4yNSwieSI6NjJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020931362-18_flowchart-v2-pointEnd)\"></path><path d=\"M961.5,62L970.25,62C979,62,996.5,62,1013.333,62C1030.167,62,1046.333,62,1054.417,62L1062.5,62\" id=\"mermaid-svg-1795020931362-18-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6OTYxLjUsInkiOjYyfSx7IngiOjEwMTQsInkiOjYyfSx7IngiOjEwNjYuNSwieSI6NjJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020931362-18_flowchart-v2-pointEnd)\"></path><path d=\"M1592.75,62L1601.5,62C1610.25,62,1627.75,62,1644.583,62C1661.417,62,1677.583,62,1685.667,62L1693.75,62\" id=\"mermaid-svg-1795020931362-18-L_C_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_D_0\" data-points=\"W3sieCI6MTU5Mi43NSwieSI6NjJ9LHsieCI6MTY0NS4yNSwieSI6NjJ9LHsieCI6MTY5Ny43NSwieSI6NjJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020931362-18_flowchart-v2-pointEnd)\"></path><path d=\"M2173,62L2181.75,62C2190.5,62,2208,62,2224.833,62C2241.667,62,2257.833,62,2265.917,62L2274,62\" id=\"mermaid-svg-1795020931362-18-L_D_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_E_0\" data-points=\"W3sieCI6MjE3MywieSI6NjJ9LHsieCI6MjIyNS41LCJ5Ijo2Mn0seyJ4IjoyMjc4LCJ5Ijo2Mn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020931362-18_flowchart-v2-pointEnd)\"></path><path d=\"M2715,62L2723.75,62C2732.5,62,2750,62,2766.833,62C2783.667,62,2799.833,62,2807.917,62L2816,62\" id=\"mermaid-svg-1795020931362-18-L_E_F_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_E_F_0\" data-points=\"W3sieCI6MjcxNSwieSI6NjJ9LHsieCI6Mjc2Ny41LCJ5Ijo2Mn0seyJ4IjoyODIwLCJ5Ijo2Mn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020931362-18_flowchart-v2-pointEnd)\"></path><path d=\"M3206,62L3214.75,62C3223.5,62,3241,62,3257.833,62C3274.667,62,3290.833,62,3298.917,62L3307,62\" id=\"mermaid-svg-1795020931362-18-L_F_G_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_F_G_0\" data-points=\"W3sieCI6MzIwNiwieSI6NjJ9LHsieCI6MzI1OC41LCJ5Ijo2Mn0seyJ4IjozMzExLCJ5Ijo2Mn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020931362-18_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_D_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_E_F_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_F_G_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020931362-18-flowchart-A-0\" data-look=\"classic\" transform=\"translate(169.125, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-128.75\" y=\"-35\" width=\"257.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-96.75, -19)\"><rect></rect><foreignObject width=\"193.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>New Idea or Feature</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020931362-18-flowchart-B-1\" data-look=\"classic\" transform=\"translate(698.375, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-196.75\" y=\"-35\" width=\"393.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-164.75, -19)\"><rect></rect><foreignObject width=\"329.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>List Every Assumption It Depends On</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020931362-18-flowchart-C-3\" data-look=\"classic\" transform=\"translate(1329.625, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-196.75\" y=\"-46\" width=\"393.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-164.75, -30)\"><rect></rect><foreignObject width=\"329.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Categorize Each by Value /<br>Usability / Feasibility / Viability</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020931362-18-flowchart-D-5\" data-look=\"classic\" transform=\"translate(1935.375, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-179.75\" y=\"-35\" width=\"359.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-147.75, -19)\"><rect></rect><foreignObject width=\"295.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Plot by Confidence X Importance</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020931362-18-flowchart-E-7\" data-look=\"classic\" transform=\"translate(2496.5, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-167\" y=\"-46\" width=\"334\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-135, -30)\"><rect></rect><foreignObject width=\"270\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Identify the<br>Riskiest Untested Assumption</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020931362-18-flowchart-F-9\" data-look=\"classic\" transform=\"translate(3013, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-150\" y=\"-46\" width=\"300\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-118, -30)\"><rect></rect><foreignObject width=\"236\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Design a Genuine<br>Test Could Disconfirm It</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020931362-18-flowchart-G-11\" data-look=\"classic\" transform=\"translate(3567.75, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-192.5\" y=\"-46\" width=\"385\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-160.5, -30)\"><rect></rect><foreignObject width=\"321\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Only Proceed to Delivery Once the<br>Riskiest Assumptions Are Addressed</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020931362-18-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020931362-18-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020931362-18-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+      "blockId": "blk_b001862ccd"
+    },
+    {
+      "type": "companyExample",
+      "company": "Airbnb",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "**Airbnb**'s early history is a frequently cited illustration of lightweight, high-signal discovery preceding any significant engineering investment. According to widely reported accounts of the company's early days, the founders manually photographed listings themselves and personally interacted with early hosts and guests, rather than building automated, scalable systems for photography or host support from the outset. This approach let the team directly observe what actually drove booking behavior and where friction occurred, using manual, non-scalable effort as a stand-in for future automated features, before investing engineering resources in building automated versions of processes whose value hadn't yet been confirmed.",
+          "blockId": "blk_05cb5802bd"
+        }
+      ],
+      "assumptionFlags": [
+        "this reflects a widely repeated account of Airbnb's early practices rather than a claim about current internal Airbnb discovery processes, which this curriculum does not claim certainty about."
+      ],
+      "blockId": "blk_ddeba9acea"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "At a startup",
+          "body": "Discovery is often existential rather than incremental: the central open question is frequently whether the entire product concept addresses a real, sufficiently painful job at all (value risk in its most fundamental form), and viability risk (can this ever become a sustainable business) looms especially large given limited runway. Startups often rely heavily on manual, unscalable \"concierge\" discovery methods precisely because building scalable infrastructure before value risk is resolved would be a poor use of extremely scarce resources."
+        },
+        {
+          "context": "At a mid-size company",
+          "body": "Discovery more often concerns a specific feature or expansion decision within an already-validated core product, and usability and feasibility risk frequently carry more relative weight, since the core value proposition (Lesson 7) is often already established. Discovery here is more likely to run as a continuous, embedded practice alongside ongoing delivery work, rather than as a distinct existential question."
+        },
+        {
+          "context": "At Big Tech",
+          "body": "Discovery at scale often involves rigorous, large-sample quantitative testing (A/B experiments, staged rollouts) precisely because the user base is large enough to generate statistically reliable signal quickly, and because a wrong decision at scale carries a correspondingly larger cost. Discovery here often blends qualitative methods (interviews, prototype testing) for early-stage idea shaping with quantitative experimentation for final validation before full rollout."
+        }
+      ],
+      "blockId": "blk_edc3b75b00"
+    },
+    {
+      "type": "caseStudy",
+      "title": "The Feature That Skipped Discovery",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Consider a simplified, illustrative scenario common across consumer subscription products.",
+          "blockId": "blk_83fa745389"
+        },
+        {
+          "type": "paragraph",
+          "text": "A subscription meal-kit company's leadership becomes convinced, based on a handful of enthusiastic comments in customer support tickets, that customers want the ability to fully customize every ingredient in every recipe, rather than choosing from a fixed set of recipe options each week. The idea is popular internally (several senior stakeholders personally find the current fixed-recipe system limiting) and the team moves directly to building a full ingredient-customization engine: a substantial engineering investment involving new inventory logic, a redesigned recipe-selection interface, and new fulfillment and packing workflows.",
+          "blockId": "blk_45f3b275dd"
+        },
+        {
+          "type": "paragraph",
+          "text": "Three months after launch, usage data shows fewer than 4% of customers use the customization feature regularly, and internal fulfillment costs have risen meaningfully due to the added packing complexity of handling highly variable, per-customer ingredient combinations. A brief post-launch investigation, conducted only after the disappointing results were already visible, finds that most customers actually valued the fixed recipe structure specifically because it removed decision-making burden from their week: the \"job\" the product was actually hired for was reducing weekly meal-planning effort, not maximizing ingredient control.",
+          "blockId": "blk_adc6418391"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong?**",
+          "blockId": "blk_5f17a3372c"
+        },
+        {
+          "type": "paragraph",
+          "text": "Applying this lesson's frameworks in hindsight:",
+          "blockId": "blk_bf15814942"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**Value risk was never genuinely tested.** The handful of enthusiastic support comments represented a self-selected, vocal minority, not evidence that a broader, largely silent majority shared the same preference, and no test was designed that could have surfaced a negative signal before full investment.",
+            "**The riskiest assumption was never explicitly identified.** Applying assumption mapping in hindsight, the assumption \"customers want more ingredient control, even at the cost of more weekly decision-making\" was both low-confidence (untested beyond a handful of comments) and high-importance (the entire engineering investment depended on it), precisely the assumption that should have been tested first, and cheaply, before any fulfillment-workflow investment was made.",
+            "**Viability risk was assumed away entirely.** No one modeled the fulfillment cost impact of highly variable, per-customer ingredient combinations before building the feature, despite this being a foreseeable and quantifiable operational risk."
+          ],
+          "blockId": "blk_62a6e9a9dd"
+        },
+        {
+          "type": "paragraph",
+          "text": "A team applying continuous discovery would likely have run a cheap, disconfirmable test first, perhaps a manual, \"concierge\"-style limited pilot with a small group of customers choosing custom ingredients through a simple form, with a human coordinating fulfillment manually, before building any automated inventory or interface systems. Such a test could have surfaced both the low genuine demand and the fulfillment cost problem at a small fraction of the cost actually incurred, while still allowing the team to observe real behavior rather than solicited opinions.",
+          "blockId": "blk_1e4689f8d7"
+        },
+        {
+          "type": "paragraph",
+          "text": "This case will be revisited in **Lesson 20 (Product Discovery Process)**, where we formalize a repeatable, structured discovery workflow, and in **Lesson 21 (MVP)**, where we discuss scoping the smallest version of a solution capable of testing the riskiest assumption cheaply.",
+          "blockId": "blk_9a847d4409"
+        }
+      ],
+      "blockId": "blk_5561c10b2b"
+    },
+    {
+      "type": "framework",
+      "name": "The Discovery-to-Delivery Confidence Ladder",
+      "diagram": {
+        "blockId": "blk_3d4e56c08d",
+        "type": "mermaid"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A useful companion framework for sequencing discovery activity is a **confidence ladder**, moving from cheap, low-fidelity tests toward progressively more expensive, higher-fidelity ones, only advancing a rung once the current rung's evidence supports it:",
+          "blockId": "blk_e2816c0a34"
+        },
+        {
+          "type": "paragraph",
+          "text": "The core discipline this ladder enforces: **do not skip rungs.** A team eager to move fast can be tempted to jump straight from Rung 1 (a few encouraging conversations) to Rung 5 (full production build), skipping the cheaper, faster rungs that would have surfaced the same disconfirming evidence at a fraction of the cost, exactly what happened in the Detailed Case Study above. Climbing the ladder deliberately, one rung at a time, is what keeps discovery cheap relative to the cost of a full, wrong delivery investment.",
+          "blockId": "blk_e7d91eaba4"
+        }
+      ],
+      "blockId": "blk_f709aa096d"
+    },
+    {
+      "type": "mermaid",
+      "id": "blk_3d4e56c08d",
+      "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph BT\r\n    A[Rung 1: Conversation Unstructured<br/>Interviews, Cheap, Directional Only] --> B[Rung 2: Concept Test Mockup or<br/>Prototype, Shown to Real Target Users]\r\n    B --> C[Rung 3: Concierge / Manual Test Real<br/>Behavior Observed, Manual Process Stands<br/>in for Automation]\r\n    C --> D[Rung 4: Limited Pilot Small-scale Real<br/>Launch, Real Stakes, Limited Exposure]\r\n    D --> E[Rung 5: Full Delivery Scaled,<br/>Production-grade Build and Rollout]",
+      "normalized": "graph BT\r\n    A[Rung 1: Conversation Unstructured<br/>Interviews, Cheap, Directional Only] --> B[Rung 2: Concept Test Mockup or<br/>Prototype, Shown to Real Target Users]\r\n    B --> C[Rung 3: Concierge / Manual Test Real<br/>Behavior Observed, Manual Process Stands<br/>in for Automation]\r\n    C --> D[Rung 4: Limited Pilot Small-scale Real<br/>Launch, Real Stakes, Limited Exposure]\r\n    D --> E[Rung 5: Full Delivery Scaled,<br/>Production-grade Build and Rollout]",
+      "authorTheme": {
+        "background": "#0b0b0c",
+        "primaryColor": "#1f1f23",
+        "primaryTextColor": "#ffffff",
+        "primaryBorderColor": "#8b5cf6",
+        "lineColor": "#d1d5db",
+        "secondaryColor": "#18181b",
+        "tertiaryColor": "#111111",
+        "mainBkg": "#1f1f23",
+        "nodeBorder": "#8b5cf6",
+        "clusterBkg": "#000000",
+        "clusterBorder": "#27272a",
+        "titleColor": "#ffffff",
+        "edgeLabelBackground": "#0b0b0c",
+        "nodeTextColor": "#ffffff",
+        "edgeLabelColor": "#ffffff",
+        "actorBorder": "#8b5cf6",
+        "actorBkg": "#1f1f23",
+        "actorTextColor": "#ffffff",
+        "sequenceNumberColor": "#ffffff",
+        "signalColor": "#8b5cf6",
+        "signalTextColor": "#ffffff",
+        "textColor": "#ffffff",
+        "classText": "#ffffff",
+        "classBorder": "#8b5cf6",
+        "classBkg": "#1f1f23"
+      },
+      "svg": "<svg id=\"mermaid-svg-1795020931588-19\" xmlns=\"http://www.w3.org/2000/svg\" width=\"606\" height=\"941\" viewBox=\"-77 -27 606 941\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Rung 1: Conversation UnstructuredInterviews, Cheap, Directional Only → Rung 2: Concept Test Mockup orPrototype, Shown to Real Target Users → Rung 3: Concierge / Manual Test RealBehavior Observed, Manual Process Standsin for Automation → Rung 4: Limited Pilot Small-scale RealLaunch, Real Stakes, Limited Exposure → Rung 5: Full Delivery Scaled,Production-grade Build and Rollout\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Rung 1: Conversation UnstructuredInterviews, Cheap, Directional Only → Rung 2: Concept Test Mockup orPrototype, Shown to Real Target Users → Rung 3: Concierge / Manual Test RealBehavior Observed, Manual Process Standsin for Automation → Rung 4: Limited Pilot Small-scale RealLaunch, Real Stakes, Limited Exposure → Rung 5: Full Delivery Scaled,Production-grade Build and Rollout</title><style>#mermaid-svg-1795020931588-19{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020931588-19 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020931588-19 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020931588-19 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020931588-19 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020931588-19 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020931588-19 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020931588-19 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020931588-19 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020931588-19 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020931588-19 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020931588-19 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020931588-19 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020931588-19 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020931588-19 p{margin:0;}#mermaid-svg-1795020931588-19 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020931588-19 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020931588-19 .cluster-label span{color:#171A17;}#mermaid-svg-1795020931588-19 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020931588-19 .label text,#mermaid-svg-1795020931588-19 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020931588-19 .node rect,#mermaid-svg-1795020931588-19 .node circle,#mermaid-svg-1795020931588-19 .node ellipse,#mermaid-svg-1795020931588-19 .node polygon,#mermaid-svg-1795020931588-19 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020931588-19 .rough-node .label text,#mermaid-svg-1795020931588-19 .node .label text,#mermaid-svg-1795020931588-19 .image-shape .label,#mermaid-svg-1795020931588-19 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020931588-19 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020931588-19 .rough-node .label,#mermaid-svg-1795020931588-19 .node .label,#mermaid-svg-1795020931588-19 .image-shape .label,#mermaid-svg-1795020931588-19 .icon-shape .label{text-align:center;}#mermaid-svg-1795020931588-19 .node.clickable{cursor:pointer;}#mermaid-svg-1795020931588-19 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020931588-19 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020931588-19 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020931588-19 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020931588-19 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020931588-19 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020931588-19 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020931588-19 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020931588-19 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020931588-19 .cluster text{fill:#171A17;}#mermaid-svg-1795020931588-19 .cluster span{color:#171A17;}#mermaid-svg-1795020931588-19 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020931588-19 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020931588-19 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020931588-19 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020931588-19 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020931588-19 .icon-shape,#mermaid-svg-1795020931588-19 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020931588-19 .icon-shape p,#mermaid-svg-1795020931588-19 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020931588-19 .icon-shape .label rect,#mermaid-svg-1795020931588-19 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020931588-19 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020931588-19 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020931588-19 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020931588-19 [data-look=\"neo\"].node rect,#mermaid-svg-1795020931588-19 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020931588-19 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020931588-19-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020931588-19 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020931588-19 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020931588-19-gradient);stroke-width:1px;}#mermaid-svg-1795020931588-19 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020931588-19 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020931588-19 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020931588-19-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020931588-19 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020931588-19 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020931588-19-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020931588-19 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020931588-19-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020931588-19 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020931588-19_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020931588-19_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020931588-19_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020931588-19_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020931588-19_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020931588-19_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020931588-19_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020931588-19_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020931588-19_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020931588-19_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020931588-19_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020931588-19_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M303,806L303,799.083C303,792.167,303,778.333,303,765.167C303,752,303,739.5,303,733.25L303,727\" id=\"mermaid-svg-1795020931588-19-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6MzAzLCJ5Ijo4MDZ9LHsieCI6MzAzLCJ5Ijo3NjQuNX0seyJ4IjozMDMsInkiOjcyM31d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020931588-19_flowchart-v2-pointEnd)\"></path><path d=\"M303,615L303,608.083C303,601.167,303,587.333,303,574.167C303,561,303,548.5,303,542.25L303,536\" id=\"mermaid-svg-1795020931588-19-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6MzAzLCJ5Ijo2MTV9LHsieCI6MzAzLCJ5Ijo1NzMuNX0seyJ4IjozMDMsInkiOjUzMn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020931588-19_flowchart-v2-pointEnd)\"></path><path d=\"M303,390L303,383.083C303,376.167,303,362.333,303,349.167C303,336,303,323.5,303,317.25L303,311\" id=\"mermaid-svg-1795020931588-19-L_C_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_D_0\" data-points=\"W3sieCI6MzAzLCJ5IjozOTB9LHsieCI6MzAzLCJ5IjozNDguNX0seyJ4IjozMDMsInkiOjMwN31d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020931588-19_flowchart-v2-pointEnd)\"></path><path d=\"M303,199L303,192.083C303,185.167,303,171.333,303,158.167C303,145,303,132.5,303,126.25L303,120\" id=\"mermaid-svg-1795020931588-19-L_D_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_E_0\" data-points=\"W3sieCI6MzAzLCJ5IjoxOTl9LHsieCI6MzAzLCJ5IjoxNTcuNX0seyJ4IjozMDMsInkiOjExNn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020931588-19_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_D_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020931588-19-flowchart-A-0\" data-look=\"classic\" transform=\"translate(303, 860)\"><rect class=\"basic label-container\" style=\"\" x=\"-196.75\" y=\"-46\" width=\"393.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-164.75, -30)\"><rect></rect><foreignObject width=\"329.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Rung 1: Conversation Unstructured<br>Interviews, Cheap, Directional Only</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020931588-19-flowchart-B-1\" data-look=\"classic\" transform=\"translate(303, 669)\"><rect class=\"basic label-container\" style=\"\" x=\"-205.25\" y=\"-46\" width=\"410.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-173.25, -30)\"><rect></rect><foreignObject width=\"346.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Rung 2: Concept Test Mockup or<br>Prototype, Shown to Real Target Users</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020931588-19-flowchart-C-3\" data-look=\"classic\" transform=\"translate(303, 461)\"><rect class=\"basic label-container\" style=\"\" x=\"-218\" y=\"-57\" width=\"436\" height=\"114\"></rect><g class=\"label\" style=\"\" transform=\"translate(-186, -41)\"><rect></rect><foreignObject width=\"372\" height=\"82\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Rung 3: Concierge / Manual Test Real<br>Behavior Observed, Manual Process Stands<br>in for Automation</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020931588-19-flowchart-D-5\" data-look=\"classic\" transform=\"translate(303, 253)\"><rect class=\"basic label-container\" style=\"\" x=\"-209.5\" y=\"-46\" width=\"419\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-177.5, -30)\"><rect></rect><foreignObject width=\"355\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Rung 4: Limited Pilot Small-scale Real<br>Launch, Real Stakes, Limited Exposure</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020931588-19-flowchart-E-7\" data-look=\"classic\" transform=\"translate(303, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-192.5\" y=\"-46\" width=\"385\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-160.5, -30)\"><rect></rect><foreignObject width=\"321\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Rung 5: Full Delivery Scaled,<br>Production-grade Build and Rollout</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020931588-19-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020931588-19-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020931588-19-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+      "blockId": "blk_3d4e56c08d"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "Walk me through how you validated an idea before building it.",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate can describe a genuine, disconfirmable test (one that could plausibly have produced a negative result and changed the plan) versus a description of discovery theater (a well-received demo, an enthusiastic survey of existing fans) presented as if it were rigorous validation. A strong answer names the specific riskiest assumption tested and what result would have caused the team to change course."
+        },
+        {
+          "question": "How do you decide how much discovery is enough before starting to build?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate has a principled way of scaling discovery effort to risk (using something like assumption mapping) rather than a fixed, one-size-fits-all amount of research regardless of how confident or how consequential the underlying assumptions are. A weak answer treats discovery as a mandatory checklist step of fixed size; a strong answer explains how the amount and kind of discovery should vary with the specific risk profile of the idea."
+        },
+        {
+          "question": "Tell me about a time you were confident an idea was good, but discovery proved you wrong.",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Intellectual honesty and a genuine track record of letting evidence override prior conviction. A candidate who cannot produce a real example of this, or who reframes every past project as ultimately having been correct, may signal a discovery process that never actually has teeth, echoing this lesson's theme that discovery must be capable of producing an inconvenient answer to be real."
+        }
+      ],
+      "blockId": "blk_81ea6b68db"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Product discovery is the process of testing assumptions and reducing risk before committing to full-scale delivery, distinct from delivery's focus on building a validated solution well and at scale. Discovery targets four categories of risk (value, usability, feasibility, and viability) and a common failure is testing only value risk (often shallowly, via a well-received demo) while leaving the other three unexamined. Discovery should run continuously alongside delivery, rather than as a one-time phase that ends once building begins, since new risks emerge throughout a product's life. Assumption mapping (plotting each assumption a solution depends on by confidence and importance) identifies the riskiest assumption to test first, regardless of which risk category it falls into. Finally, \"discovery theater\" describes activity that has the visible form of validation without the capacity to actually produce disconfirming evidence; genuine discovery requires a test structured so that a plausible negative result is actually observable and would actually change the team's plan.",
+          "blockId": "blk_c782182c96"
+        }
+      ],
+      "blockId": "blk_f663d1bafc"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "Discovery tests whether a solution is worth building; delivery builds a validated solution well, at scale. These are distinct activities with different goals.",
+        "Discovery reduces four categories of risk: value, usability, feasibility, and viability. Testing only one (usually value) while ignoring the others is incomplete discovery.",
+        "Discovery should run continuously alongside delivery, not as a one-time phase completed before building begins.",
+        "Assumption mapping (plotting assumptions by confidence and importance) identifies the riskiest, most consequential untested assumption, the one to test first, regardless of category.",
+        "\"Discovery theater\" is activity that resembles validation but cannot produce a disconfirming result; genuine discovery must be able to fail.",
+        "A confidence ladder (conversation → concept test → concierge/manual test → limited pilot → full delivery) keeps discovery cheap by not skipping rungs on the way to full-scale investment.",
+        "Evaluate discovery by what was learned and what decision it changed, not by the volume of research activity conducted."
+      ],
+      "blockId": "blk_829005337e"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "**Discovery** tests whether to build; **delivery** builds it well at scale. Different goals, different methods.",
+        "**Four risks:** value, usability, feasibility, viability. Test all four, not just value.",
+        "**Continuous, not phased:** discovery runs alongside delivery throughout a product's life.",
+        "**Assumption mapping:** plot assumptions by confidence x importance; test the low-confidence, high-importance one first.",
+        "**Discovery theater:** activity that can't produce a negative result isn't real validation.",
+        "**Confidence ladder:** conversation → concept test → concierge test → limited pilot → full delivery. Don't skip rungs.",
+        "**Judge discovery by findings and decisions changed, not by activity volume.**"
+      ],
+      "blockId": "blk_40f87d049c"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "Product Discovery",
+          "definition": "The process of testing assumptions and reducing risk in a proposed solution before committing to full-scale delivery.",
+          "relatedConcepts": [
+            "Product Delivery",
+            "Assumption Mapping"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Product Delivery",
+          "definition": "The process of designing, building, and shipping a validated solution at production quality and scale.",
+          "relatedConcepts": [
+            "Product Discovery"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "Value Risk",
+          "definition": "The risk that people will not actually want or choose to use/pay for a proposed solution.",
+          "relatedConcepts": [
+            "Job to Be Done (Lesson 6)",
+            "Value Proposition (Lesson 7)"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Usability Risk",
+          "definition": "The risk that people cannot figure out how to use a proposed solution, even if they want its underlying value.",
+          "relatedConcepts": [
+            "Value Risk"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Feasibility Risk",
+          "definition": "The risk that a team cannot actually build a proposed solution within realistic technical, legal, or resource constraints.",
+          "relatedConcepts": [
+            "Accountability Triangle (Lesson 1)"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Viability Risk",
+          "definition": "The risk that a solution does not work economically, legally, or strategically for the business, even if desirable and feasible.",
+          "relatedConcepts": [
+            "Accountability Triangle (Lesson 1)"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Assumption Mapping",
+          "definition": "A technique for listing and plotting the assumptions a solution depends on, by confidence and importance, to find the riskiest one.",
+          "relatedConcepts": [
+            "Confidence Ladder"
+          ],
+          "difficulty": 3
+        },
+        {
+          "term": "Discovery Theater",
+          "definition": "Activity that has the visible form of discovery but cannot produce disconfirming evidence, and therefore does not actually reduce risk.",
+          "relatedConcepts": [
+            "Genuine Discovery Test"
+          ],
+          "difficulty": 3
+        },
+        {
+          "term": "Confidence Ladder",
+          "definition": "A sequence of progressively more expensive discovery tests (conversation, concept test, concierge test, limited pilot, full delivery), advanced one rung at a time.",
+          "relatedConcepts": [
+            "Assumption Mapping",
+            "MVP (Lesson 21)"
+          ],
+          "difficulty": 3
+        }
+      ],
+      "blockId": "blk_54aaa1f0a0"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "Marty Cagan, *Inspired: How to Create Tech Products Customers Love*",
+          "note": "a widely referenced modern treatment of continuous discovery and the distinction between discovery and delivery teams."
+        },
+        {
+          "citation": "Teresa Torres, *Continuous Discovery Habits*",
+          "note": "a detailed, practice-oriented treatment of running discovery as an ongoing habit rather than a phase, including assumption-mapping techniques closely related to this lesson's framework."
+        },
+        {
+          "citation": "Eric Ries, *The Lean Startup*",
+          "note": "the origin of much of the \"build-measure-learn\" and minimum-viable-test thinking that underlies this lesson's confidence ladder concept."
+        }
+      ],
+      "blockId": "blk_03acb83497"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_8psivf",
+      "cards": [
+        {
+          "id": "fc-les_8psivf-1",
+          "front": "What is the core distinction between product discovery and product delivery?",
+          "back": "Discovery tests whether a solution is worth building and reduces risk before investment; delivery builds a validated solution well, at production quality and scale.",
+          "difficulty": 1,
+          "tags": [
+            "discovery",
+            "delivery",
+            "fundamentals"
+          ]
+        },
+        {
+          "id": "fc-les_8psivf-2",
+          "front": "Name the four categories of risk discovery is designed to reduce.",
+          "back": "Value risk (will people want it), usability risk (can people use it), feasibility risk (can we build it), viability risk (does it work for the business).",
+          "difficulty": 2,
+          "tags": [
+            "four-risks",
+            "discovery"
+          ]
+        },
+        {
+          "id": "fc-les_8psivf-3",
+          "front": "Why should discovery run continuously rather than as a one-time phase?",
+          "back": "New risks emerge throughout delivery (technical constraints, competitor moves, early feedback), and a one-time discovery phase leaves a team blind to risks that appear after building begins.",
+          "difficulty": 2,
+          "tags": [
+            "continuous-discovery"
+          ]
+        },
+        {
+          "id": "fc-les_8psivf-4",
+          "front": "What is assumption mapping, and what does it identify?",
+          "back": "A technique for plotting a solution's assumptions by confidence and importance; it identifies the low-confidence, high-importance assumption that should be tested first.",
+          "difficulty": 3,
+          "tags": [
+            "assumption-mapping"
+          ]
+        },
+        {
+          "id": "fc-les_8psivf-5",
+          "front": "What is \"discovery theater\"?",
+          "back": "Activity that has the visible form of validation (interviews, demos, surveys) but is structured such that it could not have produced disconfirming evidence, and therefore doesn't actually reduce risk.",
+          "difficulty": 3,
+          "tags": [
+            "discovery-theater"
+          ]
+        },
+        {
+          "id": "fc-les_8psivf-6",
+          "front": "What defines a genuine discovery test, as opposed to discovery theater?",
+          "back": "A genuine test is structured so that a plausible negative result is actually observable and would actually change the team's decision.",
+          "difficulty": 3,
+          "tags": [
+            "discovery-theater",
+            "genuine-test"
+          ]
+        },
+        {
+          "id": "fc-les_8psivf-7",
+          "front": "What is the core discipline enforced by the confidence ladder (conversation → concept test → concierge test → pilot → full delivery)?",
+          "back": "Do not skip rungs: climb from cheap, low-fidelity tests to expensive, high-fidelity ones deliberately, since skipping ahead sacrifices cheap opportunities to catch a wrong assumption early.",
+          "difficulty": 2,
+          "tags": [
+            "confidence-ladder"
+          ]
+        }
+      ],
+      "blockId": "blk_4601a1f3f2"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "You are the PM for a B2B invoicing tool. Several sales reps report that prospects keep asking for \"automatic multi-currency conversion with live exchange rates,\" and leadership wants to fast-track this as a differentiator against a competitor that recently added the feature.",
+        "Work through the following, in writing, before reading further:",
+        "List at least four distinct assumptions this proposed feature depends on (consider assumptions about actual usage volume across currencies, willingness to pay for it, technical/legal complexity of live exchange-rate data, and whether prospects citing this as a requirement would actually convert if it were built).",
+        "Categorize each assumption as primarily a value, usability, feasibility, or viability risk.",
+        "Using the confidence/importance plot, identify which assumption is likely lowest-confidence and highest-importance, and explain your reasoning.",
+        "Design one specific, genuinely disconfirmable test for that riskiest assumption, one that could plausibly return a negative result, using the confidence ladder (starting from the cheapest applicable rung).",
+        "Referencing the Detailed Case Study, name one way this scenario could turn into \"discovery theater\" if handled carelessly (for example, by only asking existing enthusiastic prospects, or by testing after committing to a launch date).",
+        "There is no single correct answer. The purpose of this exercise is to practice moving from a stakeholder-driven feature request directly to a structured, testable discovery plan, rather than either fast-tracking the request uncritically or dismissing it without genuine investigation."
+      ],
+      "blockId": "blk_9fc611c7ba"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_8psivf",
+      "questions": [
+        {
+          "id": "q-les_8psivf-1",
+          "question": "Which of the following best distinguishes product discovery from product delivery?",
+          "options": [
+            "Discovery is handled by designers; delivery is handled by engineers",
+            "Discovery is an optional step, whereas delivery is always mandatory",
+            "Discovery and delivery are two labels for one continuous process",
+            "Discovery tests whether to build; delivery builds it well"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Discovery is optimized for speed and learning and often produces artifacts never meant to ship. Delivery is optimized for quality and scale. Both involve the whole team, and neither is optional.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_8psivf-2",
+          "question": "Which of the following is NOT one of the four risk categories discovery is designed to test?",
+          "options": [
+            "Marketing risk",
+            "Usability risk",
+            "Feasibility risk",
+            "Viability risk"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The four are value, usability, feasibility, and viability. Concerns about reaching an audience sit inside value and viability rather than forming a separate category.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_8psivf-3",
+          "question": "Why is testing only value risk (e.g., via a well-received prototype demo) considered incomplete discovery?",
+          "options": [
+            "Because value risk matters least among the four categories",
+            "Because prototype demos serve no useful purpose at any stage of discovery",
+            "Because value risk cannot be tested with a prototype at all",
+            "Because usability, feasibility, or viability could still sink it"
+          ],
+          "correctAnswer": 3,
+          "explanation": "A desirable idea that proves legally non-viable or infeasible at the required scale has still failed. Confirming value alone completes roughly a quarter of the job.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_8psivf-4",
+          "question": "According to this lesson, why should discovery run continuously alongside delivery, rather than as a phase completed before delivery begins?",
+          "options": [
+            "Because regulators in most industries now require it",
+            "Because delivery teams cannot build without parallel research running",
+            "Because new risks surface during the build that early work missed",
+            "Because the same person must own both discovery and delivery work"
+          ],
+          "correctAnswer": 2,
+          "explanation": "A constraint found mid-implementation, a competitor launch that changes the viability picture, a usability problem no prototype exposed. None of these are visible to a research phase that closed before building started.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_8psivf-5",
+          "question": "In assumption mapping, which assumption should generally be tested first?",
+          "options": [
+            "The one that is easiest to test, whatever its importance",
+            "The one with high confidence and high importance attached",
+            "The one with low confidence and low importance attached",
+            "The one with low confidence and high importance attached"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Least certain and most consequential is the combination that carries the most risk. Teams often drift toward whichever assumption is procedurally familiar to test instead, which leaves the real exposure untouched.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_8psivf-6",
+          "question": "Which of the following is the clearest example of \"discovery theater,\" as defined in this lesson?",
+          "options": [
+            "Showing a polished prototype to existing fans and reading their enthusiasm as validation",
+            "Running a concierge pilot where customers make real decisions",
+            "Designing a test intended to surface a negative result before committing",
+            "Testing the riskiest assumption identified by assumption mapping"
+          ],
+          "correctAnswer": 0,
+          "explanation": "An enthusiastic audience asked a no-cost question will answer generously. The test could not realistically have produced a negative result, so it reduced no risk whatever it returned.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_8psivf-7",
+          "question": "In the Detailed Case Study, what specific viability risk was assumed away without being tested?",
+          "options": [
+            "Whether customers actually wanted a wider selection of recipe variety",
+            "The fulfillment cost of highly variable per-customer ingredients",
+            "Whether the redesigned interface would be visually appealing",
+            "Whether a competitor had already shipped a comparable feature"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Per-customer ingredient variation changes the economics of picking, packing, and sourcing. That cost was never modeled, so a feature customers might well have liked was never checked against whether the business could carry it.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_8psivf-8",
+          "question": "What was the actual underlying job that most customers in the Detailed Case Study valued the fixed-recipe structure for satisfying?",
+          "options": [
+            "Maximizing control over ingredients and portion sizes",
+            "Minimizing the total weekly cost of their groceries",
+            "Reducing the weekly meal-planning burden",
+            "Increasing the range of cuisines available weekly"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The fixed structure was the benefit, not a limitation to be removed. Customization handed back exactly the weekly decision-making the product had been hired to take away.",
+          "objectivesTested": [
+            2,
+            4
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_8psivf-9",
+          "question": "According to the confidence ladder framework, what is the core discipline it enforces?",
+          "options": [
+            "Progress from cheap tests to expensive ones without skipping rungs",
+            "Begin at the highest-fidelity rung available in order to save time",
+            "Stop discovery once a working prototype has been built and shown",
+            "Apply one single type of discovery test regardless of the situation at hand"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Jumping from a few encouraging conversations straight to a production build skips the cheap rungs that would have surfaced the same disconfirming evidence for a fraction of the cost.",
+          "objectivesTested": [
+            3,
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_8psivf-10",
+          "question": "(Scenario) A team wants to test whether customers would actually pay for a proposed new feature, using the cheapest possible rung on the confidence ladder that could still produce a genuine signal. Which of the following best fits that goal?",
+          "options": [
+            "Build the full production feature and watch the revenue it earns",
+            "Offer the not-yet-built feature on a landing page and count real sign-ups or pre-payments",
+            "Hold an internal team discussion about whether it seems appealing",
+            "Ask the company's most loyal power users whether they like the idea"
+          ],
+          "correctAnswer": 1,
+          "explanation": "A sign-up or pre-payment costs the user something real, so the signal can come back negative. An internal discussion tests nothing external, and a full build skips every cheaper rung on the way.",
+          "objectivesTested": [
+            4,
+            5
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_8psivf-11",
+          "question": "(Product Thinking) A PM is told that discovery is \"done\" for a project because the team completed ten user interviews at the very beginning, before any delivery work started. Using this lesson's framework, what is the most appropriate response?",
+          "options": [
+            "Agree, since ten interviews is generally a sufficient sample size",
+            "Insist the same interviews be repeated without any changes made",
+            "Note that discovery continues through delivery, since risks emerge during the build",
+            "Argue no discovery was warranted for a project of this kind"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The count is not the issue. Ten interviews conducted before implementation cannot speak to a constraint found in week six, and treating the phase as closed removes the team's ability to notice one.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_8psivf-12",
+          "question": "(Interview Reasoning) An interviewer asks a candidate to describe a validated idea, and the candidate describes only a series of encouraging conversations with existing fans, with no mention of any test that could have produced a negative result. What does this most likely signal, according to this lesson's Interview Perspective section?",
+          "options": [
+            "Strong discovery practice, since speaking to real users is sufficient",
+            "Possible discovery theater, since no described test could have produced a negative result",
+            "A sampling gap the candidate could close by talking to more fans",
+            "Nothing notable, since interviews are the gold standard of discovery"
+          ],
+          "correctAnswer": 1,
+          "explanation": "More conversations with the same friendly population would not repair the structural problem. The interviewer is listening for a test the candidate could have failed.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_8psivf-13",
+          "question": "(Product Thinking, Higher Difficulty) A team has high confidence that a proposed feature is technically feasible (their engineers have built similar systems before) but low confidence that customers actually want it, and the feature's success depends entirely on customer adoption. According to assumption mapping, where should the team focus its discovery effort first?",
+          "options": [
+            "On feasibility, since every risk category deserves equal scrutiny",
+            "On viability, since it went unmentioned and is therefore riskiest",
+            "On value risk, the low-confidence, high-importance assumption",
+            "Evenly across all four categories regardless of the specifics given"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Feasibility is already high-confidence, so testing it buys little. Adoption is both uncertain and the thing the whole feature rests on, which places it squarely in the test-first quadrant.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_8psivf-14",
+          "question": "(Interview Reasoning, Higher Difficulty) A candidate is asked how they scale the amount of discovery effort applied to different ideas. A weak answer would most likely include which of the following?",
+          "options": [
+            "Explaining that discovery effort should scale with an idea's risk profile",
+            "Describing one fixed process applied to every idea alike",
+            "Distinguishing value, usability, feasibility, and viability when scoping",
+            "Referencing the confidence ladder to decide how far to climb first"
+          ],
+          "correctAnswer": 1,
+          "explanation": "A fixed ritual (always five interviews) treats a low-stakes tweak and a bet-the-quarter initiative as equivalent. The other three each tie the depth of discovery to what is actually at risk.",
+          "objectivesTested": [
+            4,
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_8psivf-15",
+          "question": "(Highest Difficulty) A team runs a concierge-style manual pilot (Rung 3 of the confidence ladder) for a proposed feature, and the pilot reveals strong customer interest but also an unexpectedly high manual operating cost per customer. According to this lesson, what should the team do next?",
+          "options": [
+            "Treat the cost finding as a viability risk needing its own test",
+            "Proceed to full automated delivery, since interest was strong",
+            "Abandon the idea, since the manual cost exceeded expectations",
+            "Disregard the cost finding, since value risk is what matters here"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The pilot answered value and raised viability. Whether automation or a price change closes the gap is a new, testable question, and it deserves an answer before the team buys the next rung of the ladder.",
+          "objectivesTested": [
+            2,
+            3,
+            4
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_e9f3106dde"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_5rbthl",
+        "title": "Lesson 7: Value Proposition",
+        "module": "foundations"
+      },
+      "current": {
+        "id": "les_8psivf",
+        "title": "Lesson 8: Product Discovery"
+      },
+      "next": {
+        "id": "les_ji9a3x",
+        "title": "Lesson 9: Product Vision",
+        "module": "foundations"
+      },
+      "unlocks": [
+        {
+          "lesson": {
+            "id": "les_4kpbq6",
+            "title": "User Research",
+            "module": "discovery"
+          },
+          "coreIdea": "Provides the specific interview and research methods that populate the early rungs of the confidence ladder"
+        }
+      ],
+      "blockId": "blk_5d292060a6"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 8: Product Discovery Lesson 7 ended with a pointed diagnostic: if you can't fill in a value proposition's \"unlike [alternative]\" blank with something specific and defensible, that gap isn't a wording problem. It's evidence that discovery work hasn't happened yet. This lesson is that missing work made explicit. **Product discovery** is the set of activities a team uses to determine whether a proposed solution is worth building, *before* committing significant engineering investment to building it. It sits in deliberate contrast to what many teams do by default: skip straight from an idea (often a stakeholder's proposed solution, per Lesson 6) to delivery (designing, building, and shipping) and only discover afterward, via low adoption or a disappointing metric, that the underlying assumption was wrong. Discovery exists to catch that failure earlier and cheaper, when the cost of being wrong is a few days of research rather than a quarter of engineering time. This matters urgently because the two most expensive kinds of product failure are not failures of execution (a bug, a missed deadline, a rough UI) but failures of **validity**: building something nobody actually wants (a desirability failure) or building something that technically works but that the business cannot sustain (a viability failure). Both are, in principle, detectable before a single line of production code is written, if a team is willing to structure its work around testing assumptions rather than assuming validity by default. Discovery is the discipline of doing that testing deliberately, rather than by accident, and rather than not at all. Define product discovery and distinguish it from product delivery. Identify the four categories of risk a discovery process is designed to reduce: value, usability, feasibility, and viability risk. Explain why discovery and delivery should run continuously and in parallel, rather than as sequential phases. Apply a basic assumption-mapping technique to identify which assumption in a proposed solution is riskiest and most in need of testing first. Distinguish a genuine discovery test from \"discovery theater\": activity that resembles validation but does not actually reduce risk. Lesson 1 (What is Product Management?), Lesson 6 (Jobs To Be Done), and Lesson 7 (Value Proposition). This lesson assumes familiarity with the Accountability Triangle (desirability, feasibility, viability) from Lesson 1, and treats discovery as the active process of testing each leg of that triangle before committing to delivery, extending the \"how do we know\" question from Lesson 1 into a repeatable practice. The Core Definition Product discovery is the process of testing assumptions and reducing risk in a proposed solution *before* it is built at full scale. It is distinct from **product delivery**: the process of actually designing, building, testing for quality, and shipping a solution once it has been validated. Discovery asks \"should we build this, and if so, roughly what should it look like?\" Delivery asks \"how do we build this well, on time, and to a high quality bar?\" A useful shorthand, widely used in modern product practice (closely associated with Marty Cagan's writing at the Silicon Valley Product Group): discovery is optimized for **speed and learning**, often producing artifacts that are never meant to be shippable, rough prototypes, landing pages, concierge-style manual processes standing in for automation, or simple prompts to a small group of real users. Delivery is optimized for **quality and scale**, producing the actual production-grade product that will serve the full user base reliably. The Four Risks Discovery Tests Discovery exists to reduce four categories of risk, extending the Accountability Triangle from Lesson 1 into a slightly more granular, delivery-adjacent framework: **Value risk**: will people actually want this, and choose to use or pay for it? (Directly tied to the job and value proposition validated in Lessons 6 and 7.) **Usability risk**: can people actually figure out how to use it, even if they want the underlying value? **Feasibility risk**: can the team actually build it, within realistic technical, legal, or resource constraints? **Viability risk**: does the solution work for the business (economically, legally, and strategically) even if users love it and engineering can build it? Each risk category calls for a different kind of test, and a common discovery mistake is testing only one risk (usually value risk, via a prototype demo) while quietly assuming the other three away. A beautifully validated, highly desirable idea that turns out to be legally non-viable, or technically infeasible at the required scale, has still failed. Discovery that stops after confirming value risk has only done a quarter of the job. Discovery and Delivery Run Continuously, Not Sequentially A common misunderstanding treats discovery as a distinct, front-loaded \"phase\" that happens before delivery begins: research this quarter, build next quarter. Modern product practice generally rejects this framing in favor of **continuous discovery**: a standing, ongoing habit of testing assumptions in parallel with delivery, rather than a one-time gate a project passes through once. This matters for a specific practical reason: a team that treats discovery as a phase that ends once delivery begins loses its ability to catch new risks that emerge *during* building, a technical constraint discovered mid-implementation, a competitor's launch that changes the viability picture, or user feedback on an early build that reveals a usability problem no prototype surfaced. Continuous discovery treats validation as a standing capability the team maintains throughout a product's life, not a box checked once at the start of a project. Assumption Mapping: Finding the Riskiest Assumption First Any proposed solution rests on a stack of assumptions, and not all assumptions carry equal risk. **Assumption mapping** is the practice of explicitly listing the assumptions a solution depends on, and identifying which one is both least certain and most consequential if wrong: the assumption whose failure would most completely invalidate the whole idea. A simple two-axis technique plots each assumption by: **How confident are we this assumption is true?** (low to high) **How much does the whole solution depend on this assumption being true?** (low to high) The assumption sitting in the \"low confidence, high importance\" position is the one to test first, regardless of which of the four risk categories it belongs to. A team that instead defaults to testing whichever assumption is easiest or most comfortable to test (frequently a usability question, since usability testing is procedurally familiar) can spend real discovery effort while leaving the actual riskiest assumption (often a value or viability question) completely unexamined. Discovery Theater: Activity That Looks Like Validation But Isn't A specific and common failure mode deserves its own name: **discovery theater**, activities that have the visible form of discovery (interviews were conducted, a prototype was shown, a survey was sent) but that do not actually reduce risk, because they were structured in a way that could not have produced disconfirming evidence even if the underlying assumption were false. Common patterns of discovery theater include: Showing a polished prototype and asking \"would you use this?\", a question people tend to answer generously regardless of their actual future behavior, because there is no real cost to saying yes in the moment. Surveying existing enthusiastic users about a new feature idea, rather than a broader or more skeptical population, producing artificially positive signal. Running a study but only after the team has already effectively committed (engineering has started, a launch date is set), such that negative findings would be organizationally very difficult to act on even if they appeared. Interpreting polite, encouraging feedback in a demo as validation, without ever observing what people actually do when given a real opportunity to adopt or reject the solution with real stakes (time, money, switching cost). The corrective principle: a genuine discovery test must be designed so that a plausible negative outcome (people don't want it, can't use it, or won't pay for it) is actually possible to observe and would actually change the team's decision. If a test cannot, even in principle, produce a result that changes the plan, it is discovery theater, not discovery. Skipping discovery for \"obviously good\" ideas An idea that feels self-evidently good to the team (often because it addresses a real pain the team itself has experienced, or because a senior stakeholder is confident in it) is exactly the kind of idea most likely to skip discovery, and exactly the kind of idea where an untested assumption can hide in plain sight because no one felt the need to question it. Treating a single successful prototype demo as complete validation As covered above, a demo that produces polite enthusiasm has usually only tested a shallow version of value risk (and often not even that, robustly), while usability, feasibility, and viability risk remain completely unexamined. Running discovery only at the very start of a project, then treating it as \"done. This misses the continuous nature of discovery described above: new risks emerge throughout delivery, and a one-time discovery phase leaves a team blind to them. Testing the easiest assumption instead of the riskiest one A team eager to show discovery progress may gravitate toward whichever assumption is simplest to test procedurally, rather than the assumption identified by assumption mapping as carrying the most combined uncertainty and consequence. Confusing discovery activity with discovery outcomes \"We did five user interviews\" describes an activity, not a finding. Discovery should be evaluated by what was actually learned and what decision it changed, not by the volume of research activity conducted. A team can conduct extensive research and still learn nothing decision-relevant if the research was poorly targeted. The Assumption Map This lesson's mental model is the **Assumption Map** introduced above, used as a standing discipline before committing meaningful resources to any new initiative. Use this as a repeatable checklist before any significant delivery commitment: name the assumptions, categorize them, find the riskiest one, and design a test that could actually fail. A team that has done this, even briefly and informally, has done meaningfully more real discovery than a team that ran a longer but less targeted research process without ever identifying which assumption mattered most. Airbnb **Airbnb**'s early history is a frequently cited illustration of lightweight, high-signal discovery preceding any significant engineering investment. According to widely reported accounts of the company's early days, the founders manually photographed listings themselves and personally interacted with early hosts and guests, rather than building automated, scalable systems for photography or host support from the outset. This approach let the team directly observe what actually drove booking behavior and where friction occurred, using manual, non-scalable effort as a stand-in for future automated features, before investing engineering resources in building automated versions of processes whose value hadn't yet been confirmed. At a startup Discovery is often existential rather than incremental: the central open question is frequently whether the entire product concept addresses a real, sufficiently painful job at all (value risk in its most fundamental form), and viability risk (can this ever become a sustainable business) looms especially large given limited runway. Startups often rely heavily on manual, unscalable \"concierge\" discovery methods precisely because building scalable infrastructure before value risk is resolved would be a poor use of extremely scarce resources. At a mid-size company Discovery more often concerns a specific feature or expansion decision within an already-validated core product, and usability and feasibility risk frequently carry more relative weight, since the core value proposition (Lesson 7) is often already established. Discovery here is more likely to run as a continuous, embedded practice alongside ongoing delivery work, rather than as a distinct existential question. At Big Tech Discovery at scale often involves rigorous, large-sample quantitative testing (A/B experiments, staged rollouts) precisely because the user base is large enough to generate statistically reliable signal quickly, and because a wrong decision at scale carries a correspondingly larger cost. Discovery here often blends qualitative methods (interviews, prototype testing) for early-stage idea shaping with quantitative experimentation for final validation before full rollout. The Feature That Skipped Discovery Consider a simplified, illustrative scenario common across consumer subscription products. A subscription meal-kit company's leadership becomes convinced, based on a handful of enthusiastic comments in customer support tickets, that customers want the ability to fully customize every ingredient in every recipe, rather than choosing from a fixed set of recipe options each week. The idea is popular internally (several senior stakeholders personally find the current fixed-recipe system limiting) and the team moves directly to building a full ingredient-customization engine: a substantial engineering investment involving new inventory logic, a redesigned recipe-selection interface, and new fulfillment and packing workflows. Three months after launch, usage data shows fewer than 4% of customers use the customization feature regularly, and internal fulfillment costs have risen meaningfully due to the added packing complexity of handling highly variable, per-customer ingredient combinations. A brief post-launch investigation, conducted only after the disappointing results were already visible, finds that most customers actually valued the fixed recipe structure specifically because it removed decision-making burden from their week: the \"job\" the product was actually hired for was reducing weekly meal-planning effort, not maximizing ingredient control. **What went wrong?** Applying this lesson's frameworks in hindsight: **Value risk was never genuinely tested.** The handful of enthusiastic support comments represented a self-selected, vocal minority, not evidence that a broader, largely silent majority shared the same preference, and no test was designed that could have surfaced a negative signal before full investment. **The riskiest assumption was never explicitly identified.** Applying assumption mapping in hindsight, the assumption \"customers want more ingredient control, even at the cost of more weekly decision-making\" was both low-confidence (untested beyond a handful of comments) and high-importance (the entire engineering investment depended on it), precisely the assumption that should have been tested first, and cheaply, before any fulfillment-workflow investment was made. **Viability risk was assumed away entirely.** No one modeled the fulfillment cost impact of highly variable, per-customer ingredient combinations before building the feature, despite this being a foreseeable and quantifiable operational risk. A team applying continuous discovery would likely have run a cheap, disconfirmable test first, perhaps a manual, \"concierge\"-style limited pilot with a small group of customers choosing custom ingredients through a simple form, with a human coordinating fulfillment manually, before building any automated inventory or interface systems. Such a test could have surfaced both the low genuine demand and the fulfillment cost problem at a small fraction of the cost actually incurred, while still allowing the team to observe real behavior rather than solicited opinions. This case will be revisited in **Lesson 20 (Product Discovery Process)**, where we formalize a repeatable, structured discovery workflow, and in **Lesson 21 (MVP)**, where we discuss scoping the smallest version of a solution capable of testing the riskiest assumption cheaply. The Discovery-to-Delivery Confidence Ladder A useful companion framework for sequencing discovery activity is a **confidence ladder**, moving from cheap, low-fidelity tests toward progressively more expensive, higher-fidelity ones, only advancing a rung once the current rung's evidence supports it: The core discipline this ladder enforces: **do not skip rungs.** A team eager to move fast can be tempted to jump straight from Rung 1 (a few encouraging conversations) to Rung 5 (full production build), skipping the cheaper, faster rungs that would have surfaced the same disconfirming evidence at a fraction of the cost, exactly what happened in the Detailed Case Study above. Climbing the ladder deliberately, one rung at a time, is what keeps discovery cheap relative to the cost of a full, wrong delivery investment. Walk me through how you validated an idea before building it. *What the interviewer is actually evaluating:* Whether the candidate can describe a genuine, disconfirmable test (one that could plausibly have produced a negative result and changed the plan) versus a description of discovery theater (a well-received demo, an enthusiastic survey of existing fans) presented as if it were rigorous validation. A strong answer names the specific riskiest assumption tested and what result would have caused the team to change course. How do you decide how much discovery is enough before starting to build? *What the interviewer is actually evaluating:* Whether the candidate has a principled way of scaling discovery effort to risk (using something like assumption mapping) rather than a fixed, one-size-fits-all amount of research regardless of how confident or how consequential the underlying assumptions are. A weak answer treats discovery as a mandatory checklist step of fixed size; a strong answer explains how the amount and kind of discovery should vary with the specific risk profile of the idea. Tell me about a time you were confident an idea was good, but discovery proved you wrong. *What the interviewer is actually evaluating:* Intellectual honesty and a genuine track record of letting evidence override prior conviction. A candidate who cannot produce a real example of this, or who reframes every past project as ultimately having been correct, may signal a discovery process that never actually has teeth, echoing this lesson's theme that discovery must be capable of producing an inconvenient answer to be real. Product discovery is the process of testing assumptions and reducing risk before committing to full-scale delivery, distinct from delivery's focus on building a validated solution well and at scale. Discovery targets four categories of risk (value, usability, feasibility, and viability) and a common failure is testing only value risk (often shallowly, via a well-received demo) while leaving the other three unexamined. Discovery should run continuously alongside delivery, rather than as a one-time phase that ends once building begins, since new risks emerge throughout a product's life. Assumption mapping (plotting each assumption a solution depends on by confidence and importance) identifies the riskiest assumption to test first, regardless of which risk category it falls into. Finally, \"discovery theater\" describes activity that has the visible form of validation without the capacity to actually produce disconfirming evidence; genuine discovery requires a test structured so that a plausible negative result is actually observable and would actually change the team's plan. Discovery tests whether a solution is worth building; delivery builds a validated solution well, at scale. These are distinct activities with different goals. Discovery reduces four categories of risk: value, usability, feasibility, and viability. Testing only one (usually value) while ignoring the others is incomplete discovery. Discovery should run continuously alongside delivery, not as a one-time phase completed before building begins. Assumption mapping (plotting assumptions by confidence and importance) identifies the riskiest, most consequential untested assumption, the one to test first, regardless of category. \"Discovery theater\" is activity that resembles validation but cannot produce a disconfirming result; genuine discovery must be able to fail. A confidence ladder (conversation → concept test → concierge/manual test → limited pilot → full delivery) keeps discovery cheap by not skipping rungs on the way to full-scale investment. Evaluate discovery by what was learned and what decision it changed, not by the volume of research activity conducted. **Discovery** tests whether to build; **delivery** builds it well at scale. Different goals, different methods. **Four risks:** value, usability, feasibility, viability. Test all four, not just value. **Continuous, not phased:** discovery runs alongside delivery throughout a product's life. **Assumption mapping:** plot assumptions by confidence x importance; test the low-confidence, high-importance one first. **Discovery theater:** activity that can't produce a negative result isn't real validation. **Confidence ladder:** conversation → concept test → concierge test → limited pilot → full delivery. Don't skip rungs. **Judge discovery by findings and decisions changed, not by activity volume.** Product Discovery The process of testing assumptions and reducing risk in a proposed solution before committing to full-scale delivery. Product Delivery The process of designing, building, and shipping a validated solution at production quality and scale. Value Risk The risk that people will not actually want or choose to use/pay for a proposed solution. Usability Risk The risk that people cannot figure out how to use a proposed solution, even if they want its underlying value. Feasibility Risk The risk that a team cannot actually build a proposed solution within realistic technical, legal, or resource constraints. Viability Risk The risk that a solution does not work economically, legally, or strategically for the business, even if desirable and feasible. Assumption Mapping A technique for listing and plotting the assumptions a solution depends on, by confidence and importance, to find the riskiest one. Discovery Theater Activity that has the visible form of discovery but cannot produce disconfirming evidence, and therefore does not actually reduce risk. Confidence Ladder A sequence of progressively more expensive discovery tests (conversation, concept test, concierge test, limited pilot, full delivery), advanced one rung at a time. Marty Cagan, *Inspired: How to Create Tech Products Customers Love* a widely referenced modern treatment of continuous discovery and the distinction between discovery and delivery teams. Teresa Torres, *Continuous Discovery Habits* a detailed, practice-oriented treatment of running discovery as an ongoing habit rather than a phase, including assumption-mapping techniques closely related to this lesson's framework. Eric Ries, *The Lean Startup* the origin of much of the \"build-measure-learn\" and minimum-viable-test thinking that underlies this lesson's confidence ladder concept. What is the core distinction between product discovery and product delivery? Discovery tests whether a solution is worth building and reduces risk before investment; delivery builds a validated solution well, at production quality and scale. Name the four categories of risk discovery is designed to reduce. Value risk (will people want it), usability risk (can people use it), feasibility risk (can we build it), viability risk (does it work for the business). Why should discovery run continuously rather than as a one-time phase? New risks emerge throughout delivery (technical constraints, competitor moves, early feedback), and a one-time discovery phase leaves a team blind to risks that appear after building begins. What is assumption mapping, and what does it identify? A technique for plotting a solution's assumptions by confidence and importance; it identifies the low-confidence, high-importance assumption that should be tested first. What is \"discovery theater\"? Activity that has the visible form of validation (interviews, demos, surveys) but is structured such that it could not have produced disconfirming evidence, and therefore doesn't actually reduce risk. What defines a genuine discovery test, as opposed to discovery theater? A genuine test is structured so that a plausible negative result is actually observable and would actually change the team's decision. What is the core discipline enforced by the confidence ladder (conversation → concept test → concierge test → pilot → full delivery)? Do not skip rungs: climb from cheap, low-fidelity tests to expensive, high-fidelity ones deliberately, since skipping ahead sacrifices cheap opportunities to catch a wrong assumption early. You are the PM for a B2B invoicing tool. Several sales reps report that prospects keep asking for \"automatic multi-currency conversion with live exchange rates,\" and leadership wants to fast-track this as a differentiator against a competitor that recently added the feature. Work through the following, in writing, before reading further: List at least four distinct assumptions this proposed feature depends on (consider assumptions about actual usage volume across currencies, willingness to pay for it, technical/legal complexity of live exchange-rate data, and whether prospects citing this as a requirement would actually convert if it were built). Categorize each assumption as primarily a value, usability, feasibility, or viability risk. Using the confidence/importance plot, identify which assumption is likely lowest-confidence and highest-importance, and explain your reasoning. Design one specific, genuinely disconfirmable test for that riskiest assumption, one that could plausibly return a negative result, using the confidence ladder (starting from the cheapest applicable rung). Referencing the Detailed Case Study, name one way this scenario could turn into \"discovery theater\" if handled carelessly (for example, by only asking existing enthusiastic prospects, or by testing after committing to a launch date). There is no single correct answer. The purpose of this exercise is to practice moving from a stakeholder-driven feature request directly to a structured, testable discovery plan, rather than either fast-tracking the request uncritically or dismissing it without genuine investigation. Which of the following best distinguishes product discovery from product delivery? Discovery is optimized for speed and learning and often produces artifacts never meant to ship. Delivery is optimized for quality and scale. Both involve the whole team, and neither is optional. Which of the following is NOT one of the four risk categories discovery is designed to test? The four are value, usability, feasibility, and viability. Concerns about reaching an audience sit inside value and viability rather than forming a separate category. Why is testing only value risk (e.g., via a well-received prototype demo) considered incomplete discovery? A desirable idea that proves legally non-viable or infeasible at the required scale has still failed. Confirming value alone completes roughly a quarter of the job. According to this lesson, why should discovery run continuously alongside delivery, rather than as a phase completed before delivery begins? A constraint found mid-implementation, a competitor launch that changes the viability picture, a usability problem no prototype exposed. None of these are visible to a research phase that closed before building started. In assumption mapping, which assumption should generally be tested first? Least certain and most consequential is the combination that carries the most risk. Teams often drift toward whichever assumption is procedurally familiar to test instead, which leaves the real exposure untouched. Which of the following is the clearest example of \"discovery theater,\" as defined in this lesson? An enthusiastic audience asked a no-cost question will answer generously. The test could not realistically have produced a negative result, so it reduced no risk whatever it returned. In the Detailed Case Study, what specific viability risk was assumed away without being tested? Per-customer ingredient variation changes the economics of picking, packing, and sourcing. That cost was never modeled, so a feature customers might well have liked was never checked against whether the business could carry it. What was the actual underlying job that most customers in the Detailed Case Study valued the fixed-recipe structure for satisfying? The fixed structure was the benefit, not a limitation to be removed. Customization handed back exactly the weekly decision-making the product had been hired to take away. According to the confidence ladder framework, what is the core discipline it enforces? Jumping from a few encouraging conversations straight to a production build skips the cheap rungs that would have surfaced the same disconfirming evidence for a fraction of the cost. (Scenario) A team wants to test whether customers would actually pay for a proposed new feature, using the cheapest possible rung on the confidence ladder that could still produce a genuine signal. Which of the following best fits that goal? A sign-up or pre-payment costs the user something real, so the signal can come back negative. An internal discussion tests nothing external, and a full build skips every cheaper rung on the way. (Product Thinking) A PM is told that discovery is \"done\" for a project because the team completed ten user interviews at the very beginning, before any delivery work started. Using this lesson's framework, what is the most appropriate response? The count is not the issue. Ten interviews conducted before implementation cannot speak to a constraint found in week six, and treating the phase as closed removes the team's ability to notice one. (Interview Reasoning) An interviewer asks a candidate to describe a validated idea, and the candidate describes only a series of encouraging conversations with existing fans, with no mention of any test that could have produced a negative result. What does this most likely signal, according to this lesson's Interview Perspective section? More conversations with the same friendly population would not repair the structural problem. The interviewer is listening for a test the candidate could have failed. (Product Thinking, Higher Difficulty) A team has high confidence that a proposed feature is technically feasible (their engineers have built similar systems before) but low confidence that customers actually want it, and the feature's success depends entirely on customer adoption. According to assumption mapping, where should the team focus its discovery effort first? Feasibility is already high-confidence, so testing it buys little. Adoption is both uncertain and the thing the whole feature rests on, which places it squarely in the test-first quadrant. (Interview Reasoning, Higher Difficulty) A candidate is asked how they scale the amount of discovery effort applied to different ideas. A weak answer would most likely include which of the following? A fixed ritual (always five interviews) treats a low-stakes tweak and a bet-the-quarter initiative as equivalent. The other three each tie the depth of discovery to what is actually at risk. (Highest Difficulty) A team runs a concierge-style manual pilot (Rung 3 of the confidence ladder) for a proposed feature, and the pilot reveals strong customer interest but also an unexpectedly high manual operating cost per customer. According to this lesson, what should the team do next? The pilot answered value and raised viability. Whether automation or a price change closes the gap is a new, testable question, and it deserves an answer before the team buys the next rung of the ladder.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "Mental Model: The Assumption Map",
+      "Real Company Example",
+      "Real World Perspective: Product Discovery at Different Company Stages",
+      "Detailed Case Study: The Feature That Skipped Discovery",
+      "Framework Explanation: The Discovery-to-Delivery Confidence Ladder",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "Product Discovery",
+    "Product Delivery",
+    "Value Risk",
+    "Usability Risk",
+    "Feasibility Risk",
+    "Viability Risk",
+    "Assumption Mapping",
+    "Discovery Theater",
+    "Confidence Ladder"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

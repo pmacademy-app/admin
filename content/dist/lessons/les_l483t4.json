@@ -1,0 +1,837 @@
+{
+  "schemaVersion": 2,
+  "id": "les_l483t4",
+  "contentHash": "8e06f13f2883915fe2480d52a25a824669ff93ec77ac00dc82b9922d628a14c3",
+  "title": "PM in AI-Native Companies: New Skills, New Risks",
+  "slug": "lesson-084",
+  "module": "capstone",
+  "order": 4,
+  "totalInModule": 10,
+  "difficulty": 7,
+  "estimatedReadingTime": 40,
+  "estimatedCompletionTime": 55,
+  "prerequisites": [
+    "les_t2ezpj",
+    "les_m2bfi1",
+    "les_cc0i59"
+  ],
+  "sourceFile": "content/lessons/lesson-084.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 84: PM in AI-Native Companies: New Skills, New Risks",
+      "blockId": "blk_5978630d8e"
+    },
+    {
+      "type": "paragraph",
+      "text": "Module 7 gave you the Ownership Zones Model (Lesson 65) for assigning responsibility around a model's output, and the Discovery Frontier (Lesson 66) for reasoning about a recommender's explore/exploit balance. Lesson 81 established that some automated decisions legally require a human in the loop, and Lesson 82 established that data handling must be minimized and purpose-limited. An AI-native company (one whose core product is built around large generative models rather than using a model as one feature among many) inherits every one of these concerns simultaneously, and adds a genuinely new one: the model's capability and reliability are not fixed properties you can fully test once and trust forever. They shift with every model update, every prompt change, and every new edge case a large, open-ended user base discovers.",
+      "blockId": "blk_3e04361f9e"
+    },
+    {
+      "type": "paragraph",
+      "text": "A PM new to AI-native product work tends to treat a generative model the way they'd treat any other software dependency: build it, test it, ship it, move on. This instinct fails because a generative model doesn't produce a fixed, enumerable set of outputs the way traditional software does: it produces a probability distribution over an effectively unbounded output space, meaning \"testing it\" can never mean the same thing \"testing it\" means for deterministic software. The central discipline this lesson introduces is refusing to treat model capability as a single number (\"is it good enough to ship\") and instead asking a two-part question: how *capable* is the model at this specific task, and how *reliably* does it perform at that capability level, since these two properties can diverge sharply and require entirely different product responses.",
+      "blockId": "blk_ded9b7c44b"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "Explain why a generative model's quality cannot be reduced to a single \"is it good enough\" judgment.",
+        "Apply the Capability-Reliability Matrix to determine the appropriate product response for a given AI-powered feature.",
+        "Identify why evaluation (\"evals\") must be an ongoing practice rather than a one-time pre-launch gate for AI-native products.",
+        "Explain why per-inference cost economics differ from traditional software's near-zero marginal cost assumption.",
+        "Evaluate a proposed AI-powered feature for whether its automation level matches its actual position on the Capability-Reliability Matrix."
+      ],
+      "blockId": "blk_8710067295"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson assumes the Ownership Zones Model from Lesson 65, the Discovery Frontier from Lesson 66, and the Regulatory Surface Map's human-in-the-loop concept from Lesson 81, since AI-native product decisions draw on all three simultaneously.",
+      "blockId": "blk_e3a1dbada9"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Capability Is Not a Single Number",
+          "blockId": "blk_576b941cbe"
+        },
+        {
+          "type": "paragraph",
+          "text": "A generative model can be highly *capable* at a task (able, in its best outputs, to perform at a genuinely impressive level) while being unreliable at that same task, meaning its performance varies significantly across similar-seeming inputs, sometimes producing an excellent result and sometimes producing a confidently-stated but wrong one (a \"hallucination\"). Capability and reliability are distinct properties, and a product decision informed only by capability (\"look how good this can be\") without accounting for reliability risks shipping a feature that performs impressively in a demo and unpredictably in production.",
+          "blockId": "blk_a78646b5ec"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Capability-Reliability Matrix",
+          "blockId": "blk_31bc410782"
+        },
+        {
+          "type": "paragraph",
+          "text": "This lesson introduces the **Capability-Reliability Matrix**:",
+          "blockId": "blk_08acbe90d1"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_31c2d7e546",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[\"High Capability + High Reliability<br/>→ Full automation reasonable\"]\r\n    B[\"High Capability + Low Reliability<br/>→ Human-in-the-loop assist mode\"]\r\n    C[\"Low Capability + High Reliability<br/>→ Narrow, well-scoped use only\"]\r\n    D[\"Low Capability + Low Reliability<br/>→ Do not ship this use case yet\"]",
+          "normalized": "graph TD\r\n    A[\"High Capability + High Reliability<br/>→ Full automation reasonable\"]\r\n    B[\"High Capability + Low Reliability<br/>→ Human-in-the-loop assist mode\"]\r\n    C[\"Low Capability + High Reliability<br/>→ Narrow, well-scoped use only\"]\r\n    D[\"Low Capability + Low Reliability<br/>→ Do not ship this use case yet\"]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020973720-197\" xmlns=\"http://www.w3.org/2000/svg\" width=\"2158.25\" height=\"124\" viewBox=\"-64.25 -8 2158.25 124\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: High Capability + High Reliability→ Full automation reasonable → High Capability + Low Reliability→ Human-in-the-loop assist mode → Low Capability + High Reliability→ Narrow, well-scoped use only → Low Capability + Low Reliability→ Do not ship this use case yet\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: High Capability + High Reliability→ Full automation reasonable → High Capability + Low Reliability→ Human-in-the-loop assist mode → Low Capability + High Reliability→ Narrow, well-scoped use only → Low Capability + Low Reliability→ Do not ship this use case yet</title><style>#mermaid-svg-1795020973720-197{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020973720-197 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020973720-197 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020973720-197 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020973720-197 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020973720-197 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020973720-197 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020973720-197 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020973720-197 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020973720-197 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020973720-197 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020973720-197 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020973720-197 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020973720-197 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020973720-197 p{margin:0;}#mermaid-svg-1795020973720-197 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020973720-197 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020973720-197 .cluster-label span{color:#171A17;}#mermaid-svg-1795020973720-197 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020973720-197 .label text,#mermaid-svg-1795020973720-197 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020973720-197 .node rect,#mermaid-svg-1795020973720-197 .node circle,#mermaid-svg-1795020973720-197 .node ellipse,#mermaid-svg-1795020973720-197 .node polygon,#mermaid-svg-1795020973720-197 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020973720-197 .rough-node .label text,#mermaid-svg-1795020973720-197 .node .label text,#mermaid-svg-1795020973720-197 .image-shape .label,#mermaid-svg-1795020973720-197 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020973720-197 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020973720-197 .rough-node .label,#mermaid-svg-1795020973720-197 .node .label,#mermaid-svg-1795020973720-197 .image-shape .label,#mermaid-svg-1795020973720-197 .icon-shape .label{text-align:center;}#mermaid-svg-1795020973720-197 .node.clickable{cursor:pointer;}#mermaid-svg-1795020973720-197 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020973720-197 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020973720-197 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020973720-197 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020973720-197 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020973720-197 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020973720-197 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020973720-197 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020973720-197 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020973720-197 .cluster text{fill:#171A17;}#mermaid-svg-1795020973720-197 .cluster span{color:#171A17;}#mermaid-svg-1795020973720-197 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020973720-197 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020973720-197 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020973720-197 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020973720-197 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020973720-197 .icon-shape,#mermaid-svg-1795020973720-197 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020973720-197 .icon-shape p,#mermaid-svg-1795020973720-197 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020973720-197 .icon-shape .label rect,#mermaid-svg-1795020973720-197 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020973720-197 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020973720-197 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020973720-197 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020973720-197 [data-look=\"neo\"].node rect,#mermaid-svg-1795020973720-197 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020973720-197 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020973720-197-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020973720-197 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020973720-197 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020973720-197-gradient);stroke-width:1px;}#mermaid-svg-1795020973720-197 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020973720-197 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020973720-197 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020973720-197-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020973720-197 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020973720-197 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020973720-197-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020973720-197 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020973720-197-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020973720-197 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020973720-197_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020973720-197_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020973720-197_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020973720-197_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020973720-197_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020973720-197_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020973720-197_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020973720-197_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020973720-197_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020973720-197_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020973720-197_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020973720-197_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"></g><g class=\"edgeLabels\"></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020973720-197-flowchart-A-0\" data-look=\"classic\" transform=\"translate(264.75, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-192.5\" y=\"-46\" width=\"385\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-160.5, -30)\"><rect></rect><foreignObject width=\"321\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>High Capability + High Reliability<br>→ Full automation reasonable</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020973720-197-flowchart-B-1\" data-look=\"classic\" transform=\"translate(816.875, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-188.25\" y=\"-46\" width=\"376.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-156.25, -30)\"><rect></rect><foreignObject width=\"312.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>High Capability + Low Reliability<br>→ Human-in-the-loop assist mode</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020973720-197-flowchart-C-2\" data-look=\"classic\" transform=\"translate(1362.625, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-188.25\" y=\"-46\" width=\"376.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-156.25, -30)\"><rect></rect><foreignObject width=\"312.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Low Capability + High Reliability<br>→ Narrow, well-scoped use only</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020973720-197-flowchart-D-3\" data-look=\"classic\" transform=\"translate(1902, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-184\" y=\"-46\" width=\"368\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-152, -30)\"><rect></rect><foreignObject width=\"304\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Low Capability + Low Reliability<br>→ Do not ship this use case yet</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020973720-197-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020973720-197-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020973720-197-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_31c2d7e546"
+        },
+        {
+          "type": "paragraph",
+          "text": "A task landing in quadrant A can reasonably be fully automated. A task in quadrant B (the most common position for many current generative use cases) calls for keeping a human explicitly in the loop, per the Ownership Zones Model's Zone 4 discipline and, in regulated contexts, per Lesson 81's legal human-in-the-loop requirements. Quadrant D should not ship at all for that specific use case, regardless of how compelling a demo made it look.",
+          "blockId": "blk_7301d8f56d"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Evals as an Ongoing Practice",
+          "blockId": "blk_fdb563f654"
+        },
+        {
+          "type": "paragraph",
+          "text": "**Evals** (structured evaluation suites measuring a model's performance on representative tasks) must be run continuously, not once before launch, because model behavior shifts with every underlying model version update and every prompt or system change, directly echoing the Metric Provenance Chain's insistence (Lesson 64) that a metric must be continuously validated, not validated once and trusted forever.",
+          "blockId": "blk_ff5ae20f6c"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Per-Inference Cost Economics",
+          "blockId": "blk_b1b1fc08d1"
+        },
+        {
+          "type": "paragraph",
+          "text": "Unlike most software, where serving one more user costs almost nothing, generative AI features carry a genuine, often significant per-inference cost that scales directly with usage: a cost structure a PM must model explicitly, since a feature can be capable, reliable, and popular, and still be a poor product decision if its unit economics don't work at scale.",
+          "blockId": "blk_55bbb60395"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Why AI Products Break Traditional QA Assumptions",
+          "blockId": "blk_e0743524ec"
+        },
+        {
+          "type": "paragraph",
+          "text": "Traditional software QA rests on a quiet assumption that most PMs never have to state explicitly: a given input, run through a given version of the code, produces the same output every time. This determinism is what makes a fixed test suite meaningful: if a test passes today, it will pass tomorrow unless the code changes. Generative models violate this assumption at the root. The same prompt, run twice against the same model version, can produce two different outputs, and a test suite that passed cleanly last week can begin failing this week with no code change at all, purely because the underlying model provider shipped a silent update, or because the specific inputs users send have drifted from the inputs the team originally tested against. This means a PM cannot treat \"we have a test suite and it's green\" as evidence of ongoing quality the way they could for deterministic software: the test suite itself must be re-run continuously against production-representative inputs, and its results must be watched for drift, not just checked once at a release gate. This is the deeper reason evals function differently from unit tests, and why an AI-native PM's mental model of \"quality assurance\" has to be rebuilt rather than simply carried over from prior software experience.",
+          "blockId": "blk_ffacfc1f40"
+        }
+      ],
+      "blockId": "blk_f7411baad1"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Treating \"the model is impressive in a demo\" as sufficient evidence to ship at full automation",
+          "body": "A demo showcases a model's best-case behavior, often on inputs the team implicitly selected because the model handles them well. Demos showcase capability, not reliability across the full range of real inputs a production system will actually encounter, including edge cases and phrasing the team never thought to try. A PM who greenlights full automation based on a demo alone is confusing \"this can be impressive\" with \"this will be dependably correct\": the two separate axes the Capability-Reliability Matrix is built to keep apart."
+        },
+        {
+          "title": "Running evals once before launch and treating the model as permanently validated",
+          "body": "Model updates and prompt changes require continuous re-evaluation, because a green eval result today says nothing about tomorrow's underlying model version, upstream provider update, or drift in the inputs users actually send. Treating a passed eval suite as a permanent credential, rather than a snapshot that expires the moment anything upstream changes, is precisely the deterministic-software assumption this lesson argues generative AI breaks. An eval suite for an AI feature has to be re-run against production-representative inputs on an ongoing basis, not checked once at a release gate and set aside."
+        },
+        {
+          "title": "Ignoring per-inference cost until scale reveals it as a problem",
+          "body": "Unlike most traditional software, where serving one additional user costs almost nothing, a generative AI feature carries a real per-inference cost that scales directly with usage. Unit economics should be modeled before launch, not discovered after, because a feature that is capable, reliable, and genuinely popular can still turn out to be a poor product decision if its cost per use erodes or exceeds the value it creates at scale. Waiting until a feature has already succeeded to check whether it can afford to keep succeeding is a needlessly expensive way to learn this."
+        },
+        {
+          "title": "Confusing a model's stated confidence with actual reliability",
+          "body": "A hallucinated answer is frequently delivered with the same fluent, confident tone as a correct one, so a model's apparent certainty is not evidence of its actual accuracy. Teams that read fluency as a reliability signal, rather than measuring actual correctness against representative test cases, can badly overestimate how trustworthy a feature is in production. This is one reason the Capability-Reliability Matrix insists on separately verified reliability data rather than an impression formed from how the output reads."
+        },
+        {
+          "title": "Treating a feature's Capability-Reliability Matrix quadrant as permanent",
+          "body": ""
+        }
+      ],
+      "blockId": "blk_56a25ee8cc"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The Capability-Reliability Matrix",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Apply it by asking: (1) How capable is the model at this specific task? (2) How reliably does it perform at that level across representative real inputs, not just demo inputs? (3) Does the current automation level match the quadrant, or does launch pressure push toward more automation than reliability supports?",
+          "blockId": "blk_c3a120f490"
+        }
+      ],
+      "blockId": "blk_bf079fdfd5"
+    },
+    {
+      "type": "companyExample",
+      "company": "OpenAI's own published \"system cards\"",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "**OpenAI's own published \"system cards\"** make its staged evaluation process directly inspectable, not just described in general terms. The GPT-4o system card, published by OpenAI itself, documents specifics: more than 100 external red teamers, spanning 45 languages and 29 countries, tested successive model checkpoints across four distinct phases between March and June 2024: starting with early, less-capable checkpoints tested via an internal tool, and ending with the model tested through the actual production iOS app experience real users would encounter. Each phase deliberately expanded both the model's capability (audio-only, then audio-plus-image, then full multimodal) and the red teamers' access, evaluating categories spanning disallowed content, misinformation, bias, fraudulent impersonation, and copyright, with insights from earlier phases directly informing quantitative evaluations and mitigations built before the next phase began. OpenAI states this process operates under a broader \"Preparedness Framework,\" which defines specific risk thresholds and evaluation criteria across misuse categories like cybersecurity and CBRN before a model is judged ready for deployment.",
+          "blockId": "blk_d9654e3107"
+        },
+        {
+          "type": "paragraph",
+          "text": "This staged structure is a direct, company-documented illustration of this lesson's evals-as-ongoing-practice argument: capability and reliability are evaluated as two genuinely separate questions across every phase (what can the model newly do, and can it be trusted to do it safely), rather than a single pre-launch check treated as sufficient once passed. Worth noting honestly, though, since it complicates a purely admiring account: independent commentary, including discussion on LessWrong following GPT-4o's release, has raised concerns that evaluation timelines for major releases can come under real commercial pressure to compress, and OpenAI's own Preparedness team saw leadership turnover around this period. The existence of a rigorous, documented framework doesn't by itself guarantee the framework is followed with equal rigor under every competitive and timeline pressure: a genuinely important caution for a PM shipping AI capabilities under real deadline pressure of their own.",
+          "blockId": "blk_0bc85104f0"
+        },
+        {
+          "type": "paragraph",
+          "text": "*(Source: OpenAI's own published GPT-4o system card and Preparedness Framework documentation, corroborated by independent reporting on the evaluation process's external red-teaming structure.)*",
+          "blockId": "blk_c58747abeb"
+        }
+      ],
+      "blockId": "blk_9002b221fb"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "At a startup",
+          "body": "Early AI-native startups often ship quadrant B use cases (high capability, imperfect reliability) at full automation under intense competitive pressure to demonstrate a magical, hands-off experience to investors and early users. Small teams frequently lack the dedicated headcount to build a continuous eval pipeline in parallel with feature development, so evaluation is often treated as a one-time pre-launch check performed by whoever is available, rather than an ongoing discipline. This is a specific and common early-stage mistake, and it is also where the cost of getting it wrong is highest relative to the company's resources: a single high-profile hallucination incident can disproportionately damage a young company's credibility before it has built a reputation to absorb the hit."
+        },
+        {
+          "context": "At a mid-size company",
+          "body": "This is typically the stage where formal, continuous eval infrastructure first becomes a genuine organizational priority, usually prompted by a specific incident (a customer-facing hallucination, a costly automated error, or a near-miss caught internally) rather than being built proactively in advance. Mid-size AI-native companies often staff a small, dedicated \"model quality\" or \"AI safety\" function at this stage, distinct from general QA, specifically because the continuous, statistical nature of eval work doesn't fit cleanly into a traditional QA team's pass/fail testing habits."
+        },
+        {
+          "context": "At Big Tech",
+          "body": "Large AI-native organizations typically maintain dedicated eval, red-teaming, and model-monitoring functions that run continuously against every model version change and every significant prompt or system update, often with formal sign-off gates before a change can reach production. At this scale, the cost of a Capability-Reliability Matrix misclassification is amplified by sheer user volume, so these organizations tend to invest heavily in automated, statistically rigorous eval pipelines rather than relying on manual spot-checks, and often maintain dedicated red-teaming staff whose explicit job is to actively search for failure modes before real users find them."
+        }
+      ],
+      "blockId": "blk_ed1411bab5"
+    },
+    {
+      "type": "caseStudy",
+      "title": "The Automated Refund Assistant",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A company shipped a fully-automated AI customer support agent authorized to approve refunds up to a moderate dollar threshold with no human review, based on strong demo performance. In production, the model occasionally hallucinated policy terms that didn't exist, approving refunds it should have denied and, in rarer cases, confidently citing a non-existent policy to deny a legitimate refund. The task was clearly quadrant B (high capability, meaningfully imperfect reliability), but was shipped as if it were quadrant A.",
+          "blockId": "blk_2903b6f6d8"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong?** Capability was mistaken for reliability, and full automation was applied to a task that, per the Ownership Zones Model and Lesson 81's human-in-the-loop discipline, required a human review step given the financial stakes involved. The team's pre-launch evaluation process had genuinely tested the model against a representative set of common refund scenarios, and the model had performed well, but \"performed well on a representative test set\" and \"will perform reliably across the full, open-ended range of real customer messages, including ones that reference policies that don't exist\" turned out to be two different claims. The team had implicitly treated a passing eval run as equivalent to a passing traditional software test (a one-time gate rather than an ongoing signal), which meant the specific hallucination pattern that eventually caused customer harm was never caught before it reached production, because it simply hadn't appeared in the original test set.",
+          "blockId": "blk_fe628f68e3"
+        },
+        {
+          "type": "paragraph",
+          "text": "The recovery involved adding human review for any refund above a small threshold, and instituting continuous evals specifically tracking hallucination rate on refund-policy questions, sampled from real production traffic rather than the original curated test set. Notably, the company also discovered that a meaningful share of the hallucinated policy citations followed a specific pattern (the model would fabricate exception clauses when a customer's message combined two unrelated complaints in a single request), which only became visible once the team began analyzing real failure cases rather than relying on aggregate pass rates alone.",
+          "blockId": "blk_5d519ccebd"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "What specific assumption caused the team to treat their pre-launch eval results as sufficient evidence for full automation?",
+            "If you were rebuilding this feature's launch plan from scratch, at what refund dollar threshold would you require human review, and what evidence would you want before raising that threshold over time?"
+          ],
+          "blockId": "blk_715fb579d8"
+        }
+      ],
+      "blockId": "blk_1e9075a125"
+    },
+    {
+      "type": "framework",
+      "name": "The AI Product Readiness Checklist",
+      "children": [
+        {
+          "type": "table",
+          "headers": [
+            "Checklist Item",
+            "Question",
+            "Risk if Skipped"
+          ],
+          "rows": [
+            [
+              "Capability vs. Reliability Assessed Separately",
+              "Has reliability been measured across representative inputs, not just demo cases?",
+              "Quadrant B mistaken for quadrant A"
+            ],
+            [
+              "Continuous Evals in Place",
+              "Does evaluation run on every model/prompt change, not just pre-launch?",
+              "Silent quality drift goes undetected"
+            ],
+            [
+              "Human-in-the-Loop Matched to Stakes",
+              "Does automation level match the Ownership Zones and Regulatory Surface requirements for this task?",
+              "Costly errors in high-stakes automated decisions"
+            ],
+            [
+              "Per-Inference Cost Modeled",
+              "Is unit economics understood before scale?",
+              "Popular feature with unsustainable cost structure"
+            ],
+            [
+              "Failure Mode Cataloged",
+              "Are known hallucination or failure patterns documented and monitored?",
+              "Repeat failures go unaddressed"
+            ]
+          ],
+          "blockId": "blk_0a2ab8a026"
+        },
+        {
+          "type": "paragraph",
+          "text": "The checklist is most useful as a pre-launch gate that gets *re-run*, not a document that gets filled out once and archived. A team that revisits it before every meaningful model version bump, prompt change, or significant shift in how the feature is used will catch quadrant drift (a feature that was genuinely quadrant A at launch sliding toward quadrant B as usage patterns diversify beyond what the original evals covered) long before a customer-facing incident forces the same discovery the hard way, as happened in the Automated Refund Assistant case above.",
+          "blockId": "blk_0fe1434c65"
+        }
+      ],
+      "blockId": "blk_b3483166ba"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "How would you decide whether to fully automate an AI-powered feature?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether you reflexively equate \"the model performs well\" with \"this should be fully automated.\" A weak answer describes evaluating the model's capability alone. A strong answer explicitly separates capability from reliability, describes how you'd gather evidence on both across representative real inputs, and explains that the answer determines the Capability-Reliability Matrix quadrant, and therefore the appropriate level of human involvement, rather than assuming a capable model should always run unsupervised."
+        },
+        {
+          "question": "Why can't you evaluate a generative model once and trust it forever?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether you understand that model behavior is not fixed the way traditional software behavior is. A weak answer treats a pre-launch test suite as sufficient, the same way it would be for deterministic code. A strong answer explains that model providers ship updates outside your control, that prompt and system changes can shift behavior in subtle ways, and that real-world input distributions drift over time: all of which require evals to run as an ongoing, monitored practice rather than a one-time release gate."
+        },
+        {
+          "question": "What's the risk of shipping an impressive demo feature at full automation?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Direct pattern-matching to the Automated Refund Assistant failure mode described in this lesson's Case Study. They want to see that you recognize demos are curated, low-variance showcases of capability, not evidence of reliability across the full, messy range of real production inputs, and that you would insist on reliability evidence, not just an impressive demo, before removing a human from a consequential decision loop."
+        }
+      ],
+      "blockId": "blk_4fe102112a"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "AI-native product work requires distinguishing a model's capability from its reliability, since these diverge and demand genuinely different product responses: full automation only where both are high, human-in-the-loop assistance where capability is high but reliability is not, and no shipment at all where capability itself is insufficient. Evals must run continuously, not once, and per-inference cost must be modeled explicitly given generative AI's departure from near-zero marginal cost software economics. Underlying all of this is a more fundamental shift in mindset: traditional software QA assumes deterministic, stable behavior that, once verified, stays verified until the code changes deliberately. Generative AI products don't offer that guarantee: model providers ship changes outside your direct control, real-world inputs drift over time, and a feature's position on the Capability-Reliability Matrix can move without any deliberate product decision at all. Treating quadrant classification, like evals, as an ongoing discipline rather than a one-time gate is the single habit that most reliably separates AI-native teams that catch problems early from those that discover them through a customer-facing incident.",
+          "blockId": "blk_f6113a2814"
+        }
+      ],
+      "blockId": "blk_11c5cc9d19"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "Capability and reliability are distinct properties requiring separate assessment.",
+        "The Capability-Reliability Matrix determines appropriate automation level by quadrant.",
+        "Evals must be continuous, not a one-time pre-launch gate.",
+        "Per-inference cost economics differ fundamentally from traditional software.",
+        "Demo performance reflects capability, not reliability across real inputs.",
+        "Quadrant B tasks require human-in-the-loop, connecting directly to Lesson 65 and Lesson 81.",
+        "Model confidence is not evidence of correctness; hallucinations are delivered fluently."
+      ],
+      "blockId": "blk_9b8b432df3"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "Capability ≠ reliability. Assess both separately.",
+        "Matrix: high/high = automate. high/low = human-in-loop. low/anything = don't ship yet.",
+        "Evals are continuous, not one-time: model behavior isn't deterministic the way traditional software is.",
+        "Model unit economics before scale.",
+        "A passing eval run is a snapshot, not a permanent guarantee: re-run the AI Product Readiness Checklist on every meaningful model or prompt change.",
+        "Demo performance shows curated capability, not production reliability. Never conflate the two when deciding automation level."
+      ],
+      "blockId": "blk_62f7997e48"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "Capability-Reliability Matrix",
+          "definition": "Model for matching AI automation level to capability and reliability",
+          "relatedConcepts": [
+            "Ownership Zones Model"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Evals",
+          "definition": "Structured, ongoing evaluation suites for model performance",
+          "relatedConcepts": [
+            "Metric Provenance Chain"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Hallucination",
+          "definition": "A confidently-stated but incorrect model output",
+          "relatedConcepts": [
+            "Reliability"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "Per-Inference Cost",
+          "definition": "The marginal cost of serving one AI model request",
+          "relatedConcepts": [
+            "Unit Economics"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "Quadrant Drift",
+          "definition": "A feature's actual capability/reliability position shifting over time as usage patterns, model versions, or prompts change, even without a deliberate product change",
+          "relatedConcepts": [
+            "Capability-Reliability Matrix",
+            "Evals"
+          ],
+          "difficulty": 3
+        },
+        {
+          "term": "Red-Teaming",
+          "definition": "The practice of deliberately probing a model for failure modes before real users encounter them",
+          "relatedConcepts": [
+            "Evals",
+            "Capability-Reliability Matrix"
+          ],
+          "difficulty": 2
+        }
+      ],
+      "blockId": "blk_caf2914235"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "Stuart Russell, *Human Compatible*"
+        },
+        {
+          "citation": "Brian Christian, *The Alignment Problem*"
+        },
+        {
+          "citation": "Anthropic's and OpenAI's published model system cards"
+        }
+      ],
+      "blockId": "blk_16a55526ee"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_l483t4",
+      "cards": [
+        {
+          "id": "fc-les_l483t4-1",
+          "front": "Why can't model quality be reduced to a single number?",
+          "back": "Capability and reliability are distinct and can diverge sharply, requiring different product responses.",
+          "difficulty": 2,
+          "tags": [
+            "ai-native"
+          ]
+        },
+        {
+          "id": "fc-les_l483t4-2",
+          "front": "What does the high-capability/low-reliability quadrant call for?",
+          "back": "Human-in-the-loop assist mode, not full automation.",
+          "difficulty": 2,
+          "tags": [
+            "capability-reliability-matrix"
+          ]
+        },
+        {
+          "id": "fc-les_l483t4-3",
+          "front": "Why must evals run continuously?",
+          "back": "Model and prompt changes shift behavior, so pre-launch evaluation alone doesn't guarantee ongoing quality.",
+          "difficulty": 2,
+          "tags": [
+            "evals"
+          ]
+        },
+        {
+          "id": "fc-les_l483t4-4",
+          "front": "What went wrong in the Automated Refund Assistant case study?",
+          "back": "A quadrant-B task (high capability, imperfect reliability) was shipped at full automation with no human review, leading to hallucination-driven refund errors.",
+          "difficulty": 2,
+          "tags": [
+            "case-study"
+          ]
+        },
+        {
+          "id": "fc-les_l483t4-5",
+          "front": "Why do traditional QA assumptions break down for generative AI products?",
+          "back": "Traditional QA assumes deterministic behavior: same input, same output, forever, unless the code changes. Generative models can produce different outputs for the same input, and behavior can shift with silent provider-side updates, so a passing test suite doesn't guarantee ongoing quality the way it does for deterministic software.",
+          "difficulty": 2,
+          "tags": [
+            "qa",
+            "evals"
+          ]
+        },
+        {
+          "id": "fc-les_l483t4-6",
+          "front": "What is \"quadrant drift\" and why does it matter?",
+          "back": "A feature's real capability/reliability position shifting over time, even without any deliberate product change, as usage patterns diversify or the underlying model updates. It matters because a feature correctly classified as quadrant A at launch can silently become quadrant B, which is why the AI Product Readiness Checklist should be re-run periodically, not filled out once.",
+          "difficulty": 2,
+          "tags": [
+            "capability-reliability-matrix",
+            "evals"
+          ]
+        }
+      ],
+      "blockId": "blk_6f550ffda6"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "You are the PM for an AI-powered legal document summarization tool being considered for full automation with no attorney review.",
+        "There is no single correct answer. Work through the following before reading further.",
+        "Using the Capability-Reliability Matrix, what quadrant would you want evidence for before considering full automation?",
+        "What would a continuous eval process look like for this specific task?",
+        "What human-in-the-loop requirement might apply, drawing on Lesson 81?",
+        "How would you model per-inference cost at scale?",
+        "What failure modes would you specifically want cataloged?"
+      ],
+      "blockId": "blk_27e914a741"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_l483t4",
+      "questions": [
+        {
+          "id": "q-les_l483t4-1",
+          "question": "Why can't a generative model's quality be reduced to a single \"good enough\" judgment?",
+          "options": [
+            "Capability and reliability are distinct properties that can diverge sharply",
+            "Every model performs identically once it reaches production",
+            "Reliability is a purely legal concept with no technical meaning",
+            "Model quality has no real bearing on product decisions"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Capability (how good the model can be) and reliability (how consistently it performs) are separate properties that can diverge, so a single rating misses the reliability dimension entirely.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_l483t4-2",
+          "question": "What does the Capability-Reliability Matrix recommend for a task with high capability but low reliability?",
+          "options": [
+            "Immediate cancellation of the feature regardless of its potential",
+            "Human-in-the-loop assist mode rather than full automation",
+            "No monitoring at all, since capability alone is sufficient",
+            "Full automation, since capability is the dominant factor"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The matrix prescribes human-in-the-loop assist mode for quadrant B, keeping a human explicitly in the loop rather than automating fully.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_l483t4-3",
+          "question": "Why must evals run continuously rather than just once before launch?",
+          "options": [
+            "Model and prompt updates shift behavior, requiring ongoing re-evaluation",
+            "One-time evals are always sufficient for any generative feature",
+            "Continuous evals are described as a purely legal requirement",
+            "Models never change meaningfully once they reach production"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Model and prompt changes shift behavior over time, so a one-time pre-launch evaluation cannot guarantee ongoing quality: continuous re-evaluation is required.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_l483t4-4",
+          "question": "Why does per-inference cost matter for AI-native products in a way it usually doesn't for traditional software?",
+          "options": [
+            "Per-inference cost is identical across every model provider",
+            "Generative AI features carry real, scaling marginal costs per use",
+            "Cost only ever matters for hardware products, not software",
+            "Inference cost is said to never actually affect business viability"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Unlike traditional software with near-zero marginal cost, each generative AI inference carries a real cost that scales directly with usage, which can make a popular feature economically unsustainable.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_l483t4-5",
+          "question": "What was the root cause of the Automated Refund Assistant case study's failure?",
+          "options": [
+            "The refund dollar threshold had simply been set too low",
+            "The company had never tested the model in any capacity",
+            "A quadrant-B task was shipped at full automation without human review",
+            "The model had essentially no capability at the refund task at all"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The refund assistant was a quadrant B task (high capability, imperfect reliability) but was shipped at full automation without human review, leading to hallucination-driven errors.",
+          "objectivesTested": [
+            2,
+            5
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_l483t4-6",
+          "question": "Why is a model's confident tone not evidence of correctness?",
+          "options": [
+            "Models are described as incapable of ever sounding confident",
+            "Confidence is treated as always a reliable indicator of accuracy",
+            "This concern is described as not actually relevant in practice",
+            "Hallucinated outputs are delivered with the same fluency as correct ones"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Hallucinated outputs are delivered with the same fluent confidence as correct ones, so a model's tone provides no signal about whether the output is actually accurate.",
+          "objectivesTested": [
+            1,
+            5
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_l483t4-7",
+          "question": "How does quadrant-B automation connect to the Ownership Zones Model from Lesson 65?",
+          "options": [
+            "The two frameworks are described as having no meaningful connection",
+            "Lesson 65's Ownership Zones Model is described as applying only to recommenders",
+            "Ownership Zones is described as relevant only to hardware products",
+            "Zone 4 requires human review before action, which quadrant B tasks need"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The Ownership Zones Model's Zone 4 requires human review of model outputs before action, which is exactly what quadrant B (high capability, low reliability) tasks demand.",
+          "objectivesTested": [
+            2,
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_l483t4-8",
+          "question": "What should happen for a task landing in the low-capability quadrant, regardless of its reliability?",
+          "options": [
+            "Full automation should proceed anyway, since capability rarely matters",
+            "The use case should generally not ship for that purpose yet",
+            "Human review becomes unnecessary once capability is confirmed low",
+            "Cost modeling can safely be skipped for this quadrant"
+          ],
+          "correctAnswer": 1,
+          "explanation": "If capability itself is insufficient, the use case should not ship regardless of how reliable the model is at that low level of performance.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_l483t4-9",
+          "question": "Why is demo performance an unreliable indicator of production reliability?",
+          "options": [
+            "Demos are generally representative of the full range of real-world inputs",
+            "There is essentially no meaningful difference between demos and production",
+            "Demos showcase capability under curated conditions, not full-range reliability",
+            "Demos never actually run against the real underlying model"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Demos showcase capability under curated, favorable conditions, but production use involves a much broader range of inputs where reliability may be significantly lower.",
+          "objectivesTested": [
+            1,
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_l483t4-10",
+          "question": "What was a recommended recovery step from the Automated Refund Assistant case study?",
+          "options": [
+            "Removing all human oversight to speed up refund processing",
+            "Adding human review above a threshold and running continuous hallucination evals",
+            "Shutting down the customer support feature altogether",
+            "Raising the refund threshold with no other changes made"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Adding human review above a threshold and instituting continuous evals tracking hallucination rate directly addresses the quadrant B mismatch and enables ongoing quality monitoring.",
+          "objectivesTested": [
+            3,
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_l483t4-11",
+          "question": "(Scenario) A model performs excellently in curated demo tests but shows inconsistent quality on a broader eval set drawn from real inputs. What does this most likely indicate?",
+          "options": [
+            "A likely quadrant-B position requiring human-in-the-loop consideration",
+            "The feature is definitely quadrant A and ready for full automation",
+            "The eval set is flawed and its results should be disregarded",
+            "No further action is needed, since the demo already looked strong"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Excellent demo performance but inconsistent quality on a broader eval set indicates high capability with lower reliability: a quadrant B position requiring human-in-the-loop consideration.",
+          "objectivesTested": [
+            2,
+            5
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_l483t4-12",
+          "question": "(Product Thinking) A team wants to skip ongoing evals after a successful launch, citing the time savings. What is the strongest response?",
+          "options": [
+            "Explain that model and prompt changes require continuous re-evaluation",
+            "Agree, since pre-launch evals are generally sufficient on their own",
+            "Cancel the feature entirely rather than negotiate over evals",
+            "Increase automation instead of continuing to run evals"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Model and prompt changes shift behavior over time, so stopping evals after launch risks silent quality drift going undetected in production.",
+          "objectivesTested": [
+            3,
+            5
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_l483t4-13",
+          "question": "(Interview Reasoning) A candidate says a model is \"good enough to ship\" based solely on how well it performed in a demo. What does this response signal?",
+          "options": [
+            "A strong and complete understanding of AI product management",
+            "A gap in distinguishing capability from reliability",
+            "Readiness for a senior AI PM role without further development",
+            "Nothing meaningful about the candidate's judgment either way"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Judging a model as \"good enough\" based solely on demo results conflates capability with reliability, revealing a gap in understanding that these are distinct properties requiring separate assessment.",
+          "objectivesTested": [
+            1,
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_l483t4-14",
+          "question": "(Product Thinking) A high-stakes automated decision feature has never had its per-inference cost modeled before launch. What risk does this create?",
+          "options": [
+            "No risk, since cost modeling is generally irrelevant to product decisions",
+            "This concern only ever matters for low-stakes, low-usage features",
+            "A popular feature could prove economically unsustainable at scale",
+            "Cost modeling only becomes relevant after a feature is shut down"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Without modeling per-inference cost before launch, a feature can become popular and widespread while its unit economics prove unsustainable at scale.",
+          "objectivesTested": [
+            4,
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_l483t4-15",
+          "question": "(Product Thinking, Highest Difficulty) A financial AI assistant shows high capability but inconsistent reliability on edge cases, and leadership wants full automation to match a competitor's speed. What is the most defensible response?",
+          "options": [
+            "Proceed with full automation to match the competitor's speed",
+            "Automate only the simplest cases with no further evaluation",
+            "Cancel the feature entirely rather than negotiate the automation level",
+            "Classify the quadrant honestly, add human review, and keep improving via evals"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The defensible response is honest quadrant classification, human-in-the-loop review matched to actual reliability evidence, and continued eval-driven improvement, resisting launch pressure to over-automate.",
+          "objectivesTested": [
+            2,
+            3,
+            5
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_265dd626e2"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_dbv3t4",
+        "title": "Lesson 83: Hardware and Physical Products",
+        "module": "capstone"
+      },
+      "current": {
+        "id": "les_l483t4",
+        "title": "Lesson 84: PM in AI-Native Companies"
+      },
+      "next": {
+        "id": "les_iofm90",
+        "title": "Lesson 85: Responsible AI Product Management",
+        "module": "capstone"
+      },
+      "unlocks": [
+        {
+          "lesson": {
+            "id": "les_efapbf",
+            "title": "Capstone",
+            "module": "capstone"
+          },
+          "coreIdea": "Treats the Capability-Reliability Matrix as established canon"
+        }
+      ],
+      "blockId": "blk_13d4d20ea6"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 84: PM in AI-Native Companies: New Skills, New Risks Module 7 gave you the Ownership Zones Model (Lesson 65) for assigning responsibility around a model's output, and the Discovery Frontier (Lesson 66) for reasoning about a recommender's explore/exploit balance. Lesson 81 established that some automated decisions legally require a human in the loop, and Lesson 82 established that data handling must be minimized and purpose-limited. An AI-native company (one whose core product is built around large generative models rather than using a model as one feature among many) inherits every one of these concerns simultaneously, and adds a genuinely new one: the model's capability and reliability are not fixed properties you can fully test once and trust forever. They shift with every model update, every prompt change, and every new edge case a large, open-ended user base discovers. A PM new to AI-native product work tends to treat a generative model the way they'd treat any other software dependency: build it, test it, ship it, move on. This instinct fails because a generative model doesn't produce a fixed, enumerable set of outputs the way traditional software does: it produces a probability distribution over an effectively unbounded output space, meaning \"testing it\" can never mean the same thing \"testing it\" means for deterministic software. The central discipline this lesson introduces is refusing to treat model capability as a single number (\"is it good enough to ship\") and instead asking a two-part question: how *capable* is the model at this specific task, and how *reliably* does it perform at that capability level, since these two properties can diverge sharply and require entirely different product responses. Explain why a generative model's quality cannot be reduced to a single \"is it good enough\" judgment. Apply the Capability-Reliability Matrix to determine the appropriate product response for a given AI-powered feature. Identify why evaluation (\"evals\") must be an ongoing practice rather than a one-time pre-launch gate for AI-native products. Explain why per-inference cost economics differ from traditional software's near-zero marginal cost assumption. Evaluate a proposed AI-powered feature for whether its automation level matches its actual position on the Capability-Reliability Matrix. This lesson assumes the Ownership Zones Model from Lesson 65, the Discovery Frontier from Lesson 66, and the Regulatory Surface Map's human-in-the-loop concept from Lesson 81, since AI-native product decisions draw on all three simultaneously. Capability Is Not a Single Number A generative model can be highly *capable* at a task (able, in its best outputs, to perform at a genuinely impressive level) while being unreliable at that same task, meaning its performance varies significantly across similar-seeming inputs, sometimes producing an excellent result and sometimes producing a confidently-stated but wrong one (a \"hallucination\"). Capability and reliability are distinct properties, and a product decision informed only by capability (\"look how good this can be\") without accounting for reliability risks shipping a feature that performs impressively in a demo and unpredictably in production. The Capability-Reliability Matrix This lesson introduces the **Capability-Reliability Matrix**: A task landing in quadrant A can reasonably be fully automated. A task in quadrant B (the most common position for many current generative use cases) calls for keeping a human explicitly in the loop, per the Ownership Zones Model's Zone 4 discipline and, in regulated contexts, per Lesson 81's legal human-in-the-loop requirements. Quadrant D should not ship at all for that specific use case, regardless of how compelling a demo made it look. Evals as an Ongoing Practice **Evals** (structured evaluation suites measuring a model's performance on representative tasks) must be run continuously, not once before launch, because model behavior shifts with every underlying model version update and every prompt or system change, directly echoing the Metric Provenance Chain's insistence (Lesson 64) that a metric must be continuously validated, not validated once and trusted forever. Per-Inference Cost Economics Unlike most software, where serving one more user costs almost nothing, generative AI features carry a genuine, often significant per-inference cost that scales directly with usage: a cost structure a PM must model explicitly, since a feature can be capable, reliable, and popular, and still be a poor product decision if its unit economics don't work at scale. Why AI Products Break Traditional QA Assumptions Traditional software QA rests on a quiet assumption that most PMs never have to state explicitly: a given input, run through a given version of the code, produces the same output every time. This determinism is what makes a fixed test suite meaningful: if a test passes today, it will pass tomorrow unless the code changes. Generative models violate this assumption at the root. The same prompt, run twice against the same model version, can produce two different outputs, and a test suite that passed cleanly last week can begin failing this week with no code change at all, purely because the underlying model provider shipped a silent update, or because the specific inputs users send have drifted from the inputs the team originally tested against. This means a PM cannot treat \"we have a test suite and it's green\" as evidence of ongoing quality the way they could for deterministic software: the test suite itself must be re-run continuously against production-representative inputs, and its results must be watched for drift, not just checked once at a release gate. This is the deeper reason evals function differently from unit tests, and why an AI-native PM's mental model of \"quality assurance\" has to be rebuilt rather than simply carried over from prior software experience. Treating \"the model is impressive in a demo\" as sufficient evidence to ship at full automation A demo showcases a model's best-case behavior, often on inputs the team implicitly selected because the model handles them well. Demos showcase capability, not reliability across the full range of real inputs a production system will actually encounter, including edge cases and phrasing the team never thought to try. A PM who greenlights full automation based on a demo alone is confusing \"this can be impressive\" with \"this will be dependably correct\": the two separate axes the Capability-Reliability Matrix is built to keep apart. Running evals once before launch and treating the model as permanently validated Model updates and prompt changes require continuous re-evaluation, because a green eval result today says nothing about tomorrow's underlying model version, upstream provider update, or drift in the inputs users actually send. Treating a passed eval suite as a permanent credential, rather than a snapshot that expires the moment anything upstream changes, is precisely the deterministic-software assumption this lesson argues generative AI breaks. An eval suite for an AI feature has to be re-run against production-representative inputs on an ongoing basis, not checked once at a release gate and set aside. Ignoring per-inference cost until scale reveals it as a problem Unlike most traditional software, where serving one additional user costs almost nothing, a generative AI feature carries a real per-inference cost that scales directly with usage. Unit economics should be modeled before launch, not discovered after, because a feature that is capable, reliable, and genuinely popular can still turn out to be a poor product decision if its cost per use erodes or exceeds the value it creates at scale. Waiting until a feature has already succeeded to check whether it can afford to keep succeeding is a needlessly expensive way to learn this. Confusing a model's stated confidence with actual reliability A hallucinated answer is frequently delivered with the same fluent, confident tone as a correct one, so a model's apparent certainty is not evidence of its actual accuracy. Teams that read fluency as a reliability signal, rather than measuring actual correctness against representative test cases, can badly overestimate how trustworthy a feature is in production. This is one reason the Capability-Reliability Matrix insists on separately verified reliability data rather than an impression formed from how the output reads. Treating a feature's Capability-Reliability Matrix quadrant as permanent The Capability-Reliability Matrix Apply it by asking: (1) How capable is the model at this specific task? (2) How reliably does it perform at that level across representative real inputs, not just demo inputs? (3) Does the current automation level match the quadrant, or does launch pressure push toward more automation than reliability supports? OpenAI's own published \"system cards\" **OpenAI's own published \"system cards\"** make its staged evaluation process directly inspectable, not just described in general terms. The GPT-4o system card, published by OpenAI itself, documents specifics: more than 100 external red teamers, spanning 45 languages and 29 countries, tested successive model checkpoints across four distinct phases between March and June 2024: starting with early, less-capable checkpoints tested via an internal tool, and ending with the model tested through the actual production iOS app experience real users would encounter. Each phase deliberately expanded both the model's capability (audio-only, then audio-plus-image, then full multimodal) and the red teamers' access, evaluating categories spanning disallowed content, misinformation, bias, fraudulent impersonation, and copyright, with insights from earlier phases directly informing quantitative evaluations and mitigations built before the next phase began. OpenAI states this process operates under a broader \"Preparedness Framework,\" which defines specific risk thresholds and evaluation criteria across misuse categories like cybersecurity and CBRN before a model is judged ready for deployment. This staged structure is a direct, company-documented illustration of this lesson's evals-as-ongoing-practice argument: capability and reliability are evaluated as two genuinely separate questions across every phase (what can the model newly do, and can it be trusted to do it safely), rather than a single pre-launch check treated as sufficient once passed. Worth noting honestly, though, since it complicates a purely admiring account: independent commentary, including discussion on LessWrong following GPT-4o's release, has raised concerns that evaluation timelines for major releases can come under real commercial pressure to compress, and OpenAI's own Preparedness team saw leadership turnover around this period. The existence of a rigorous, documented framework doesn't by itself guarantee the framework is followed with equal rigor under every competitive and timeline pressure: a genuinely important caution for a PM shipping AI capabilities under real deadline pressure of their own. *(Source: OpenAI's own published GPT-4o system card and Preparedness Framework documentation, corroborated by independent reporting on the evaluation process's external red-teaming structure.)* At a startup Early AI-native startups often ship quadrant B use cases (high capability, imperfect reliability) at full automation under intense competitive pressure to demonstrate a magical, hands-off experience to investors and early users. Small teams frequently lack the dedicated headcount to build a continuous eval pipeline in parallel with feature development, so evaluation is often treated as a one-time pre-launch check performed by whoever is available, rather than an ongoing discipline. This is a specific and common early-stage mistake, and it is also where the cost of getting it wrong is highest relative to the company's resources: a single high-profile hallucination incident can disproportionately damage a young company's credibility before it has built a reputation to absorb the hit. At a mid-size company This is typically the stage where formal, continuous eval infrastructure first becomes a genuine organizational priority, usually prompted by a specific incident (a customer-facing hallucination, a costly automated error, or a near-miss caught internally) rather than being built proactively in advance. Mid-size AI-native companies often staff a small, dedicated \"model quality\" or \"AI safety\" function at this stage, distinct from general QA, specifically because the continuous, statistical nature of eval work doesn't fit cleanly into a traditional QA team's pass/fail testing habits. At Big Tech Large AI-native organizations typically maintain dedicated eval, red-teaming, and model-monitoring functions that run continuously against every model version change and every significant prompt or system update, often with formal sign-off gates before a change can reach production. At this scale, the cost of a Capability-Reliability Matrix misclassification is amplified by sheer user volume, so these organizations tend to invest heavily in automated, statistically rigorous eval pipelines rather than relying on manual spot-checks, and often maintain dedicated red-teaming staff whose explicit job is to actively search for failure modes before real users find them. The Automated Refund Assistant A company shipped a fully-automated AI customer support agent authorized to approve refunds up to a moderate dollar threshold with no human review, based on strong demo performance. In production, the model occasionally hallucinated policy terms that didn't exist, approving refunds it should have denied and, in rarer cases, confidently citing a non-existent policy to deny a legitimate refund. The task was clearly quadrant B (high capability, meaningfully imperfect reliability), but was shipped as if it were quadrant A. **What went wrong?** Capability was mistaken for reliability, and full automation was applied to a task that, per the Ownership Zones Model and Lesson 81's human-in-the-loop discipline, required a human review step given the financial stakes involved. The team's pre-launch evaluation process had genuinely tested the model against a representative set of common refund scenarios, and the model had performed well, but \"performed well on a representative test set\" and \"will perform reliably across the full, open-ended range of real customer messages, including ones that reference policies that don't exist\" turned out to be two different claims. The team had implicitly treated a passing eval run as equivalent to a passing traditional software test (a one-time gate rather than an ongoing signal), which meant the specific hallucination pattern that eventually caused customer harm was never caught before it reached production, because it simply hadn't appeared in the original test set. The recovery involved adding human review for any refund above a small threshold, and instituting continuous evals specifically tracking hallucination rate on refund-policy questions, sampled from real production traffic rather than the original curated test set. Notably, the company also discovered that a meaningful share of the hallucinated policy citations followed a specific pattern (the model would fabricate exception clauses when a customer's message combined two unrelated complaints in a single request), which only became visible once the team began analyzing real failure cases rather than relying on aggregate pass rates alone. What specific assumption caused the team to treat their pre-launch eval results as sufficient evidence for full automation? If you were rebuilding this feature's launch plan from scratch, at what refund dollar threshold would you require human review, and what evidence would you want before raising that threshold over time? The AI Product Readiness Checklist The checklist is most useful as a pre-launch gate that gets *re-run*, not a document that gets filled out once and archived. A team that revisits it before every meaningful model version bump, prompt change, or significant shift in how the feature is used will catch quadrant drift (a feature that was genuinely quadrant A at launch sliding toward quadrant B as usage patterns diversify beyond what the original evals covered) long before a customer-facing incident forces the same discovery the hard way, as happened in the Automated Refund Assistant case above. How would you decide whether to fully automate an AI-powered feature? *What the interviewer is actually evaluating:* Whether you reflexively equate \"the model performs well\" with \"this should be fully automated.\" A weak answer describes evaluating the model's capability alone. A strong answer explicitly separates capability from reliability, describes how you'd gather evidence on both across representative real inputs, and explains that the answer determines the Capability-Reliability Matrix quadrant, and therefore the appropriate level of human involvement, rather than assuming a capable model should always run unsupervised. Why can't you evaluate a generative model once and trust it forever? *What the interviewer is actually evaluating:* Whether you understand that model behavior is not fixed the way traditional software behavior is. A weak answer treats a pre-launch test suite as sufficient, the same way it would be for deterministic code. A strong answer explains that model providers ship updates outside your control, that prompt and system changes can shift behavior in subtle ways, and that real-world input distributions drift over time: all of which require evals to run as an ongoing, monitored practice rather than a one-time release gate. What's the risk of shipping an impressive demo feature at full automation? *What the interviewer is actually evaluating:* Direct pattern-matching to the Automated Refund Assistant failure mode described in this lesson's Case Study. They want to see that you recognize demos are curated, low-variance showcases of capability, not evidence of reliability across the full, messy range of real production inputs, and that you would insist on reliability evidence, not just an impressive demo, before removing a human from a consequential decision loop. AI-native product work requires distinguishing a model's capability from its reliability, since these diverge and demand genuinely different product responses: full automation only where both are high, human-in-the-loop assistance where capability is high but reliability is not, and no shipment at all where capability itself is insufficient. Evals must run continuously, not once, and per-inference cost must be modeled explicitly given generative AI's departure from near-zero marginal cost software economics. Underlying all of this is a more fundamental shift in mindset: traditional software QA assumes deterministic, stable behavior that, once verified, stays verified until the code changes deliberately. Generative AI products don't offer that guarantee: model providers ship changes outside your direct control, real-world inputs drift over time, and a feature's position on the Capability-Reliability Matrix can move without any deliberate product decision at all. Treating quadrant classification, like evals, as an ongoing discipline rather than a one-time gate is the single habit that most reliably separates AI-native teams that catch problems early from those that discover them through a customer-facing incident. Capability and reliability are distinct properties requiring separate assessment. The Capability-Reliability Matrix determines appropriate automation level by quadrant. Evals must be continuous, not a one-time pre-launch gate. Per-inference cost economics differ fundamentally from traditional software. Demo performance reflects capability, not reliability across real inputs. Quadrant B tasks require human-in-the-loop, connecting directly to Lesson 65 and Lesson 81. Model confidence is not evidence of correctness; hallucinations are delivered fluently. Capability ≠ reliability. Assess both separately. Matrix: high/high = automate. high/low = human-in-loop. low/anything = don't ship yet. Evals are continuous, not one-time: model behavior isn't deterministic the way traditional software is. Model unit economics before scale. A passing eval run is a snapshot, not a permanent guarantee: re-run the AI Product Readiness Checklist on every meaningful model or prompt change. Demo performance shows curated capability, not production reliability. Never conflate the two when deciding automation level. Capability-Reliability Matrix Model for matching AI automation level to capability and reliability Evals Structured, ongoing evaluation suites for model performance Hallucination A confidently-stated but incorrect model output Per-Inference Cost The marginal cost of serving one AI model request Quadrant Drift A feature's actual capability/reliability position shifting over time as usage patterns, model versions, or prompts change, even without a deliberate product change Red-Teaming The practice of deliberately probing a model for failure modes before real users encounter them Stuart Russell, *Human Compatible* Brian Christian, *The Alignment Problem* Anthropic's and OpenAI's published model system cards Why can't model quality be reduced to a single number? Capability and reliability are distinct and can diverge sharply, requiring different product responses. What does the high-capability/low-reliability quadrant call for? Human-in-the-loop assist mode, not full automation. Why must evals run continuously? Model and prompt changes shift behavior, so pre-launch evaluation alone doesn't guarantee ongoing quality. What went wrong in the Automated Refund Assistant case study? A quadrant-B task (high capability, imperfect reliability) was shipped at full automation with no human review, leading to hallucination-driven refund errors. Why do traditional QA assumptions break down for generative AI products? Traditional QA assumes deterministic behavior: same input, same output, forever, unless the code changes. Generative models can produce different outputs for the same input, and behavior can shift with silent provider-side updates, so a passing test suite doesn't guarantee ongoing quality the way it does for deterministic software. What is \"quadrant drift\" and why does it matter? A feature's real capability/reliability position shifting over time, even without any deliberate product change, as usage patterns diversify or the underlying model updates. It matters because a feature correctly classified as quadrant A at launch can silently become quadrant B, which is why the AI Product Readiness Checklist should be re-run periodically, not filled out once. You are the PM for an AI-powered legal document summarization tool being considered for full automation with no attorney review. There is no single correct answer. Work through the following before reading further. Using the Capability-Reliability Matrix, what quadrant would you want evidence for before considering full automation? What would a continuous eval process look like for this specific task? What human-in-the-loop requirement might apply, drawing on Lesson 81? How would you model per-inference cost at scale? What failure modes would you specifically want cataloged? Why can't a generative model's quality be reduced to a single \"good enough\" judgment? Capability (how good the model can be) and reliability (how consistently it performs) are separate properties that can diverge, so a single rating misses the reliability dimension entirely. What does the Capability-Reliability Matrix recommend for a task with high capability but low reliability? The matrix prescribes human-in-the-loop assist mode for quadrant B, keeping a human explicitly in the loop rather than automating fully. Why must evals run continuously rather than just once before launch? Model and prompt changes shift behavior over time, so a one-time pre-launch evaluation cannot guarantee ongoing quality: continuous re-evaluation is required. Why does per-inference cost matter for AI-native products in a way it usually doesn't for traditional software? Unlike traditional software with near-zero marginal cost, each generative AI inference carries a real cost that scales directly with usage, which can make a popular feature economically unsustainable. What was the root cause of the Automated Refund Assistant case study's failure? The refund assistant was a quadrant B task (high capability, imperfect reliability) but was shipped at full automation without human review, leading to hallucination-driven errors. Why is a model's confident tone not evidence of correctness? Hallucinated outputs are delivered with the same fluent confidence as correct ones, so a model's tone provides no signal about whether the output is actually accurate. How does quadrant-B automation connect to the Ownership Zones Model from Lesson 65? The Ownership Zones Model's Zone 4 requires human review of model outputs before action, which is exactly what quadrant B (high capability, low reliability) tasks demand. What should happen for a task landing in the low-capability quadrant, regardless of its reliability? If capability itself is insufficient, the use case should not ship regardless of how reliable the model is at that low level of performance. Why is demo performance an unreliable indicator of production reliability? Demos showcase capability under curated, favorable conditions, but production use involves a much broader range of inputs where reliability may be significantly lower. What was a recommended recovery step from the Automated Refund Assistant case study? Adding human review above a threshold and instituting continuous evals tracking hallucination rate directly addresses the quadrant B mismatch and enables ongoing quality monitoring. (Scenario) A model performs excellently in curated demo tests but shows inconsistent quality on a broader eval set drawn from real inputs. What does this most likely indicate? Excellent demo performance but inconsistent quality on a broader eval set indicates high capability with lower reliability: a quadrant B position requiring human-in-the-loop consideration. (Product Thinking) A team wants to skip ongoing evals after a successful launch, citing the time savings. What is the strongest response? Model and prompt changes shift behavior over time, so stopping evals after launch risks silent quality drift going undetected in production. (Interview Reasoning) A candidate says a model is \"good enough to ship\" based solely on how well it performed in a demo. What does this response signal? Judging a model as \"good enough\" based solely on demo results conflates capability with reliability, revealing a gap in understanding that these are distinct properties requiring separate assessment. (Product Thinking) A high-stakes automated decision feature has never had its per-inference cost modeled before launch. What risk does this create? Without modeling per-inference cost before launch, a feature can become popular and widespread while its unit economics prove unsustainable at scale. (Product Thinking, Highest Difficulty) A financial AI assistant shows high capability but inconsistent reliability on edge cases, and leadership wants full automation to match a competitor's speed. What is the most defensible response? The defensible response is honest quadrant classification, human-in-the-loop review matched to actual reliability evidence, and continued eval-driven improvement, resisting launch pressure to over-automate.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "A quadrant A classification at launch can silently drift toward quadrant B as usage diversifies or the underlying model changes, which is why the classification needs periodic re-verification, not a single pre-launch determination. A feature that earned full automation under an initial, narrow set of use cases can become unreliable as real users push it into scenarios the original evaluation never covered. Re-checking a feature's quadrant on a recurring cadence, not just at launch, is what keeps the automation decision matched to the feature's actual current reliability.",
+      "Mental Model: The Capability-Reliability Matrix",
+      "Real Company Example",
+      "Real World Perspective: PM in AI-Native Companies: New Skills, New Risks at Different Company Stages",
+      "Detailed Case Study: The Automated Refund Assistant",
+      "Framework Explanation: The AI Product Readiness Checklist",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "Capability-Reliability Matrix",
+    "Evals",
+    "Hallucination",
+    "Per-Inference Cost",
+    "Quadrant Drift",
+    "Red-Teaming"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

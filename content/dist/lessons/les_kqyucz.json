@@ -1,0 +1,941 @@
+{
+  "schemaVersion": 2,
+  "id": "les_kqyucz",
+  "contentHash": "82eaf1c1dae98b40b362def16cd53311d6e636bd9fa8d81efc1a8b92d9f1ee37",
+  "title": "Kanban Framework",
+  "slug": "lesson-033",
+  "module": "execution",
+  "order": 3,
+  "totalInModule": 10,
+  "difficulty": 4,
+  "estimatedReadingTime": 35,
+  "estimatedCompletionTime": 50,
+  "prerequisites": [
+    "les_091713",
+    "les_xtr1yz"
+  ],
+  "sourceFile": "content/lessons/lesson-033.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 33: Kanban Framework",
+      "blockId": "blk_5aae8dcb96"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 32 gave you Scrum in full: a framework built around fixed-length Sprints, in which work is planned in batches and inspected at scheduled intervals. Scrum's cadence is one of its greatest strengths for teams whose work naturally comes in plannable chunks. But it is not the only serious answer to Lesson 31's underlying question: how do you structure execution so that feedback stays continuous rather than accumulating into late, expensive surprises? For teams whose work arrives unpredictably (support-driven engineering teams, infrastructure teams, teams handling a constant stream of inbound requests rather than a plannable backlog), forcing that work into two-week Sprint boxes can create friction rather than remove it.",
+      "blockId": "blk_d6ee49461e"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson introduces **Kanban**, the other dominant Agile implementation, built not around fixed iterations but around continuous flow. Where Scrum asks \"what can we commit to for the next two weeks?\", Kanban asks \"how much work should be in progress at any given moment, and how do we keep it moving?\" Understanding both frameworks (and, more importantly, understanding the underlying conditions that make one a better fit than the other) is what lets you make a genuinely reasoned recommendation to a team, rather than defaulting to whichever framework you personally learned first. This lesson also completes the two-lesson pair the Agile Fit Checklist from Lesson 31 was built to evaluate: you now have both a fixed-cadence and a flow-based implementation to test it against.",
+      "blockId": "blk_9574838cb0"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "State Kanban's six core practices and explain the problem each one is designed to solve.",
+        "Explain what a Work-in-Progress (WIP) limit is, and why constraining the amount of work in progress can increase, rather than decrease, overall throughput.",
+        "Distinguish cycle time from lead time, and explain what each metric reveals that the other does not.",
+        "Apply the Agile Fit Checklist (Lesson 31) to compare Scrum and Kanban, and identify the specific conditions under which each framework is the better fit.",
+        "Diagnose a flow bottleneck using a cumulative flow diagram and a WIP-limit violation, and propose an appropriate response."
+      ],
+      "blockId": "blk_47c61570e6"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson assumes fluency with **Lesson 31's** Iteration Loop and Agile Fit Checklist, since Kanban is evaluated here as a second concrete implementation of the same underlying values, not a new philosophy. It also assumes familiarity with **Lesson 32's** Scrum framework, because much of this lesson's value comes from direct contrast: Kanban is easiest to understand not in isolation but against the fixed-Sprint structure you already know, since the two frameworks make opposite bets about whether batching work into a fixed time-box helps or hinders flow.",
+      "blockId": "blk_750488f650"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Origin: Flow, Not Batches",
+          "blockId": "blk_76833126d9"
+        },
+        {
+          "type": "paragraph",
+          "text": "Kanban's modern software adaptation traces back to lean manufacturing principles, most famously the Toyota Production System, later adapted for knowledge work by David J. Anderson in the mid-2000s. Where Scrum's unit of commitment is the Sprint (a fixed time-box), Kanban's unit of attention is the **item of work moving through a value stream**, and its central bet is that limiting how much work is in progress at once, rather than how much time is allotted, is the more reliable lever for improving delivery speed and predictability.",
+          "blockId": "blk_15f8342021"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Six Core Practices",
+          "blockId": "blk_fd6d4957dc"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Practice",
+            "What It Solves"
+          ],
+          "rows": [
+            [
+              "**1. Visualize the workflow**",
+              "Makes invisible knowledge work visible, typically as a board with columns representing stages (e.g., Backlog → In Progress → Review → Done)"
+            ],
+            [
+              "**2. Limit Work in Progress (WIP)**",
+              "Prevents a team from starting more than it can finish, which is the single most common cause of slow, unpredictable delivery"
+            ],
+            [
+              "**3. Manage flow**",
+              "Shifts attention from \"are people busy\" to \"is work actually moving through the system smoothly\""
+            ],
+            [
+              "**4. Make process policies explicit**",
+              "Ensures everyone shares the same definition of what it means for an item to move from one column to the next"
+            ],
+            [
+              "**5. Implement feedback loops**",
+              "Establishes regular checkpoints (analogous to, but less rigidly scheduled than, Scrum's events) for reviewing flow and outcomes"
+            ],
+            [
+              "**6. Improve collaboratively, evolve experimentally**",
+              "Treats the process itself as something to be iterated on using evidence, mirroring the Iteration Loop from Lesson 31 applied to the process rather than the product"
+            ]
+          ],
+          "blockId": "blk_501cd1dea9"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Why Limiting WIP Increases Throughput",
+          "blockId": "blk_5a91ab7b04"
+        },
+        {
+          "type": "paragraph",
+          "text": "This is the single most counterintuitive idea in this lesson, and worth deriving carefully rather than simply asserting. Consider a team with five engineers and no WIP limit. Under pressure from many stakeholders, the team starts eight things simultaneously: every engineer context-switches between roughly 1.5 items on average. Context-switching carries a real, well-documented cost: every switch requires re-loading mental context, and that overhead is pure waste, contributing to none of the eight items' completion.",
+          "blockId": "blk_6f97ea4d93"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_5d62a89051",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[No WIP Limit] --> B[Many Items Started Simultaneously]\r\n    B --> C[Constant context-switching]\r\n    C --> D[Everything Slows Down Together]\r\n    D --> E[Nothing Finishes for a Long Time]",
+          "normalized": "graph LR\r\n    A[No WIP Limit] --> B[Many Items Started Simultaneously]\r\n    B --> C[Constant context-switching]\r\n    C --> D[Everything Slows Down Together]\r\n    D --> E[Nothing Finishes for a Long Time]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020949174-93\" xmlns=\"http://www.w3.org/2000/svg\" width=\"2509.75\" height=\"115\" viewBox=\"-38 -27 2509.75 115\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: No WIP Limit → Many Items Started Simultaneously → Constant context-switching → Everything Slows Down Together → Nothing Finishes for a Long Time\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: No WIP Limit → Many Items Started Simultaneously → Constant context-switching → Everything Slows Down Together → Nothing Finishes for a Long Time</title><style>#mermaid-svg-1795020949174-93{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020949174-93 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020949174-93 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020949174-93 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020949174-93 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020949174-93 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020949174-93 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020949174-93 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020949174-93 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020949174-93 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020949174-93 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020949174-93 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020949174-93 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020949174-93 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020949174-93 p{margin:0;}#mermaid-svg-1795020949174-93 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020949174-93 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020949174-93 .cluster-label span{color:#171A17;}#mermaid-svg-1795020949174-93 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020949174-93 .label text,#mermaid-svg-1795020949174-93 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020949174-93 .node rect,#mermaid-svg-1795020949174-93 .node circle,#mermaid-svg-1795020949174-93 .node ellipse,#mermaid-svg-1795020949174-93 .node polygon,#mermaid-svg-1795020949174-93 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020949174-93 .rough-node .label text,#mermaid-svg-1795020949174-93 .node .label text,#mermaid-svg-1795020949174-93 .image-shape .label,#mermaid-svg-1795020949174-93 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020949174-93 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020949174-93 .rough-node .label,#mermaid-svg-1795020949174-93 .node .label,#mermaid-svg-1795020949174-93 .image-shape .label,#mermaid-svg-1795020949174-93 .icon-shape .label{text-align:center;}#mermaid-svg-1795020949174-93 .node.clickable{cursor:pointer;}#mermaid-svg-1795020949174-93 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020949174-93 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020949174-93 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020949174-93 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020949174-93 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020949174-93 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020949174-93 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020949174-93 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020949174-93 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020949174-93 .cluster text{fill:#171A17;}#mermaid-svg-1795020949174-93 .cluster span{color:#171A17;}#mermaid-svg-1795020949174-93 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020949174-93 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020949174-93 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020949174-93 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020949174-93 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020949174-93 .icon-shape,#mermaid-svg-1795020949174-93 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020949174-93 .icon-shape p,#mermaid-svg-1795020949174-93 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020949174-93 .icon-shape .label rect,#mermaid-svg-1795020949174-93 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020949174-93 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020949174-93 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020949174-93 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020949174-93 [data-look=\"neo\"].node rect,#mermaid-svg-1795020949174-93 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020949174-93 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020949174-93-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020949174-93 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020949174-93 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020949174-93-gradient);stroke-width:1px;}#mermaid-svg-1795020949174-93 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020949174-93 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020949174-93 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020949174-93-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020949174-93 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020949174-93 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020949174-93-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020949174-93 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020949174-93-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020949174-93 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020949174-93_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020949174-93_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020949174-93_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020949174-93_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020949174-93_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020949174-93_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020949174-93_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020949174-93_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020949174-93_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020949174-93_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020949174-93_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020949174-93_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M241,45L249.75,45C258.5,45,276,45,292.833,45C309.667,45,325.833,45,333.917,45L342,45\" id=\"mermaid-svg-1795020949174-93-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6MjQxLCJ5Ijo0NX0seyJ4IjoyOTMuNSwieSI6NDV9LHsieCI6MzQ2LCJ5Ijo0NX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020949174-93_flowchart-v2-pointEnd)\"></path><path d=\"M846.75,45L855.5,45C864.25,45,881.75,45,898.583,45C915.417,45,931.583,45,939.667,45L947.75,45\" id=\"mermaid-svg-1795020949174-93-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6ODQ2Ljc1LCJ5Ijo0NX0seyJ4Ijo4OTkuMjUsInkiOjQ1fSx7IngiOjk1MS43NSwieSI6NDV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020949174-93_flowchart-v2-pointEnd)\"></path><path d=\"M1363.25,45L1372,45C1380.75,45,1398.25,45,1415.083,45C1431.917,45,1448.083,45,1456.167,45L1464.25,45\" id=\"mermaid-svg-1795020949174-93-L_C_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_D_0\" data-points=\"W3sieCI6MTM2My4yNSwieSI6NDV9LHsieCI6MTQxNS43NSwieSI6NDV9LHsieCI6MTQ2OC4yNSwieSI6NDV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020949174-93_flowchart-v2-pointEnd)\"></path><path d=\"M1930.75,45L1939.5,45C1948.25,45,1965.75,45,1982.583,45C1999.417,45,2015.583,45,2023.667,45L2031.75,45\" id=\"mermaid-svg-1795020949174-93-L_D_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_E_0\" data-points=\"W3sieCI6MTkzMC43NSwieSI6NDV9LHsieCI6MTk4My4yNSwieSI6NDV9LHsieCI6MjAzNS43NSwieSI6NDV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020949174-93_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_D_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020949174-93-flowchart-A-0\" data-look=\"classic\" transform=\"translate(124.5, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-99\" y=\"-35\" width=\"198\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-67, -19)\"><rect></rect><foreignObject width=\"134\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>No WIP Limit</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020949174-93-flowchart-B-1\" data-look=\"classic\" transform=\"translate(596.375, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-188.25\" y=\"-35\" width=\"376.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-156.25, -19)\"><rect></rect><foreignObject width=\"312.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Many Items Started Simultaneously</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020949174-93-flowchart-C-3\" data-look=\"classic\" transform=\"translate(1157.5, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-158.5\" y=\"-35\" width=\"317\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-126.5, -19)\"><rect></rect><foreignObject width=\"253\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Constant context-switching</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020949174-93-flowchart-D-5\" data-look=\"classic\" transform=\"translate(1699.5, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-175.5\" y=\"-35\" width=\"351\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-143.5, -19)\"><rect></rect><foreignObject width=\"287\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Everything Slows Down Together</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020949174-93-flowchart-E-7\" data-look=\"classic\" transform=\"translate(2279.75, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-184\" y=\"-35\" width=\"368\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-152, -19)\"><rect></rect><foreignObject width=\"304\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Nothing Finishes for a Long Time</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020949174-93-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020949174-93-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020949174-93-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_5d62a89051"
+        },
+        {
+          "type": "paragraph",
+          "text": "Now compare a team that limits WIP to, say, three items at a time. A fourth request must wait in a queue until one of the three in progress is finished. This feels, superficially, like it should be slower: after all, work is being deliberately delayed. But because the three in-progress items receive full, uninterrupted attention, they finish faster individually, and the team's overall completion rate (throughput) tends to rise, not fall, because the hidden cost of constant context-switching has been removed. This is Kanban's central, often initially resisted, claim: **starting less work finishes more work**.",
+          "blockId": "blk_27f1f3bc4f"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Flow Metrics: Cycle Time and Lead Time",
+          "blockId": "blk_9be0007ed2"
+        },
+        {
+          "type": "paragraph",
+          "text": "Two related but distinct metrics are essential to Kanban's \"manage flow\" practice, and new PMs frequently conflate them:",
+          "blockId": "blk_a638c06874"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**Lead time**: the total time from when a request is *made* (entering the backlog) to when it's *delivered*. This is the metric a customer or stakeholder experiences directly: \"how long did it take from when I asked to when I got it?\"",
+            "**Cycle time**: the time from when work *actually begins* on an item to when it's *delivered*. This is the metric that measures the team's execution efficiency specifically, stripped of however long the item sat waiting in the backlog before anyone started it."
+          ],
+          "blockId": "blk_25d9de0d35"
+        },
+        {
+          "type": "paragraph",
+          "text": "A team can have a short cycle time (fast once started) but a long lead time (items sit in the backlog for weeks before anyone picks them up). This is an extremely common pattern, and one that a team focused only on cycle time will completely miss, because it's invisible to anyone only watching work once it's \"in progress.\" Diagnosing which of the two is the actual problem determines whether the fix is \"work faster once started\" (rarely the real issue) or \"start things sooner\" (frequently the real issue, and much more within a PM's direct influence, since it's often driven by prioritization decisions rather than engineering execution speed).",
+          "blockId": "blk_160e54466a"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Cumulative Flow Diagram",
+          "blockId": "blk_9c02618985"
+        },
+        {
+          "type": "paragraph",
+          "text": "A cumulative flow diagram (CFD) plots the number of items in each workflow stage over time, as stacked bands. A healthy CFD shows roughly parallel, steadily widening bands. A widening band for one specific stage (say, \"Code Review\" growing wider and wider while \"In Progress\" and \"Done\" stay flat) is a visual signature of a bottleneck: work is piling up at that stage faster than it's being cleared, exactly the kind of structural problem a WIP limit at that stage is designed to surface and force the team to confront directly, rather than allowing it to silently accumulate.",
+          "blockId": "blk_680210ed6f"
+        }
+      ],
+      "blockId": "blk_f0806c7656"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Treating Kanban as \"Scrum without the meetings.",
+          "body": "Kanban is not merely an unstructured, ceremony-free version of Scrum: it has its own explicit practices (the six above), its own discipline (WIP limits, explicit policies), and its own feedback mechanisms. A team that drops Scrum's events without adopting Kanban's actual practices in their place has adopted neither framework's discipline, only the appearance of informality."
+        },
+        {
+          "title": "Setting WIP limits too high to avoid the discomfort of a full queue",
+          "body": "A WIP limit only works if it's occasionally binding: if it never actually blocks anyone from starting new work, it isn't constraining behavior, it's decorative. New teams frequently set WIP limits generously enough that they're never hit, which defeats the entire mechanism described above."
+        },
+        {
+          "title": "Measuring \"team busyness\" instead of \"flow.",
+          "body": "A team where every engineer is constantly occupied can still have terrible flow, if what they're occupied with is a large number of half-finished items rather than a small number of completed ones. Kanban's \"manage flow\" practice exists specifically to redirect attention away from individual utilization and toward whether work is actually completing and moving downstream."
+        },
+        {
+          "title": "Confusing cycle time improvements with lead time improvements",
+          "body": "As covered above, optimizing execution speed once work has started does nothing for items still waiting, unstarted, in a long backlog queue. A PM who reports \"we improved cycle time by 20%\" as evidence the team is now faster to deliver, without checking lead time, may be reporting a genuine but incomplete improvement, or masking a worsening backlog problem entirely."
+        },
+        {
+          "title": "Skipping explicit process policies",
+          "body": "Without an explicit, shared definition of what it means for an item to be ready to move from one column to the next (e.g., what \"Ready for Review\" actually requires), teams experience constant, low-grade disputes about whether something is really done with a stage, the Kanban equivalent of the Definition of Done ambiguity covered in Lesson 32.\n\n"
+        }
+      ],
+      "blockId": "blk_19e1b9d5a7"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The Flow Valve",
+      "diagram": {
+        "blockId": "blk_4f02d4da70",
+        "type": "mermaid"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "This lesson's core takeaway tool visualizes the WIP-limit mechanism as a valve controlling pressure through a pipe:",
+          "blockId": "blk_e73bf5952c"
+        },
+        {
+          "type": "paragraph",
+          "text": "Use the Flow Valve as a diagnostic whenever a team reports feeling \"busy but nothing's shipping.\" Ask: is the valve (WIP limit) actually constraining anything, or has it been set so loosely that everything passes through unimpeded, recreating the context-switching problem the valve exists to prevent? A team with no binding WIP limit is, functionally, a team with no valve at all: pressure (requests) flows straight through into an overloaded pipe (in-progress work), regardless of what the board visually implies.",
+          "blockId": "blk_97d7c08bf5"
+        }
+      ],
+      "blockId": "blk_872fa67491"
+    },
+    {
+      "type": "mermaid",
+      "id": "blk_4f02d4da70",
+      "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[Backlog Unlimited Queue] --> B{WIP Limit Valve}\r\n    B -->|Only N Items Allowed Through| C[In Progress Limited, Focused Work]\r\n    C --> D[Done]\r\n    D -.->|Capacity Freed, Valve Opens| B",
+      "normalized": "graph LR\r\n    A[Backlog Unlimited Queue] --> B{WIP Limit Valve}\r\n    B -->|Only N Items Allowed Through| C[In Progress Limited, Focused Work]\r\n    C --> D[Done]\r\n    D -.->|Capacity Freed, Valve Opens| B",
+      "authorTheme": {
+        "background": "#0b0b0c",
+        "primaryColor": "#1f1f23",
+        "primaryTextColor": "#ffffff",
+        "primaryBorderColor": "#8b5cf6",
+        "lineColor": "#d1d5db",
+        "secondaryColor": "#18181b",
+        "tertiaryColor": "#111111",
+        "mainBkg": "#1f1f23",
+        "nodeBorder": "#8b5cf6",
+        "clusterBkg": "#000000",
+        "clusterBorder": "#27272a",
+        "titleColor": "#ffffff",
+        "edgeLabelBackground": "#0b0b0c",
+        "nodeTextColor": "#ffffff",
+        "edgeLabelColor": "#ffffff",
+        "actorBorder": "#8b5cf6",
+        "actorBkg": "#1f1f23",
+        "actorTextColor": "#ffffff",
+        "sequenceNumberColor": "#ffffff",
+        "signalColor": "#8b5cf6",
+        "signalTextColor": "#ffffff",
+        "textColor": "#ffffff",
+        "classText": "#ffffff",
+        "classBorder": "#8b5cf6",
+        "classBkg": "#1f1f23"
+      },
+      "svg": "<svg id=\"mermaid-svg-1795020949312-94\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1861.13\" height=\"272.5\" viewBox=\"-40.875 -27 1861.13 272.5\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Backlog Unlimited Queue → WIP Limit Valve → In Progress Limited, Focused Work → Done\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Backlog Unlimited Queue → WIP Limit Valve → In Progress Limited, Focused Work → Done</title><style>#mermaid-svg-1795020949312-94{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020949312-94 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020949312-94 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020949312-94 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020949312-94 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020949312-94 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020949312-94 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020949312-94 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020949312-94 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020949312-94 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020949312-94 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020949312-94 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020949312-94 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020949312-94 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020949312-94 p{margin:0;}#mermaid-svg-1795020949312-94 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020949312-94 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020949312-94 .cluster-label span{color:#171A17;}#mermaid-svg-1795020949312-94 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020949312-94 .label text,#mermaid-svg-1795020949312-94 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020949312-94 .node rect,#mermaid-svg-1795020949312-94 .node circle,#mermaid-svg-1795020949312-94 .node ellipse,#mermaid-svg-1795020949312-94 .node polygon,#mermaid-svg-1795020949312-94 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020949312-94 .rough-node .label text,#mermaid-svg-1795020949312-94 .node .label text,#mermaid-svg-1795020949312-94 .image-shape .label,#mermaid-svg-1795020949312-94 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020949312-94 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020949312-94 .rough-node .label,#mermaid-svg-1795020949312-94 .node .label,#mermaid-svg-1795020949312-94 .image-shape .label,#mermaid-svg-1795020949312-94 .icon-shape .label{text-align:center;}#mermaid-svg-1795020949312-94 .node.clickable{cursor:pointer;}#mermaid-svg-1795020949312-94 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020949312-94 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020949312-94 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020949312-94 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020949312-94 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020949312-94 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020949312-94 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020949312-94 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020949312-94 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020949312-94 .cluster text{fill:#171A17;}#mermaid-svg-1795020949312-94 .cluster span{color:#171A17;}#mermaid-svg-1795020949312-94 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020949312-94 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020949312-94 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020949312-94 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020949312-94 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020949312-94 .icon-shape,#mermaid-svg-1795020949312-94 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020949312-94 .icon-shape p,#mermaid-svg-1795020949312-94 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020949312-94 .icon-shape .label rect,#mermaid-svg-1795020949312-94 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020949312-94 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020949312-94 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020949312-94 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020949312-94 [data-look=\"neo\"].node rect,#mermaid-svg-1795020949312-94 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020949312-94 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020949312-94-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020949312-94 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020949312-94 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020949312-94-gradient);stroke-width:1px;}#mermaid-svg-1795020949312-94 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020949312-94 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020949312-94 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020949312-94-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020949312-94 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020949312-94 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020949312-94-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020949312-94 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020949312-94-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020949312-94 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020949312-94_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020949312-94_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020949312-94_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020949312-94_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020949312-94_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020949312-94_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020949312-94_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020949312-94_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020949312-94_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020949312-94_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020949312-94_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020949312-94_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M381.25,122.75L390,122.75C398.75,122.75,416.25,122.75,436.854,122.75C457.458,122.75,481.167,122.75,493.021,122.75L504.875,122.75\" id=\"mermaid-svg-1795020949312-94-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6MzgxLjI1LCJ5IjoxMjIuNzV9LHsieCI6NDMzLjc1LCJ5IjoxMjIuNzV9LHsieCI6NTA4Ljg3NSwieSI6MTIyLjc1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020949312-94_flowchart-v2-pointEnd)\"></path><path d=\"M723.402,107.777L755.918,102.898C788.435,98.018,853.467,88.259,911.567,83.38C969.667,78.5,1020.833,78.5,1046.417,78.5L1072,78.5\" id=\"mermaid-svg-1795020949312-94-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6NzIzLjQwMjA5MTc4MDMxNjksInkiOjEwNy43NzcwOTE3ODAzMTd9LHsieCI6OTE4LjUsInkiOjc4LjV9LHsieCI6MTA3NiwieSI6NzguNX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020949312-94_flowchart-v2-pointEnd)\"></path><path d=\"M1576.75,78.5L1585.5,78.5C1594.25,78.5,1611.75,78.5,1628.626,81.547C1645.502,84.594,1661.753,90.689,1669.879,93.736L1678.005,96.783\" id=\"mermaid-svg-1795020949312-94-L_C_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_D_0\" data-points=\"W3sieCI6MTU3Ni43NSwieSI6NzguNX0seyJ4IjoxNjI5LjI1LCJ5Ijo3OC41fSx7IngiOjE2ODEuNzUsInkiOjk4LjE4NzV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020949312-94_flowchart-v2-pointEnd)\"></path><path d=\"M1681.75,147.313L1673,150.594C1664.25,153.875,1646.75,160.438,1587.521,163.719C1528.292,167,1427.333,167,1308.875,167C1190.417,167,1054.458,167,960.494,163.101C866.53,159.201,814.561,151.402,788.576,147.503L762.591,143.604\" id=\"mermaid-svg-1795020949312-94-L_D_B_0\" class=\"edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_B_0\" data-points=\"W3sieCI6MTY4MS43NSwieSI6MTQ3LjMxMjV9LHsieCI6MTYyOS4yNSwieSI6MTY3fSx7IngiOjEzMjYuMzc1LCJ5IjoxNjd9LHsieCI6OTE4LjUsInkiOjE2N30seyJ4Ijo3NTguNjM1MDk5NzUwNjIzNSwieSI6MTQzLjAxMDA5OTc1MDYyMzQ1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020949312-94_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(918.5, 78.5)\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-135, -19)\"><foreignObject width=\"270\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Only N Items Allowed Through</p></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(1326.375, 167)\"><g class=\"label\" data-id=\"L_D_B_0\" transform=\"translate(-130.75, -19)\"><foreignObject width=\"261.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>Capacity Freed, Valve Opens</p></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020949312-94-flowchart-A-0\" data-look=\"classic\" transform=\"translate(194.625, 122.75)\"><rect class=\"basic label-container\" style=\"\" x=\"-145.75\" y=\"-35\" width=\"291.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-113.75, -19)\"><rect></rect><foreignObject width=\"227.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Backlog Unlimited Queue</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020949312-94-flowchart-B-1\" data-look=\"classic\" transform=\"translate(623.625, 122.75)\"><polygon points=\"114.75,0 229.5,-114.75 114.75,-229.5 0,-114.75\" class=\"label-container\" transform=\"translate(-114.25, 114.75)\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-79.75, -19)\"><rect></rect><foreignObject width=\"159.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>WIP Limit Valve</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020949312-94-flowchart-C-3\" data-look=\"classic\" transform=\"translate(1326.375, 78.5)\"><rect class=\"basic label-container\" style=\"\" x=\"-188.25\" y=\"-35\" width=\"376.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-156.25, -19)\"><rect></rect><foreignObject width=\"312.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>In Progress Limited, Focused Work</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020949312-94-flowchart-D-5\" data-look=\"classic\" transform=\"translate(1747.25, 122.75)\"><rect class=\"basic label-container\" style=\"\" x=\"-65\" y=\"-35\" width=\"130\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-33, -19)\"><rect></rect><foreignObject width=\"66\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Done</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020949312-94-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020949312-94-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020949312-94-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+      "blockId": "blk_4f02d4da70"
+    },
+    {
+      "type": "companyExample",
+      "company": "Microsoft",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "**Microsoft** has been publicly associated with adopting Kanban-style practices in parts of its engineering organization, particularly within operations and infrastructure-adjacent teams handling continuous streams of incident response, maintenance, and support work, a pattern of work that fits Kanban's flow-based model more naturally than Scrum's fixed-Sprint planning, since incoming incidents cannot be scheduled two weeks in advance.",
+          "blockId": "blk_c1955e51f8"
+        },
+        {
+          "type": "paragraph",
+          "text": "The underlying logic connects directly to this lesson's theory: work that arrives unpredictably, in variable sizes, with variable urgency, is poorly served by a framework that asks a team to commit to a fixed batch of it in advance. A flow-based model, with WIP limits and continuous prioritization rather than sprint-boundary planning, tends to be a better structural fit for this kind of work.",
+          "blockId": "blk_14e09ac736"
+        }
+      ],
+      "assumptionFlags": [
+        "this reflects general, publicly reported patterns of Kanban-style adoption within parts of large technology organizations' operations and infrastructure teams, not a confirmed, complete, or current account of Microsoft's specific internal processes today. Practices vary significantly by team even within the same company; the durable lesson is the structural principle: flow-based frameworks tend to fit unpredictable, continuously arriving work better than fixed-Sprint frameworks, rather than a claim about any one company's current setup."
+      ],
+      "blockId": "blk_404b004fa0"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "At a startup",
+          "body": "Kanban is often adopted implicitly, even without the name: a simple \"To Do / Doing / Done\" board with a rough, informal sense that people shouldn't start too many things at once. Formal WIP limits and cumulative flow diagrams are less common at this stage; the team is small enough that flow problems are often visible through direct conversation rather than requiring a chart to surface them."
+        },
+        {
+          "context": "At a mid-size company",
+          "body": "Kanban is more frequently adopted formally for teams whose work doesn't fit neatly into sprints: support-adjacent engineering, platform teams, or teams serving many internal stakeholders with unpredictable requests. This is also where explicit WIP limits and cycle-time tracking tend to appear, because the team has grown past the point where flow problems are obvious from casual observation alone."
+        },
+        {
+          "context": "At Big Tech",
+          "body": "Kanban frequently coexists with Scrum across different teams within the same organization, chosen based on the nature of each team's work rather than a company-wide mandate. PMs at this scale are often expected to make, and defend, the specific choice of framework for their own team, using reasoning like the Agile Fit Checklist below, rather than defaulting to whichever framework is most common company-wide."
+        }
+      ],
+      "blockId": "blk_b488f99832"
+    },
+    {
+      "type": "caseStudy",
+      "title": "The Board That Looked Fine",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Consider a simplified, illustrative scenario common on platform and infrastructure teams several months into adopting Kanban.",
+          "blockId": "blk_d3ce4f4117"
+        },
+        {
+          "type": "paragraph",
+          "text": "A six-person platform team adopts a Kanban board with columns: Backlog, In Progress, Code Review, QA, Done. They set a WIP limit of 4 for \"In Progress\" but never set one for \"Code Review,\" reasoning that review \"shouldn't take long anyway.\" Over several weeks, the team notices that items seem to sit for days after being marked \"ready for review,\" even though engineers report being busy the entire time. The team's dashboard shows steady throughput of new items entering \"In Progress,\" creating an impression of healthy activity.",
+          "blockId": "blk_999ff151ad"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong?**",
+          "blockId": "blk_92b2a3a8dd"
+        },
+        {
+          "type": "paragraph",
+          "text": "A cumulative flow diagram would have shown the actual problem immediately: the \"Code Review\" band was widening steadily while \"In Progress\" and \"QA\" stayed flat: a textbook bottleneck signature. Without a WIP limit on Code Review, engineers kept starting new work in \"In Progress\" (since nothing formally prevented them) rather than picking up items waiting in the review queue, because starting new work often feels more productive, in the moment, than reviewing someone else's. The result: a growing pile of nearly-finished work sitting invisible behind a healthy-looking \"In Progress\" column, exactly the \"busy but nothing's shipping\" pattern this lesson's Mental Model warns about.",
+          "blockId": "blk_02df7475af"
+        },
+        {
+          "type": "paragraph",
+          "text": "The fix was not more engineers, more meetings, or faster reviewers. It was placing an explicit WIP limit on Code Review itself, which forced a genuine trade-off into the open: when Code Review is full, engineers must either help clear it or explicitly decide to leave capacity idle, rather than silently starting new work while a bottleneck grows unaddressed. This exact bottleneck-diagnosis logic (noticing where work piles up rather than where people look busy) reappears directly in **Lesson 43 (Funnel Analysis)**, applied to user behavior rather than engineering workflow, and in **Lesson 39 (Technical Debt & PM Trade-offs)**, where an under-resourced review or QA stage is a common source of accumulating technical debt.",
+          "blockId": "blk_a37c0963b4"
+        }
+      ],
+      "blockId": "blk_8394249c45"
+    },
+    {
+      "type": "framework",
+      "name": "Scrum vs. Kanban Fit Assessment",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A second, more tactical tool: use this table, built directly on the Agile Fit Checklist from Lesson 31, to reason about which framework better suits a specific team's actual working conditions.",
+          "blockId": "blk_3ae0e34417"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Condition",
+            "Favors Scrum",
+            "Favors Kanban"
+          ],
+          "rows": [
+            [
+              "Predictability of incoming work",
+              "Work can be reasonably planned two-plus weeks ahead",
+              "Work arrives continuously and unpredictably (incidents, support requests)"
+            ],
+            [
+              "Need for a fixed planning cadence",
+              "Stakeholders benefit from regular, scheduled commitments",
+              "Work is better served by continuous prioritization than fixed-interval planning"
+            ],
+            [
+              "Team's tolerance for context-switching",
+              "Team can focus on a stable batch for the Sprint's duration",
+              "Team must remain responsive to shifting urgency within days or hours"
+            ],
+            [
+              "Nature of \"done\"",
+              "Discrete features/increments with a clear finish line each cycle",
+              "Ongoing operational or maintenance work without a natural batch boundary"
+            ],
+            [
+              "Primary flow metric of interest",
+              "Sprint velocity / burndown",
+              "Cycle time, lead time, WIP limit adherence"
+            ]
+          ],
+          "blockId": "blk_0675052867"
+        },
+        {
+          "type": "paragraph",
+          "text": "Neither framework is inherently superior; the fit assessment above exists precisely to prevent the common mistake of choosing a framework based on familiarity or company-wide default rather than the actual shape of the team's work, a mistake this lesson's Interview Perspective section below addresses directly.",
+          "blockId": "blk_676c0c3cbd"
+        }
+      ],
+      "blockId": "blk_eae63078ec"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "When would you recommend Kanban over Scrum for a team?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate reasons from the nature of the team's actual work (predictability, batch-ability) rather than personal preference or company convention. A weak answer states a blanket preference; a strong answer references specific conditions, echoing the Scrum vs. Kanban Fit Assessment above."
+        },
+        {
+          "question": "What's a WIP limit, and why would you ever want to deliberately slow down how much work starts?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate understands the counterintuitive throughput argument: that limiting concurrent work reduces costly context-switching and tends to increase overall completion rate, not decrease it."
+        },
+        {
+          "question": "A team's board looks busy (lots of cards in progress), but stakeholders are complaining that nothing seems to actually ship. How would you investigate?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate reaches for flow-diagnostic tools (a cumulative flow diagram, cycle time vs. lead time, checking for an unlimited or absent WIP limit at a specific stage) rather than assuming the team simply needs to \"work harder,\" mirroring this lesson's Case Study directly."
+        }
+      ],
+      "blockId": "blk_d7f600e823"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Kanban is the second major concrete implementation of Lesson 31's underlying Agile values, built not around fixed-length Sprints but around continuous flow, governed by six core practices: visualizing the workflow, limiting work in progress, managing flow, making policies explicit, implementing feedback loops, and improving collaboratively. Its central, counterintuitive claim is that limiting how much work is in progress at once increases overall throughput, by removing the hidden cost of constant context-switching, a claim best understood through the Flow Valve mental model. Cycle time and lead time are the two flow metrics every PM must be able to distinguish: cycle time measures execution speed once work begins, while lead time measures the full customer-facing wait including time spent unstarted in the backlog, and conflating the two, as this lesson's Case Study illustrates with an unbounded Code Review stage, can hide a serious bottleneck behind a superficially healthy-looking board. Choosing between Scrum and Kanban is not a matter of which is more \"modern\" or more familiar, but a matter of fit: predictable, batchable work suits Scrum's fixed cadence, while continuous, unpredictable work suits Kanban's flow-based discipline, a judgment this lesson's Fit Assessment table exists to formalize.",
+          "blockId": "blk_995939ca29"
+        }
+      ],
+      "blockId": "blk_43515b1f62"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "Kanban is a flow-based Agile implementation built on six core practices, distinct from but philosophically consistent with Scrum's fixed-Sprint model from Lesson 32.",
+        "Limiting Work in Progress (WIP) increases overall throughput by reducing the hidden cost of context-switching: starting less work finishes more work.",
+        "Cycle time (execution speed once started) and lead time (total wait including time unstarted in the backlog) are distinct metrics that can move independently of each other.",
+        "A cumulative flow diagram reveals bottlenecks by showing which workflow stage's band is widening faster than others, even when overall activity looks healthy.",
+        "A WIP limit only functions if it's occasionally binding; a limit set high enough to never block anyone is decorative, not disciplinary.",
+        "The choice between Scrum and Kanban should be driven by the predictability and batch-ability of the team's actual work, not by personal familiarity or company-wide default.",
+        "\"Busy\" and \"flowing\" are not the same thing: a team can look fully occupied while a bottleneck silently accumulates behind a healthy-looking board."
+      ],
+      "blockId": "blk_cc95e3aa22"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "**Six practices:** visualize, limit WIP, manage flow, make policies explicit, implement feedback loops, improve collaboratively.",
+        "**Core claim:** limiting WIP increases throughput by cutting context-switching costs.",
+        "**Cycle time:** speed once work starts. **Lead time:** total wait from request to delivery.",
+        "**Cumulative flow diagram:** a widening band = a bottleneck at that stage.",
+        "**WIP limit test:** does it ever actually block someone, or is it purely decorative?",
+        "**Scrum vs. Kanban:** predictable, batchable work → Scrum; continuous, unpredictable work → Kanban.",
+        "**Busy ≠ flowing:** watch for bottlenecks hiding behind a superficially active-looking board."
+      ],
+      "blockId": "blk_21e8b715ad"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "Kanban",
+          "definition": "A flow-based Agile framework built on visualizing workflow and limiting work in progress",
+          "relatedConcepts": [
+            "Flow",
+            "WIP limit"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "Work in Progress (WIP) limit",
+          "definition": "A cap on how many items may occupy a given workflow stage at once",
+          "relatedConcepts": [
+            "Flow Valve",
+            "Throughput"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Throughput",
+          "definition": "The rate at which items are completed over a given period",
+          "relatedConcepts": [
+            "WIP limit"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Cycle time",
+          "definition": "The time from when work actually begins on an item to when it's delivered",
+          "relatedConcepts": [
+            "Lead time"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Lead time",
+          "definition": "The total time from when a request is made to when it's delivered, including time waiting unstarted",
+          "relatedConcepts": [
+            "Cycle time"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Cumulative Flow Diagram (CFD)",
+          "definition": "A chart plotting the number of items in each workflow stage over time, used to visually identify bottlenecks",
+          "relatedConcepts": [
+            "Bottleneck"
+          ],
+          "difficulty": 3
+        },
+        {
+          "term": "Bottleneck",
+          "definition": "A workflow stage where work accumulates faster than it is cleared",
+          "relatedConcepts": [
+            "Cumulative Flow Diagram"
+          ],
+          "difficulty": 2
+        }
+      ],
+      "blockId": "blk_9a8e404271"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "*Kanban: Successful Evolutionary Change for Your Technology Business* by David J. Anderson",
+          "note": "the foundational text adapting Kanban to knowledge work and software teams."
+        },
+        {
+          "citation": "*The Principles of Product Development Flow* by Donald G. Reinertsen",
+          "note": "a deeper treatment of the economics behind WIP limits, batch size, and flow-based thinking."
+        },
+        {
+          "citation": "*This Is Lean: Resolving the Efficiency Paradox* by Niklas Modig and Pär Åhlström",
+          "note": "accessible grounding in the flow-efficiency-versus-resource-efficiency distinction underlying Kanban's throughput claim."
+        }
+      ],
+      "blockId": "blk_2bb4f0ef20"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_kqyucz",
+      "cards": [
+        {
+          "id": "fc-les_kqyucz-1",
+          "front": "What are Kanban's six core practices?",
+          "back": "Visualize the workflow, limit WIP, manage flow, make process policies explicit, implement feedback loops, improve collaboratively/evolve experimentally.",
+          "difficulty": 2,
+          "tags": [
+            "practices"
+          ]
+        },
+        {
+          "id": "fc-les_kqyucz-2",
+          "front": "Why does limiting WIP tend to increase throughput rather than decrease it?",
+          "back": "Because starting fewer things at once reduces costly context-switching, letting in-progress items receive full attention and finish faster, raising the overall completion rate.",
+          "difficulty": 2,
+          "tags": [
+            "wip",
+            "throughput"
+          ]
+        },
+        {
+          "id": "fc-les_kqyucz-3",
+          "front": "What's the difference between cycle time and lead time?",
+          "back": "Cycle time measures speed from when work begins to delivery; lead time measures the full wait from when a request is made (entering the backlog) to delivery, including unstarted time.",
+          "difficulty": 2,
+          "tags": [
+            "metrics"
+          ]
+        },
+        {
+          "id": "fc-les_kqyucz-4",
+          "front": "What does a widening band in a cumulative flow diagram indicate?",
+          "back": "A bottleneck: work is accumulating in that stage faster than it's being cleared.",
+          "difficulty": 2,
+          "tags": [
+            "cfd",
+            "bottleneck"
+          ]
+        },
+        {
+          "id": "fc-les_kqyucz-5",
+          "front": "When is a WIP limit actually functioning as intended?",
+          "back": "When it occasionally binds, i.e., it sometimes actually blocks new work from starting. A limit set so high it never blocks anyone is decorative.",
+          "difficulty": 2,
+          "tags": [
+            "wip-limit"
+          ]
+        },
+        {
+          "id": "fc-les_kqyucz-6",
+          "front": "What kind of work tends to favor Kanban over Scrum?",
+          "back": "Continuous, unpredictable work that can't be reasonably planned two-plus weeks in advance, such as incident response or inbound support requests.",
+          "difficulty": 1,
+          "tags": [
+            "fit-assessment"
+          ]
+        },
+        {
+          "id": "fc-les_kqyucz-7",
+          "front": "In the Case Study, why did the platform team's board look healthy while a bottleneck grew?",
+          "back": "Because there was no WIP limit on Code Review, so engineers kept starting new \"In Progress\" work rather than clearing the review queue, hiding the bottleneck behind steady, busy-looking \"In Progress\" activity.",
+          "difficulty": 3,
+          "tags": [
+            "case-study",
+            "bottleneck"
+          ]
+        }
+      ],
+      "blockId": "blk_a6b270361f"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "Consider the following novel scenario: You're the PM for a data infrastructure team that recently switched from Scrum to Kanban because their work (pipeline failures, ad hoc data requests from other teams, and planned improvements) didn't fit neatly into two-week Sprints. Three months in, cycle time for individual tickets has improved significantly. However, several internal stakeholders who submit data requests say they still \"wait forever\" to even hear back about when their request will be looked at.",
+        "There is no single correct answer to the prompts below: the goal is to practice distinguishing flow metrics and applying this lesson's frameworks, not to reach one \"right\" fix.",
+        "Based on the stakeholders' complaints, is this more likely a cycle time problem or a lead time problem? What evidence in the scenario points to your answer?",
+        "What would a cumulative flow diagram need to show for you to confirm where in the workflow requests are actually piling up before being started?",
+        "Is it possible for cycle time to genuinely improve while lead time gets worse at the same time? Explain how, using this lesson's definitions.",
+        "What role might an absent or overly generous WIP limit on the \"Backlog\" or \"Not Yet Started\" stage play in this pattern?",
+        "If your investigation confirms a lead time problem specifically, what kind of intervention (using this lesson's frameworks) would you propose, and why would improving cycle time further not solve it?"
+      ],
+      "blockId": "blk_a2384a204b"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_kqyucz",
+      "questions": [
+        {
+          "id": "q-les_kqyucz-1",
+          "question": "What is Kanban's central, counterintuitive claim about work in progress?",
+          "options": [
+            "Limiting it raises throughput by cutting context-switching",
+            "WIP limits should be set as high as the team tolerates",
+            "It has no measurable effect on delivery speed at all",
+            "More work in progress always means faster delivery"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Limiting WIP removes the hidden cost of context-switching, letting in-progress items finish faster and raising overall throughput.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_kqyucz-2",
+          "question": "Which of the following is NOT one of Kanban's six core practices?",
+          "options": [
+            "Visualize the workflow",
+            "Limit Work in Progress",
+            "Hold a fixed two-week Sprint",
+            "Make process policies explicit"
+          ],
+          "correctAnswer": 2,
+          "explanation": "A fixed two-week Sprint is a Scrum concept (Lesson 32), not one of Kanban's six core practices.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_kqyucz-3",
+          "question": "What does cycle time measure, as distinct from lead time?",
+          "options": [
+            "The number of items a team completes per week",
+            "The time from when work actually begins on an item to when it's delivered",
+            "The number of engineers currently assigned to a project",
+            "The total time from request to delivery, including time waiting unstarted"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Cycle time is the time from when work begins to delivery, distinct from lead time's inclusion of unstarted wait time.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_kqyucz-4",
+          "question": "A team has a short cycle time but stakeholders report long waits before their requests are even started. What does this pattern indicate?",
+          "options": [
+            "This pattern cannot occur on a real Kanban team",
+            "The team's actual execution speed is the problem",
+            "The WIP limit has almost certainly been set too low",
+            "A lead time problem, driven by backlog wait rather than speed"
+          ],
+          "correctAnswer": 3,
+          "explanation": "This is the classic short-cycle-time, long-lead-time pattern, driven by backlog wait time rather than execution speed, often requiring a prioritization fix.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_kqyucz-5",
+          "question": "What does a widening band for one specific stage in a cumulative flow diagram indicate?",
+          "options": [
+            "A bottleneck: work is piling up faster than it clears",
+            "That the team needs to run additional Sprints",
+            "That every stage's WIP limit is currently set correctly",
+            "That the stage in question is operating efficiently"
+          ],
+          "correctAnswer": 0,
+          "explanation": "A widening band relative to other stages is the visual signature of a bottleneck.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_kqyucz-6",
+          "question": "Why is a WIP limit that never actually blocks anyone considered a problem?",
+          "options": [
+            "It means the team is working through its backlog too slowly",
+            "It isn't a problem; a WIP limit's purpose is cosmetic",
+            "A limit set too high to ever bind is decorative, not real",
+            "It means the team should switch to Scrum instead"
+          ],
+          "correctAnswer": 2,
+          "explanation": "A WIP limit only works if it's occasionally binding; one that's never hit defeats the entire mechanism.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_kqyucz-7",
+          "question": "According to the Scrum vs. Kanban Fit Assessment, which condition favors Kanban over Scrum?",
+          "options": [
+            "The team wants a fixed, predictable planning cadence",
+            "Work arrives continuously and unpredictably, like incidents",
+            "Stakeholders benefit from regular, scheduled commitments",
+            "Work can be reasonably planned two-plus weeks ahead"
+          ],
+          "correctAnswer": 1,
+          "explanation": "The Fit Assessment table lists unpredictable, continuously arriving work as a condition favoring Kanban.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_kqyucz-8",
+          "question": "In the Case Study, what was the specific missing element that allowed the Code Review bottleneck to go unnoticed?",
+          "options": [
+            "The absence of a Sprint Goal for the current cycle",
+            "Too few engineers assigned to the platform team",
+            "A missing Daily Scrum ceremony for the team",
+            "A missing WIP limit on the Code Review stage itself"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The absence of a WIP limit on Code Review is what allowed the bottleneck to accumulate invisibly behind a busy-looking board.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_kqyucz-9",
+          "question": "Why does the lesson caution against measuring \"team busyness\" as a proxy for healthy flow?",
+          "options": [
+            "A team can look fully occupied while actual flow is poor",
+            "Busyness and flow always move in the same direction",
+            "Kanban actively discourages teams from working hard",
+            "Busy teams are, by definition, always underperforming"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Apparent busyness (many active cards) can mask poor actual flow, as the Case Study's hidden bottleneck illustrates.",
+          "objectivesTested": [
+            2,
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_kqyucz-10",
+          "question": "A PM reports \"cycle time improved 20% this quarter\" as evidence the team is now faster to deliver to stakeholders. What critical check is this claim missing?",
+          "options": [
+            "Whether the team held enough retrospectives that quarter",
+            "Whether the team switched from Kanban back to Scrum",
+            "Whether lead time also improved, not just cycle time",
+            "Whether the WIP limit was removed entirely that quarter"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Reporting cycle time improvements without checking lead time may be incomplete, or may mask a worsening backlog wait problem.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_kqyucz-11",
+          "question": "Which real-world type of team does this lesson suggest is naturally better suited to Kanban's flow-based model?",
+          "options": [
+            "A team that ships only once per year on a fixed schedule",
+            "A team handling continuous, unpredictable incident response and support work",
+            "A team building a single large, fully planned feature release over one quarter",
+            "A team with no external stakeholders of any kind"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Operations and infrastructure-style teams handling continuous, unpredictable work are the natural fit for Kanban's flow model.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_kqyucz-12",
+          "question": "What is the relationship between Kanban's six practices and Lesson 31's Iteration Loop?",
+          "options": [
+            "Unrelated concepts drawn from different disciplines",
+            "Kanban replaces the need for any feedback loop",
+            "The Iteration Loop applies only to Scrum teams",
+            "A flow-based version of the same feedback logic"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The lesson frames Kanban as philosophically consistent with the Iteration Loop, just implemented through continuous flow rather than fixed Sprints.",
+          "objectivesTested": [
+            1,
+            4
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_kqyucz-13",
+          "question": "(Product Thinking) A team's cumulative flow diagram shows all bands widening in roughly parallel, steady bands over time. What does this indicate?",
+          "options": [
+            "Healthy flow, with no stage accumulating work faster than others",
+            "A severe, hidden bottleneck somewhere in the workflow",
+            "That the team is not using Kanban correctly",
+            "That the team should immediately add new WIP limits"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Roughly parallel, steadily widening bands are the visual signature of healthy flow, in contrast to one disproportionately widening band.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_kqyucz-14",
+          "question": "(Interview Reasoning) An interviewer asks when a candidate would recommend Kanban over Scrum, and the candidate answers: \"I always prefer Kanban, it's less bureaucratic.\" What does this answer signal?",
+          "options": [
+            "Strong, well-reasoned framework judgment worth noting",
+            "That the candidate should instead have said Scrum",
+            "A preference-based answer that skips real work conditions",
+            "Nothing meaningful, since framework choice is arbitrary"
+          ],
+          "correctAnswer": 2,
+          "explanation": "A strong answer references specific conditions like predictability and batch-ability, which this blanket-preference answer fails to do.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_kqyucz-15",
+          "question": "(Product Thinking, Highest Difficulty) A platform team using Kanban gets complaints about unpredictable delivery timing, and its cumulative flow diagram shows a steadily widening \"QA\" band while other stages stay flat. What is the most defensible next step, and why?",
+          "options": [
+            "Switch the entire team back to Scrum immediately",
+            "Constrain and investigate QA, since it's the bottleneck",
+            "Ignore the diagram, since timing is a lead time issue",
+            "Add more WIP slots to \"In Progress\" to start more work"
+          ],
+          "correctAnswer": 1,
+          "explanation": "This mirrors the Case Study's reasoning: a widening band at one stage identifies precisely where the bottleneck lives, so the response should constrain and investigate that stage directly.",
+          "objectivesTested": [
+            2,
+            5
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_e32969d75c"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_xtr1yz",
+        "title": "Lesson 32: Scrum Framework",
+        "module": "execution"
+      },
+      "current": {
+        "id": "les_kqyucz",
+        "title": "Lesson 33: Kanban Framework"
+      },
+      "next": {
+        "id": "les_vlut0b",
+        "title": "Lesson 34: Sprint Planning & Backlog Grooming",
+        "module": "execution"
+      },
+      "unlocks": [
+        {
+          "lesson": {
+            "id": "les_soowpy",
+            "title": "Technical Debt & PM Trade-offs",
+            "module": "execution"
+          },
+          "coreIdea": "Applies this lesson's bottleneck-diagnosis logic to under-resourced review/QA stages as a source of accumulating technical debt"
+        }
+      ],
+      "blockId": "blk_c57734c70d"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 33: Kanban Framework Lesson 32 gave you Scrum in full: a framework built around fixed-length Sprints, in which work is planned in batches and inspected at scheduled intervals. Scrum's cadence is one of its greatest strengths for teams whose work naturally comes in plannable chunks. But it is not the only serious answer to Lesson 31's underlying question: how do you structure execution so that feedback stays continuous rather than accumulating into late, expensive surprises? For teams whose work arrives unpredictably (support-driven engineering teams, infrastructure teams, teams handling a constant stream of inbound requests rather than a plannable backlog), forcing that work into two-week Sprint boxes can create friction rather than remove it. This lesson introduces **Kanban**, the other dominant Agile implementation, built not around fixed iterations but around continuous flow. Where Scrum asks \"what can we commit to for the next two weeks?\", Kanban asks \"how much work should be in progress at any given moment, and how do we keep it moving?\" Understanding both frameworks (and, more importantly, understanding the underlying conditions that make one a better fit than the other) is what lets you make a genuinely reasoned recommendation to a team, rather than defaulting to whichever framework you personally learned first. This lesson also completes the two-lesson pair the Agile Fit Checklist from Lesson 31 was built to evaluate: you now have both a fixed-cadence and a flow-based implementation to test it against. State Kanban's six core practices and explain the problem each one is designed to solve. Explain what a Work-in-Progress (WIP) limit is, and why constraining the amount of work in progress can increase, rather than decrease, overall throughput. Distinguish cycle time from lead time, and explain what each metric reveals that the other does not. Apply the Agile Fit Checklist (Lesson 31) to compare Scrum and Kanban, and identify the specific conditions under which each framework is the better fit. Diagnose a flow bottleneck using a cumulative flow diagram and a WIP-limit violation, and propose an appropriate response. This lesson assumes fluency with **Lesson 31's** Iteration Loop and Agile Fit Checklist, since Kanban is evaluated here as a second concrete implementation of the same underlying values, not a new philosophy. It also assumes familiarity with **Lesson 32's** Scrum framework, because much of this lesson's value comes from direct contrast: Kanban is easiest to understand not in isolation but against the fixed-Sprint structure you already know, since the two frameworks make opposite bets about whether batching work into a fixed time-box helps or hinders flow. The Origin: Flow, Not Batches Kanban's modern software adaptation traces back to lean manufacturing principles, most famously the Toyota Production System, later adapted for knowledge work by David J. Anderson in the mid-2000s. Where Scrum's unit of commitment is the Sprint (a fixed time-box), Kanban's unit of attention is the **item of work moving through a value stream**, and its central bet is that limiting how much work is in progress at once, rather than how much time is allotted, is the more reliable lever for improving delivery speed and predictability. The Six Core Practices Why Limiting WIP Increases Throughput This is the single most counterintuitive idea in this lesson, and worth deriving carefully rather than simply asserting. Consider a team with five engineers and no WIP limit. Under pressure from many stakeholders, the team starts eight things simultaneously: every engineer context-switches between roughly 1.5 items on average. Context-switching carries a real, well-documented cost: every switch requires re-loading mental context, and that overhead is pure waste, contributing to none of the eight items' completion. Now compare a team that limits WIP to, say, three items at a time. A fourth request must wait in a queue until one of the three in progress is finished. This feels, superficially, like it should be slower: after all, work is being deliberately delayed. But because the three in-progress items receive full, uninterrupted attention, they finish faster individually, and the team's overall completion rate (throughput) tends to rise, not fall, because the hidden cost of constant context-switching has been removed. This is Kanban's central, often initially resisted, claim: **starting less work finishes more work**. Flow Metrics: Cycle Time and Lead Time Two related but distinct metrics are essential to Kanban's \"manage flow\" practice, and new PMs frequently conflate them: **Lead time**: the total time from when a request is *made* (entering the backlog) to when it's *delivered*. This is the metric a customer or stakeholder experiences directly: \"how long did it take from when I asked to when I got it?\" **Cycle time**: the time from when work *actually begins* on an item to when it's *delivered*. This is the metric that measures the team's execution efficiency specifically, stripped of however long the item sat waiting in the backlog before anyone started it. A team can have a short cycle time (fast once started) but a long lead time (items sit in the backlog for weeks before anyone picks them up). This is an extremely common pattern, and one that a team focused only on cycle time will completely miss, because it's invisible to anyone only watching work once it's \"in progress.\" Diagnosing which of the two is the actual problem determines whether the fix is \"work faster once started\" (rarely the real issue) or \"start things sooner\" (frequently the real issue, and much more within a PM's direct influence, since it's often driven by prioritization decisions rather than engineering execution speed). The Cumulative Flow Diagram A cumulative flow diagram (CFD) plots the number of items in each workflow stage over time, as stacked bands. A healthy CFD shows roughly parallel, steadily widening bands. A widening band for one specific stage (say, \"Code Review\" growing wider and wider while \"In Progress\" and \"Done\" stay flat) is a visual signature of a bottleneck: work is piling up at that stage faster than it's being cleared, exactly the kind of structural problem a WIP limit at that stage is designed to surface and force the team to confront directly, rather than allowing it to silently accumulate. Treating Kanban as \"Scrum without the meetings. Kanban is not merely an unstructured, ceremony-free version of Scrum: it has its own explicit practices (the six above), its own discipline (WIP limits, explicit policies), and its own feedback mechanisms. A team that drops Scrum's events without adopting Kanban's actual practices in their place has adopted neither framework's discipline, only the appearance of informality. Setting WIP limits too high to avoid the discomfort of a full queue A WIP limit only works if it's occasionally binding: if it never actually blocks anyone from starting new work, it isn't constraining behavior, it's decorative. New teams frequently set WIP limits generously enough that they're never hit, which defeats the entire mechanism described above. Measuring \"team busyness\" instead of \"flow. A team where every engineer is constantly occupied can still have terrible flow, if what they're occupied with is a large number of half-finished items rather than a small number of completed ones. Kanban's \"manage flow\" practice exists specifically to redirect attention away from individual utilization and toward whether work is actually completing and moving downstream. Confusing cycle time improvements with lead time improvements As covered above, optimizing execution speed once work has started does nothing for items still waiting, unstarted, in a long backlog queue. A PM who reports \"we improved cycle time by 20%\" as evidence the team is now faster to deliver, without checking lead time, may be reporting a genuine but incomplete improvement, or masking a worsening backlog problem entirely. Skipping explicit process policies Without an explicit, shared definition of what it means for an item to be ready to move from one column to the next (e.g., what \"Ready for Review\" actually requires), teams experience constant, low-grade disputes about whether something is really done with a stage, the Kanban equivalent of the Definition of Done ambiguity covered in Lesson 32. The Flow Valve This lesson's core takeaway tool visualizes the WIP-limit mechanism as a valve controlling pressure through a pipe: Use the Flow Valve as a diagnostic whenever a team reports feeling \"busy but nothing's shipping.\" Ask: is the valve (WIP limit) actually constraining anything, or has it been set so loosely that everything passes through unimpeded, recreating the context-switching problem the valve exists to prevent? A team with no binding WIP limit is, functionally, a team with no valve at all: pressure (requests) flows straight through into an overloaded pipe (in-progress work), regardless of what the board visually implies. Microsoft **Microsoft** has been publicly associated with adopting Kanban-style practices in parts of its engineering organization, particularly within operations and infrastructure-adjacent teams handling continuous streams of incident response, maintenance, and support work, a pattern of work that fits Kanban's flow-based model more naturally than Scrum's fixed-Sprint planning, since incoming incidents cannot be scheduled two weeks in advance. The underlying logic connects directly to this lesson's theory: work that arrives unpredictably, in variable sizes, with variable urgency, is poorly served by a framework that asks a team to commit to a fixed batch of it in advance. A flow-based model, with WIP limits and continuous prioritization rather than sprint-boundary planning, tends to be a better structural fit for this kind of work. At a startup Kanban is often adopted implicitly, even without the name: a simple \"To Do / Doing / Done\" board with a rough, informal sense that people shouldn't start too many things at once. Formal WIP limits and cumulative flow diagrams are less common at this stage; the team is small enough that flow problems are often visible through direct conversation rather than requiring a chart to surface them. At a mid-size company Kanban is more frequently adopted formally for teams whose work doesn't fit neatly into sprints: support-adjacent engineering, platform teams, or teams serving many internal stakeholders with unpredictable requests. This is also where explicit WIP limits and cycle-time tracking tend to appear, because the team has grown past the point where flow problems are obvious from casual observation alone. At Big Tech Kanban frequently coexists with Scrum across different teams within the same organization, chosen based on the nature of each team's work rather than a company-wide mandate. PMs at this scale are often expected to make, and defend, the specific choice of framework for their own team, using reasoning like the Agile Fit Checklist below, rather than defaulting to whichever framework is most common company-wide. The Board That Looked Fine Consider a simplified, illustrative scenario common on platform and infrastructure teams several months into adopting Kanban. A six-person platform team adopts a Kanban board with columns: Backlog, In Progress, Code Review, QA, Done. They set a WIP limit of 4 for \"In Progress\" but never set one for \"Code Review,\" reasoning that review \"shouldn't take long anyway.\" Over several weeks, the team notices that items seem to sit for days after being marked \"ready for review,\" even though engineers report being busy the entire time. The team's dashboard shows steady throughput of new items entering \"In Progress,\" creating an impression of healthy activity. **What went wrong?** A cumulative flow diagram would have shown the actual problem immediately: the \"Code Review\" band was widening steadily while \"In Progress\" and \"QA\" stayed flat: a textbook bottleneck signature. Without a WIP limit on Code Review, engineers kept starting new work in \"In Progress\" (since nothing formally prevented them) rather than picking up items waiting in the review queue, because starting new work often feels more productive, in the moment, than reviewing someone else's. The result: a growing pile of nearly-finished work sitting invisible behind a healthy-looking \"In Progress\" column, exactly the \"busy but nothing's shipping\" pattern this lesson's Mental Model warns about. The fix was not more engineers, more meetings, or faster reviewers. It was placing an explicit WIP limit on Code Review itself, which forced a genuine trade-off into the open: when Code Review is full, engineers must either help clear it or explicitly decide to leave capacity idle, rather than silently starting new work while a bottleneck grows unaddressed. This exact bottleneck-diagnosis logic (noticing where work piles up rather than where people look busy) reappears directly in **Lesson 43 (Funnel Analysis)**, applied to user behavior rather than engineering workflow, and in **Lesson 39 (Technical Debt & PM Trade-offs)**, where an under-resourced review or QA stage is a common source of accumulating technical debt. Scrum vs. Kanban Fit Assessment A second, more tactical tool: use this table, built directly on the Agile Fit Checklist from Lesson 31, to reason about which framework better suits a specific team's actual working conditions. Neither framework is inherently superior; the fit assessment above exists precisely to prevent the common mistake of choosing a framework based on familiarity or company-wide default rather than the actual shape of the team's work, a mistake this lesson's Interview Perspective section below addresses directly. When would you recommend Kanban over Scrum for a team? *What the interviewer is actually evaluating:* Whether the candidate reasons from the nature of the team's actual work (predictability, batch-ability) rather than personal preference or company convention. A weak answer states a blanket preference; a strong answer references specific conditions, echoing the Scrum vs. Kanban Fit Assessment above. What's a WIP limit, and why would you ever want to deliberately slow down how much work starts? *What the interviewer is actually evaluating:* Whether the candidate understands the counterintuitive throughput argument: that limiting concurrent work reduces costly context-switching and tends to increase overall completion rate, not decrease it. A team's board looks busy (lots of cards in progress), but stakeholders are complaining that nothing seems to actually ship. How would you investigate? *What the interviewer is actually evaluating:* Whether the candidate reaches for flow-diagnostic tools (a cumulative flow diagram, cycle time vs. lead time, checking for an unlimited or absent WIP limit at a specific stage) rather than assuming the team simply needs to \"work harder,\" mirroring this lesson's Case Study directly. Kanban is the second major concrete implementation of Lesson 31's underlying Agile values, built not around fixed-length Sprints but around continuous flow, governed by six core practices: visualizing the workflow, limiting work in progress, managing flow, making policies explicit, implementing feedback loops, and improving collaboratively. Its central, counterintuitive claim is that limiting how much work is in progress at once increases overall throughput, by removing the hidden cost of constant context-switching, a claim best understood through the Flow Valve mental model. Cycle time and lead time are the two flow metrics every PM must be able to distinguish: cycle time measures execution speed once work begins, while lead time measures the full customer-facing wait including time spent unstarted in the backlog, and conflating the two, as this lesson's Case Study illustrates with an unbounded Code Review stage, can hide a serious bottleneck behind a superficially healthy-looking board. Choosing between Scrum and Kanban is not a matter of which is more \"modern\" or more familiar, but a matter of fit: predictable, batchable work suits Scrum's fixed cadence, while continuous, unpredictable work suits Kanban's flow-based discipline, a judgment this lesson's Fit Assessment table exists to formalize. Kanban is a flow-based Agile implementation built on six core practices, distinct from but philosophically consistent with Scrum's fixed-Sprint model from Lesson 32. Limiting Work in Progress (WIP) increases overall throughput by reducing the hidden cost of context-switching: starting less work finishes more work. Cycle time (execution speed once started) and lead time (total wait including time unstarted in the backlog) are distinct metrics that can move independently of each other. A cumulative flow diagram reveals bottlenecks by showing which workflow stage's band is widening faster than others, even when overall activity looks healthy. A WIP limit only functions if it's occasionally binding; a limit set high enough to never block anyone is decorative, not disciplinary. The choice between Scrum and Kanban should be driven by the predictability and batch-ability of the team's actual work, not by personal familiarity or company-wide default. \"Busy\" and \"flowing\" are not the same thing: a team can look fully occupied while a bottleneck silently accumulates behind a healthy-looking board. **Six practices:** visualize, limit WIP, manage flow, make policies explicit, implement feedback loops, improve collaboratively. **Core claim:** limiting WIP increases throughput by cutting context-switching costs. **Cycle time:** speed once work starts. **Lead time:** total wait from request to delivery. **Cumulative flow diagram:** a widening band = a bottleneck at that stage. **WIP limit test:** does it ever actually block someone, or is it purely decorative? **Scrum vs. Kanban:** predictable, batchable work → Scrum; continuous, unpredictable work → Kanban. **Busy ≠ flowing:** watch for bottlenecks hiding behind a superficially active-looking board. Kanban A flow-based Agile framework built on visualizing workflow and limiting work in progress Work in Progress (WIP) limit A cap on how many items may occupy a given workflow stage at once Throughput The rate at which items are completed over a given period Cycle time The time from when work actually begins on an item to when it's delivered Lead time The total time from when a request is made to when it's delivered, including time waiting unstarted Cumulative Flow Diagram (CFD) A chart plotting the number of items in each workflow stage over time, used to visually identify bottlenecks Bottleneck A workflow stage where work accumulates faster than it is cleared *Kanban: Successful Evolutionary Change for Your Technology Business* by David J. Anderson the foundational text adapting Kanban to knowledge work and software teams. *The Principles of Product Development Flow* by Donald G. Reinertsen a deeper treatment of the economics behind WIP limits, batch size, and flow-based thinking. *This Is Lean: Resolving the Efficiency Paradox* by Niklas Modig and Pär Åhlström accessible grounding in the flow-efficiency-versus-resource-efficiency distinction underlying Kanban's throughput claim. What are Kanban's six core practices? Visualize the workflow, limit WIP, manage flow, make process policies explicit, implement feedback loops, improve collaboratively/evolve experimentally. Why does limiting WIP tend to increase throughput rather than decrease it? Because starting fewer things at once reduces costly context-switching, letting in-progress items receive full attention and finish faster, raising the overall completion rate. What's the difference between cycle time and lead time? Cycle time measures speed from when work begins to delivery; lead time measures the full wait from when a request is made (entering the backlog) to delivery, including unstarted time. What does a widening band in a cumulative flow diagram indicate? A bottleneck: work is accumulating in that stage faster than it's being cleared. When is a WIP limit actually functioning as intended? When it occasionally binds, i.e., it sometimes actually blocks new work from starting. A limit set so high it never blocks anyone is decorative. What kind of work tends to favor Kanban over Scrum? Continuous, unpredictable work that can't be reasonably planned two-plus weeks in advance, such as incident response or inbound support requests. In the Case Study, why did the platform team's board look healthy while a bottleneck grew? Because there was no WIP limit on Code Review, so engineers kept starting new \"In Progress\" work rather than clearing the review queue, hiding the bottleneck behind steady, busy-looking \"In Progress\" activity. Consider the following novel scenario: You're the PM for a data infrastructure team that recently switched from Scrum to Kanban because their work (pipeline failures, ad hoc data requests from other teams, and planned improvements) didn't fit neatly into two-week Sprints. Three months in, cycle time for individual tickets has improved significantly. However, several internal stakeholders who submit data requests say they still \"wait forever\" to even hear back about when their request will be looked at. There is no single correct answer to the prompts below: the goal is to practice distinguishing flow metrics and applying this lesson's frameworks, not to reach one \"right\" fix. Based on the stakeholders' complaints, is this more likely a cycle time problem or a lead time problem? What evidence in the scenario points to your answer? What would a cumulative flow diagram need to show for you to confirm where in the workflow requests are actually piling up before being started? Is it possible for cycle time to genuinely improve while lead time gets worse at the same time? Explain how, using this lesson's definitions. What role might an absent or overly generous WIP limit on the \"Backlog\" or \"Not Yet Started\" stage play in this pattern? If your investigation confirms a lead time problem specifically, what kind of intervention (using this lesson's frameworks) would you propose, and why would improving cycle time further not solve it? What is Kanban's central, counterintuitive claim about work in progress? Limiting WIP removes the hidden cost of context-switching, letting in-progress items finish faster and raising overall throughput. Which of the following is NOT one of Kanban's six core practices? A fixed two-week Sprint is a Scrum concept (Lesson 32), not one of Kanban's six core practices. What does cycle time measure, as distinct from lead time? Cycle time is the time from when work begins to delivery, distinct from lead time's inclusion of unstarted wait time. A team has a short cycle time but stakeholders report long waits before their requests are even started. What does this pattern indicate? This is the classic short-cycle-time, long-lead-time pattern, driven by backlog wait time rather than execution speed, often requiring a prioritization fix. What does a widening band for one specific stage in a cumulative flow diagram indicate? A widening band relative to other stages is the visual signature of a bottleneck. Why is a WIP limit that never actually blocks anyone considered a problem? A WIP limit only works if it's occasionally binding; one that's never hit defeats the entire mechanism. According to the Scrum vs. Kanban Fit Assessment, which condition favors Kanban over Scrum? The Fit Assessment table lists unpredictable, continuously arriving work as a condition favoring Kanban. In the Case Study, what was the specific missing element that allowed the Code Review bottleneck to go unnoticed? The absence of a WIP limit on Code Review is what allowed the bottleneck to accumulate invisibly behind a busy-looking board. Why does the lesson caution against measuring \"team busyness\" as a proxy for healthy flow? Apparent busyness (many active cards) can mask poor actual flow, as the Case Study's hidden bottleneck illustrates. A PM reports \"cycle time improved 20% this quarter\" as evidence the team is now faster to deliver to stakeholders. What critical check is this claim missing? Reporting cycle time improvements without checking lead time may be incomplete, or may mask a worsening backlog wait problem. Which real-world type of team does this lesson suggest is naturally better suited to Kanban's flow-based model? Operations and infrastructure-style teams handling continuous, unpredictable work are the natural fit for Kanban's flow model. What is the relationship between Kanban's six practices and Lesson 31's Iteration Loop? The lesson frames Kanban as philosophically consistent with the Iteration Loop, just implemented through continuous flow rather than fixed Sprints. (Product Thinking) A team's cumulative flow diagram shows all bands widening in roughly parallel, steady bands over time. What does this indicate? Roughly parallel, steadily widening bands are the visual signature of healthy flow, in contrast to one disproportionately widening band. (Interview Reasoning) An interviewer asks when a candidate would recommend Kanban over Scrum, and the candidate answers: \"I always prefer Kanban, it's less bureaucratic.\" What does this answer signal? A strong answer references specific conditions like predictability and batch-ability, which this blanket-preference answer fails to do. (Product Thinking, Highest Difficulty) A platform team using Kanban gets complaints about unpredictable delivery timing, and its cumulative flow diagram shows a steadily widening \"QA\" band while other stages stay flat. What is the most defensible next step, and why? This mirrors the Case Study's reasoning: a widening band at one stage identifies precisely where the bottleneck lives, so the response should constrain and investigate that stage directly.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "Mental Model: The Flow Valve",
+      "Real Company Example",
+      "Real World Perspective: Kanban Framework at Different Company Stages",
+      "Detailed Case Study: The Board That Looked Fine",
+      "Framework Explanation: Scrum vs. Kanban Fit Assessment",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "Kanban",
+    "Work in Progress (WIP) limit",
+    "Throughput",
+    "Cycle time",
+    "Lead time",
+    "Cumulative Flow Diagram (CFD)",
+    "Bottleneck"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

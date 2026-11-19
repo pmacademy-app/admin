@@ -1,0 +1,988 @@
+{
+  "schemaVersion": 2,
+  "id": "les_8prxyi",
+  "contentHash": "588e7a240410c90c8bced66eee5d2d121ecd88cdd72a397c3715e49010e0a1c9",
+  "title": "Prioritization Fundamentals",
+  "slug": "lesson-029",
+  "module": "design",
+  "order": 9,
+  "totalInModule": 10,
+  "difficulty": 5,
+  "estimatedReadingTime": 30,
+  "estimatedCompletionTime": 45,
+  "prerequisites": [
+    "les_qvbz2l",
+    "les_ta3qpf",
+    "les_sgqm62"
+  ],
+  "sourceFile": "content/lessons/lesson-029.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 29: Prioritization Fundamentals",
+      "blockId": "blk_8534336767"
+    },
+    {
+      "type": "paragraph",
+      "text": "Across 24 lessons, this curriculum has repeatedly bumped into the same underlying question without ever naming it directly: when multiple genuinely valid things compete for the same limited time and resources, how do you actually decide? Lesson 16 built a Severity/Frequency Grid for pain points. Lesson 19 built an Opportunity Comparison Grid for opportunities. Lesson 10 insisted a real strategy must say no to something. Lesson 21 insisted an MVP must cut anything not necessary for its specific test. Each of these was, in effect, a scoped, local prioritization framework. This lesson generalizes the underlying discipline: **prioritization** is the practice of deciding what to work on next, using an explicit, defensible method rather than intuition, seniority, or recency alone, and it is, in a real sense, the skill this entire curriculum has been building toward from Lesson 1 onward.",
+      "blockId": "blk_abe0a44e84"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson matters because prioritization is where every other discipline in this curriculum (validated research, laddered pain points, sized opportunities, a real strategy, a scoped MVP) ultimately has to cash out into an actual, defensible decision about sequence: what gets built first, second, and not at all, at least for now. A team can do everything else in this curriculum correctly and still fail here, by falling back on whichever voice is loudest (Lesson 5, Lesson 16) or whichever idea was most recently discussed (Lesson 16, Lesson 19), precisely the failure patterns this curriculum has repeatedly named. This lesson closes that gap with formal, named prioritization frameworks.",
+      "blockId": "blk_e12d636149"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "Apply the RICE framework (Reach, Impact, Confidence, Effort) to score and compare candidate initiatives quantitatively.",
+        "Apply the MoSCoW method (Must have, Should have, Could have, Won't have) as a qualitative, stakeholder-facing prioritization technique, and identify when it's more appropriate than RICE.",
+        "Distinguish \"eating the frog\" (tackling the highest-value hard thing first) from artificially easy sequencing, and explain the trade-offs of each.",
+        "Identify the \"prioritization theater\" failure pattern, where a formal-looking framework is used to rationalize a decision already made for other reasons.",
+        "Synthesize prior lessons' scoped, local prioritization tools (severity/frequency, opportunity sizing, strategic fit) into a single, coherent scoring approach for comparing dissimilar candidate initiatives."
+      ],
+      "blockId": "blk_b27043a7c8"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 10 (Product Strategy Basics), Lesson 16 (Pain Points), and Lesson 19 (Opportunity Identification). This lesson assumes fluency with severity/frequency scoring, opportunity sizing via importance-satisfaction and prevalence, and the discipline of genuine strategic exclusion. This lesson generalizes and formalizes these prior, narrower tools into explicit, named prioritization frameworks applicable across a full backlog of dissimilar candidates.",
+      "blockId": "blk_35b7658bb2"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "RICE: A Quantitative Scoring Framework",
+          "blockId": "blk_0d0133b07f"
+        },
+        {
+          "type": "paragraph",
+          "text": "**RICE** is a widely used scoring framework for comparing dissimilar candidate initiatives on a common numeric scale, using four factors:",
+          "blockId": "blk_a6ea89ae09"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**Reach**: how many people (or what fraction of a validated segment, per Lesson 18) will this initiative affect within a given time period?",
+            "**Impact**: how much will this initiative affect each person it reaches, typically scored on a simple scale (e.g., massive, high, medium, low, minimal), often assigned a corresponding numeric value?",
+            "**Confidence**: how confident is the team in the reach and impact estimates, given the strength of the underlying evidence (directly connecting to Lesson 11's Evidence Trustworthiness Ladder), typically expressed as a percentage?",
+            "**Effort**: how much time and resource investment will this initiative require, typically expressed in person-time (e.g., person-months)?"
+          ],
+          "blockId": "blk_638cfcdd25"
+        },
+        {
+          "type": "paragraph",
+          "text": "The RICE score is calculated as:",
+          "blockId": "blk_43d80f9ef5"
+        },
+        {
+          "type": "blockquote",
+          "text": "**RICE Score = (Reach × Impact × Confidence) / Effort**",
+          "blockId": "blk_242d0678a5"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_51def9f86c",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Reach How Many Affected] --> E[RICE Score]\r\n    B[Impact How Much Affected] --> E\r\n    C[Confidence How Trustworthy the<br/>Reach/Impact Estimates Are]--> E\r\n    D[Effort Cost to Build] --> E\r\n    E --> F[Higher Score = Higher Relative Priority]",
+          "normalized": "graph TD\r\n    A[Reach How Many Affected] --> E[RICE Score]\r\n    B[Impact How Much Affected] --> E\r\n    C[Confidence How Trustworthy the<br/>Reach/Impact Estimates Are]--> E\r\n    D[Effort Cost to Build] --> E\r\n    E --> F[Higher Score = Higher Relative Priority]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020946421-81\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1714.13\" height=\"463\" viewBox=\"-40.875 -27 1714.13 463\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Reach How Many Affected → RICE Score → Impact How Much Affected → Confidence How Trustworthy theReach/Impact Estimates Are → Effort Cost to Build...\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Reach How Many Affected → RICE Score → Impact How Much Affected → Confidence How Trustworthy theReach/Impact Estimates Are → Effort Cost to Build...</title><style>#mermaid-svg-1795020946421-81{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020946421-81 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020946421-81 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020946421-81 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020946421-81 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020946421-81 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020946421-81 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020946421-81 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020946421-81 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020946421-81 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020946421-81 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020946421-81 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020946421-81 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020946421-81 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020946421-81 p{margin:0;}#mermaid-svg-1795020946421-81 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020946421-81 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020946421-81 .cluster-label span{color:#171A17;}#mermaid-svg-1795020946421-81 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020946421-81 .label text,#mermaid-svg-1795020946421-81 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020946421-81 .node rect,#mermaid-svg-1795020946421-81 .node circle,#mermaid-svg-1795020946421-81 .node ellipse,#mermaid-svg-1795020946421-81 .node polygon,#mermaid-svg-1795020946421-81 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020946421-81 .rough-node .label text,#mermaid-svg-1795020946421-81 .node .label text,#mermaid-svg-1795020946421-81 .image-shape .label,#mermaid-svg-1795020946421-81 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020946421-81 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020946421-81 .rough-node .label,#mermaid-svg-1795020946421-81 .node .label,#mermaid-svg-1795020946421-81 .image-shape .label,#mermaid-svg-1795020946421-81 .icon-shape .label{text-align:center;}#mermaid-svg-1795020946421-81 .node.clickable{cursor:pointer;}#mermaid-svg-1795020946421-81 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020946421-81 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020946421-81 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020946421-81 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020946421-81 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020946421-81 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020946421-81 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020946421-81 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020946421-81 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020946421-81 .cluster text{fill:#171A17;}#mermaid-svg-1795020946421-81 .cluster span{color:#171A17;}#mermaid-svg-1795020946421-81 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020946421-81 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020946421-81 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020946421-81 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020946421-81 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020946421-81 .icon-shape,#mermaid-svg-1795020946421-81 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020946421-81 .icon-shape p,#mermaid-svg-1795020946421-81 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020946421-81 .icon-shape .label rect,#mermaid-svg-1795020946421-81 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020946421-81 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020946421-81 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020946421-81 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020946421-81 [data-look=\"neo\"].node rect,#mermaid-svg-1795020946421-81 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020946421-81 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020946421-81-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946421-81 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020946421-81 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020946421-81-gradient);stroke-width:1px;}#mermaid-svg-1795020946421-81 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946421-81 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020946421-81 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020946421-81-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946421-81 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020946421-81 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020946421-81-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946421-81 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020946421-81-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946421-81 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020946421-81_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946421-81_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946421-81_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946421-81_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020946421-81_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020946421-81_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020946421-81_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020946421-81_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020946421-81_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946421-81_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946421-81_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020946421-81_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M194.625,99L194.625,108.75C194.625,118.5,194.625,138,286.546,158.696C378.468,179.391,562.31,201.282,654.232,212.228L746.153,223.173\" id=\"mermaid-svg-1795020946421-81-L_A_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_E_0\" data-points=\"W3sieCI6MTk0LjYyNSwieSI6OTl9LHsieCI6MTk0LjYyNSwieSI6MTU3LjV9LHsieCI6NzUwLjEyNSwieSI6MjIzLjY0NTk5OTI0MTU2MjM4fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020946421-81_flowchart-v2-pointEnd)\"></path><path d=\"M619.25,99L619.25,108.75C619.25,118.5,619.25,138,640.43,154.836C661.611,171.673,703.971,185.846,725.151,192.932L746.332,200.019\" id=\"mermaid-svg-1795020946421-81-L_B_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_E_0\" data-points=\"W3sieCI6NjE5LjI1LCJ5Ijo5OX0seyJ4Ijo2MTkuMjUsInkiOjE1Ny41fSx7IngiOjc1MC4xMjUsInkiOjIwMS4yODc2OTMxMjczMzA4NH1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020946421-81_flowchart-v2-pointEnd)\"></path><path d=\"M1088.5,116L1088.5,122.917C1088.5,129.833,1088.5,143.667,1067.32,157.67C1046.139,171.673,1003.779,185.846,982.599,192.932L961.418,200.019\" id=\"mermaid-svg-1795020946421-81-L_C_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_E_0\" data-points=\"W3sieCI6MTA4OC41LCJ5IjoxMTZ9LHsieCI6MTA4OC41LCJ5IjoxNTcuNX0seyJ4Ijo5NTcuNjI1LCJ5IjoyMDEuMjg3NjkzMTI3MzMwODR9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020946421-81_flowchart-v2-pointEnd)\"></path><path d=\"M1532.25,99L1532.25,108.75C1532.25,118.5,1532.25,138,1437.141,158.756C1342.033,179.511,1151.816,201.523,1056.707,212.529L961.598,223.534\" id=\"mermaid-svg-1795020946421-81-L_D_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_E_0\" data-points=\"W3sieCI6MTUzMi4yNSwieSI6OTl9LHsieCI6MTUzMi4yNSwieSI6MTU3LjV9LHsieCI6OTU3LjYyNSwieSI6MjIzLjk5NDI4NzgyMDE1ODQ2fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020946421-81_flowchart-v2-pointEnd)\"></path><path d=\"M853.875,273L853.875,279.917C853.875,286.833,853.875,300.667,853.875,313.833C853.875,327,853.875,339.5,853.875,345.75L853.875,352\" id=\"mermaid-svg-1795020946421-81-L_E_F_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_E_F_0\" data-points=\"W3sieCI6ODUzLjg3NSwieSI6MjczfSx7IngiOjg1My44NzUsInkiOjMxNC41fSx7IngiOjg1My44NzUsInkiOjM1Nn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020946421-81_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_D_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_E_F_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020946421-81-flowchart-A-0\" data-look=\"classic\" transform=\"translate(194.625, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-145.75\" y=\"-35\" width=\"291.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-113.75, -19)\"><rect></rect><foreignObject width=\"227.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Reach How Many Affected</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020946421-81-flowchart-E-1\" data-look=\"classic\" transform=\"translate(853.875, 236)\"><rect class=\"basic label-container\" style=\"\" x=\"-90.5\" y=\"-35\" width=\"181\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-58.5, -19)\"><rect></rect><foreignObject width=\"117\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>RICE Score</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020946421-81-flowchart-B-2\" data-look=\"classic\" transform=\"translate(619.25, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-150\" y=\"-35\" width=\"300\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-118, -19)\"><rect></rect><foreignObject width=\"236\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Impact How Much Affected</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020946421-81-flowchart-C-4\" data-look=\"classic\" transform=\"translate(1088.5, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-175.5\" y=\"-46\" width=\"351\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-143.5, -30)\"><rect></rect><foreignObject width=\"287\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Confidence How Trustworthy the<br>Reach/Impact Estimates Are</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020946421-81-flowchart-D-6\" data-look=\"classic\" transform=\"translate(1532.25, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-133\" y=\"-35\" width=\"266\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-101, -19)\"><rect></rect><foreignObject width=\"202\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Effort Cost to Build</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020946421-81-flowchart-F-9\" data-look=\"classic\" transform=\"translate(853.875, 393)\"><rect class=\"basic label-container\" style=\"\" x=\"-213.75\" y=\"-35\" width=\"427.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-181.75, -19)\"><rect></rect><foreignObject width=\"363.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Higher Score = Higher Relative Priority</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020946421-81-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020946421-81-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020946421-81-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_51def9f86c"
+        },
+        {
+          "type": "paragraph",
+          "text": "RICE's genuine value is forcing explicit numbers onto each factor, rather than allowing a comparison to remain vague: a candidate initiative that \"feels important\" must be translated into an actual reach estimate, an actual impact estimate, an honest confidence level, and an actual effort estimate, all of which can be questioned and debated on their specific merits, rather than accepting or rejecting the initiative based on an unstated, holistic impression.",
+          "blockId": "blk_140964b8a5"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "Confidence as the Discipline-Enforcing Factor",
+          "blockId": "blk_80778a4d80"
+        },
+        {
+          "type": "paragraph",
+          "text": "The **Confidence** factor deserves particular attention, since it is the mechanism that connects RICE directly back to this curriculum's research rigor (Lessons 11–13, 19). A candidate initiative based on a vivid anecdote or an unvalidated assumption (echoing Lesson 16's \"vivid but rare\" warning) should receive a low confidence score, appropriately discounting its overall RICE score relative to a candidate backed by genuine, validated evidence, even if the vivid anecdote's raw reach and impact estimates look impressive on paper. This is precisely the mechanism that prevents RICE from simply reproducing Lesson 16's \"loudest voice\" or \"vivid but rare\" failure patterns under a different, more formal-looking name: a low-confidence estimate should genuinely lower the score, not be treated as a formality to move past quickly.",
+          "blockId": "blk_0f33b81794"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "MoSCoW: A Qualitative, Stakeholder-Facing Method",
+          "blockId": "blk_b05ff81db5"
+        },
+        {
+          "type": "paragraph",
+          "text": "**MoSCoW** is a simpler, qualitative categorization method, sorting candidate items into four buckets:",
+          "blockId": "blk_e283a643e3"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "**Must have**: absolutely required for this release or initiative to be considered successful or complete.",
+            "**Should have**: important, but the release could technically function without it if truly necessary.",
+            "**Could have**: desirable, but with a clearly lower priority than \"should have\" items.",
+            "**Won't have** (this time): explicitly and deliberately excluded from the current scope, directly echoing Lesson 10's exclusion discipline."
+          ],
+          "blockId": "blk_1e7f09f567"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_499b6d611c",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Candidate Backlog Items] --> B[Must Have Required for Success]\r\n    A --> C[Should Have Important, Not<br/>Release-blocking]\r\n    A --> D[Could Have Desirable, Lower Priority]\r\n    A --> E[\"Won't Have\"<br/>Explicitly Excluded This Time]",
+          "normalized": "graph TD\r\n    A[Candidate Backlog Items] --> B[Must Have Required for Success]\r\n    A --> C[Should Have Important, Not<br/>Release-blocking]\r\n    A --> D[Could Have Desirable, Lower Priority]\r\n    A --> E[\"Won't Have\"<br/>Explicitly Excluded This Time]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020946596-82\" xmlns=\"http://www.w3.org/2000/svg\" width=\"2015.88\" height=\"300\" viewBox=\"-55.75 -27 2015.88 300\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Candidate Backlog Items → Must Have Required for Success → Should Have Important, NotRelease-blocking → Could Have Desirable, Lower Priority → Won't HaveExplicitly Excluded This Time\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Candidate Backlog Items → Must Have Required for Success → Should Have Important, NotRelease-blocking → Could Have Desirable, Lower Priority → Won't HaveExplicitly Excluded This Time</title><style>#mermaid-svg-1795020946596-82{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020946596-82 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020946596-82 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020946596-82 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020946596-82 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020946596-82 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020946596-82 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020946596-82 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020946596-82 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020946596-82 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020946596-82 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020946596-82 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020946596-82 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020946596-82 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020946596-82 p{margin:0;}#mermaid-svg-1795020946596-82 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020946596-82 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020946596-82 .cluster-label span{color:#171A17;}#mermaid-svg-1795020946596-82 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020946596-82 .label text,#mermaid-svg-1795020946596-82 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020946596-82 .node rect,#mermaid-svg-1795020946596-82 .node circle,#mermaid-svg-1795020946596-82 .node ellipse,#mermaid-svg-1795020946596-82 .node polygon,#mermaid-svg-1795020946596-82 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020946596-82 .rough-node .label text,#mermaid-svg-1795020946596-82 .node .label text,#mermaid-svg-1795020946596-82 .image-shape .label,#mermaid-svg-1795020946596-82 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020946596-82 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020946596-82 .rough-node .label,#mermaid-svg-1795020946596-82 .node .label,#mermaid-svg-1795020946596-82 .image-shape .label,#mermaid-svg-1795020946596-82 .icon-shape .label{text-align:center;}#mermaid-svg-1795020946596-82 .node.clickable{cursor:pointer;}#mermaid-svg-1795020946596-82 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020946596-82 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020946596-82 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020946596-82 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020946596-82 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020946596-82 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020946596-82 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020946596-82 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020946596-82 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020946596-82 .cluster text{fill:#171A17;}#mermaid-svg-1795020946596-82 .cluster span{color:#171A17;}#mermaid-svg-1795020946596-82 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020946596-82 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020946596-82 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020946596-82 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020946596-82 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020946596-82 .icon-shape,#mermaid-svg-1795020946596-82 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020946596-82 .icon-shape p,#mermaid-svg-1795020946596-82 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020946596-82 .icon-shape .label rect,#mermaid-svg-1795020946596-82 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020946596-82 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020946596-82 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020946596-82 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020946596-82 [data-look=\"neo\"].node rect,#mermaid-svg-1795020946596-82 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020946596-82 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020946596-82-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946596-82 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020946596-82 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020946596-82-gradient);stroke-width:1px;}#mermaid-svg-1795020946596-82 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946596-82 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020946596-82 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020946596-82-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946596-82 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020946596-82 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020946596-82-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946596-82 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020946596-82-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946596-82 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020946596-82_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946596-82_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946596-82_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946596-82_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020946596-82_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020946596-82_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020946596-82_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020946596-82_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020946596-82_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946596-82_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946596-82_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020946596-82_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M794.75,64.741L702.167,74.534C609.583,84.327,424.417,103.914,331.833,122.79C239.25,141.667,239.25,159.833,239.25,168.917L239.25,178\" id=\"mermaid-svg-1795020946596-82-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6Nzk0Ljc1LCJ5Ijo2NC43NDA2OTM5NTMxNzV9LHsieCI6MjM5LjI1LCJ5IjoxMjMuNX0seyJ4IjoyMzkuMjUsInkiOjE4Mn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020946596-82_flowchart-v2-pointEnd)\"></path><path d=\"M858.768,82L835.849,88.917C812.929,95.833,767.089,109.667,744.17,122.833C721.25,136,721.25,148.5,721.25,154.75L721.25,161\" id=\"mermaid-svg-1795020946596-82-L_A_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_C_0\" data-points=\"W3sieCI6ODU4Ljc2ODMxMjEwMTkxMDksInkiOjgyfSx7IngiOjcyMS4yNSwieSI6MTIzLjV9LHsieCI6NzIxLjI1LCJ5IjoxNjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020946596-82_flowchart-v2-pointEnd)\"></path><path d=\"M1103.982,82L1126.901,88.917C1149.821,95.833,1195.661,109.667,1218.58,125.667C1241.5,141.667,1241.5,159.833,1241.5,168.917L1241.5,178\" id=\"mermaid-svg-1795020946596-82-L_A_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_D_0\" data-points=\"W3sieCI6MTEwMy45ODE2ODc4OTgwODkxLCJ5Ijo4Mn0seyJ4IjoxMjQxLjUsInkiOjEyMy41fSx7IngiOjEyNDEuNSwieSI6MTgyfV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020946596-82_flowchart-v2-pointEnd)\"></path><path d=\"M1168,63.324L1270.146,73.353C1372.292,83.383,1576.583,103.441,1678.729,119.721C1780.875,136,1780.875,148.5,1780.875,154.75L1780.875,161\" id=\"mermaid-svg-1795020946596-82-L_A_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_E_0\" data-points=\"W3sieCI6MTE2OCwieSI6NjMuMzI0MDMwNjQ0MTUyNn0seyJ4IjoxNzgwLjg3NSwieSI6MTIzLjV9LHsieCI6MTc4MC44NzUsInkiOjE2NX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020946596-82_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020946596-82-flowchart-A-0\" data-look=\"classic\" transform=\"translate(981.375, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-145.75\" y=\"-35\" width=\"291.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-113.75, -19)\"><rect></rect><foreignObject width=\"227.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Candidate Backlog Items</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020946596-82-flowchart-B-1\" data-look=\"classic\" transform=\"translate(239.25, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-175.5\" y=\"-35\" width=\"351\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-143.5, -19)\"><rect></rect><foreignObject width=\"287\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Must Have Required for Success</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020946596-82-flowchart-C-3\" data-look=\"classic\" transform=\"translate(721.25, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-158.5\" y=\"-46\" width=\"317\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-126.5, -30)\"><rect></rect><foreignObject width=\"253\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Should Have Important, Not<br>Release-blocking</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020946596-82-flowchart-D-5\" data-look=\"classic\" transform=\"translate(1241.5, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-201\" y=\"-35\" width=\"402\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-169, -19)\"><rect></rect><foreignObject width=\"338\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Could Have Desirable, Lower Priority</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020946596-82-flowchart-E-7\" data-look=\"classic\" transform=\"translate(1780.875, 219)\"><rect class=\"basic label-container\" style=\"\" x=\"-171.25\" y=\"-46\" width=\"342.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-139.25, -30)\"><rect></rect><foreignObject width=\"278.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Won't Have<br>Explicitly Excluded This Time</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020946596-82-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020946596-82-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020946596-82-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_499b6d611c"
+        },
+        {
+          "type": "paragraph",
+          "text": "MoSCoW is often more appropriate than RICE when a team needs to communicate priority quickly and clearly to a broad set of stakeholders (particularly non-specialist stakeholders less familiar with a quantitative scoring model), or when the goal is defining the boundary of a specific release rather than ranking a large, diverse backlog against each other on a single numeric scale. Its explicit \"Won't have\" category is a particularly valuable discipline, directly enforcing Lesson 10's argument that a real strategic choice requires explicit exclusion: MoSCoW makes that exclusion a visible, named category rather than an implicit, unstated omission.",
+          "blockId": "blk_2ef5f75dc0"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "\"Eating the Frog\" vs. Artificially Easy Sequencing",
+          "blockId": "blk_24cdf1805a"
+        },
+        {
+          "type": "paragraph",
+          "text": "A specific, practical sequencing question, once priorities are established, is: within a set of similarly prioritized items, should a team tackle the hardest, highest-value item first, or build momentum with easier wins first? **\"Eating the frog\"** (a phrase associated with productivity writing, referring to tackling the most difficult, most important task first) argues for confronting the highest-value hard work early, since delaying it often means it never actually gets done, or gets rushed under worse conditions later.",
+          "blockId": "blk_c8d7c11733"
+        },
+        {
+          "type": "paragraph",
+          "text": "The countervailing consideration is that **artificially easy sequencing** (deliberately front-loading a series of easy wins) can build genuine team and stakeholder confidence, demonstrate visible progress, and (particularly relevant to this curriculum's discovery discipline) surface early, cheap learning that might usefully inform how the harder, more important work is eventually approached. Neither approach is universally correct; the choice depends on specific context: how urgent the hard problem actually is, whether early wins would genuinely inform the harder work or merely delay it, and how much organizational patience and trust currently exists for a team to spend significant time on a single, high-value, high-difficulty initiative without visible interim progress.",
+          "blockId": "blk_3df7075126"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_e9d16a530d",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[Sequencing Choice] --> B[\"Eat the Frog\" Tackle Hardest,<br/>Highest-value Item First]\r\n    A --> C[Easy Wins First Build<br/>Momentum, Gather Cheap Learning]\r\n    B --> D[Risk: Delayed Learning,<br/>Delayed Visible Progress]\r\n    C --> E[Risk: Hard Work Gets<br/>Perpetually Deferred]",
+          "normalized": "graph LR\r\n    A[Sequencing Choice] --> B[\"Eat the Frog\" Tackle Hardest,<br/>Highest-value Item First]\r\n    A --> C[Easy Wins First Build<br/>Momentum, Gather Cheap Learning]\r\n    B --> D[Risk: Delayed Learning,<br/>Delayed Visible Progress]\r\n    C --> E[Risk: Hard Work Gets<br/>Perpetually Deferred]",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020946773-83\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1379\" height=\"296\" viewBox=\"-38 -27 1379 296\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Sequencing Choice → Eat the Frog Tackle Hardest,Highest-value Item First → Easy Wins First BuildMomentum, Gather Cheap Learning → Risk: Delayed Learning,Delayed Visible Progress → Risk: Hard Work GetsPerpetually Deferred\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Sequencing Choice → Eat the Frog Tackle Hardest,Highest-value Item First → Easy Wins First BuildMomentum, Gather Cheap Learning → Risk: Delayed Learning,Delayed Visible Progress → Risk: Hard Work GetsPerpetually Deferred</title><style>#mermaid-svg-1795020946773-83{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020946773-83 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020946773-83 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020946773-83 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020946773-83 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020946773-83 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020946773-83 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020946773-83 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020946773-83 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020946773-83 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020946773-83 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020946773-83 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020946773-83 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020946773-83 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020946773-83 p{margin:0;}#mermaid-svg-1795020946773-83 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020946773-83 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020946773-83 .cluster-label span{color:#171A17;}#mermaid-svg-1795020946773-83 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020946773-83 .label text,#mermaid-svg-1795020946773-83 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020946773-83 .node rect,#mermaid-svg-1795020946773-83 .node circle,#mermaid-svg-1795020946773-83 .node ellipse,#mermaid-svg-1795020946773-83 .node polygon,#mermaid-svg-1795020946773-83 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020946773-83 .rough-node .label text,#mermaid-svg-1795020946773-83 .node .label text,#mermaid-svg-1795020946773-83 .image-shape .label,#mermaid-svg-1795020946773-83 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020946773-83 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020946773-83 .rough-node .label,#mermaid-svg-1795020946773-83 .node .label,#mermaid-svg-1795020946773-83 .image-shape .label,#mermaid-svg-1795020946773-83 .icon-shape .label{text-align:center;}#mermaid-svg-1795020946773-83 .node.clickable{cursor:pointer;}#mermaid-svg-1795020946773-83 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020946773-83 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020946773-83 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020946773-83 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020946773-83 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020946773-83 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020946773-83 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020946773-83 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020946773-83 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020946773-83 .cluster text{fill:#171A17;}#mermaid-svg-1795020946773-83 .cluster span{color:#171A17;}#mermaid-svg-1795020946773-83 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020946773-83 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020946773-83 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020946773-83 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020946773-83 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020946773-83 .icon-shape,#mermaid-svg-1795020946773-83 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020946773-83 .icon-shape p,#mermaid-svg-1795020946773-83 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020946773-83 .icon-shape .label rect,#mermaid-svg-1795020946773-83 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020946773-83 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020946773-83 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020946773-83 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020946773-83 [data-look=\"neo\"].node rect,#mermaid-svg-1795020946773-83 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020946773-83 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020946773-83-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946773-83 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020946773-83 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020946773-83-gradient);stroke-width:1px;}#mermaid-svg-1795020946773-83 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946773-83 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020946773-83 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020946773-83-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946773-83 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020946773-83 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020946773-83-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946773-83 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020946773-83-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946773-83 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020946773-83_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946773-83_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946773-83_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946773-83_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020946773-83_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020946773-83_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020946773-83_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020946773-83_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020946773-83_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946773-83_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946773-83_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020946773-83_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M253.53,101.5L270.817,94.917C288.103,88.333,322.677,75.167,351.234,68.583C379.792,62,402.333,62,413.604,62L424.875,62\" id=\"mermaid-svg-1795020946773-83-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6MjUzLjUzMDIyODc1ODE2OTkzLCJ5IjoxMDEuNX0seyJ4IjozNTcuMjUsInkiOjYyfSx7IngiOjQyOC44NzUsInkiOjYyfV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020946773-83_flowchart-v2-pointEnd)\"></path><path d=\"M253.53,175.5L270.817,182.083C288.103,188.667,322.677,201.833,348.047,208.417C373.417,215,389.583,215,397.667,215L405.75,215\" id=\"mermaid-svg-1795020946773-83-L_A_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_C_0\" data-points=\"W3sieCI6MjUzLjUzMDIyODc1ODE2OTkzLCJ5IjoxNzUuNX0seyJ4IjozNTcuMjUsInkiOjIxNX0seyJ4Ijo0MDkuNzUsInkiOjIxNX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020946773-83_flowchart-v2-pointEnd)\"></path><path d=\"M865.875,62L877.813,62C889.75,62,913.625,62,933.646,62C953.667,62,969.833,62,977.917,62L986,62\" id=\"mermaid-svg-1795020946773-83-L_B_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_D_0\" data-points=\"W3sieCI6ODY1Ljg3NSwieSI6NjJ9LHsieCI6OTM3LjUsInkiOjYyfSx7IngiOjk5MCwieSI6NjJ9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020946773-83_flowchart-v2-pointEnd)\"></path><path d=\"M885,215L893.75,215C902.5,215,920,215,941.083,215C962.167,215,986.833,215,999.167,215L1011.5,215\" id=\"mermaid-svg-1795020946773-83-L_C_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_E_0\" data-points=\"W3sieCI6ODg1LCJ5IjoyMTV9LHsieCI6OTM3LjUsInkiOjIxNX0seyJ4IjoxMDE1LjUsInkiOjIxNX1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020946773-83_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020946773-83-flowchart-A-0\" data-look=\"classic\" transform=\"translate(156.375, 138.5)\"><rect class=\"basic label-container\" style=\"\" x=\"-120.25\" y=\"-35\" width=\"240.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-88.25, -19)\"><rect></rect><foreignObject width=\"176.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Sequencing Choice</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020946773-83-flowchart-B-1\" data-look=\"classic\" transform=\"translate(647.375, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-167\" y=\"-46\" width=\"334\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-135, -30)\"><rect></rect><foreignObject width=\"270\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Eat the Frog Tackle Hardest,<br>Highest-value Item First</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020946773-83-flowchart-C-3\" data-look=\"classic\" transform=\"translate(647.375, 215)\"><rect class=\"basic label-container\" style=\"\" x=\"-179.75\" y=\"-46\" width=\"359.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-147.75, -30)\"><rect></rect><foreignObject width=\"295.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Easy Wins First Build<br>Momentum, Gather Cheap Learning</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020946773-83-flowchart-D-5\" data-look=\"classic\" transform=\"translate(1183, 62)\"><rect class=\"basic label-container\" style=\"\" x=\"-150\" y=\"-46\" width=\"300\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-118, -30)\"><rect></rect><foreignObject width=\"236\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Risk: Delayed Learning,<br>Delayed Visible Progress</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020946773-83-flowchart-E-7\" data-look=\"classic\" transform=\"translate(1183, 215)\"><rect class=\"basic label-container\" style=\"\" x=\"-133\" y=\"-46\" width=\"266\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-101, -30)\"><rect></rect><foreignObject width=\"202\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Risk: Hard Work Gets<br>Perpetually Deferred</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020946773-83-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020946773-83-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020946773-83-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_e9d16a530d"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The \"Prioritization Theater\" Failure Pattern",
+          "blockId": "blk_a74643cd58"
+        },
+        {
+          "type": "paragraph",
+          "text": "A specific, important failure pattern (directly extending Lesson 8's discovery theater concept) is **prioritization theater**: applying a formal-looking scoring framework (RICE, MoSCoW, or any other named method) to a set of candidates whose actual priority order has already been decided for other reasons (executive preference, sunk cost, internal politics), with the scoring exercise conducted after the fact specifically to produce numbers that justify the already-determined outcome. This directly parallels Lesson 24's warning about acceptance criteria written after the fact: a scoring framework applied retroactively, to rationalize a decision rather than genuinely inform it, provides the appearance of rigor without any of its substance.",
+          "blockId": "blk_27f948aeb2"
+        },
+        {
+          "type": "paragraph",
+          "text": "The corrective discipline is the same one this curriculum has applied repeatedly: a genuine prioritization exercise must be capable, in principle, of producing a result that contradicts the team's initial expectation or preference. If a RICE or MoSCoW exercise never once produces a surprising or uncomfortable ranking, that is itself a warning sign worth taking seriously, echoing Lesson 8's core discovery-theater diagnostic applied directly to the practice of prioritization.",
+          "blockId": "blk_438d89c44a"
+        }
+      ],
+      "blockId": "blk_c9cb15b29d"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Treating RICE scores as precise, objective numbers rather than structured estimates",
+          "body": "RICE scores are only as good as the underlying reach, impact, and confidence estimates feeding into them: treating the resulting number as objectively precise, rather than as a structured, debatable estimate, overstates the framework's actual certainty."
+        },
+        {
+          "title": "Assigning high confidence scores to vivid anecdotes or unvalidated assumptions",
+          "body": "This directly reintroduces Lesson 16's \"vivid but rare\" and \"loudest voice\" failure patterns under RICE's formal-looking numeric structure. Confidence should genuinely reflect the strength of underlying evidence, not the persuasiveness or memorability of how a candidate was pitched."
+        },
+        {
+          "title": "Using RICE when MoSCoW would communicate priority more clearly to a broad stakeholder audience, or vice versa",
+          "body": "These frameworks serve different purposes (RICE for ranking dissimilar candidates on a common numeric scale, MoSCoW for defining release scope and communicating clearly with less quantitatively focused stakeholders), and using the wrong one for the specific situation reduces the exercise's practical value."
+        },
+        {
+          "title": "Defaulting to \"easy wins first\" purely to avoid difficult work, rather than as a deliberate, justified sequencing choice",
+          "body": "Artificially easy sequencing can be a legitimate strategy in the right context, but defaulting to it simply to defer difficult, high-value work indefinitely produces the opposite of genuine prioritization discipline."
+        },
+        {
+          "title": "Running a prioritization exercise after a decision has already effectively been made, to produce justifying numbers rather than genuine input",
+          "body": "This is prioritization theater: a formal-looking exercise that could not, even in principle, have changed the outcome is not really prioritizing anything.\n\n"
+        }
+      ],
+      "blockId": "blk_4a20c51c24"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The Prioritization Synthesis Funnel",
+      "diagram": {
+        "blockId": "blk_9dd91b1a83",
+        "type": "mermaid"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "This lesson's mental model is the **Prioritization Synthesis Funnel**, which shows how this curriculum's earlier, narrower prioritization tools feed into a single, formal framework like RICE or MoSCoW.",
+          "blockId": "blk_591a42b23a"
+        },
+        {
+          "type": "paragraph",
+          "text": "Use this funnel as a synthesis discipline: when scoring a candidate's Impact for RICE, or deciding whether it's a \"Must have\" for MoSCoW, explicitly draw on the specific evidence this curriculum's earlier tools have already produced (a pain point's established severity and frequency, an opportunity's importance-satisfaction gap and segment prevalence, and whether the initiative follows from the company's actual guiding policy) rather than re-deriving a fresh, unmoored judgment from scratch for each new prioritization exercise.",
+          "blockId": "blk_7e7a10e0b2"
+        }
+      ],
+      "blockId": "blk_dd09ccd3ce"
+    },
+    {
+      "type": "mermaid",
+      "id": "blk_9dd91b1a83",
+      "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph TD\r\n    A[Severity/Frequency Lesson 16] --> E[Prioritization Framework RICE or MoSCoW]\r\n    B[Opportunity Sizing Lesson 19] --> E\r\n    C[Strategic Fit Lesson 10 Guiding Policy] --> E\r\n    D[Vision/Value Prop Filters Lessons 7, 9] --> E\r\n    E --> F[Explicit, Defensible<br/>Prioritization Decision]",
+      "normalized": "graph TD\r\n    A[Severity/Frequency Lesson 16] --> E[Prioritization Framework RICE or MoSCoW]\r\n    B[Opportunity Sizing Lesson 19] --> E\r\n    C[Strategic Fit Lesson 10 Guiding Policy] --> E\r\n    D[Vision/Value Prop Filters Lessons 7, 9] --> E\r\n    E --> F[Explicit, Defensible<br/>Prioritization Decision]",
+      "authorTheme": {
+        "background": "#0b0b0c",
+        "primaryColor": "#1f1f23",
+        "primaryTextColor": "#ffffff",
+        "primaryBorderColor": "#8b5cf6",
+        "lineColor": "#d1d5db",
+        "secondaryColor": "#18181b",
+        "tertiaryColor": "#111111",
+        "mainBkg": "#1f1f23",
+        "nodeBorder": "#8b5cf6",
+        "clusterBkg": "#000000",
+        "clusterBorder": "#27272a",
+        "titleColor": "#ffffff",
+        "edgeLabelBackground": "#0b0b0c",
+        "nodeTextColor": "#ffffff",
+        "edgeLabelColor": "#ffffff",
+        "actorBorder": "#8b5cf6",
+        "actorBkg": "#1f1f23",
+        "actorTextColor": "#ffffff",
+        "sequenceNumberColor": "#ffffff",
+        "signalColor": "#8b5cf6",
+        "signalTextColor": "#ffffff",
+        "textColor": "#ffffff",
+        "classText": "#ffffff",
+        "classBorder": "#8b5cf6",
+        "classBkg": "#1f1f23"
+      },
+      "svg": "<svg id=\"mermaid-svg-1795020946945-84\" xmlns=\"http://www.w3.org/2000/svg\" width=\"2132.75\" height=\"457\" viewBox=\"-51.5 -27 2132.75 457\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Severity/Frequency Lesson 16 → Prioritization Framework RICE or MoSCoW → Opportunity Sizing Lesson 19 → Strategic Fit Lesson 10 Guiding Policy → Vision/Value Prop Filters Lessons 7, 9...\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Severity/Frequency Lesson 16 → Prioritization Framework RICE or MoSCoW → Opportunity Sizing Lesson 19 → Strategic Fit Lesson 10 Guiding Policy → Vision/Value Prop Filters Lessons 7, 9...</title><style>#mermaid-svg-1795020946945-84{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020946945-84 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020946945-84 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020946945-84 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020946945-84 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020946945-84 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020946945-84 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020946945-84 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020946945-84 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020946945-84 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020946945-84 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020946945-84 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020946945-84 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020946945-84 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020946945-84 p{margin:0;}#mermaid-svg-1795020946945-84 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020946945-84 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020946945-84 .cluster-label span{color:#171A17;}#mermaid-svg-1795020946945-84 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020946945-84 .label text,#mermaid-svg-1795020946945-84 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020946945-84 .node rect,#mermaid-svg-1795020946945-84 .node circle,#mermaid-svg-1795020946945-84 .node ellipse,#mermaid-svg-1795020946945-84 .node polygon,#mermaid-svg-1795020946945-84 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020946945-84 .rough-node .label text,#mermaid-svg-1795020946945-84 .node .label text,#mermaid-svg-1795020946945-84 .image-shape .label,#mermaid-svg-1795020946945-84 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020946945-84 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020946945-84 .rough-node .label,#mermaid-svg-1795020946945-84 .node .label,#mermaid-svg-1795020946945-84 .image-shape .label,#mermaid-svg-1795020946945-84 .icon-shape .label{text-align:center;}#mermaid-svg-1795020946945-84 .node.clickable{cursor:pointer;}#mermaid-svg-1795020946945-84 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020946945-84 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020946945-84 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020946945-84 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020946945-84 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020946945-84 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020946945-84 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020946945-84 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020946945-84 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020946945-84 .cluster text{fill:#171A17;}#mermaid-svg-1795020946945-84 .cluster span{color:#171A17;}#mermaid-svg-1795020946945-84 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020946945-84 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020946945-84 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020946945-84 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020946945-84 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020946945-84 .icon-shape,#mermaid-svg-1795020946945-84 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020946945-84 .icon-shape p,#mermaid-svg-1795020946945-84 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020946945-84 .icon-shape .label rect,#mermaid-svg-1795020946945-84 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020946945-84 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020946945-84 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020946945-84 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020946945-84 [data-look=\"neo\"].node rect,#mermaid-svg-1795020946945-84 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020946945-84 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020946945-84-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946945-84 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020946945-84 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020946945-84-gradient);stroke-width:1px;}#mermaid-svg-1795020946945-84 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946945-84 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020946945-84 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020946945-84-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946945-84 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020946945-84 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020946945-84-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946945-84 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020946945-84-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020946945-84 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020946945-84_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946945-84_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946945-84_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946945-84_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020946945-84_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020946945-84_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020946945-84_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020946945-84_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020946945-84_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946945-84_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020946945-84_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020946945-84_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M226.5,82L226.5,88.917C226.5,95.833,226.5,109.667,303.545,124.595C380.59,139.524,534.681,155.548,611.726,163.56L688.771,171.572\" id=\"mermaid-svg-1795020946945-84-L_A_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_E_0\" data-points=\"W3sieCI6MjI2LjUsInkiOjgyfSx7IngiOjIyNi41LCJ5IjoxMjMuNX0seyJ4Ijo2OTIuNzUsInkiOjE3MS45ODU2NzY0MzY0OTYxfV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020946945-84_flowchart-v2-pointEnd)\"></path><path d=\"M708.5,82L708.5,88.917C708.5,95.833,708.5,109.667,731.902,123.316C755.305,136.965,802.11,150.429,825.512,157.162L848.915,163.894\" id=\"mermaid-svg-1795020946945-84-L_B_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_E_0\" data-points=\"W3sieCI6NzA4LjUsInkiOjgyfSx7IngiOjcwOC41LCJ5IjoxMjMuNX0seyJ4Ijo4NTIuNzU4NzU3OTYxNzgzNCwieSI6MTY1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020946945-84_flowchart-v2-pointEnd)\"></path><path d=\"M1254.25,82L1254.25,88.917C1254.25,95.833,1254.25,109.667,1230.848,123.316C1207.445,136.965,1160.64,150.429,1137.238,157.162L1113.835,163.894\" id=\"mermaid-svg-1795020946945-84-L_C_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_E_0\" data-points=\"W3sieCI6MTI1NC4yNSwieSI6ODJ9LHsieCI6MTI1NC4yNSwieSI6MTIzLjV9LHsieCI6MTEwOS45OTEyNDIwMzgyMTY2LCJ5IjoxNjV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020946945-84_flowchart-v2-pointEnd)\"></path><path d=\"M1863.75,82L1863.75,88.917C1863.75,95.833,1863.75,109.667,1765.456,125.328C1667.161,140.989,1470.573,158.479,1372.279,167.223L1273.984,175.968\" id=\"mermaid-svg-1795020946945-84-L_D_E_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_E_0\" data-points=\"W3sieCI6MTg2My43NSwieSI6ODJ9LHsieCI6MTg2My43NSwieSI6MTIzLjV9LHsieCI6MTI3MCwieSI6MTc2LjMyMjYzNzc2NzM4OTE1fV0=\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020946945-84_flowchart-v2-pointEnd)\"></path><path d=\"M981.375,239L981.375,245.917C981.375,252.833,981.375,266.667,981.375,279.833C981.375,293,981.375,305.5,981.375,311.75L981.375,318\" id=\"mermaid-svg-1795020946945-84-L_E_F_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_E_F_0\" data-points=\"W3sieCI6OTgxLjM3NSwieSI6MjM5fSx7IngiOjk4MS4zNzUsInkiOjI4MC41fSx7IngiOjk4MS4zNzUsInkiOjMyMn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020946945-84_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_D_E_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_E_F_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020946945-84-flowchart-A-0\" data-look=\"classic\" transform=\"translate(226.5, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-167\" y=\"-35\" width=\"334\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-135, -19)\"><rect></rect><foreignObject width=\"270\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Severity/Frequency Lesson 16</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020946945-84-flowchart-E-1\" data-look=\"classic\" transform=\"translate(981.375, 202)\"><rect class=\"basic label-container\" style=\"\" x=\"-213.75\" y=\"-35\" width=\"427.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-181.75, -19)\"><rect></rect><foreignObject width=\"363.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Prioritization Framework RICE or MoSCoW</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020946945-84-flowchart-B-2\" data-look=\"classic\" transform=\"translate(708.5, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-167\" y=\"-35\" width=\"334\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-135, -19)\"><rect></rect><foreignObject width=\"270\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Opportunity Sizing Lesson 19</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020946945-84-flowchart-C-4\" data-look=\"classic\" transform=\"translate(1254.25, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-209.5\" y=\"-35\" width=\"419\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-177.5, -19)\"><rect></rect><foreignObject width=\"355\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Strategic Fit Lesson 10 Guiding Policy</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020946945-84-flowchart-D-6\" data-look=\"classic\" transform=\"translate(1863.75, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-209.5\" y=\"-35\" width=\"419\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-177.5, -19)\"><rect></rect><foreignObject width=\"355\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Vision/Value Prop Filters Lessons 7, 9</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020946945-84-flowchart-F-9\" data-look=\"classic\" transform=\"translate(981.375, 376)\"><rect class=\"basic label-container\" style=\"\" x=\"-145.75\" y=\"-46\" width=\"291.5\" height=\"92\"></rect><g class=\"label\" style=\"\" transform=\"translate(-113.75, -30)\"><rect></rect><foreignObject width=\"227.5\" height=\"60\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Explicit, Defensible<br>Prioritization Decision</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020946945-84-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020946945-84-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020946945-84-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+      "blockId": "blk_9dd91b1a83"
+    },
+    {
+      "type": "companyExample",
+      "company": "Intercom",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "**Intercom** is the actual origin of RICE, not just a well-documented user of it: the framework was developed by Sean McBride while he was a PM on Intercom's growth team, specifically because his team needed a consistent way to compare dissimilar candidate initiatives (a small bug fix against a substantial new feature) on a single, defensible scale, rather than relying on ad hoc comparisons or whichever idea had the most vocal internal advocate at a given planning meeting. McBride has written and spoken publicly about the framework's origin, and RICE has since become one of the most widely adopted scoring frameworks in the industry.",
+          "blockId": "blk_afcfd34113"
+        }
+      ],
+      "assumptionFlags": [
+        "this reflects Intercom's own publicly shared account of developing and using RICE rather than a claim about the framework's universal applicability or Intercom's complete, current internal prioritization process, which this curriculum does not claim certainty about."
+      ],
+      "blockId": "blk_641985d170"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "At a startup",
+          "body": "Prioritization is often concentrated on an extremely small number of genuinely make-or-break decisions, and lightweight, qualitative methods (a simple ranked list, informal MoSCoW-style categorization) frequently suffice given the smaller volume of candidates and closer, more informal team collaboration. The underlying discipline (explicit criteria, genuine willingness to exclude, confidence honestly reflecting evidence quality) matters as much as at any other stage, even without a fully formalized RICE process."
+        },
+        {
+          "context": "At a mid-size company",
+          "body": "Formal frameworks like RICE often become genuinely valuable as backlog size and organizational complexity grow beyond what informal, ad hoc comparison can handle consistently, and this is frequently the stage where prioritization theater risk increases, as more stakeholders with more varied interests attempt to influence outcomes, making a genuinely defensible, evidence-grounded scoring exercise more valuable, and more likely to be circumvented informally if not actively protected."
+        },
+        {
+          "context": "At Big Tech",
+          "body": "Prioritization at scale often requires reconciling multiple, semi-independent teams' RICE or similar scores against a shared, company-wide strategic framework (echoing Lesson 10), and a significant part of senior product leadership's role involves ensuring that formal scoring frameworks remain genuine inputs to real decisions across the organization, rather than degenerating into prioritization theater performed independently by each team to justify their own pre-existing preferences."
+        }
+      ],
+      "blockId": "blk_e9464d2480"
+    },
+    {
+      "type": "caseStudy",
+      "title": "The RICE Score That Was Reverse-Engineered",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Consider a simplified, illustrative scenario common across mid-size B2B SaaS product teams.",
+          "blockId": "blk_bb9c18b092"
+        },
+        {
+          "type": "paragraph",
+          "text": "A product team is asked by a senior executive to prioritize a specific feature the executive has personally championed for several months, ahead of several other candidate initiatives the team's own research (following this curriculum's Modules 1 and 2) had identified as more strongly validated and higher-value. Wanting to appear rigorous and data-driven, the team runs a formal RICE scoring exercise across all candidates, but, consciously or not, assigns unusually high Reach and Impact estimates to the executive's preferred feature, and an unusually high Confidence score despite the feature having no supporting research beyond the executive's personal conviction, while applying stricter, more skeptical scrutiny to the reach, impact, and confidence estimates for the team's own, better-validated candidates.",
+          "blockId": "blk_8c9db3b948"
+        },
+        {
+          "type": "paragraph",
+          "text": "The resulting RICE scores rank the executive's preferred feature at the top, and the team proceeds to build it. Nine months later, the feature sees minimal adoption, while a lower-ranked candidate from the same exercise, one the team's own prior research (per Lesson 19's opportunity sizing) had actually identified as significantly higher-value, remains unaddressed, its genuine potential value still sitting unrealized in the team's backlog.",
+          "blockId": "blk_e56695ca5e"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong?**",
+          "blockId": "blk_041dffb454"
+        },
+        {
+          "type": "paragraph",
+          "text": "Applying this lesson's frameworks:",
+          "blockId": "blk_c30919d297"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**The RICE exercise was prioritization theater, not genuine prioritization.** The scoring inputs were adjusted, consciously or not, to produce a predetermined outcome (validating the executive's preference) rather than genuinely reflecting the team's actual evidence and confidence levels.",
+            "**The Confidence factor was specifically misapplied**: a feature with no supporting research beyond personal conviction should have received a low confidence score, appropriately discounting its overall RICE score, rather than an inflated confidence score that obscured the actual weakness of its underlying evidence.",
+            "**The genuinely well-validated candidate, backed by this curriculum's Module 2 research discipline, was held to a higher evidentiary bar than the executive's preferred feature**: an inconsistent standard applied specifically to produce the desired ranking, rather than a uniform, honest standard applied to all candidates equally."
+          ],
+          "blockId": "blk_50b0545b93"
+        },
+        {
+          "type": "paragraph",
+          "text": "A team applying this lesson's discipline rigorously would have scored all candidates using the same honest, evidence-grounded standard: assigning the executive's preferred feature a genuinely low confidence score given its lack of supporting research, and the team's own validated candidate a correspondingly higher confidence score given its grounding in Lesson 19's opportunity-sizing evidence, very likely producing a RICE ranking that would have required the team to have an honest, evidence-based conversation with the executive about the relative merits of the two candidates, rather than using a superficially rigorous exercise to avoid that conversation entirely.",
+          "blockId": "blk_eea959234c"
+        },
+        {
+          "type": "paragraph",
+          "text": "This case connects directly back to **Lesson 8's discovery theater concept**: a scoring exercise that could not, even in principle, have produced a result different from the predetermined outcome was never actually prioritizing anything. It was providing a formal-looking justification for a decision made through other means entirely.",
+          "blockId": "blk_30906ecc04"
+        }
+      ],
+      "blockId": "blk_cbdde42f5e"
+    },
+    {
+      "type": "framework",
+      "name": "The Prioritization Integrity Checklist",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A practical checklist for evaluating whether a prioritization exercise is genuine rather than theater:",
+          "blockId": "blk_c604d65274"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Question",
+            "Purpose"
+          ],
+          "rows": [
+            [
+              "Were Reach, Impact, and Confidence (or MoSCoW categories) scored using the same honest standard for every candidate, regardless of who championed each one?",
+              "Prevents inconsistent scrutiny applied selectively to favor a predetermined outcome"
+            ],
+            [
+              "Does the Confidence score genuinely reflect the strength of underlying evidence (per Lesson 11's Evidence Trustworthiness Ladder), rather than the persuasiveness of the pitch?",
+              "Prevents \"vivid but rare\" and \"loudest voice\" patterns from re-entering under a formal-looking numeric disguise"
+            ],
+            [
+              "Could this exercise, in principle, have produced a result contradicting the team's initial expectation or a stakeholder's preference?",
+              "Directly tests for prioritization theater, echoing Lesson 8's genuine-test criterion"
+            ],
+            [
+              "Were the earlier, narrower prioritization tools from this curriculum (severity/frequency, opportunity sizing, strategic fit) actually drawn upon as inputs, or was this exercise conducted in isolation from that prior evidence?",
+              "Ensures genuine synthesis rather than a fresh, unmoored scoring exercise"
+            ]
+          ],
+          "blockId": "blk_d6787636d1"
+        },
+        {
+          "type": "paragraph",
+          "text": "A prioritization exercise failing several of these checks risks the exact outcome shown in this lesson's Detailed Case Study: a formally rigorous-looking process that nonetheless produced a predetermined, ultimately costly result.",
+          "blockId": "blk_f1f9b22e32"
+        }
+      ],
+      "blockId": "blk_8b2b023619"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "How do you prioritize a backlog with many dissimilar candidate initiatives?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate names a specific, defensible framework (RICE, MoSCoW, or a similar named method) and can explain each factor's role, rather than describing a purely intuitive or unstructured process."
+        },
+        {
+          "question": "Tell me about a time you had to prioritize against a senior stakeholder's strong preference. How did you handle it?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Direct experience navigating the exact tension shown in this lesson's Detailed Case Study, and whether the candidate can describe an honest, evidence-grounded resolution rather than either capitulating uncritically or dismissing the stakeholder's input without genuine engagement."
+        },
+        {
+          "question": "How do you know if a prioritization process is genuine, rather than just justifying a decision that's already been made?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Fluency with the prioritization theater concept, whether the candidate can articulate the specific diagnostic (could this exercise have produced a contradicting result?) rather than treating the mere existence of a formal framework as sufficient evidence of genuine rigor."
+        }
+      ],
+      "blockId": "blk_42b223b05d"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Prioritization is the practice of deciding what to work on next using an explicit, defensible method, generalizing this curriculum's earlier, narrower scoring tools (severity/frequency, opportunity sizing, strategic fit) into formal, named frameworks. RICE (Reach × Impact × Confidence / Effort) provides a quantitative scoring method for comparing dissimilar candidates on a common scale, with Confidence serving as the critical discipline-enforcing factor that should genuinely reflect underlying evidence quality (per Lesson 11's Evidence Trustworthiness Ladder), preventing vivid but weakly evidenced candidates from scoring artificially high. MoSCoW (Must/Should/Could/Won't have) provides a simpler, qualitative categorization better suited to communicating release scope clearly to broad stakeholder audiences, with its explicit \"Won't have\" category directly enforcing Lesson 10's exclusion discipline. Sequencing choices (\"eating the frog\" versus building momentum with easier wins first) depend on specific context rather than a universally correct answer. Finally, \"prioritization theater\" (applying a formal-looking framework to justify a decision already made for other reasons) is a critical failure pattern to guard against, diagnosable by asking whether the exercise could, in principle, have produced a contradicting result, as this lesson's Detailed Case Study makes concrete.",
+          "blockId": "blk_2854b18eb7"
+        }
+      ],
+      "blockId": "blk_e0e2e6ab29"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "RICE (Reach × Impact × Confidence / Effort) provides a quantitative method for scoring and comparing dissimilar candidate initiatives on a common scale.",
+        "The Confidence factor should genuinely reflect underlying evidence quality (per Lesson 11's Evidence Trustworthiness Ladder), preventing vivid but weakly evidenced candidates from scoring artificially high.",
+        "MoSCoW (Must/Should/Could/Won't have) is a simpler, qualitative method better suited to communicating release scope to broad stakeholder audiences; its \"Won't have\" category enforces genuine strategic exclusion.",
+        "\"Eating the frog\" (tackling the highest-value hard thing first) and easy-wins-first sequencing both have legitimate uses depending on context; neither is universally correct.",
+        "\"Prioritization theater\" (using a formal framework to justify a predetermined decision) is diagnosable by asking whether the exercise could, in principle, have produced a contradicting result.",
+        "Genuine prioritization synthesizes this curriculum's earlier, narrower tools (severity/frequency, opportunity sizing, strategic fit) as actual inputs, rather than re-deriving fresh judgments in isolation.",
+        "Consistent, honest scoring standards must be applied to every candidate regardless of who championed it, or the exercise risks reintroducing exactly the \"loudest voice\" and \"vivid but rare\" failure patterns it's meant to prevent."
+      ],
+      "blockId": "blk_e08f01a4c3"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "**RICE = (Reach × Impact × Confidence) / Effort.** Confidence should reflect real evidence quality, not persuasiveness.",
+        "**MoSCoW = Must/Should/Could/Won't have.** Better for broad stakeholder communication and defining release scope; \"Won't have\" enforces real exclusion.",
+        "**Eat the frog vs. easy wins first**: context-dependent, not universally correct either way.",
+        "**Prioritization theater test:** could this exercise, in principle, have produced a result contradicting the predetermined preference? If not, it's theater.",
+        "**Synthesize, don't re-derive**: draw on severity/frequency, opportunity sizing, and strategic fit as actual scoring inputs.",
+        "**Same honest standard for every candidate**: regardless of who's championing it."
+      ],
+      "blockId": "blk_2d57ed83ee"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "RICE",
+          "definition": "A quantitative prioritization framework: (Reach × Impact × Confidence) / Effort.",
+          "relatedConcepts": [
+            "Evidence Trustworthiness Ladder (Lesson 11)"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "MoSCoW",
+          "definition": "A qualitative prioritization method categorizing items as Must/Should/Could/Won't have.",
+          "relatedConcepts": [
+            "Exclusion Discipline (Lesson 10)"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "\"Eating the Frog\"",
+          "definition": "The practice of tackling the highest-value, hardest task first, rather than deferring it.",
+          "relatedConcepts": [
+            "Sequencing"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "\"Prioritization Theater\" (Failure Pattern)",
+          "definition": "Applying a formal-looking prioritization framework to justify a decision already made for other reasons.",
+          "relatedConcepts": [
+            "Discovery Theater (Lesson 8)"
+          ],
+          "difficulty": 3
+        }
+      ],
+      "blockId": "blk_efb67569b5"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "Intercom's publicly shared writing introducing and explaining the RICE scoring framework, the direct origin of this lesson's core quantitative technique."
+        },
+        {
+          "citation": "Karl Wiegers, *Software Requirements*",
+          "note": "includes detailed treatment of prioritization methods including MoSCoW in a requirements-engineering context."
+        },
+        {
+          "citation": "Melissa Perri, *Escaping the Build Trap*",
+          "note": "discusses the organizational and strategic dimensions of genuine, evidence-grounded prioritization versus decisions driven by internal politics or seniority."
+        }
+      ],
+      "blockId": "blk_f36c5a40d6"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_8prxyi",
+      "cards": [
+        {
+          "id": "fc-les_8prxyi-1",
+          "front": "What is the RICE formula?",
+          "back": "RICE Score = (Reach × Impact × Confidence) / Effort.",
+          "difficulty": 2,
+          "tags": [
+            "rice-formula"
+          ]
+        },
+        {
+          "id": "fc-les_8prxyi-2",
+          "front": "Why is the Confidence factor in RICE described as \"discipline-enforcing\"?",
+          "back": "It should genuinely reflect the strength of underlying evidence. A vivid anecdote or unvalidated assumption should receive a low confidence score, preventing Lesson 16's \"vivid but rare\" and \"loudest voice\" patterns from reappearing under a formal numeric disguise.",
+          "difficulty": 3,
+          "tags": [
+            "confidence-factor"
+          ]
+        },
+        {
+          "id": "fc-les_8prxyi-3",
+          "front": "What are the four categories in MoSCoW, and what does the \"Won't have\" category enforce?",
+          "back": "Must have, Should have, Could have, Won't have; \"Won't have\" enforces genuine, visible strategic exclusion, directly echoing Lesson 10's discipline.",
+          "difficulty": 2,
+          "tags": [
+            "moscow"
+          ]
+        },
+        {
+          "id": "fc-les_8prxyi-4",
+          "front": "What is \"eating the frog,\" and what is the trade-off against easy-wins-first sequencing?",
+          "back": "Tackling the highest-value, hardest task first, rather than deferring it; the trade-off against easy wins is urgency and avoiding perpetual deferral versus building momentum and gathering cheap early learning: context-dependent, not universally correct either way.",
+          "difficulty": 2,
+          "tags": [
+            "eating-the-frog"
+          ]
+        },
+        {
+          "id": "fc-les_8prxyi-5",
+          "front": "What is \"prioritization theater,\" and how is it diagnosed?",
+          "back": "Applying a formal-looking framework to justify a decision already made for other reasons; diagnosed by asking whether the exercise could, in principle, have produced a result contradicting the predetermined preference.",
+          "difficulty": 3,
+          "tags": [
+            "prioritization-theater"
+          ]
+        },
+        {
+          "id": "fc-les_8prxyi-6",
+          "front": "In the Detailed Case Study, how was the RICE exercise manipulated to favor the executive's preferred feature?",
+          "back": "Unusually high Reach, Impact, and Confidence scores were assigned to the executive's feature despite no supporting research, while the team's own better-validated candidate was held to stricter scrutiny, an inconsistent standard applied to produce a predetermined ranking.",
+          "difficulty": 3,
+          "tags": [
+            "case-study"
+          ]
+        },
+        {
+          "id": "fc-les_8prxyi-7",
+          "front": "What should a prioritization exercise draw on, according to the Prioritization Synthesis Funnel?",
+          "back": "This curriculum's earlier, narrower prioritization tools (severity/frequency scoring, opportunity sizing, and strategic fit) as actual inputs, rather than re-deriving fresh judgments in isolation for each new exercise.",
+          "difficulty": 2,
+          "tags": [
+            "synthesis-funnel"
+          ]
+        }
+      ],
+      "blockId": "blk_c7c31b0700"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "You are the PM for a podcast app, with four candidate initiatives competing for the next quarter: (1) a well-validated opportunity (per Lesson 19) around improving offline downloads, backed by strong interview and survey evidence; (2) a feature a senior executive has personally championed, based on a single conversation with a friend who uses a competitor's product; (3) a small, easy bug fix affecting a narrow, low-value edge case; (4) a genuinely difficult, high-value redesign of the core recommendation algorithm, validated through prior research but requiring significant engineering investment.",
+        "Work through the following, in writing, before reading further:",
+        "Assign rough RICE scores (Reach, Impact, Confidence, Effort) to all four candidates, being explicit and honest about confidence levels given the evidence described for each.",
+        "Using the Prioritization Integrity Checklist, identify which candidate is most at risk of receiving an inflated confidence score if scored dishonestly, and explain why.",
+        "Apply MoSCoW instead of RICE to these same four candidates, and compare the resulting categorization to your RICE ranking. Do the two methods suggest the same priorities, or do they diverge?",
+        "Consider the \"eating the frog\" question specifically for candidate #4 (the recommendation algorithm redesign): what context-specific factors would make tackling it first versus deferring it the more defensible choice?",
+        "Using the Prioritization Synthesis Funnel, explicitly name which of this curriculum's earlier tools (severity/frequency, opportunity sizing, strategic fit) you drew on for each of your four scoring decisions.",
+        "There is no single correct answer. The purpose of this exercise is to practice applying honest, consistent scoring standards across genuinely dissimilar candidates, resisting the pull to inflate confidence for a vivid or senior-championed idea."
+      ],
+      "blockId": "blk_c8f0396d95"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_8prxyi",
+      "questions": [
+        {
+          "id": "q-les_8prxyi-1",
+          "question": "What is the RICE formula?",
+          "options": [
+            "Reach + Impact + Confidence + Effort, summed together",
+            "(Reach × Impact × Confidence) / Effort",
+            "Reach / (Impact × Confidence × Effort)",
+            "(Reach + Impact) × (Confidence + Effort)"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Effort sits in the denominator, so a cheaper initiative scores higher for the same benefit. The other three multiply, so a weak score on any one pulls the whole result down.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_8prxyi-2",
+          "question": "Why is the Confidence factor described as particularly important in preventing certain failure patterns?",
+          "options": [
+            "Because Confidence is the easiest of the four to estimate well",
+            "It appropriately discounts candidates that are vivid but weakly evidenced",
+            "Because Confidence is the sole factor affecting the final score",
+            "Because Confidence should sit at 100% whatever the evidence"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Without an honest Confidence score, RICE simply relabels the loudest voice as a number. This is the factor that keeps Lesson 16's failures from re-entering in formal dress.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_8prxyi-3",
+          "question": "What are the four categories in the MoSCoW method?",
+          "options": [
+            "Urgent, Important, Optional, and Deferred in order",
+            "Reach, Impact, Confidence, and Effort in order",
+            "Must have, Should have, Could have, and Won't have",
+            "High, Medium, Low, and None in descending order"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The fourth category is the one that does the strategic work, because it names what the team has decided against rather than leaving it unmentioned.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_8prxyi-4",
+          "question": "Why is MoSCoW's \"Won't have\" category described as particularly valuable?",
+          "options": [
+            "It makes strategic exclusion an explicit, named category",
+            "Because it removes the need for further prioritisation talk",
+            "Because items there are technically unbuildable anyway",
+            "Because it lets teams avoid making prioritisation decisions"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Lesson 10 argued a real strategy says no to something plausible. MoSCoW gives that no a box to sit in, where everyone can see it.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_8prxyi-5",
+          "question": "What is \"prioritization theater\"?",
+          "options": [
+            "A presentation format for sharing priority decisions with others",
+            "A required step within every legitimate prioritisation process",
+            "A technique for reaching prioritisation decisions more quickly",
+            "Scoring applied after the order was already decided"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The framework produces numbers that justify a conclusion rather than reaching one. Like acceptance criteria written after the build, it could not have come out any other way.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_8prxyi-6",
+          "question": "In the Detailed Case Study, how was the Confidence factor specifically misapplied?",
+          "options": [
+            "It was calculated using an incorrect mathematical formula",
+            "It was left out of the scoring exercise for every candidate",
+            "An executive's conviction scored high while a validated candidate faced a stricter bar",
+            "It was applied consistently and honestly across all four candidates"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The arithmetic was fine. Two different evidentiary standards were applied to two candidates, and the formula faithfully propagated that inconsistency into the ranking.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_8prxyi-7",
+          "question": "What is the key diagnostic question for identifying prioritization theater, according to this lesson?",
+          "options": [
+            "Whether the exercise could have contradicted the expected result",
+            "Whether every candidate ended up with the exact same final score",
+            "Whether the exercise used RICE in place of MoSCoW as the method",
+            "Whether the exercise finished inside a set time limit"
+          ],
+          "correctAnswer": 0,
+          "explanation": "This is Lesson 8's genuine-test criterion applied to prioritisation. An exercise that has never once surprised the team is not measuring anything.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_8prxyi-8",
+          "question": "What does \"eating the frog\" refer to in this lesson's sequencing discussion?",
+          "options": [
+            "Tackling the hardest, highest-value task first rather than deferring",
+            "Choosing the easiest, lowest-value task to build first each time",
+            "A specific step contained within the RICE scoring formula itself",
+            "Completing every Must have item before any single Should have item begins"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The argument is that deferred hard work often never happens, or happens rushed under worse conditions. The counterargument for easy wins first is genuine too, and context decides.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_8prxyi-9",
+          "question": "(Scenario) A team scores four candidates using RICE, and one candidate (backed only by a single, vivid customer story with no further validation) receives a high Confidence score simply because the story was compelling. What is the issue with this scoring decision, according to this lesson?",
+          "options": [
+            "No issue; a compelling story warrants a high confidence score",
+            "Confidence should sit at exactly 50% whatever the evidence base",
+            "It reintroduces the vivid-but-rare pattern under a numeric disguise",
+            "The scoring holds provided that Reach and Impact are also scored highly"
+          ],
+          "correctAnswer": 2,
+          "explanation": "How persuasive a story is in the room and how much evidence sits behind it are different quantities. Confidence measures the second one.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_8prxyi-10",
+          "question": "(Product Thinking) A team is deciding whether to communicate release scope to a broad, non-specialist group of internal stakeholders using RICE scores or MoSCoW categories. According to this lesson, which is generally more appropriate, and why?",
+          "options": [
+            "RICE, since numeric scores suit any audience without exception",
+            "MoSCoW, a simpler categorisation for non-specialist audiences",
+            "Neither method suits stakeholder communication",
+            "Both suit every possible audience and purpose about equally well"
+          ],
+          "correctAnswer": 1,
+          "explanation": "RICE ranks dissimilar candidates well and asks the reader to trust a formula. Four named buckets communicate a release boundary to people who will not interrogate the arithmetic.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_8prxyi-11",
+          "question": "(Interview Reasoning) A candidate describes running a RICE scoring exercise where every candidate happened to confirm exactly the priority order senior leadership had already informally indicated beforehand. What might this signal, based on this lesson's Interview Perspective section?",
+          "options": [
+            "An exceptionally well-aligned team, carrying no real concerns",
+            "Strong leadership alignment skill counting as a core strength",
+            "Nothing of note, since scores should confirm existing preferences",
+            "Possible theater; a real exercise should sometimes contradict"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Perfect agreement every time is the signature of a process that cannot produce disagreement. The occasional uncomfortable ranking is evidence the exercise is live.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_8prxyi-12",
+          "question": "(Product Thinking, Higher Difficulty) A team has a well-validated, high-value but genuinely difficult initiative (requiring significant effort) and several smaller, easier initiatives with lower but real value. Using RICE's Effort factor, how would the difficult initiative's score be affected, all else being equal?",
+          "options": [
+            "Effort bears no relation at all to the final computed RICE score",
+            "Higher effort lowers the score, since Effort divides",
+            "Higher effort raises the score, since Effort is a multiplier",
+            "Effort should be set aside in favour of Reach and Impact alone"
+          ],
+          "correctAnswer": 1,
+          "explanation": "A valuable, expensive initiative can legitimately score below a cheaper one. That is the formula making a real trade-off visible, and it is separate from the sequencing question.",
+          "objectivesTested": [
+            1,
+            3
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_8prxyi-13",
+          "question": "(Interview Reasoning, Higher Difficulty) An interviewer asks a candidate how they would respond if a senior stakeholder insisted their preferred initiative be scored with high confidence, despite having no supporting research. A weak answer would most likely include which of the following?",
+          "options": [
+            "Propose a lightweight validation step to establish confidence honestly",
+            "Explain the Confidence factor's link to genuine evidence quality",
+            "Run both RICE and MoSCoW so the trade-offs are visible two ways",
+            "Agree to inflate the score, without pushback or further validation"
+          ],
+          "correctAnswer": 3,
+          "explanation": "An inflated Confidence score is how the case study's ranking went wrong. The other three each keep the stakeholder engaged while leaving the number honest.",
+          "objectivesTested": [
+            1,
+            4
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_8prxyi-14",
+          "question": "(Product Thinking, Higher Difficulty) A team applies MoSCoW to a release and finds that nearly every candidate item has been categorized as \"Must have,\" with almost nothing in \"Should have,\" \"Could have,\" or \"Won't have.\" According to this lesson, what does this suggest?",
+          "options": [
+            "The release scope has been defined with excellent, appropriate discipline",
+            "Must have is the right category for most items in any release",
+            "A failure to make real distinctions, echoing the grab-bag warning",
+            "This pattern carries no diagnostic weight and needs no scrutiny"
+          ],
+          "correctAnswer": 2,
+          "explanation": "If everything is required, the method has sorted nothing. This is Lesson 10's grab-bag arriving with four labels and using one of them.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_8prxyi-15",
+          "question": "(Highest Difficulty) A team runs a genuinely honest, evidence-grounded RICE exercise (passing the Prioritization Integrity Checklist) and it produces a ranking that a senior stakeholder strongly disagrees with, based on their own separate business context the team wasn't fully aware of (e.g., a specific contractual commitment). What is the most appropriate next step, connecting this lesson to Lesson 6's laddering discipline and Lesson 10's strategic judgment?",
+          "options": [
+            "Insist the ranking is final and not open to any revision at all",
+            "Rerun the exercise, adjusting scores to match the preference",
+            "Discard the exercise and defer wholly to the stakeholder's view",
+            "Present the results, ladder the new context, reassess"
+          ],
+          "correctAnswer": 3,
+          "explanation": "An honest score is an input, not a verdict. A contractual commitment the team did not know about is genuinely new information, and incorporating it is not the same as bending the numbers.",
+          "objectivesTested": [
+            4,
+            5
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_3326cceb9f"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_7r8npj",
+        "title": "Lesson 28: Information Architecture",
+        "module": "design"
+      },
+      "current": {
+        "id": "les_8prxyi",
+        "title": "Lesson 29: Prioritization Fundamentals"
+      },
+      "next": {
+        "id": "les_o9xo51",
+        "title": "Lesson 30: Design Thinking (closing Module 3)",
+        "module": "design"
+      },
+      "unlocks": [
+        {
+          "lesson": {
+            "id": "les_vlut0b",
+            "title": "Sprint Planning & Backlog Grooming",
+            "module": "execution"
+          },
+          "coreIdea": "Uses RICE/MoSCoW-scored priorities as direct input into sprint-level planning and commitment"
+        }
+      ],
+      "blockId": "blk_64048fce6a"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 29: Prioritization Fundamentals Across 24 lessons, this curriculum has repeatedly bumped into the same underlying question without ever naming it directly: when multiple genuinely valid things compete for the same limited time and resources, how do you actually decide? Lesson 16 built a Severity/Frequency Grid for pain points. Lesson 19 built an Opportunity Comparison Grid for opportunities. Lesson 10 insisted a real strategy must say no to something. Lesson 21 insisted an MVP must cut anything not necessary for its specific test. Each of these was, in effect, a scoped, local prioritization framework. This lesson generalizes the underlying discipline: **prioritization** is the practice of deciding what to work on next, using an explicit, defensible method rather than intuition, seniority, or recency alone, and it is, in a real sense, the skill this entire curriculum has been building toward from Lesson 1 onward. This lesson matters because prioritization is where every other discipline in this curriculum (validated research, laddered pain points, sized opportunities, a real strategy, a scoped MVP) ultimately has to cash out into an actual, defensible decision about sequence: what gets built first, second, and not at all, at least for now. A team can do everything else in this curriculum correctly and still fail here, by falling back on whichever voice is loudest (Lesson 5, Lesson 16) or whichever idea was most recently discussed (Lesson 16, Lesson 19), precisely the failure patterns this curriculum has repeatedly named. This lesson closes that gap with formal, named prioritization frameworks. Apply the RICE framework (Reach, Impact, Confidence, Effort) to score and compare candidate initiatives quantitatively. Apply the MoSCoW method (Must have, Should have, Could have, Won't have) as a qualitative, stakeholder-facing prioritization technique, and identify when it's more appropriate than RICE. Distinguish \"eating the frog\" (tackling the highest-value hard thing first) from artificially easy sequencing, and explain the trade-offs of each. Identify the \"prioritization theater\" failure pattern, where a formal-looking framework is used to rationalize a decision already made for other reasons. Synthesize prior lessons' scoped, local prioritization tools (severity/frequency, opportunity sizing, strategic fit) into a single, coherent scoring approach for comparing dissimilar candidate initiatives. Lesson 10 (Product Strategy Basics), Lesson 16 (Pain Points), and Lesson 19 (Opportunity Identification). This lesson assumes fluency with severity/frequency scoring, opportunity sizing via importance-satisfaction and prevalence, and the discipline of genuine strategic exclusion. This lesson generalizes and formalizes these prior, narrower tools into explicit, named prioritization frameworks applicable across a full backlog of dissimilar candidates. RICE: A Quantitative Scoring Framework **RICE** is a widely used scoring framework for comparing dissimilar candidate initiatives on a common numeric scale, using four factors: **Reach**: how many people (or what fraction of a validated segment, per Lesson 18) will this initiative affect within a given time period? **Impact**: how much will this initiative affect each person it reaches, typically scored on a simple scale (e.g., massive, high, medium, low, minimal), often assigned a corresponding numeric value? **Confidence**: how confident is the team in the reach and impact estimates, given the strength of the underlying evidence (directly connecting to Lesson 11's Evidence Trustworthiness Ladder), typically expressed as a percentage? **Effort**: how much time and resource investment will this initiative require, typically expressed in person-time (e.g., person-months)? The RICE score is calculated as: **RICE Score = (Reach × Impact × Confidence) / Effort** RICE's genuine value is forcing explicit numbers onto each factor, rather than allowing a comparison to remain vague: a candidate initiative that \"feels important\" must be translated into an actual reach estimate, an actual impact estimate, an honest confidence level, and an actual effort estimate, all of which can be questioned and debated on their specific merits, rather than accepting or rejecting the initiative based on an unstated, holistic impression. Confidence as the Discipline-Enforcing Factor The **Confidence** factor deserves particular attention, since it is the mechanism that connects RICE directly back to this curriculum's research rigor (Lessons 11–13, 19). A candidate initiative based on a vivid anecdote or an unvalidated assumption (echoing Lesson 16's \"vivid but rare\" warning) should receive a low confidence score, appropriately discounting its overall RICE score relative to a candidate backed by genuine, validated evidence, even if the vivid anecdote's raw reach and impact estimates look impressive on paper. This is precisely the mechanism that prevents RICE from simply reproducing Lesson 16's \"loudest voice\" or \"vivid but rare\" failure patterns under a different, more formal-looking name: a low-confidence estimate should genuinely lower the score, not be treated as a formality to move past quickly. MoSCoW: A Qualitative, Stakeholder-Facing Method **MoSCoW** is a simpler, qualitative categorization method, sorting candidate items into four buckets: **Must have**: absolutely required for this release or initiative to be considered successful or complete. **Should have**: important, but the release could technically function without it if truly necessary. **Could have**: desirable, but with a clearly lower priority than \"should have\" items. **Won't have** (this time): explicitly and deliberately excluded from the current scope, directly echoing Lesson 10's exclusion discipline. MoSCoW is often more appropriate than RICE when a team needs to communicate priority quickly and clearly to a broad set of stakeholders (particularly non-specialist stakeholders less familiar with a quantitative scoring model), or when the goal is defining the boundary of a specific release rather than ranking a large, diverse backlog against each other on a single numeric scale. Its explicit \"Won't have\" category is a particularly valuable discipline, directly enforcing Lesson 10's argument that a real strategic choice requires explicit exclusion: MoSCoW makes that exclusion a visible, named category rather than an implicit, unstated omission. \"Eating the Frog\" vs. Artificially Easy Sequencing A specific, practical sequencing question, once priorities are established, is: within a set of similarly prioritized items, should a team tackle the hardest, highest-value item first, or build momentum with easier wins first? **\"Eating the frog\"** (a phrase associated with productivity writing, referring to tackling the most difficult, most important task first) argues for confronting the highest-value hard work early, since delaying it often means it never actually gets done, or gets rushed under worse conditions later. The countervailing consideration is that **artificially easy sequencing** (deliberately front-loading a series of easy wins) can build genuine team and stakeholder confidence, demonstrate visible progress, and (particularly relevant to this curriculum's discovery discipline) surface early, cheap learning that might usefully inform how the harder, more important work is eventually approached. Neither approach is universally correct; the choice depends on specific context: how urgent the hard problem actually is, whether early wins would genuinely inform the harder work or merely delay it, and how much organizational patience and trust currently exists for a team to spend significant time on a single, high-value, high-difficulty initiative without visible interim progress. The \"Prioritization Theater\" Failure Pattern A specific, important failure pattern (directly extending Lesson 8's discovery theater concept) is **prioritization theater**: applying a formal-looking scoring framework (RICE, MoSCoW, or any other named method) to a set of candidates whose actual priority order has already been decided for other reasons (executive preference, sunk cost, internal politics), with the scoring exercise conducted after the fact specifically to produce numbers that justify the already-determined outcome. This directly parallels Lesson 24's warning about acceptance criteria written after the fact: a scoring framework applied retroactively, to rationalize a decision rather than genuinely inform it, provides the appearance of rigor without any of its substance. The corrective discipline is the same one this curriculum has applied repeatedly: a genuine prioritization exercise must be capable, in principle, of producing a result that contradicts the team's initial expectation or preference. If a RICE or MoSCoW exercise never once produces a surprising or uncomfortable ranking, that is itself a warning sign worth taking seriously, echoing Lesson 8's core discovery-theater diagnostic applied directly to the practice of prioritization. Treating RICE scores as precise, objective numbers rather than structured estimates RICE scores are only as good as the underlying reach, impact, and confidence estimates feeding into them: treating the resulting number as objectively precise, rather than as a structured, debatable estimate, overstates the framework's actual certainty. Assigning high confidence scores to vivid anecdotes or unvalidated assumptions This directly reintroduces Lesson 16's \"vivid but rare\" and \"loudest voice\" failure patterns under RICE's formal-looking numeric structure. Confidence should genuinely reflect the strength of underlying evidence, not the persuasiveness or memorability of how a candidate was pitched. Using RICE when MoSCoW would communicate priority more clearly to a broad stakeholder audience, or vice versa These frameworks serve different purposes (RICE for ranking dissimilar candidates on a common numeric scale, MoSCoW for defining release scope and communicating clearly with less quantitatively focused stakeholders), and using the wrong one for the specific situation reduces the exercise's practical value. Defaulting to \"easy wins first\" purely to avoid difficult work, rather than as a deliberate, justified sequencing choice Artificially easy sequencing can be a legitimate strategy in the right context, but defaulting to it simply to defer difficult, high-value work indefinitely produces the opposite of genuine prioritization discipline. Running a prioritization exercise after a decision has already effectively been made, to produce justifying numbers rather than genuine input This is prioritization theater: a formal-looking exercise that could not, even in principle, have changed the outcome is not really prioritizing anything. The Prioritization Synthesis Funnel This lesson's mental model is the **Prioritization Synthesis Funnel**, which shows how this curriculum's earlier, narrower prioritization tools feed into a single, formal framework like RICE or MoSCoW. Use this funnel as a synthesis discipline: when scoring a candidate's Impact for RICE, or deciding whether it's a \"Must have\" for MoSCoW, explicitly draw on the specific evidence this curriculum's earlier tools have already produced (a pain point's established severity and frequency, an opportunity's importance-satisfaction gap and segment prevalence, and whether the initiative follows from the company's actual guiding policy) rather than re-deriving a fresh, unmoored judgment from scratch for each new prioritization exercise. Intercom **Intercom** is the actual origin of RICE, not just a well-documented user of it: the framework was developed by Sean McBride while he was a PM on Intercom's growth team, specifically because his team needed a consistent way to compare dissimilar candidate initiatives (a small bug fix against a substantial new feature) on a single, defensible scale, rather than relying on ad hoc comparisons or whichever idea had the most vocal internal advocate at a given planning meeting. McBride has written and spoken publicly about the framework's origin, and RICE has since become one of the most widely adopted scoring frameworks in the industry. At a startup Prioritization is often concentrated on an extremely small number of genuinely make-or-break decisions, and lightweight, qualitative methods (a simple ranked list, informal MoSCoW-style categorization) frequently suffice given the smaller volume of candidates and closer, more informal team collaboration. The underlying discipline (explicit criteria, genuine willingness to exclude, confidence honestly reflecting evidence quality) matters as much as at any other stage, even without a fully formalized RICE process. At a mid-size company Formal frameworks like RICE often become genuinely valuable as backlog size and organizational complexity grow beyond what informal, ad hoc comparison can handle consistently, and this is frequently the stage where prioritization theater risk increases, as more stakeholders with more varied interests attempt to influence outcomes, making a genuinely defensible, evidence-grounded scoring exercise more valuable, and more likely to be circumvented informally if not actively protected. At Big Tech Prioritization at scale often requires reconciling multiple, semi-independent teams' RICE or similar scores against a shared, company-wide strategic framework (echoing Lesson 10), and a significant part of senior product leadership's role involves ensuring that formal scoring frameworks remain genuine inputs to real decisions across the organization, rather than degenerating into prioritization theater performed independently by each team to justify their own pre-existing preferences. The RICE Score That Was Reverse-Engineered Consider a simplified, illustrative scenario common across mid-size B2B SaaS product teams. A product team is asked by a senior executive to prioritize a specific feature the executive has personally championed for several months, ahead of several other candidate initiatives the team's own research (following this curriculum's Modules 1 and 2) had identified as more strongly validated and higher-value. Wanting to appear rigorous and data-driven, the team runs a formal RICE scoring exercise across all candidates, but, consciously or not, assigns unusually high Reach and Impact estimates to the executive's preferred feature, and an unusually high Confidence score despite the feature having no supporting research beyond the executive's personal conviction, while applying stricter, more skeptical scrutiny to the reach, impact, and confidence estimates for the team's own, better-validated candidates. The resulting RICE scores rank the executive's preferred feature at the top, and the team proceeds to build it. Nine months later, the feature sees minimal adoption, while a lower-ranked candidate from the same exercise, one the team's own prior research (per Lesson 19's opportunity sizing) had actually identified as significantly higher-value, remains unaddressed, its genuine potential value still sitting unrealized in the team's backlog. **What went wrong?** Applying this lesson's frameworks: **The RICE exercise was prioritization theater, not genuine prioritization.** The scoring inputs were adjusted, consciously or not, to produce a predetermined outcome (validating the executive's preference) rather than genuinely reflecting the team's actual evidence and confidence levels. **The Confidence factor was specifically misapplied**: a feature with no supporting research beyond personal conviction should have received a low confidence score, appropriately discounting its overall RICE score, rather than an inflated confidence score that obscured the actual weakness of its underlying evidence. **The genuinely well-validated candidate, backed by this curriculum's Module 2 research discipline, was held to a higher evidentiary bar than the executive's preferred feature**: an inconsistent standard applied specifically to produce the desired ranking, rather than a uniform, honest standard applied to all candidates equally. A team applying this lesson's discipline rigorously would have scored all candidates using the same honest, evidence-grounded standard: assigning the executive's preferred feature a genuinely low confidence score given its lack of supporting research, and the team's own validated candidate a correspondingly higher confidence score given its grounding in Lesson 19's opportunity-sizing evidence, very likely producing a RICE ranking that would have required the team to have an honest, evidence-based conversation with the executive about the relative merits of the two candidates, rather than using a superficially rigorous exercise to avoid that conversation entirely. This case connects directly back to **Lesson 8's discovery theater concept**: a scoring exercise that could not, even in principle, have produced a result different from the predetermined outcome was never actually prioritizing anything. It was providing a formal-looking justification for a decision made through other means entirely. The Prioritization Integrity Checklist A practical checklist for evaluating whether a prioritization exercise is genuine rather than theater: A prioritization exercise failing several of these checks risks the exact outcome shown in this lesson's Detailed Case Study: a formally rigorous-looking process that nonetheless produced a predetermined, ultimately costly result. How do you prioritize a backlog with many dissimilar candidate initiatives? *What the interviewer is actually evaluating:* Whether the candidate names a specific, defensible framework (RICE, MoSCoW, or a similar named method) and can explain each factor's role, rather than describing a purely intuitive or unstructured process. Tell me about a time you had to prioritize against a senior stakeholder's strong preference. How did you handle it? *What the interviewer is actually evaluating:* Direct experience navigating the exact tension shown in this lesson's Detailed Case Study, and whether the candidate can describe an honest, evidence-grounded resolution rather than either capitulating uncritically or dismissing the stakeholder's input without genuine engagement. How do you know if a prioritization process is genuine, rather than just justifying a decision that's already been made? *What the interviewer is actually evaluating:* Fluency with the prioritization theater concept, whether the candidate can articulate the specific diagnostic (could this exercise have produced a contradicting result?) rather than treating the mere existence of a formal framework as sufficient evidence of genuine rigor. Prioritization is the practice of deciding what to work on next using an explicit, defensible method, generalizing this curriculum's earlier, narrower scoring tools (severity/frequency, opportunity sizing, strategic fit) into formal, named frameworks. RICE (Reach × Impact × Confidence / Effort) provides a quantitative scoring method for comparing dissimilar candidates on a common scale, with Confidence serving as the critical discipline-enforcing factor that should genuinely reflect underlying evidence quality (per Lesson 11's Evidence Trustworthiness Ladder), preventing vivid but weakly evidenced candidates from scoring artificially high. MoSCoW (Must/Should/Could/Won't have) provides a simpler, qualitative categorization better suited to communicating release scope clearly to broad stakeholder audiences, with its explicit \"Won't have\" category directly enforcing Lesson 10's exclusion discipline. Sequencing choices (\"eating the frog\" versus building momentum with easier wins first) depend on specific context rather than a universally correct answer. Finally, \"prioritization theater\" (applying a formal-looking framework to justify a decision already made for other reasons) is a critical failure pattern to guard against, diagnosable by asking whether the exercise could, in principle, have produced a contradicting result, as this lesson's Detailed Case Study makes concrete. RICE (Reach × Impact × Confidence / Effort) provides a quantitative method for scoring and comparing dissimilar candidate initiatives on a common scale. The Confidence factor should genuinely reflect underlying evidence quality (per Lesson 11's Evidence Trustworthiness Ladder), preventing vivid but weakly evidenced candidates from scoring artificially high. MoSCoW (Must/Should/Could/Won't have) is a simpler, qualitative method better suited to communicating release scope to broad stakeholder audiences; its \"Won't have\" category enforces genuine strategic exclusion. \"Eating the frog\" (tackling the highest-value hard thing first) and easy-wins-first sequencing both have legitimate uses depending on context; neither is universally correct. \"Prioritization theater\" (using a formal framework to justify a predetermined decision) is diagnosable by asking whether the exercise could, in principle, have produced a contradicting result. Genuine prioritization synthesizes this curriculum's earlier, narrower tools (severity/frequency, opportunity sizing, strategic fit) as actual inputs, rather than re-deriving fresh judgments in isolation. Consistent, honest scoring standards must be applied to every candidate regardless of who championed it, or the exercise risks reintroducing exactly the \"loudest voice\" and \"vivid but rare\" failure patterns it's meant to prevent. **RICE = (Reach × Impact × Confidence) / Effort.** Confidence should reflect real evidence quality, not persuasiveness. **MoSCoW = Must/Should/Could/Won't have.** Better for broad stakeholder communication and defining release scope; \"Won't have\" enforces real exclusion. **Eat the frog vs. easy wins first**: context-dependent, not universally correct either way. **Prioritization theater test:** could this exercise, in principle, have produced a result contradicting the predetermined preference? If not, it's theater. **Synthesize, don't re-derive**: draw on severity/frequency, opportunity sizing, and strategic fit as actual scoring inputs. **Same honest standard for every candidate**: regardless of who's championing it. RICE A quantitative prioritization framework: (Reach × Impact × Confidence) / Effort. MoSCoW A qualitative prioritization method categorizing items as Must/Should/Could/Won't have. \"Eating the Frog\" The practice of tackling the highest-value, hardest task first, rather than deferring it. \"Prioritization Theater\" (Failure Pattern) Applying a formal-looking prioritization framework to justify a decision already made for other reasons. Intercom's publicly shared writing introducing and explaining the RICE scoring framework, the direct origin of this lesson's core quantitative technique. Karl Wiegers, *Software Requirements* includes detailed treatment of prioritization methods including MoSCoW in a requirements-engineering context. Melissa Perri, *Escaping the Build Trap* discusses the organizational and strategic dimensions of genuine, evidence-grounded prioritization versus decisions driven by internal politics or seniority. What is the RICE formula? RICE Score = (Reach × Impact × Confidence) / Effort. Why is the Confidence factor in RICE described as \"discipline-enforcing\"? It should genuinely reflect the strength of underlying evidence. A vivid anecdote or unvalidated assumption should receive a low confidence score, preventing Lesson 16's \"vivid but rare\" and \"loudest voice\" patterns from reappearing under a formal numeric disguise. What are the four categories in MoSCoW, and what does the \"Won't have\" category enforce? Must have, Should have, Could have, Won't have; \"Won't have\" enforces genuine, visible strategic exclusion, directly echoing Lesson 10's discipline. What is \"eating the frog,\" and what is the trade-off against easy-wins-first sequencing? Tackling the highest-value, hardest task first, rather than deferring it; the trade-off against easy wins is urgency and avoiding perpetual deferral versus building momentum and gathering cheap early learning: context-dependent, not universally correct either way. What is \"prioritization theater,\" and how is it diagnosed? Applying a formal-looking framework to justify a decision already made for other reasons; diagnosed by asking whether the exercise could, in principle, have produced a result contradicting the predetermined preference. In the Detailed Case Study, how was the RICE exercise manipulated to favor the executive's preferred feature? Unusually high Reach, Impact, and Confidence scores were assigned to the executive's feature despite no supporting research, while the team's own better-validated candidate was held to stricter scrutiny, an inconsistent standard applied to produce a predetermined ranking. What should a prioritization exercise draw on, according to the Prioritization Synthesis Funnel? This curriculum's earlier, narrower prioritization tools (severity/frequency scoring, opportunity sizing, and strategic fit) as actual inputs, rather than re-deriving fresh judgments in isolation for each new exercise. You are the PM for a podcast app, with four candidate initiatives competing for the next quarter: (1) a well-validated opportunity (per Lesson 19) around improving offline downloads, backed by strong interview and survey evidence; (2) a feature a senior executive has personally championed, based on a single conversation with a friend who uses a competitor's product; (3) a small, easy bug fix affecting a narrow, low-value edge case; (4) a genuinely difficult, high-value redesign of the core recommendation algorithm, validated through prior research but requiring significant engineering investment. Work through the following, in writing, before reading further: Assign rough RICE scores (Reach, Impact, Confidence, Effort) to all four candidates, being explicit and honest about confidence levels given the evidence described for each. Using the Prioritization Integrity Checklist, identify which candidate is most at risk of receiving an inflated confidence score if scored dishonestly, and explain why. Apply MoSCoW instead of RICE to these same four candidates, and compare the resulting categorization to your RICE ranking. Do the two methods suggest the same priorities, or do they diverge? Consider the \"eating the frog\" question specifically for candidate #4 (the recommendation algorithm redesign): what context-specific factors would make tackling it first versus deferring it the more defensible choice? Using the Prioritization Synthesis Funnel, explicitly name which of this curriculum's earlier tools (severity/frequency, opportunity sizing, strategic fit) you drew on for each of your four scoring decisions. There is no single correct answer. The purpose of this exercise is to practice applying honest, consistent scoring standards across genuinely dissimilar candidates, resisting the pull to inflate confidence for a vivid or senior-championed idea. What is the RICE formula? Effort sits in the denominator, so a cheaper initiative scores higher for the same benefit. The other three multiply, so a weak score on any one pulls the whole result down. Why is the Confidence factor described as particularly important in preventing certain failure patterns? Without an honest Confidence score, RICE simply relabels the loudest voice as a number. This is the factor that keeps Lesson 16's failures from re-entering in formal dress. What are the four categories in the MoSCoW method? The fourth category is the one that does the strategic work, because it names what the team has decided against rather than leaving it unmentioned. Why is MoSCoW's \"Won't have\" category described as particularly valuable? Lesson 10 argued a real strategy says no to something plausible. MoSCoW gives that no a box to sit in, where everyone can see it. What is \"prioritization theater\"? The framework produces numbers that justify a conclusion rather than reaching one. Like acceptance criteria written after the build, it could not have come out any other way. In the Detailed Case Study, how was the Confidence factor specifically misapplied? The arithmetic was fine. Two different evidentiary standards were applied to two candidates, and the formula faithfully propagated that inconsistency into the ranking. What is the key diagnostic question for identifying prioritization theater, according to this lesson? This is Lesson 8's genuine-test criterion applied to prioritisation. An exercise that has never once surprised the team is not measuring anything. What does \"eating the frog\" refer to in this lesson's sequencing discussion? The argument is that deferred hard work often never happens, or happens rushed under worse conditions. The counterargument for easy wins first is genuine too, and context decides. (Scenario) A team scores four candidates using RICE, and one candidate (backed only by a single, vivid customer story with no further validation) receives a high Confidence score simply because the story was compelling. What is the issue with this scoring decision, according to this lesson? How persuasive a story is in the room and how much evidence sits behind it are different quantities. Confidence measures the second one. (Product Thinking) A team is deciding whether to communicate release scope to a broad, non-specialist group of internal stakeholders using RICE scores or MoSCoW categories. According to this lesson, which is generally more appropriate, and why? RICE ranks dissimilar candidates well and asks the reader to trust a formula. Four named buckets communicate a release boundary to people who will not interrogate the arithmetic. (Interview Reasoning) A candidate describes running a RICE scoring exercise where every candidate happened to confirm exactly the priority order senior leadership had already informally indicated beforehand. What might this signal, based on this lesson's Interview Perspective section? Perfect agreement every time is the signature of a process that cannot produce disagreement. The occasional uncomfortable ranking is evidence the exercise is live. (Product Thinking, Higher Difficulty) A team has a well-validated, high-value but genuinely difficult initiative (requiring significant effort) and several smaller, easier initiatives with lower but real value. Using RICE's Effort factor, how would the difficult initiative's score be affected, all else being equal? A valuable, expensive initiative can legitimately score below a cheaper one. That is the formula making a real trade-off visible, and it is separate from the sequencing question. (Interview Reasoning, Higher Difficulty) An interviewer asks a candidate how they would respond if a senior stakeholder insisted their preferred initiative be scored with high confidence, despite having no supporting research. A weak answer would most likely include which of the following? An inflated Confidence score is how the case study's ranking went wrong. The other three each keep the stakeholder engaged while leaving the number honest. (Product Thinking, Higher Difficulty) A team applies MoSCoW to a release and finds that nearly every candidate item has been categorized as \"Must have,\" with almost nothing in \"Should have,\" \"Could have,\" or \"Won't have.\" According to this lesson, what does this suggest? If everything is required, the method has sorted nothing. This is Lesson 10's grab-bag arriving with four labels and using one of them. (Highest Difficulty) A team runs a genuinely honest, evidence-grounded RICE exercise (passing the Prioritization Integrity Checklist) and it produces a ranking that a senior stakeholder strongly disagrees with, based on their own separate business context the team wasn't fully aware of (e.g., a specific contractual commitment). What is the most appropriate next step, connecting this lesson to Lesson 6's laddering discipline and Lesson 10's strategic judgment? An honest score is an input, not a verdict. A contractual commitment the team did not know about is genuinely new information, and incorporating it is not the same as bending the numbers.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "Mental Model: The Prioritization Synthesis Funnel",
+      "Real Company Example",
+      "Real World Perspective: Prioritization Fundamentals at Different Company Stages",
+      "Detailed Case Study: The RICE Score That Was Reverse-Engineered",
+      "Framework Explanation: The Prioritization Integrity Checklist",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "RICE",
+    "MoSCoW",
+    "\"Eating the Frog\"",
+    "\"Prioritization Theater\" (Failure Pattern)"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

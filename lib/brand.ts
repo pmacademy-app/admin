@@ -1,0 +1,85 @@
+import { TOKENS } from '@/theme/tokens'
+
+export const BRAND = {
+  company: 'Prodily',
+  product: 'Prodily',
+  fullName: 'Prodily',
+  shortName: 'Prodily',
+  tagline: 'Learn product. Build the work. Show the proof.',
+  positioning: '90 lessons · 9 capstones · Public portfolio · Free, permanently.',
+  domain: 'prodily.app',
+  social: {
+    linkedin: 'https://www.linkedin.com/company/prodilypmacademy',
+    twitter: 'https://x.com/prodily_pm',
+    instagram: 'https://www.instagram.com/prodily_pm/',
+    buyMeACoffee: 'https://buymeacoffee.com/prodily',
+  },
+  // NOTE: there is deliberately no `legalEntity` here. Presenting the brand name as
+  // the registered operating entity was a misrepresentation flagged by the September
+  // 2026 legal audit. Operator identity, registration details and the grievance
+  // contact now live in `lib/legal/legal-config.ts`, where they are explicitly
+  // configured rather than inferred from branding.
+  certificateIssuer: 'Prodily',
+  adminName: 'Prodily Admin',
+  // Admin split: the canonical LEARNER site URL (emails, certificates, portfolio links), read
+  // from LEARNER_SITE_URL on the server. NEXT_PUBLIC_SITE_URL is the admin host in this repo.
+  // Client bundles do not see LEARNER_SITE_URL and use the production default below.
+  // This value is the production default for any server-side context where env is available.
+  siteUrl: process.env.LEARNER_SITE_URL?.replace(/\/$/, '') || 'https://prodily.app',
+  supportEmail: 'hello@prodily.app',
+  // NOTE: emailFromAddress uses the Resend verified sender domain.
+  emailFromName: process.env.RESEND_FROM_NAME || process.env.BREVO_FROM_NAME || 'Team Prodily',
+  emailFromAddress:
+    process.env.RESEND_FROM_EMAIL?.replace(/^.*<|>$/g, '').trim() ||
+    'welcome@prodily.app',
+  certificateIssuerLine: 'Issued by Prodily',
+  // The person who signs certificates. There is no academic board, so the card names
+  // the founder rather than an institution.
+  certificateSignatory: { name: 'Aditya Gangwani', title: 'Founder, Prodily' },
+  certificateCodePrefix: 'PMA',
+  learnerFallbackName: 'Prodily Learner',
+  colors: {
+    primary: TOKENS.colors.primary,
+    foreground: TOKENS.colors.foreground,
+    background: TOKENS.colors.background,
+  },
+  metadata: {
+    homeTitle: 'Free Product Management Course with a Portfolio | Prodily',
+    titleTemplate: '%s | Prodily',
+    description:
+      'A structured, free path to learn product management, practice through applied capstones, and build a public portfolio that proves your product thinking.',
+    shortDescription:
+      'Learn product management through 90 structured lessons, applied capstones, and interactive practice, then turn the work you create into a public portfolio you can show.',
+  },
+  assets: {
+    dir: '/brand',
+    logoMark: '/brand/logo-mark.svg',
+    logoFull: '/brand/logo-full.svg',
+    logoFullSvg: '/brand/logo-full.svg',
+    logoMarkSvg: '/brand/logo-mark.svg',
+    logoMarkOnDark: '/brand/logo-mark-on-dark.svg',
+    wordmarkSvg: '/brand/wordmark.svg',
+    logoFullPng: '/brand/logo-full.png',
+    logoMarkPng: '/brand/logo-mark.png',
+    favicon: '/favicon.ico',
+    faviconSvg: '/favicon.svg',
+    bimiSvg: '/brand/prodily-bimi.svg',
+    appleTouchIcon: '/apple-touch-icon.png',
+    safariPinnedTab: '/brand/safari-pinned-tab.svg',
+    ogImage: '/brand/og-image.png',
+    logoFullDimensions: { width: 800, height: 200 },
+    logoMarkDimensions: { width: 423, height: 498 },
+    wordmarkDimensions: { width: 600, height: 200 },
+    ogImageDimensions: { width: 1200, height: 630 },
+  },
+} as const
+
+export type Brand = typeof BRAND
+
+export function brandTitle(title?: string) {
+  return title ? `${title} | ${BRAND.fullName}` : BRAND.metadata.homeTitle
+}
+
+export function productCopy(text: string) {
+  return text.replaceAll('{product}', BRAND.product).replaceAll('{fullName}', BRAND.fullName)
+}

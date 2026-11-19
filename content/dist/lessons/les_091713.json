@@ -1,0 +1,1003 @@
+{
+  "schemaVersion": 2,
+  "id": "les_091713",
+  "contentHash": "21e5042bf295154964e8174202afce385f16ce0bdf18c31cb65440bfd656419b",
+  "title": "Agile Fundamentals",
+  "slug": "lesson-031",
+  "module": "execution",
+  "order": 1,
+  "totalInModule": 10,
+  "difficulty": 4,
+  "estimatedReadingTime": 35,
+  "estimatedCompletionTime": 50,
+  "prerequisites": [
+    "les_zoyq8a",
+    "les_8prxyi"
+  ],
+  "sourceFile": "content/lessons/lesson-031.md",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Lesson 31: Agile Fundamentals",
+      "blockId": "blk_3fd5325914"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lesson 30 closed out Module 3 by teaching you how to decide *what* to build: prioritization frameworks, trade-off reasoning, and the discipline of saying no to good ideas in service of better ones. That module answered the second of the three core questions from Lesson 1: \"What should we build to solve it?\" This lesson begins Module 4, and Module 4 answers a question Lesson 1 mentioned but deliberately did not resolve: once a decision is made, *how does a team actually turn it into working software, week over week, without losing the thread of why the decision was made in the first place?*",
+      "blockId": "blk_49ccf090c7"
+    },
+    {
+      "type": "paragraph",
+      "text": "This is a real gap in how new PMs are trained. Many PMs can prioritize a backlog beautifully and then watch that backlog degrade into chaos within a month, because they never learned the operating system that engineering and design teams actually run on day to day. Agile is that operating system, not a single tool, not a checklist, but a family of practices built around a specific bet: that in a domain as uncertain as software product development, short feedback loops beat long up-front plans.",
+      "blockId": "blk_5303a03d7e"
+    },
+    {
+      "type": "paragraph",
+      "text": "This matters concretely because most of your career-long working relationship with engineering will be mediated through an Agile process of some kind: a sprint, a Kanban board, a standup, a retrospective. If you don't understand *why* these rituals exist, you will experience them as bureaucratic overhead to be tolerated. If you do understand why, you will recognize them as the primary mechanism through which the Decision Chain (Lesson 1) actually executes in practice, and you will know when to adapt them, and when a ritual has calcified into theater. This lesson establishes the underlying philosophy; Lessons 32 and 33 will cover the two dominant concrete frameworks (Scrum and Kanban) built on top of it.",
+      "blockId": "blk_b89f226be7"
+    },
+    {
+      "type": "learningObjectives",
+      "objectives": [
+        "Explain the historical problem Agile was designed to solve, and contrast it with the Waterfall model it emerged in response to.",
+        "State the four core values and twelve principles of the Agile Manifesto in your own words, and identify which value is most frequently violated in practice.",
+        "Describe the Iteration Loop as a mental model for how Agile teams convert uncertainty into working software, and distinguish it from the Decision Chain (Lesson 1).",
+        "Identify the difference between \"doing Agile\" (following ceremonies) and \"being Agile\" (holding the underlying values), and diagnose which one a given team is actually practicing.",
+        "Explain the PM's specific role and responsibilities within an Agile team, as distinct from the roles of the Scrum Master, Engineering Manager, and individual contributors."
+      ],
+      "blockId": "blk_0dae63efdb"
+    },
+    {
+      "type": "paragraph",
+      "text": "This lesson assumes you are comfortable with two things established earlier in this curriculum. First, from **Lesson 1**, it assumes fluency with the Decision Chain (Problem → Understanding → Decision → Execution → Outcome) and the Output vs. Outcome distinction. Agile is, at its core, a way of structuring the \"Execution\" link of that chain so that it stays connected to the \"Outcome\" link instead of drifting into pure output production. Second, from **Lesson 29 (Prioritization Basics)**, it assumes you already know how to rank and sequence a backlog of candidate ideas by value and cost. This lesson does not re-teach prioritization; it teaches what happens to a prioritized backlog *after* prioritization is done, once engineering begins turning it into software.",
+      "blockId": "blk_3ecfe47ba6"
+    },
+    {
+      "type": "theory",
+      "children": [
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Problem Agile Was Built to Solve",
+          "blockId": "blk_e04d534141"
+        },
+        {
+          "type": "paragraph",
+          "text": "To understand why Agile exists, it helps to understand what it replaced: the **Waterfall model**. Waterfall borrowed its structure from civil engineering and manufacturing, where it is often genuinely wise to fully specify requirements, then design, then build, then test, then release, in strict sequence, because the cost of changing a bridge design after concrete has been poured is catastrophic. Software inherited this sequential model for decades, on the assumption that the same logic applied.",
+          "blockId": "blk_a2f26de578"
+        },
+        {
+          "type": "paragraph",
+          "text": "It largely did not. Software requirements are rarely knowable in full up front, because much of what a team learns about the \"right\" solution only becomes visible once real users interact with something real. Under Waterfall, a team might spend six to twelve months writing a complete specification, only to discover, after building the entire thing, that a core assumption was wrong. By then, the cost of change is enormous, because everything downstream was built on top of the flawed assumption. This is precisely the failure mode described in Lesson 1's Case Study, except stretched across a full release cycle instead of a single feature decision.",
+          "blockId": "blk_97edcb459c"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Agile Manifesto",
+          "blockId": "blk_f41ee23429"
+        },
+        {
+          "type": "paragraph",
+          "text": "In 2001, seventeen software practitioners met and produced the **Agile Manifesto**, a short document stating four core values:",
+          "blockId": "blk_82f15ca04d"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**Individuals and interactions** over processes and tools",
+            "**Working software** over comprehensive documentation",
+            "**Customer collaboration** over contract negotiation",
+            "**Responding to change** over following a plan"
+          ],
+          "blockId": "blk_a3fc9ce3bb"
+        },
+        {
+          "type": "paragraph",
+          "text": "A critical, frequently misunderstood detail: the Manifesto does not say the items on the right have *no* value. It says the items on the left are valued *more*, when the two are in tension. Process and tools still matter; documentation still matters; contracts and plans still matter. The claim is narrower and more defensible: when circumstances force a trade-off, Agile teams choose adaptability over rigid adherence to an original plan.",
+          "blockId": "blk_db326de716"
+        },
+        {
+          "type": "paragraph",
+          "text": "Twelve supporting principles accompany these values, but three carry disproportionate weight for a PM specifically:",
+          "blockId": "blk_d2153de4b4"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            "\"Our highest priority is to satisfy the customer through early and continuous delivery of valuable software\": this is the Manifesto's version of Lesson 1's output-vs-outcome distinction, expressed as a delivery cadence.",
+            "\"Working software is the primary measure of progress\", not a Gantt chart showing percentage complete, not a specification document, but software a user could actually touch.",
+            "\"At regular intervals, the team reflects on how to become more effective, then tunes and adjusts its behavior accordingly\": this is the origin of the retrospective, covered further in Lesson 32."
+          ],
+          "blockId": "blk_920fcf3491"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The Iteration Loop",
+          "blockId": "blk_d21af69fb2"
+        },
+        {
+          "type": "paragraph",
+          "text": "This lesson's core mental model, the **Iteration Loop**, describes how these values translate into a repeatable operating rhythm:",
+          "blockId": "blk_a30b5f9eaf"
+        },
+        {
+          "type": "mermaid",
+          "id": "blk_8d5ba37360",
+          "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[Small Batch of Work] --> B[Build]\r\n    B --> C[Demo / Release]\r\n    C --> D[Feedback]\r\n    D -.->|informs next batch| A",
+          "normalized": "graph LR\r\n    A[Small Batch of Work] --> B[Build]\r\n    B --> C[Demo / Release]\r\n    C --> D[Feedback]\r\n    D -.->|informs next batch| A",
+          "authorTheme": {
+            "background": "#0b0b0c",
+            "primaryColor": "#1f1f23",
+            "primaryTextColor": "#ffffff",
+            "primaryBorderColor": "#8b5cf6",
+            "lineColor": "#d1d5db",
+            "secondaryColor": "#18181b",
+            "tertiaryColor": "#111111",
+            "mainBkg": "#1f1f23",
+            "nodeBorder": "#8b5cf6",
+            "clusterBkg": "#000000",
+            "clusterBorder": "#27272a",
+            "titleColor": "#ffffff",
+            "edgeLabelBackground": "#0b0b0c",
+            "nodeTextColor": "#ffffff",
+            "edgeLabelColor": "#ffffff",
+            "actorBorder": "#8b5cf6",
+            "actorBkg": "#1f1f23",
+            "actorTextColor": "#ffffff",
+            "sequenceNumberColor": "#ffffff",
+            "signalColor": "#8b5cf6",
+            "signalTextColor": "#ffffff",
+            "textColor": "#ffffff",
+            "classText": "#ffffff",
+            "classBorder": "#8b5cf6",
+            "classBkg": "#1f1f23"
+          },
+          "svg": "<svg id=\"mermaid-svg-1795020948222-89\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1391.5\" height=\"170.5\" viewBox=\"-38 -27 1391.5 170.5\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Small Batch of Work → Build → Demo / Release → Feedback\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Small Batch of Work → Build → Demo / Release → Feedback</title><style>#mermaid-svg-1795020948222-89{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020948222-89 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020948222-89 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020948222-89 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020948222-89 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020948222-89 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020948222-89 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020948222-89 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020948222-89 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020948222-89 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020948222-89 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020948222-89 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020948222-89 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020948222-89 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020948222-89 p{margin:0;}#mermaid-svg-1795020948222-89 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020948222-89 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020948222-89 .cluster-label span{color:#171A17;}#mermaid-svg-1795020948222-89 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020948222-89 .label text,#mermaid-svg-1795020948222-89 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020948222-89 .node rect,#mermaid-svg-1795020948222-89 .node circle,#mermaid-svg-1795020948222-89 .node ellipse,#mermaid-svg-1795020948222-89 .node polygon,#mermaid-svg-1795020948222-89 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020948222-89 .rough-node .label text,#mermaid-svg-1795020948222-89 .node .label text,#mermaid-svg-1795020948222-89 .image-shape .label,#mermaid-svg-1795020948222-89 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020948222-89 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020948222-89 .rough-node .label,#mermaid-svg-1795020948222-89 .node .label,#mermaid-svg-1795020948222-89 .image-shape .label,#mermaid-svg-1795020948222-89 .icon-shape .label{text-align:center;}#mermaid-svg-1795020948222-89 .node.clickable{cursor:pointer;}#mermaid-svg-1795020948222-89 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020948222-89 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020948222-89 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020948222-89 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020948222-89 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020948222-89 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020948222-89 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020948222-89 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020948222-89 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020948222-89 .cluster text{fill:#171A17;}#mermaid-svg-1795020948222-89 .cluster span{color:#171A17;}#mermaid-svg-1795020948222-89 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020948222-89 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020948222-89 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020948222-89 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020948222-89 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020948222-89 .icon-shape,#mermaid-svg-1795020948222-89 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020948222-89 .icon-shape p,#mermaid-svg-1795020948222-89 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020948222-89 .icon-shape .label rect,#mermaid-svg-1795020948222-89 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020948222-89 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020948222-89 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020948222-89 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020948222-89 [data-look=\"neo\"].node rect,#mermaid-svg-1795020948222-89 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020948222-89 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020948222-89-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020948222-89 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020948222-89 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020948222-89-gradient);stroke-width:1px;}#mermaid-svg-1795020948222-89 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020948222-89 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020948222-89 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020948222-89-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020948222-89 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020948222-89 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020948222-89-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020948222-89 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020948222-89-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020948222-89 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020948222-89_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020948222-89_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020948222-89_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020948222-89_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020948222-89_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020948222-89_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020948222-89_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020948222-89_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020948222-89_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020948222-89_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020948222-89_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020948222-89_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M330.25,53.54L339,52.117C347.75,50.693,365.25,47.847,382.083,46.423C398.917,45,415.083,45,423.167,45L431.25,45\" id=\"mermaid-svg-1795020948222-89-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6MzMwLjI1LCJ5Ijo1My41NDAwODE5MTkyNTEwMn0seyJ4IjozODIuNzUsInkiOjQ1fSx7IngiOjQzNS4yNSwieSI6NDV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020948222-89_flowchart-v2-pointEnd)\"></path><path d=\"M579,45L598.167,45C617.333,45,655.667,45,693.333,45C731,45,768,45,786.5,45L805,45\" id=\"mermaid-svg-1795020948222-89-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6NTc5LCJ5Ijo0NX0seyJ4Ijo2OTQsInkiOjQ1fSx7IngiOjgwOSwieSI6NDV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020948222-89_flowchart-v2-pointEnd)\"></path><path d=\"M1067.5,45L1076.25,45C1085,45,1102.5,45,1119.352,46.962C1136.204,48.924,1152.408,52.848,1160.51,54.81L1168.612,56.772\" id=\"mermaid-svg-1795020948222-89-L_C_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_D_0\" data-points=\"W3sieCI6MTA2Ny41LCJ5Ijo0NX0seyJ4IjoxMTIwLCJ5Ijo0NX0seyJ4IjoxMTcyLjUsInkiOjU3LjcxMzQxNDYzNDE0NjM0Nn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020948222-89_flowchart-v2-pointEnd)\"></path><path d=\"M1172.5,101.787L1163.75,103.905C1155,106.024,1137.5,110.262,1098.458,112.381C1059.417,114.5,998.833,114.5,927.833,114.5C856.833,114.5,775.417,114.5,703.563,114.5C631.708,114.5,569.417,114.5,517.542,114.5C465.667,114.5,424.208,114.5,395.387,113.184C366.566,111.867,350.382,109.235,342.29,107.918L334.198,106.602\" id=\"mermaid-svg-1795020948222-89-L_D_A_0\" class=\"edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_A_0\" data-points=\"W3sieCI6MTE3Mi41LCJ5IjoxMDEuNzg2NTg1MzY1ODUzNjV9LHsieCI6MTEyMCwieSI6MTE0LjV9LHsieCI6OTM4LjI1LCJ5IjoxMTQuNX0seyJ4Ijo2OTQsInkiOjExNC41fSx7IngiOjUwNy4xMjUsInkiOjExNC41fSx7IngiOjM4Mi43NSwieSI6MTE0LjV9LHsieCI6MzMwLjI1LCJ5IjoxMDUuOTU5OTE4MDgwNzQ4OTh9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020948222-89_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(694, 114.5)\"><g class=\"label\" data-id=\"L_D_A_0\" transform=\"translate(-92.5, -19)\"><foreignObject width=\"185\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>informs next batch</p></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020948222-89-flowchart-A-0\" data-look=\"classic\" transform=\"translate(169.125, 79.75)\"><rect class=\"basic label-container\" style=\"\" x=\"-128.75\" y=\"-35\" width=\"257.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-96.75, -19)\"><rect></rect><foreignObject width=\"193.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Small Batch of Work</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020948222-89-flowchart-B-1\" data-look=\"classic\" transform=\"translate(507.125, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-69.25\" y=\"-35\" width=\"138.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-37.25, -19)\"><rect></rect><foreignObject width=\"74.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Build</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020948222-89-flowchart-C-3\" data-look=\"classic\" transform=\"translate(938.25, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-107.5\" y=\"-35\" width=\"215\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-75.5, -19)\"><rect></rect><foreignObject width=\"151\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Demo / Release</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020948222-89-flowchart-D-5\" data-look=\"classic\" transform=\"translate(1263.5, 79.75)\"><rect class=\"basic label-container\" style=\"\" x=\"-82\" y=\"-35\" width=\"164\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-50, -19)\"><rect></rect><foreignObject width=\"100\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Feedback</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020948222-89-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020948222-89-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020948222-89-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+          "blockId": "blk_8d5ba37360"
+        },
+        {
+          "type": "paragraph",
+          "text": "The critical design choice is the word **small**. Rather than committing to a large batch of work over a long horizon (Waterfall), an Agile team commits to a small, time-boxed batch, builds it, exposes it to feedback quickly, and lets that feedback shape the next batch. This is not merely a scheduling preference: it is a direct, structural response to uncertainty. The smaller the batch, the cheaper it is to discover you were wrong, and the sooner you can course-correct.",
+          "blockId": "blk_baaa4ca55b"
+        },
+        {
+          "type": "paragraph",
+          "text": "It is worth being precise about how the Iteration Loop relates to the Decision Chain from Lesson 1. The Decision Chain describes a single pass through Problem → Understanding → Decision → Execution → Outcome, at the level of a whole initiative. The Iteration Loop operates *inside* the Execution link of that chain: it is the mechanism by which Execution itself is broken into small, feedback-generating increments, rather than one large, feedback-blind push. Put differently: the Decision Chain tells you *what* you're trying to do; the Iteration Loop tells you *how* a team structures the actual building of it so that being wrong is cheap to discover and cheap to fix.",
+          "blockId": "blk_c972a499fc"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "\"Doing Agile\" vs. \"Being Agile\"",
+          "blockId": "blk_affe4b6a8c"
+        },
+        {
+          "type": "paragraph",
+          "text": "A distinction every PM must learn to diagnose quickly: many organizations that claim to \"do Agile\" have adopted its ceremonies (daily standups, two-week sprints, retrospectives) without adopting its underlying values. This produces what practitioners sometimes call **\"Waterfall in sprint's clothing\"**: a team that plans an entire quarter's work in detail up front, breaks it into sprint-sized chunks purely for scheduling convenience, and treats each sprint's plan as fixed and non-negotiable regardless of what is learned along the way. The ceremonies are present; the responsiveness to change is not.",
+          "blockId": "blk_95b6ef8947"
+        },
+        {
+          "type": "paragraph",
+          "text": "You can diagnose which situation you're in with a simple test: when a team learns something significant mid-sprint that suggests the current plan is wrong, does the plan change, or does the team \"finish what was committed\" and defer the learning to next sprint's planning? Teams that consistently choose the latter are doing Agile. Teams willing to genuinely re-plan, even at the cost of an uncomfortable conversation about a broken commitment, are being Agile. This distinction will matter directly when you study Scrum in Lesson 32, because Scrum's ceremonies are frequently implemented in the \"doing\" mode without the \"being\" mode, and recognizing the gap is a specifically valuable PM skill.",
+          "blockId": "blk_2631e8465d"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "The PM's Role Inside an Agile Team",
+          "blockId": "blk_df1b9f0ed5"
+        },
+        {
+          "type": "paragraph",
+          "text": "New PMs are often unclear on where their responsibility begins and ends once a team goes Agile, because several roles appear to overlap. A brief map:",
+          "blockId": "blk_505f3dd1fa"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Role",
+            "Primary Responsibility in an Agile Context"
+          ],
+          "rows": [
+            [
+              "**Product Manager**",
+              "Owns *what* gets built and *why*: maintains the backlog, prioritizes it (Lesson 29), and ensures every increment ladders up to a real outcome, not just output"
+            ],
+            [
+              "**Scrum Master / Agile Coach** (if present)",
+              "Owns the *process*: facilitates ceremonies, removes team-level blockers, protects the team's focus; does not decide what gets built"
+            ],
+            [
+              "**Engineering Manager / Tech Lead**",
+              "Owns *how* it gets built: technical approach, architecture, estimation accuracy, code quality"
+            ],
+            [
+              "**Individual engineers/designers**",
+              "Own the actual construction and craft-level decisions within the constraints set above"
+            ]
+          ],
+          "blockId": "blk_567d2480c9"
+        },
+        {
+          "type": "paragraph",
+          "text": "The most common confusion for new PMs is conflating their role with the Scrum Master's. A PM who spends their energy facilitating standups and tracking velocity charts, while neglecting backlog quality and outcome clarity, has drifted into project-coordination work: precisely the trap Lesson 1 warned against. The PM's distinctive contribution to an Agile team is not running the ceremonies; it is making sure the ceremonies are operating on a backlog worth building.",
+          "blockId": "blk_6c8a7cce15"
+        }
+      ],
+      "blockId": "blk_b77fa1a1c6"
+    },
+    {
+      "type": "commonMistakes",
+      "mistakes": [
+        {
+          "title": "Treating Agile as a synonym for \"fast.",
+          "body": "Agile is not a speed technique; it is an uncertainty-management technique. A team can move fast under Waterfall (with enough resources) and can move slowly under Agile (if batches are too large or feedback loops are ignored). The value of Agile comes from short feedback loops, not raw velocity."
+        },
+        {
+          "title": "Believing the Manifesto rejects planning entirely",
+          "body": "\"Responding to change over following a plan\" is frequently misquoted as \"we don't need plans.\" The Manifesto values planning: it simply treats a plan as a working hypothesis to be revised with evidence, rather than a contract to be defended regardless of what is learned."
+        },
+        {
+          "title": "Confusing ceremony attendance with Agile practice",
+          "body": "As covered above, a team can run every ceremony precisely on schedule while still operating in a fundamentally Waterfall mindset internally. New PMs often assume that because standups and sprints exist, the team is \"Agile\" by default: this is the single most common misdiagnosis in the industry."
+        },
+        {
+          "title": "Assuming Agile removes the need for upfront strategic thinking",
+          "body": "Short iteration cycles at the execution level do not eliminate the need for the longer-horizon reasoning covered in Lesson 29 (Prioritization) and Lesson 35 (Roadmapping, upcoming). Agile governs how work is executed once prioritized; it does not replace the discipline of deciding what deserves to be worked on in the first place."
+        },
+        {
+          "title": "Using \"we're Agile\" to avoid commitments to stakeholders",
+          "body": "Some PMs and teams invoke Agile as a shield against giving any forward-looking estimate at all: \"we can't tell you when this will ship, we're Agile.\" This is a misuse of the philosophy. Agile changes *how confidently and how far in advance* you commit, and demands that commitments be revisited as evidence arrives. It does not exempt a team from giving stakeholders a reasonable, honestly-caveated sense of direction and timing, a skill covered directly in Lesson 47 (Stakeholder Management).\n\n"
+        }
+      ],
+      "blockId": "blk_7e3c3525a5"
+    },
+    {
+      "type": "mentalModel",
+      "name": "The Iteration Loop",
+      "diagram": {
+        "blockId": "blk_bd925491bb",
+        "type": "mermaid"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "*(Introduced above in the Theory section; restated here as this lesson's standalone takeaway tool, per curriculum convention.)*",
+          "blockId": "blk_c98e0d1227"
+        },
+        {
+          "type": "paragraph",
+          "text": "Use the Iteration Loop as a diagnostic whenever a project feels \"stuck\" or \"off track.\" Ask: is the current batch of work actually small enough to generate feedback quickly, or has it quietly grown into a mini-Waterfall project? Is feedback from the last loop actually shaping the next batch, or is the team executing a pre-set plan regardless of what was learned? A team that can't clearly answer both questions has a process that looks Agile on a calendar but doesn't function as one in practice.",
+          "blockId": "blk_f9ae22d0d1"
+        }
+      ],
+      "blockId": "blk_3df08b1741"
+    },
+    {
+      "type": "mermaid",
+      "id": "blk_bd925491bb",
+      "source": "%%{init: {\r\n  \"theme\": \"dark\",\r\n  \"themeVariables\": {\r\n    \"background\": \"#0b0b0c\",\r\n    \"primaryColor\": \"#1f1f23\",\r\n    \"primaryTextColor\": \"#ffffff\",\r\n    \"primaryBorderColor\": \"#8b5cf6\",\r\n    \"lineColor\": \"#d1d5db\",\r\n    \"secondaryColor\": \"#18181b\",\r\n    \"tertiaryColor\": \"#111111\",\r\n    \"mainBkg\": \"#1f1f23\",\r\n    \"nodeBorder\": \"#8b5cf6\",\r\n    \"clusterBkg\": \"#000000\",\r\n    \"clusterBorder\": \"#27272a\",\r\n    \"titleColor\": \"#ffffff\",\r\n    \"edgeLabelBackground\": \"#0b0b0c\",\r\n    \"nodeTextColor\": \"#ffffff\",\r\n    \"edgeLabelColor\": \"#ffffff\",\r\n    \"actorBorder\": \"#8b5cf6\",\r\n    \"actorBkg\": \"#1f1f23\",\r\n    \"actorTextColor\": \"#ffffff\",\r\n    \"sequenceNumberColor\": \"#ffffff\",\r\n    \"signalColor\": \"#8b5cf6\",\r\n    \"signalTextColor\": \"#ffffff\",\r\n    \"textColor\": \"#ffffff\",\r\n    \"classText\": \"#ffffff\",\r\n    \"classBorder\": \"#8b5cf6\",\r\n    \"classBkg\": \"#1f1f23\"\r\n  }\r\n}}%%\r\ngraph LR\r\n    A[Small Batch of Work] --> B[Build]\r\n    B --> C[Demo / Release]\r\n    C --> D[Feedback]\r\n    D -.->|informs next batch| A",
+      "normalized": "graph LR\r\n    A[Small Batch of Work] --> B[Build]\r\n    B --> C[Demo / Release]\r\n    C --> D[Feedback]\r\n    D -.->|informs next batch| A",
+      "authorTheme": {
+        "background": "#0b0b0c",
+        "primaryColor": "#1f1f23",
+        "primaryTextColor": "#ffffff",
+        "primaryBorderColor": "#8b5cf6",
+        "lineColor": "#d1d5db",
+        "secondaryColor": "#18181b",
+        "tertiaryColor": "#111111",
+        "mainBkg": "#1f1f23",
+        "nodeBorder": "#8b5cf6",
+        "clusterBkg": "#000000",
+        "clusterBorder": "#27272a",
+        "titleColor": "#ffffff",
+        "edgeLabelBackground": "#0b0b0c",
+        "nodeTextColor": "#ffffff",
+        "edgeLabelColor": "#ffffff",
+        "actorBorder": "#8b5cf6",
+        "actorBkg": "#1f1f23",
+        "actorTextColor": "#ffffff",
+        "sequenceNumberColor": "#ffffff",
+        "signalColor": "#8b5cf6",
+        "signalTextColor": "#ffffff",
+        "textColor": "#ffffff",
+        "classText": "#ffffff",
+        "classBorder": "#8b5cf6",
+        "classBkg": "#1f1f23"
+      },
+      "svg": "<svg id=\"mermaid-svg-1795020948368-90\" xmlns=\"http://www.w3.org/2000/svg\" width=\"1391.5\" height=\"170.5\" viewBox=\"-38 -27 1391.5 170.5\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" aria-label=\"Process diagram showing flow: Small Batch of Work → Build → Demo / Release → Feedback\" class=\"mermaid-static-svg\" style=\"width: auto; height: auto; display: block;\">\n\n  <style>\n    .dark .node rect, .dark .node circle, .dark .node ellipse, .dark .node polygon, .dark .node path { fill: #171E1A !important; stroke: #2E4538 !important; }\n    .dark .label span, .dark .label text { color: #ECF2EE !important; fill: #ECF2EE !important; }\n    .dark .flowchart-link { stroke: #4ADE80 !important; }\n    .dark .marker { fill: #4ADE80 !important; stroke: #4ADE80 !important; }\n    .dark .edgeLabel { background-color: #171E1A !important; color: #ECF2EE !important; }\n    .dark .edgeLabel rect { fill: #171E1A !important; }\n    .dark .cluster rect { fill: rgba(255,255,255,0.04) !important; stroke: #2E4538 !important; }\n  </style>\n<title>Process diagram showing flow: Small Batch of Work → Build → Demo / Release → Feedback</title><style>#mermaid-svg-1795020948368-90{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;fill:#171A17;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-svg-1795020948368-90 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020948368-90 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-svg-1795020948368-90 .error-icon{fill:#F4F0E6;}#mermaid-svg-1795020948368-90 .error-text{fill:#4B5563;stroke:#4B5563;}#mermaid-svg-1795020948368-90 .edge-thickness-normal{stroke-width:1px;}#mermaid-svg-1795020948368-90 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-1795020948368-90 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-1795020948368-90 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-svg-1795020948368-90 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-1795020948368-90 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-1795020948368-90 .marker{fill:#1F6B4E;stroke:#1F6B4E;}#mermaid-svg-1795020948368-90 .marker.cross{stroke:#1F6B4E;}#mermaid-svg-1795020948368-90 svg{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:16px;}#mermaid-svg-1795020948368-90 p{margin:0;}#mermaid-svg-1795020948368-90 .label{font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:#171A17;}#mermaid-svg-1795020948368-90 .cluster-label text{fill:#171A17;}#mermaid-svg-1795020948368-90 .cluster-label span{color:#171A17;}#mermaid-svg-1795020948368-90 .cluster-label span p{background-color:transparent;}#mermaid-svg-1795020948368-90 .label text,#mermaid-svg-1795020948368-90 span{fill:#171A17;color:#171A17;}#mermaid-svg-1795020948368-90 .node rect,#mermaid-svg-1795020948368-90 .node circle,#mermaid-svg-1795020948368-90 .node ellipse,#mermaid-svg-1795020948368-90 .node polygon,#mermaid-svg-1795020948368-90 .node path{fill:#FFFFFF;stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020948368-90 .rough-node .label text,#mermaid-svg-1795020948368-90 .node .label text,#mermaid-svg-1795020948368-90 .image-shape .label,#mermaid-svg-1795020948368-90 .icon-shape .label{text-anchor:middle;}#mermaid-svg-1795020948368-90 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-svg-1795020948368-90 .rough-node .label,#mermaid-svg-1795020948368-90 .node .label,#mermaid-svg-1795020948368-90 .image-shape .label,#mermaid-svg-1795020948368-90 .icon-shape .label{text-align:center;}#mermaid-svg-1795020948368-90 .node.clickable{cursor:pointer;}#mermaid-svg-1795020948368-90 .root .anchor path{fill:#1F6B4E!important;stroke-width:0;stroke:#1F6B4E;}#mermaid-svg-1795020948368-90 .arrowheadPath{fill:#000000;}#mermaid-svg-1795020948368-90 .edgePaths .path{stroke:#1F6B4E;stroke-width:1px;}#mermaid-svg-1795020948368-90 .flowchart-link{stroke:#1F6B4E;fill:none;}#mermaid-svg-1795020948368-90 .edgeLabel{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020948368-90 .edgeLabel p{background-color:#FFFFFF;}#mermaid-svg-1795020948368-90 .edgeLabel rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020948368-90 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-svg-1795020948368-90 .cluster rect{fill:#F4F0E6;stroke:#D1C7BD;stroke-width:1px;}#mermaid-svg-1795020948368-90 .cluster text{fill:#171A17;}#mermaid-svg-1795020948368-90 .cluster span{color:#171A17;}#mermaid-svg-1795020948368-90 .node .collapsed-indicator{fill:#D1C7BD;stroke:none;opacity:0.6;}#mermaid-svg-1795020948368-90 .node .collapsed-separator{stroke:#D1C7BD;stroke-width:0.75px;}#mermaid-svg-1795020948368-90 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;font-size:12px;background:#F4F0E6;border:1px solid #D1C7BD;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-svg-1795020948368-90 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#171A17;}#mermaid-svg-1795020948368-90 rect.text{fill:none;stroke-width:0;}#mermaid-svg-1795020948368-90 .icon-shape,#mermaid-svg-1795020948368-90 .image-shape{background-color:#FFFFFF;text-align:center;}#mermaid-svg-1795020948368-90 .icon-shape p,#mermaid-svg-1795020948368-90 .image-shape p{background-color:#FFFFFF;padding:2px;}#mermaid-svg-1795020948368-90 .icon-shape .label rect,#mermaid-svg-1795020948368-90 .image-shape .label rect{opacity:0.5;background-color:#FFFFFF;fill:#FFFFFF;}#mermaid-svg-1795020948368-90 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-svg-1795020948368-90 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-svg-1795020948368-90 .node .neo-node{stroke:#1F6B4E;}#mermaid-svg-1795020948368-90 [data-look=\"neo\"].node rect,#mermaid-svg-1795020948368-90 [data-look=\"neo\"].cluster rect,#mermaid-svg-1795020948368-90 [data-look=\"neo\"].node polygon{stroke:url(#mermaid-svg-1795020948368-90-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020948368-90 [data-look=\"neo\"].swimlane.cluster rect{filter:none;}#mermaid-svg-1795020948368-90 [data-look=\"neo\"].node path{stroke:url(#mermaid-svg-1795020948368-90-gradient);stroke-width:1px;}#mermaid-svg-1795020948368-90 [data-look=\"neo\"].node .outer-path{filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020948368-90 [data-look=\"neo\"].node .neo-line path{stroke:#1F6B4E;filter:none;}#mermaid-svg-1795020948368-90 [data-look=\"neo\"].node circle{stroke:url(#mermaid-svg-1795020948368-90-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020948368-90 [data-look=\"neo\"].node circle .state-start{fill:#000000;}#mermaid-svg-1795020948368-90 [data-look=\"neo\"].icon-shape .icon{fill:url(#mermaid-svg-1795020948368-90-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020948368-90 [data-look=\"neo\"].icon-shape .icon-neo path{stroke:url(#mermaid-svg-1795020948368-90-gradient);filter:drop-shadow( 1px 2px 2px rgba(185,185,185,1));}#mermaid-svg-1795020948368-90 :root{--mermaid-font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;}</style><g><marker id=\"mermaid-svg-1795020948368-90_flowchart-v2-pointEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020948368-90_flowchart-v2-pointStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"4.5\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020948368-90_flowchart-v2-pointEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"11.5\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"10.5\" markerHeight=\"14\" orient=\"auto\"><path d=\"M 0 0 L 11.5 7 L 0 14 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020948368-90_flowchart-v2-pointStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 11.5 14\" refX=\"1\" refY=\"7\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11.5\" markerHeight=\"14\" orient=\"auto\"><polygon points=\"0,7 11.5,14 11.5,0\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></polygon></marker><marker id=\"mermaid-svg-1795020948368-90_flowchart-v2-circleEnd\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020948368-90_flowchart-v2-circleStart\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020948368-90_flowchart-v2-circleEnd-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refY=\"5\" refX=\"12.25\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020948368-90_flowchart-v2-circleStart-margin\" class=\"marker flowchart-v2\" viewBox=\"0 0 10 10\" refX=\"-2\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"14\" markerHeight=\"14\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 0; stroke-dasharray: 1,0;\"></circle></marker><marker id=\"mermaid-svg-1795020948368-90_flowchart-v2-crossEnd\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020948368-90_flowchart-v2-crossStart\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1,0;\"></path></marker><marker id=\"mermaid-svg-1795020948368-90_flowchart-v2-crossEnd-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"17.7\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5;\"></path></marker><marker id=\"mermaid-svg-1795020948368-90_flowchart-v2-crossStart-margin\" class=\"marker cross flowchart-v2\" viewBox=\"0 0 15 15\" refX=\"-3.5\" refY=\"7.5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 1,1 L 14,14 M 1,14 L 14,1\" class=\"arrowMarkerPath\" style=\"stroke-width: 2.5; stroke-dasharray: 1,0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M330.25,53.54L339,52.117C347.75,50.693,365.25,47.847,382.083,46.423C398.917,45,415.083,45,423.167,45L431.25,45\" id=\"mermaid-svg-1795020948368-90-L_A_B_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_A_B_0\" data-points=\"W3sieCI6MzMwLjI1LCJ5Ijo1My41NDAwODE5MTkyNTEwMn0seyJ4IjozODIuNzUsInkiOjQ1fSx7IngiOjQzNS4yNSwieSI6NDV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020948368-90_flowchart-v2-pointEnd)\"></path><path d=\"M579,45L598.167,45C617.333,45,655.667,45,693.333,45C731,45,768,45,786.5,45L805,45\" id=\"mermaid-svg-1795020948368-90-L_B_C_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_B_C_0\" data-points=\"W3sieCI6NTc5LCJ5Ijo0NX0seyJ4Ijo2OTQsInkiOjQ1fSx7IngiOjgwOSwieSI6NDV9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020948368-90_flowchart-v2-pointEnd)\"></path><path d=\"M1067.5,45L1076.25,45C1085,45,1102.5,45,1119.352,46.962C1136.204,48.924,1152.408,52.848,1160.51,54.81L1168.612,56.772\" id=\"mermaid-svg-1795020948368-90-L_C_D_0\" class=\"edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_C_D_0\" data-points=\"W3sieCI6MTA2Ny41LCJ5Ijo0NX0seyJ4IjoxMTIwLCJ5Ijo0NX0seyJ4IjoxMTcyLjUsInkiOjU3LjcxMzQxNDYzNDE0NjM0Nn1d\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020948368-90_flowchart-v2-pointEnd)\"></path><path d=\"M1172.5,101.787L1163.75,103.905C1155,106.024,1137.5,110.262,1098.458,112.381C1059.417,114.5,998.833,114.5,927.833,114.5C856.833,114.5,775.417,114.5,703.563,114.5C631.708,114.5,569.417,114.5,517.542,114.5C465.667,114.5,424.208,114.5,395.387,113.184C366.566,111.867,350.382,109.235,342.29,107.918L334.198,106.602\" id=\"mermaid-svg-1795020948368-90-L_D_A_0\" class=\"edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-solid flowchart-link\" style=\";\" data-edge=\"true\" data-et=\"edge\" data-id=\"L_D_A_0\" data-points=\"W3sieCI6MTE3Mi41LCJ5IjoxMDEuNzg2NTg1MzY1ODUzNjV9LHsieCI6MTEyMCwieSI6MTE0LjV9LHsieCI6OTM4LjI1LCJ5IjoxMTQuNX0seyJ4Ijo2OTQsInkiOjExNC41fSx7IngiOjUwNy4xMjUsInkiOjExNC41fSx7IngiOjM4Mi43NSwieSI6MTE0LjV9LHsieCI6MzMwLjI1LCJ5IjoxMDUuOTU5OTE4MDgwNzQ4OTh9XQ==\" data-look=\"classic\" marker-end=\"url(#mermaid-svg-1795020948368-90_flowchart-v2-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_A_B_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_B_C_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" data-id=\"L_C_D_0\" transform=\"translate(-30, -19)\"><foreignObject width=\"60\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(694, 114.5)\"><g class=\"label\" data-id=\"L_D_A_0\" transform=\"translate(-92.5, -19)\"><foreignObject width=\"185\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\" class=\"labelBkg\"><span class=\"edgeLabel\"><p>informs next batch</p></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default\" id=\"mermaid-svg-1795020948368-90-flowchart-A-0\" data-look=\"classic\" transform=\"translate(169.125, 79.75)\"><rect class=\"basic label-container\" style=\"\" x=\"-128.75\" y=\"-35\" width=\"257.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-96.75, -19)\"><rect></rect><foreignObject width=\"193.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Small Batch of Work</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020948368-90-flowchart-B-1\" data-look=\"classic\" transform=\"translate(507.125, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-69.25\" y=\"-35\" width=\"138.5\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-37.25, -19)\"><rect></rect><foreignObject width=\"74.5\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Build</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020948368-90-flowchart-C-3\" data-look=\"classic\" transform=\"translate(938.25, 45)\"><rect class=\"basic label-container\" style=\"\" x=\"-107.5\" y=\"-35\" width=\"215\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-75.5, -19)\"><rect></rect><foreignObject width=\"151\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Demo / Release</p></span></div></foreignObject></g></g><g class=\"node default\" id=\"mermaid-svg-1795020948368-90-flowchart-D-5\" data-look=\"classic\" transform=\"translate(1263.5, 79.75)\"><rect class=\"basic label-container\" style=\"\" x=\"-82\" y=\"-35\" width=\"164\" height=\"70\"></rect><g class=\"label\" style=\"\" transform=\"translate(-50, -19)\"><rect></rect><foreignObject width=\"100\" height=\"38\"><div style=\"display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;\" xmlns=\"http://www.w3.org/1999/xhtml\"><span class=\"nodeLabel\"><p>Feedback</p></span></div></foreignObject></g></g></g></g></g><defs><filter id=\"mermaid-svg-1795020948368-90-drop-shadow\" height=\"130%\" width=\"130%\"><fedropshadow dx=\"4\" dy=\"4\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><defs><filter id=\"mermaid-svg-1795020948368-90-drop-shadow-small\" height=\"150%\" width=\"150%\"><fedropshadow dx=\"2\" dy=\"2\" stdDeviation=\"0\" flood-opacity=\"0.06\" flood-color=\"#000000\"></fedropshadow></filter></defs><linearGradient id=\"mermaid-svg-1795020948368-90-gradient\" gradientUnits=\"objectBoundingBox\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop><stop offset=\"100%\" stop-color=\"#1F6B4E\" stop-opacity=\"1\"></stop></linearGradient></svg>",
+      "blockId": "blk_bd925491bb"
+    },
+    {
+      "type": "companyExample",
+      "company": "Amazon",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "**Amazon**'s \"two-pizza team\" concept is real, but the more precise and more useful version of the story, as told firsthand by former Amazon VP Colin Bryar and former VP Bill Carr in their book *Working Backwards*, is that two-pizza teams were an early solution that Amazon later evolved beyond, not a practice that simply continues unchanged. Amazon found that team *size* wasn't actually the strongest predictor of a team's success; having a single accountable leader with the right authority was. That insight produced \"single-threaded leadership\" (STL): one leader, unencumbered by competing responsibilities, owns one initiative end-to-end with a dedicated, \"separable\" team, so the organization doesn't have to coordinate every decision through a large committee.",
+          "blockId": "blk_e241d81829"
+        },
+        {
+          "type": "paragraph",
+          "text": "The underlying logic connects directly to this lesson's theory, and the evolution itself is the more instructive part: small, autonomous teams reduce coordination overhead. A team of eight can decide, build, and get feedback in days, while a team of eighty attempting the same decision typically cannot, because the number of people who must align before work begins grows the batch size by necessity. But Amazon's own experience shows that raw team size was a proxy for the real variable (clear, unambiguous ownership), not the cause itself, worth remembering before copying \"keep teams small\" as a rule in isolation from what it's actually meant to produce.",
+          "blockId": "blk_522a199a9d"
+        },
+        {
+          "type": "paragraph",
+          "text": "*(Source: Bryar and Carr's *Working Backwards* (2021), a firsthand insider account by two former Amazon executives directly involved in the practice's development, a stronger source than the general \"widely reported\" framing this section previously relied on.)*",
+          "blockId": "blk_99487f4008"
+        }
+      ],
+      "blockId": "blk_b08a3f9cf4"
+    },
+    {
+      "type": "realWorldPerspective",
+      "segments": [
+        {
+          "context": "At a startup",
+          "body": "Agile is often practiced informally and without much ceremony: a founder-PM might simply talk to engineers daily and adjust plans in real time, without a named framework, a tracked velocity chart, or a scheduled retrospective. This is not a failure to \"do Agile properly\"; in a five-person team sitting in one room, many formal ceremonies exist to solve coordination problems that don't yet exist at that scale. The values (short feedback loops, responsiveness to learning) are often present even when the vocabulary (sprints, standups) is not."
+        },
+        {
+          "context": "At a mid-size company",
+          "body": "Formal frameworks typically appear, usually Scrum or Kanban (Lessons 32–33), because the team has grown past the point where informal daily conversation can keep everyone aligned. This is also where \"doing Agile vs. being Agile\" drift most commonly begins, because ceremonies get standardized company-wide by a platform or operations team, sometimes without preserving the underlying reasoning for why each ceremony exists."
+        },
+        {
+          "context": "At Big Tech",
+          "body": "Agile ceremonies are typically deeply institutionalized, often supported by dedicated tooling, embedded agile coaches, and standardized sprint cadences across dozens of teams simultaneously. The tension shifts: the risk is no longer \"no process at all,\" but rather process ossifying into ritual disconnected from its purpose, at a scale where a single misaligned ceremony can quietly waste enormous amounts of engineering time across many teams before anyone notices. Senior PMs at this scale are often specifically valued for their willingness to challenge a ceremony that has stopped serving its original function."
+        }
+      ],
+      "blockId": "blk_1ce1dc3ab7"
+    },
+    {
+      "type": "caseStudy",
+      "title": "The Sprint That Wasn't",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Consider a simplified, illustrative scenario, common at mid-size product organizations transitioning from ad hoc development into a formal Agile process for the first time.",
+          "blockId": "blk_7ce175c94a"
+        },
+        {
+          "type": "paragraph",
+          "text": "A twelve-person product team adopts two-week sprints after a consultant recommends it. In week one of the pilot sprint, the team commits to seven backlog items during sprint planning. On day four, a customer-facing bug is discovered that is actively costing the company revenue. Engineers spend a day and a half fixing it, unplanned. On day seven, user interviews (conducted independently by design) reveal that one of the seven committed items is based on a wrong assumption about user behavior and should be redesigned before more engineering time is spent on it.",
+          "blockId": "blk_fd7f22cab4"
+        },
+        {
+          "type": "paragraph",
+          "text": "Despite both discoveries, the PM insists the team \"finish what we committed to,\" reasoning that changing the sprint mid-flight would look like poor planning to leadership. The team ships all seven original items at the end of the sprint, including the one now known to rest on a flawed assumption. The following sprint, the team has to redo roughly 40% of that item's work.",
+          "blockId": "blk_34c501006c"
+        },
+        {
+          "type": "paragraph",
+          "text": "**What went wrong?**",
+          "blockId": "blk_868b6f06ba"
+        },
+        {
+          "type": "paragraph",
+          "text": "The team had adopted Agile's ceremonies (a sprint, a fixed commitment, a two-week cadence) without adopting its underlying value of *responding to change over following a plan*. Mid-sprint learning, exactly the kind of feedback the Iteration Loop is designed to capture and act on, was treated as an inconvenience to be ignored rather than a signal to be acted on. The PM's instinct (protecting the appearance of predictable delivery) is understandable, but it inverted the entire purpose of the framework: a sprint commitment exists to create a short, protected window of focus, not a contract that must be honored even after it's known to be wrong.",
+          "blockId": "blk_4a60a1b062"
+        },
+        {
+          "type": "paragraph",
+          "text": "A PM operating from genuine Agile values, rather than Agile ceremony, would have brought the new evidence to the team immediately, made the trade-off explicit to stakeholders (\"we're pausing item 5 because we just learned it rests on a false assumption. Here's what we'll do instead\"), and treated the resulting short-term appearance of a \"broken commitment\" as a far better outcome than shipping something known to be wrong. This exact tension (protecting a plan versus responding to new evidence) will reappear directly in **Lesson 34 (Sprint Planning & Backlog Grooming)**, where we build a concrete process for handling mid-sprint changes without destabilizing the whole team's focus, and again in **Lesson 47 (Stakeholder Management)**, where we address how to communicate a changed plan upward without it reading as a failure.",
+          "blockId": "blk_b8fe6a83d5"
+        }
+      ],
+      "blockId": "blk_3987861bb9"
+    },
+    {
+      "type": "framework",
+      "name": "The Agile Fit Checklist",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "A second, more tactical tool: before recommending that a team adopt or continue an Agile process, or before evaluating whether an existing process is genuinely functioning, check it against this list.",
+          "blockId": "blk_a32de80298"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Check",
+            "Question",
+            "Sign of Trouble"
+          ],
+          "rows": [
+            [
+              "Batch size",
+              "Is each unit of committed work small enough to complete and get feedback on within the iteration window?",
+              "Work items routinely span multiple sprints with no visible sub-progress"
+            ],
+            [
+              "Feedback loop closure",
+              "Does feedback from a completed increment demonstrably change the next increment's plan?",
+              "Retrospectives produce the same action items sprint after sprint with no behavior change"
+            ],
+            [
+              "Responsiveness",
+              "When significant new evidence appears mid-cycle, does the plan actually change?",
+              "Plans are treated as fixed commitments regardless of new evidence (see Case Study above)"
+            ],
+            [
+              "Working software as truth",
+              "Is progress measured by something a user could touch, or by percentage-complete estimates and documentation?",
+              "Status reports describe \"80% done\" for work with no demonstrable, testable output"
+            ],
+            [
+              "PM backlog ownership",
+              "Is the PM actively curating and prioritizing the backlog, or has that responsibility drifted to whoever runs the ceremonies?",
+              "Backlog is stale, unprioritized, or maintained by the Scrum Master/EM rather than the PM"
+            ]
+          ],
+          "blockId": "blk_b76d6789c5"
+        },
+        {
+          "type": "paragraph",
+          "text": "This checklist is deliberately framework-agnostic: it applies equally whether the team ultimately uses Scrum, Kanban, or a hybrid, because it audits Agile *values*, not any single Agile *implementation*. We will apply it directly when comparing Scrum and Kanban in Lessons 32 and 33.",
+          "blockId": "blk_617d4624f2"
+        }
+      ],
+      "blockId": "blk_7533800542"
+    },
+    {
+      "type": "interviewPerspective",
+      "questions": [
+        {
+          "question": "How do you feel about Agile? Do you prefer Scrum or Kanban?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate has a values-first understanding of Agile, or a ceremony-first one. A weak answer states a framework preference with no reasoning (\"I like Scrum, it's more structured\"). A strong answer explains what problem each framework solves and under what conditions each is a better fit, signaling that the candidate understands Agile as a response to a specific kind of uncertainty, not a personal style preference."
+        },
+        {
+          "question": "Tell me about a time a project's plan had to change mid-execution. How did you handle it?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Whether the candidate treats new evidence as something to act on or something to defer, mirroring this lesson's Case Study exactly. A weak answer describes forcing the original plan through regardless of what was learned, in the name of predictability. A strong answer describes communicating the change transparently, explaining the evidence behind it, and reprioritizing without treating the change itself as a failure."
+        },
+        {
+          "question": "What's the PM's job in a sprint, versus the Scrum Master's?",
+          "whatItEvaluates": "*What the interviewer is actually evaluating:* Role clarity, whether the candidate understands that the PM owns backlog quality and outcome direction, not ceremony facilitation. Candidates who describe themselves running standups and tracking burndown charts, without mentioning backlog prioritization or outcome framing, reveal the exact role-confusion covered in this lesson's Theory section."
+        }
+      ],
+      "blockId": "blk_f9e744ffc1"
+    },
+    {
+      "type": "summary",
+      "children": [
+        {
+          "type": "paragraph",
+          "text": "Agile is not a single process but a family of practices built on a specific bet about software development: that in the presence of genuine uncertainty about what users actually need, short feedback loops beat long up-front plans. It emerged as a direct response to the failure modes of Waterfall, where large, sequential commitments made discovering a wrong assumption catastrophically expensive. The Agile Manifesto's four values (individuals and interactions, working software, customer collaboration, and responding to change) describe what to prioritize when trade-offs arise, not a rejection of process, documentation, contracts, or plans outright. This lesson's Iteration Loop (small batch → build → demo/release → feedback → informs next batch) describes how those values translate into a repeatable operating rhythm inside the Execution link of the Decision Chain from Lesson 1. The most important diagnostic skill this lesson teaches is distinguishing \"doing Agile\" (running ceremonies on schedule) from \"being Agile\" (genuinely responding to what each iteration reveals), a gap that widens as organizations grow and ceremonies risk becoming ritual. Within an Agile team, the PM's distinctive job remains what it has always been since Lesson 1: owning the backlog's connection to real problems and real outcomes, while the Scrum Master owns process facilitation and engineering leadership owns technical execution.",
+          "blockId": "blk_4159869aa7"
+        }
+      ],
+      "blockId": "blk_e438578603"
+    },
+    {
+      "type": "keyTakeaways",
+      "items": [
+        "Agile emerged as a direct response to Waterfall's core weakness: expensive, late discovery of wrong assumptions after long, sequential commitments.",
+        "The four Agile values prioritize individuals/interactions, working software, customer collaboration, and responsiveness to change, without discarding process, documentation, contracts, or plans entirely.",
+        "The Iteration Loop (small batch → build → demo/release → feedback → next batch) operates inside the Execution link of the Decision Chain (Lesson 1), keeping execution connected to real feedback rather than isolated from it.",
+        "\"Doing Agile\" (ceremonies present) is not the same as \"being Agile\" (values genuinely practiced): many organizations have the former without the latter.",
+        "Agile does not remove the need for upfront prioritization (Lesson 29) or longer-horizon planning (Lesson 35): it governs execution once priorities are set, not the setting of priorities itself.",
+        "The PM's distinctive role inside an Agile team is backlog ownership and outcome clarity, not ceremony facilitation. That belongs to the Scrum Master or Agile Coach where one exists.",
+        "Smaller, more autonomous teams (as in Amazon's two-pizza team model) tend to sustain tighter, more genuine iteration loops than large teams, because coordination overhead scales with team size."
+      ],
+      "blockId": "blk_cef9424da8"
+    },
+    {
+      "type": "cheatSheet",
+      "items": [
+        "**Agile exists because:** software requirements are rarely fully knowable up front; short feedback loops make being wrong cheap to discover.",
+        "**Four values:** individuals/interactions, working software, customer collaboration, responding to change, each \"over,\" not \"instead of,\" the item on the right.",
+        "**Iteration Loop:** Small Batch → Build → Demo/Release → Feedback → back into next batch.",
+        "**Doing vs. Being Agile test:** when the team learns something mid-cycle that changes the picture, does the plan actually change?",
+        "**PM's job in Agile:** own the backlog and the \"why,\" not the ceremonies.",
+        "**Agile Fit Checklist:** batch size, feedback loop closure, responsiveness, working software as truth, PM backlog ownership.",
+        "**Not a speed hack:** Agile manages uncertainty; it does not guarantee velocity."
+      ],
+      "blockId": "blk_403ab9cf21"
+    },
+    {
+      "type": "glossary",
+      "entries": [
+        {
+          "term": "Agile",
+          "definition": "A family of iterative software development practices prioritizing short feedback loops and responsiveness to change over rigid up-front planning",
+          "relatedConcepts": [
+            "Waterfall",
+            "Iteration Loop"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "Waterfall",
+          "definition": "A sequential development model (requirements → design → build → test → release) borrowed from manufacturing/civil engineering",
+          "relatedConcepts": [
+            "Agile Manifesto"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "Agile Manifesto",
+          "definition": "The 2001 founding document stating Agile's four core values and twelve principles",
+          "relatedConcepts": [
+            "Agile Values",
+            "Iteration Loop"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "Iteration Loop",
+          "definition": "This lesson's mental model: small batch → build → demo/release → feedback → informs next batch",
+          "relatedConcepts": [
+            "Decision Chain (Lesson 1)"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Doing Agile vs. Being Agile",
+          "definition": "The distinction between following Agile ceremonies and genuinely holding Agile's underlying values",
+          "relatedConcepts": [
+            "Sprint",
+            "Retrospective"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Two-Pizza Team",
+          "definition": "Amazon's informally reported principle of keeping teams small enough to sustain tight iteration loops",
+          "relatedConcepts": [
+            "Single-Threaded Ownership"
+          ],
+          "difficulty": 1
+        },
+        {
+          "term": "Single-Threaded Ownership",
+          "definition": "A structure where one clearly accountable owner drives an initiative end-to-end without heavy committee coordination",
+          "relatedConcepts": [
+            "Two-Pizza Team"
+          ],
+          "difficulty": 2
+        },
+        {
+          "term": "Batch Size",
+          "definition": "The amount of work committed to before the next round of feedback is gathered",
+          "relatedConcepts": [
+            "Iteration Loop",
+            "Sprint"
+          ],
+          "difficulty": 2
+        }
+      ],
+      "blockId": "blk_94e97de476"
+    },
+    {
+      "type": "resources",
+      "items": [
+        {
+          "citation": "*Agile Manifesto*",
+          "note": "Kent Beck, Mike Beedle, et al. (2001), the original founding document and its twelve principles."
+        },
+        {
+          "citation": "*The Lean Startup* by Eric Ries",
+          "note": "extends the same build-measure-learn logic underlying the Iteration Loop to whole-company strategy, not just engineering execution."
+        },
+        {
+          "citation": "*Inspired: How to Create Tech Products Customers Love* by Marty Cagan",
+          "note": "situates Agile execution within the broader context of product discovery and PM responsibility."
+        }
+      ],
+      "blockId": "blk_236db02e4b"
+    },
+    {
+      "type": "flashcardDeck",
+      "id": "fc-deck-les_091713",
+      "cards": [
+        {
+          "id": "fc-les_091713-1",
+          "front": "What problem was Agile originally designed to solve?",
+          "back": "The high cost of discovering wrong assumptions late, after long sequential (Waterfall) commitments had already been fully built out.",
+          "difficulty": 1,
+          "tags": [
+            "history",
+            "waterfall"
+          ]
+        },
+        {
+          "id": "fc-les_091713-2",
+          "front": "Name the four values of the Agile Manifesto.",
+          "back": "Individuals and interactions over processes and tools; working software over comprehensive documentation; customer collaboration over contract negotiation; responding to change over following a plan.",
+          "difficulty": 2,
+          "tags": [
+            "manifesto",
+            "values"
+          ]
+        },
+        {
+          "id": "fc-les_091713-3",
+          "front": "What are the five stages of the Iteration Loop?",
+          "back": "Small Batch of Work → Build → Demo/Release → Feedback → (feeds back into) next Small Batch.",
+          "difficulty": 1,
+          "tags": [
+            "mental-model",
+            "iteration-loop"
+          ]
+        },
+        {
+          "id": "fc-les_091713-4",
+          "front": "What's the simplest test for whether a team is \"being Agile\" versus just \"doing Agile\"?",
+          "back": "When the team learns something significant mid-cycle, does the plan actually change, or does the team finish the original commitment regardless?",
+          "difficulty": 2,
+          "tags": [
+            "diagnosis"
+          ]
+        },
+        {
+          "id": "fc-les_091713-5",
+          "front": "In an Agile team, who owns the backlog and outcome direction, the PM or the Scrum Master?",
+          "back": "The PM. The Scrum Master owns process facilitation; the PM owns what gets built and why.",
+          "difficulty": 1,
+          "tags": [
+            "roles"
+          ]
+        },
+        {
+          "id": "fc-les_091713-6",
+          "front": "Why does Amazon's reported \"two-pizza team\" principle connect to the Iteration Loop?",
+          "back": "Smaller, more autonomous teams require less coordination overhead, allowing them to complete small batches and gather feedback faster than large teams can.",
+          "difficulty": 2,
+          "tags": [
+            "amazon",
+            "team-size"
+          ]
+        },
+        {
+          "id": "fc-les_091713-7",
+          "front": "Does Agile eliminate the need for upfront prioritization and roadmapping?",
+          "back": "No. Agile governs how already-prioritized work is executed; it does not replace the separate discipline of deciding what deserves to be built in the first place (Lesson 29, Lesson 35).",
+          "difficulty": 2,
+          "tags": [
+            "scope",
+            "prioritization"
+          ]
+        }
+      ],
+      "blockId": "blk_3d7fd6c3fa"
+    },
+    {
+      "type": "reflection",
+      "prompts": [
+        "Consider the following novel scenario: You've just joined a fourteen-person team as PM. They run two-week sprints, daily standups, and a retrospective every other Friday. On your first day, an engineer tells you, half-joking, \"our retros are basically the same meeting every two weeks: same three complaints, nothing changes.\" You also notice the current sprint board shows three items that have been \"in progress\" for over five weeks each.",
+        "There is no single correct answer to the prompts below. The goal is to practice diagnostic reasoning using this lesson's frameworks, not to arrive at one \"right\" fix.",
+        "Using the Agile Fit Checklist, which specific checks does this team appear to be failing, based on the evidence given?",
+        "Is this team \"doing Agile\" or \"being Agile,\" in your judgment? What additional evidence would you want before being confident in your answer?",
+        "The stale, long-running backlog items suggest a batch-size problem. What questions would you ask the team to understand why those items have stayed \"in progress\" so long?",
+        "If the recurring, unresolved retrospective complaints turn out to be about a dependency on another team outside your control, how would your response differ from if they turn out to be about something within your own team's process?",
+        "As the new PM, would you address these issues directly in your first week, or observe for a cycle or two first? Justify your choice using this lesson's distinction between ceremony and value."
+      ],
+      "blockId": "blk_ca8b8c2df1"
+    },
+    {
+      "type": "quiz",
+      "id": "quiz-les_091713",
+      "questions": [
+        {
+          "id": "q-les_091713-1",
+          "question": "What core problem did Agile emerge to address, relative to Waterfall's sequential model?",
+          "options": [
+            "A lack of standardized time-tracking software",
+            "Wrong assumptions surfacing only after large, costly commitments",
+            "An excess of unnecessary internal documentation",
+            "An inability to adopt modern version control tools"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Waterfall's build-everything-then-test sequence meant a flawed assumption was only discovered after the whole thing had already been built, making the fix expensive.",
+          "objectivesTested": [
+            1
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_091713-2",
+          "question": "According to the Manifesto, how should \"responding to change\" and \"following a plan\" be understood together?",
+          "options": [
+            "Plans should never be written under a genuine Agile process",
+            "The two values apply only to larger, established teams",
+            "Following a plan is prioritized once conditions grow uncertain",
+            "Responding to change wins the tie, though plans keep value"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The Manifesto's values are stated as \"X over Y\": X wins when the two conflict, not that Y has no worth at all.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_091713-3",
+          "question": "In the Iteration Loop diagram, what does the dotted arrow returning to \"Small Batch of Work\" represent?",
+          "options": [
+            "Feedback from a release shaping the next batch of work",
+            "A checkpoint where the Scrum Master approves new work",
+            "A rule requiring each batch to repeat the last exactly",
+            "An optional step most mature teams eventually drop"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The dotted arrow is the loop's defining feature: feedback from what shipped directly shapes what gets built next.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_091713-4",
+          "question": "How does the Iteration Loop relate to the Decision Chain from Lesson 1?",
+          "options": [
+            "The two models are just different names for one idea",
+            "The Decision Chain applies only once Waterfall is dropped",
+            "It sits inside Execution, breaking it into small increments",
+            "It replaces the Decision Chain once a team goes Agile"
+          ],
+          "correctAnswer": 2,
+          "explanation": "The lesson places the Iteration Loop inside the Decision Chain's Execution step, turning one big push into small increments that generate feedback.",
+          "objectivesTested": [
+            3
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_091713-5",
+          "question": "A team runs standups and retrospectives on schedule but never changes a sprint plan even after learning something important mid-sprint. What does this lesson call that pattern?",
+          "options": [
+            "A well-functioning Scrum process worth leaving alone",
+            "Doing Agile without being Agile",
+            "A Kanban team mistakenly running Scrum ceremonies",
+            "Being Agile in its most disciplined possible form"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Ceremonies present without genuine responsiveness to new evidence is exactly the \"doing Agile without being Agile\" pattern this lesson names.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_091713-6",
+          "question": "Which role facilitates ceremonies and removes team-level blockers, without deciding what gets built?",
+          "options": [
+            "Product Manager",
+            "An individual engineer on the team",
+            "An executive sponsor",
+            "Scrum Master / Agile Coach"
+          ],
+          "correctAnswer": 3,
+          "explanation": "The role table assigns process facilitation and blocker removal to the Scrum Master, distinct from the PM's ownership of what gets built.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "id": "q-les_091713-7",
+          "question": "A PM spends most of their time running standups and tracking a velocity chart while the backlog sits unprioritized. What has most likely happened?",
+          "options": [
+            "The PM has drifted into the Scrum Master's role",
+            "This is the expected division of labor on a healthy team",
+            "The team should be praised for such an involved PM",
+            "The PM is performing exactly the job Lesson 1 describes"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Ceremony facilitation at the expense of backlog quality is the role-confusion trap the lesson warns new PMs against.",
+          "objectivesTested": [
+            5
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_091713-8",
+          "question": "Which of these is NOT one of the four Agile Manifesto values?",
+          "options": [
+            "Working software over comprehensive documentation",
+            "Responding to change over following a plan",
+            "Maximizing headcount over lean staffing",
+            "Individuals and interactions over processes and tools"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Headcount is not part of the Manifesto; its four values are individuals/interactions, working software, customer collaboration, and responding to change.",
+          "objectivesTested": [
+            2
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_091713-9",
+          "question": "Why does this lesson warn against using \"we're Agile\" as a reason to give stakeholders no forward-looking information at all?",
+          "options": [
+            "Every delivery date must be fixed at project kickoff",
+            "It misuses the philosophy, which only changes commitment confidence",
+            "Stakeholders forfeit any right to ask about timing",
+            "Only Waterfall teams are permitted to give estimates"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Common Beginner Mistake #5 frames this as a misuse: Agile changes how confidently and how far ahead a team commits, not whether it communicates direction.",
+          "objectivesTested": [
+            2,
+            4
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_091713-10",
+          "question": "A team keeps small batches and demos working software each cycle, but its retrospectives raise the same three complaints every time with no resulting change. Which Agile Fit Checklist item is this team failing most clearly?",
+          "options": [
+            "Working software as truth",
+            "PM backlog ownership",
+            "Batch size",
+            "Feedback loop closure"
+          ],
+          "correctAnswer": 3,
+          "explanation": "Feedback loop closure asks whether feedback actually changes future increments; recurring, unaddressed complaints are the checklist's named warning sign for this check.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_091713-11",
+          "question": "In the Case Study, what was the PM's central mistake?",
+          "options": [
+            "Protecting a commitment instead of acting on new evidence",
+            "Assigning too many backlog items to a single sprint",
+            "Skipping the sprint planning meeting entirely",
+            "Choosing a two-week cadence over a one-week cycle"
+          ],
+          "correctAnswer": 0,
+          "explanation": "The PM treated the sprint commitment as fixed even after learning one item rested on a false assumption, inverting Agile's actual purpose.",
+          "objectivesTested": [
+            4
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "id": "q-les_091713-12",
+          "question": "A teammate claims \"Agile means never planning more than two weeks out.\" How does this lesson characterize that claim?",
+          "options": [
+            "The exact definition used in the Agile Manifesto itself",
+            "A description that actually applies to Waterfall, not Agile",
+            "A common misreading; plans stay revisable, never absent",
+            "An accurate account of how genuinely Agile teams operate"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Common Beginner Mistakes #2 and #4 both correct this: Agile treats plans as revisable, not absent, and doesn't remove the need for longer-horizon planning.",
+          "objectivesTested": [
+            2,
+            4
+          ],
+          "difficulty": "medium-hard"
+        },
+        {
+          "id": "q-les_091713-13",
+          "question": "(Product Thinking) Team A changes its sprint plan whenever major new evidence appears mid-cycle, even if that means an awkward conversation about a broken commitment. Team B always finishes exactly what it committed to, addressing learnings only in the next planning session. Which team is \"being Agile,\" and why does this matter beyond semantics?",
+          "options": [
+            "Neither team, since both rely on sprints over flow",
+            "Team A, since responding to real evidence is the actual value",
+            "Team B, since consistency earns stakeholder trust over time",
+            "Both teams equally, since both run the same ceremonies"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Genuine responsiveness to significant new evidence, even at the cost of a broken commitment, is what separates real Agile practice from ceremony alone, per the Case Study.",
+          "objectivesTested": [
+            3,
+            4
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_091713-14",
+          "question": "(Interview Reasoning) A candidate asked \"Scrum or Kanban?\" answers: \"Scrum, because it's more structured and I like structure.\" What does this response most likely signal?",
+          "options": [
+            "Strong Agile fluency, since the answer sounded confident",
+            "That the candidate would fit a Kanban team better",
+            "Nothing meaningful, since framework choice is personal taste",
+            "A ceremony-first view, since no reasoning about fit was given"
+          ],
+          "correctAnswer": 3,
+          "explanation": "A strong answer explains what problem each framework solves and when each fits; this answer states a preference with no such reasoning.",
+          "objectivesTested": [
+            4,
+            5
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "id": "q-les_091713-15",
+          "question": "(Product Thinking, Highest Difficulty) A VP asks a PM to guarantee an exact feature list and ship date six months out, \"so leadership can plan around it.\" The team runs a genuinely iterative process. What is the best response, using only this lesson's frameworks?",
+          "options": [
+            "Give a confident direction with caveats on what's least certain",
+            "Agree to the exact list and date to satisfy the VP",
+            "Refuse to discuss the request, since Agile gives no dates",
+            "Redirect the VP to the Scrum Master instead of answering"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Agile does not reject forward commitments; it changes how confidently and how far ahead they're made, and expects them to sharpen as evidence arrives.",
+          "objectivesTested": [
+            2,
+            4,
+            5
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "blockId": "blk_f52afad4b8"
+    },
+    {
+      "type": "connections",
+      "previous": {
+        "id": "les_o9xo51",
+        "title": "Module 3 closing lesson on prioritization trade-offs",
+        "module": "design"
+      },
+      "current": {
+        "id": "les_091713",
+        "title": "Lesson 31: Agile Fundamentals"
+      },
+      "next": {
+        "id": "les_xtr1yz",
+        "title": "Lesson 32: Scrum Framework",
+        "module": "execution"
+      },
+      "unlocks": [
+        {
+          "lesson": {
+            "id": "les_kqyucz",
+            "title": "Kanban Framework",
+            "module": "execution"
+          },
+          "coreIdea": "Presents a contrasting, flow-based implementation of the same underlying Agile values, to be evaluated using the Agile Fit Checklist introduced here"
+        }
+      ],
+      "blockId": "blk_6a4c06ecfd"
+    }
+  ],
+  "assets": [],
+  "searchable": {
+    "plainText": "Lesson 31: Agile Fundamentals Lesson 30 closed out Module 3 by teaching you how to decide *what* to build: prioritization frameworks, trade-off reasoning, and the discipline of saying no to good ideas in service of better ones. That module answered the second of the three core questions from Lesson 1: \"What should we build to solve it?\" This lesson begins Module 4, and Module 4 answers a question Lesson 1 mentioned but deliberately did not resolve: once a decision is made, *how does a team actually turn it into working software, week over week, without losing the thread of why the decision was made in the first place?* This is a real gap in how new PMs are trained. Many PMs can prioritize a backlog beautifully and then watch that backlog degrade into chaos within a month, because they never learned the operating system that engineering and design teams actually run on day to day. Agile is that operating system, not a single tool, not a checklist, but a family of practices built around a specific bet: that in a domain as uncertain as software product development, short feedback loops beat long up-front plans. This matters concretely because most of your career-long working relationship with engineering will be mediated through an Agile process of some kind: a sprint, a Kanban board, a standup, a retrospective. If you don't understand *why* these rituals exist, you will experience them as bureaucratic overhead to be tolerated. If you do understand why, you will recognize them as the primary mechanism through which the Decision Chain (Lesson 1) actually executes in practice, and you will know when to adapt them, and when a ritual has calcified into theater. This lesson establishes the underlying philosophy; Lessons 32 and 33 will cover the two dominant concrete frameworks (Scrum and Kanban) built on top of it. Explain the historical problem Agile was designed to solve, and contrast it with the Waterfall model it emerged in response to. State the four core values and twelve principles of the Agile Manifesto in your own words, and identify which value is most frequently violated in practice. Describe the Iteration Loop as a mental model for how Agile teams convert uncertainty into working software, and distinguish it from the Decision Chain (Lesson 1). Identify the difference between \"doing Agile\" (following ceremonies) and \"being Agile\" (holding the underlying values), and diagnose which one a given team is actually practicing. Explain the PM's specific role and responsibilities within an Agile team, as distinct from the roles of the Scrum Master, Engineering Manager, and individual contributors. This lesson assumes you are comfortable with two things established earlier in this curriculum. First, from **Lesson 1**, it assumes fluency with the Decision Chain (Problem → Understanding → Decision → Execution → Outcome) and the Output vs. Outcome distinction. Agile is, at its core, a way of structuring the \"Execution\" link of that chain so that it stays connected to the \"Outcome\" link instead of drifting into pure output production. Second, from **Lesson 29 (Prioritization Basics)**, it assumes you already know how to rank and sequence a backlog of candidate ideas by value and cost. This lesson does not re-teach prioritization; it teaches what happens to a prioritized backlog *after* prioritization is done, once engineering begins turning it into software. The Problem Agile Was Built to Solve To understand why Agile exists, it helps to understand what it replaced: the **Waterfall model**. Waterfall borrowed its structure from civil engineering and manufacturing, where it is often genuinely wise to fully specify requirements, then design, then build, then test, then release, in strict sequence, because the cost of changing a bridge design after concrete has been poured is catastrophic. Software inherited this sequential model for decades, on the assumption that the same logic applied. It largely did not. Software requirements are rarely knowable in full up front, because much of what a team learns about the \"right\" solution only becomes visible once real users interact with something real. Under Waterfall, a team might spend six to twelve months writing a complete specification, only to discover, after building the entire thing, that a core assumption was wrong. By then, the cost of change is enormous, because everything downstream was built on top of the flawed assumption. This is precisely the failure mode described in Lesson 1's Case Study, except stretched across a full release cycle instead of a single feature decision. The Agile Manifesto In 2001, seventeen software practitioners met and produced the **Agile Manifesto**, a short document stating four core values: **Individuals and interactions** over processes and tools **Working software** over comprehensive documentation **Customer collaboration** over contract negotiation **Responding to change** over following a plan A critical, frequently misunderstood detail: the Manifesto does not say the items on the right have *no* value. It says the items on the left are valued *more*, when the two are in tension. Process and tools still matter; documentation still matters; contracts and plans still matter. The claim is narrower and more defensible: when circumstances force a trade-off, Agile teams choose adaptability over rigid adherence to an original plan. Twelve supporting principles accompany these values, but three carry disproportionate weight for a PM specifically: \"Our highest priority is to satisfy the customer through early and continuous delivery of valuable software\": this is the Manifesto's version of Lesson 1's output-vs-outcome distinction, expressed as a delivery cadence. \"Working software is the primary measure of progress\", not a Gantt chart showing percentage complete, not a specification document, but software a user could actually touch. \"At regular intervals, the team reflects on how to become more effective, then tunes and adjusts its behavior accordingly\": this is the origin of the retrospective, covered further in Lesson 32. The Iteration Loop This lesson's core mental model, the **Iteration Loop**, describes how these values translate into a repeatable operating rhythm: The critical design choice is the word **small**. Rather than committing to a large batch of work over a long horizon (Waterfall), an Agile team commits to a small, time-boxed batch, builds it, exposes it to feedback quickly, and lets that feedback shape the next batch. This is not merely a scheduling preference: it is a direct, structural response to uncertainty. The smaller the batch, the cheaper it is to discover you were wrong, and the sooner you can course-correct. It is worth being precise about how the Iteration Loop relates to the Decision Chain from Lesson 1. The Decision Chain describes a single pass through Problem → Understanding → Decision → Execution → Outcome, at the level of a whole initiative. The Iteration Loop operates *inside* the Execution link of that chain: it is the mechanism by which Execution itself is broken into small, feedback-generating increments, rather than one large, feedback-blind push. Put differently: the Decision Chain tells you *what* you're trying to do; the Iteration Loop tells you *how* a team structures the actual building of it so that being wrong is cheap to discover and cheap to fix. \"Doing Agile\" vs. \"Being Agile\" A distinction every PM must learn to diagnose quickly: many organizations that claim to \"do Agile\" have adopted its ceremonies (daily standups, two-week sprints, retrospectives) without adopting its underlying values. This produces what practitioners sometimes call **\"Waterfall in sprint's clothing\"**: a team that plans an entire quarter's work in detail up front, breaks it into sprint-sized chunks purely for scheduling convenience, and treats each sprint's plan as fixed and non-negotiable regardless of what is learned along the way. The ceremonies are present; the responsiveness to change is not. You can diagnose which situation you're in with a simple test: when a team learns something significant mid-sprint that suggests the current plan is wrong, does the plan change, or does the team \"finish what was committed\" and defer the learning to next sprint's planning? Teams that consistently choose the latter are doing Agile. Teams willing to genuinely re-plan, even at the cost of an uncomfortable conversation about a broken commitment, are being Agile. This distinction will matter directly when you study Scrum in Lesson 32, because Scrum's ceremonies are frequently implemented in the \"doing\" mode without the \"being\" mode, and recognizing the gap is a specifically valuable PM skill. The PM's Role Inside an Agile Team New PMs are often unclear on where their responsibility begins and ends once a team goes Agile, because several roles appear to overlap. A brief map: The most common confusion for new PMs is conflating their role with the Scrum Master's. A PM who spends their energy facilitating standups and tracking velocity charts, while neglecting backlog quality and outcome clarity, has drifted into project-coordination work: precisely the trap Lesson 1 warned against. The PM's distinctive contribution to an Agile team is not running the ceremonies; it is making sure the ceremonies are operating on a backlog worth building. Treating Agile as a synonym for \"fast. Agile is not a speed technique; it is an uncertainty-management technique. A team can move fast under Waterfall (with enough resources) and can move slowly under Agile (if batches are too large or feedback loops are ignored). The value of Agile comes from short feedback loops, not raw velocity. Believing the Manifesto rejects planning entirely \"Responding to change over following a plan\" is frequently misquoted as \"we don't need plans.\" The Manifesto values planning: it simply treats a plan as a working hypothesis to be revised with evidence, rather than a contract to be defended regardless of what is learned. Confusing ceremony attendance with Agile practice As covered above, a team can run every ceremony precisely on schedule while still operating in a fundamentally Waterfall mindset internally. New PMs often assume that because standups and sprints exist, the team is \"Agile\" by default: this is the single most common misdiagnosis in the industry. Assuming Agile removes the need for upfront strategic thinking Short iteration cycles at the execution level do not eliminate the need for the longer-horizon reasoning covered in Lesson 29 (Prioritization) and Lesson 35 (Roadmapping, upcoming). Agile governs how work is executed once prioritized; it does not replace the discipline of deciding what deserves to be worked on in the first place. Using \"we're Agile\" to avoid commitments to stakeholders Some PMs and teams invoke Agile as a shield against giving any forward-looking estimate at all: \"we can't tell you when this will ship, we're Agile.\" This is a misuse of the philosophy. Agile changes *how confidently and how far in advance* you commit, and demands that commitments be revisited as evidence arrives. It does not exempt a team from giving stakeholders a reasonable, honestly-caveated sense of direction and timing, a skill covered directly in Lesson 47 (Stakeholder Management). The Iteration Loop *(Introduced above in the Theory section; restated here as this lesson's standalone takeaway tool, per curriculum convention.)* Use the Iteration Loop as a diagnostic whenever a project feels \"stuck\" or \"off track.\" Ask: is the current batch of work actually small enough to generate feedback quickly, or has it quietly grown into a mini-Waterfall project? Is feedback from the last loop actually shaping the next batch, or is the team executing a pre-set plan regardless of what was learned? A team that can't clearly answer both questions has a process that looks Agile on a calendar but doesn't function as one in practice. Amazon **Amazon**'s \"two-pizza team\" concept is real, but the more precise and more useful version of the story, as told firsthand by former Amazon VP Colin Bryar and former VP Bill Carr in their book *Working Backwards*, is that two-pizza teams were an early solution that Amazon later evolved beyond, not a practice that simply continues unchanged. Amazon found that team *size* wasn't actually the strongest predictor of a team's success; having a single accountable leader with the right authority was. That insight produced \"single-threaded leadership\" (STL): one leader, unencumbered by competing responsibilities, owns one initiative end-to-end with a dedicated, \"separable\" team, so the organization doesn't have to coordinate every decision through a large committee. The underlying logic connects directly to this lesson's theory, and the evolution itself is the more instructive part: small, autonomous teams reduce coordination overhead. A team of eight can decide, build, and get feedback in days, while a team of eighty attempting the same decision typically cannot, because the number of people who must align before work begins grows the batch size by necessity. But Amazon's own experience shows that raw team size was a proxy for the real variable (clear, unambiguous ownership), not the cause itself, worth remembering before copying \"keep teams small\" as a rule in isolation from what it's actually meant to produce. *(Source: Bryar and Carr's *Working Backwards* (2021), a firsthand insider account by two former Amazon executives directly involved in the practice's development, a stronger source than the general \"widely reported\" framing this section previously relied on.)* At a startup Agile is often practiced informally and without much ceremony: a founder-PM might simply talk to engineers daily and adjust plans in real time, without a named framework, a tracked velocity chart, or a scheduled retrospective. This is not a failure to \"do Agile properly\"; in a five-person team sitting in one room, many formal ceremonies exist to solve coordination problems that don't yet exist at that scale. The values (short feedback loops, responsiveness to learning) are often present even when the vocabulary (sprints, standups) is not. At a mid-size company Formal frameworks typically appear, usually Scrum or Kanban (Lessons 32–33), because the team has grown past the point where informal daily conversation can keep everyone aligned. This is also where \"doing Agile vs. being Agile\" drift most commonly begins, because ceremonies get standardized company-wide by a platform or operations team, sometimes without preserving the underlying reasoning for why each ceremony exists. At Big Tech Agile ceremonies are typically deeply institutionalized, often supported by dedicated tooling, embedded agile coaches, and standardized sprint cadences across dozens of teams simultaneously. The tension shifts: the risk is no longer \"no process at all,\" but rather process ossifying into ritual disconnected from its purpose, at a scale where a single misaligned ceremony can quietly waste enormous amounts of engineering time across many teams before anyone notices. Senior PMs at this scale are often specifically valued for their willingness to challenge a ceremony that has stopped serving its original function. The Sprint That Wasn't Consider a simplified, illustrative scenario, common at mid-size product organizations transitioning from ad hoc development into a formal Agile process for the first time. A twelve-person product team adopts two-week sprints after a consultant recommends it. In week one of the pilot sprint, the team commits to seven backlog items during sprint planning. On day four, a customer-facing bug is discovered that is actively costing the company revenue. Engineers spend a day and a half fixing it, unplanned. On day seven, user interviews (conducted independently by design) reveal that one of the seven committed items is based on a wrong assumption about user behavior and should be redesigned before more engineering time is spent on it. Despite both discoveries, the PM insists the team \"finish what we committed to,\" reasoning that changing the sprint mid-flight would look like poor planning to leadership. The team ships all seven original items at the end of the sprint, including the one now known to rest on a flawed assumption. The following sprint, the team has to redo roughly 40% of that item's work. **What went wrong?** The team had adopted Agile's ceremonies (a sprint, a fixed commitment, a two-week cadence) without adopting its underlying value of *responding to change over following a plan*. Mid-sprint learning, exactly the kind of feedback the Iteration Loop is designed to capture and act on, was treated as an inconvenience to be ignored rather than a signal to be acted on. The PM's instinct (protecting the appearance of predictable delivery) is understandable, but it inverted the entire purpose of the framework: a sprint commitment exists to create a short, protected window of focus, not a contract that must be honored even after it's known to be wrong. A PM operating from genuine Agile values, rather than Agile ceremony, would have brought the new evidence to the team immediately, made the trade-off explicit to stakeholders (\"we're pausing item 5 because we just learned it rests on a false assumption. Here's what we'll do instead\"), and treated the resulting short-term appearance of a \"broken commitment\" as a far better outcome than shipping something known to be wrong. This exact tension (protecting a plan versus responding to new evidence) will reappear directly in **Lesson 34 (Sprint Planning & Backlog Grooming)**, where we build a concrete process for handling mid-sprint changes without destabilizing the whole team's focus, and again in **Lesson 47 (Stakeholder Management)**, where we address how to communicate a changed plan upward without it reading as a failure. The Agile Fit Checklist A second, more tactical tool: before recommending that a team adopt or continue an Agile process, or before evaluating whether an existing process is genuinely functioning, check it against this list. This checklist is deliberately framework-agnostic: it applies equally whether the team ultimately uses Scrum, Kanban, or a hybrid, because it audits Agile *values*, not any single Agile *implementation*. We will apply it directly when comparing Scrum and Kanban in Lessons 32 and 33. How do you feel about Agile? Do you prefer Scrum or Kanban? *What the interviewer is actually evaluating:* Whether the candidate has a values-first understanding of Agile, or a ceremony-first one. A weak answer states a framework preference with no reasoning (\"I like Scrum, it's more structured\"). A strong answer explains what problem each framework solves and under what conditions each is a better fit, signaling that the candidate understands Agile as a response to a specific kind of uncertainty, not a personal style preference. Tell me about a time a project's plan had to change mid-execution. How did you handle it? *What the interviewer is actually evaluating:* Whether the candidate treats new evidence as something to act on or something to defer, mirroring this lesson's Case Study exactly. A weak answer describes forcing the original plan through regardless of what was learned, in the name of predictability. A strong answer describes communicating the change transparently, explaining the evidence behind it, and reprioritizing without treating the change itself as a failure. What's the PM's job in a sprint, versus the Scrum Master's? *What the interviewer is actually evaluating:* Role clarity, whether the candidate understands that the PM owns backlog quality and outcome direction, not ceremony facilitation. Candidates who describe themselves running standups and tracking burndown charts, without mentioning backlog prioritization or outcome framing, reveal the exact role-confusion covered in this lesson's Theory section. Agile is not a single process but a family of practices built on a specific bet about software development: that in the presence of genuine uncertainty about what users actually need, short feedback loops beat long up-front plans. It emerged as a direct response to the failure modes of Waterfall, where large, sequential commitments made discovering a wrong assumption catastrophically expensive. The Agile Manifesto's four values (individuals and interactions, working software, customer collaboration, and responding to change) describe what to prioritize when trade-offs arise, not a rejection of process, documentation, contracts, or plans outright. This lesson's Iteration Loop (small batch → build → demo/release → feedback → informs next batch) describes how those values translate into a repeatable operating rhythm inside the Execution link of the Decision Chain from Lesson 1. The most important diagnostic skill this lesson teaches is distinguishing \"doing Agile\" (running ceremonies on schedule) from \"being Agile\" (genuinely responding to what each iteration reveals), a gap that widens as organizations grow and ceremonies risk becoming ritual. Within an Agile team, the PM's distinctive job remains what it has always been since Lesson 1: owning the backlog's connection to real problems and real outcomes, while the Scrum Master owns process facilitation and engineering leadership owns technical execution. Agile emerged as a direct response to Waterfall's core weakness: expensive, late discovery of wrong assumptions after long, sequential commitments. The four Agile values prioritize individuals/interactions, working software, customer collaboration, and responsiveness to change, without discarding process, documentation, contracts, or plans entirely. The Iteration Loop (small batch → build → demo/release → feedback → next batch) operates inside the Execution link of the Decision Chain (Lesson 1), keeping execution connected to real feedback rather than isolated from it. \"Doing Agile\" (ceremonies present) is not the same as \"being Agile\" (values genuinely practiced): many organizations have the former without the latter. Agile does not remove the need for upfront prioritization (Lesson 29) or longer-horizon planning (Lesson 35): it governs execution once priorities are set, not the setting of priorities itself. The PM's distinctive role inside an Agile team is backlog ownership and outcome clarity, not ceremony facilitation. That belongs to the Scrum Master or Agile Coach where one exists. Smaller, more autonomous teams (as in Amazon's two-pizza team model) tend to sustain tighter, more genuine iteration loops than large teams, because coordination overhead scales with team size. **Agile exists because:** software requirements are rarely fully knowable up front; short feedback loops make being wrong cheap to discover. **Four values:** individuals/interactions, working software, customer collaboration, responding to change, each \"over,\" not \"instead of,\" the item on the right. **Iteration Loop:** Small Batch → Build → Demo/Release → Feedback → back into next batch. **Doing vs. Being Agile test:** when the team learns something mid-cycle that changes the picture, does the plan actually change? **PM's job in Agile:** own the backlog and the \"why,\" not the ceremonies. **Agile Fit Checklist:** batch size, feedback loop closure, responsiveness, working software as truth, PM backlog ownership. **Not a speed hack:** Agile manages uncertainty; it does not guarantee velocity. Agile A family of iterative software development practices prioritizing short feedback loops and responsiveness to change over rigid up-front planning Waterfall A sequential development model (requirements → design → build → test → release) borrowed from manufacturing/civil engineering Agile Manifesto The 2001 founding document stating Agile's four core values and twelve principles Iteration Loop This lesson's mental model: small batch → build → demo/release → feedback → informs next batch Doing Agile vs. Being Agile The distinction between following Agile ceremonies and genuinely holding Agile's underlying values Two-Pizza Team Amazon's informally reported principle of keeping teams small enough to sustain tight iteration loops Single-Threaded Ownership A structure where one clearly accountable owner drives an initiative end-to-end without heavy committee coordination Batch Size The amount of work committed to before the next round of feedback is gathered *Agile Manifesto* Kent Beck, Mike Beedle, et al. (2001), the original founding document and its twelve principles. *The Lean Startup* by Eric Ries extends the same build-measure-learn logic underlying the Iteration Loop to whole-company strategy, not just engineering execution. *Inspired: How to Create Tech Products Customers Love* by Marty Cagan situates Agile execution within the broader context of product discovery and PM responsibility. What problem was Agile originally designed to solve? The high cost of discovering wrong assumptions late, after long sequential (Waterfall) commitments had already been fully built out. Name the four values of the Agile Manifesto. Individuals and interactions over processes and tools; working software over comprehensive documentation; customer collaboration over contract negotiation; responding to change over following a plan. What are the five stages of the Iteration Loop? Small Batch of Work → Build → Demo/Release → Feedback → (feeds back into) next Small Batch. What's the simplest test for whether a team is \"being Agile\" versus just \"doing Agile\"? When the team learns something significant mid-cycle, does the plan actually change, or does the team finish the original commitment regardless? In an Agile team, who owns the backlog and outcome direction, the PM or the Scrum Master? The PM. The Scrum Master owns process facilitation; the PM owns what gets built and why. Why does Amazon's reported \"two-pizza team\" principle connect to the Iteration Loop? Smaller, more autonomous teams require less coordination overhead, allowing them to complete small batches and gather feedback faster than large teams can. Does Agile eliminate the need for upfront prioritization and roadmapping? No. Agile governs how already-prioritized work is executed; it does not replace the separate discipline of deciding what deserves to be built in the first place (Lesson 29, Lesson 35). Consider the following novel scenario: You've just joined a fourteen-person team as PM. They run two-week sprints, daily standups, and a retrospective every other Friday. On your first day, an engineer tells you, half-joking, \"our retros are basically the same meeting every two weeks: same three complaints, nothing changes.\" You also notice the current sprint board shows three items that have been \"in progress\" for over five weeks each. There is no single correct answer to the prompts below. The goal is to practice diagnostic reasoning using this lesson's frameworks, not to arrive at one \"right\" fix. Using the Agile Fit Checklist, which specific checks does this team appear to be failing, based on the evidence given? Is this team \"doing Agile\" or \"being Agile,\" in your judgment? What additional evidence would you want before being confident in your answer? The stale, long-running backlog items suggest a batch-size problem. What questions would you ask the team to understand why those items have stayed \"in progress\" so long? If the recurring, unresolved retrospective complaints turn out to be about a dependency on another team outside your control, how would your response differ from if they turn out to be about something within your own team's process? As the new PM, would you address these issues directly in your first week, or observe for a cycle or two first? Justify your choice using this lesson's distinction between ceremony and value. What core problem did Agile emerge to address, relative to Waterfall's sequential model? Waterfall's build-everything-then-test sequence meant a flawed assumption was only discovered after the whole thing had already been built, making the fix expensive. According to the Manifesto, how should \"responding to change\" and \"following a plan\" be understood together? The Manifesto's values are stated as \"X over Y\": X wins when the two conflict, not that Y has no worth at all. In the Iteration Loop diagram, what does the dotted arrow returning to \"Small Batch of Work\" represent? The dotted arrow is the loop's defining feature: feedback from what shipped directly shapes what gets built next. How does the Iteration Loop relate to the Decision Chain from Lesson 1? The lesson places the Iteration Loop inside the Decision Chain's Execution step, turning one big push into small increments that generate feedback. A team runs standups and retrospectives on schedule but never changes a sprint plan even after learning something important mid-sprint. What does this lesson call that pattern? Ceremonies present without genuine responsiveness to new evidence is exactly the \"doing Agile without being Agile\" pattern this lesson names. Which role facilitates ceremonies and removes team-level blockers, without deciding what gets built? The role table assigns process facilitation and blocker removal to the Scrum Master, distinct from the PM's ownership of what gets built. A PM spends most of their time running standups and tracking a velocity chart while the backlog sits unprioritized. What has most likely happened? Ceremony facilitation at the expense of backlog quality is the role-confusion trap the lesson warns new PMs against. Which of these is NOT one of the four Agile Manifesto values? Headcount is not part of the Manifesto; its four values are individuals/interactions, working software, customer collaboration, and responding to change. Why does this lesson warn against using \"we're Agile\" as a reason to give stakeholders no forward-looking information at all? Common Beginner Mistake #5 frames this as a misuse: Agile changes how confidently and how far ahead a team commits, not whether it communicates direction. A team keeps small batches and demos working software each cycle, but its retrospectives raise the same three complaints every time with no resulting change. Which Agile Fit Checklist item is this team failing most clearly? Feedback loop closure asks whether feedback actually changes future increments; recurring, unaddressed complaints are the checklist's named warning sign for this check. In the Case Study, what was the PM's central mistake? The PM treated the sprint commitment as fixed even after learning one item rested on a false assumption, inverting Agile's actual purpose. A teammate claims \"Agile means never planning more than two weeks out.\" How does this lesson characterize that claim? Common Beginner Mistakes #2 and #4 both correct this: Agile treats plans as revisable, not absent, and doesn't remove the need for longer-horizon planning. (Product Thinking) Team A changes its sprint plan whenever major new evidence appears mid-cycle, even if that means an awkward conversation about a broken commitment. Team B always finishes exactly what it committed to, addressing learnings only in the next planning session. Which team is \"being Agile,\" and why does this matter beyond semantics? Genuine responsiveness to significant new evidence, even at the cost of a broken commitment, is what separates real Agile practice from ceremony alone, per the Case Study. (Interview Reasoning) A candidate asked \"Scrum or Kanban?\" answers: \"Scrum, because it's more structured and I like structure.\" What does this response most likely signal? A strong answer explains what problem each framework solves and when each fits; this answer states a preference with no such reasoning. (Product Thinking, Highest Difficulty) A VP asks a PM to guarantee an exact feature list and ship date six months out, \"so leadership can plan around it.\" The team runs a genuinely iterative process. What is the best response, using only this lesson's frameworks? Agile does not reject forward commitments; it changes how confidently and how far ahead they're made, and expects them to sharpen as evidence arrives.",
+    "headings": [
+      "Front Matter",
+      "Why This Lesson Matters",
+      "Learning Path",
+      "Learning Objectives",
+      "Prerequisites",
+      "Theory",
+      "Common Beginner Mistakes",
+      "Mental Model: The Iteration Loop",
+      "Real Company Example",
+      "Real World Perspective: Agile Fundamentals at Different Company Stages",
+      "Detailed Case Study: The Sprint That Wasn't",
+      "Framework Explanation: The Agile Fit Checklist",
+      "Interview Perspective: How Interviewers Think About This",
+      "Summary",
+      "Key Takeaways",
+      "Cheat Sheet",
+      "Glossary",
+      "Further Reading / Resources",
+      "Flashcards",
+      "Reflection Exercise",
+      "Quiz",
+      "Connections"
+    ]
+  },
+  "glossaryTermsIntroduced": [
+    "Agile",
+    "Waterfall",
+    "Agile Manifesto",
+    "Iteration Loop",
+    "Doing Agile vs. Being Agile",
+    "Two-Pizza Team",
+    "Single-Threaded Ownership",
+    "Batch Size"
+  ],
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-10-31T00:00:00.000Z"
+}

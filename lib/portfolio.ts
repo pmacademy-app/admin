@@ -1,0 +1,293 @@
+/**
+ * Pure Portfolio Utilities & Validation (Phase 3 Sprint 2)
+ *
+ * Provides username validation, URL validation, and Person JSON-LD schema generation for SEO.
+ * Zero UI coupling.
+ */
+
+export interface PersonJsonLdOptions {
+  name: string
+  username: string
+  title?: string
+  bio?: string | null
+  avatarUrl?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
+  websiteUrl?: string | null
+  siteOrigin: string
+  isFellow?: boolean
+}
+
+/**
+ * Validates portfolio username format.
+ * Must be 3–30 characters, alphanumeric, hyphens, or underscores only.
+ */
+export function validateUsername(username: string): { isValid: boolean; reason?: string } {
+  if (!username || typeof username !== 'string') {
+    return { isValid: false, reason: 'Username cannot be empty.' }
+  }
+
+  const trimmed = username.trim()
+  if (trimmed.length < 3 || trimmed.length > 30) {
+    return { isValid: false, reason: 'Username must be between 3 and 30 characters.' }
+  }
+
+  if (!/^[a-zA-Z0-9_-]+$/.test(trimmed)) {
+    return { isValid: false, reason: 'Username can only contain letters, numbers, hyphens, and underscores.' }
+  }
+
+  // Excluded reserved words
+  const reserved = ['admin', 'api', 'app', 'settings', 'curriculum', 'academy', 'login', 'signup', 'dashboard', 'capstones']
+  if (reserved.includes(trimmed.toLowerCase())) {
+    return { isValid: false, reason: 'This username is reserved.' }
+  }
+
+  return { isValid: true }
+}
+
+/**
+ * Validates an optional URL input (must start with http:// or https:// if provided).
+ */
+export function validateOptionalUrl(url?: string | null): boolean {
+  if (!url || !url.trim()) return true
+  try {
+    const parsed = new URL(url.trim())
+    return parsed.protocol === 'http:' || parsed.protocol === 'https:'
+  } catch {
+    return false
+  }
+}
+
+/**
+ * Write-side URL policy: **https only** (N-2).
+ *
+ * Deliberately a second function rather than a tightening of
+ * `validateOptionalUrl`. The two answer different questions:
+ *
+ * - `validateOptionalUrl` asks *"is this stored value safe to render as a link?"*
+ *   and guards the public portfolio and the JSON-LD against `javascript:` and
+ *   `data:` URLs. It must keep accepting `http:` — learners who saved an `http://`
+ *   address before this batch would otherwise have their links silently disappear
+ *   from their own portfolio. Validation here is write-side only.
+ * - `validateWritableUrl` asks *"may we accept this as new input?"* and is where
+ *   the locked plan's https-only allowlist belongs.
+ */
+export function validateWritableUrl(url?: string | null): boolean {
+  if (!url || !url.trim()) return true
+  try {
+    return new URL(url.trim()).protocol === 'https:'
+  } catch {
+    return false
+  }
+}
+
+/**
+ * Generates schema.org Person JSON-LD for public portfolio SEO.
+ */
+export function generatePersonJsonLd({
+  name,
+  username,
+  bio,
+  avatarUrl,
+  linkedinUrl,
+  githubUrl,
+  websiteUrl,
+  siteOrigin,
+  isFellow,
+}: PersonJsonLdOptions): Record<string, unknown> {
+  const profileUrl = `${siteOrigin.replace(/\/$/, '')}/p/${username}`
+  const sameAs: string[] = []
+
+  if (linkedinUrl && linkedinUrl.trim() && validateOptionalUrl(linkedinUrl)) {
+    sameAs.push(linkedinUrl.trim())
+  }
+  if (githubUrl && githubUrl.trim() && validateOptionalUrl(githubUrl)) {
+    sameAs.push(githubUrl.trim())
+  }
+  if (websiteUrl && websiteUrl.trim() && validateOptionalUrl(websiteUrl)) {
+    sameAs.push(websiteUrl.trim())
+  }
+
+  const person: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: name || username,
+    alternateName: username,
+    description: bio || `${name || username}'s Product Management portfolio and skill radar on Prodily.`,
+    url: profileUrl,
+  }
+
+  if (avatarUrl) {
+    person.image = avatarUrl
+  }
+
+  if (sameAs.length > 0) {
+    person.sameAs = sameAs
+  }
+
+  if (isFellow) {
+    person.jobTitle = 'Product Management Fellow'
+  }
+
+  return person
+}
+
+/**
+ * Generates full share URL for portfolio.
+ */
+export function formatPortfolioShareUrl(siteOrigin: string, username: string): string {
+  const origin = siteOrigin.replace(/\/$/, '')
+  return `${origin}/p/${encodeURIComponent(username)}`
+}
+
+/**
+ * Third-person share text for a portfolio. Neutral and always true, so a visitor can share it
+ * too. The product name is passed in so this module stays free of imports.
+ */
+export function portfolioShareText(displayName: string, productName: string): string {
+  return `${displayName}'s Product Management portfolio on ${productName}`
+}
+
+/** App path of one public capstone page (Growth R5 B13): `/p/<username>/capstones/<module>`. */
+export function capstoneSharePath(username: string, moduleSlug: string): string {
+  return `/p/${encodeURIComponent(username)}/capstones/${encodeURIComponent(moduleSlug)}`
+}
+
+/** Absolute URL of one public capstone page. */
+export function formatCapstoneShareUrl(siteOrigin: string, username: string, moduleSlug: string): string {
+  return `${siteOrigin.replace(/\/$/, '')}${capstoneSharePath(username, moduleSlug)}`
+}
+
+/** Third-person share text for one capstone, safe for visitors to share too. */
+export function capstoneShareText(displayName: string, capstoneTitle: string, productName: string): string {
+  return `${displayName}'s "${capstoneTitle}" product management case study on ${productName}`
+}
+
+/** First-person share text for one earned badge (owner-only surfaces). */
+export function badgeShareText(badgeName: string, productName: string): string {
+  return `I just earned the "${badgeName}" badge on ${productName}. Here is my Product Management portfolio:`
+}
+
+/**
+ * LinkedIn and X share links for a portfolio, for surfaces that cannot run ShareButton (email).
+ * The shared URL carries UTM tags so visits from those posts can be attributed.
+ */
+export function buildPortfolioShareIntents(
+  portfolioUrl: string,
+  shareText: string,
+  campaign: string,
+): { linkedin: string; x: string } {
+  const tagged = (source: string) => {
+    const url = new URL(portfolioUrl)
+    url.searchParams.set('utm_source', source)
+    url.searchParams.set('utm_medium', 'social')
+    url.searchParams.set('utm_campaign', campaign)
+    return url.toString()
+  }
+  return {
+    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(tagged('linkedin'))}`,
+    x: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(tagged('x'))}`,
+  }
+}
+
+/** Where a learner turns their portfolio public (Settings → Portfolio tab). */
+export const PORTFOLIO_SETTINGS_HREF = '/settings?tab=portfolio'
+
+export type PortfolioNavState = 'public' | 'private'
+
+export interface PortfolioNavItem {
+  label: string
+  /** Relative path: `/p/<encoded username>` when public, the settings tab when private. */
+  href: string
+  /** True when the item should open in a new tab (the public page sits outside the app shell). */
+  external: boolean
+  state: PortfolioNavState
+}
+
+/**
+ * Derives the app-nav "My Portfolio" entry from the learner's profile.
+ *
+ * - No usable username (null, empty, whitespace) → `null`: there is nothing to link to yet.
+ * - Public portfolio → links to the public page, opened in a new tab.
+ * - Private portfolio → points at the settings tab where it can be published.
+ */
+export function getPortfolioNavItem({
+  username,
+  isPortfolioPublic,
+}: {
+  username?: string | null
+  isPortfolioPublic?: boolean | null
+}): PortfolioNavItem | null {
+  const trimmed = typeof username === 'string' ? username.trim() : ''
+  if (!trimmed) return null
+
+  if (isPortfolioPublic === true) {
+    return {
+      label: 'My Portfolio',
+      href: `/p/${encodeURIComponent(trimmed)}`,
+      external: true,
+      state: 'public',
+    }
+  }
+
+  return {
+    label: 'Publish portfolio',
+    href: PORTFOLIO_SETTINGS_HREF,
+    external: false,
+    state: 'private',
+  }
+}
+
+/**
+ * Generates schema.org ProfilePage + Person JSON-LD for public portfolio SEO.
+ * Conforms to Schema.org ProfilePage standard with nested mainEntity Person.
+ */
+export function generateProfilePageJsonLd(options: PersonJsonLdOptions): Record<string, unknown> {
+  const profileUrl = formatPortfolioShareUrl(options.siteOrigin, options.username)
+  const personProps = { ...generatePersonJsonLd(options) }
+  delete personProps['@context']
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    '@id': `${profileUrl}#profilepage`,
+    url: profileUrl,
+    name: options.isFellow
+      ? `${options.name || options.username} | Product Management Fellow at Prodily | Portfolio`
+      : `${options.name || options.username} | Product Portfolio`,
+    mainEntity: {
+      ...personProps,
+      '@id': `${profileUrl}#person`,
+    },
+  }
+}
+
+/**
+ * Portfolio section identity and the default section order.
+ *
+ * These live here, in the module with no imports, rather than in `portfolio-db.ts`
+ * with the queries. They are pure data that the settings form needs in the browser,
+ * and importing them from the data layer dragged the entire server graph into the
+ * client bundle — `portfolio-db` reaches the notification dispatcher, which reaches
+ * the email queue processor. That was invisible until B9-C put `node:async_hooks`
+ * at the end of that chain and the browser build refused it.
+ *
+ * `portfolio-db` re-exports both names, so existing server call sites are unchanged.
+ */
+export type PortfolioSectionId = 'hero' | 'radar' | 'progress' | 'capstones' | 'achievements'
+
+export const VALID_PORTFOLIO_SECTIONS: PortfolioSectionId[] = [
+  'hero',
+  'radar',
+  'progress',
+  'capstones',
+  'achievements',
+]
+
+export const DEFAULT_PORTFOLIO_LAYOUT: PortfolioSectionId[] = [
+  'hero',
+  'radar',
+  'progress',
+  'capstones',
+  'achievements',
+]
