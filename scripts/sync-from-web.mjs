@@ -84,6 +84,21 @@ export const PROTECTED = [
   'app/api/auth/refresh/route.ts',
   'app/api/auth/logout/route.ts',
   'vitest.setup.ts', // Turnstile env removed
+  // Diverged when the web repo removed the admin console (web PR #103): web dropped the admin
+  // actor and moved shared modules out of lib/admin (lib/settings, lib/broadcasts, lib/time ...).
+  // The admin copies keep the admin actor and the lib/admin import paths, so these must never be
+  // overwritten; a changed web copy is reported for a hand merge.
+  'lib/api/actor.ts', // keeps the admin actor and requireAdminUser
+  'lib/auth.ts',
+  'lib/time.ts',
+  'lib/xp/xp.ts',
+  'lib/db/escape-like.ts',
+  'lib/monitoring/logger.ts',
+  'lib/notifications/queue/processor.ts',
+  'lib/referral/referral-service.ts',
+  'lib/flashcards-service.ts',
+  'lib/certificates/presentation.ts',
+  'lib/academy/module-completion.ts',
 ]
 
 function sha(buf) {
@@ -134,7 +149,8 @@ function syncCode(report) {
       report.warnings.push(`${rel}: removed or moved in the web repo; check whether the admin copy still applies`)
       continue
     }
-    const hash = sha(fs.readFileSync(upstream))
+    // Line endings normalized so a CRLF or LF checkout of the same content gives the same hash.
+    const hash = sha(fs.readFileSync(upstream, 'utf8').replace(/\r/g, ''))
     if (!baseline[rel]) {
       report.warnings.push(`${rel}: no baseline hash recorded; compare with the web copy by hand`)
     } else if (baseline[rel] !== hash) {
