@@ -45,7 +45,20 @@ export type CronTriggerResult =
   | { ok: true; status: number; body: unknown }
   | { ok: false; reason: 'not_configured' | 'unknown_job' | 'request_failed' | 'rejected'; status?: number; body?: unknown }
 
-export async function triggerLearnerCron(name: string): Promise<CronTriggerResult> {
+/**
+ * The JSON body sent to each job. The learner cleanup route deletes rows when called with no
+ * body and RETENTION_DELETE_ENABLED=true; an admin "run now" must be a dry run unless the
+ * caller explicitly opts into deleting.
+ */
+export function cronRequestBody(name: LearnerCronName, options: { deleteRows?: boolean } = {}): string {
+  if (name === 'cleanup') return JSON.stringify({ dryRun: options.deleteRows !== true })
+  return '{}'
+}
+
+export async function triggerLearnerCron(
+  name: string,
+  options: { deleteRows?: boolean } = {}
+): Promise<CronTriggerResult> {
   if (!isLearnerCronName(name)) return { ok: false, reason: 'unknown_job' }
   const url = learnerCronUrl(name)
   const secret = process.env.CRON_SECRET?.trim()
@@ -56,6 +69,7 @@ export async function triggerLearnerCron(name: string): Promise<CronTriggerResul
     res = await fetch(url, {
       method: 'POST',
       headers: { Authorization: `Bearer ${secret}`, 'Content-Type': 'application/json' },
+      body: cronRequestBody(name, options),
       cache: 'no-store',
       signal: AbortSignal.timeout(CRON_TRIGGER_TIMEOUT_MS),
     })

@@ -23,6 +23,20 @@ describe('triggerLearnerCron', () => {
     process.env.CRON_SECRET = savedSecret
   })
 
+  it('runs cleanup as a dry run unless deleting is explicitly requested', async () => {
+    fetchMock.mockResolvedValue(new Response(JSON.stringify({ ok: true }), { status: 200 }))
+    const { triggerLearnerCron } = await import('@/lib/admin/cron-trigger')
+
+    await triggerLearnerCron('cleanup')
+    expect(JSON.parse(String((fetchMock.mock.calls[0] as [string, RequestInit])[1].body))).toEqual({ dryRun: true })
+
+    await triggerLearnerCron('cleanup', { deleteRows: true })
+    expect(JSON.parse(String((fetchMock.mock.calls[1] as [string, RequestInit])[1].body))).toEqual({ dryRun: false })
+
+    await triggerLearnerCron('weekly-recap')
+    expect(JSON.parse(String((fetchMock.mock.calls[2] as [string, RequestInit])[1].body))).toEqual({})
+  })
+
   it('POSTs the learner cron route with the bearer secret', async () => {
     fetchMock.mockResolvedValue(new Response(JSON.stringify({ processed: 3 }), { status: 200 }))
     const { triggerLearnerCron } = await import('@/lib/admin/cron-trigger')
