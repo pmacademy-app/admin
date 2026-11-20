@@ -371,7 +371,7 @@ export function AdminContactInbox({ initialMessages }: AdminContactInboxProps) {
                   <button
                     type="button"
                     onClick={() => setSelectedId(null)}
-                    className="lg:hidden p-1.5 text-admin-fg-muted hover:text-admin-fg rounded-lg transition-colors cursor-pointer"
+                    className="lg:hidden size-10 shrink-0 inline-flex items-center justify-center text-admin-fg-muted hover:text-admin-fg rounded-lg transition-colors cursor-pointer"
                     aria-label="Back to message list"
                   >
                     <ArrowLeft className="w-4 h-4" />
@@ -428,8 +428,8 @@ export function AdminContactInbox({ initialMessages }: AdminContactInboxProps) {
                   />
                 </div>
 
-                {/* Actions */}
-                <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-admin-border">
+                {/* Actions. On phones every control is at least 40px tall. */}
+                <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-admin-border max-lg:[&_button]:min-h-10">
                   <div className="flex flex-wrap items-center gap-2">
                     {selected.status !== 'replied' && (
                       <button
@@ -470,7 +470,7 @@ export function AdminContactInbox({ initialMessages }: AdminContactInboxProps) {
 
                   <a
                     href={`mailto:${selected.email}?subject=Re: ${encodeURIComponent(selected.subject)}`}
-                    className="px-3 py-1.5 rounded-xl border border-admin-border text-xs font-semibold text-admin-fg-muted hover:text-admin-fg hover:bg-admin-surface-raised inline-flex items-center gap-1.5 transition-colors"
+                    className="min-h-10 lg:min-h-0 px-3 py-1.5 rounded-xl border border-admin-border text-xs font-semibold text-admin-fg-muted hover:text-admin-fg hover:bg-admin-surface-raised inline-flex items-center gap-1.5 transition-colors"
                   >
                     <Reply className="w-3.5 h-3.5" /> Reply by Email
                   </a>

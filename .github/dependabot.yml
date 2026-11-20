@@ -1,0 +1,48 @@
+version: 2
+
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    # Wait 3 days after a release so a compromised publish has time to be pulled.
+    cooldown:
+      default-days: 3
+    labels:
+      - "dependencies"
+    groups:
+      # vitest and @vitest/* pin each other exactly, so they must move together.
+      vitest-ecosystem:
+        patterns:
+          - "vitest"
+          - "@vitest/*"
+      production-minor-and-patch:
+        dependency-type: "production"
+        update-types: ["minor", "patch"]
+      development-minor-and-patch:
+        dependency-type: "development"
+        update-types: ["minor", "patch"]
+        exclude-patterns:
+          - "vitest"
+          - "@vitest/*"
+    # isomorphic-dompurify is pinned at 2.26.0 (jsdom 26). Later releases move to newer
+    # jsdom, whose ESM-only @exodus/bytes crashes the template save and test-send routes
+    # on Vercel (ERR_REQUIRE_ESM). Same pin as the web repo.
+    ignore:
+      - dependency-name: "isomorphic-dompurify"
+    commit-message:
+      prefix: "chore(deps)"
+      prefix-development: "chore(deps-dev)"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 3
+    labels:
+      - "ci"
+    commit-message:
+      prefix: "chore(ci)"

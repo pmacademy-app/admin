@@ -171,6 +171,7 @@ export function FellowRequestsView({ initialQueue, status, onParamsChange }: Fel
     },
     {
       header: 'Actions',
+      isActions: true,
       headerClassName: 'text-right',
       className: 'text-right',
       cell: (item) => {

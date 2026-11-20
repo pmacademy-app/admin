@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from 'react'
 import { AdminSidebar } from './AdminSidebar'
 import { AdminHeader } from './AdminHeader'
 import { AdminMobileNav } from './AdminMobileNav'
+import { AdminPullToRefresh } from './AdminPullToRefresh'
 import { AdminShellProvider } from './admin-shell-context'
 import { AdminToastProvider } from './admin-toast'
 import { installClientErrorListeners } from '@/lib/monitoring/client-error-listeners'
@@ -58,6 +59,7 @@ export function AdminConsoleShell({
               {children}
             </main>
             <AdminMobileNav user={user} attention={attention} />
+            <AdminPullToRefresh />
           </div>
         </div>
       </AdminToastProvider>

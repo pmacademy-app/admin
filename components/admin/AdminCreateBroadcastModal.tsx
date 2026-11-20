@@ -911,7 +911,7 @@ export function AdminCreateBroadcastModal({ templates, onClose, onCreated }: Adm
               {/* Timing selector */}
               <div className="space-y-3">
                 <label className="text-xs font-bold text-admin-fg block">Delivery Timing</label>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
                   <button
                     type="button"
                     onClick={() => setSendTiming('immediate')}

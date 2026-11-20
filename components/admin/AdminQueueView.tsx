@@ -255,6 +255,7 @@ export function AdminQueueView({ history }: AdminQueueViewProps) {
     },
     {
       header: 'Action',
+      isActions: true,
       className: 'text-right',
       headerClassName: 'text-right',
       cell: (item) => {

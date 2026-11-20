@@ -317,6 +317,7 @@ export function AdminInAppNotificationView({
     },
     {
       header: 'Actions',
+      isActions: true,
       cell: (item) => {
         const isLoading = actionLoadingId === item.id
 

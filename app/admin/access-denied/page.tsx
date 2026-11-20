@@ -1,6 +1,7 @@
 import React from 'react'
-import Link from 'next/link'
-import { ShieldAlert, ArrowLeft, Lock } from 'lucide-react'
+import { ShieldAlert } from 'lucide-react'
+import { BrandMarkProdily } from '@/components/brand/BrandLogo'
+import { AccessDeniedActions } from '@/components/admin/AccessDeniedActions'
 
 export const metadata = {
   title: 'Access Denied',
@@ -9,39 +10,31 @@ export const metadata = {
 
 export default function AccessDeniedPage() {
   return (
-    <div className="admin-console min-h-screen bg-admin-bg text-admin-fg flex items-center justify-center p-4 antialiased selection:bg-admin-accent/30 selection:text-admin-accent">
-      <div className="max-w-md w-full p-8 rounded-2xl bg-admin-surface border border-admin-border space-y-6 text-center shadow-xl">
-        <div className="w-14 h-14 rounded-2xl bg-admin-danger/10 border border-admin-danger/20 text-admin-danger flex items-center justify-center mx-auto shadow-inner">
-          <ShieldAlert className="w-7 h-7" />
-        </div>
+    <div className="admin-console flex min-h-[100dvh] flex-col bg-admin-bg px-5 pt-[calc(2.5rem+env(safe-area-inset-top))] pb-[calc(2rem+env(safe-area-inset-bottom))] text-admin-fg antialiased sm:items-center sm:justify-center sm:px-8 sm:py-12">
+      <div className="w-full sm:max-w-sm">
+        <BrandMarkProdily size="md" badgeText="Admin" onDark={false} />
 
-        <div className="space-y-2">
-          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-admin-danger/10 text-admin-danger border border-admin-danger/20">
-            HTTP 403 Forbidden
+        <div className="mt-8 space-y-4">
+          <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-admin-danger/20 bg-admin-danger-soft text-admin-danger">
+            <ShieldAlert className="h-6 w-6" aria-hidden="true" />
           </span>
-          <h1 className="text-2xl font-bold text-admin-fg tracking-tight">Access Restricted</h1>
-          <p className="text-xs text-admin-fg-muted leading-relaxed">
-            Your authenticated user account does not possess administrator authorizations to view the Operations Control Center.
+          <h1 className="text-[28px] font-bold leading-tight tracking-tight">This account is not an admin</h1>
+          <p className="text-sm leading-relaxed text-admin-fg-muted">
+            You are signed in, but this account does not have admin access to the Prodily console.
+          </p>
+          <p className="text-sm leading-relaxed text-admin-fg-muted">
+            If you need access, ask an existing Prodily admin to grant it to your account.
           </p>
         </div>
 
-        <div className="p-4 rounded-xl bg-admin-bg/60 border border-admin-border/80 text-left text-xs space-y-2 text-admin-fg-muted">
-          <p className="font-semibold text-admin-fg flex items-center gap-1.5">
-            <Lock className="w-3.5 h-3.5 text-admin-accent" />
-            Security Policy & Access Requests
-          </p>
-          <p className="text-admin-fg-subtle text-[11px] leading-normal">
-            If you are a team member requiring admin access, contact your platform operations administrator to register your email in the system configuration.
-          </p>
-        </div>
-
-        <div className="pt-2">
-          <Link
-            href="/admin/login"
-            className="w-full py-2.5 px-4 rounded-xl bg-admin-surface-raised hover:bg-admin-surface text-admin-fg-muted hover:text-admin-fg font-semibold text-xs transition-colors inline-flex items-center justify-center gap-2 border border-admin-border"
+        <div className="mt-8 space-y-3">
+          <AccessDeniedActions />
+          <a
+            href="https://prodily.app"
+            className="flex h-12 w-full items-center justify-center rounded-xl border border-admin-border bg-admin-surface text-base font-semibold text-admin-fg transition-colors hover:bg-admin-surface-raised focus:outline-none focus-visible:ring-4 focus-visible:ring-admin-accent/20 sm:text-sm"
           >
-            <ArrowLeft className="w-4 h-4" /> Sign in with an admin account
-          </Link>
+            Go to prodily.app
+          </a>
         </div>
       </div>
     </div>

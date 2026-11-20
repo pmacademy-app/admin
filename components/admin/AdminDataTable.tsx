@@ -13,6 +13,11 @@ export interface Column<T> {
   sortKey?: string
   /** Leave this column out of the phone card view (e.g. a duplicate avatar column). */
   hideOnMobile?: boolean
+  /**
+   * The column holds row buttons (approve, reject, retry). On phones it renders as a
+   * full-width action bar at the bottom of the card, with thumb-sized buttons.
+   */
+  isActions?: boolean
 }
 
 export interface TableSort {
@@ -118,7 +123,8 @@ export function AdminDataTable<T>({
   const sortableCols = onSortChange ? columns.filter((c) => c.sortable) : []
   const keyOf = (col: Column<T>) => col.sortKey || String(col.accessorKey || col.header)
   const [titleCol, ...restCols] = columns
-  const mobileCols = restCols.filter((c) => !c.hideOnMobile)
+  const mobileCols = restCols.filter((c) => !c.hideOnMobile && !c.isActions)
+  const actionCols = restCols.filter((c) => !c.hideOnMobile && c.isActions)
 
   return (
     <div className={cn('space-y-4', className)}>
@@ -208,13 +214,16 @@ export function AdminDataTable<T>({
                       })}
                     </dl>
                   )}
-                  {rowActions && (
+                  {(rowActions || actionCols.length > 0) && (
                     <div
-                      className="mt-3 flex flex-wrap items-center justify-end gap-2 border-t border-admin-border pt-3"
+                      className="mt-3 flex flex-wrap items-center justify-end gap-2 border-t border-admin-border pt-3 [&_button]:min-h-10 [&_button]:px-3 [&_button]:text-xs [&_a]:min-h-10"
                       onClick={(e) => e.stopPropagation()}
                       onKeyDown={(e) => e.stopPropagation()}
                     >
-                      {rowActions(item)}
+                      {actionCols.map((col, idx) => (
+                        <React.Fragment key={idx}>{cellValue(col, item)}</React.Fragment>
+                      ))}
+                      {rowActions?.(item)}
                     </div>
                   )}
                 </li>
