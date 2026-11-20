@@ -166,8 +166,8 @@ export function AdminBroadcastsView({ initialData, templates }: AdminBroadcastsV
           </button>
         </div>
       ) : (
-        <div className="rounded-xl border border-admin-border overflow-hidden bg-admin-surface shadow-xl">
-          <table className="w-full text-xs">
+        <div className="rounded-xl border border-admin-border overflow-x-auto bg-admin-surface shadow-xl">
+          <table className="w-full min-w-[560px] text-xs">
             <thead className="bg-admin-bg/60 border-b border-admin-border">
               <tr>
                 <th className="text-left px-4 py-3 font-bold text-admin-fg-muted uppercase tracking-wider">Name</th>

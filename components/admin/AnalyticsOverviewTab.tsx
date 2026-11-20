@@ -39,7 +39,7 @@ export function AnalyticsOverviewTab({ data }: AnalyticsOverviewTabProps) {
   return (
     <div className="space-y-6">
       {/* Primary KPI Grid with period trends */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <AdminKpiCard
           title="Total Users"
           value={kpis.totalUsers.toLocaleString()}
@@ -75,7 +75,7 @@ export function AnalyticsOverviewTab({ data }: AnalyticsOverviewTabProps) {
       </div>
 
       {/* Secondary KPI Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <AdminKpiCard
           title="Course Completion"
           value={`${kpis.courseCompletionPct.toFixed(1)}%`}

@@ -68,7 +68,7 @@ export function AnalyticsGrowthTab({ data }: AnalyticsGrowthTabProps) {
         <AdminLoadWarning message="Some growth counts could not be loaded. Missing counts show as 0." />
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <AdminKpiCard
           title="Celebrations created"
           value={celebrations.created.toLocaleString()}

@@ -95,8 +95,8 @@ export function AdminCreateTemplateModal({ open, onClose, onCreated }: AdminCrea
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
-      <div className="bg-admin-surface border border-admin-border rounded-xl max-w-2xl w-full p-6 space-y-5 shadow-2xl max-h-[90vh] overflow-y-auto">
+    <div className="admin-sheet-overlay fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+      <div className="admin-sheet admin-sheet-pad bg-admin-surface border border-admin-border rounded-xl max-w-2xl w-full p-6 space-y-5 shadow-2xl max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between border-b border-admin-border pb-4">
           <div className="flex items-center gap-2.5">
             <span className="p-1.5 rounded-lg bg-admin-accent-soft border border-admin-accent/25">

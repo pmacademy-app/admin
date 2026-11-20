@@ -1,5 +1,5 @@
 import React from 'react'
-import { Inbox, ArrowUp, ArrowDown, ChevronsUpDown } from 'lucide-react'
+import { Inbox, ArrowUp, ArrowDown, ChevronsUpDown, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export interface Column<T> {
@@ -11,6 +11,8 @@ export interface Column<T> {
   /** Renders the header as a sortable button. `sortKey` defaults to `accessorKey`. */
   sortable?: boolean
   sortKey?: string
+  /** Leave this column out of the phone card view (e.g. a duplicate avatar column). */
+  hideOnMobile?: boolean
 }
 
 export interface TableSort {
@@ -36,12 +38,25 @@ export interface AdminDataTableProps<T> {
   rowActions?: (row: T) => React.ReactNode
 }
 
+function cellValue<T>(col: Column<T>, item: T): React.ReactNode {
+  if (col.cell) return col.cell(item)
+  if (col.accessorKey) {
+    return (item as unknown as Record<string, unknown>)[col.accessorKey as string] as React.ReactNode
+  }
+  return null
+}
+
+const isEmpty = (node: React.ReactNode) => node === null || node === undefined || node === false || node === ''
+
 /**
  * Presentational data table with optional sorting, row clicks and per-row
  * actions. Column `cell` render callbacks and `keyExtractor` are defined by
  * the caller (server page or client wrapper). Interactive features (search,
  * pagination, sorting, row clicks) are wired through props — the table itself
  * stays presentational.
+ *
+ * Below md the same rows render as tappable cards: the first column is the card
+ * title and the rest become label/value pairs, so nothing needs sideways scrolling.
  */
 export function AdminDataTable<T>({
   columns,
@@ -100,9 +115,117 @@ export function AdminDataTable<T>({
     )
   }
 
+  const sortableCols = onSortChange ? columns.filter((c) => c.sortable) : []
+  const keyOf = (col: Column<T>) => col.sortKey || String(col.accessorKey || col.header)
+  const [titleCol, ...restCols] = columns
+  const mobileCols = restCols.filter((c) => !c.hideOnMobile)
+
   return (
     <div className={cn('space-y-4', className)}>
-      <div className="bg-admin-surface border border-admin-border rounded-xl overflow-hidden shadow-xs">
+      {/* Phone: card list */}
+      <div className="md:hidden space-y-3">
+        {sortableCols.length > 0 && data.length > 1 && (
+          <div className="flex items-center justify-end gap-2 text-xs text-admin-fg-muted">
+            <label htmlFor={`sort-${sortableCols.map(keyOf).join('-')}`}>Sort by</label>
+            <select
+              id={`sort-${sortableCols.map(keyOf).join('-')}`}
+              value={sort ? `${sort.key}:${sort.dir}` : ''}
+              onChange={(e) => {
+                const [key, dir] = e.target.value.split(':')
+                if (key) onSortChange?.({ key, dir: dir === 'desc' ? 'desc' : 'asc' })
+              }}
+              className="h-10 rounded-lg border border-admin-border bg-admin-surface px-2 font-semibold text-admin-fg"
+            >
+              {!sort && <option value="">Default</option>}
+              {sortableCols.map((col) => {
+                const label = typeof col.header === 'string' ? col.header : keyOf(col)
+                return (
+                  <React.Fragment key={keyOf(col)}>
+                    <option value={`${keyOf(col)}:asc`}>{label} (A to Z, low to high)</option>
+                    <option value={`${keyOf(col)}:desc`}>{label} (Z to A, high to low)</option>
+                  </React.Fragment>
+                )
+              })}
+            </select>
+          </div>
+        )}
+
+        {data.length === 0 ? (
+          <div className="rounded-2xl border border-admin-border bg-admin-surface px-5 py-10 text-center">
+            <Inbox className="w-8 h-8 text-admin-fg-subtle mx-auto stroke-[1.5]" />
+            <p className="mt-2 text-sm font-bold text-admin-fg">{emptyTitle}</p>
+            <p className="mt-1 text-xs text-admin-fg-muted">{emptyDescription}</p>
+          </div>
+        ) : (
+          <ul className="space-y-3">
+            {data.map((item) => {
+              const clickable = Boolean(onRowClick)
+              return (
+                <li
+                  key={keyExtractor(item)}
+                  onClick={clickable ? () => onRowClick!(item) : undefined}
+                  onKeyDown={
+                    clickable
+                      ? (e) => {
+                          if (e.target !== e.currentTarget) return
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault()
+                            onRowClick!(item)
+                          }
+                        }
+                      : undefined
+                  }
+                  tabIndex={clickable ? 0 : undefined}
+                  role={clickable ? 'button' : undefined}
+                  aria-label={clickable ? (rowAriaLabel ? rowAriaLabel(item) : 'Open details') : undefined}
+                  className={cn(
+                    'rounded-2xl border border-admin-border bg-admin-surface p-4 text-xs text-admin-fg-muted shadow-xs',
+                    clickable &&
+                      'cursor-pointer transition-colors active:bg-admin-surface-raised focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-admin-accent/50'
+                  )}
+                >
+                  {titleCol && (
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0 flex-1 text-sm text-admin-fg">{cellValue(titleCol, item)}</div>
+                      {clickable && <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-admin-fg-subtle" aria-hidden="true" />}
+                    </div>
+                  )}
+                  {mobileCols.length > 0 && (
+                    <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2.5 border-t border-admin-border pt-3">
+                      {mobileCols.map((col, idx) => {
+                        const value = cellValue(col, item)
+                        if (isEmpty(value)) return null
+                        return (
+                          <div key={idx} className="min-w-0">
+                            {typeof col.header === 'string' && col.header && (
+                              <dt className="text-[10px] font-bold uppercase tracking-wider text-admin-fg-subtle">
+                                {col.header}
+                              </dt>
+                            )}
+                            <dd className="mt-0.5 min-w-0 break-words font-medium text-admin-fg">{value}</dd>
+                          </div>
+                        )
+                      })}
+                    </dl>
+                  )}
+                  {rowActions && (
+                    <div
+                      className="mt-3 flex flex-wrap items-center justify-end gap-2 border-t border-admin-border pt-3"
+                      onClick={(e) => e.stopPropagation()}
+                      onKeyDown={(e) => e.stopPropagation()}
+                    >
+                      {rowActions(item)}
+                    </div>
+                  )}
+                </li>
+              )
+            })}
+          </ul>
+        )}
+      </div>
+
+      {/* Tablet and desktop: table */}
+      <div className="hidden md:block bg-admin-surface border border-admin-border rounded-xl overflow-hidden shadow-xs">
         <div className="overflow-x-auto scrollbar-thin">
           <table className="w-full text-left text-xs text-admin-fg-muted min-w-[640px]">
             <thead className="bg-admin-surface-raised text-admin-fg-subtle uppercase tracking-wider text-[10px] font-bold border-b border-admin-border sticky top-0 z-10">
@@ -146,11 +269,7 @@ export function AdminDataTable<T>({
                   >
                     {columns.map((col, idx) => (
                       <td key={idx} className={cn('px-5 py-4', col.className)}>
-                        {col.cell
-                          ? col.cell(item)
-                          : col.accessorKey
-                          ? (item as unknown as Record<string, unknown>)[col.accessorKey as string] as React.ReactNode
-                          : null}
+                        {cellValue(col, item)}
                       </td>
                     ))}
                     {rowActions && (

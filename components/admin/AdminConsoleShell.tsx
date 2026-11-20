@@ -1,8 +1,9 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { AdminSidebar } from './AdminSidebar'
 import { AdminHeader } from './AdminHeader'
+import { AdminMobileNav } from './AdminMobileNav'
 import { AdminShellProvider } from './admin-shell-context'
 import { AdminToastProvider } from './admin-toast'
 import { installClientErrorListeners } from '@/lib/monitoring/client-error-listeners'
@@ -30,7 +31,6 @@ export function AdminConsoleShell({
   attentionTotal = 0,
   systemOnline = true,
 }: AdminConsoleShellProps) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const shellRef = useRef<HTMLDivElement>(null)
 
   // Global `error` / `unhandledrejection` reporting for every console page. The shell
@@ -45,23 +45,19 @@ export function AdminConsoleShell({
           ref={shellRef}
           className="admin-console min-h-screen bg-admin-bg text-admin-fg flex font-sans antialiased selection:bg-admin-accent/30 selection:text-admin-accent"
         >
-          <AdminSidebar
-            mobileOpen={mobileMenuOpen}
-            onMobileClose={() => setMobileMenuOpen(false)}
-            user={user}
-            attention={attention}
-          />
+          <AdminSidebar user={user} attention={attention} />
           <div className="flex-1 flex flex-col min-w-0">
             <AdminHeader
-              onToggleMobileMenu={() => setMobileMenuOpen((prev) => !prev)}
               user={user}
               attention={attention}
               attentionTotal={attentionTotal}
               systemOnline={systemOnline}
             />
-            <main className="flex-1 p-4 sm:p-6 md:p-8 max-w-7xl w-full mx-auto space-y-6 sm:space-y-8 overflow-y-auto">
+            {/* Bottom padding on phones keeps the last row clear of the tab bar. */}
+            <main className="flex-1 px-4 pt-4 pb-[calc(5.5rem+env(safe-area-inset-bottom))] sm:px-6 sm:pt-6 md:p-8 max-w-7xl w-full mx-auto space-y-6 sm:space-y-8 overflow-x-hidden">
               {children}
             </main>
+            <AdminMobileNav user={user} attention={attention} />
           </div>
         </div>
       </AdminToastProvider>

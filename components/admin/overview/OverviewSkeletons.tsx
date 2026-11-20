@@ -26,7 +26,7 @@ export function OverviewAttentionSkeleton() {
 
 export function OverviewKpisSkeleton() {
   return (
-    <div role="status" aria-label="Loading key metrics" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div role="status" aria-label="Loading key metrics" className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
       {Array.from({ length: 8 }, (_, index) => (
         <SkeletonCard key={index} className="h-[8.5rem]" />
       ))}

@@ -121,8 +121,12 @@
    Clean, modern Prodily SaaS palette scoped to the Admin Panel shell (.admin-console).
    Aligns directly with the core Prodily identity: clean light canvas (#F8FAFC / #FFFFFF),
    crisp neutral borders (#E2E8F0), slate typography (#0F172A), and Prodily green (#019E75).
+   Also set on :root: this host only serves the admin console, and popups that portal
+   to <body> (search, AdminModal) would otherwise lose every --admin-* value and render
+   with a transparent background.
 ---------------------------------------------------------------------------- */
 
+:root,
 .admin-console {
   /* Foundation */
   --admin-bg:               #F8FAFC;
@@ -505,5 +509,34 @@ body {
   .admin-console *::after {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* ─── Phone layout (below 640px) ─────────────────────────────────────────────
+   Unlayered on purpose so it wins over the Tailwind utilities on the same elements.
+---------------------------------------------------------------------------- */
+@media (max-width: 639.98px) {
+  /* Hand-rolled modals dock to the bottom as full-width sheets, like a native app. */
+  .admin-sheet-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+  .admin-sheet {
+    width: 100%;
+    max-width: none;
+    max-height: 92dvh;
+    margin: 0;
+    border-radius: 1.5rem 1.5rem 0 0;
+    border-bottom-width: 0;
+  }
+  .admin-sheet-pad {
+    padding: 1.25rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom));
+  }
+
+  /* 16px form text stops iOS Safari zooming the page on every field tap. */
+  input:not([type='checkbox']):not([type='radio']):not([type='range']),
+  select,
+  textarea {
+    font-size: 16px;
   }
 }

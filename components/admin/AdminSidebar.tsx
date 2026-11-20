@@ -1,22 +1,20 @@
 'use client'
 
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { ChevronDown, ChevronLeft, ChevronRight, LogOut, PanelsTopLeft } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { BrandMarkProdily } from '@/components/brand/BrandLogo'
 import { signOutAdmin } from '@/lib/admin/session'
-import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog'
 import type { AdminConsoleUser } from './AdminConsoleShell'
 import {
   ADMIN_NAV_BUILT,
   isAdminNavItemActive,
 } from '@/lib/admin/navigation'
 
+/** Desktop and tablet sidebar (md and up). Phones use AdminMobileNav instead. */
 export interface AdminSidebarProps {
-  mobileOpen?: boolean
-  onMobileClose?: () => void
   user?: AdminConsoleUser
   /** Live attention counts keyed by nav href (drives the badge dots). */
   attention?: Record<string, number>
@@ -28,32 +26,14 @@ function badgeForHref(href: string, attention: Record<string, number> | undefine
   return attention[href] || 0
 }
 
-export function AdminSidebar({ mobileOpen, onMobileClose, user, attention }: AdminSidebarProps = {}) {
+export function AdminSidebar({ user, attention }: AdminSidebarProps = {}) {
   const pathname = usePathname()
   const router = useRouter()
   const [collapsed, setCollapsed] = useState(false)
   const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(new Set())
-  const closeButtonRef = useRef<HTMLButtonElement>(null)
 
   const displayName = user?.name || user?.email.split('@')[0] || 'Admin'
   const handleSignOut = () => signOutAdmin(router)
-
-  // Focus the close button when the mobile drawer opens; restore on close.
-  useEffect(() => {
-    if (mobileOpen) {
-      closeButtonRef.current?.focus()
-    }
-  }, [mobileOpen])
-
-  // Close on Escape for the mobile drawer.
-  useEffect(() => {
-    if (!mobileOpen) return
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onMobileClose?.()
-    }
-    document.addEventListener('keydown', onKey)
-    return () => document.removeEventListener('keydown', onKey)
-  }, [mobileOpen, onMobileClose])
 
   const toggleGroup = (label: string) => {
     setCollapsedGroups((prev) => {
@@ -87,7 +67,6 @@ export function AdminSidebar({ mobileOpen, onMobileClose, user, attention }: Adm
           <>
             <Link
               href="/admin"
-              onClick={onMobileClose}
               className="flex items-center gap-2 focus:outline-none rounded shrink-0"
             >
               <BrandMarkProdily size="sm" badgeText="Admin" onDark={false} />
@@ -140,8 +119,7 @@ export function AdminSidebar({ mobileOpen, onMobileClose, user, attention }: Adm
                       <Link
                         key={item.href}
                         href={item.href}
-                        onClick={onMobileClose}
-                        title={collapsed ? item.name : undefined}
+                                  title={collapsed ? item.name : undefined}
                         aria-current={isActive ? 'page' : undefined}
                         className={cn(
                           'flex items-center gap-3 px-3 py-2.5 text-xs font-medium rounded-lg transition-colors relative group',
@@ -233,28 +211,6 @@ export function AdminSidebar({ mobileOpen, onMobileClose, user, attention }: Adm
       <aside className="no-print hidden md:flex h-screen sticky top-0 flex-shrink-0 z-30">
         {content}
       </aside>
-
-      {/* Mobile Drawer Overlay */}
-      <Dialog open={mobileOpen} onOpenChange={(open) => !open && onMobileClose?.()}>
-        <DialogContent
-          side="left"
-          showCloseButton={false}
-          className="no-print md:hidden relative flex flex-col h-full p-0 gap-0 border-r border-admin-border bg-admin-surface"
-        >
-          <DialogTitle className="sr-only">Admin navigation</DialogTitle>
-          <DialogDescription className="sr-only">Admin console navigation menu</DialogDescription>
-          <button
-            ref={closeButtonRef}
-            type="button"
-            onClick={onMobileClose}
-            aria-label="Close admin navigation menu"
-            className="absolute top-2 right-2 z-10 size-10 inline-flex items-center justify-center rounded-lg bg-admin-surface-raised border border-admin-border text-admin-fg-muted hover:text-admin-fg transition-colors"
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
-          {content}
-        </DialogContent>
-      </Dialog>
     </>
   )
 }

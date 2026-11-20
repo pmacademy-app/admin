@@ -23,7 +23,7 @@ export default function AdminCommunicationsLoading() {
       </div>
 
       {/* KPI grid skeleton */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
         {Array.from({ length: 5 }).map((_, i) => (
           <div key={i} className="p-5 rounded-xl bg-admin-surface border border-admin-border space-y-3 animate-pulse">
             <div className="h-3 w-24 rounded bg-admin-surface-raised border border-admin-border" />

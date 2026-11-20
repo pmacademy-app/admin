@@ -133,7 +133,7 @@ export function AdminEmailDashboard({
   return (
     <div className="space-y-6">
       {/* KPI row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <AdminKpiCard title="Delivered" value={queueCounts.delivered.toLocaleString()} subtitle="Successfully delivered" icon={Mail} iconColor="text-admin-success" />
         <AdminKpiCard title="Pending" value={queueCounts.pending.toLocaleString()} subtitle="Awaiting worker pickup" icon={Clock} iconColor="text-admin-warning" />
         <AdminKpiCard title="Failed" value={queueCounts.failed.toLocaleString()} subtitle="Delivery failures" icon={AlertTriangle} iconColor="text-admin-danger" />

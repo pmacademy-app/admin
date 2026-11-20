@@ -53,7 +53,7 @@ export async function OverviewKpis({ rangeKey, from, to }: OverviewRangeProps) {
   return (
     <div className="space-y-3">
       {failed && <AdminLoadWarning message="Key metrics could not be loaded. Showing zeros until they do." />}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <AdminKpiCard
           title="Total Users"
           value={kpis.totalUsers.toLocaleString()}

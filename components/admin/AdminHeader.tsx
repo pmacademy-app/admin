@@ -5,7 +5,6 @@ import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import {
   LogOut,
-  Menu,
   Bell,
   Search,
   X,
@@ -21,12 +20,12 @@ import {
 import { getAdminSectionLabel } from '@/lib/admin/navigation'
 import { signOutAdmin } from '@/lib/admin/session'
 import { apiGet } from '@/lib/api/client'
+import { BrandLogo } from '@/components/brand/BrandLogo'
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog'
 import type { AdminConsoleUser } from './AdminConsoleShell'
 import type { AdminSearchResponse } from '@/lib/api/contracts/admin'
 
 interface AdminHeaderProps {
-  onToggleMobileMenu?: () => void
   user?: AdminConsoleUser
   attention?: Record<string, number>
   /** Total actionable items across attention sources (drives the bell dot). */
@@ -58,7 +57,6 @@ const TITLES: Record<string, string> = {
 }
 
 export function AdminHeader({
-  onToggleMobileMenu,
   user,
   attention = {},
   attentionTotal = 0,
@@ -180,18 +178,12 @@ export function AdminHeader({
 
   return (
     <>
-      <header className="no-print h-16 bg-admin-surface border-b border-admin-border px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30">
+      <header className="no-print h-14 md:h-16 bg-admin-surface/95 backdrop-blur md:bg-admin-surface border-b border-admin-border px-4 sm:px-6 pt-[env(safe-area-inset-top)] box-content md:box-border md:pt-0 flex items-center justify-between gap-3 sticky top-0 z-30">
         <div className="flex items-center gap-3 min-w-0">
-          {onToggleMobileMenu && (
-            <button
-              type="button"
-              onClick={onToggleMobileMenu}
-              aria-label="Open admin navigation menu"
-              className="md:hidden size-10 shrink-0 inline-flex items-center justify-center rounded-lg border border-admin-border bg-admin-surface-raised text-admin-fg-muted hover:text-admin-fg transition-colors cursor-pointer"
-            >
-              <Menu className="w-4 h-4" />
-            </button>
-          )}
+          {/* Phones: the brand mark stands in for the sidebar, like an app bar. */}
+          <Link href="/admin" aria-label="Admin home" className="md:hidden shrink-0 rounded-lg">
+            <BrandLogo variant="mark" size="sm" />
+          </Link>
 
           {/* Breadcrumbs */}
           <div className="flex items-center gap-1.5 text-sm min-w-0">
@@ -201,19 +193,19 @@ export function AdminHeader({
                 <span className="mx-1.5 text-admin-fg-subtle/60">/</span>
               </span>
             )}
-            <span className="font-semibold text-admin-fg truncate">{title}</span>
+            <span className="font-semibold text-base md:text-sm text-admin-fg truncate">{title}</span>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-1 sm:gap-3 shrink-0">
           {/* Quick Search Button */}
           <button
             type="button"
             onClick={handleOpenSearch}
             aria-label="Search Admin Console"
-            className="flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-lg border border-admin-border bg-admin-surface text-admin-fg-muted hover:text-admin-fg hover:border-admin-border-strong transition-colors text-xs font-medium cursor-pointer"
+            className="size-10 justify-center sm:size-auto sm:justify-start flex items-center gap-2 sm:px-3 sm:py-1.5 rounded-lg sm:border border-admin-border bg-admin-surface text-admin-fg-muted hover:text-admin-fg hover:border-admin-border-strong transition-colors text-xs font-medium cursor-pointer"
           >
-            <Search className="w-3.5 h-3.5 text-admin-accent" />
+            <Search className="w-5 h-5 sm:w-3.5 sm:h-3.5 text-admin-fg-muted sm:text-admin-accent" />
             <span className="hidden md:inline">Quick Search...</span>
             <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.2 rounded bg-admin-surface-raised border border-admin-border text-[10px] font-mono text-admin-fg-subtle">
               ⌘K
@@ -228,14 +220,14 @@ export function AdminHeader({
               aria-label={hasAttention ? `${attentionTotal} items need attention` : 'No items need attention'}
               className="relative size-10 sm:size-auto sm:p-2 inline-flex items-center justify-center rounded-lg text-admin-fg-muted hover:text-admin-fg hover:bg-admin-surface-raised transition-colors cursor-pointer"
             >
-              <Bell className="w-4 h-4" />
+              <Bell className="w-5 h-5 sm:w-4 sm:h-4" />
               {hasAttention && (
                 <span className="absolute top-2.5 right-2.5 sm:top-1.5 sm:right-1.5 h-2 w-2 rounded-full bg-admin-danger ring-2 ring-admin-surface" aria-hidden="true" />
               )}
             </button>
 
             {bellOpen && (
-              <div className="fixed inset-x-4 top-16 mt-2 w-auto sm:absolute sm:inset-x-auto sm:right-0 sm:top-auto sm:w-96 rounded-2xl bg-admin-surface border border-admin-border shadow-2xl p-4 z-50 animate-in fade-in-0 zoom-in-95 space-y-3">
+              <div className="fixed inset-x-4 top-[calc(3.5rem+env(safe-area-inset-top))] mt-2 w-auto sm:absolute sm:inset-x-auto sm:right-0 sm:top-auto sm:w-96 rounded-2xl bg-admin-surface border border-admin-border shadow-2xl p-4 z-50 animate-in fade-in-0 zoom-in-95 space-y-3">
                 <div className="flex items-center justify-between border-b border-admin-border pb-2.5">
                   <div className="flex items-center gap-2">
                     <span className="text-xs font-bold text-admin-fg">Actionable Attention</span>
@@ -358,7 +350,7 @@ export function AdminHeader({
             type="button"
             onClick={handleSignOut}
             aria-label="Sign out of Admin Console"
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-admin-surface border border-admin-border text-xs font-semibold text-admin-danger hover:text-admin-fg hover:bg-admin-danger-soft transition-colors cursor-pointer"
+            className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-admin-surface border border-admin-border text-xs font-semibold text-admin-danger hover:text-admin-fg hover:bg-admin-danger-soft transition-colors cursor-pointer"
           >
             <LogOut className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Sign Out</span>
@@ -370,7 +362,7 @@ export function AdminHeader({
       <Dialog open={searchOpen} onOpenChange={(open) => !open && handleCloseSearch()}>
         <DialogContent
           showCloseButton={false}
-          className="w-[calc(100%-2rem)] sm:w-full max-w-2xl rounded-2xl bg-admin-surface border border-admin-border shadow-2xl p-4 sm:p-5 space-y-4"
+          className="top-4 translate-y-0 sm:top-1/2 sm:-translate-y-1/2 w-[calc(100%-2rem)] sm:w-full max-w-2xl rounded-2xl bg-admin-surface border border-admin-border shadow-2xl p-4 sm:p-5 space-y-4"
         >
           <DialogTitle className="sr-only">Admin Global Search</DialogTitle>
           <DialogDescription className="sr-only">Search learners, curriculum lessons, certificates, or communications</DialogDescription>
@@ -406,7 +398,7 @@ export function AdminHeader({
             </div>
 
             {/* Results Display */}
-            <div className="max-h-96 overflow-y-auto space-y-4 pr-1">
+            <div className="max-h-[60dvh] sm:max-h-96 overflow-y-auto space-y-4 pr-1">
               {!searchQuery.trim() || searchQuery.trim().length < 2 ? (
                 <div className="py-8 text-center text-xs text-admin-fg-muted space-y-1">
                   <p className="font-semibold text-admin-fg">Search anything in Prodily</p>

@@ -91,8 +91,8 @@ export function SendProductionEmailModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4 animate-in fade-in duration-150">
-      <div className="bg-admin-surface border border-admin-border rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl space-y-5 relative">
+    <div className="admin-sheet-overlay fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4 animate-in fade-in duration-150">
+      <div className="admin-sheet admin-sheet-pad bg-admin-surface border border-admin-border rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl space-y-5 relative">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-admin-border pb-4">
           <div className="flex items-center gap-2.5">

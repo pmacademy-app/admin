@@ -105,15 +105,19 @@ describe('CapstonesView public page link (C4)', () => {
         selectedCapstoneDetail={null}
       />
     )
-    const links = Array.from(container.querySelectorAll('a')).filter((a) => a.textContent?.includes('View public page'))
-    expect(links).toHaveLength(1)
-    expect(links[0].getAttribute('href')).toBe('/p/ada/capstone/mod')
-    expect(links[0].getAttribute('target')).toBe('_blank')
-    expect(links[0].getAttribute('rel')).toBe('noopener noreferrer')
+    // The table (md and up) and the phone card list both render; CSS shows one of them.
+    for (const scope of ['table', 'ul']) {
+      const root = container.querySelector(scope)!
+      const links = Array.from(root.querySelectorAll('a')).filter((a) => a.textContent?.includes('View public page'))
+      expect(links).toHaveLength(1)
+      expect(links[0].getAttribute('href')).toBe('/p/ada/capstone/mod')
+      expect(links[0].getAttribute('target')).toBe('_blank')
+      expect(links[0].getAttribute('rel')).toBe('noopener noreferrer')
 
-    // Clicking the link must not also open the review drawer for the row.
-    act(() => links[0].dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true })))
-    expect(onParamsChange).not.toHaveBeenCalled()
+      // Clicking the link must not also open the review drawer for the row.
+      act(() => links[0].dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true })))
+      expect(onParamsChange).not.toHaveBeenCalled()
+    }
   })
 
   it('notes that publishing refreshes the share card', () => {

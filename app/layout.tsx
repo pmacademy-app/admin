@@ -43,6 +43,12 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
   },
+  // Added to a phone home screen, the console opens full screen like an app.
+  appleWebApp: {
+    capable: true,
+    title: 'Prodily Admin',
+    statusBarStyle: 'default',
+  },
   // The whole admin host stays out of search engines.
   robots: {
     index: false,
@@ -53,9 +59,11 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#F8FAFC',
+  themeColor: '#FFFFFF',
   width: 'device-width',
   initialScale: 1,
+  // Lets the app bar and tab bar pad themselves around the notch and home indicator.
+  viewportFit: 'cover',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

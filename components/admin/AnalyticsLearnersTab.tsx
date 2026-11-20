@@ -63,7 +63,7 @@ export function AnalyticsLearnersTab({ data }: AnalyticsLearnersTabProps) {
   return (
     <div className="space-y-6">
       {/* Trailing window snapshots */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <AdminKpiCard
           title="DAU"
           value={data.dau.toLocaleString()}

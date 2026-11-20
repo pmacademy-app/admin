@@ -120,7 +120,7 @@ export function AdminSystemAuditView({ initial }: AdminSystemAuditViewProps) {
     <div className="space-y-6">
       {/* Filter toolbar */}
       <div className="p-4 bg-admin-surface/50 border border-admin-border rounded-xl space-y-3">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-3">
           <AdminSearchInput
             value={admin}
             onValueChange={(v) => {

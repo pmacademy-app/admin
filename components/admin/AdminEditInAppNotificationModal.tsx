@@ -102,7 +102,7 @@ function EditForm({
   }
 
   return (
-    <div className="bg-admin-surface border border-admin-border rounded-xl max-w-lg w-full p-6 space-y-5 shadow-2xl my-8">
+    <div className="admin-sheet admin-sheet-pad bg-admin-surface border border-admin-border rounded-xl max-w-lg w-full p-6 space-y-5 shadow-2xl my-8 max-sm:overflow-y-auto">
       <div className="flex items-center justify-between border-b border-admin-border pb-4">
         <div className="flex items-center gap-2.5">
           <span className="p-2 rounded-lg bg-admin-accent-soft border border-admin-accent/25">
@@ -250,7 +250,7 @@ export function AdminEditInAppNotificationModal({
   if (!open || !broadcast) return null
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4 overflow-y-auto">
+    <div className="admin-sheet-overlay fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4 overflow-y-auto">
       <EditForm key={broadcast.id} broadcast={broadcast} onClose={onClose} onUpdated={onUpdated} />
     </div>
   )

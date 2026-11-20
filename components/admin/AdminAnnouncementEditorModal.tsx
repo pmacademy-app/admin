@@ -91,8 +91,8 @@ export function AdminAnnouncementEditorModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
-      <div className="bg-admin-surface border border-admin-border rounded-xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+    <div className="admin-sheet-overlay fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+      <div className="admin-sheet bg-admin-surface border border-admin-border rounded-xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-admin-border p-4 sm:px-6">
           <div className="flex items-center gap-2.5">

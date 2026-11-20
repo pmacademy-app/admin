@@ -29,21 +29,21 @@ export function AdminKpiCard({
   return (
     <div
       className={cn(
-        'p-5 rounded-xl bg-admin-surface border border-admin-border space-y-2 shadow-xl hover:border-admin-border-strong transition-colors group relative overflow-hidden',
+        'min-w-0 p-4 sm:p-5 rounded-xl bg-admin-surface border border-admin-border space-y-2 shadow-sm sm:shadow-xl hover:border-admin-border-strong transition-colors group relative overflow-hidden',
         className
       )}
     >
-      <div className="flex items-center justify-between">
-        <span className="text-xs font-semibold text-admin-fg-muted uppercase tracking-wider">{title}</span>
+      <div className="flex items-start justify-between gap-2">
+        <span className="min-w-0 text-[11px] sm:text-xs font-semibold text-admin-fg-muted uppercase tracking-wider">{title}</span>
         {Icon && (
-          <div className="p-2 rounded-lg bg-admin-accent-soft border border-admin-accent/25 group-hover:scale-105 transition-transform">
+          <div className="hidden sm:block p-2 rounded-lg bg-admin-accent-soft border border-admin-accent/25 group-hover:scale-105 transition-transform">
             <Icon className={cn('w-4 h-4', iconColor)} />
           </div>
         )}
       </div>
 
-      <div className="flex items-baseline justify-between pt-1">
-        <p className="text-3xl font-extrabold text-admin-fg tracking-tight">{value}</p>
+      <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1 pt-1">
+        <p className="text-2xl sm:text-3xl font-extrabold text-admin-fg tracking-tight">{value}</p>
 
         {trend && (
           <div
