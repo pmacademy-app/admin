@@ -174,4 +174,38 @@ describe('admin proxy', () => {
     expect(getClaims).not.toHaveBeenCalled()
     expect(refreshSession).not.toHaveBeenCalled()
   })
+
+  describe('expired access token during a Supabase outage (audit M5)', () => {
+    const cookie = 'sb-access-token=expired; sb-refresh-token=still-valid'
+
+    beforeEach(() => {
+      getClaims.mockResolvedValue({ data: null, error: new Error('expired') })
+      vi.spyOn(console, 'error').mockImplementation(() => {})
+    })
+
+    it('answers 503 and does not sign out on a network error', async () => {
+      refreshSession.mockResolvedValue({
+        data: { session: null, user: null },
+        error: { name: 'AuthRetryableFetchError', status: 0, message: 'fetch failed' },
+      })
+      const res = await run('/admin/users', { cookie })
+      expect(res.status).toBe(503)
+      expect(location(res)).toBeNull()
+    })
+
+    it('answers 503 when the refresh call throws', async () => {
+      refreshSession.mockRejectedValue(new Error('socket hang up'))
+      const res = await run('/admin/users', { cookie })
+      expect(res.status).toBe(503)
+    })
+
+    it('still signs out to /admin/login when the refresh token is invalid', async () => {
+      refreshSession.mockResolvedValue({
+        data: { session: null, user: null },
+        error: { name: 'AuthApiError', status: 400, message: 'Invalid Refresh Token' },
+      })
+      const res = await run('/admin/users', { cookie })
+      expect(location(res)).toBe('https://admin.example.com/admin/login')
+    })
+  })
 })

@@ -3,6 +3,7 @@ import type { NextRequest } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { REQUEST_ID_HEADER, resolveRequestId } from '@/lib/monitoring/request-id'
 import { setSessionCookies } from '@/lib/auth/session-cookies'
+import { isDefiniteRefreshFailure } from '@/lib/auth/refresh-failure'
 import { isAllowedApiOrigin } from '@/lib/security/origin-check'
 
 /**
@@ -56,7 +57,13 @@ async function resolveUser(
   request: NextRequest,
   supabaseUrl: string,
   supabaseAnonKey: string
-): Promise<{ user: ProxyUser | null; session: Session | null; accessToken: string | null }> {
+): Promise<{
+  user: ProxyUser | null
+  session: Session | null
+  accessToken: string | null
+  /** The refresh could not be decided (network error, auth 5xx); keep the cookies. */
+  refreshUnavailable?: boolean
+}> {
   const accessToken = request.cookies.get('sb-access-token')?.value ?? null
   const refreshToken = request.cookies.get('sb-refresh-token')?.value ?? null
   if (!accessToken && !refreshToken) return { user: null, session: null, accessToken: null }
@@ -89,8 +96,13 @@ async function resolveUser(
           accessToken: data.session.access_token,
         }
       }
+      // A network error or auth-server 5xx: the refresh token may still be valid.
+      if (error && !isDefiniteRefreshFailure(error)) {
+        return { user: null, session: null, accessToken: null, refreshUnavailable: true }
+      }
     } catch (err) {
       console.error('[proxy] refresh session error:', err)
+      return { user: null, session: null, accessToken: null, refreshUnavailable: true }
     }
   }
   return { user: null, session: null, accessToken: null }
@@ -157,7 +169,7 @@ async function routeRequest(request: NextRequest, requestId: string): Promise<Ne
 
   if (path === ACCESS_DENIED_PAGE) return passThrough(request, requestId)
 
-  const { user, session, accessToken } = await resolveUser(request, supabaseUrl, supabaseAnonKey)
+  const { user, session, accessToken, refreshUnavailable } = await resolveUser(request, supabaseUrl, supabaseAnonKey)
 
   // Admin APIs authorize the caller themselves (withRoute admin policy) and answer their own
   // 401/403. The proxy only persists a refreshed token pair for them.
@@ -170,6 +182,14 @@ async function routeRequest(request: NextRequest, requestId: string): Promise<Ne
   }
 
   if (!user) {
+    if (refreshUnavailable) {
+      // The auth server could not be reached. Keep the cookies and retry, instead of
+      // signing the admin out over a temporary outage.
+      return new NextResponse(
+        '<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="5"><title>Reconnecting</title><p style="font-family:system-ui,sans-serif;padding:2rem">We could not reach the sign-in service. Retrying in a few seconds...</p>',
+        { status: 503, headers: { 'content-type': 'text/html; charset=utf-8', 'retry-after': '5', 'cache-control': 'no-store' } }
+      )
+    }
     const response = NextResponse.redirect(new URL(ADMIN_LOGIN_PAGE, request.url))
     response.cookies.delete('sb-access-token')
     response.cookies.delete('sb-refresh-token')
