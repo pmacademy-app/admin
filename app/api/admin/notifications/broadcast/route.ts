@@ -1,5 +1,5 @@
 import { adminErrorMessage } from '@/lib/errors/api-response'
-import { NextResponse } from 'next/server'
+import { NextResponse, after } from 'next/server'
 import { logAdminAction } from '@/lib/admin/guard'
 import { requireAdmin } from '@/lib/api/actor'
 import { withRoute } from '@/lib/api/with-route'
@@ -8,8 +8,17 @@ import { enqueueNotificationItem, processEmailQueue } from '@/lib/notifications/
 import { createInAppNotification } from '@/lib/notifications/in-app/service'
 import { logSystemError } from '@/lib/monitoring/logger'
 import { revalidatePath } from 'next/cache'
+import { evaluatePersistentRateLimit } from '@/lib/rate-limit'
 
 export const runtime = 'nodejs'
+export const maxDuration = 60
+
+/**
+ * This route sends one by one inside a single request. Above this many recipients it
+ * would run out of function time partway through, so larger audiences belong in the
+ * batched, resumable email broadcasts (BroadcastService).
+ */
+const MAX_DIRECT_BROADCAST_RECIPIENTS = 500
 
 interface BroadcastRecipient {
   id: string
@@ -49,7 +58,7 @@ export const POST = withRoute(
         return NextResponse.json({ error: 'Notification content is required.' }, { status: 400 })
       }
 
-      if (!idempotencyKey || typeof idempotencyKey !== 'string') {
+      if (!idempotencyKey || typeof idempotencyKey !== 'string' || idempotencyKey.length > 200) {
         return NextResponse.json({ error: 'idempotencyKey is required to prevent duplicate broadcasts.' }, { status: 400 })
       }
 
@@ -130,6 +139,40 @@ export const POST = withRoute(
         return NextResponse.json({ error: 'No eligible recipients found for this audience.' }, { status: 400 })
       }
 
+      if (recipients.length > MAX_DIRECT_BROADCAST_RECIPIENTS) {
+        return NextResponse.json(
+          {
+            error: `This audience has ${recipients.length} recipients. Quick broadcasts are limited to ${MAX_DIRECT_BROADCAST_RECIPIENTS}; use Email broadcasts in Communications for larger audiences.`,
+          },
+          { status: 400 }
+        )
+      }
+
+      // Claim the key atomically before sending anything. The completed-audit check above
+      // only sees broadcasts that finished, so a double click or a retry after a timeout
+      // used to start a second full send. Fails closed: no claim, no send.
+      const claim = await evaluatePersistentRateLimit(`admin_broadcast:${idempotencyKey}`, {
+        limit: 1,
+        windowMs: 7 * 24 * 60 * 60 * 1000,
+        failClosed: true,
+      })
+      if (!claim.success) {
+        return NextResponse.json(
+          { error: 'This broadcast is already being sent or was sent (idempotency key matched).' },
+          { status: 409 }
+        )
+      }
+
+      // Recorded before the loop so a send that dies partway still leaves a trail.
+      await logAdminAction(
+        admin.userId,
+        admin.email || 'admin@prodily.me',
+        'notification_broadcast_started',
+        'notification',
+        idempotencyKey,
+        { audience, channel, subject: subject.trim(), totalRecipients: recipients.length }
+      )
+
       let enqueuedCount = 0
       let inAppCount = 0
       const errors: string[] = []
@@ -139,7 +182,10 @@ export const POST = withRoute(
       const sendEmail = channel === 'email' || channel === 'both'
 
       for (const recipient of recipients) {
-        const eventId = `bcast-${idempotencyKey.slice(0, 8)}-${recipient.id}`
+        // The full key: the modal's keys all start `bcast-<timestamp>`, so the first 8
+        // characters were the same for every broadcast and in-app dedupe could drop
+        // a later broadcast as a duplicate of an earlier one.
+        const eventId = `bcast-${idempotencyKey}-${recipient.id}`
 
         if (sendInApp) {
           try {
@@ -173,10 +219,15 @@ export const POST = withRoute(
                 announcementBody: content.trim(),
                 actionUrl: actionUrl || undefined,
               },
-              eventId: /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(idempotencyKey) ? idempotencyKey : undefined,
               eventType: 'admin.broadcast',
-              category: 'learning',
-              priorityLevel: 'high',
+              // An announcement is a product update, so a learner who opted out of
+              // product updates is skipped by the queue's preference check.
+              category: 'product_updates',
+              // Not 'high': high priority starts an inline queue run per recipient.
+              priorityLevel: 'low',
+              // One row per recipient per broadcast, enforced by the unique index on
+              // email_queue.idempotency_key, so a retry never queues a second copy.
+              idempotencyKey: `admin-broadcast:${idempotencyKey}:${recipient.id}`,
             })
             if (res.success) {
               enqueuedCount++
@@ -188,12 +239,10 @@ export const POST = withRoute(
       }
 
       // 4. Trigger queue worker if sending email immediately
+      // after() keeps the function alive until the run finishes; a bare `void` call
+      // could be frozen once the response was sent, leaving claimed rows stuck.
       if (sendEmail && enqueuedCount > 0 && process.env.NODE_ENV !== 'test') {
-        try {
-          void processEmailQueue(Math.min(50, enqueuedCount))
-        } catch {
-          // Non-blocking
-        }
+        after(() => processEmailQueue(Math.min(50, enqueuedCount)).then(() => undefined, () => undefined))
       }
 
       // 5. Log Administrative Action

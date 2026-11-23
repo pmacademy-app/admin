@@ -163,6 +163,7 @@ export function AdminBroadcastModal({ open, onClose }: AdminBroadcastModalProps)
                 <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
                 <p>
                   Broad send to <strong>All Active Learners</strong> requires explicit two-step confirmation.
+                  Quick broadcasts reach up to 500 people; for more, use Email broadcasts or In-app notifications in Communications.
                 </p>
               </div>
             )}
