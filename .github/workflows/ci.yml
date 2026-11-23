@@ -1,5 +1,6 @@
-# One fast check for the admin console. Vercel deploys main on its own; this job
-# reports whether that commit lints, typechecks, passes the tests and builds.
+# CI for the admin console. The check job lints, typechecks, tests and builds every
+# push and pull request. On a push to main, production is deployed only after the
+# check passed: Vercel's own git deploy for main is turned off in vercel.json.
 name: CI
 
 on:
@@ -11,7 +12,8 @@ on:
 
 concurrency:
   group: ci-${{ github.ref }}
-  cancel-in-progress: true
+  # Never cancel a run on main mid-deploy; only superseded pull request runs.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
@@ -31,3 +33,45 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
+
+  deploy:
+    name: Deploy Vercel Production
+    needs: [check]
+    if: ${{ !cancelled() && needs.check.result == 'success' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # The Vercel CLI reads these from the environment, so no secret is passed on a
+    # command line.
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Assert Vercel deployment credentials are present
+        run: |
+          set -euo pipefail
+          missing=""
+          [ -n "${VERCEL_TOKEN:-}" ]      || missing="${missing} VERCEL_TOKEN"
+          [ -n "${VERCEL_ORG_ID:-}" ]     || missing="${missing} VERCEL_ORG_ID"
+          [ -n "${VERCEL_PROJECT_ID:-}" ] || missing="${missing} VERCEL_PROJECT_ID"
+          if [ -n "${missing}" ]; then
+            echo "::error title=Admin production deploy cannot run::Missing repository secret(s):${missing}. Production was NOT deployed. Add them in the admin repo settings, then re-run this workflow."
+            exit 1
+          fi
+
+      - name: Pull Vercel environment
+        run: npx --yes vercel@65.16.0 pull --yes --environment=production
+
+      - name: Build
+        run: npx --yes vercel@65.16.0 build --prod
+
+      - name: Deploy prebuilt build to production
+        run: npx --yes vercel@65.16.0 deploy --prebuilt --prod --archive=tgz
+
+      - name: Check the console answers
+        run: curl --fail --show-error --silent --output /dev/null --retry 5 --retry-delay 5 https://admin.prodily.app/admin/login
